@@ -1,7 +1,21 @@
-export const lightTheme = {
+export const lightTheme : Record<string, string> = {
+    background : "#ffffff",
 
+    mainColorOne : "#635bff",
+
+    btnBg: "#000000",
+    
+    inputInner: "#f9fafb",
+    inputPlaceholder: "#a1a1a1",
 }
 
-export const darkTheme = {
+export const darkTheme : Record<string, string> = {
+    background : "#0d0d0d",
     
+    mainColorOne : "#635bff",
+    
+    btnBg: "#ffffff",
+    
+    inputInner: "#27272a",
+    inputPlaceholder: "#a3a3a3",
 }
