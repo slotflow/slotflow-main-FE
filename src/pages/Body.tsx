@@ -5,9 +5,9 @@ import Header from "@/compoenents/head&tail/Header";
 const Body = () => {
   return (
     <>
-    <Header />
-    <Outlet />
-    <Footer />
+      <Header />
+      <Outlet />
+      <Footer />
     </>
   )
 }

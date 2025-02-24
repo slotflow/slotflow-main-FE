@@ -1,4 +1,4 @@
-import Login from "../pages/Login";
+import Login from "../pages/Login.tsx";
 import Body from "../pages/Body.tsx";
 import HomePage from "../pages/HomePage.tsx";
 import { createBrowserRouter } from "react-router-dom";

@@ -1,5 +1,8 @@
+import { AppDispatch, RootState } from '@/utils/redux/appStore'
+import { toggleTheme } from '@/utils/redux/stateSlice'
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import { useDispatch, useSelector } from 'react-redux'
 
 const navigation = [
   { name: 'Dashboard', href: '#', current: true },
@@ -9,6 +12,13 @@ const navigation = [
 ]
 
 const Header = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  const themeMode = useSelector((store : RootState) => store.state.lightTheme);
+
+  const changeTheme = () => {
+   dispatch(toggleTheme()); 
+  }
+
   return (
     <Disclosure as="nav" className="absolute w-full">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -50,13 +60,25 @@ const Header = () => {
 
             {/* Profile dropdown */}
             <Menu as="div" className="relative ml-3">
-              <div>
+              <div className='flex'>
                 <MenuButton className="relative flex rounded-full cursor-pointer">
-                <svg className="w-[30px] h-[30px] text-[#635bff]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0 0a8.949 8.949 0 0 0 4.951-1.488A3.987 3.987 0 0 0 13 16h-2a3.987 3.987 0 0 0-3.951 3.512A8.948 8.948 0 0 0 12 21Zm3-11a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
-                </svg>
-
+                  <svg className="w-7 h-7 text-[#635bff]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0 0a8.949 8.949 0 0 0 4.951-1.488A3.987 3.987 0 0 0 13 16h-2a3.987 3.987 0 0 0-3.951 3.512A8.948 8.948 0 0 0 12 21Zm3-11a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                  </svg>   
                 </MenuButton>
+                {themeMode ? 
+                  <div className="relative flex rounded-full cursor-pointer mx-3" onClick={changeTheme}>
+                    <svg className="w-7 h-7 text-[#635bff]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5V3m0 18v-2M7.05 7.05 5.636 5.636m12.728 12.728L16.95 16.95M5 12H3m18 0h-2M7.05 16.95l-1.414 1.414M18.364 5.636 16.95 7.05M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0Z"/>
+                    </svg>
+                  </div>
+                : 
+                  <div className="relative flex rounded-full cursor-pointer mx-3" onClick={changeTheme}>
+                    <svg className="w-7 h-7 text-[#635bff]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21a9 9 0 0 1-.5-17.986V3c-.354.966-.5 1.911-.5 3a9 9 0 0 0 9 9c.239 0 .254.018.488 0A9.004 9.004 0 0 1 12 21Z"/>
+                    </svg>
+                  </div>
+                }
               </div>
               <MenuItems
                 transition
