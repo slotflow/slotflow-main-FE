@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import InputField from "./InputFieldWithLable";
 import { useDispatch, useSelector } from "react-redux";
-import { signup } from "../../utils/redux/authSlice";
+import { signup, verifyOtp } from "../../utils/redux/authSlice";
 import { AppDispatch, RootState } from "../../utils/redux/appStore";
 
 export function Form() {
@@ -26,8 +26,11 @@ export function Form() {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
-        if (!otpForm && !loginForm) {
+        if(otpForm){
+            dispatch(verifyOtp(
+                formData.otp
+            ))
+        } else if (!otpForm && !loginForm) {
             dispatch(signup({
                 username: formData.username,
                 email: formData.email,
