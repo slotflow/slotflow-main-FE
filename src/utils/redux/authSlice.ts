@@ -1,8 +1,8 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { changeToOtpSend } from "./stateSlice";
 import axiosInstance from "../../lib/axios";
+import { changeToOtpSend, toggleLoginForm } from "./stateSlice";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 interface AuthState{
     authUser: {username?: string, email?: string, phone?: string, profileImage?: string} | null;
@@ -52,7 +52,6 @@ export const signup = createAsyncThunk('auth/register',
             if(res.success){
                 toast.success(res.message);
                 thunkAPI.dispatch(changeToOtpSend(true));
-                console.log("Token received:", res.token);
                 localStorage.setItem("authToken", res.token);
             }else{
                 toast.error(res.message);
@@ -74,7 +73,9 @@ export const signup = createAsyncThunk('auth/register',
                 const res= response.data;
                 if(res.success){
                     toast.success(res.message);
-                    thunkAPI.dispatch(changeToOtpSend(true));
+                    thunkAPI.dispatch(changeToOtpSend(false));
+                    thunkAPI.dispatch(toggleLoginForm());
+                    localStorage.removeItem("authToken");
                 }else{
                     toast.error(res.message);
                 }

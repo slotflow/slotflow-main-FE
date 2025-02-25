@@ -31,6 +31,7 @@ export function Form() {
             dispatch(verifyOtp(
                 formData.otp
             ))
+            setFormData({ username: "", email: "", password: "", otp: "" });
         } else if (!otpForm && !loginForm) {
             dispatch(signup({
                 username: formData.username,

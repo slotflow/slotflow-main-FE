@@ -19,7 +19,7 @@ const InputField: React.FC<InputFiledProps> =({
                 {label}
             </label>
         {id === "password" && onForgotPassword && (
-            <label htmlFor="forgotPassword" className='font-medium text-indigo-400 hover:text-indigo-600'>
+            <label htmlFor="forgotPassword" className='font-medium text-indigo-400 hover:text-indigo-600 cursor-pointer'>
                 Forgot password?
             </label>
         )}
