@@ -3,12 +3,13 @@ import InputField from "./InputFieldWithLable";
 import { useDispatch, useSelector } from "react-redux";
 import { signup, verifyOtp } from "../../utils/redux/authSlice";
 import { AppDispatch, RootState } from "../../utils/redux/appStore";
+import { toggleLoginForm } from "../../utils/redux/stateSlice";
 
 export function Form() {
     console.log("Form loading");
     const dispatch = useDispatch<AppDispatch>();
-    const [loginForm, setLoginForm] = useState(true);
 
+    const loginForm = useSelector((store: RootState) => store.state?.loginForm);
     const otpForm = useSelector((store: RootState) => store.state?.otpForm);
     const serviceProvider = useSelector((store: RootState) => store.auth?.serviceProvider);
     const loading = useSelector((store: RootState) => store.auth?.loading);
@@ -107,14 +108,14 @@ export function Form() {
 
 
                 {otpForm ?
-                    <p className="mt-10 text-center text-sm/6 text-gray-500" onClick={() => setLoginForm(!loginForm)}>
+                    <p className="mt-10 text-center text-sm/6 text-gray-500" onClick={() => dispatch(toggleLoginForm())}>
 
                         <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
                             Resend OTP
                         </a>
                     </p>
                     :
-                    <p className="mt-10 text-center text-sm/6 text-gray-500" onClick={() => setLoginForm(!loginForm)}>
+                    <p className="mt-10 text-center text-sm/6 text-gray-500" onClick={() => dispatch(toggleLoginForm())}>
                         {loginForm ? "New user?" : "Already have an account."}
                         <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
                             {loginForm ? "Sign Up" : "Sign In"}
