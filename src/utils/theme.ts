@@ -9,6 +9,10 @@ export const lightTheme : Record<string, string> = {
     
     inputInner: "#f9fafb",
     inputPlaceholder: "#a1a1a1",
+
+    menuBg: "#ffffff",
+    menuText: "#364351",
+    menutextHover: "#f3f4f6",
 }
 
 export const darkTheme : Record<string, string> = {
@@ -22,4 +26,8 @@ export const darkTheme : Record<string, string> = {
 
     inputInner: "#27272a",
     inputPlaceholder: "#a3a3a3",
+
+    menuBg: "#000000",
+    menuText: "#364351",
+    menutextHover: "#f3f4f6",
 }

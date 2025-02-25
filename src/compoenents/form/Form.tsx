@@ -1,118 +1,125 @@
-"use client";
-
-import { Label } from "./label";
-import { Input } from "./input";
-import { cn } from "@/lib/utils";
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "@/utils/redux/appStore";
-import { IconBrandGoogle } from "@tabler/icons-react";
-import { lightTheme, darkTheme } from "@/utils/theme";
+import InputField from "./InputFieldWithLable";
+import { useDispatch, useSelector } from "react-redux";
+import { signup } from "../../utils/redux/authSlice";
+import { AppDispatch, RootState } from "../../utils/redux/appStore";
 
 export function Form() {
+    console.log("Form loading");
+    const dispatch = useDispatch<AppDispatch>();
+    const [loginForm, setLoginForm] = useState(true);
 
-    const [loginForm, setLoginForm] = useState<boolean>(true);   
-    const otpForm = useSelector((store : RootState) => store.state?.otpForm);
-    const themeMode = useSelector((store : RootState) => store.state?.lightTheme);
-    const theme = themeMode ? lightTheme : darkTheme;
-  
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        console.log("Form submitted");
+    const otpForm = useSelector((store: RootState) => store.state?.otpForm);
+    const serviceProvider = useSelector((store: RootState) => store.auth?.serviceProvider);
+    const loading = useSelector((store: RootState) => store.auth?.loading);
+
+    const [formData, setFormData] = useState({
+        username: "",
+        email: "",
+        password: "",
+        otp: ""
+    });
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setFormData({ ...formData, [e.target.id]: e.target.value });
     };
 
-    const handleRegister = () => {
-        setLoginForm(!loginForm);
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        if (!otpForm && !loginForm) {
+            dispatch(signup({
+                username: formData.username,
+                email: formData.email,
+                password: formData.password,
+                role: serviceProvider ? "PROVIDER" : "USER"
+            }));
+        }
+    };
+
+    const handleForgotPassword = () => {
+
     }
 
     return (
-        <div className={`max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-md relative`}>
-            <h2 className="font-bold text-xl" style={{ color: theme.textOne }}>
-                {otpForm ? "Verify Email" : loginForm ? "Sign In" : "Sign Up"}
-            </h2>
-            <form className="my-8" onSubmit={handleSubmit}>
-               {otpForm ? 
-                <LabelInputContainer className="mb-4">
-                    <Label htmlFor="otp">Otp</Label>
-                    <Input id="otp" placeholder="_ _ _ _ _ _" type="text" />
-                </LabelInputContainer>
-                : 
-                <>
-                {!loginForm && (
-                    <LabelInputContainer className="mb-4">
-                        <Label htmlFor="username">Fullname</Label>
-                        <Input id="username" placeholder="midunKPaniker" type="text" />
-                    </LabelInputContainer>
-                )}
-                <LabelInputContainer className="mb-4">
-                    <Label htmlFor="email">Email</Label>
-                    <Input id="email" placeholder="midhun@gmail.com" type="email" />
-                </LabelInputContainer>
-                <LabelInputContainer className="mb-4">
-                    <div className=" flex justify-between">
-                        <Label htmlFor="password">Password</Label>
-                        <Label htmlFor="forgotPassword" className="text-[#635bff]">Forgot password?</Label>
+        <div className="flex flex-col justify-center px-10 py-16 w-full md:w-10/12 lg:w-8/12 shadow-md">
+            <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+                <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
+                    {otpForm ? "Verify Your Email" : loginForm ? "Sign In To Your Account" : "Sign Up"}
+                </h2>
+            </div>
+
+            <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+                <form onSubmit={handleSubmit} className="space-y-6">
+                    {otpForm ? (
+                        <InputField
+                            label="Enter OTP"
+                            id="otp"
+                            type="text"
+                            value={formData.otp}
+                            onChange={handleChange}
+                            required={true}
+                        />
+                    ) : (
+                        <>
+                            {!loginForm && (
+                                <InputField
+                                    label="Username"
+                                    id="username"
+                                    type="text"
+                                    value={formData.username}
+                                    onChange={handleChange}
+                                    required={true}
+                                />
+                            )}
+                            <InputField
+                                label="Email address"
+                                id="email"
+                                type="email"
+                                value={formData.email}
+                                onChange={handleChange}
+                                required={true}
+                            />
+                            <InputField
+                                label="Password"
+                                id="password"
+                                type="password"
+                                value={formData.password}
+                                onChange={handleChange}
+                                required={true}
+                                onForgotPassword={handleForgotPassword}
+                            />
+                        </>
+                    )}
+
+                    <div>
+                        <button
+                            type="submit"
+                            className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 cursor-pointer"
+                        >
+                            {loading ? "Loading..." : otpForm ? "Verify" : loginForm ? "Sign In" : "Sign Up"}
+                        </button>
                     </div>
-                    <Input id="password" placeholder="••••••••" type="password" />
-                </LabelInputContainer>
-                </>
-                }
+                </form>
 
-                <button className="relative group/btn flex items-center justify-center gap-2 px-4 w-full rounded-md h-10 font-medium shadow-input bg-black cursor-pointer" type="submit">
-                    <span className="text-white dark:text-neutral-300 text-sm">
-                       {otpForm ? "Verify OTP" : loginForm ? "Sign In" : "Sign Up"}
-                    </span>
-                    <BottomGradient />
-                </button>
 
-                <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
+                {otpForm ?
+                    <p className="mt-10 text-center text-sm/6 text-gray-500" onClick={() => setLoginForm(!loginForm)}>
 
-                {!otpForm && 
-                <div className="flex flex-col space-y-4">
-                    <button className="relative group/btn flex items-center justify-center gap-2 px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)] cursor-pointer">
-                        <IconBrandGoogle className="h-4 w-4 text-black dark:text-neutral-300" />
-                        <span className="text-black dark:text-neutral-300 text-sm">
-                            Google
-                        </span>
-                        <BottomGradient />
-                    </button>
-                </div>
-                }
-
-                <p className="text-sm text-black text-center mt-10">
-                    {otpForm ? 
-                        <span className="font-semibold cursor-pointer hover:underline">Resend OTP</span>
+                        <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
+                            Resend OTP
+                        </a>
+                    </p>
                     :
-                    <>
-                        New to <span className="text-[#635bff] font-semibold">Slotflow</span>? <span className="underline font-semibold cursor-pointer" onClick={handleRegister}>{loginForm ? "Sign Up" : "Sign In"}</span>
-                    </>
-                    }
-                </p>
-
-            </form>
+                    <p className="mt-10 text-center text-sm/6 text-gray-500" onClick={() => setLoginForm(!loginForm)}>
+                        {loginForm ? "New user?" : "Already have an account."}
+                        <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
+                            {loginForm ? "Sign Up" : "Sign In"}
+                        </a>
+                    </p>
+                }
+            </div>
         </div>
     );
 }
 
-const BottomGradient = () => {
-    return (
-        <>
-            <span className="group-hover/btn:opacity-100 block transition duration-500 opacity-0 absolute h-px w-full -bottom-px inset-x-0 bg-gradient-to-r from-transparent via-[#635bff] to-transparent" />
-            <span className="group-hover/btn:opacity-100 blur-sm block transition duration-500 opacity-0 absolute h-px w-1/2 mx-auto -bottom-px inset-x-10 bg-gradient-to-r from-transparent via-[#635bff] to-transparent" />
-        </>
-    );
-};
-
-const LabelInputContainer = ({
-    children,
-    className,
-}: {
-    children: React.ReactNode;
-    className?: string;
-}) => {
-    return (
-        <div className={cn("flex flex-col space-y-2 w-full", className)}>
-            {children}
-        </div>
-    );
-};
