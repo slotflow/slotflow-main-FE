@@ -42,7 +42,7 @@ export function Form() {
     }
 
     return (
-        <div className="flex flex-col justify-center px-10 py-16 w-full md:w-10/12 lg:w-8/12 shadow-md">
+        <div className="flex flex-col justify-center px-10 py-16 w-full md:w-10/12 lg:w-8/12 shadow-md rounded-md">
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                 <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
                     {otpForm ? "Verify Your Email" : loginForm ? "Sign In To Your Account" : "Sign Up"}

@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { changeToOtpSend } from "./stateSlice";
 
 interface AuthState{
     authUser: {username: string, email: string, phone: string, profileImage: string} | null;
@@ -13,7 +14,6 @@ const initialState: AuthState = {
     serviceProvider: false,
     loading: false,
   };
-
   
   const authSlice = createSlice({
       name: "user",
@@ -43,21 +43,19 @@ const initialState: AuthState = {
 export const { changeToUser, changeToServiceProvider } = authSlice.actions;
 export default authSlice.reducer;
 
-
 export const signup = createAsyncThunk('auth/signup',
     async (userData: { username: string; email: string; password: string, role: string }, thunkAPI) => {
         try {
-            console.log("userData : ",userData);
             const response = await axios.post('http://localhost:3000/api/auth/register', userData);
-            console.log("response : ",response);
             const res = response.data
-            if(res.succes){
+            if(res.success){
                 toast.success(res.message);
+                thunkAPI.dispatch(changeToOtpSend(true));
             }else{
-                toast.success(res.message);
+                toast.error(res.message);
             }
-            return res;
         } catch (error: unknown) {
+            toast.error("Unexpected error occured, please try again.");
             if (axios.isAxiosError(error) && error.response) {
                 return thunkAPI.rejectWithValue(error.response.data.message);
               }
