@@ -1,33 +1,49 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { signin, signup, verifyOtp } from "./authHandler";
 
-interface AuthState{
-    authUser: {username?: string, email?: string, phone?: string, profileImage?: string} | null;
-    serviceProvider: boolean;
+interface AuthState {
+    authUser: { username?: string, email?: string, phone?: string, profileImage?: string } | null;
+    user: boolean;
+    provider: boolean;
+    admin: boolean;
     loading: boolean;
 }
 
 const initialState: AuthState = {
     authUser: null,
-    serviceProvider: false,
+    user: true,
+    provider: false,
+    admin: false,
     loading: false,
-  };
-  
-  const authSlice = createSlice({
-      name: "user",
-      initialState,
-      reducers: {
-        changeToUser: (state) => {
-            state.serviceProvider = false;
+};
+
+const authSlice = createSlice({
+    name: "user",
+    initialState,
+    reducers: {
+        changeUserTrue: (state) => {
+            state.user = true;
         },
-        changeToServiceProvider: (state) => {
-            state.serviceProvider = true;
+        changeUserFalse: (state) => {
+            state.user = false;
         },
-        setAuthUser: (state,action) => {
+        changeProviderTrue: (state) => {
+            state.provider = true;
+        },
+        changeProviderFalse: (state) => {
+            state.provider = false;
+        },
+        changeAdminTrue: (state) => {
+            state.admin = true;
+        },
+        changeAdminFalse: (state) => {
+            state.admin = false;
+        },
+        setAuthUser: (state, action) => {
             state.authUser = action.payload;
-        }
-      },
-      extraReducers: (builder) => {
+        },
+    },
+    extraReducers: (builder) => {
         builder
             .addCase(signup.pending, (state) => {
                 state.loading = true;
@@ -59,5 +75,5 @@ const initialState: AuthState = {
     },
 })
 
-export const { changeToUser, changeToServiceProvider, setAuthUser } = authSlice.actions;
+export const { changeUserTrue, changeUserFalse, changeProviderTrue, changeProviderFalse, changeAdminTrue, changeAdminFalse, setAuthUser } = authSlice.actions;
 export default authSlice.reducer;

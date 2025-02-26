@@ -1,5 +1,5 @@
-import React, { useCallback, useState } from "react";
 import InputField from "./InputFieldWithLable";
+import React, { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleSigninForm } from "../../utils/redux/stateSlice";
 import { AppDispatch, RootState } from "../../utils/redux/appStore";
@@ -11,8 +11,10 @@ const Form = ()  => {
 
     const loginForm = useSelector((store: RootState) => store.state?.loginForm);
     const otpForm = useSelector((store: RootState) => store.state?.otpForm);
-    const serviceProvider = useSelector((store: RootState) => store.auth?.serviceProvider);
     const loading = useSelector((store: RootState) => store.auth?.loading);
+    const user = useSelector((store: RootState) => store.auth?.user);
+    const provider = useSelector((store: RootState) => store.auth?.provider);
+    const admin = useSelector((store: RootState) => store.auth?.admin);
 
     const [formData, setFormData] = useState({
         username: "",
@@ -32,19 +34,22 @@ const Form = ()  => {
                 formData.otp
             ))
             setFormData({ username: "", email: "", password: "", otp: "" });
+            return;
         } else if (!otpForm && !loginForm) {
             dispatch(signup({
                 username: formData.username,
                 email: formData.email,
                 password: formData.password,
-                role: serviceProvider ? "PROVIDER" : "USER"
+                role: user ? "USER" : "PROVIDER"
             }));
+            return;
         } else if(!otpForm && loginForm){
             dispatch(signin({
                 email: formData.email,
                 password: formData.password,
-                role: serviceProvider ? "PROVIDER" : "USER"
-            }))
+                role: user ? "USER" : provider ? "PROVIDER" : admin ? "ADMIN" : ""
+            }));
+            return;
         }
     };
 
@@ -56,13 +61,13 @@ const Form = ()  => {
         <div className="flex flex-col justify-center px-10 py-16 w-full md:w-10/12 lg:w-8/12 shadow-md rounded-md">
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                 <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
-                    {otpForm ? "Verify Your Email" : loginForm ? "Sign In To Your Account" : "Sign Up"}
+                    {admin ? "Admin Sign In" : otpForm ? "Verify Your Email" : loginForm ? "Sign In To Your Account" : "Sign Up"}
                 </h2>
             </div>
 
             <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                 <form onSubmit={handleSubmit} className="space-y-6">
-                    {otpForm ? (
+                    {!admin && otpForm ? (
                         <InputField
                             label="Enter OTP"
                             id="otp"
@@ -73,7 +78,7 @@ const Form = ()  => {
                         />
                     ) : (
                         <>
-                            {!loginForm && (
+                            {!admin && !loginForm && (
                                 <InputField
                                     label="Username"
                                     id="username"
@@ -113,10 +118,9 @@ const Form = ()  => {
                     </div>
                 </form>
 
-
-                {otpForm ?
+                    
+                {!admin && (otpForm ?
                     <p className="mt-10 text-center text-sm/6 text-gray-500" onClick={() => dispatch(toggleSigninForm())}>
-
                         <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
                             Resend OTP
                         </a>
@@ -125,10 +129,10 @@ const Form = ()  => {
                     <p className="mt-10 text-center text-sm/6 text-gray-500" onClick={() => dispatch(toggleSigninForm())}>
                         {loginForm ? "New user?" : "Already have an account."}
                         <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
-                            {loginForm ? "Sign Up" : "Sign In"}
+                            {loginForm ? " Sign Up" : " Sign In"}
                         </a>
                     </p>
-                }
+                )}
             </div>
         </div>
     );

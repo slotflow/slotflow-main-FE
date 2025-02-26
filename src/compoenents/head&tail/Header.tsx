@@ -1,9 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { darkTheme, lightTheme } from '../../utils/theme';
-import { changeToSigninForm, changeToSignupForm, toggleTheme } from '../../utils/redux/stateSlice';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { AppDispatch, RootState } from '../../utils/redux/appStore';
+import { changeToSigninForm, changeToSignupForm, toggleTheme } from '../../utils/redux/stateSlice';
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
+import { changeAdminFalse, changeAdminTrue, changeProviderFalse, changeUserFalse, changeUserTrue } from '../../utils/redux/authSlice';
 
 const navigation = [
   { name: 'Home', href: '/', current: true },
@@ -26,7 +27,6 @@ const Header = () => {
 const handleSignout = () => {
   console.log("signout");
 }
-  
 
   return (
     <Disclosure as="nav" className="absolute w-full" style={{ backgroundColor: theme.background }}>
@@ -107,7 +107,7 @@ const handleSignout = () => {
                 <>
                <MenuItem>
                   <a
-                    onClick={() => dispatch(changeToSigninForm())}
+                    onClick={() => {dispatch(changeToSigninForm()); dispatch(changeAdminFalse()); dispatch(changeUserTrue());}}
                     className="block px-4 py-2 text-sm data-focus:bg-gray-100 data-focus:outline-hidden" style={{ color: theme.menuText }}
                     >
                     Sign In
@@ -115,10 +115,18 @@ const handleSignout = () => {
                 </MenuItem>
                 <MenuItem>
                   <a
-                    onClick={() => dispatch(changeToSignupForm())}
+                    onClick={() => {dispatch(changeToSignupForm()); dispatch(changeAdminFalse()); dispatch(changeUserTrue());}}
                     className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
                     >
                     Sign Up
+                  </a>
+                </MenuItem>
+                <MenuItem>
+                  <a
+                    onClick={() => {dispatch(changeAdminTrue()); dispatch(changeUserFalse()); dispatch(changeProviderFalse());}}
+                    className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
+                    >
+                      Admin
                   </a>
                 </MenuItem>
                     </>
