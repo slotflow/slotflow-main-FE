@@ -1,4 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 
 export interface User {
     _id: string;
@@ -40,5 +42,12 @@ const adminSlice = createSlice({
     }
 });
 
+const persistConfig = {
+    key: "root",
+    storage
+};
+
+const persistedAdminReducer = persistReducer(persistConfig, adminSlice.reducer);
+
 export const { addProviders, addUsers } = adminSlice.actions;
-export default adminSlice.reducer;
+export default persistedAdminReducer;

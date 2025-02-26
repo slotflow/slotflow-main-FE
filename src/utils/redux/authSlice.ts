@@ -1,4 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 import { signin, signup, verifyOtp } from "./authHandler";
 
 interface AuthState {
@@ -73,7 +75,14 @@ const authSlice = createSlice({
                 state.loading = false;
             });
     },
-})
+});
+
+const persistConfig = {
+    key: "root",
+    storage,
+};
+
+const persistedAuthReducer = persistReducer(persistConfig, authSlice.reducer);
 
 export const { changeUserTrue, changeUserFalse, changeProviderTrue, changeProviderFalse, changeAdminTrue, changeAdminFalse, setAuthUser } = authSlice.actions;
-export default authSlice.reducer;
+export default persistedAuthReducer;

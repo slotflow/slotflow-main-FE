@@ -1,3 +1,5 @@
+import { persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface stateVariables {
@@ -32,7 +34,14 @@ const stateSlice = createSlice({
             state.loginForm = false;
         }
     }
-})
+});
+
+const persistConfig = {
+    key: "root",
+    storage,
+};
+
+const persistedStateReducer = persistReducer(persistConfig, stateSlice.reducer);
 
 export const {changeToOtpSend, toggleTheme, toggleSigninForm, changeToSigninForm, changeToSignupForm} = stateSlice.actions;
-export default stateSlice.reducer;
+export default persistedStateReducer;
