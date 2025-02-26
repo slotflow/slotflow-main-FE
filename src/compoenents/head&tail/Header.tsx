@@ -3,8 +3,8 @@ import { darkTheme, lightTheme } from '../../utils/theme';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { AppDispatch, RootState } from '../../utils/redux/appStore';
 import { changeToSigninForm, changeToSignupForm, toggleTheme } from '../../utils/redux/stateSlice';
+import { changeAdminFalse, changeAdminTrue, changeProviderFalse, changeUserFalse } from '../../utils/redux/authSlice';
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
-import { changeAdminFalse, changeAdminTrue, changeProviderFalse, changeUserFalse, changeUserTrue } from '../../utils/redux/authSlice';
 
 const navigation = [
   { name: 'Home', href: '/', current: true },
@@ -107,7 +107,7 @@ const handleSignout = () => {
                 <>
                <MenuItem>
                   <a
-                    onClick={() => {dispatch(changeToSigninForm()); dispatch(changeAdminFalse()); dispatch(changeUserTrue());}}
+                    onClick={() => {dispatch(changeToSigninForm()); dispatch(changeAdminFalse())}}
                     className="block px-4 py-2 text-sm data-focus:bg-gray-100 data-focus:outline-hidden" style={{ color: theme.menuText }}
                     >
                     Sign In
@@ -115,7 +115,7 @@ const handleSignout = () => {
                 </MenuItem>
                 <MenuItem>
                   <a
-                    onClick={() => {dispatch(changeToSignupForm()); dispatch(changeAdminFalse()); dispatch(changeUserTrue());}}
+                    onClick={() => {dispatch(changeToSignupForm()); dispatch(changeAdminFalse())}}
                     className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
                     >
                     Sign Up

@@ -9,8 +9,8 @@ const HomePage = () => {
   
   return (
     <div className="h-screen flex justify-center items-center">
-      <button onClick={() => {dispatch(changeUserTrue()); dispatch(changeProviderFalse()); dispatch(changeAdminFalse()); navigate("/login")}} className="p-4 bg-purple-500 text-white font-semibold rounded-md shadow-md hover:bg-purple-400 cursor-pointer">Book An Appointment</button>
-      <button onClick={() => {dispatch(changeProviderTrue()); dispatch(changeUserFalse()); dispatch(changeAdminFalse()); navigate("/login")}} className="p-4 mx-2 bg-purple-500 text-white font-semibold rounded-md shadow-md hover:bg-purple-400 cursor-pointer">Provide A Service</button>
+      <button onClick={() => {dispatch(changeUserTrue()); dispatch(changeProviderFalse()); dispatch(changeAdminFalse()); navigate("/login")}} className="p-4 bg-indigo-300 text-white font-semibold rounded-md shadow-md hover:bg-indigo-400 cursor-pointer">Book An Appointment</button>
+      <button onClick={() => {dispatch(changeProviderTrue()); dispatch(changeUserFalse()); dispatch(changeAdminFalse()); navigate("/login")}} className="p-4 mx-2 bg-indigo-300 text-white font-semibold rounded-md shadow-md hover:bg-indigo-400 cursor-pointer">Provide A Service</button>
     </div>
   )
 }

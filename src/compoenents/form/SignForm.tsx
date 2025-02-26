@@ -6,6 +6,7 @@ import { AppDispatch, RootState } from "../../utils/redux/appStore";
 import { signin, signup, verifyOtp } from "../../utils/redux/authHandler";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { changeAdminFalse, changeProviderFalse, changeProviderTrue, changeUserFalse, changeUserTrue } from "../../utils/redux/authSlice";
 
 const Form = ()  => {
     console.log("Form loading");
@@ -83,9 +84,16 @@ const Form = ()  => {
     }
 
     return (
-        <div className="flex flex-col justify-center px-10 py-16 w-full md:w-10/12 lg:w-8/12 shadow-md rounded-md">
+        <div className="flex flex-col justify-center w-full md:w-10/12 lg:w-8/12 shadow-md rounded-md">
+            {!admin &&
+                <div className="flex bg-indigo-300 rounded-t-md shadow-md">
+                    <div onClick={() => {dispatch(changeUserTrue()); dispatch(changeProviderFalse()); dispatch(changeAdminFalse());}} className={`w-6/12 p-2 text-center text-white hover:bg-indigo-400 cursor-pointer rounded-tl-md ${user && 'bg-indigo-400'}`}>Book An Appointment</div>
+                    <div onClick={() => {dispatch(changeProviderTrue()); dispatch(changeUserFalse()); dispatch(changeAdminFalse());}} className={`w-6/12 p-2 text-center text-white hover:bg-indigo-400 cursor-pointer rounded-tr-md ${provider && 'bg-indigo-400'}`}>Provide A Service</div>
+                </div>
+            }
+            <div className="px-10 py-10">
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-                <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
+                <h2 className="mt-2 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
                     {admin ? "Admin Sign In" : otpForm ? "Verify Your Email" : loginForm ? "Sign In To Your Account" : "Sign Up"}
                 </h2>
             </div>
@@ -158,6 +166,7 @@ const Form = ()  => {
                         </a>
                     </p>
                 )}
+            </div>
             </div>
         </div>
     );
