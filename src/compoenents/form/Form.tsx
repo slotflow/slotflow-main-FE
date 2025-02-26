@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import InputField from "./InputFieldWithLable";
 import { useDispatch, useSelector } from "react-redux";
-import { signup, verifyOtp } from "../../utils/redux/authSlice";
+import { signin, signup, verifyOtp } from "../../utils/redux/authSlice";
 import { AppDispatch, RootState } from "../../utils/redux/appStore";
 import { toggleLoginForm } from "../../utils/redux/stateSlice";
 
@@ -39,6 +39,12 @@ export function Form() {
                 password: formData.password,
                 role: serviceProvider ? "PROVIDER" : "USER"
             }));
+        } else if(!otpForm && loginForm){
+            dispatch(signin({
+                email: formData.email,
+                password: formData.password,
+                role: serviceProvider ? "PROVIDER" : "USER"
+            }))
         }
     };
 

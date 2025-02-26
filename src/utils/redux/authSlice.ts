@@ -25,6 +25,9 @@ const initialState: AuthState = {
         },
         changeToServiceProvider: (state) => {
             state.serviceProvider = true;
+        },
+        setAuthUser: (state,action) => {
+            state.authUser = action.payload;
         }
       },
       extraReducers: (builder) => {
@@ -37,11 +40,29 @@ const initialState: AuthState = {
             })
             .addCase(signup.rejected, (state) => {
                 state.loading = false;
+            })
+            .addCase(signin.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(signin.fulfilled, (state) => {
+                state.loading = false;
+            })
+            .addCase(signin.rejected, (state) => {
+                state.loading = false;
+            })
+            .addCase(verifyOtp.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(verifyOtp.fulfilled, (state) => {
+                state.loading = false;
+            })
+            .addCase(verifyOtp.rejected, (state) => {
+                state.loading = false;
             });
     },
 })
 
-export const { changeToUser, changeToServiceProvider } = authSlice.actions;
+export const { changeToUser, changeToServiceProvider, setAuthUser } = authSlice.actions;
 export default authSlice.reducer;
 
 export const signup = createAsyncThunk('auth/register',
@@ -52,19 +73,17 @@ export const signup = createAsyncThunk('auth/register',
             if(res.success){
                 toast.success(res.message);
                 thunkAPI.dispatch(changeToOtpSend(true));
-                localStorage.setItem("authToken", res.token);
-            }else{
-                toast.error(res.message);
             }
         } catch (error: unknown) {
-            toast.error("Unexpected error occured, please try again.");
             if (axios.isAxiosError(error) && error.response) {
-                return thunkAPI.rejectWithValue(error.response.data.message);
+                toast.error(error.response.data.message);
+                return;
               }
-              return thunkAPI.rejectWithValue("An unexpected error occurred");
-            }
+            toast.error("Unexpected error occurred, please try again.");
+            return;
         }
-    );
+    }
+);
     
     export const verifyOtp = createAsyncThunk("auth/verify-otp",
         async ( otp : string , thunkAPI) => {
@@ -75,17 +94,38 @@ export const signup = createAsyncThunk('auth/register',
                     toast.success(res.message);
                     thunkAPI.dispatch(changeToOtpSend(false));
                     thunkAPI.dispatch(toggleLoginForm());
-                    localStorage.removeItem("authToken");
-                }else{
-                    toast.error(res.message);
                 }
             }catch(error : unknown){
-            toast.error("Unexpected error occured, please try again.");
-            if (axios.isAxiosError(error) && error.response) {
-                return thunkAPI.rejectWithValue(error.response.data.message);
-              }
-              return thunkAPI.rejectWithValue("An unexpected error occurred");
-
+                if (axios.isAxiosError(error) && error.response) {
+                    toast.error(error.response.data.message);
+                    return;
+                  }
+                toast.error("Unexpected error occurred, please try again.");
+                return;
+            }
         }
-    }
-)
+    )
+
+    export const signin = createAsyncThunk("auth/login",
+        async (userData : {email: string, password: string, role: string}, thunkAPI) => {
+            try{
+                const response = await axiosInstance.post('/auth/login', userData);
+                const res = response.data;
+                if (res.success) {
+                    const authUserData = {
+                        username: res.userData.username,
+                        profileImage: res.userData.profileImage,
+                    };
+                    thunkAPI.dispatch(setAuthUser(authUserData));
+                    toast.success(res.message);
+                  }
+            }catch(error : unknown){
+                if (axios.isAxiosError(error) && error.response) {
+                    toast.error(error.response.data.message);
+                    return;
+                  }
+                toast.error("Unexpected error occurred, please try again.");
+                return;
+            }
+        }
+    )
