@@ -5,6 +5,7 @@ import Admin from "../pages/Admin.tsx";
 import HomePage from "../pages/HomePage.tsx";
 import Provider from "../pages/Provider.tsx";
 import { createBrowserRouter } from "react-router-dom";
+import ProtectedRoute from "./protectedRoutes.tsx";
 
 export const appRouter = createBrowserRouter([
     {
@@ -21,15 +22,30 @@ export const appRouter = createBrowserRouter([
             },
             {
                 path: "/admin",
-                element: <Admin />
+                element: <ProtectedRoute allowedRoles={["ADMIN"]}/>,
+                children: [
+                    {
+                        path: "/admin", element: <Admin />
+                    }
+                ]
             },
             {
                 path: "/user",
-                element: <User />
+                element: <ProtectedRoute allowedRoles={["USER"]} />,
+                children: [
+                    {
+                        path: "/user", element: <User />
+                    }
+                ]
             },
             {
                 path: "/provider",
-                element: <Provider />
+                element: <ProtectedRoute allowedRoles={["PROVIDER"]} />,
+                children: [
+                    {
+                        path: "/provider", element: <Provider />
+                    }
+                ]
             }
         ]
     }

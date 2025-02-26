@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { signin, signup, verifyOtp } from "./authHandler";
 
 interface AuthState {
-    authUser: { username?: string, email?: string, phone?: string, profileImage?: string } | null;
+    authUser: { username?: string, email?: string, phone?: string, profileImage?: string, role?: string } | null;
     user: boolean;
     provider: boolean;
     admin: boolean;

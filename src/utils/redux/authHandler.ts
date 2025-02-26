@@ -50,6 +50,7 @@ export const signin = createAsyncThunk("auth/signin",
                 const authUserData = {
                     username: res.role === "ADMIN" ? "Admin" : res.userData.username,
                     profileImage: res.role === "ADMIN" ? null : res.userData.profileImage,
+                    role: res.role
                 };
                 thunkAPI.dispatch(setAuthUser(authUserData));
                 return res;
