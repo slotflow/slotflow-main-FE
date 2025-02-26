@@ -1,8 +1,5 @@
-import axios from "axios";
-import { toast } from "react-toastify";
-import axiosInstance from "../../lib/axios";
-import { changeToOtpSend, toggleLoginForm } from "./stateSlice";
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+import { signin, signup, verifyOtp } from "./authHandler";
 
 interface AuthState{
     authUser: {username?: string, email?: string, phone?: string, profileImage?: string} | null;
@@ -64,68 +61,3 @@ const initialState: AuthState = {
 
 export const { changeToUser, changeToServiceProvider, setAuthUser } = authSlice.actions;
 export default authSlice.reducer;
-
-export const signup = createAsyncThunk('auth/register',
-    async (userData: { username: string; email: string; password: string, role: string }, thunkAPI) => {
-        try {
-            const response = await axiosInstance.post("/auth/register", userData);
-            const res = response.data;
-            if(res.success){
-                toast.success(res.message);
-                thunkAPI.dispatch(changeToOtpSend(true));
-            }
-        } catch (error: unknown) {
-            if (axios.isAxiosError(error) && error.response) {
-                toast.error(error.response.data.message);
-                return;
-              }
-            toast.error("Unexpected error occurred, please try again.");
-            return;
-        }
-    }
-);
-    
-    export const verifyOtp = createAsyncThunk("auth/verify-otp",
-        async ( otp : string , thunkAPI) => {
-            try{
-                const response = await axiosInstance.post('/auth/verify-otp',{ otp });
-                const res= response.data;
-                if(res.success){
-                    toast.success(res.message);
-                    thunkAPI.dispatch(changeToOtpSend(false));
-                    thunkAPI.dispatch(toggleLoginForm());
-                }
-            }catch(error : unknown){
-                if (axios.isAxiosError(error) && error.response) {
-                    toast.error(error.response.data.message);
-                    return;
-                  }
-                toast.error("Unexpected error occurred, please try again.");
-                return;
-            }
-        }
-    )
-
-    export const signin = createAsyncThunk("auth/login",
-        async (userData : {email: string, password: string, role: string}, thunkAPI) => {
-            try{
-                const response = await axiosInstance.post('/auth/login', userData);
-                const res = response.data;
-                if (res.success) {
-                    const authUserData = {
-                        username: res.userData.username,
-                        profileImage: res.userData.profileImage,
-                    };
-                    thunkAPI.dispatch(setAuthUser(authUserData));
-                    toast.success(res.message);
-                  }
-            }catch(error : unknown){
-                if (axios.isAxiosError(error) && error.response) {
-                    toast.error(error.response.data.message);
-                    return;
-                  }
-                toast.error("Unexpected error occurred, please try again.");
-                return;
-            }
-        }
-    )

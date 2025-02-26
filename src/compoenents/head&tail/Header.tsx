@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { darkTheme, lightTheme } from '../../utils/theme';
-import { toggleTheme } from '../../utils/redux/stateSlice';
+import { changeToSigninForm, changeToSignupForm, toggleTheme } from '../../utils/redux/stateSlice';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { AppDispatch, RootState } from '../../utils/redux/appStore';
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
@@ -15,11 +15,17 @@ const navigation = [
 const Header = () => {
   const dispatch = useDispatch<AppDispatch>();
   const themeMode = useSelector((store : RootState) => store.state.lightTheme);
+  const user = useSelector((store : RootState) => store.auth?.authUser);
   const theme = themeMode ? lightTheme : darkTheme;
 
   const changeTheme = () => {
    dispatch(toggleTheme()); 
-  }
+}
+
+const handleSignout = () => {
+  console.log("signout");
+}
+  
 
   return (
     <Disclosure as="nav" className="absolute w-full" style={{ backgroundColor: theme.background }}>
@@ -86,22 +92,36 @@ const Header = () => {
                 transition
                 className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md py-1 ring-1 shadow-lg ring-black/5 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in" style={{ backgroundColor: theme.menuBg }}
               >
-                <MenuItem>
+               {user ? 
+
+               <MenuItem>
                   <a
-                    href="/login"
+                    onClick={handleSignout}
                     className="block px-4 py-2 text-sm data-focus:bg-gray-100 data-focus:outline-hidden" style={{ color: theme.menuText }}
                   >
+                    Sign Out
+                  </a>
+                </MenuItem>
+                :
+                <>
+               <MenuItem>
+                  <a
+                    onClick={() => dispatch(changeToSigninForm())}
+                    className="block px-4 py-2 text-sm data-focus:bg-gray-100 data-focus:outline-hidden" style={{ color: theme.menuText }}
+                    >
                     Sign In
                   </a>
                 </MenuItem>
                 <MenuItem>
                   <a
-                    href="/register"
+                    onClick={() => dispatch(changeToSignupForm())}
                     className="block px-4 py-2 text-sm text-gray-700 data-focus:bg-gray-100 data-focus:outline-hidden"
-                  >
+                    >
                     Sign Up
                   </a>
                 </MenuItem>
+                    </>
+                }
               </MenuItems>
             </Menu>
           </div>

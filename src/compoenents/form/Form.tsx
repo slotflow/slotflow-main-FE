@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import InputField from "./InputFieldWithLable";
 import { useDispatch, useSelector } from "react-redux";
-import { signin, signup, verifyOtp } from "../../utils/redux/authSlice";
+import { toggleSigninForm } from "../../utils/redux/stateSlice";
 import { AppDispatch, RootState } from "../../utils/redux/appStore";
-import { toggleLoginForm } from "../../utils/redux/stateSlice";
+import { signin, signup, verifyOtp } from "../../utils/redux/authHandler";
 
-export function Form() {
+const Form = ()  => {
     console.log("Form loading");
     const dispatch = useDispatch<AppDispatch>();
 
@@ -21,9 +21,9 @@ export function Form() {
         otp: ""
     });
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setFormData({ ...formData, [e.target.id]: e.target.value });
-    };
+    const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+        setFormData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+    },[]);
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -115,14 +115,14 @@ export function Form() {
 
 
                 {otpForm ?
-                    <p className="mt-10 text-center text-sm/6 text-gray-500" onClick={() => dispatch(toggleLoginForm())}>
+                    <p className="mt-10 text-center text-sm/6 text-gray-500" onClick={() => dispatch(toggleSigninForm())}>
 
                         <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
                             Resend OTP
                         </a>
                     </p>
                     :
-                    <p className="mt-10 text-center text-sm/6 text-gray-500" onClick={() => dispatch(toggleLoginForm())}>
+                    <p className="mt-10 text-center text-sm/6 text-gray-500" onClick={() => dispatch(toggleSigninForm())}>
                         {loginForm ? "New user?" : "Already have an account."}
                         <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
                             {loginForm ? "Sign Up" : "Sign In"}
@@ -134,3 +134,4 @@ export function Form() {
     );
 }
 
+export default Form;

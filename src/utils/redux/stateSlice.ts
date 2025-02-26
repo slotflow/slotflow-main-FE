@@ -22,11 +22,17 @@ const stateSlice = createSlice({
         toggleTheme: (state) => {
             state.lightTheme = !state.lightTheme;
         },
-        toggleLoginForm: (state) => {
+        toggleSigninForm: (state) => {
             state.loginForm = !state.loginForm;
+        },
+        changeToSigninForm: (state) => {
+            state.loginForm = true;
+        },
+        changeToSignupForm: (state) => {
+            state.loginForm = false;
         }
     }
 })
 
-export const {changeToOtpSend, toggleTheme, toggleLoginForm} = stateSlice.actions;
+export const {changeToOtpSend, toggleTheme, toggleSigninForm, changeToSigninForm, changeToSignupForm} = stateSlice.actions;
 export default stateSlice.reducer;
