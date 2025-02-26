@@ -63,3 +63,21 @@ export const signin = createAsyncThunk("auth/signin",
         }
     }
 )
+
+export const signout = createAsyncThunk("auth/signin",
+    async (_, thunkAPI) => {
+        try {
+            const response = await axiosInstance.post('/auth/signout');
+            const res = response.data;
+            if (res.success) {
+                thunkAPI.dispatch(setAuthUser(null));
+                return res;
+            }
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error) && error.response) {
+                return thunkAPI.rejectWithValue(error.response.data.message);
+            }
+            return thunkAPI.rejectWithValue("Unexpected error occurred, please try again.");
+        }
+    }
+)

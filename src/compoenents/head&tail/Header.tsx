@@ -1,4 +1,6 @@
+import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
+import { signout } from '../../utils/redux/authHandler';
 import { darkTheme, lightTheme } from '../../utils/theme';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { AppDispatch, RootState } from '../../utils/redux/appStore';
@@ -25,7 +27,11 @@ const Header = () => {
 }
 
 const handleSignout = () => {
-  console.log("signout");
+  dispatch(signout()).unwrap().then((res) => {
+    toast.success(res.message);
+  }).catch((error) => {
+    toast.error(error.message);
+  })
 }
 
   return (
