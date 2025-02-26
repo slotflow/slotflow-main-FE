@@ -4,11 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleSigninForm } from "../../utils/redux/stateSlice";
 import { AppDispatch, RootState } from "../../utils/redux/appStore";
 import { signin, signup, verifyOtp } from "../../utils/redux/authHandler";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Form = ()  => {
     console.log("Form loading");
     const dispatch = useDispatch<AppDispatch>();
-
+    const navigate = useNavigate();
     const loginForm = useSelector((store: RootState) => store.state?.loginForm);
     const otpForm = useSelector((store: RootState) => store.state?.otpForm);
     const loading = useSelector((store: RootState) => store.auth?.loading);
@@ -29,27 +31,50 @@ const Form = ()  => {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if(otpForm){
-            dispatch(verifyOtp(
-                formData.otp
-            ))
+
+        const handleResponse = (res : {success : boolean, message: string, role?: string, userData?: {username : string, profileImage: string | null}}) => {
+            if (res.success) {
+                toast.success(res.message);
+                handleNavigation(res.role ?? "");
+            } else {
+                toast.error(res.message);
+            }
+        };
+    
+        const handleNavigation = (role: string) => {
+            if (role === "ADMIN") navigate("/admin");
+            else if (role === "USER") navigate("/user");
+            else if (role === "PROVIDER") navigate("/provider");
+        };
+    
+        if (otpForm) {
+            dispatch(verifyOtp(formData.otp))
+                .unwrap()
+                .then(handleResponse)
+                .catch((error) => toast.error(error || "An error occurred."));
+                
             setFormData({ username: "", email: "", password: "", otp: "" });
-            return;
-        } else if (!otpForm && !loginForm) {
+        } 
+        else if (!otpForm && !loginForm) {
             dispatch(signup({
                 username: formData.username,
                 email: formData.email,
                 password: formData.password,
                 role: user ? "USER" : "PROVIDER"
-            }));
-            return;
-        } else if(!otpForm && loginForm){
+            }))
+                .unwrap()
+                .then(handleResponse)
+                .catch((error) => toast.error(error || "An error occurred."));
+        } 
+        else if (!otpForm && loginForm) {
             dispatch(signin({
                 email: formData.email,
                 password: formData.password,
                 role: user ? "USER" : provider ? "PROVIDER" : admin ? "ADMIN" : ""
-            }));
-            return;
+            }))
+                .unwrap()
+                .then(handleResponse)
+                .catch((error) => toast.error(error || "An error occurred."));
         }
     };
 
