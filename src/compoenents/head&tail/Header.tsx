@@ -6,10 +6,11 @@ import { AppDispatch, RootState } from '../../utils/redux/appStore';
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 
 const navigation = [
-  { name: 'Dashboard', href: '#', current: true },
-  { name: 'Team', href: '#', current: false },
-  { name: 'Projects', href: '#', current: false },
-  { name: 'Calendar', href: '#', current: false },
+  { name: 'Home', href: '/', current: true },
+  { name: 'Plans', href: '#', current: false },
+  { name: 'Services', href: '#', current: false },
+  { name: 'About', href: '#', current: false },
+  { name: 'Contact', href: '#', current: false },
 ]
 
 const Header = () => {
