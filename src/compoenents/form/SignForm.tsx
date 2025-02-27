@@ -8,8 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { changeAdminFalse, changeProviderFalse, changeProviderTrue, changeUserFalse, changeUserTrue } from "../../utils/redux/authSlice";
 
-const Form = ()  => {
-    console.log("Form loading");
+const SignForm = ()  => {
     const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
     const loginForm = useSelector((store: RootState) => store.state?.loginForm);
@@ -88,26 +87,28 @@ const Form = ()  => {
     }
 
     return (
-        <div className="flex flex-col justify-center w-full md:w-10/12 lg:w-8/12 shadow-md rounded-md">
-            {!admin &&
-                <div className="flex bg-indigo-300 rounded-t-md shadow-md">
-                    <div onClick={() => {dispatch(changeUserTrue()); dispatch(changeProviderFalse()); dispatch(changeAdminFalse());}} className={`w-6/12 p-2 text-center text-white hover:bg-indigo-400 cursor-pointer rounded-tl-md ${user && 'bg-indigo-400'}`}>Book An Appointment</div>
-                    <div onClick={() => {dispatch(changeProviderTrue()); dispatch(changeUserFalse()); dispatch(changeAdminFalse());}} className={`w-6/12 p-2 text-center text-white hover:bg-indigo-400 cursor-pointer rounded-tr-md ${provider && 'bg-indigo-400'}`}>Provide A Service</div>
-                </div>
-            }
-            <div className="px-10 py-10">
+        <div className="flex flex-col justify-center w-11/12 md:w-10/12 lg:w-8/12 shadow-md rounded-md border-2 border-[var(--boxBorder)]  py-2 px-4 md:py-10 md:px-10">
+            
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-                <h2 className="mt-2 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
+                <h2 className="mt-2 text-center text-xl md:text-2xl font-bold tracking-tight text-[var(--textTwo)] hover:text-[var(--textTwoHover)]">
                     {admin ? "Admin Sign In" : otpForm ? "Verify Your Email" : loginForm ? "Sign In To Your Account" : "Sign Up"}
                 </h2>
             </div>
 
-            <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                <form onSubmit={handleSubmit} className="space-y-6">
+            {!admin &&
+                <div className="flex rounded-md border-[1px] border-[var(--mainColor)] mt-7 shadow md text-xs md:text-[16px]">
+                    <div onClick={() => {dispatch(changeUserTrue()); dispatch(changeProviderFalse()); dispatch(changeAdminFalse());}} className={`border-r-[1px] border-[var(--mainColor)] w-6/12 p-1 md:p-2 text-center text-[var(--textOne)] hover:bg-[var(--mainColorHover)] hover:text-white cursor-pointer rounded-tl-md ${user && 'bg-[var(--mainColor)] text-white'}`}>Book An Appointment</div>
+                    <div onClick={() => {dispatch(changeProviderTrue()); dispatch(changeUserFalse()); dispatch(changeAdminFalse());}} className={`w-6/12 p-1 md:p-2 text-center text-[var(--textOne)] hover:bg-[var(--mainColorHover)] hover:text-white cursor-pointer rounded-tr-md ${provider && 'bg-[var(--mainColor)] text-white'}`}>Provide A Service</div>
+                </div>
+            }
+
+            <div className="mt-4 md:mt-10 mb-4 md:mb-10 sm:mx-auto sm:w-full sm:max-w-sm">
+                <form onSubmit={handleSubmit} className="space-y-2 md:space-y-6">
                     {!admin && otpForm ? (
                         <InputField
                             label="Enter OTP"
                             id="otp"
+                            placeholder="000000"
                             type="text"
                             value={formData.otp}
                             onChange={handleChange}
@@ -119,6 +120,7 @@ const Form = ()  => {
                                 <InputField
                                     label="Username"
                                     id="username"
+                                    placeholder="Midhun K Paniker"
                                     type="text"
                                     value={formData.username}
                                     onChange={handleChange}
@@ -128,6 +130,7 @@ const Form = ()  => {
                             <InputField
                                 label="Email address"
                                 id="email"
+                                placeholder="midhun@gmail.com"
                                 type="email"
                                 value={formData.email}
                                 onChange={handleChange}
@@ -136,6 +139,7 @@ const Form = ()  => {
                             <InputField
                                 label="Password"
                                 id="password"
+                                placeholder="********"
                                 type="password"
                                 value={formData.password}
                                 onChange={handleChange}
@@ -148,7 +152,7 @@ const Form = ()  => {
                     <div>
                         <button
                             type="submit"
-                            className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 cursor-pointer"
+                            className="flex w-full justify-center rounded-md bg-[var(--mainColor)] px-3 py-1.5 text-xs md:text-sm font-semibold text-white shadow-xs hover:bg-[var(--mainColorHover)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 cursor-pointer"
                         >
                             {loading ? "Loading..." : otpForm ? "Verify" : loginForm ? "Sign In" : "Sign Up"}
                         </button>
@@ -157,23 +161,22 @@ const Form = ()  => {
 
                     
                 {!admin && (otpForm ?
-                    <p className="mt-10 text-center text-sm/6 text-gray-500" onClick={() => dispatch(toggleSigninForm())}>
-                        <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
+                    <p className="mt-10 text-center text-xs md:text-sm/6 text-[var(--textTwo)]" onClick={() => dispatch(toggleSigninForm())}>
+                        <a href="#" className="font-semibold text-[var(--mainColor)] hover:text-[var(--mainColorHover)]">
                             Resend OTP
                         </a>
                     </p>
                     :
-                    <p className="mt-10 text-center text-sm/6 text-gray-500" onClick={() => dispatch(toggleSigninForm())}>
+                    <p className="mt-6 md:mt-10 text-center text-xs md:text-sm/6 text-[var(--textTwo)]" onClick={() => dispatch(toggleSigninForm())}>
                         {loginForm ? "New user?" : "Already have an account."}
-                        <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
+                        <a href="#" className="font-semibold text-[var(--mainColor)] hover:text-[var(--mainColorHover)]">
                             {loginForm ? " Sign Up" : " Sign In"}
                         </a>
                     </p>
                 )}
             </div>
-            </div>
         </div>
     );
 }
 
-export default Form;
+export default SignForm;

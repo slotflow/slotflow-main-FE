@@ -1,1 +1,45 @@
 @import "tailwindcss";
+
+:root {
+
+    --mainColor: #635bff;
+    --mainColorHover: #8680ff;
+
+    --boxBorder: #cccccc;
+
+    --textOne: #737373;
+    --textOneHover: #0d0d0d;
+
+    --textTwo: #1a1a1a;
+    --textTwoHover: #333333;
+
+    --background: #ffffff;
+
+    --menuBg: #ffffff;
+    --menuItemHoverBg: #f3f4f6;
+
+    --inputBg: #ffffff;
+    
+}
+
+.dark {
+    
+    --mainColor: #635bff;
+    --mainColorHover: #8680ff;
+    
+    --boxBorder: #262626;
+    
+    --textOne: #bfbfbf;
+    --textOneHover: #e6e6e6;
+
+    --textTwo: #d9d9d9;
+    --textTwoHover: #ffffff;
+    
+    --background: #000000;
+    
+    --menuBg: #121212;
+    --menuItemHoverBg: #16181d;
+
+    --inputBg: #27272a;
+
+  }

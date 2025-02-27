@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
-import  Form  from "../compoenents/form/SignForm";
+import  SignForm  from "../compoenents/form/SignForm";
 import { RootState } from "../utils/redux/appStore";
 import FormFilling from "../compoenents/svgs/FormFilling";
 
@@ -15,12 +15,12 @@ const Login = () => {
   }
 
   return (
-    <div className='h-[100vh] flex'>
+    <div className='h-[100vh] flex bg-[var(--background)]'>
         <div className="md:w-6/12 hidden md:flex items-center justify-center">
           <FormFilling />
         </div>
         <div className="w-full md:w-6/12 flex justify-center items-center">
-          <Form />
+          <SignForm />
         </div>
     </div>
   )

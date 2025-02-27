@@ -3,6 +3,7 @@ import React from 'react';
 interface InputFiledProps {
     label: string,
     id: string,
+    placeholder: string,
     type: string,
     value: string,
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -11,15 +12,15 @@ interface InputFiledProps {
 }
 
 const InputField: React.FC<InputFiledProps> =({
-    label, id, type, value, onChange, required, onForgotPassword
+    label, id, placeholder, type, value, onChange, required, onForgotPassword
 }) => (
     <div>
         <div className='flex justify-between'>
-            <label htmlFor={id} className="block text-sm/6 font-medium text-gray-900">
+            <label htmlFor={id} className="block text-xs md:text-sm/6 font-medium text-[var(--textTwo)] hover:text-[var(--textTwoHover)]">
                 {label}
             </label>
         {id === "password" && onForgotPassword && (
-            <label htmlFor="forgotPassword" className='font-medium text-indigo-400 hover:text-indigo-600 cursor-pointer'>
+            <label htmlFor="forgotPassword" className='text-xs md:text-sm/6 font-medium text-[var(--mainColor)] hover:text-[var(--mainColorHover)] cursor-pointer'>
                 Forgot password?
             </label>
         )}
@@ -27,12 +28,13 @@ const InputField: React.FC<InputFiledProps> =({
         <div className='mt-2'>
             <input 
                 id={id}
+                placeholder={placeholder}
                 name={id}
                 type={type}
                 value={value}
                 onChange={onChange}
                 required={required}
-                className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm"
+                className="block w-full rounded-md bg-[var(--inputBg)] px-2 py-1 md:px-3 md:py-1.5 text-[var(--textOne)] outline-1 -outline-offset-1 outline-[var(--boxBorder)] placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-[var(--mainColor)] text-xs  md:text-sm"
             />
         </div>
     </div>

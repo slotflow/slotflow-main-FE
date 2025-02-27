@@ -30,7 +30,7 @@ export const appRouter = createBrowserRouter([
                 children: [
                     {
                         path: "/admin", element: <Admin />, children: [
-                            { path: "/admin", element: <Dashboard /> },
+                            { path: "/admin/dashboard", element: <Dashboard /> },
                             { path: "/admin/service-providers", element: <ServiceProviders /> },
                             { path: "/admin/users", element: <Users /> },
                             { path: "/admin/settings", element: <Settings /> },
