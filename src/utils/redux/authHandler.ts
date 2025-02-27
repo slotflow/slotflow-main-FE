@@ -44,8 +44,10 @@ export const verifyOtp = createAsyncThunk("auth/verify-otp",
 export const signin = createAsyncThunk("auth/signin",
     async (userData: { email: string, password: string, role: string }, thunkAPI) => {
         try {
+            console.log("userData : ",userData);
             const response = await axiosInstance.post('/auth/signin', userData);
             const res = response.data;
+            console.log("res : ",res);
             if (res.success) {
                 const authUserData = {
                     username: res.role === "ADMIN" ? "Admin" : res.userData.username,

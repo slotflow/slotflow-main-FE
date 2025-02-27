@@ -57,6 +57,8 @@ const Form = ()  => {
             setFormData({ username: "", email: "", password: "", otp: "" });
         } 
         else if (!otpForm && !loginForm) {
+            console.log("sign up");
+            console.log(user ? "USER" : "PROVIDER");
             dispatch(signup({
                 username: formData.username,
                 email: formData.email,
@@ -68,6 +70,8 @@ const Form = ()  => {
                 .catch((error) => toast.error(error || "An error occurred."));
         } 
         else if (!otpForm && loginForm) {
+            console.log("sign in");
+            console.log(user ? "USER" : provider ? "PROVIDER" : admin ? "ADMIN" : "")
             dispatch(signin({
                 email: formData.email,
                 password: formData.password,
