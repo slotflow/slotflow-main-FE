@@ -9,14 +9,16 @@ interface AuthState {
     provider: boolean;
     admin: boolean;
     loading: boolean;
+    tempEmail: string;
 }
 
 const initialState: AuthState = {
     authUser: null,
-    user: true,
+    user: false,
     provider: false,
     admin: false,
     loading: false,
+    tempEmail: "",
 };
 
 const authSlice = createSlice({
@@ -44,6 +46,9 @@ const authSlice = createSlice({
         setAuthUser: (state, action) => {
             state.authUser = action.payload;
         },
+        setTempEmail: (state, action) => {
+            state.tempEmail = action.payload;
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -78,11 +83,11 @@ const authSlice = createSlice({
 });
 
 const persistConfig = {
-    key: "root",
+    key: "auth",
     storage,
 };
 
 const persistedAuthReducer = persistReducer(persistConfig, authSlice.reducer);
 
-export const { changeUserTrue, changeUserFalse, changeProviderTrue, changeProviderFalse, changeAdminTrue, changeAdminFalse, setAuthUser } = authSlice.actions;
+export const { changeUserTrue, changeUserFalse, changeProviderTrue, changeProviderFalse, changeAdminTrue, changeAdminFalse, setAuthUser, setTempEmail } = authSlice.actions;
 export default persistedAuthReducer;

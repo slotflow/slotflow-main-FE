@@ -43,7 +43,7 @@ const adminSlice = createSlice({
 });
 
 const persistConfig = {
-    key: "root",
+    key: "admin",
     storage
 };
 

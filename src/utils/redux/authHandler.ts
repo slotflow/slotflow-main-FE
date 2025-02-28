@@ -1,8 +1,8 @@
 import axios from "axios";
-import { setAuthUser } from "./authSlice";
+import { setAuthUser, setTempEmail } from "./authSlice";
 import axiosInstance from "../../lib/axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { changeToOtpSend, toggleSigninForm } from "./stateSlice";
+import { changeToOtpSend, startTimer, toggleSigninForm } from "./stateSlice";
 
 export const signup = createAsyncThunk('auth/signup',
     async (userData: { username: string; email: string; password: string, role: string }, thunkAPI) => {
@@ -11,6 +11,8 @@ export const signup = createAsyncThunk('auth/signup',
             const res = response.data;
             if (res.success) {
                 thunkAPI.dispatch(changeToOtpSend(true));
+                thunkAPI.dispatch(startTimer(300));
+                thunkAPI.dispatch(setTempEmail(res.email));
             }
             return res;
         } catch (error: unknown) {
@@ -44,10 +46,8 @@ export const verifyOtp = createAsyncThunk("auth/verify-otp",
 export const signin = createAsyncThunk("auth/signin",
     async (userData: { email: string, password: string, role: string }, thunkAPI) => {
         try {
-            console.log("userData : ",userData);
             const response = await axiosInstance.post('/auth/signin', userData);
             const res = response.data;
-            console.log("res : ",res);
             if (res.success) {
                 const authUserData = {
                     username: res.role === "ADMIN" ? "Admin" : res.userData.username,
@@ -76,6 +76,22 @@ export const signout = createAsyncThunk("auth/signin",
                 return res;
             }
         } catch (error: unknown) {
+            if (axios.isAxiosError(error) && error.response) {
+                return thunkAPI.rejectWithValue(error.response.data.message);
+            }
+            return thunkAPI.rejectWithValue("Unexpected error occurred, please try again.");
+        }
+    }
+)
+
+export const resendOtp = createAsyncThunk("auth/resendOtp",
+    async (email : string, thunkAPI) => {
+        try{
+            console.log("hi : ",email);
+            const response = await axiosInstance.post("/auth/resendOtp", {email});
+            console.log("response : ",response);
+            return response.data;
+        }catch(error : unknown){
             if (axios.isAxiosError(error) && error.response) {
                 return thunkAPI.rejectWithValue(error.response.data.message);
             }

@@ -153,7 +153,7 @@ const Header = () => {
               as="a"
               href={item.href}
               aria-current={item.current ? 'page' : undefined}
-              className="item.current ? 'bg-[var(--menuItemHoverBg)] text-[var(--textOne)]' : 'text-[var(--textOne)] hover:bg-[var(--)] hover:text-[var(--textOneHover)] block rounded-md px-3 py-2 text-base font-medium"
+              className="item.current ? 'bg-[var(--menuItemHoverBg)] text-[var(--textOne)]' : 'text-[var(--textOne)] hover:bg-[var(--menuItemHoverBg)] hover:text-[var(--textOneHover)] block rounded-md px-3 py-2 text-base font-medium"
             >
               {item.name}
             </DisclosureButton>
