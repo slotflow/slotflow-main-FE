@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import { signin, signup, verifyOtp } from "./authHandler";
+import { resendOtp, signin, signup, verifyOtp } from "./authHandler";
 
 interface AuthState {
     authUser: { username?: string, email?: string, phone?: string, profileImage?: string, role?: string } | null;
@@ -77,6 +77,15 @@ const authSlice = createSlice({
                 state.loading = false;
             })
             .addCase(verifyOtp.rejected, (state) => {
+                state.loading = false;
+            })
+            .addCase(resendOtp.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(resendOtp.fulfilled, (state) => {
+                state.loading = false;
+            })
+            .addCase(resendOtp.rejected, (state) => {
                 state.loading = false;
             });
     },

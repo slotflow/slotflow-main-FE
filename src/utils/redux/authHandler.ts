@@ -1,8 +1,8 @@
 import axios from "axios";
-import { setAuthUser, setTempEmail } from "./authSlice";
 import axiosInstance from "../../lib/axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { changeToOtpSend, startTimer, toggleSigninForm } from "./stateSlice";
+import { setAuthUser, setTempEmail } from "./authSlice";
+import { changeForgotPassword, changeToOtpSend, startTimer, toggleSigninForm } from "./stateSlice";
 
 export const signup = createAsyncThunk('auth/signup',
     async (userData: { username: string; email: string; password: string, role: string }, thunkAPI) => {
@@ -27,7 +27,7 @@ export const signup = createAsyncThunk('auth/signup',
 export const verifyOtp = createAsyncThunk("auth/verify-otp",
     async (otp: string, thunkAPI) => {
         try {
-            const response = await axiosInstance.post('/auth/verify-otp', { otp });
+            const response = await axiosInstance.post('/auth/verify-otp', {otp});
             const res = response.data;
             if (res.success) {
                 thunkAPI.dispatch(changeToOtpSend(false));
@@ -44,7 +44,7 @@ export const verifyOtp = createAsyncThunk("auth/verify-otp",
 )
 
 export const signin = createAsyncThunk("auth/signin",
-    async (userData: { email: string, password: string, role: string }, thunkAPI) => {
+    async (userData: { email: string, password: string, role: string | null }, thunkAPI) => {
         try {
             const response = await axiosInstance.post('/auth/signin', userData);
             const res = response.data;
@@ -87,9 +87,12 @@ export const signout = createAsyncThunk("auth/signin",
 export const resendOtp = createAsyncThunk("auth/resendOtp",
     async (email : string, thunkAPI) => {
         try{
-            console.log("hi : ",email);
             const response = await axiosInstance.post("/auth/resendOtp", {email});
-            console.log("response : ",response);
+            if(response.data.success){
+                thunkAPI.dispatch(changeForgotPassword(false));
+                thunkAPI.dispatch(changeToOtpSend(true));
+                thunkAPI.dispatch(startTimer(300));
+            }
             return response.data;
         }catch(error : unknown){
             if (axios.isAxiosError(error) && error.response) {

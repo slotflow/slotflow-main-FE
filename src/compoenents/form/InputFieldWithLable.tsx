@@ -9,18 +9,19 @@ interface InputFiledProps {
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     required: boolean;
     onForgotPassword?: () => void;
+    admin?: boolean;
 }
 
 const InputField: React.FC<InputFiledProps> =({
-    label, id, placeholder, type, value, onChange, required, onForgotPassword
+    label, id, placeholder, type, value, onChange, required, onForgotPassword, admin
 }) => (
     <div>
         <div className='flex justify-between'>
             <label htmlFor={id} className="block text-xs md:text-sm/6 font-medium text-[var(--textTwo)] hover:text-[var(--textTwoHover)]">
                 {label}
             </label>
-        {id === "password" && onForgotPassword && (
-            <label htmlFor="forgotPassword" className='text-xs md:text-sm/6 font-medium text-[var(--mainColor)] hover:text-[var(--mainColorHover)] cursor-pointer'>
+        {!admin && id === "password" && onForgotPassword && (
+            <label htmlFor="forgotPassword" className='text-xs md:text-sm/6 font-medium text-[var(--mainColor)] hover:text-[var(--mainColorHover)] cursor-pointer' onClick={onForgotPassword}>
                 Forgot password?
             </label>
         )}

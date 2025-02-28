@@ -8,6 +8,7 @@ interface stateVariables {
     otpTimerIsRunning: boolean;
     lightTheme: boolean;
     loginForm: boolean;
+    forgotPassword: boolean;
 }
 
 const initialState: stateVariables = {
@@ -16,6 +17,7 @@ const initialState: stateVariables = {
     otpTimerIsRunning: false,
     lightTheme: true,
     loginForm: true,
+    forgotPassword: false,
 }
 
 const stateSlice = createSlice({
@@ -51,6 +53,9 @@ const stateSlice = createSlice({
         stopTimer: (state) => {
             state.otpTimerIsRunning = false;
         },
+        changeForgotPassword: (state, action) => {
+            state.forgotPassword = action.payload;
+        }
     }
 });
 
@@ -61,5 +66,5 @@ const persistConfig = {
 
 const persistedStateReducer = persistReducer(persistConfig, stateSlice.reducer);
 
-export const { changeToOtpSend, toggleTheme, toggleSigninForm, changeToSigninForm, changeToSignupForm, startTimer, updateTimer, stopTimer } = stateSlice.actions;
+export const { changeToOtpSend, toggleTheme, toggleSigninForm, changeToSigninForm, changeToSignupForm, startTimer, updateTimer, stopTimer, changeForgotPassword } = stateSlice.actions;
 export default persistedStateReducer;
