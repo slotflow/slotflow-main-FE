@@ -4,9 +4,9 @@ import SideBar from "../../compoenents/admin/SideBar";
 const Admin = () => {
 
   return (
-    <div className="h-screen bg-gray-200 flex">
+    <div className="h-screen flex pt-16">
        <SideBar />
-        <div className="w-[80%] p-4 bg-white shadow-md rounded-lg pt-20">
+        <div className="w-[84%] p-4 bg-[var(--background)]"> 
           <Outlet />
         </div>
     </div>

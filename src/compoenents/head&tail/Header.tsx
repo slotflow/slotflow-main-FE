@@ -48,7 +48,7 @@ const Header = () => {
 
   return (
     <Disclosure as="nav" className="absolute w-full bg-[var(--background)]">
-      <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+      <div className={`mx-auto ${user?.role === "ADMIN" ? 'max-w-[90%]' : 'max-w-7xl'} px-2 sm:px-6 lg:px-8`}>
         <div className="relative flex h-16 items-center justify-between">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
             {/* Mobile menu button*/}
@@ -64,18 +64,20 @@ const Header = () => {
               <p className='text-[var(--mainColor)] text-sm md:text-xl font-semibold italic cursor-pointer hover:text-[var(--mainColorHover)]'>Slotflow</p>
             </div>
             <div className="hidden sm:ml-6 sm:block">
-              <div className="flex space-x-4">
-                {navigation.map((item) => (
-                  <a
+              {user?.role !== "ADMIN" && (
+                <div className="flex space-x-4">
+                  {navigation.map((item) => (
+                    <a
                     key={item.name}
                     href={item.href}
                     aria-current={item.current ? 'page' : undefined}
                     className="rounded-md px-3 py-2 text-sm font-medium text-[var(--textOne)] hover:text-[var(--textOneHover)]" 
-                  >
-                    {item.name}
-                  </a>
-                ))}
-              </div>
+                    >
+                      {item.name}
+                    </a>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
