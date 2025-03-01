@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { DataTable } from "@/components/table/data-table";
+import ShimmerTable from "@/components/shimmers/ShimmerTable";
 import { getAllProviders } from "../../utils/redux/adminHanlder";
 import { userOrProvidercolumns } from "@/components/table/columns";
+import ShimmerTableTop from "@/components/shimmers/ShimmerTableTop";
 import { AppDispatch, RootState } from "../../utils/redux/appStore";
 
 const ServiceProviders = () => {
@@ -23,8 +25,13 @@ const ServiceProviders = () => {
   return (
     <>
       <h2 className="text-xl font-bold mb-4">Service Providers</h2>
-      {listLoading ? <p>Loading</p> : 
-      <DataTable columns={userOrProvidercolumns} data={serviceProviders} />
+      {listLoading ?
+        <>
+          <ShimmerTableTop />
+          <ShimmerTable />
+        </>
+        :
+        <DataTable columns={userOrProvidercolumns} data={serviceProviders} />
       }
     </>
   );
