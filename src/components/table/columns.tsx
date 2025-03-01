@@ -1,13 +1,13 @@
 "use client"
 
 import { Button } from "../ui/button"
-import { UserProviderList } from "@/utils/types"
+import { Provider } from "@/utils/types"
 import { MoreHorizontal } from "lucide-react"
 import { ColumnDef } from "@tanstack/react-table"
 import { DataTableColumnHeader } from "./DataTableColumnHeader"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu"
 
-export const userOrProvidercolumns: ColumnDef<UserProviderList>[] = [
+export const userOrProvidercolumns: ColumnDef<Provider>[] = [
   {
     accessorKey: "isVerified",
     header: "Verication",

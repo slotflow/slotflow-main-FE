@@ -67,7 +67,6 @@ export function DataTable<TData, TValue>({
       columnVisibility,
     },
   })
-
   return (
     <div>
       <div className="flex items-center py-4">

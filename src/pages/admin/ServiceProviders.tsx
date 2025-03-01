@@ -1,21 +1,24 @@
 import { useEffect, useState } from "react";
-import { userOrProvidercolumns } from "@/components/table/columns";
 import { useDispatch, useSelector } from "react-redux";
 import { DataTable } from "@/components/table/data-table";
 import { getAllProviders } from "../../utils/redux/adminHanlder";
+import { userOrProvidercolumns } from "@/components/table/columns";
 import { AppDispatch, RootState } from "../../utils/redux/appStore";
 
 const ServiceProviders = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { serviceProviders } = useSelector((store: RootState) => store.admin);
-  const [ listLoading, setListLoading ] = useState(true as boolean);
+  const [listLoading, setListLoading] = useState(true);
 
   useEffect(() => {
     dispatch(getAllProviders());
-    if(serviceProviders){
-      setListLoading(false)
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (serviceProviders) {
+      setListLoading(false);
     }
-  }, [dispatch, serviceProviders]);
+  }, [serviceProviders]);
 
   return (
     <>

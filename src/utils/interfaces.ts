@@ -1,5 +1,6 @@
-import { UserProviderList } from "./types";
+import { Provider, User } from "./types";
 
 export interface AdminState {
-    serviceProviders: UserProviderList[];
+    serviceProviders: Provider[];
+    users: User[];
 }
