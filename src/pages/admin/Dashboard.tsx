@@ -9,40 +9,7 @@ const Dashboard = () => {
             A brief description or content for Card 1.
           </p>
         </div>
-        <button className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded">
-          Learn More
-        </button>
-      </div>
-      <div className="bg-[var(--menuBg)] text-[var(--textTwo)] rounded-lg shadow-md p-6 h-48 flex flex-col justify-between">
-        <div>
-          <h3 className="text-lg font-semibold ">Card 1</h3>
-          <p className="text-sm  mt-2">
-            A brief description or content for Card 1.
-          </p>
-        </div>
-        <button className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded">
-          Learn More
-        </button>
-      </div>
-      <div className="bg-[var(--menuBg)] text-[var(--textTwo)] rounded-lg shadow-md p-6 h-48 flex flex-col justify-between">
-        <div>
-          <h3 className="text-lg font-semibold ">Card 1</h3>
-          <p className="text-sm  mt-2">
-            A brief description or content for Card 1.
-          </p>
-        </div>
-        <button className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded">
-          Learn More
-        </button>
-      </div>
-      <div className="bg-[var(--menuBg)] text-[var(--textTwo)] rounded-lg shadow-md p-6 h-48 flex flex-col justify-between">
-        <div>
-          <h3 className="text-lg font-semibold ">Card 1</h3>
-          <p className="text-sm  mt-2">
-            A brief description or content for Card 1.
-          </p>
-        </div>
-        <button className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded">
+        <button className="border-2 border-[var(--mainColor)] text-[var(--textTwo)] font-semibold py-2 px-4 rounded">
           Learn More
         </button>
       </div>

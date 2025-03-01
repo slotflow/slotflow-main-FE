@@ -35,7 +35,7 @@ const InputField: React.FC<InputFiledProps> =({
                 value={value}
                 onChange={onChange}
                 required={required}
-                className="block w-full rounded-md bg-[var(--inputBg)] px-2 py-1 md:px-3 md:py-1.5 text-[var(--textOne)] outline-1 -outline-offset-1 outline-[var(--boxBorder)] placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-[var(--mainColor)] text-xs  md:text-sm"
+                className="block w-full rounded-md bg-[var(--inputBg)] px-2 py-1 md:px-3 md:py-2 text-[var(--textOne)] outline-1 -outline-offset-1 outline-[var(--boxBorder)] placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-[var(--mainColor)] text-xs  md:text-sm"
             />
         </div>
     </div>
