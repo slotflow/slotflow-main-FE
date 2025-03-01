@@ -1,8 +1,8 @@
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
-import  SignForm  from "../compoenents/form/SignForm";
+import  SignForm  from "../components/form/SignForm";
 import { RootState } from "../utils/redux/appStore";
-import FormFilling from "../compoenents/svgs/FormFilling";
+import FormFilling from "../components/svgs/FormFilling";
 
 const Login = () => {
 

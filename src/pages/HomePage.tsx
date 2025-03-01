@@ -2,7 +2,7 @@ import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AppDispatch } from "../utils/redux/appStore";
-import RoleButton from "../compoenents/homepage/RoleButton";
+import RoleButton from "../components/homepage/RoleButton";
 import { changeAdminFalse, changeProviderFalse, changeProviderTrue, changeUserFalse, changeUserTrue } from "../utils/redux/authSlice";
 
 const HomePage = () => {

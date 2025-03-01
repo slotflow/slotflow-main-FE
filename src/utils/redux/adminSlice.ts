@@ -1,22 +1,11 @@
+import { UserProviderList } from "../types";
+import { AdminState } from "../interfaces";
 import { createSlice } from "@reduxjs/toolkit";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
-export interface User {
-    _id: string;
-    username: string;
-    profileImage: string | null;
-    createdAt: string;
-}
-
-interface AdminState {
-    serviceProviders: User[];
-    users: User[];
-}
-
 const initialState: AdminState = {
     serviceProviders: [],
-    users: [],
 };
 
 const adminSlice = createSlice({
@@ -24,20 +13,12 @@ const adminSlice = createSlice({
     initialState,
     reducers : {
         addProviders: (state, action) => {
-            action.payload.forEach((provider : User) => {
+            action.payload.forEach((provider : UserProviderList) => {
                 const exists = state.serviceProviders.some(p => p._id === provider._id);
                 if (!exists) {
                     state.serviceProviders.push(provider);
                 }
-            })
-        },
-        addUsers: (state, action) => {
-            action.payload.forEach((user : User) => {
-                const exists = state.users.some(u => u._id === user._id);
-                if (!exists) {
-                    state.users.push(user);
-                }
-            })
+            });
         }
     }
 });
@@ -49,5 +30,5 @@ const persistConfig = {
 
 const persistedAdminReducer = persistReducer(persistConfig, adminSlice.reducer);
 
-export const { addProviders, addUsers } = adminSlice.actions;
+export const { addProviders } = adminSlice.actions;
 export default persistedAdminReducer;
