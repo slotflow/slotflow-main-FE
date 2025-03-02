@@ -6,6 +6,7 @@ import { MoreHorizontal } from "lucide-react"
 import { ColumnDef } from "@tanstack/react-table"
 import { DataTableColumnHeader } from "./DataTableColumnHeader"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu"
+import ApproveProviderItem from "./ApproveProviderItem"
 
 export const userOrProvidercolumns: ColumnDef<Provider>[] = [
   {
@@ -29,15 +30,15 @@ export const userOrProvidercolumns: ColumnDef<Provider>[] = [
     header: ({ column }) => (<DataTableColumnHeader column={column} title="Status" />),
     cell: ({ row }) => {
       const isBlocked = row.original.isVerified;
-      return <span>{isBlocked ? "Blocked" :  "Active"}</span>;
+      return <span>{isBlocked ? "Blocked" : "Active"}</span>;
     },
   },
   {
     accessorKey: "actions",
     header: "Actions",
     id: "actions",
-    cell: () => {
- 
+    cell: ({ row }) => {
+      const provider = row.original
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -51,7 +52,7 @@ export const userOrProvidercolumns: ColumnDef<Provider>[] = [
             <DropdownMenuSeparator />
             <DropdownMenuItem>Details</DropdownMenuItem>
             <DropdownMenuItem>Block</DropdownMenuItem>
-            <DropdownMenuItem>Approve</DropdownMenuItem>
+            {provider.isVerified === false && <ApproveProviderItem providerId={provider._id} />}
           </DropdownMenuContent>
         </DropdownMenu>
       )
