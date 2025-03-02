@@ -7,6 +7,11 @@ export const fetchProviders = async () => {
     return response.data.providers;
 };
 
+export const fetchUsers = async () => {
+    const response = await axiosInstance.get('/admin/users');
+    return response.data.users;
+}
+
 export const approveProvider = createAsyncThunk('/auth/approve/provider/',
     async (providerId: string, thunkAPI) => {
         try {

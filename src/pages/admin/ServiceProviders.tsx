@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { DataTable } from "@/components/table/data-table";
 import { fetchProviders } from "@/utils/redux/adminHanlder";
+import ShimmerTable from "@/components/shimmers/ShimmerTable";
 import { userOrProvidercolumns } from "@/components/table/columns";
 import ShimmerTableTop from "@/components/shimmers/ShimmerTableTop";
-import ShimmerTable from "@/components/shimmers/ShimmerTable";
 
 const ServiceProviders = () => {
 
