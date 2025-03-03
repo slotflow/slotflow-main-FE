@@ -17,7 +17,6 @@ export const approveProvider = createAsyncThunk('/auth/approve/provider/',
         try {
             const response = await axiosInstance.put(`/admin/provider/approve/${providerId}`);
             const res = response.data;
-            console.log("res : ", res);
             return { providerId, updatedProvider: res.updatedProvider };
         } catch (error) {
             if (axios.isAxiosError(error) && error.response) {

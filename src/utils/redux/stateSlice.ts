@@ -3,21 +3,27 @@ import storage from "redux-persist/lib/storage";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface stateVariables {
+    loginForm: boolean;
+    signUpForm: boolean;
     otpForm: boolean;
+    verifyEmail: boolean;
+    forgotPassword: boolean;
+    passwordForm: boolean;
     otpRemainingTime: number;
     otpTimerIsRunning: boolean;
     lightTheme: boolean;
-    loginForm: boolean;
-    forgotPassword: boolean;
 }
 
 const initialState: stateVariables = {
+    loginForm: true,
+    signUpForm: false,
     otpForm: false,
+    verifyEmail: false,
+    forgotPassword: false,
+    passwordForm: false,
     otpRemainingTime: 0,
     otpTimerIsRunning: false,
     lightTheme: true,
-    loginForm: true,
-    forgotPassword: false,
 }
 
 const stateSlice = createSlice({
@@ -55,6 +61,12 @@ const stateSlice = createSlice({
         },
         changeForgotPassword: (state, action) => {
             state.forgotPassword = action.payload;
+        },
+        changePasswordForm: (state, action) => {
+            state.passwordForm = action.payload;
+        },
+        changeToSignupForm: (state, action) => {
+            state.signUpForm = action.payload;
         }
     }
 });
@@ -66,5 +78,5 @@ const persistConfig = {
 
 const persistedStateReducer = persistReducer(persistConfig, stateSlice.reducer);
 
-export const { changeToOtpSend, toggleTheme, toggleSigninForm, changeToSigninForm, changeToSignupForm, startTimer, updateTimer, stopTimer, changeForgotPassword } = stateSlice.actions;
+export const { changeToOtpSend, toggleTheme, toggleSigninForm, changeToSigninForm, changeToSignupForm, startTimer, updateTimer, stopTimer, changeForgotPassword, changePasswordForm } = stateSlice.actions;
 export default persistedStateReducer;

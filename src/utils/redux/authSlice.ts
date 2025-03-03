@@ -4,12 +4,12 @@ import storage from "redux-persist/lib/storage";
 import { resendOtp, signin, signup, verifyOtp } from "./authHandler";
 
 interface AuthState {
-    authUser: { username?: string, email?: string, phone?: string, profileImage?: string, role?: string } | null;
+    authUser: { username?: string, email?: string, profileImage?: string } | null;
     user: boolean;
     provider: boolean;
     admin: boolean;
     loading: boolean;
-    tempEmail: string;
+    authData: { role?: string, verificationToken?: string, email?: string } | null;
 }
 
 const initialState: AuthState = {
@@ -18,7 +18,7 @@ const initialState: AuthState = {
     provider: false,
     admin: false,
     loading: false,
-    tempEmail: "",
+    authData: null
 };
 
 const authSlice = createSlice({
@@ -43,11 +43,11 @@ const authSlice = createSlice({
         changeAdminFalse: (state) => {
             state.admin = false;
         },
+        setAuthData: (state, action) => {
+            state.authData = action.payload;
+        },
         setAuthUser: (state, action) => {
             state.authUser = action.payload;
-        },
-        setTempEmail: (state, action) => {
-            state.tempEmail = action.payload;
         }
     },
     extraReducers: (builder) => {
@@ -98,5 +98,5 @@ const persistConfig = {
 
 const persistedAuthReducer = persistReducer(persistConfig, authSlice.reducer);
 
-export const { changeUserTrue, changeUserFalse, changeProviderTrue, changeProviderFalse, changeAdminTrue, changeAdminFalse, setAuthUser, setTempEmail } = authSlice.actions;
+export const { changeUserTrue, changeUserFalse, changeProviderTrue, changeProviderFalse, changeAdminTrue, changeAdminFalse, setAuthData, setAuthUser } = authSlice.actions;
 export default persistedAuthReducer;

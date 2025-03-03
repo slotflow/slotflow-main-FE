@@ -6,14 +6,14 @@ import { useDispatch, useSelector } from "react-redux";
 import React, { useCallback, useEffect, useState } from "react";
 import { AppDispatch, RootState } from "../../utils/redux/appStore";
 import { resendOtp, signin, signup, verifyOtp } from "../../utils/redux/authHandler";
-import { changeForgotPassword, changeToOtpSend, changeToSignupForm, stopTimer, toggleSigninForm, updateTimer } from "../../utils/redux/stateSlice";
-import { changeAdminFalse, changeProviderFalse, changeProviderTrue, changeUserFalse, changeUserTrue, setTempEmail } from "../../utils/redux/authSlice";
+import { changeForgotPassword, changePasswordForm, changeToOtpSend, changeToSignupForm, stopTimer, toggleSigninForm, updateTimer } from "../../utils/redux/stateSlice";
+import { changeAdminFalse, changeProviderFalse, changeProviderTrue, changeUserFalse, changeUserTrue} from "../../utils/redux/authSlice";
 
 const SignForm = ()  => {
     const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
-    const {loading, user, provider, admin, tempEmail} = useSelector((store: RootState) => store.auth);
-    const { loginForm, otpForm, otpRemainingTime, otpTimerIsRunning, forgotPassword } = useSelector((state: RootState) => state.state);
+    const {loading, user, provider, admin, authData} = useSelector((store: RootState) => store.auth);
+    const { loginForm, otpForm, otpRemainingTime, otpTimerIsRunning, forgotPassword, passwordForm } = useSelector((state: RootState) => state.state);
 
     const [formData, setFormData] = useState({
         username: "",
@@ -53,29 +53,37 @@ const SignForm = ()  => {
 
 
     const handleResendOtp = () => {
-        dispatch(resendOtp(tempEmail))
-          .unwrap()
-          .then(handleResponse)
-          .catch((error) => toast.error(error?.message || "An error occurred."));
+        if(authData && authData && authData.verificationToken && authData.role){
+            const { verificationToken, role } = authData;
+            dispatch(resendOtp({ verificationToken, role}))
+            .unwrap()
+            .then(handleResponse)
+            .catch((error) => toast.error(error?.message || "An error occurred."));
+        }else{
+            toast.error("Something went wrong.");
+        }
     };
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
+        console.log("here")
         if(forgotPassword){
-            dispatch(setTempEmail(formData.email));
-            if(tempEmail){
-                handleResendOtp();
-            }
+            console.log("call")
+            dispatch(resendOtp({role: user ? "USER" : "PROVIDER", email: formData.email}))
+            .unwrap()
+            .then(handleResponse)
+            .catch((error) => toast.error(error?.message || "An error occurred."));
             return;
         }
 
-     if (otpForm) {
-            dispatch(verifyOtp(formData.otp))
+     if (otpForm && authData && authData.verificationToken && authData.role) {
+         console.log("verification : ");
+        const { otp } = formData;
+        const { verificationToken, role } = authData;
+            dispatch(verifyOtp({ otp, verificationToken, role }))
                 .unwrap()
                 .then(handleResponse)
-                .catch((error) => toast.error(error || "An error occurred."));
-                
+                .catch((error) => toast.error(error || "An error occurred."));  
             setFormData({ username: "", email: "", password: "", otp: "" });
             return;
         } 
@@ -105,7 +113,7 @@ const SignForm = ()  => {
     };
 
     const handleForgotPassword = () => {
-        dispatch(changeForgotPassword(true))
+        dispatch(changeForgotPassword(true));
     }
 
     return (
@@ -113,11 +121,11 @@ const SignForm = ()  => {
             
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                 <h2 className="mt-2 text-center text-xl md:text-2xl font-bold tracking-tight text-[var(--textTwo)] hover:text-[var(--textTwoHover)]">
-                    {admin ? "Admin Sign In" : forgotPassword || otpForm ? "Verify Email" : loginForm ? "Sign In" : "Sign Up"}
+                    {passwordForm ? "UpdatePassword" : admin ? "Admin Sign In" : forgotPassword || otpForm ? "Verify Email" : loginForm ? "Sign In" : "Sign Up"}
                 </h2>
             </div>
 
-            {!admin && !forgotPassword && !otpForm &&
+            {!admin && !passwordForm && !otpForm &&
                 <div className="flex rounded-md border-[1px] border-[var(--mainColor)] mt-7 shadow md text-xs md:text-[16px] sm:w-full sm:max-w-sm sm:mx-auto">
                     <div onClick={() => {dispatch(changeUserTrue()); dispatch(changeProviderFalse()); dispatch(changeAdminFalse());}} className={`border-r-[1px] border-[var(--mainColor)] w-6/12 p-1 md:p-2 text-center text-[var(--textOne)] hover:bg-[var(--mainColorHover)] hover:text-white cursor-pointer rounded-tl-md ${user && 'bg-[var(--mainColor)] text-white'}`}>Book An Appointment</div>
                     <div onClick={() => {dispatch(changeProviderTrue()); dispatch(changeUserFalse()); dispatch(changeAdminFalse());}} className={`w-6/12 p-1 md:p-2 text-center text-[var(--textOne)] hover:bg-[var(--mainColorHover)] hover:text-white cursor-pointer rounded-tr-md ${provider && 'bg-[var(--mainColor)] text-white'}`}>Provide A Service</div>
@@ -126,7 +134,7 @@ const SignForm = ()  => {
 
             <div className="mt-4 md:mt-10 mb-4 md:mb-10 sm:mx-auto sm:w-full sm:max-w-sm">
                 <form onSubmit={handleSubmit} className="space-y-2 md:space-y-6">
-                    {!admin && !forgotPassword && otpForm ? (
+                    {!admin && !forgotPassword && otpForm && !passwordForm ? (
                         <InputField
                             label="Enter OTP"
                             id="otp"
@@ -138,7 +146,7 @@ const SignForm = ()  => {
                         />
                     ) : (
                         <>
-                            {!admin && !loginForm && !forgotPassword && (
+                            {!admin && !loginForm && !forgotPassword && !passwordForm &&(
                                 <InputField
                                     label="Username"
                                     id="username"
@@ -149,7 +157,8 @@ const SignForm = ()  => {
                                     required={true}
                                 />
                             )}
-                            <InputField
+                            {!passwordForm && 
+                                <InputField
                                 label="Email address"
                                 id="email"
                                 placeholder="midhun@gmail.com"
@@ -157,7 +166,8 @@ const SignForm = ()  => {
                                 value={formData.email}
                                 onChange={handleChange}
                                 required={true}
-                            />
+                                />
+                            }
                             {!forgotPassword && 
                                 <InputField
                                     label="Password"
@@ -169,6 +179,18 @@ const SignForm = ()  => {
                                     required={true}
                                     admin={admin}
                                     onForgotPassword={handleForgotPassword}
+                                />
+                            }
+                            {passwordForm && 
+                                <InputField
+                                    label="Password"
+                                    id="ConfirmPassword"
+                                    placeholder="********"
+                                    type="password"
+                                    value={formData.password}
+                                    onChange={handleChange}
+                                    required={true}
+                                    admin={admin}
                                 />
                             }
                         </>
@@ -199,7 +221,6 @@ const SignForm = ()  => {
                             dispatch(changeForgotPassword(false));
                             dispatch(changeToOtpSend(false)); 
                             dispatch(changeToSignupForm());
-                            dispatch(setTempEmail(""));
                             dispatch(stopTimer());
                             }}>Cancel</span>
                     </p>
