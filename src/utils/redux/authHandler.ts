@@ -1,9 +1,9 @@
 import axios from "axios";
 import { toast } from "react-toastify";
+import { startTimer } from "./stateSlice";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { setAuthData, setAuthUser } from "./authSlice";
 import axiosInstance, { setAccessToken } from "../../lib/axios";
-import { changeForgotPassword, changeToOtpSend, startTimer, toggleSigninForm } from "./stateSlice";
 
 let isRefreshing = false;
 let refreshSubscribers: ((accessToken: string) => void)[] = [];
@@ -14,7 +14,6 @@ export const signup = createAsyncThunk('auth/signup',
             const response = await axiosInstance.post("/auth/signup", userData);
             const res = response.data;
             if (res.success) {
-                thunkAPI.dispatch(changeToOtpSend(true));
                 thunkAPI.dispatch(startTimer(300));
                 thunkAPI.dispatch(setAuthData(res));
             }
@@ -33,10 +32,6 @@ export const verifyOtp = createAsyncThunk("auth/verify-otp",
         try {
             const response = await axiosInstance.post('/auth/verify-otp', authData);
             const res = response.data;
-            if (res.success) {
-                thunkAPI.dispatch(changeToOtpSend(false));
-                thunkAPI.dispatch(toggleSigninForm());
-            }
             return res;
         } catch (error: unknown) {
             if (axios.isAxiosError(error) && error.response) {
@@ -94,13 +89,27 @@ export const resendOtp = createAsyncThunk("auth/resendOtp",
     async (authData : { verificationToken?: string, role?: string, email?: string}, thunkAPI) => {
         try{
             const response = await axiosInstance.post("/auth/resendOtp", authData);
-            if(response.data.success){
+            const res = response.data;
+            if(res.success){
                 thunkAPI.dispatch(setAuthData(response.data));
-                thunkAPI.dispatch(changeForgotPassword(false));
-                thunkAPI.dispatch(changeToOtpSend(true));
                 thunkAPI.dispatch(startTimer(300));
             }
-            return response.data;
+            return res;
+        }catch(error : unknown){
+            if (axios.isAxiosError(error) && error.response) {
+                return thunkAPI.rejectWithValue(error.response.data.message);
+            }
+            return thunkAPI.rejectWithValue("Unexpected error occurred, please try again.");
+        }
+    }
+)
+
+export const updatePassword = createAsyncThunk("auth/updatePassword",
+    async (authData : {  role?: string, verificationToken?: string, password: string}, thunkAPI) => {
+        try{
+            const response = await axiosInstance.put("/auth/updatePassword", authData);
+            const res = response.data;
+            return res;
         }catch(error : unknown){
             if (axios.isAxiosError(error) && error.response) {
                 return thunkAPI.rejectWithValue(error.response.data.message);

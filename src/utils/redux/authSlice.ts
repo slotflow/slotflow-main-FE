@@ -4,7 +4,7 @@ import storage from "redux-persist/lib/storage";
 import { resendOtp, signin, signup, verifyOtp } from "./authHandler";
 
 interface AuthState {
-    authUser: { username?: string, email?: string, profileImage?: string } | null;
+    authUser: { username?: string, email?: string, profileImage?: string, role?: string } | null;
     user: boolean;
     provider: boolean;
     admin: boolean;

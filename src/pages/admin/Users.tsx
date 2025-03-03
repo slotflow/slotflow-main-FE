@@ -14,8 +14,6 @@ const Users = () => {
 
   if (isError) return <div>Error {error.message}</div>
 
-  console.log("users : ",users)
-
   return (
     <>
     {isLoading ? 
