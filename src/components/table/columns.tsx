@@ -1,19 +1,19 @@
 "use client"
 
 import { Button } from "../ui/button"
-import { Provider } from "@/utils/types"
+import { Provider, User } from "@/utils/types"
 import { MoreHorizontal } from "lucide-react"
 import { ColumnDef } from "@tanstack/react-table"
+import ApproveProviderItem from "./ApproveProviderItem"
 import { DataTableColumnHeader } from "./DataTableColumnHeader"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu"
-import ApproveProviderItem from "./ApproveProviderItem"
 
-export const userOrProvidercolumns: ColumnDef<Provider>[] = [
+export const providerColumns: ColumnDef<Provider>[] = [
   {
     accessorKey: "isVerified",
-    header: "Verication",
+    header: "Admin Verication",
     cell: ({ row }) => {
-      const isVerified = row.original.isVerified;
+      const isVerified = row.original.isAdminVerified;
       return <span>{isVerified ? "verified" :  "Pending"}</span>;
     },
   },
@@ -29,7 +29,7 @@ export const userOrProvidercolumns: ColumnDef<Provider>[] = [
     accessorKey: "isBlocked",
     header: ({ column }) => (<DataTableColumnHeader column={column} title="Status" />),
     cell: ({ row }) => {
-      const isBlocked = row.original.isVerified;
+      const isBlocked = row.original.isBlocked;
       return <span>{isBlocked ? "Blocked" : "Active"}</span>;
     },
   },
@@ -52,7 +52,57 @@ export const userOrProvidercolumns: ColumnDef<Provider>[] = [
             <DropdownMenuSeparator />
             <DropdownMenuItem>Details</DropdownMenuItem>
             <DropdownMenuItem>Block</DropdownMenuItem>
-            {provider.isVerified === false && <ApproveProviderItem providerId={provider._id} />}
+            {provider.isAdminVerified === false && <ApproveProviderItem providerId={provider._id} />}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      )
+    },
+  }
+]
+
+export const userColumns: ColumnDef<User>[] = [
+  {
+    accessorKey: "isVerified",
+    header: "Verication",
+    cell: ({ row }) => {
+      const isVerified = row.original.isEmailVerified;
+      return <span>{isVerified ? "verified" :  "Pending"}</span>;
+    },
+  },
+  {
+    accessorKey: "username",
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="Username" />)
+  },
+  {
+    accessorKey: "email",
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="Email" />)
+  },
+  {
+    accessorKey: "isBlocked",
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="Status" />),
+    cell: ({ row }) => {
+      const isBlocked = row.original.isBlocked;
+      return <span>{isBlocked ? "Blocked" : "Active"}</span>;
+    },
+  },
+  {
+    accessorKey: "actions",
+    header: "Actions",
+    id: "actions",
+    cell: () => {
+      return (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="h-8 w-8 p-0 cursor-pointer">
+              <span className="sr-only">Open menu</span>
+              <MoreHorizontal className="h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>Details</DropdownMenuItem>
+            <DropdownMenuItem>Block</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       )

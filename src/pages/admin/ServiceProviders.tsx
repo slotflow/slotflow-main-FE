@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { DataTable } from "@/components/table/data-table";
 import { fetchProviders } from "@/utils/redux/adminHanlder";
 import ShimmerTable from "@/components/shimmers/ShimmerTable";
-import { userOrProvidercolumns } from "@/components/table/columns";
+import { providerColumns } from "@/components/table/columns";
 import ShimmerTableTop from "@/components/shimmers/ShimmerTableTop";
 
 const ServiceProviders = () => {
@@ -24,7 +24,7 @@ const ServiceProviders = () => {
         :
         <>
           <h2 className="text-xl font-bold mb-4">Service Providers</h2>
-          <DataTable columns={userOrProvidercolumns} data={providers} />
+          <DataTable columns={providerColumns} data={providers} />
         </>
       }
     </>

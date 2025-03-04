@@ -1,12 +1,8 @@
 import axios from "axios";
-import { toast } from "react-toastify";
 import { startTimer } from "./stateSlice";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { setAuthData, setAuthUser } from "./authSlice";
 import axiosInstance, { setAccessToken } from "../../lib/axios";
-
-let isRefreshing = false;
-let refreshSubscribers: ((accessToken: string) => void)[] = [];
 
 export const signup = createAsyncThunk('auth/signup',
     async (userData: { username: string; email: string; password: string, role: string }, thunkAPI) => {
@@ -54,6 +50,8 @@ export const signin = createAsyncThunk("auth/signin",
                     role: res.role
                 };
                 thunkAPI.dispatch(setAuthUser(authUserData));
+                localStorage.setItem("accessToken", res.accessToken);
+                localStorage.setItem("refreshToken", res.refreshToken);
                 setAccessToken(res.accessToken);
                 return res;
             }
@@ -118,48 +116,3 @@ export const updatePassword = createAsyncThunk("auth/updatePassword",
         }
     }
 )
-
-const refreshToken = async () => {
-    if (isRefreshing) {
-        return new Promise((resolve) => {
-            refreshSubscribers.push((accessToken) => {
-                resolve(accessToken);
-            });
-        });
-    }
-
-    isRefreshing = true;
-
-    try {
-        const response = await axiosInstance.post('/auth/refresh');
-        const { accessToken } = response.data;
-        setAccessToken(accessToken);
-        isRefreshing = false;
-        refreshSubscribers.forEach((subscriber) => subscriber(accessToken));
-        refreshSubscribers = [];
-        return accessToken;
-    } catch(error) {
-        console.log("error : ",error);
-        isRefreshing = false;
-        setAccessToken(null);
-        toast.error("Please login.");
-        window.location.href = '/login';
-        return null;
-    }
-};
-
-axiosInstance.interceptors.response.use(
-    (response) => response,
-    async (error) => {
-        const originalRequest = error.config;
-        if (error.response?.status === 401 && !originalRequest._retry) {
-            originalRequest._retry = true;
-            const newAccessToken = await refreshToken();
-            if (newAccessToken) {
-                originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
-                return axiosInstance(originalRequest);
-            }
-        }
-        return Promise.reject(error);
-    }
-);

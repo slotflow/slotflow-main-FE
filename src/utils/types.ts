@@ -1,6 +1,6 @@
 export type Provider = {
     _id: string
-    isVerified: boolean
+    isAdminVerified: boolean
     isBlocked: boolean
     username: string
     email: string
@@ -8,7 +8,7 @@ export type Provider = {
 
 export type User = {
     _id: string
-    isVerified: boolean
+    isEmailVerified: boolean
     isBlocked: boolean
     username: string
     email: string
