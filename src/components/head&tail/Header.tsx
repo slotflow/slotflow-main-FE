@@ -6,7 +6,7 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { AppDispatch, RootState } from '../../utils/redux/appStore';
 import { changeAdminFalse, changeAdminTrue, changeProviderFalse, changeUserFalse } from '../../utils/redux/authSlice';
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
-import { toggleTheme } from '../../utils/redux/stateSlice';
+import { setAdminForm, setChangePassword, setChangePasswordForm, setLoginForm, setSignUpForm, setVerifyEmailForm, setVerifyOtpForm, toggleTheme } from '../../utils/redux/stateSlice';
 
 const navigation = [
   { name: 'Home', href: '/', current: true },
@@ -28,11 +28,13 @@ const Header = () => {
   const handleSignout = () => {
     dispatch(signout()).unwrap().then((res) => {
       toast.success(res.message);
-      // dispatch(changeSignupForm(false));
-      // dispatch(changeLoginForm(true));
-      // dispatch(changePasswordForm(false));
-      // dispatch(changeOtpForm(false));
-      // dispatch(changeVerifyEmailForm(false));
+      dispatch(setLoginForm(true));
+      dispatch(setVerifyOtpForm(false));
+      dispatch(setVerifyEmailForm(false));
+      dispatch(setSignUpForm(false));
+      dispatch(setAdminForm(false));
+      dispatch(setChangePassword(false));
+      dispatch(setChangePasswordForm(false));
       dispatch(changeProviderFalse()); 
       dispatch(changeAdminFalse()); 
       dispatch(changeUserFalse()); 
@@ -124,28 +126,57 @@ const Header = () => {
                 :
                 <>
                <MenuItem>
-                  {/* <a
-                    onClick={() => { dispatch(changeAdminFalse()); dispatch(changeSignupForm(false)); dispatch(changeLoginForm(true)); dispatch(changePasswordForm(false)); dispatch(changeOtpForm(false)); dispatch(changeVerifyEmailForm(false));}}
+                  <a
+                    onClick={() => {
+                      dispatch(changeAdminFalse());
+                      dispatch(setLoginForm(true));
+                      dispatch(setVerifyOtpForm(false));
+                      dispatch(setVerifyEmailForm(false));
+                      dispatch(setSignUpForm(false));
+                      dispatch(setAdminForm(false));
+                      dispatch(setChangePassword(false));
+                      dispatch(setChangePasswordForm(false));
+                    }}
                     className="block px-4 py-2 text-sm cursor-pointer text-[var(--textOne)] hover:text-[var(--textOneHover)] hover:bg-[var(--menuItemHoverBg)]" 
-                    > */}
+                    >
                     Sign In
-                  {/* </a> */}
+                  </a>
                 </MenuItem>
                 <MenuItem>
-                  {/* <a
-                    onClick={() => {dispatch(changeAdminFalse()); dispatch(changeSignupForm(true)); dispatch(changeLoginForm(false)); dispatch(changePasswordForm(false)); dispatch(changeOtpForm(false)); dispatch(changeVerifyEmailForm(false));}}
+                  <a
+                    onClick={() => {
+                      dispatch(changeAdminFalse());
+                      dispatch(setSignUpForm(true));
+                      dispatch(setLoginForm(false));
+                      dispatch(setVerifyOtpForm(false));
+                      dispatch(setVerifyEmailForm(false));
+                      dispatch(setAdminForm(false));
+                      dispatch(setChangePassword(false));
+                      dispatch(setChangePasswordForm(false));
+                    }}
                     className="block px-4 py-2 text-sm cursor-pointer text-[var(--textOne)] hover:text-[var(--textOneHover)] hover:bg-[var(--menuItemHoverBg)]"
-                    > */}
+                    >
                     Sign Up
-                  {/* </a> */}
+                  </a>
                 </MenuItem>
                 <MenuItem>
-                  {/* <a
-                    onClick={() => {dispatch(changeAdminTrue()); dispatch(changeUserFalse()); dispatch(changeProviderFalse()); dispatch(changeSignupForm(false)); dispatch(changeLoginForm(true)); dispatch(changePasswordForm(false)); dispatch(changeOtpForm(false)); dispatch(changeVerifyEmailForm(false));}}
+                  <a
+                    onClick={() => {
+                      dispatch(changeAdminTrue());
+                      dispatch(changeUserFalse());
+                      dispatch(changeProviderFalse());
+                      dispatch(setAdminForm(true));
+                      dispatch(setLoginForm(false));
+                      dispatch(setVerifyOtpForm(false));
+                      dispatch(setVerifyEmailForm(false));
+                      dispatch(setSignUpForm(false));
+                      dispatch(setChangePassword(false));
+                      dispatch(setChangePasswordForm(false));
+                    }}
                     className="block px-4 py-2 cursor-pointer text-[var(--textOne)] hover:text-[var(--textOneHover)] hover:bg-[var(--menuItemHoverBg)]"
-                    > */}
+                    >
                       Admin
-                  {/* </a> */}
+                  </a>
                 </MenuItem>
                     </>
                 }

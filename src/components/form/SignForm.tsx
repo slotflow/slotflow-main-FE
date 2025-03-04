@@ -186,10 +186,12 @@ const SignForm = () => {
             return;
         }
 
-        if (loginForm) {
-            if (!admin && !(user || provider)) {
-                toast.info("Please select your account type.");
-                return;
+        if (loginForm || adminForm) {
+            if(!adminForm){
+                if (!admin && !(user || provider)) {
+                    toast.info("Please select your account type.");
+                    return;
+                }
             }
             dispatch(signin({
                 email: formData.email,
