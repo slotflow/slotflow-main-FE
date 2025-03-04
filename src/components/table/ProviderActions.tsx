@@ -3,31 +3,35 @@ import { DropdownMenuItem } from "../ui/dropdown-menu";
 
 interface ApproveProviderItemProps {
     providerId: string;
-    status?: boolean;    
+}
+
+interface ChangeProviderStatusProps {
+    providerId: string;
+    status: boolean;
 }
 
 export const ApproveProvider: React.FC<ApproveProviderItemProps> = ({ providerId }) => {
     const { handleApprove } = useProviderActions();
-    const hanldeApproveConfirmation = () => {
+    const hanldeApproveClick = () => {
         handleApprove(providerId);
     }
     
     return (
-        <DropdownMenuItem onClick={hanldeApproveConfirmation}>
+        <DropdownMenuItem onClick={hanldeApproveClick}>
             Approve
         </DropdownMenuItem>
     );
 };
 
-export const ChangeProviderStatus: React.FC<ApproveProviderItemProps> = ({ providerId, status }) => {
-    const { hanldeChngeStatus } = useProviderActions();
+export const ChangeProviderStatus: React.FC<ChangeProviderStatusProps> = ({ providerId, status }) => {
+    const { hanldeChangeStatus } = useProviderActions();
     
-    const hanldeApproveConfirmation = () => {
-        hanldeChngeStatus(providerId, !status)
+    const handleStatusChangeClick = () => {
+        hanldeChangeStatus(providerId, !status)
     }
     
     return (
-        <DropdownMenuItem onClick={hanldeApproveConfirmation}>
+        <DropdownMenuItem onClick={handleStatusChangeClick}>
             {status ? "Unblock" : "Block"}
         </DropdownMenuItem>
     );

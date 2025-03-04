@@ -25,7 +25,7 @@ export const useProviderActions = () => {
       });
   };
 
-  const hanldeChngeStatus = (providerId: string, status: boolean) => {
+  const hanldeChangeStatus = (providerId: string, status: boolean) => {
     dispatch(changeBlockStatus({providerId, status}))
     .unwrap()
       .then(({ providerId, updatedProvider }) => {
@@ -42,5 +42,5 @@ export const useProviderActions = () => {
       });
   }
 
-  return { handleApprove, hanldeChngeStatus };
+  return { handleApprove, hanldeChangeStatus };
 };
