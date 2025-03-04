@@ -7,7 +7,6 @@ export const setAccessToken = (token: string | null) => {
     accessToken = token;
 };
 
-// Restore access token on page load
 const storedAccessToken = localStorage.getItem("accessToken");
 if (storedAccessToken) {
     setAccessToken(storedAccessToken);

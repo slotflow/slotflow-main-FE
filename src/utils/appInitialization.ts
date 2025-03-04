@@ -1,4 +1,3 @@
-// appInitialization.ts
 import { setAccessToken } from '../lib/axios';
 import refreshToken from './tokenRefreshService';
 
