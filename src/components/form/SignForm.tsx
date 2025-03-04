@@ -5,7 +5,7 @@ import { formatTime } from "../../utils/helper";
 import { useDispatch, useSelector } from "react-redux";
 import React, { useCallback, useEffect, useState } from "react";
 import { AppDispatch, RootState } from "../../utils/redux/appStore";
-import { resendOtp, signin, signup, updatePassword, verifyOtp } from "../../utils/redux/authHandler";
+import { resendOtp, signin, signup, updatePassword, verifyOtp } from "../../utils/apis/auth.api";
 import { changeAdminFalse, changeProviderFalse, changeProviderTrue, changeUserFalse, changeUserTrue } from "@/utils/redux/authSlice";
 import { setAdminForm, setLoginForm, setSignUpForm, setVerifyEmailForm, setVerifyOtpForm, startTimer, stopTimer, toggleForm, updateTimer, setChangePassword, setChangePasswordForm } from "../../utils/redux/stateSlice";
 

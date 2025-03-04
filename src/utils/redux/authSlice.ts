@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import { resendOtp, signin, signup, verifyOtp } from "./authHandler";
+import { resendOtp, signin, signup, verifyOtp } from "../apis/auth.api";
 
 interface AuthState {
     authUser: { username?: string, email?: string, profileImage?: string, role?: string } | null;

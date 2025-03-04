@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
+import { signout } from '../../utils/apis/auth.api';
 import { useDispatch, useSelector } from 'react-redux';
-import { signout } from '../../utils/redux/authHandler';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { AppDispatch, RootState } from '../../utils/redux/appStore';
 import { changeAdminFalse, changeAdminTrue, changeProviderFalse, changeUserFalse } from '../../utils/redux/authSlice';

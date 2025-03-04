@@ -1,7 +1,7 @@
 import axios from "axios";
-import { startTimer } from "./stateSlice";
+import { startTimer } from "../redux/stateSlice";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { setAuthData, setAuthUser } from "./authSlice";
+import { setAuthData, setAuthUser } from "../redux/authSlice";
 import axiosInstance, { setAccessToken } from "../../lib/axios";
 
 export const signup = createAsyncThunk('auth/signup',
