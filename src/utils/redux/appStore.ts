@@ -2,6 +2,7 @@ import { persistStore } from 'redux-persist';
 import persistedAuthReducer from "./authSlice";
 import persistedAdminReducer from './adminSlice';
 import persistedStateReducer from "./stateSlice";
+import alertReducer from './alertSlice';
 import { configureStore } from "@reduxjs/toolkit";
 
  export const appStore = configureStore({
@@ -9,6 +10,7 @@ import { configureStore } from "@reduxjs/toolkit";
         state : persistedStateReducer,
         auth: persistedAuthReducer,
         admin: persistedAdminReducer,
+        alert: alertReducer,
     },
 });
 

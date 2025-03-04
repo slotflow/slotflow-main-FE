@@ -1,10 +1,8 @@
-"use client"
-
 import { Button } from "../ui/button"
-import { Provider, User } from "@/utils/types"
 import { MoreHorizontal } from "lucide-react"
+import { Provider, User } from "@/utils/types"
 import { ColumnDef } from "@tanstack/react-table"
-import ApproveProviderItem from "./ApproveProviderItem"
+import {ApproveProvider, ChangeProviderStatus} from "./ProviderActions"
 import { DataTableColumnHeader } from "./DataTableColumnHeader"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu"
 
@@ -14,7 +12,7 @@ export const providerColumns: ColumnDef<Provider>[] = [
     header: "Admin Verication",
     cell: ({ row }) => {
       const isVerified = row.original.isAdminVerified;
-      return <span>{isVerified ? "verified" :  "Pending"}</span>;
+      return <span>{isVerified ? "verified" : "Pending"}</span>;
     },
   },
   {
@@ -38,7 +36,8 @@ export const providerColumns: ColumnDef<Provider>[] = [
     header: "Actions",
     id: "actions",
     cell: ({ row }) => {
-      const provider = row.original
+      const provider = row.original;
+
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -51,13 +50,14 @@ export const providerColumns: ColumnDef<Provider>[] = [
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem>Details</DropdownMenuItem>
-            <DropdownMenuItem>Block</DropdownMenuItem>
-            {provider.isAdminVerified === false && <ApproveProviderItem providerId={provider._id} />}
+            <ChangeProviderStatus providerId={provider._id} status={provider.isBlocked}/>
+            {provider.isAdminVerified === false && <ApproveProvider providerId={provider._id} />}
           </DropdownMenuContent>
         </DropdownMenu>
       )
-    },
-  }
+    }
+
+  },
 ]
 
 export const userColumns: ColumnDef<User>[] = [
@@ -66,7 +66,7 @@ export const userColumns: ColumnDef<User>[] = [
     header: "Verication",
     cell: ({ row }) => {
       const isVerified = row.original.isEmailVerified;
-      return <span>{isVerified ? "verified" :  "Pending"}</span>;
+      return <span>{isVerified ? "verified" : "Pending"}</span>;
     },
   },
   {

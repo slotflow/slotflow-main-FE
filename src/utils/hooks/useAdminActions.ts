@@ -2,7 +2,7 @@ import { Provider } from "@/utils/types";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/utils/redux/appStore";
 import { useQueryClient } from "@tanstack/react-query";
-import { approveProvider } from "@/utils/redux/adminHanlder";
+import { approveProvider, changeBlockStatus } from "@/utils/redux/adminHanlder";
 
 export const useProviderActions = () => {
   const queryClient = useQueryClient();
@@ -25,5 +25,22 @@ export const useProviderActions = () => {
       });
   };
 
-  return { handleApprove };
+  const hanldeChngeStatus = (providerId: string, status: boolean) => {
+    dispatch(changeBlockStatus({providerId, status}))
+    .unwrap()
+      .then(({ providerId, updatedProvider }) => {
+        queryClient.setQueryData(
+          ["providers"],
+          (oldData: Provider[] | undefined) => {
+            if (!oldData) return [];
+            return oldData.map((provider) =>
+              provider._id === providerId ? updatedProvider : provider
+            );
+          }
+        );
+        queryClient.invalidateQueries({ queryKey: ["providers"] });
+      });
+  }
+
+  return { handleApprove, hanldeChngeStatus };
 };

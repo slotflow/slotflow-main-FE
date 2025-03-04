@@ -31,3 +31,21 @@ export const approveProvider = createAsyncThunk('/auth/approve/provider/',
         }
     }
 )
+
+export const changeBlockStatus = createAsyncThunk('/auth/changeProviderStatus',
+    async (statusData: {providerId: string, status: boolean}, thunkAPI) => {
+        try {
+            const { providerId, status } = statusData;
+            const response = await axiosInstance.put(
+                `/admin/provider/changeStatus/${providerId}?status=${status}`
+            );
+            const res = response.data;
+            return { providerId, updatedProvider: res.updatedProvider };
+        } catch (error) {
+            if (axios.isAxiosError(error) && error.response) {
+                return thunkAPI.rejectWithValue(error.response.data.message);
+            }
+            return thunkAPI.rejectWithValue("Unexpected error occurred, please try again.");
+        }
+    }
+)
