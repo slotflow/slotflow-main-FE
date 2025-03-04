@@ -226,9 +226,9 @@ const SignForm = () => {
             </div>
 
             {(loginForm || signUpForm || verifyEmailForm) && !adminForm && !verifyOtpForm && (
-                <div className="flex rounded-md border-[1px] border-[var(--mainColor)] mt-7 shadow md text-xs md:text-[16px] sm:w-full sm:max-w-sm sm:mx-auto">
-                    <div onClick={() => { dispatch(changeUserTrue()); dispatch(changeProviderFalse()); dispatch(changeAdminFalse()); }} className={`border-r-[1px] border-[var(--mainColor)] w-6/12 p-1 md:p-2 text-center text-[var(--textOne)] hover:bg-[var(--mainColorHover)] hover:text-white cursor-pointer rounded-tl-md ${user && 'bg-[var(--mainColor)] text-white'}`}>Book An Appointment</div>
-                    <div onClick={() => { dispatch(changeProviderTrue()); dispatch(changeUserFalse()); dispatch(changeAdminFalse()); }} className={`w-6/12 p-1 md:p-2 text-center text-[var(--textOne)] hover:bg-[var(--mainColorHover)] hover:text-white cursor-pointer rounded-tr-md ${provider && 'bg-[var(--mainColor)] text-white'}`}>Provide A Service</div>
+                <div className="flex mt-7 text-xs md:text-md font-semibold sm:w-full sm:max-w-sm sm:mx-auto">
+                    <div onClick={() => { dispatch(changeUserTrue()); dispatch(changeProviderFalse()); dispatch(changeAdminFalse()); }} className={`shadow-md border-[1px] border-[var(--mainColor)] rounded-l-md w-6/12 p-1 md:p-2 text-center text-[var(--mainColor)] hover:bg-[var(--mainColorHover)] hover:text-white cursor-pointer ${user && 'bg-[var(--mainColor)] text-white'}`}>Book An Appointment</div>
+                    <div onClick={() => { dispatch(changeProviderTrue()); dispatch(changeUserFalse()); dispatch(changeAdminFalse()); }} className={`shadow-md border-[1px] border-[var(--mainColor)] rounded-r-md w-6/12 p-1 md:p-2 text-center text-[var(--mainColor)] hover:bg-[var(--mainColorHover)] hover:text-white cursor-pointer ${provider && 'bg-[var(--mainColor)] text-white'}`}>Provide A Service</div>
                 </div>
             )}
 
