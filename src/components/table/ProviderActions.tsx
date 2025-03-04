@@ -1,5 +1,5 @@
-import { useProviderActions } from "@/utils/hooks/useAdminActions";
 import { DropdownMenuItem } from "../ui/dropdown-menu";
+import { useAdminProviderActions } from "@/utils/hooks/useAdminProviderActions";
 
 interface ApproveProviderItemProps {
     providerId: string;
@@ -11,9 +11,9 @@ interface ChangeProviderStatusProps {
 }
 
 export const ApproveProvider: React.FC<ApproveProviderItemProps> = ({ providerId }) => {
-    const { handleApprove } = useProviderActions();
+    const { handleApproveProvider } = useAdminProviderActions();
     const hanldeApproveClick = () => {
-        handleApprove(providerId);
+        handleApproveProvider(providerId);
     }
     
     return (
@@ -24,10 +24,10 @@ export const ApproveProvider: React.FC<ApproveProviderItemProps> = ({ providerId
 };
 
 export const ChangeProviderStatus: React.FC<ChangeProviderStatusProps> = ({ providerId, status }) => {
-    const { hanldeChangeStatus } = useProviderActions();
+    const { hanldeChangeProviderBlockStatus } = useAdminProviderActions();
     
     const handleStatusChangeClick = () => {
-        hanldeChangeStatus(providerId, !status)
+        hanldeChangeProviderBlockStatus(providerId, !status)
     }
     
     return (

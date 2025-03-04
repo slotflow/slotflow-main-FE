@@ -1,9 +1,10 @@
 import { Button } from "../ui/button"
 import { MoreHorizontal } from "lucide-react"
 import { Provider, User } from "@/utils/types"
+import { ChangeUserStatus } from "./UserActions"
 import { ColumnDef } from "@tanstack/react-table"
-import {ApproveProvider, ChangeProviderStatus} from "./ProviderActions"
 import { DataTableColumnHeader } from "./DataTableColumnHeader"
+import {ApproveProvider, ChangeProviderStatus } from "./ProviderActions"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu"
 
 export const providerColumns: ColumnDef<Provider>[] = [
@@ -37,7 +38,6 @@ export const providerColumns: ColumnDef<Provider>[] = [
     id: "actions",
     cell: ({ row }) => {
       const provider = row.original;
-
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -89,7 +89,8 @@ export const userColumns: ColumnDef<User>[] = [
     accessorKey: "actions",
     header: "Actions",
     id: "actions",
-    cell: () => {
+    cell: ({ row }) => {
+      const user = row.original;
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -102,7 +103,7 @@ export const userColumns: ColumnDef<User>[] = [
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem>Details</DropdownMenuItem>
-            <DropdownMenuItem>Block</DropdownMenuItem>
+            <ChangeUserStatus userId={user._id} status={user.isBlocked} />
           </DropdownMenuContent>
         </DropdownMenu>
       )

@@ -2,13 +2,13 @@ import { Provider } from "@/utils/types";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/utils/redux/appStore";
 import { useQueryClient } from "@tanstack/react-query";
-import { approveProvider, changeBlockStatus } from "@/utils/apis/adminProvider.api";
+import { approveProvider, changeProviderBlockStatus } from "@/utils/apis/adminProvider.api";
 
-export const useProviderActions = () => {
+export const useAdminProviderActions = () => {
   const queryClient = useQueryClient();
   const dispatch = useDispatch<AppDispatch>();
 
-  const handleApprove = (providerId: string) => {
+  const handleApproveProvider = (providerId: string) => {
     dispatch(approveProvider(providerId))
       .unwrap()
       .then(({ providerId, updatedProvider }) => {
@@ -25,8 +25,8 @@ export const useProviderActions = () => {
       });
   };
 
-  const hanldeChangeStatus = (providerId: string, status: boolean) => {
-    dispatch(changeBlockStatus({providerId, status}))
+  const hanldeChangeProviderBlockStatus = (providerId: string, status: boolean) => {
+    dispatch(changeProviderBlockStatus({providerId, status}))
     .unwrap()
       .then(({ providerId, updatedProvider }) => {
         queryClient.setQueryData(
@@ -42,5 +42,5 @@ export const useProviderActions = () => {
       });
   }
 
-  return { handleApprove, hanldeChangeStatus };
+  return { handleApproveProvider, hanldeChangeProviderBlockStatus };
 };
