@@ -1,6 +1,6 @@
 import { Button } from "../ui/button"
 import { MoreHorizontal } from "lucide-react"
-import { Provider, User } from "@/utils/types"
+import { Provider, Serivce, User } from "@/utils/types"
 import { ChangeUserStatus } from "./UserActions"
 import { ColumnDef } from "@tanstack/react-table"
 import { DataTableColumnHeader } from "./DataTableColumnHeader"
@@ -104,6 +104,48 @@ export const userColumns: ColumnDef<User>[] = [
             <DropdownMenuSeparator />
             <DropdownMenuItem>Details</DropdownMenuItem>
             <ChangeUserStatus userId={user._id} status={user.isBlocked} />
+          </DropdownMenuContent>
+        </DropdownMenu>
+      )
+    },
+  }
+]
+
+export const serviceColumns: ColumnDef<Serivce>[] = [
+  {
+    accessorKey: "_id",
+    header: "id",
+  },
+  {
+    accessorKey: "name",
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="ServiceName" />)
+  },
+  {
+    accessorKey: "isBlocked",
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="Status" />),
+    cell: ({ row }) => {
+      const isBlocked = row.original.isBlocked;
+      return <span>{isBlocked ? "Blocked" : "Active"}</span>;
+    },
+  },
+  {
+    accessorKey: "actions",
+    header: "Actions",
+    id: "actions",
+    cell: () => {
+      return (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="h-8 w-8 p-0 cursor-pointer">
+              <span className="sr-only">Open menu</span>
+              <MoreHorizontal className="h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>Block</DropdownMenuItem>
+            <DropdownMenuItem>Edit</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       )

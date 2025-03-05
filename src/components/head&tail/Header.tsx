@@ -1,12 +1,13 @@
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { signout } from '../../utils/apis/auth.api';
+import { toggleTheme } from '@/utils/redux/stateSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { AppDispatch, RootState } from '../../utils/redux/appStore';
-import { changeAdminFalse, changeAdminTrue, changeProviderFalse, changeUserFalse } from '../../utils/redux/authSlice';
+import { changeAdmin, changeProvider, changeUser } from '../../utils/redux/authSlice';
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
-import { setAdminForm, setChangePassword, setChangePasswordForm, setLoginForm, setSignUpForm, setVerifyEmailForm, setVerifyOtpForm, toggleTheme } from '../../utils/redux/stateSlice';
+import { setAdminForm, setChangePassword, setChangePasswordForm, setLoginForm, setSignUpForm, setVerifyEmailForm, setVerifyOtpForm } from '../../utils/redux/signFormSlice';
 
 const navigation = [
   { name: 'Home', href: '/', current: true },
@@ -19,7 +20,6 @@ const navigation = [
 const Header = () => {
   const dispatch = useDispatch<AppDispatch>();
   const themeMode = useSelector((store : RootState) => store.state.lightTheme);
-  const user = useSelector((store : RootState) => store.auth?.authUser);
   
   const changeTheme = () => {
     dispatch(toggleTheme()); 
@@ -35,9 +35,9 @@ const Header = () => {
       dispatch(setAdminForm(false));
       dispatch(setChangePassword(false));
       dispatch(setChangePasswordForm(false));
-      dispatch(changeProviderFalse()); 
-      dispatch(changeAdminFalse()); 
-      dispatch(changeUserFalse()); 
+      dispatch(changeProvider(false)); 
+      dispatch(changeAdmin(false)); 
+      dispatch(changeUser(false)); 
     }).catch((error) => {
       toast.error(error.message);
     })
@@ -53,7 +53,7 @@ const Header = () => {
 
   return (
     <Disclosure as="nav" className="absolute w-full bg-[var(--background)]">
-      <div className={`mx-auto ${user?.role === "ADMIN" ? 'max-w-[90%]' : 'max-w-7xl'} px-2 sm:px-6 lg:px-8`}>
+      <div className={`mx-auto max-w-7xl px-2 sm:px-6 lg:px-8`}>
         <div className="relative flex h-16 items-center justify-between">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
             {/* Mobile menu button*/}
@@ -69,7 +69,7 @@ const Header = () => {
               <p className='text-[var(--mainColor)] text-sm md:text-xl font-semibold italic cursor-pointer hover:text-[var(--mainColorHover)]'>Slotflow</p>
             </div>
             <div className="hidden sm:ml-6 sm:block">
-              {user?.role !== "ADMIN" && (
+             
                 <div className="flex space-x-4">
                   {navigation.map((item) => (
                     <a
@@ -82,7 +82,7 @@ const Header = () => {
                     </a>
                   ))}
                 </div>
-              )}
+            
             </div>
           </div>
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
@@ -114,7 +114,7 @@ const Header = () => {
                 transition
                 className="absolute bg-[var(--menuBg)] right-0 z-10 mt-2 w-48 origin-top-right rounded-md py-1 ring-1 shadow-lg ring-black/5 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
               >
-               {user ? 
+               
                <MenuItem>
                   <a
                     onClick={handleSignout}
@@ -123,12 +123,11 @@ const Header = () => {
                     Sign Out
                   </a>
                 </MenuItem>
-                :
                 <>
                <MenuItem>
                   <a
                     onClick={() => {
-                      dispatch(changeAdminFalse());
+                      dispatch(changeAdmin(false));
                       dispatch(setLoginForm(true));
                       dispatch(setVerifyOtpForm(false));
                       dispatch(setVerifyEmailForm(false));
@@ -145,7 +144,7 @@ const Header = () => {
                 <MenuItem>
                   <a
                     onClick={() => {
-                      dispatch(changeAdminFalse());
+                      dispatch(changeAdmin(false));
                       dispatch(setSignUpForm(true));
                       dispatch(setLoginForm(false));
                       dispatch(setVerifyOtpForm(false));
@@ -162,9 +161,9 @@ const Header = () => {
                 <MenuItem>
                   <a
                     onClick={() => {
-                      dispatch(changeAdminTrue());
-                      dispatch(changeUserFalse());
-                      dispatch(changeProviderFalse());
+                      dispatch(changeAdmin(true));
+                      dispatch(changeUser(false));
+                      dispatch(changeProvider(false));
                       dispatch(setAdminForm(true));
                       dispatch(setLoginForm(false));
                       dispatch(setVerifyOtpForm(false));
@@ -179,7 +178,7 @@ const Header = () => {
                   </a>
                 </MenuItem>
                     </>
-                }
+                
               </MenuItems>
             </Menu>
           </div>

@@ -2,8 +2,8 @@ import { setAccessToken } from '../lib/axios';
 import refreshToken from './tokenRefreshService';
 
 export const initializeApp = async () => {
-    const storedAccessToken = localStorage.getItem('accessToken');
-    const storedRefreshToken = localStorage.getItem('refreshToken');
+    const storedAccessToken = sessionStorage.getItem('accessToken');
+    const storedRefreshToken = sessionStorage.getItem('refreshToken');
 
     if (storedAccessToken) {
         setAccessToken(storedAccessToken);
@@ -11,11 +11,12 @@ export const initializeApp = async () => {
         try {
             const newAccessToken = await refreshToken();
             if (newAccessToken) {
-                localStorage.setItem('accessToken', newAccessToken);
+                sessionStorage.setItem('accessToken', newAccessToken);
             }
         } catch (error) {
             console.error('Refresh token failed:', error);
-            localStorage.removeItem('refreshToken');
+            sessionStorage.removeItem('refreshToken');
+            sessionStorage.removeItem('authUser');
             window.location.href = '/login';
         }
     }

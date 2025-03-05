@@ -1,3 +1,4 @@
+import { AxiosError } from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import InputField from "./InputFieldWithLable";
@@ -5,19 +6,21 @@ import { formatTime } from "../../utils/helper";
 import { useDispatch, useSelector } from "react-redux";
 import React, { useCallback, useEffect, useState } from "react";
 import { AppDispatch, RootState } from "../../utils/redux/appStore";
+import { changeAdmin, changeProvider, changeUser } from "@/utils/redux/authSlice";
 import { resendOtp, signin, signup, updatePassword, verifyOtp } from "../../utils/apis/auth.api";
-import { changeAdminFalse, changeProviderFalse, changeProviderTrue, changeUserFalse, changeUserTrue } from "@/utils/redux/authSlice";
-import { setAdminForm, setLoginForm, setSignUpForm, setVerifyEmailForm, setVerifyOtpForm, startTimer, stopTimer, toggleForm, updateTimer, setChangePassword, setChangePasswordForm } from "../../utils/redux/stateSlice";
+import { setAdminForm, setLoginForm, setSignUpForm, setVerifyEmailForm, setVerifyOtpForm, startTimer, stopTimer, toggleForm, updateTimer, setChangePassword, setChangePasswordForm } from "../../utils/redux/signFormSlice";
 
 const SignForm = () => {
     const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
 
-    const { loading, 
+    const { 
             user, 
             provider, 
             admin, 
-            authData } = useSelector((store: RootState) => store.auth);
+            } = useSelector((store: RootState) => store.auth);
+
+    const { loading } = useSelector((store: RootState) => store.form);
 
     const { otpRemainingTime, 
             otpTimerIsRunning, 
@@ -27,7 +30,7 @@ const SignForm = () => {
             verifyOtpForm,
             changePassword,
             changePasswordForm,
-            adminForm } = useSelector((state: RootState) => state.state);
+            adminForm } = useSelector((state: RootState) => state.form);
 
 
     const [formData, setFormData] = useState({
@@ -57,81 +60,63 @@ const SignForm = () => {
         else if (role === "PROVIDER") navigate("/provider");
     };
 
-    const handleResponse = (res: { success: boolean, message: string, role?: string, userData?: { username: string, profileImage: string | null } }) => {
-        if (res.success) {
-            toast.success(res.message);
-            handleNavigation(res.role ?? "");
-        } else {
-            toast.error(res.message);
-        }
-    };
 
     const handleResendOtp = () => {
-        if (authData && authData.verificationToken && authData.role) {
-            const { verificationToken, role } = authData;
+        const authUserString = sessionStorage.getItem("authUser");
+        let verificationToken: string | undefined;
+        let role: string | undefined;
+        if (authUserString) {
+            const parsedUser: { verificationToken?: string; role?: string } = JSON.parse(authUserString);
+            if (parsedUser.verificationToken && parsedUser.role){
             dispatch(resendOtp({ verificationToken, role }))
                 .unwrap()
-                .then(handleResponse)
+                .then((res) => {
+                    if(res.success){
+                        toast.success(res.message);
+                    }else{
+                        toast.error(res.message);
+                    }
+                })
                 .catch((error) => {
                     toast.error(error?.message || "An error occurred.")
                 });
+            }
         } else {
             toast.error("Something went wrong.");
         }
     };
 
+    //  Form submit
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        if(changePasswordForm){
-            dispatch(updatePassword({role: authData?.role, verificationToken : authData?.verificationToken, password: formData.password}))
+        // Login
+        if (loginForm || adminForm) {
+            if(!adminForm){
+                if (!admin && !(user || provider)) {
+                    toast.info("Please select your account type.");
+                    return;
+                }
+            }
+            dispatch(signin({
+                email: formData.email,
+                password: formData.password,
+                role: user ? "USER" : provider ? "PROVIDER" : admin ? "ADMIN" : null
+            }))
             .unwrap()
             .then((res) => {
                 if(res.success){
-                    dispatch(setLoginForm(true));
-                    dispatch(setChangePassword(false));
-                    setFormData({ username: "", email: "", password: "", otp: "", cpassword:"" });
-                }else{
-                    dispatch(setLoginForm(false));
-                    dispatch(setChangePassword(true));
-                }
-                dispatch(setChangePasswordForm(false));        
-                dispatch(setVerifyEmailForm(false));
-                dispatch(setVerifyOtpForm(false));
-                dispatch(setSignUpForm(false));
-                dispatch(setAdminForm(false));
-                handleResponse(res);
-            })
-            .catch((error) => {
-                toast.error(error || "An error occurred.")
-            })
+                        toast.success(res.message);
+                        handleNavigation(res.authUser.role);
+                    }else{
+                        toast.error(res.message);
+                    }
+                })
+                .catch((error) => toast.error(error || "An error occurred."));
             return;
         }
 
-        if (verifyEmailForm){
-            if (!(user || provider)) {
-                toast.info("Please select your account type.");
-                return;
-            } else {
-                dispatch(resendOtp({ role: user ? "USER" : "PROVIDER", email: formData.email }))
-                    .unwrap()
-                    .then((res) => {
-                        dispatch(setVerifyOtpForm(true));
-                        dispatch(setVerifyEmailForm(false));
-                        dispatch(setLoginForm(false));
-                        dispatch(setSignUpForm(false));
-                        dispatch(setAdminForm(false));
-                        dispatch(setChangePassword(true));
-                        dispatch(setChangePasswordForm(false));
-                        handleResponse(res);
-                    })
-                    .catch((error) => {
-                        toast.error(error || "An error occurred.")
-                    });
-                return;
-            }
-        }
-
+        // Sign up
         if (signUpForm) {
             if (!admin && !(user || provider)) {
                 toast.info("Please select your account type.");
@@ -146,6 +131,7 @@ const SignForm = () => {
                 .unwrap()
                 .then((res) => {
                     if (res.success) {
+                        toast.success(res.message);
                         dispatch(setVerifyOtpForm(true));
                         dispatch(setVerifyEmailForm(false));
                         dispatch(setLoginForm(false));
@@ -154,65 +140,155 @@ const SignForm = () => {
                         dispatch(setChangePassword(false));
                         dispatch(setChangePasswordForm(false));
                         dispatch(startTimer(300));
+                    }else{
+                        toast.error(res.message);
                     }
-                    handleResponse(res);
                 })
                 .catch((error) => toast.error(error || "An error occurred."));
             return;
         }
 
-        if (verifyOtpForm && authData && authData.verificationToken && authData.role) {
+
+        //  OTP verification
+        interface verifyOtpData {
+            verificationToken: string;
+            role: string;
+        }
+
+        if (verifyOtpForm) {
             const { otp } = formData;
-            const { verificationToken, role } = authData;
-            dispatch(verifyOtp({ otp, verificationToken, role }))
-                .unwrap()
-                .then((res) => {
-                    dispatch(stopTimer());
-                    dispatch(setVerifyOtpForm(false));
-                    dispatch(setVerifyEmailForm(false));
-                    dispatch(setSignUpForm(false));
-                    dispatch(setAdminForm(false));
-                    if(changePassword){
-                        dispatch(setLoginForm(false));
-                        dispatch(setChangePassword(false));
-                        dispatch(setChangePasswordForm(true));
-                    }else{
-                        dispatch(setLoginForm(true));
-                    }
-                    handleResponse(res) 
-                })
-                .catch((error) => toast.error(error || "An error occurred."));
+            const authUserString  = sessionStorage.getItem("authUser");
+            let verificationToken: string | undefined;
+            let role: string | undefined;
+            if (authUserString) {
+                const parsedUser : verifyOtpData = JSON.parse(authUserString);
+                if (parsedUser.verificationToken && parsedUser.role){
+                    verificationToken = parsedUser.verificationToken;
+                    role = parsedUser.role;
+                    dispatch(verifyOtp({ otp, verificationToken, role }))
+                    .unwrap()
+                    .then((res) => {
+                        if(res.success){
+                            toast.success(res.message);
+                            dispatch(stopTimer());
+                            dispatch(setVerifyOtpForm(false));
+                            dispatch(setVerifyEmailForm(false));
+                            dispatch(setSignUpForm(false));
+                            dispatch(setAdminForm(false));
+                            if(changePassword){
+                                dispatch(setLoginForm(false));
+                                dispatch(setChangePassword(false));
+                                dispatch(setChangePasswordForm(true));
+                            }else{
+                                dispatch(setLoginForm(true));
+                            }
+                        }else{
+                            toast.error(res.message);
+                        }
+                    })
+                    .catch((error) => toast.error(error || "An error occurred."));
+                }
+            }
             setFormData({ username: "", email: "", password: "", otp: "", cpassword:"" });
             return;
         }
 
-        if (loginForm || adminForm) {
-            if(!adminForm){
-                if (!admin && !(user || provider)) {
-                    toast.info("Please select your account type.");
-                    return;
-                }
+
+        //  Verify email for chaging password
+        if (verifyEmailForm){
+            if (!(user || provider)) {
+                toast.info("Please select your account type.");
+                return;
+            } else {
+                dispatch(resendOtp({ role: user ? "USER" : "PROVIDER", email: formData.email }))
+                    .unwrap()
+                    .then((res) => {
+                        if(res.success){
+                            toast.success(res.message);
+                            dispatch(setVerifyOtpForm(true));
+                            dispatch(setChangePassword(true));
+                            dispatch(setLoginForm(false));
+                            dispatch(setSignUpForm(false));
+                            dispatch(setAdminForm(false));
+                            dispatch(setVerifyEmailForm(false));
+                            dispatch(setChangePasswordForm(false));
+                        }else{
+                            toast.error(res.message);
+                        }
+                    })
+                    .catch((error) => {
+                        toast.error(error || "An error occurred.")
+                    });
+                return;
             }
-            dispatch(signin({
-                email: formData.email,
-                password: formData.password,
-                role: user ? "USER" : provider ? "PROVIDER" : admin ? "ADMIN" : null
-            }))
-                .unwrap()
-                .then(handleResponse)
-                .catch((error) => toast.error(error || "An error occurred."));
+        }
+
+
+        // Update password
+        interface ParsedUser {
+            verificationToken?: string;
+            role?: string;
+        }
+
+        if (changePasswordForm) {
+            const authUserString = sessionStorage.getItem("authUser");
+            if (authUserString) {
+                try {
+                    const parsedUser: ParsedUser = JSON.parse(authUserString);
+                    if (parsedUser.verificationToken && parsedUser.role) {
+                        dispatch(
+                            updatePassword({
+                                role: parsedUser.role,
+                                verificationToken: parsedUser.verificationToken,
+                                password: formData.password,
+                            })
+                        )
+                            .unwrap()
+                            .then((res) => {
+                                if (res.success) {
+                                    toast.success(res.message);
+                                    dispatch(setLoginForm(true));
+                                    dispatch(setChangePassword(false));
+                                    setFormData({ username: "", email: "", password: "", otp: "", cpassword: "" });
+                                } else {
+                                    toast.error(res.message);
+                                    dispatch(setLoginForm(false));
+                                    dispatch(setChangePassword(true));
+                                }
+                                dispatch(setChangePasswordForm(false));
+                                dispatch(setVerifyEmailForm(false));
+                                dispatch(setVerifyOtpForm(false));
+                                dispatch(setSignUpForm(false));
+                                dispatch(setAdminForm(false));
+                            })
+                            .catch((error) => {
+                                if (error instanceof AxiosError) {
+                                    toast.error(error.response?.data?.message || "An error occurred.");
+                                } else {
+                                    toast.error(error?.message || "An error occurred.");
+                                }
+                            });
+                    } else {
+                        toast.error("verificationToken or role missing from authUser");
+                    }
+                } catch {
+                    toast.error("Error parsing authUser data.");
+                }
+            } else {
+                toast.error("authUser not found in session storage");
+            }
             return;
         }
 
     };
 
     const handleForgotPassword = () => {
-        dispatch(setVerifyOtpForm(false));
         dispatch(setVerifyEmailForm(true));
+        dispatch(setChangePassword(true));
+        dispatch(setVerifyOtpForm(false));
         dispatch(setLoginForm(false));
         dispatch(setSignUpForm(false));
         dispatch(setAdminForm(false));
-        dispatch(setChangePassword(true));
         dispatch(setChangePasswordForm(false));
     }
 
@@ -227,8 +303,8 @@ const SignForm = () => {
 
             {(loginForm || signUpForm || verifyEmailForm) && !adminForm && !verifyOtpForm && (
                 <div className="flex mt-7 text-xs md:text-md font-semibold sm:w-full sm:max-w-sm sm:mx-auto">
-                    <div onClick={() => { dispatch(changeUserTrue()); dispatch(changeProviderFalse()); dispatch(changeAdminFalse()); }} className={`shadow-md border-[1px] border-[var(--mainColor)] rounded-l-md w-6/12 p-1 md:p-2 text-center text-[var(--mainColor)] hover:bg-[var(--mainColorHover)] hover:text-white cursor-pointer ${user && 'bg-[var(--mainColor)] text-white'}`}>Book An Appointment</div>
-                    <div onClick={() => { dispatch(changeProviderTrue()); dispatch(changeUserFalse()); dispatch(changeAdminFalse()); }} className={`shadow-md border-[1px] border-[var(--mainColor)] rounded-r-md w-6/12 p-1 md:p-2 text-center text-[var(--mainColor)] hover:bg-[var(--mainColorHover)] hover:text-white cursor-pointer ${provider && 'bg-[var(--mainColor)] text-white'}`}>Provide A Service</div>
+                    <div onClick={() => { dispatch(changeUser(true)); dispatch(changeProvider(false)); dispatch(changeAdmin(false)); }} className={`shadow-md border-[1px] border-[var(--mainColor)] rounded-l-md w-6/12 p-1 md:p-2 text-center text-[var(--mainColor)] hover:bg-[var(--mainColorHover)] hover:text-white cursor-pointer ${user && 'bg-[var(--mainColor)] text-white'}`}>Book An Appointment</div>
+                    <div onClick={() => { dispatch(changeProvider(true)); dispatch(changeUser(false)); dispatch(changeAdmin(false)); }} className={`shadow-md border-[1px] border-[var(--mainColor)] rounded-r-md w-6/12 p-1 md:p-2 text-center text-[var(--mainColor)] hover:bg-[var(--mainColorHover)] hover:text-white cursor-pointer ${provider && 'bg-[var(--mainColor)] text-white'}`}>Provide A Service</div>
                 </div>
             )}
 
@@ -324,11 +400,14 @@ const SignForm = () => {
                     <p className="mt-8 text-center text-xs md:text-sm/6 text-[var(--textTwo)]">
                         <span className="mx-2 text-center text-xs md:text-sm/6 text-[var(--mainColor)] hover:text-[var(--mainColorHover)] font-semibold cursor-pointer" onClick={() => {
                             dispatch(stopTimer());
+                            dispatch(setLoginForm(true));
                             dispatch(setVerifyOtpForm(false));
                             dispatch(setVerifyEmailForm(false));
-                            dispatch(setLoginForm(true));
                             dispatch(setSignUpForm(false));
                             dispatch(setAdminForm(false));
+                            dispatch(setChangePassword(false));
+                            dispatch(setChangePasswordForm(false));
+                            dispatch(changeAdmin(false));
                         }}>Cancel</span>
                     </p>
                 )}

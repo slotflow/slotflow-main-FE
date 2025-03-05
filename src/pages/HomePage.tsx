@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AppDispatch } from "../utils/redux/appStore";
 import RoleButton from "../components/homepage/RoleButton";
-import { changeAdminFalse, changeProviderFalse, changeProviderTrue, changeUserFalse, changeUserTrue } from "../utils/redux/authSlice";
+import { changeAdmin, changeProvider, changeUser } from "../utils/redux/authSlice";
 
 const HomePage = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -11,20 +11,19 @@ const HomePage = () => {
 
   const handleRoleSelection = useCallback(
     (user: boolean, provider: boolean) => {
-      dispatch(changeUserTrue());
-      dispatch(changeProviderFalse());
-      dispatch(changeAdminFalse());
+      dispatch(changeUser(true));
+      dispatch(changeProvider(false));
+      dispatch(changeAdmin(false));
 
       if (user) {
-        dispatch(changeUserTrue());
-        dispatch(changeProviderFalse());
+        dispatch(changeUser(true));
+        dispatch(changeProvider(false));
       } else if (provider) {
-        dispatch(changeProviderTrue());
-        dispatch(changeUserFalse());
+        dispatch(changeProvider(true));
+        dispatch(changeUser(false));
       } else {
-        dispatch(changeAdminFalse());
+        dispatch(changeAdmin(false));
       }
-
       navigate("/login");
     },
     [dispatch, navigate]

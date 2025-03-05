@@ -1,8 +1,7 @@
 import axios from "axios";
-import { startTimer } from "../redux/stateSlice";
+import { startTimer } from "../redux/signFormSlice";
+import axiosInstance, {  } from "../../lib/axios"; 
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { setAuthData, setAuthUser } from "../redux/authSlice";
-import axiosInstance, { setAccessToken } from "../../lib/axios";
 
 export const signup = createAsyncThunk('auth/signup',
     async (userData: { username: string; email: string; password: string, role: string }, thunkAPI) => {
@@ -11,7 +10,7 @@ export const signup = createAsyncThunk('auth/signup',
             const res = response.data;
             if (res.success) {
                 thunkAPI.dispatch(startTimer(300));
-                thunkAPI.dispatch(setAuthData(res));
+                sessionStorage.setItem("authUser", JSON.stringify(res.authUser));
             }
             return res;
         } catch (error: unknown) {
@@ -44,17 +43,11 @@ export const signin = createAsyncThunk("auth/signin",
             const response = await axiosInstance.post('/auth/signin', userData);
             const res = response.data;
             if (res.success) {
-                const authUserData = {
-                    username: res.role === "ADMIN" ? "Admin" : res.userData.username,
-                    profileImage: res.role === "ADMIN" ? null : res.userData.profileImage,
-                    role: res.role
-                };
-                thunkAPI.dispatch(setAuthUser(authUserData));
-                localStorage.setItem("accessToken", res.accessToken);
-                localStorage.setItem("refreshToken", res.refreshToken);
-                setAccessToken(res.accessToken);
-                return res;
+                sessionStorage.setItem("accessToken", res.accessToken);
+                sessionStorage.setItem("refreshToken", res.refreshToken);
+                sessionStorage.setItem("authUser", JSON.stringify(res.authUser));
             }
+            return res;
         } catch (error: unknown) {
             if (axios.isAxiosError(error) && error.response) {
                 return thunkAPI.rejectWithValue(error.response.data.message);
@@ -70,8 +63,9 @@ export const signout = createAsyncThunk("auth/signin",
             const response = await axiosInstance.post('/auth/signout');
             const res = response.data;
             if (res.success) {
-                thunkAPI.dispatch(setAuthUser(null));
-                setAccessToken(null);
+                sessionStorage.removeItem("accessToken");
+                sessionStorage.removeItem("refreshToken");
+                sessionStorage.removeItem("authUser");
                 return res;
             }
         } catch (error: unknown) {
@@ -89,7 +83,7 @@ export const resendOtp = createAsyncThunk("auth/resendOtp",
             const response = await axiosInstance.post("/auth/resendOtp", authData);
             const res = response.data;
             if(res.success){
-                thunkAPI.dispatch(setAuthData(response.data));
+                sessionStorage.setItem("authUser", JSON.stringify(res.authUser));
                 thunkAPI.dispatch(startTimer(300));
             }
             return res;
@@ -103,7 +97,7 @@ export const resendOtp = createAsyncThunk("auth/resendOtp",
 )
 
 export const updatePassword = createAsyncThunk("auth/updatePassword",
-    async (authData : {  role?: string, verificationToken?: string, password: string}, thunkAPI) => {
+    async (authData : {  role: string, verificationToken: string, password: string}, thunkAPI) => {
         try{
             const response = await axiosInstance.put("/auth/updatePassword", authData);
             const res = response.data;

@@ -13,3 +13,9 @@ export type User = {
     username: string
     email: string
 }
+
+export type Serivce = {
+    _id: number
+    name: string
+    isBlocked: boolean
+}

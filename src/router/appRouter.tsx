@@ -10,6 +10,7 @@ import Settings from "../pages/admin/Settings.tsx";
 import Dashboard from "../pages/admin/Dashboard.tsx";
 import { createBrowserRouter } from "react-router-dom";
 import ServiceProviders from "../pages/admin/ServiceProviders.tsx";
+import Services from "@/pages/admin/Services.tsx";
 
 export const appRouter = createBrowserRouter([
     {
@@ -33,6 +34,7 @@ export const appRouter = createBrowserRouter([
                             { path: "/admin/dashboard", element: <Dashboard /> },
                             { path: "/admin/service-providers", element: <ServiceProviders /> },
                             { path: "/admin/users", element: <Users /> },
+                            { path: "/admin/services", element: <Services /> },
                             { path: "/admin/settings", element: <Settings /> },
                         ]
                     },

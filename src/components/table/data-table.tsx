@@ -37,6 +37,7 @@ import {
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
+  filterAccessorKeys?: string[]
 }
 
 export function DataTable<TData, TValue>({
@@ -76,6 +77,18 @@ export function DataTable<TData, TValue>({
           }
           className="max-w-sm"
         />
+        {/* {filterAccessorKeys && (
+          <Input
+            placeholder={"Filter..."}
+            onChange={(event) => {
+              const filterValue = event.target.value;
+              filterAccessorKeys.forEach((accessorKey) => {
+                table.getColumn(accessorKey)?.setFilterValue(filterValue);
+              });
+            }}
+            className="max-w-sm"
+          />
+        )} */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">
