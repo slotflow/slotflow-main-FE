@@ -42,6 +42,7 @@ export const signin = createAsyncThunk("auth/signin",
         try {
             const response = await axiosInstance.post('/auth/signin', userData);
             const res = response.data;
+            console.log("response : ",response);
             if (res.success) {
                 sessionStorage.setItem("accessToken", res.accessToken);
                 sessionStorage.setItem("refreshToken", res.refreshToken);
