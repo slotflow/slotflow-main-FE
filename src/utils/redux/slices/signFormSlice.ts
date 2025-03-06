@@ -9,6 +9,7 @@ interface stateVariables {
     verifyOtpForm: boolean;
     verifyEmailForm: boolean;
     resetPasswordForm: boolean;
+    forgotPassword: boolean;
     otpRemainingTime: number;
     otpTimerIsRunning: boolean;
     loading: boolean;
@@ -20,6 +21,7 @@ const initialState: stateVariables = {
     verifyOtpForm: false,
     verifyEmailForm: false,
     resetPasswordForm: false,
+    forgotPassword: false,
     otpRemainingTime: 0,
     otpTimerIsRunning: false,
     loading: false,
@@ -47,6 +49,9 @@ const signFormSlice = createSlice({
         },
         setResetPasswordForm: (state, action: PayloadAction<boolean>) => {
             state.resetPasswordForm = action.payload;
+        },
+        setForgotPassword: (state, action: PayloadAction<boolean>) => {
+            state.forgotPassword = action.payload;
         },
         startTimer: (state, action: PayloadAction<number>) => {
             state.otpRemainingTime = action.payload;
@@ -119,6 +124,7 @@ export const {
     setSignUpForm,
     setsignInForm,
     setVerifyOtpForm,
+    setForgotPassword,
     setVerifyEmailForm,
     setResetPasswordForm,
 } = signFormSlice.actions;

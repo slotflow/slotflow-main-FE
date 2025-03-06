@@ -10,7 +10,7 @@ import { setResetPasswordForm, setsignInForm, setSignUpForm, setVerifyEmailForm,
 const OtpVerificatioForm = () => {
 
     const dispatch = useDispatch<AppDispatch>();
-    const { otpRemainingTime, otpTimerIsRunning, loading } = useSelector((store: RootState) => store.signform);
+    const { otpRemainingTime, otpTimerIsRunning, loading, forgotPassword } = useSelector((store: RootState) => store.signform);
     const { user, provider, authUser, authProvider } = useSelector((store: RootState) => store.auth);
 
     let role : string | undefined;
@@ -50,11 +50,19 @@ const OtpVerificatioForm = () => {
                 if (res.success) {
                     toast.success(res.message);
                     dispatch(stopTimer());
-                    dispatch(setVerifyOtpForm(false));
-                    dispatch(setSignUpForm(false));
-                    dispatch(setsignInForm(true));
-                    dispatch(setVerifyEmailForm(false));
-                    dispatch(setResetPasswordForm(false));
+                    if(forgotPassword){
+                        dispatch(setVerifyOtpForm(false));
+                        dispatch(setResetPasswordForm(true));
+                        dispatch(setSignUpForm(false));
+                        dispatch(setsignInForm(false));
+                        dispatch(setVerifyEmailForm(false));
+                    }else{
+                        dispatch(setVerifyOtpForm(false));
+                        dispatch(setSignUpForm(false));
+                        dispatch(setsignInForm(true));
+                        dispatch(setVerifyEmailForm(false));
+                        dispatch(setResetPasswordForm(false));
+                    }
                 } else {
                     toast.error(res.message);
                 }

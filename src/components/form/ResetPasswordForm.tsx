@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import InputField from "./InputFieldWithLable";
 import { FormEvent, useCallback, useState } from "react";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
-import { setResetPasswordForm, setsignInForm, setSignUpForm, setVerifyEmailForm, setVerifyOtpForm } from "@/utils/redux/slices/signFormSlice";
+import { setForgotPassword, setResetPasswordForm, setsignInForm, setSignUpForm, setVerifyEmailForm, setVerifyOtpForm } from "@/utils/redux/slices/signFormSlice";
 import { toast } from "react-toastify";
 import { updatePassword } from "@/utils/apis/auth.api";
 
@@ -47,6 +47,7 @@ const ResetPasswordForm = () => {
                 .then((res) => {
                     if (res.success) {
                         toast.success(res.message);
+                        dispatch(setForgotPassword(false));
                         dispatch(setResetPasswordForm(false));
                         dispatch(setsignInForm(true));
                         dispatch(setVerifyEmailForm(false));

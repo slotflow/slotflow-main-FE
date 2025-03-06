@@ -3,7 +3,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/utils/redux/appStore';
-import { setResetPasswordForm, setsignInForm, setSignUpForm, setVerifyEmailForm, setVerifyOtpForm } from '@/utils/redux/slices/signFormSlice';
+import { setForgotPassword, setResetPasswordForm, setsignInForm, setSignUpForm, setVerifyEmailForm, setVerifyOtpForm } from '@/utils/redux/slices/signFormSlice';
 
 interface InputFieldProps {
     label: string;
@@ -29,6 +29,7 @@ const InputField: React.FC<InputFieldProps> = ({
 
     const handleForgotPassword = () => {
         dispatch(setsignInForm(false));
+        dispatch(setForgotPassword(true));
         dispatch(setVerifyEmailForm(true));
         dispatch(setSignUpForm(false));
         dispatch(setVerifyOtpForm(false));
