@@ -2,11 +2,11 @@ import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { signout } from '../../utils/apis/auth.api';
 import { Link, useLocation } from 'react-router-dom';
-import { toggleTheme } from '@/utils/redux/stateSlice';
+import { toggleTheme } from '@/utils/redux/slices/stateSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { AppDispatch, RootState } from '../../utils/redux/appStore';
-import { changeAdmin, changeProvider, changeUser } from '../../utils/redux/authSlice';
+import { changeAdmin, changeProvider, changeUser } from '../../utils/redux/slices/authSlice';
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 
 const navigation = [

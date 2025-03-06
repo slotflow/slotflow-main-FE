@@ -1,19 +1,16 @@
-import { toast } from "react-toastify";
-import InputField from "./InputFieldWithLable";
-import { signin } from "@/utils/apis/auth.api";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { FormEvent, useCallback, useState } from "react";
-import { AppDispatch, RootState } from "@/utils/redux/appStore";
-import { changeAdmin, changeProvider, changeUser } from "@/utils/redux/slices/authSlice";
-import { setResetPasswordForm, setsignInForm, setSignUpForm, setVerifyEmailForm, setVerifyOtpForm } from "@/utils/redux/slices/signFormSlice";
+import { toast } from 'react-toastify';
+import InputField from './InputFieldWithLable'
+import { resendOtp } from '@/utils/apis/auth.api';
+import { useDispatch, useSelector } from 'react-redux';
+import { FormEvent, useCallback, useState } from 'react';
+import { AppDispatch, RootState } from '@/utils/redux/appStore';
+import { changeAdmin, changeProvider, changeUser } from '@/utils/redux/slices/authSlice';
+import { setResetPasswordForm, setsignInForm, setSignUpForm, setVerifyEmailForm, setVerifyOtpForm } from '@/utils/redux/slices/signFormSlice';
 
-
-const LoginForm: React.FC = () => {
-
+const EmailVerificationForm = () => {
     const dispatch = useDispatch<AppDispatch>();
-    const navigate = useNavigate();
-    const { user, provider } = useSelector((store: RootState) => store.auth)
+
+    const { user, provider } = useSelector((store: RootState) => store.auth);
     const { loading } = useSelector((store: RootState) => store.signform);
     let role: string | undefined;
 
@@ -25,57 +22,50 @@ const LoginForm: React.FC = () => {
 
     const [formData, setFormData] = useState({
         email: "",
-        password: "",
     });
 
     const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
     }, []);
 
-    const handleNavigation = (role: string) => {
-        if (role === "ADMIN") navigate("/admin");
-        else if (role === "USER") navigate("/user");
-        else if (role === "PROVIDER") navigate("/provider");
-    };
-
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         if(role){
-
-            dispatch(signin({
-                email: formData.email,
-                password: formData.password,
-                role
-            }))
+            
+            dispatch(resendOtp({ role, email: formData.email }))
             .unwrap()
             .then((res) => {
                 if (res.success) {
                     toast.success(res.message);
-                    handleNavigation(res.authUser.role);
+                    dispatch(setVerifyOtpForm(true));
+                    dispatch(setVerifyEmailForm(false));
+                    dispatch(setSignUpForm(false));
+                    dispatch(setsignInForm(false));
+                    dispatch(setResetPasswordForm(false));
                 } else {
                     toast.error(res.message);
                 }
             })
-            .catch((error) => toast.error(error || "An error occurred."));
-            return;
+            .catch((error) => {
+                toast.error(error || "An error occurred.");
+            });
         }else{
-            toast.info("select your account type");
+            toast.info("Select your account type.");
         }
     };
 
-    const changeToSingUpForm = () => {
-        dispatch(setSignUpForm(true));
-        dispatch(setsignInForm(false));
+    const handleCancel = () => {
         dispatch(setVerifyEmailForm(false));
+        dispatch(setsignInForm(true));
         dispatch(setVerifyOtpForm(false));
+        dispatch(setSignUpForm(false));
         dispatch(setResetPasswordForm(false));
-    };
-
+    }
     return (
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                 <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-[var(--textTwo)] hover:text-[var(--textTwoHover)]">
-                    Sign in to your account
+                    Email Verification
                 </h2>
             </div>
 
@@ -96,38 +86,22 @@ const LoginForm: React.FC = () => {
                         required={true}
                     />
 
-                    <InputField
-                        label="Password"
-                        id="password"
-                        placeholder="Enter your password"
-                        type="password"
-                        value={formData.password}
-                        onChange={handleChange}
-                        required={true}
-                        isPassword={true}
-                        forgotPassword={true}
-                    />
-
                     <div>
                         <button
                             type="submit"
                             className="flex w-full justify-center rounded-md bg-[var(--mainColor)] hover:bg-[var(--mainColorHover)] px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--mainColor)] cursor-pointer"
                         >
-                            {loading ? "Loading" : "Sign In"}
+                            {loading ? "Loading" : "Verify"}
                         </button>
                     </div>
                 </form>
 
-                <p className="mt-10 text-center text-sm/6 text-[var(--textOne)] hover:text-[var(--textOneHover)]">
-                    New to Slotflow?
-                    <span className="font-semibold text-[var(--mainColor)] hover:text-[var(--mainColorHover)] cursor-pointer" onClick={changeToSingUpForm}>
-                        {" "}Sign Up
-                    </span>
+                <p className="mt-6 flex justify-between text-xs md:text-sm/6 text-[var(--textTwo)] px-2">
+                    <span className="font-semibold text-[var(--mainColor)] hover:text-[var(--mainColorHover)] cursor-pointer" onClick={handleCancel}>Cencel</span>
                 </p>
-
             </div>
         </div>
     )
 }
 
-export default LoginForm
+export default EmailVerificationForm

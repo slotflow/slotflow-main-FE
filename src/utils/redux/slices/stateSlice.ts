@@ -19,9 +19,6 @@ const stateSlice = createSlice({
         toggleTheme: (state) => {
             state.lightTheme = !state.lightTheme;
         },
-        toggleForm: (state) => {
-            state.signinForm = !state.signinForm;
-        }
     }
 });
 
@@ -34,7 +31,6 @@ const persistedStateReducer = persistReducer(persistConfig, stateSlice.reducer);
 
 export const { 
     toggleTheme, 
-    toggleForm
 } = stateSlice.actions;
 
 export default persistedStateReducer;

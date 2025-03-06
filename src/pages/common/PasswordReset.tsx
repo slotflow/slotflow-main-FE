@@ -1,4 +1,4 @@
-import ForgotPasswordForm from "@/components/form/ForgotPasswordForm";
+import ForgotPasswordForm from "@/components/form/ResetPasswordForm";
 import { ChangePassword } from "@/components/svgs/ChangePassword";
 
 const PasswordReset = () => {

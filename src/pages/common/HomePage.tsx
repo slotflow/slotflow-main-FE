@@ -3,7 +3,8 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AppDispatch } from "../../utils/redux/appStore";
 import RoleButton from "../../components/homepage/RoleButton";
-import { changeAdmin, changeProvider, changeUser } from "../../utils/redux/authSlice";
+import { setSignUpForm, setsignInForm } from "@/utils/redux/slices/signFormSlice";
+import { changeAdmin, changeProvider, changeUser } from "../../utils/redux/slices/authSlice";
 
 const HomePage = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -15,11 +16,15 @@ const HomePage = () => {
         dispatch(changeUser(true));
         dispatch(changeProvider(false));
         dispatch(changeAdmin(false));
+        dispatch(setSignUpForm(false));
+        dispatch(setsignInForm(true));
         navigate(url)
       }else if(role === "PROVIDER"){
         dispatch(changeProvider(true));
         dispatch(changeUser(false));
         dispatch(changeAdmin(false));
+        dispatch(setSignUpForm(false));
+        dispatch(setsignInForm(true));
         navigate(url)
       } 
     },

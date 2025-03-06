@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '@/utils/redux/appStore';
+import { setResetPasswordForm, setsignInForm, setSignUpForm, setVerifyEmailForm, setVerifyOtpForm } from '@/utils/redux/slices/signFormSlice';
 
 interface InputFieldProps {
     label: string;
@@ -11,16 +14,26 @@ interface InputFieldProps {
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     required: boolean;
     isPassword?: boolean;
+    forgotPassword?: boolean;
 }
 
 const InputField: React.FC<InputFieldProps> = ({
-    label, id, placeholder, type, value, onChange, required, isPassword = false,
+    label, id, placeholder, type, value, onChange, required, isPassword = false, forgotPassword
 }) => {
+    const dispatch = useDispatch<AppDispatch>();
     const [passwordVisible, setPasswordVisible] = useState(false);
 
     const togglePasswordVisibility = () => {
         setPasswordVisible(!passwordVisible);
     };
+
+    const handleForgotPassword = () => {
+        dispatch(setsignInForm(false));
+        dispatch(setVerifyEmailForm(true));
+        dispatch(setSignUpForm(false));
+        dispatch(setVerifyOtpForm(false));
+        dispatch(setResetPasswordForm(false));
+    }
 
     return (
         <div>
@@ -28,6 +41,11 @@ const InputField: React.FC<InputFieldProps> = ({
                 <label htmlFor={id} className="block text-xs md:text-sm/6 font-medium text-[var(--textTwo)] hover:text-[var(--textTwoHover)]">
                     {label}
                 </label>
+                {forgotPassword && (
+                    <label htmlFor={id} className="block text-xs md:text-sm/6 font-medium text-[var(--mainColor)] hover:text-[var(--mainColorHover)] cursor-pointer" onClick={handleForgotPassword}>
+                        Forgot Password ?
+                    </label>
+                )}
             </div>
             <div className={`mt-2 ${isPassword ? 'relative' : ''}`}>
                 <input

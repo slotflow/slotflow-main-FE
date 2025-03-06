@@ -1,16 +1,14 @@
 import { persistStore } from 'redux-persist';
-import persistedAuthReducer from "./authSlice";
-import persistedStateReducer from './stateSlice';
 import { configureStore } from "@reduxjs/toolkit";
-import persistedSignupFormReducer from "./signupFormSlice";
-import persistedPasswordResetReducer from './PasswordReset';
+import persistedAuthReducer from "./slices/authSlice";
+import persistedStateReducer from './slices/stateSlice';
+import persistedSignFormReducer from "./slices/signFormSlice";
 
  export const appStore = configureStore({
     reducer : {
         auth: persistedAuthReducer,
-        signupform:  persistedSignupFormReducer,
+        signform:  persistedSignFormReducer,
         state : persistedStateReducer,
-        passWordReset: persistedPasswordResetReducer
     },
 });
 
