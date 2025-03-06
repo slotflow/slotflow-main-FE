@@ -68,8 +68,7 @@ const Header = () => {
               <p className='text-[var(--mainColor)] text-sm md:text-xl font-semibold italic cursor-pointer hover:text-[var(--mainColorHover)]'>Slotflow</p>
             </div>
             <div className="hidden sm:ml-6 sm:block">
-              {!location.pathname.startsWith("/admin/login") && (
-
+              {!location.pathname.startsWith("/admin") && (
                 <div className="flex space-x-4">
                   {navigation.map((item) => (
                     <Link
@@ -77,6 +76,13 @@ const Header = () => {
                       to={item.href}
                       aria-current={item.current ? 'page' : undefined}
                       className="rounded-md px-3 py-2 text-sm font-medium text-[var(--textOne)] hover:text-[var(--textOneHover)]"
+                      onClick={() => {
+                        if(item.href === "/admin/login"){
+                          dispatch(changeUser(false));
+                          dispatch(changeProvider(false));
+                          dispatch(changeAdmin(true));
+                        }
+                      }}
                     >
                       {item.name}
                     </Link>

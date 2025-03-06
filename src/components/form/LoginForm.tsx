@@ -9,11 +9,15 @@ import { changeAdmin, changeProvider, changeUser } from "@/utils/redux/slices/au
 import { setResetPasswordForm, setsignInForm, setSignUpForm, setVerifyEmailForm, setVerifyOtpForm } from "@/utils/redux/slices/signFormSlice";
 
 
-const LoginForm: React.FC = () => {
+interface LoginFormProp {
+    isAdmin?: boolean;
+}
+
+const LoginForm: React.FC<LoginFormProp> = ({ isAdmin }) => {
 
     const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
-    const { user, provider } = useSelector((store: RootState) => store.auth)
+    const { user, provider, admin } = useSelector((store: RootState) => store.auth)
     const { loading } = useSelector((store: RootState) => store.signform);
     let role: string | undefined;
 
@@ -21,6 +25,8 @@ const LoginForm: React.FC = () => {
         role = "USER";
     } else if (provider) {
         role = "PROVIDER";
+    }else if (admin) {
+        role = "ADMIN";
     }
 
     const [formData, setFormData] = useState({
@@ -40,25 +46,24 @@ const LoginForm: React.FC = () => {
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        if(role){
-
+        if (role) {
             dispatch(signin({
                 email: formData.email,
                 password: formData.password,
                 role
             }))
-            .unwrap()
-            .then((res) => {
-                if (res.success) {
-                    toast.success(res.message);
-                    handleNavigation(res.authUser.role);
-                } else {
-                    toast.error(res.message);
-                }
-            })
-            .catch((error) => toast.error(error || "An error occurred."));
+                .unwrap()
+                .then((res) => {
+                    if (res.success) {
+                        toast.success(res.message);
+                        handleNavigation(res.authUser.role);
+                    } else {
+                        toast.error(res.message);
+                    }
+                })
+                .catch((error) => toast.error(error || "An error occurred."));
             return;
-        }else{
+        } else {
             toast.info("select your account type");
         }
     };
@@ -79,10 +84,12 @@ const LoginForm: React.FC = () => {
                 </h2>
             </div>
 
-            <div className="flex mt-7 text-xs md:text-md font-semibold sm:w-full sm:max-w-sm sm:mx-auto">
-                <div onClick={() => { dispatch(changeUser(true)); dispatch(changeProvider(false)); dispatch(changeAdmin(false)); }} className={`shadow-md border-[1px] border-[var(--mainColor)] rounded-l-md w-6/12 p-1 md:p-2 text-center text-[var(--mainColor)] hover:bg-[var(--mainColorHover)] hover:text-white cursor-pointer ${user && 'bg-[var(--mainColor)] text-white'}`}>Book An Appointment</div>
-                <div onClick={() => { dispatch(changeProvider(true)); dispatch(changeUser(false)); dispatch(changeAdmin(false)); }} className={`shadow-md border-[1px] border-[var(--mainColor)] rounded-r-md w-6/12 p-1 md:p-2 text-center text-[var(--mainColor)] hover:bg-[var(--mainColorHover)] hover:text-white cursor-pointer ${provider && 'bg-[var(--mainColor)] text-white'}`}>Provide A Service</div>
-            </div>
+            {!isAdmin && (
+                <div className="flex mt-7 text-xs md:text-md font-semibold sm:w-full sm:max-w-sm sm:mx-auto">
+                    <div onClick={() => { dispatch(changeUser(true)); dispatch(changeProvider(false)); dispatch(changeAdmin(false)); }} className={`shadow-md border-[1px] border-[var(--mainColor)] rounded-l-md w-6/12 p-1 md:p-2 text-center text-[var(--mainColor)] hover:bg-[var(--mainColorHover)] hover:text-white cursor-pointer ${user && 'bg-[var(--mainColor)] text-white'}`}>Book An Appointment</div>
+                    <div onClick={() => { dispatch(changeProvider(true)); dispatch(changeUser(false)); dispatch(changeAdmin(false)); }} className={`shadow-md border-[1px] border-[var(--mainColor)] rounded-r-md w-6/12 p-1 md:p-2 text-center text-[var(--mainColor)] hover:bg-[var(--mainColorHover)] hover:text-white cursor-pointer ${provider && 'bg-[var(--mainColor)] text-white'}`}>Provide A Service</div>
+                </div>
+            )}
 
             <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                 <form onSubmit={handleSubmit} className="space-y-6">
@@ -118,12 +125,14 @@ const LoginForm: React.FC = () => {
                     </div>
                 </form>
 
-                <p className="mt-10 text-center text-sm/6 text-[var(--textOne)] hover:text-[var(--textOneHover)]">
-                    New to Slotflow?
-                    <span className="font-semibold text-[var(--mainColor)] hover:text-[var(--mainColorHover)] cursor-pointer" onClick={changeToSingUpForm}>
-                        {" "}Sign Up
-                    </span>
-                </p>
+                {!isAdmin && (
+                    <p className="mt-10 text-center text-sm/6 text-[var(--textOne)] hover:text-[var(--textOneHover)]">
+                        New to Slotflow?
+                        <span className="font-semibold text-[var(--mainColor)] hover:text-[var(--mainColorHover)] cursor-pointer" onClick={changeToSingUpForm}>
+                            {" "}Sign Up
+                        </span>
+                    </p>
+                )}
 
             </div>
         </div>
