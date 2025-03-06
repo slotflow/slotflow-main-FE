@@ -1,5 +1,5 @@
 import LoginForm from "@/components/form/LoginForm";
-import FormFilling from "../../components/svgs/FormFilling";
+import {FormFilling} from "../../components/svgs/FormFilling";
 
 const AdminLogin = () => {
   

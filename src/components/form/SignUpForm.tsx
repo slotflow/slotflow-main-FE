@@ -4,6 +4,9 @@ import { AppDispatch, RootState } from "@/utils/redux/appStore";
 import { toggleForm } from "@/utils/redux/stateSlice";
 import { FormEvent, useCallback, useState } from "react";
 import { formatTime } from "@/utils/helper";
+import { toast } from "react-toastify";
+import { signup } from "@/utils/apis/auth.api";
+import { setSignUpForm, setVerifyOtpForm, startTimer } from "@/utils/redux/signupFormSlice";
 
 const SignUpForm = () => {
 
@@ -22,10 +25,33 @@ const SignUpForm = () => {
     }, []);
 
     const { signUpForm, verifyOtpForm, otpRemainingTime, otpTimerIsRunning, loading } = useSelector((store: RootState) => store.signupform);
+    const { user, provider, admin } = useSelector((store: RootState) => store.auth);
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        console.log("Form submitted:", formData);
+        if (!admin && !(user || provider)) {
+            toast.info("Please select your account type.");
+            return;
+        }
+
+        dispatch(signup({
+            username: formData.username,
+            email: formData.email,
+            password: formData.password,
+            role: user ? "USER" : "PROVIDER"
+        }))
+        .unwrap()
+        .then((res) => {
+            if(res.success){
+                toast.success(res.message);
+                dispatch(setSignUpForm(false));
+                dispatch(setVerifyOtpForm(true));
+                dispatch(startTimer(300));
+            }else{
+                toast.error(res.message);
+            }
+        })
+    
     };
 
     const handleToggleForm = () => {
@@ -33,7 +59,7 @@ const SignUpForm = () => {
     };
 
     const handleResendOtp = () => {
-        
+
     }
 
     return (

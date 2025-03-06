@@ -2,7 +2,7 @@ import { useSelector } from "react-redux"
 import { RootState } from "@/utils/redux/appStore"
 import LoginForm from "@/components/form/LoginForm"
 import SignUpForm from "@/components/form/SignUpForm"
-import FormFilling from "@/components/svgs/FormFilling"
+import {FormFilling} from "@/components/svgs/FormFilling"
 
 const ProviderLogin = () => {
 

@@ -29,10 +29,10 @@ const HomePage = () => {
   return (
     <div className="h-screen flex justify-center items-center bg-[var(--background)] space-x-2">
       <RoleButton onClick={() => handleRoleSelection("USER","/user/login")}>
-        Book An Appointment
+        Book Appointment
       </RoleButton>
       <RoleButton onClick={() => handleRoleSelection("PROVIDER","/provider/login")}>
-        Provide A Service
+        Provide Service
       </RoleButton>
     </div>
   )

@@ -1,7 +1,8 @@
 import axios from "axios";
-import { startTimer } from "../redux/signupFormSlice";
 import axiosInstance, {  } from "../../lib/axios"; 
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { startTimer } from "../redux/signupFormSlice";
+import { toast } from "react-toastify";
 
 export const signup = createAsyncThunk('auth/signup',
     async (userData: { username: string; email: string; password: string, role: string }, thunkAPI) => {
@@ -13,11 +14,8 @@ export const signup = createAsyncThunk('auth/signup',
                 sessionStorage.setItem("authUser", JSON.stringify(res.authUser));
             }
             return res;
-        } catch (error: unknown) {
-            if (axios.isAxiosError(error) && error.response) {
-                return thunkAPI.rejectWithValue(error.response.data.message);
-            }
-            return thunkAPI.rejectWithValue("Unexpected error occurred, please try again.");
+        } catch{
+            toast.error("Unexpected error occured in signup.");
         }
     }
 );
