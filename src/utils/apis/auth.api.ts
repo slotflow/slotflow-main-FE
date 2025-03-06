@@ -1,5 +1,5 @@
 import axios from "axios";
-import { startTimer } from "../redux/signFormSlice";
+import { startTimer } from "../redux/signupFormSlice";
 import axiosInstance, {  } from "../../lib/axios"; 
 import { createAsyncThunk } from "@reduxjs/toolkit";
 

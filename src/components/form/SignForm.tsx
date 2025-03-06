@@ -8,7 +8,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { AppDispatch, RootState } from "../../utils/redux/appStore";
 import { changeAdmin, changeProvider, changeUser } from "@/utils/redux/authSlice";
 import { resendOtp, signin, signup, updatePassword, verifyOtp } from "../../utils/apis/auth.api";
-import { setAdminForm, setLoginForm, setSignUpForm, setVerifyEmailForm, setVerifyOtpForm, startTimer, stopTimer, toggleForm, updateTimer, setChangePassword, setChangePasswordForm } from "../../utils/redux/signFormSlice";
+import { setAdminForm, setLoginForm, setSignUpForm, setVerifyEmailForm, setVerifyOtpForm, startTimer, stopTimer, toggleForm, updateTimer, setChangePassword, setChangePasswordForm } from "../../utils/redux/signupFormSlice";
 
 const SignForm = () => {
     const dispatch = useDispatch<AppDispatch>();

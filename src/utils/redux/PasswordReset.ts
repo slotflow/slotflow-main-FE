@@ -13,7 +13,7 @@ interface stateVariables {
 }
 
 const initialState: stateVariables = {
-    verifyEmailForm: false,
+    verifyEmailForm: true,
     verifyOtpForm: false,
     changePasswordForm: false,
     otpRemainingTime: 0,

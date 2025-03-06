@@ -1,14 +1,17 @@
-import { FormEvent, useCallback, useState } from "react";
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { useDispatch } from "react-redux";
+import InputField from "./InputFieldWithLable";
 import { AppDispatch } from "@/utils/redux/appStore";
 import { toggleForm } from "@/utils/redux/stateSlice";
+import { FormEvent, useCallback, useState } from "react";
 
-const LoginForm: React.FC = () => {
+interface LoginFormProps {
+    title?: string;
+    admin?: boolean;
+}
+const LoginForm: React.FC<LoginFormProps> = ({ title, admin }) => {
+    const formTitle = title;
 
     const dispatch = useDispatch<AppDispatch>();
-    const [passwordVisible, setPasswordVisible] = useState(false);
     const [formData, setFormData] = useState({
         email: "",
         password: "",
@@ -23,10 +26,6 @@ const LoginForm: React.FC = () => {
         console.log("Form submitted:", formData);
     };
 
-    const togglePasswordVisibility = () => {
-        setPasswordVisible(!passwordVisible);
-    };
-
     const handleToggleForm = () => {
         dispatch(toggleForm());
     };
@@ -35,65 +34,32 @@ const LoginForm: React.FC = () => {
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                 <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-[var(--textTwo)] hover:text-[var(--textTwoHover)]">
-                    Sign in to your account
+                    {formTitle || "Sign in to your account"}
                 </h2>
             </div>
 
             <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                 <form onSubmit={handleSubmit} className="space-y-6">
-                    <div>
-                        <label htmlFor="email" className="block text-sm/6 font-medium text-[var(--textTwo)] hover:text-[var(--textTwoHover)]">
-                            Email address
-                        </label>
-                        <div className="mt-2">
-                            <input
-                                id="email"
-                                name="email"
-                                type="email"
-                                value={formData.email}
-                                onChange={handleChange}
-                                required
-                                autoComplete="email"
-                                className="block w-full rounded-md bg-[var(--inputBg)] px-3 py-1.5 text-base text-[var(--textOne)] outline-1 -outline-offset-1 outline-[var(--boxBorder)] placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-[var(--mainColor)] sm:text-sm/6"
-                            />
-                        </div>
-                    </div>
+                    <InputField
+                        label="Email address"
+                        id="email"
+                        placeholder="midhun@gmail.com"
+                        type="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        required={true}
+                    />
 
-                    <div>
-                        <div className="flex items-center justify-between">
-                            <label htmlFor="password" className="block text-sm/6 font-medium text-[var(--textTwo)] hover:text-[var(--textTwoHover)]">
-                                Password
-                            </label>
-                            <div className="text-sm">
-                                <a href="#" className="font-semibold text-[var(--mainColor)] hover:text-[var(--mainColorHover)]">
-                                    Forgot password?
-                                </a>
-                            </div>
-                        </div>
-                        <div className="mt-2 relative">
-                            <input
-                                id="password"
-                                name="password"
-                                type={passwordVisible ? "text" : "password"}
-                                value={formData.password}
-                                required
-                                autoComplete="current-password"
-                                className="block w-full rounded-md bg-[var(--inputBg)] px-3 py-1.5 text-base text-[var(--textOne)] outline-1 -outline-offset-1 outline-[var(--boxBorder)] placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-[var(--mainColor)] sm:text-sm/6"
-                                onChange={handleChange}
-                            />
-                            <button
-                                type="button"
-                                className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400"
-                                onClick={togglePasswordVisibility}
-                            >
-                                {passwordVisible ? (
-                                    <VisibilityIcon />
-                                ) : (
-                                    <VisibilityOffIcon />
-                                )}
-                            </button>
-                        </div>
-                    </div>
+                    <InputField
+                        label="Password"
+                        id="password"
+                        placeholder="Enter your password"
+                        type="password"
+                        value={formData.password}
+                        onChange={handleChange}
+                        required={true}
+                        isPassword={true}
+                    />
 
                     <div>
                         <button
@@ -105,12 +71,14 @@ const LoginForm: React.FC = () => {
                     </div>
                 </form>
 
-                <p className="mt-10 text-center text-sm/6 text-[var(--textOne)] hover:text-[var(--textOneHover)]">
-                    New to Slotflow?
-                    <span className="font-semibold text-[var(--mainColor)] hover:text-[var(--mainColorHover)] cursor-pointer" onClick={handleToggleForm}>
-                        {" "}Sign Up
-                    </span>
-                </p>
+                {!admin &&
+                    <p className="mt-10 text-center text-sm/6 text-[var(--textOne)] hover:text-[var(--textOneHover)]">
+                        New to Slotflow?
+                        <span className="font-semibold text-[var(--mainColor)] hover:text-[var(--mainColorHover)] cursor-pointer" onClick={handleToggleForm}>
+                            {" "}Sign Up
+                        </span>
+                    </p>
+                }
             </div>
         </div>
     )

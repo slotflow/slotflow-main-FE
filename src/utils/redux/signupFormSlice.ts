@@ -4,59 +4,30 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { resendOtp, signin, signup, verifyOtp } from "../apis/auth.api";
 
 interface stateVariables {
-    loginForm: boolean;
     signUpForm: boolean;
-    verifyEmailForm: boolean;
     verifyOtpForm: boolean;
-    adminForm: boolean;
-    changePassword: boolean;
-    changePasswordForm: boolean;
     otpRemainingTime: number;
     otpTimerIsRunning: boolean;
     loading: boolean;
 }
 
 const initialState: stateVariables = {
-    loginForm: true,
-    signUpForm: false,
-    verifyEmailForm: false,
+    signUpForm: true,
     verifyOtpForm: false,
-    adminForm: false,
-    changePassword: false,
-    changePasswordForm: false,
     otpRemainingTime: 0,
     otpTimerIsRunning: false,
     loading: false,
 }
 
-const signFormSlice = createSlice({
-    name: "signForm",
+const signupFormSlice = createSlice({
+    name: "signupForm",
     initialState,
     reducers: {
-        setLoginForm: (state, action: PayloadAction<boolean>) => {
-            state.loginForm = action.payload;
-        },
         setSignUpForm: (state, action: PayloadAction<boolean>) => {
             state.signUpForm = action.payload;
         },
-        setVerifyEmailForm: (state, action: PayloadAction<boolean>) => {
-            state.verifyEmailForm = action.payload;
-        },
         setVerifyOtpForm: (state, action: PayloadAction<boolean>) => {
             state.verifyOtpForm = action.payload;
-        },
-        setAdminForm: (state, action: PayloadAction<boolean>) => {
-            state.adminForm = action.payload;
-        },
-        setChangePassword: (state, action: PayloadAction<boolean>) => {
-            state.changePassword = action.payload;
-        },
-        setChangePasswordForm: (state, action: PayloadAction<boolean>) => {
-            state.changePasswordForm = action.payload;
-        },
-        toggleForm: (state) => {
-            state.loginForm = !state.loginForm;
-            state.signUpForm = !state.signUpForm;
         },
         startTimer: (state, action: PayloadAction<number>) => {
             state.otpRemainingTime = action.payload;
@@ -115,23 +86,17 @@ const signFormSlice = createSlice({
 });
 
 const persistConfig = {
-    key: "signForm",
+    key: "signupForm",
     storage,
 };
 
-const persistedSignFormReducer = persistReducer(persistConfig, signFormSlice.reducer);
+const persistedSignupFormReducer = persistReducer(persistConfig, signupFormSlice.reducer);
 
 export const {  
     startTimer, 
     updateTimer, 
     stopTimer, 
-    setLoginForm,
     setSignUpForm,
-    setVerifyEmailForm,
     setVerifyOtpForm,
-    setAdminForm, 
-    toggleForm,
-    setChangePassword,
-    setChangePasswordForm
-} = signFormSlice.actions;
-export default persistedSignFormReducer;
+} = signupFormSlice.actions;
+export default persistedSignupFormReducer;

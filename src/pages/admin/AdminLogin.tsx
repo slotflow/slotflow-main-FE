@@ -9,7 +9,7 @@ const AdminLogin = () => {
         <FormFilling />
       </div>
       <div className="w-full md:w-6/12 flex justify-center items-center">
-        <LoginForm />
+        <LoginForm title={"Admin Sing In"} admin={true}/>
       </div>
     </div>
   )
