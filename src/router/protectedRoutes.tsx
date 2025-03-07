@@ -1,17 +1,20 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { jwtDecode, JwtPayload } from "jwt-decode";
-import { AppDispatch } from "@/utils/redux/appStore";
+import { AppDispatch, RootState } from "@/utils/redux/appStore";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { setAuthAdmin, setAuthProvider, setAuthUser } from "@/utils/redux/slices/authSlice";
+import { toast } from "react-toastify";
 
 interface CustomJwtPayload extends JwtPayload {
     role?: string;
+    userOrProviderId?: string;
 }
 
 export const AdminProtectedRoute: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
     const token = localStorage.getItem("adminToken");
     const location = useLocation();
+   
 
     if (!token) {
         dispatch(setAuthAdmin(null));
@@ -41,6 +44,14 @@ export const ProviderProtectedRoute: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
     const token = localStorage.getItem("providerToken");
     const location = useLocation();
+    const { authProvider } = useSelector((store: RootState) => store.auth);
+
+    if(authProvider?.isBlocked){
+        dispatch(setAuthProvider(null));
+        localStorage.removeItem("providerToken");
+        toast.error("Your account is blocked, please contact us.");
+        return <Navigate to="/provider/login" replace />;
+    }
 
     if (!token) {
         dispatch(setAuthProvider(null));
@@ -67,9 +78,19 @@ export const ProviderProtectedRoute: React.FC = () => {
 };
 
 export const UserProtectedRoute: React.FC = () => {
+    console.log("userRoute")
     const dispatch = useDispatch<AppDispatch>();
-    const token = localStorage.getItem("userToken");
+    const token : string | null = localStorage.getItem("userToken");
     const location = useLocation();
+
+    const { authUser } = useSelector((store: RootState) => store.auth);
+
+    if(authUser?.isBlocked){
+        dispatch(setAuthAdmin(null));
+        localStorage.removeItem("adminToken");
+        toast.error("Your account is blocked, please contact us.");
+        return <Navigate to="/user/login" replace />;
+    }
 
     if (!token) {
         dispatch(setAuthUser(null));
@@ -79,7 +100,7 @@ export const UserProtectedRoute: React.FC = () => {
     try {
         const decodedToken = jwtDecode<CustomJwtPayload>(token);
         const currentTime = Date.now();
-
+        
         if (decodedToken.exp && currentTime > decodedToken.exp * 1000 && decodedToken.role === "USER") {
             console.log("Token expired");
             return <Navigate to="/user/login" state={{ from: location }} replace />;

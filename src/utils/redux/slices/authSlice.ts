@@ -1,11 +1,20 @@
-import { createSlice } from "@reduxjs/toolkit";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+
+interface UserData {
+    username?: string;
+    profileImage?: string;
+    email?: string;
+    verificationToken?: string;
+    role?: string;
+    isBlocked?: boolean;
+}
 
 interface AuthState {
-    authUser: {username?: string, profileImage?: string, emal?: string, verificationToken?: string, role?: string,} | null;
-    authProvider: {username?: string, profileImage?: string, emal?: string, verificationToken?: string, role?: string,} | null;
-    authAdmin: {username?: string, profileImage?: string, emal?: string, verificationToken?: string, role?: string,} | null;
+    authUser: UserData | null;
+    authProvider: UserData | null;
+    authAdmin: Omit<UserData, 'isBlocked'> | null;
 }
 
 const initialState: AuthState = {
@@ -15,19 +24,33 @@ const initialState: AuthState = {
 };
 
 const authSlice = createSlice({
-    name: "user",
+    name: "auth",
     initialState,
     reducers: {
-        setAuthUser: (state, action) => {
+        setAuthUser: (state, action: PayloadAction<UserData | null>) => {
             state.authUser = action.payload;
         },
-        setAuthProvider: (state,action) => {
+        setAuthProvider: (state, action: PayloadAction<UserData | null>) => {
             state.authProvider = action.payload;
         },
-        setAuthAdmin: (state, action) => {
+        setAuthAdmin: (state, action: PayloadAction<Omit<UserData, 'isBlocked'> | null>) => {
             state.authAdmin = action.payload;
-        }
-    }
+        },
+        setUserBlocked: (state, action: PayloadAction<boolean>) => {
+            console.log("status changing");
+            console.log("authUser : ",state.authUser);
+            if (state.authUser?.username) {
+                console.log("state.authUser : ",state.authUser);
+                console.log("action.payload : ",action.payload);
+                state.authUser.isBlocked = action.payload;
+            }
+        },
+        setProviderBlocked: (state, action: PayloadAction<boolean>) => {
+            if (state.authProvider) {
+                state.authProvider.isBlocked = action.payload;
+            }
+        },
+    },
 });
 
 const persistConfig = {
@@ -40,7 +63,9 @@ const persistedAuthReducer = persistReducer(persistConfig, authSlice.reducer);
 export const { 
     setAuthUser, 
     setAuthProvider,
-    setAuthAdmin 
+    setAuthAdmin,
+    setUserBlocked,
+    setProviderBlocked 
 } = authSlice.actions;
 
 export default persistedAuthReducer;
