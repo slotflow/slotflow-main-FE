@@ -1,7 +1,7 @@
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { resendOtp, signin, signup, verifyOtp } from '../../apis/auth.api'
+import { resendOtp, signin, signup, verifyOtp, updatePassword } from '../../apis/auth.api'
 
 interface stateVariables {
     signInForm: boolean;
@@ -105,7 +105,16 @@ const signFormSlice = createSlice({
                 })
                 .addCase(resendOtp.rejected, (state) => {
                     state.loading = false;
-                });
+                })
+                .addCase(updatePassword.pending, (state) => {
+                    state.loading = true;
+                })
+                .addCase(updatePassword.fulfilled, (state) => {
+                    state.loading = true;
+                })
+                .addCase(updatePassword.rejected, (state) => {
+                    state.loading = true;
+                })
         },
 });
 
