@@ -15,8 +15,8 @@ const ProviderLogin = () => {
         <FormFilling />
       </div>
       <div className="w-full md:w-6/12 flex justify-center items-center">
-      {signInForm && <LoginForm /> }
-      {signUpForm && <SignUpForm /> }
+      {signInForm && <LoginForm role={"PROVIDER"} /> }
+      {signUpForm && <SignUpForm role={"PROVIDER"} /> }
       {verifyEmailForm && <EmailVerificationForm /> }
       {resetPasswordForm && <ResetPasswordForm /> }
       {verifyOtpForm && <OtpVerificatioForm /> }

@@ -15,8 +15,8 @@ const UserLogin = () => {
         <FormFilling />
       </div>
       <div className="w-full md:w-6/12 flex justify-center items-center">
-        {signInForm && <LoginForm /> }
-        {signUpForm && <SignUpForm /> }
+        {signInForm && <LoginForm role={"USER"} /> }
+        {signUpForm && <SignUpForm role={"USER"} /> }
         {verifyEmailForm && <EmailVerificationForm /> }
         {resetPasswordForm && <ResetPasswordForm /> }
         {verifyOtpForm && <OtpVerificatioForm /> }

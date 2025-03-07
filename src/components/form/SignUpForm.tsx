@@ -2,23 +2,18 @@ import { toast } from "react-toastify";
 import InputField from "./InputFieldWithLable";
 import { signup, } from "@/utils/apis/auth.api";
 import { useDispatch, useSelector } from "react-redux";
-import { FormEvent, useCallback, useState } from "react";
+import React, { FormEvent, useCallback, useState } from "react";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
-import { changeAdmin, changeProvider, changeUser } from "@/utils/redux/slices/authSlice";
 import { setResetPasswordForm, setsignInForm, setSignUpForm, setVerifyEmailForm, setVerifyOtpForm, startTimer } from "@/utils/redux/slices/signFormSlice";
 
-const SignUpForm = () => {
+interface signUpProps {
+    role: string;
+}
+
+const SignUpForm: React.FC<signUpProps> = ({role}) => {
 
     const dispatch = useDispatch<AppDispatch>();
-    const { user, provider } = useSelector((store: RootState) => store.auth);
     const { loading } = useSelector((store: RootState) => store.signform);
-    let role: string | undefined;
-
-    if (user) {
-        role = "USER";
-    } else if (provider) {
-        role = "PROVIDER";
-    }
 
     const [formData, setFormData] = useState({
         username: "",
@@ -77,11 +72,6 @@ const SignUpForm = () => {
                 <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-[var(--textTwo)] hover:text-[var(--textTwoHover)]">
                     Sign up for Continue
                 </h2>
-            </div>
-
-            <div className="flex mt-7 text-xs md:text-md font-semibold sm:w-full sm:max-w-sm sm:mx-auto">
-                <div onClick={() => { dispatch(changeUser(true)); dispatch(changeProvider(false)); dispatch(changeAdmin(false)); }} className={`shadow-md border-[1px] border-[var(--mainColor)] rounded-l-md w-6/12 p-1 md:p-2 text-center text-[var(--mainColor)] hover:bg-[var(--mainColorHover)] hover:text-white cursor-pointer ${user && 'bg-[var(--mainColor)] text-white'}`}>Book An Appointment</div>
-                <div onClick={() => { dispatch(changeProvider(true)); dispatch(changeUser(false)); dispatch(changeAdmin(false)); }} className={`shadow-md border-[1px] border-[var(--mainColor)] rounded-r-md w-6/12 p-1 md:p-2 text-center text-[var(--mainColor)] hover:bg-[var(--mainColorHover)] hover:text-white cursor-pointer ${provider && 'bg-[var(--mainColor)] text-white'}`}>Provide A Service</div>
             </div>
 
             <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">

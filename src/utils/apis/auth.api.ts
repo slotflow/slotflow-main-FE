@@ -7,6 +7,7 @@ import { setAuthAdmin, setAuthProvider, setAuthUser } from "../redux/slices/auth
 export const signup = createAsyncThunk('auth/signup',
     async (userData: { username: string; email: string; password: string, role: string }, thunkAPI) => {
         try {
+            console.log("userData : ",userData);
             const response = await axiosInstance.post("/auth/signup", userData);
             const res = response.data;
             if (res.success) {             
@@ -47,6 +48,7 @@ export const verifyOtp = createAsyncThunk("auth/verify-otp",
 export const signin = createAsyncThunk("auth/signin",
     async (userData: { email: string, password: string, role: string | null }, thunkAPI) => {
         try {
+            console.log("UserData : ",userData);
             const response = await axiosInstance.post('/auth/signin', userData);
             const res = response.data;
             console.log("response : ",response);
@@ -60,7 +62,8 @@ export const signin = createAsyncThunk("auth/signin",
                 }else if(res.authUser.role === "ADMIN"){
                     thunkAPI.dispatch(setAuthAdmin(res.authUser));
                     localStorage.setItem("adminToken",res.token);
-                }     
+                }
+                sessionStorage.setItem("role",res.authUser.role);     
             }
             return res;
         } catch (error: unknown) {

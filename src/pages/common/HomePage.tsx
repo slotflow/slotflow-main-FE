@@ -4,39 +4,26 @@ import { useNavigate } from "react-router-dom";
 import { AppDispatch } from "../../utils/redux/appStore";
 import RoleButton from "../../components/homepage/RoleButton";
 import { setSignUpForm, setsignInForm } from "@/utils/redux/slices/signFormSlice";
-import { changeAdmin, changeProvider, changeUser } from "../../utils/redux/slices/authSlice";
 
 const HomePage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
   const handleRoleSelection = useCallback(
-    (role: string, url: string) => {
-      if(role === "USER"){
-        dispatch(changeUser(true));
-        dispatch(changeProvider(false));
-        dispatch(changeAdmin(false));
+    (url: string) => {
         dispatch(setSignUpForm(false));
         dispatch(setsignInForm(true));
         navigate(url)
-      }else if(role === "PROVIDER"){
-        dispatch(changeProvider(true));
-        dispatch(changeUser(false));
-        dispatch(changeAdmin(false));
-        dispatch(setSignUpForm(false));
-        dispatch(setsignInForm(true));
-        navigate(url)
-      } 
     },
     [dispatch, navigate]
   );
 
   return (
     <div className="h-screen flex justify-center items-center bg-[var(--background)] space-x-2">
-      <RoleButton onClick={() => handleRoleSelection("USER","/user/login")}>
+      <RoleButton onClick={() => handleRoleSelection("/user/login")}>
         Book Appointment
       </RoleButton>
-      <RoleButton onClick={() => handleRoleSelection("PROVIDER","/provider/login")}>
+      <RoleButton onClick={() => handleRoleSelection("/provider/login")}>
         Provide Service
       </RoleButton>
     </div>

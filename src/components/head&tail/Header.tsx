@@ -6,7 +6,7 @@ import { toggleTheme } from '@/utils/redux/slices/stateSlice';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { AppDispatch, RootState } from '../../utils/redux/appStore';
-import { changeAdmin, changeProvider, changeUser, setAuthAdmin, setAuthProvider, setAuthUser } from '../../utils/redux/slices/authSlice';
+import { setAuthAdmin, setAuthProvider, setAuthUser } from '../../utils/redux/slices/authSlice';
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 
 const navigation = [
@@ -26,8 +26,7 @@ const Header = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const themeMode = useSelector((store: RootState) => store.state.lightTheme);
-  const { user, provider, admin } = useSelector((store: RootState) => store.auth);
-
+  const role = sessionStorage.getItem("role");
   const location = useLocation();
 
   const changeTheme = () => {
@@ -37,15 +36,15 @@ const Header = () => {
   const handleSignout = () => {
     dispatch(signout()).unwrap().then((res) => {
       toast.success(res.message);
-      if(user){
+      if(role === "USER"){
         dispatch(setAuthUser(null));
         localStorage.removeItem("userToken");
         navigate("/user/login");
-      }else if(provider){
+      }else if(role === "PROVIDER"){
         dispatch(setAuthProvider(null));
         localStorage.removeItem("providerToken");
         navigate("/provider/login");
-      }else if(admin){
+      }else if(role === "ADMIN"){
         dispatch(setAuthAdmin(null));
         localStorage.removeItem("adminToken");
         navigate("/admin/login");
@@ -88,13 +87,6 @@ const Header = () => {
                       to={item.href}
                       aria-current={item.current ? 'page' : undefined}
                       className="rounded-md px-3 py-2 text-sm font-medium text-[var(--textOne)] hover:text-[var(--textOneHover)]"
-                      onClick={() => {
-                        if(item.href === "/admin/login"){
-                          dispatch(changeUser(false));
-                          dispatch(changeProvider(false));
-                          dispatch(changeAdmin(true));
-                        }
-                      }}
                     >
                       {item.name}
                     </Link>
@@ -107,7 +99,6 @@ const Header = () => {
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
 
 
-            {/* Profile dropdown */}
             <Menu as="div" className="relative ml-3">
               <div className='flex'>
                 <MenuButton className="relative flex rounded-full cursor-pointer">
