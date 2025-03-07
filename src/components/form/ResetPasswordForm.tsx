@@ -1,28 +1,27 @@
-import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import InputField from "./InputFieldWithLable";
+import { useDispatch, useSelector } from "react-redux";
+import { updatePassword } from "@/utils/apis/auth.api";
 import { FormEvent, useCallback, useState } from "react";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
 import { setForgotPassword, setResetPasswordForm, setsignInForm, setSignUpForm, setVerifyEmailForm, setVerifyOtpForm } from "@/utils/redux/slices/signFormSlice";
-import { toast } from "react-toastify";
-import { updatePassword } from "@/utils/apis/auth.api";
 
 
 const ResetPasswordForm = () => {
 
     const dispatch = useDispatch<AppDispatch>();
-
-    const { user, provider, authUser, authProvider } = useSelector((store: RootState) => store.auth);
     const { loading } = useSelector((store: RootState) => store.signform);
+    const { user, provider, authUser, authProvider } = useSelector((store: RootState) => store.auth);
 
-    let role: string | undefined;
-    let verificationToken: string | undefined;
+    let role : string | undefined;
+    let verificationToken : string | undefined;
 
-    if (user) {
-        role = "USER";
-        verificationToken = authUser?.verificationToken;
-    } else if (provider) {
-        role = "PROVIDER";
-        verificationToken = authProvider?.verificationToken;
+    if(user){
+        role = authUser?.role;
+        verificationToken = authUser?.verificationToken
+    }else if(provider){
+        role = authProvider?.role;
+        verificationToken = authProvider?.verificationToken
     }
 
     const [formData, setFormData] = useState({

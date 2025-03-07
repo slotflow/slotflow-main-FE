@@ -16,12 +16,12 @@ const OtpVerificatioForm = () => {
     let role : string | undefined;
     let verificationToken : string | undefined;
 
-    if (user) {
-        role = "USER";
-        verificationToken = authUser?.verificationToken;
-    } else if (provider) {
-        role = "PROVIDER";
-        verificationToken = authProvider?.verificationToken;
+    if(user){
+        role = authUser?.role;
+        verificationToken = authUser?.verificationToken
+    }else if(provider){
+        role = authProvider?.role;
+        verificationToken = authProvider?.verificationToken
     }
 
     const [formData, setFormData] = useState({
@@ -43,31 +43,31 @@ const OtpVerificatioForm = () => {
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        if(verificationToken && role){
-        dispatch(verifyOtp({ otp: formData.otp, verificationToken, role }))
-            .unwrap()
-            .then((res) => {
-                if (res.success) {
-                    toast.success(res.message);
-                    dispatch(stopTimer());
-                    if(forgotPassword){
-                        dispatch(setVerifyOtpForm(false));
-                        dispatch(setResetPasswordForm(true));
-                        dispatch(setSignUpForm(false));
-                        dispatch(setsignInForm(false));
-                        dispatch(setVerifyEmailForm(false));
-                    }else{
-                        dispatch(setVerifyOtpForm(false));
-                        dispatch(setSignUpForm(false));
-                        dispatch(setsignInForm(true));
-                        dispatch(setVerifyEmailForm(false));
-                        dispatch(setResetPasswordForm(false));
+        if (verificationToken && role) {
+            dispatch(verifyOtp({ otp: formData.otp, verificationToken, role }))
+                .unwrap()
+                .then((res) => {
+                    if (res.success) {
+                        toast.success(res.message);
+                        dispatch(stopTimer());
+                        if (forgotPassword) {
+                            dispatch(setVerifyOtpForm(false));
+                            dispatch(setResetPasswordForm(true));
+                            dispatch(setSignUpForm(false));
+                            dispatch(setsignInForm(false));
+                            dispatch(setVerifyEmailForm(false));
+                        } else {
+                            dispatch(setVerifyOtpForm(false));
+                            dispatch(setSignUpForm(false));
+                            dispatch(setsignInForm(true));
+                            dispatch(setVerifyEmailForm(false));
+                            dispatch(setResetPasswordForm(false));
+                        }
+                    } else {
+                        toast.error(res.message);
                     }
-                } else {
-                    toast.error(res.message);
-                }
-            })
-            .catch((error) => toast.error(error || "An error occurred."));
+                })
+                .catch((error) => toast.error(error || "An error occurred."));
         }
     }
 
@@ -80,26 +80,17 @@ const OtpVerificatioForm = () => {
     }
 
     const handleResendOtp = () => {
-        let role: string | undefined;
-        let verificationToken: string | undefined;
-
-        if (user) {
-            role = "USER";
-            verificationToken = authUser?.verificationToken;
-        } else if (provider) {
-            role = "PROVIDER";
-            verificationToken = authProvider?.verificationToken;
+        if (verificationToken && role) {
+            dispatch(resendOtp({ verificationToken, role }))
+                .unwrap()
+                .then((res: { success: boolean; message: string }) => {
+                    if (res.success) {
+                        toast.success(res.message);
+                    } else {
+                        toast.error(res.message);
+                    }
+                })
         }
-
-        dispatch(resendOtp({ verificationToken, role }))
-            .unwrap()
-            .then((res: { success: boolean; message: string }) => {
-                if (res.success) {
-                    toast.success(res.message);
-                } else {
-                    toast.error(res.message);
-                }
-            })
     };
 
     return (

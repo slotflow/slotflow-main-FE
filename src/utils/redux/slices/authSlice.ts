@@ -6,9 +6,9 @@ interface AuthState {
     user: boolean;
     provider: boolean;
     admin: boolean;
-    authUser: {username?: string, profileImage?: string, emal?: string, verificationToken?: string, role?: string} | null;
-    authProvider: {username?: string, profileImage?: string, emal?: string, verificationToken?: string, role?: string} | null;
-    authAdmin: {username?: string, profileImage?: string, emal?: string, verificationToken?: string, role?: string} | null;
+    authUser: {username?: string, profileImage?: string, emal?: string, verificationToken?: string, role?: string,} | null;
+    authProvider: {username?: string, profileImage?: string, emal?: string, verificationToken?: string, role?: string,} | null;
+    authAdmin: {username?: string, profileImage?: string, emal?: string, verificationToken?: string, role?: string,} | null;
 }
 
 const initialState: AuthState = {
@@ -52,6 +52,13 @@ const persistConfig = {
 
 const persistedAuthReducer = persistReducer(persistConfig, authSlice.reducer);
 
-export const { changeUser, changeAdmin, changeProvider, setAuthUser, setAuthProvider,setAuthAdmin } = authSlice.actions;
+export const { 
+    changeUser,
+    changeAdmin,
+    changeProvider,
+    setAuthUser, 
+    setAuthProvider,
+    setAuthAdmin 
+} = authSlice.actions;
 
 export default persistedAuthReducer;
