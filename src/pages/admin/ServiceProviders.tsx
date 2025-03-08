@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
+import { fetchProviders } from "@/utils/apis/admin.api";
 import { DataTable } from "@/components/table/data-table";
-import { fetchProviders } from "@/utils/apis/adminProvider.api";
-import ShimmerTable from "@/components/shimmers/ShimmerTable";
 import { providerColumns } from "@/components/table/columns";
+import ShimmerTable from "@/components/shimmers/ShimmerTable";
 import ShimmerTableTop from "@/components/shimmers/ShimmerTableTop";
 
 const ServiceProviders = () => {
@@ -23,7 +23,7 @@ const ServiceProviders = () => {
         </>
         :
         <>
-          <h2 className="text-xl font-bold mb-4">Service Providers</h2>
+          <h2 className="text-2xl font-bold mb-4">Service Providers</h2>
           <DataTable columns={providerColumns} data={providers} />
         </>
       }

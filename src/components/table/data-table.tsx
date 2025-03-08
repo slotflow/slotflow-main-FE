@@ -77,24 +77,14 @@ export function DataTable<TData, TValue>({
           }
           className="max-w-sm"
         />
-        {/* {filterAccessorKeys && (
-          <Input
-            placeholder={"Filter..."}
-            onChange={(event) => {
-              const filterValue = event.target.value;
-              filterAccessorKeys.forEach((accessorKey) => {
-                table.getColumn(accessorKey)?.setFilterValue(filterValue);
-              });
-            }}
-            className="max-w-sm"
-          />
-        )} */}
         <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
-              Columns
-            </Button>
-          </DropdownMenuTrigger>
+          <div className="ml-auto">
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline">
+                Columns
+              </Button>
+            </DropdownMenuTrigger>
+          </div>
           <DropdownMenuContent align="end">
             {table
               .getAllColumns()

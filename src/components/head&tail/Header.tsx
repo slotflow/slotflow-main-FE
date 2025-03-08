@@ -15,10 +15,6 @@ const navigation = [
   { name: 'Services', href: '#', current: false },
   { name: 'About', href: '#', current: false },
   { name: 'Contact', href: '#', current: false },
-  { name: 'User', href: '/user/login', current: false },
-  { name: 'Provider', href: '/provider/login', current: false },
-  { name: 'Admin', href: '/admin/login', current: false },
-  { name: 'Change Password', href: '/forgotPassword', current: false },
 ]
 
 const Header = () => {
@@ -38,15 +34,15 @@ const Header = () => {
       toast.success(res.message);
       if(role === "USER"){
         dispatch(setAuthUser(null));
-        localStorage.removeItem("userToken");
+        sessionStorage.removeItem("userToken");
         navigate("/user/login");
       }else if(role === "PROVIDER"){
         dispatch(setAuthProvider(null));
-        localStorage.removeItem("providerToken");
+        sessionStorage.removeItem("providerToken");
         navigate("/provider/login");
       }else if(role === "ADMIN"){
         dispatch(setAuthAdmin(null));
-        localStorage.removeItem("adminToken");
+        sessionStorage.removeItem("adminToken");
         navigate("/admin/login");
       }
     }).catch((error) => {
@@ -63,7 +59,7 @@ const Header = () => {
   }, [themeMode]);
 
   return (
-    <Disclosure as="nav" className="absolute w-full bg-[var(--background)]">
+    <Disclosure as="nav" className="absolute w-full bg-[var(--background)] shadow-lg">
       <div className={`mx-auto max-w-7xl px-2 sm:px-6 lg:px-8`}>
         <div className="relative flex h-16 items-center justify-between">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">

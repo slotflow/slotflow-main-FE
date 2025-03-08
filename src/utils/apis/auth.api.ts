@@ -55,13 +55,13 @@ export const signin = createAsyncThunk("auth/signin",
             if (res.success) { 
                 if(res.authUser.role === "USER"){
                     thunkAPI.dispatch(setAuthUser(res.authUser));
-                    localStorage.setItem("userToken",res.token);
+                    sessionStorage.setItem("userToken",res.token);
                 }else if(res.authUser.role === "PROVIDER"){
                     thunkAPI.dispatch(setAuthProvider(res.authUser));
-                    localStorage.setItem("providerToken",res.token);
+                    sessionStorage.setItem("providerToken",res.token);
                 }else if(res.authUser.role === "ADMIN"){
                     thunkAPI.dispatch(setAuthAdmin(res.authUser));
-                    localStorage.setItem("adminToken",res.token);
+                    sessionStorage.setItem("adminToken",res.token);
                 }
                 sessionStorage.setItem("role",res.authUser.role);     
             }

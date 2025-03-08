@@ -11,10 +11,9 @@ interface CustomJwtPayload extends JwtPayload {
     userOrProviderId?: string;
 }
 
-
 export const AdminProtectedRoute: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
-    const token = localStorage.getItem("adminToken");
+    const token = sessionStorage.getItem("adminToken");
     const { authAdmin } = useSelector((store: RootState) => store.auth);
     const navigate = useNavigate();
     const location = useLocation();
@@ -25,21 +24,27 @@ export const AdminProtectedRoute: React.FC = () => {
                 const decodedToken = jwtDecode<CustomJwtPayload>(token);
                 const currentTime = Math.floor(Date.now() / 1000);
 
+                if (location.pathname.startsWith("/user") || location.pathname.startsWith("/provider")) {
+                    console.log("location validation")
+                    navigate("/admin");
+                    return;
+                }
+
                 if (decodedToken.exp && currentTime > decodedToken.exp) {
-                    localStorage.removeItem("adminToken");
+                    sessionStorage.removeItem("adminToken");
                     dispatch(setAuthAdmin(null));
                     navigate("/admin/login");
                 } else if (decodedToken.role !== "ADMIN") {
-                    localStorage.removeItem("adminToken");
+                    sessionStorage.removeItem("adminToken");
                     dispatch(setAuthAdmin(null));
                     navigate("/admin/login");
                 } else if (!authAdmin) {
-                    localStorage.removeItem("adminToken");
+                    sessionStorage.removeItem("adminToken");
                     dispatch(setAuthAdmin(null));
                     navigate("/admin/login");
                 }
             } catch{
-                localStorage.removeItem("adminToken");
+                sessionStorage.removeItem("adminToken");
                 dispatch(setAuthAdmin(null));
                 navigate("/admin/login");
             }
@@ -58,7 +63,7 @@ export const AdminProtectedRoute: React.FC = () => {
 
 export const ProviderProtectedRoute: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
-    const token = localStorage.getItem("providerToken");
+    const token = sessionStorage.getItem("providerToken");
     const { authProvider } = useSelector((store: RootState) => store.auth);
     const navigate = useNavigate();
     const location = useLocation();
@@ -69,26 +74,31 @@ export const ProviderProtectedRoute: React.FC = () => {
                 const decodedToken = jwtDecode<CustomJwtPayload>(token);
                 const currentTime = Math.floor(Date.now() / 1000);
 
+                if (location.pathname.startsWith("/admin") || location.pathname.startsWith("/user")) {
+                    navigate("/provider");
+                    return;
+                }
+
                 if (decodedToken.exp && currentTime > decodedToken.exp) {
-                    localStorage.removeItem("providerToken");
+                    sessionStorage.removeItem("providerToken");
                     dispatch(setAuthProvider(null));
                     navigate("/provider/login");
                 } else if (decodedToken.role !== "PROVIDER") {
-                    localStorage.removeItem("providerToken");
+                    sessionStorage.removeItem("providerToken");
                     dispatch(setAuthProvider(null));
                     navigate("/provider/login");
                 } else if (authProvider?.isBlocked) {
                     dispatch(setAuthProvider(null));
-                    localStorage.removeItem("providerToken");
+                    sessionStorage.removeItem("providerToken");
                     toast.error("Your account is blocked, please contact us.");
                     navigate("/provider/login");
                 } else if (!authProvider) {
-                    localStorage.removeItem("providerToken");
+                    sessionStorage.removeItem("providerToken");
                     dispatch(setAuthProvider(null));
                     navigate("/provider/login");
                 }
             } catch{
-                localStorage.removeItem("providerToken");
+                sessionStorage.removeItem("providerToken");
                 dispatch(setAuthProvider(null));
                 navigate("/provider/login");
             }
@@ -106,8 +116,9 @@ export const ProviderProtectedRoute: React.FC = () => {
 };
 
 export const UserProtectedRoute: React.FC = () => {
+    console.log("user protected route")
     const dispatch = useDispatch<AppDispatch>();
-    const token = localStorage.getItem("userToken");
+    const token = sessionStorage.getItem("userToken");
     const { authUser } = useSelector((store: RootState) => store.auth);
     const navigate = useNavigate();
     const location = useLocation();
@@ -118,26 +129,32 @@ export const UserProtectedRoute: React.FC = () => {
                 const decodedToken = jwtDecode<CustomJwtPayload>(token);
                 const currentTime = Math.floor(Date.now() / 1000);
 
+
+                if (location.pathname.startsWith("/admin") || location.pathname.startsWith("/provider")) {
+                    navigate("/user");
+                    return;
+                }
+
                 if (decodedToken.exp && currentTime > decodedToken.exp) {
-                    localStorage.removeItem("userToken");
+                    sessionStorage.removeItem("userToken");
                     dispatch(setAuthUser(null));
                     navigate("/user/login");
                 } else if (decodedToken.role !== "USER") {
-                    localStorage.removeItem("userToken");
+                    sessionStorage.removeItem("userToken");
                     dispatch(setAuthUser(null));
                     navigate("/user/login");
                 } else if (authUser?.isBlocked) {
                     dispatch(setAuthUser(null));
-                    localStorage.removeItem("userToken");
+                    sessionStorage.removeItem("userToken");
                     toast.error("Your account is blocked, please contact us.");
                     navigate("/user/login");
                 } else if (!authUser) {
-                    localStorage.removeItem("userToken");
+                    sessionStorage.removeItem("userToken");
                     dispatch(setAuthUser(null));
                     navigate("/user/login");
                 }
             } catch{
-                localStorage.removeItem("userToken");
+                sessionStorage.removeItem("userToken");
                 dispatch(setAuthUser(null));
                 navigate("/user/login");
             }

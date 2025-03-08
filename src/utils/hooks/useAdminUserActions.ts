@@ -2,7 +2,7 @@ import { User } from "@/utils/types";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/utils/redux/appStore";
 import { useQueryClient } from "@tanstack/react-query";
-import { changeUserBlockStatus } from "../apis/adminUser.api";
+import { changeUserBlockStatus } from "../apis/admin.api";
 
 export const useAdminUserActions = () => {
   const queryClient = useQueryClient();

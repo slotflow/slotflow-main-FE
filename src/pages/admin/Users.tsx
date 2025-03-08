@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchUsers } from "@/utils/apis/adminProvider.api";
+import { fetchUsers } from "@/utils/apis/admin.api";
 import { DataTable } from "@/components/table/data-table";
 import ShimmerTable from "@/components/shimmers/ShimmerTable";
 import { userColumns } from "@/components/table/columns";
@@ -23,7 +23,7 @@ const Users = () => {
     </>
     :
     <>
-      <h2 className="text-xl font-bold mb-4">Users</h2>
+      <h2 className="text-2xl font-bold mb-4">Users</h2>
       <DataTable columns={userColumns} data={users} />
     </>
     }
