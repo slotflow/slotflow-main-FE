@@ -1,117 +1,155 @@
 import { useDispatch, useSelector } from "react-redux";
 import { jwtDecode, JwtPayload } from "jwt-decode";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
-import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { setAuthAdmin, setAuthProvider, setAuthUser } from "@/utils/redux/slices/authSlice";
 import { toast } from "react-toastify";
+import { useEffect } from "react";
 
 interface CustomJwtPayload extends JwtPayload {
     role?: string;
     userOrProviderId?: string;
 }
 
+
 export const AdminProtectedRoute: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
     const token = localStorage.getItem("adminToken");
+    const { authAdmin } = useSelector((store: RootState) => store.auth);
+    const navigate = useNavigate();
     const location = useLocation();
-   
 
-    if (!token) {
-        dispatch(setAuthAdmin(null));
-        return <Navigate to="/admin/login" replace />;
-    }
+    useEffect(() => {
+        if (token) {
+            try {
+                const decodedToken = jwtDecode<CustomJwtPayload>(token);
+                const currentTime = Math.floor(Date.now() / 1000);
 
-    try {
-        const decodedToken = jwtDecode<CustomJwtPayload>(token);
-        const currentTime = Date.now();
-
-        if (decodedToken.exp && currentTime > decodedToken.exp * 1000 && decodedToken.role === "ADMIN") {
-            console.log("Token is expired");
-            return <Navigate to="/admin/login" state={{ from: location }} replace />;
+                if (decodedToken.exp && currentTime > decodedToken.exp) {
+                    localStorage.removeItem("adminToken");
+                    dispatch(setAuthAdmin(null));
+                    navigate("/admin/login");
+                } else if (decodedToken.role !== "ADMIN") {
+                    localStorage.removeItem("adminToken");
+                    dispatch(setAuthAdmin(null));
+                    navigate("/admin/login");
+                } else if (!authAdmin) {
+                    localStorage.removeItem("adminToken");
+                    dispatch(setAuthAdmin(null));
+                    navigate("/admin/login");
+                }
+            } catch{
+                localStorage.removeItem("adminToken");
+                dispatch(setAuthAdmin(null));
+                navigate("/admin/login");
+            }
         } else {
-            console.log("Token is valid");
-            return <Outlet />;
+            dispatch(setAuthAdmin(null));
+            navigate("/admin/login");
         }
-    } catch (error) {
-        localStorage.removeItem("adminToken");
-        dispatch(setAuthAdmin(null));
-        console.error("Error decoding token:", error);
-        return <Navigate to="/admin/login" replace />;
+    }, [token, dispatch, navigate, authAdmin, location.pathname]);
+
+    if (token && authAdmin) {
+        return <Outlet />;
+    } else {
+        return null;
     }
 };
 
 export const ProviderProtectedRoute: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
     const token = localStorage.getItem("providerToken");
-    const location = useLocation();
     const { authProvider } = useSelector((store: RootState) => store.auth);
+    const navigate = useNavigate();
+    const location = useLocation();
 
-    if(authProvider?.isBlocked){
-        dispatch(setAuthProvider(null));
-        localStorage.removeItem("providerToken");
-        toast.error("Your account is blocked, please contact us.");
-        return <Navigate to="/provider/login" replace />;
-    }
+    useEffect(() => {
+        if (token) {
+            try {
+                const decodedToken = jwtDecode<CustomJwtPayload>(token);
+                const currentTime = Math.floor(Date.now() / 1000);
 
-    if (!token) {
-        dispatch(setAuthProvider(null));
-        return <Navigate to="/provider/login" replace />;
-    }
-
-    try {
-        const decodedToken = jwtDecode<CustomJwtPayload>(token);
-        const currentTime = Date.now();
-
-        if (decodedToken.exp && currentTime > decodedToken.exp * 1000 && decodedToken.role === "PROVIDER") {
-            console.log("Token expired");
-            return <Navigate to="/provider/login" state={{ from: location }} replace />;
+                if (decodedToken.exp && currentTime > decodedToken.exp) {
+                    localStorage.removeItem("providerToken");
+                    dispatch(setAuthProvider(null));
+                    navigate("/provider/login");
+                } else if (decodedToken.role !== "PROVIDER") {
+                    localStorage.removeItem("providerToken");
+                    dispatch(setAuthProvider(null));
+                    navigate("/provider/login");
+                } else if (authProvider?.isBlocked) {
+                    dispatch(setAuthProvider(null));
+                    localStorage.removeItem("providerToken");
+                    toast.error("Your account is blocked, please contact us.");
+                    navigate("/provider/login");
+                } else if (!authProvider) {
+                    localStorage.removeItem("providerToken");
+                    dispatch(setAuthProvider(null));
+                    navigate("/provider/login");
+                }
+            } catch{
+                localStorage.removeItem("providerToken");
+                dispatch(setAuthProvider(null));
+                navigate("/provider/login");
+            }
         } else {
-            console.log("Token is valid");
-            return <Outlet />;
+            dispatch(setAuthProvider(null));
+            navigate("/provider/login");
         }
-    } catch (error) {
-        dispatch(setAuthProvider(null));
-        localStorage.removeItem("providerToken");
-        console.error("Error decoding token:", error);
-        return <Navigate to="/provider/login" replace />;
+    }, [token, dispatch, navigate, authProvider, location.pathname]);
+
+    if (token && authProvider && !authProvider?.isBlocked) {
+        return <Outlet />;
+    } else {
+        return null;
     }
 };
 
 export const UserProtectedRoute: React.FC = () => {
-    console.log("userRoute")
     const dispatch = useDispatch<AppDispatch>();
-    const token : string | null = localStorage.getItem("userToken");
+    const token = localStorage.getItem("userToken");
+    const { authUser } = useSelector((store: RootState) => store.auth);
+    const navigate = useNavigate();
     const location = useLocation();
 
-    const { authUser } = useSelector((store: RootState) => store.auth);
+    useEffect(() => {
+        if (token) {
+            try {
+                const decodedToken = jwtDecode<CustomJwtPayload>(token);
+                const currentTime = Math.floor(Date.now() / 1000);
 
-    if(authUser?.isBlocked){
-        dispatch(setAuthAdmin(null));
-        localStorage.removeItem("adminToken");
-        toast.error("Your account is blocked, please contact us.");
-        return <Navigate to="/user/login" replace />;
-    }
-
-    if (!token) {
-        dispatch(setAuthUser(null));
-        return <Navigate to="/user/login" replace />;
-    }
-
-    try {
-        const decodedToken = jwtDecode<CustomJwtPayload>(token);
-        const currentTime = Date.now();
-        
-        if (decodedToken.exp && currentTime > decodedToken.exp * 1000 && decodedToken.role === "USER") {
-            console.log("Token expired");
-            return <Navigate to="/user/login" state={{ from: location }} replace />;
+                if (decodedToken.exp && currentTime > decodedToken.exp) {
+                    localStorage.removeItem("userToken");
+                    dispatch(setAuthUser(null));
+                    navigate("/user/login");
+                } else if (decodedToken.role !== "USER") {
+                    localStorage.removeItem("userToken");
+                    dispatch(setAuthUser(null));
+                    navigate("/user/login");
+                } else if (authUser?.isBlocked) {
+                    dispatch(setAuthUser(null));
+                    localStorage.removeItem("userToken");
+                    toast.error("Your account is blocked, please contact us.");
+                    navigate("/user/login");
+                } else if (!authUser) {
+                    localStorage.removeItem("userToken");
+                    dispatch(setAuthUser(null));
+                    navigate("/user/login");
+                }
+            } catch{
+                localStorage.removeItem("userToken");
+                dispatch(setAuthUser(null));
+                navigate("/user/login");
+            }
         } else {
-            console.log("Token is valid");
-            return <Outlet />;
+            dispatch(setAuthUser(null));
+            navigate("/user/login");
         }
-    } catch (error) {
-        dispatch(setAuthUser(null));
-        localStorage.removeItem("userToken");
-        console.error("Error decoding token:", error);
-        return <Navigate to="/user/login" replace />;
+    }, [token, dispatch, navigate, authUser, location.pathname]);
+
+    if (token && authUser && !authUser?.isBlocked) {
+        return <Outlet />;
+    } else {
+        return null;
     }
 };

@@ -1,7 +1,19 @@
 import LoginForm from "@/components/form/LoginForm";
 import {FormFilling} from "../../components/svgs/FormFilling";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const AdminLogin = () => {
+
+  const navigate = useNavigate();
+    const token = localStorage.getItem("adminToken");
+
+    useEffect(() => {
+      console.log("login checking ")
+        if (token) {
+            navigate("/admin");
+        }
+    }, [token, navigate]);
   
   return (
     <div className='h-[100vh] flex bg-[var(--background)]'>

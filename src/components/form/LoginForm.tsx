@@ -29,9 +29,9 @@ const LoginForm: React.FC<LoginFormProp> = ({ isAdmin, role }) => {
     }, []);
 
     const handleNavigation = (role: string) => {
-        if (role === "ADMIN") navigate("/admin");
-        else if (role === "USER") navigate("/user");
-        else if (role === "PROVIDER") navigate("/provider");
+        if (role === "ADMIN") navigate("/admin", {replace: true});
+        else if (role === "USER") navigate("/user", {replace: true});
+        else if (role === "PROVIDER") navigate("/provider", {replace: true});
     };
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {

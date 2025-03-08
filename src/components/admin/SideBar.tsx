@@ -1,9 +1,7 @@
 import { NavLink } from "react-router-dom"
 
 const SideBar = () => {
-    // const links = [
-    //     {}
-    // ]
+   
     return (
         <div className="w-[16%] h-full bg-[var(--background)] shadow-[5px_0_0_0_rgba(0,0,0,0.2)] p-4 overflow-y-scroll">
             <ul className="space-y-4">
