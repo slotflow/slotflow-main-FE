@@ -88,18 +88,49 @@ export const changeUserBlockStatus = createAsyncThunk('/admin/changeUserStatus',
 )
 
 
-// export const addNewService = createAsyncThunk('/admin/addNewService',
-//     async (serviceName: string, thunkAPI) => {
-//         try {
-//             console.log("serviceName : ",serviceName)
-//             const response = await axiosInstance.put(`/admin/addNewService`,serviceName);
-//             const res = response.data;
-//             console.log("response : ",res);
-//         } catch (error) {
-//             if (axios.isAxiosError(error) && error.response) {
-//                 return thunkAPI.rejectWithValue(error.response.data.message);
-//             }
-//             return thunkAPI.rejectWithValue("Unexpected error occurred, please try again.");
-//         }
-//     }
-// )
+export const addNewService = createAsyncThunk('/admin/addNewService',
+    async (serviceName: string, thunkAPI) => {
+        try {
+            const response = await axiosInstance.post('/admin/addNewService', { serviceName });
+            const res = response.data;
+            console.log("response : ",res);
+            if (res.success) {
+              toast.success(res.message);
+              return res;
+            } else {
+              toast.error(res.message);
+              return thunkAPI.rejectWithValue(res.message);
+            }
+          } catch (error) {
+            if (axios.isAxiosError(error) && error.response) {
+                return thunkAPI.rejectWithValue(error.response.data.message);
+            }
+            return thunkAPI.rejectWithValue("Unexpected error occurred, please try again.");
+        }
+    }
+)
+
+
+export const chnageServiceBlockStatus = createAsyncThunk('/admin/changeServiceStatus',
+    async (statusData: {serviceId: string, status: boolean}, thunkAPI) => {
+        try {
+            console.log("statusData : ",statusData)
+            const { serviceId, status } = statusData;
+            const response = await axiosInstance.put(`/admin/changeServiceStatus/${serviceId}?status=${status}`);
+            const res = response.data;
+            if(res.success){
+                toast.success(res.message);
+                console.log("serviceBlocking status : ",res.updatedService.isBlocked);
+            }else{
+                toast.error(res.message);
+            }
+            console.log("response : ",res);
+            return { serviceId, updatedUser: res.updatedUser };
+        } catch (error) {
+            if (axios.isAxiosError(error) && error.response) {
+                return thunkAPI.rejectWithValue(error.response.data.message);
+            }
+            return thunkAPI.rejectWithValue("Unexpected error occurred, please try again.");
+        }
+    }
+)

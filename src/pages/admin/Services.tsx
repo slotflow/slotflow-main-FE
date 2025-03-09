@@ -13,6 +13,8 @@ const Services = () => {
     queryFn: fetchServices,
   });
 
+  console.log(services)
+
   if (isError) return <div>Error {error.message}</div>
 
   return (

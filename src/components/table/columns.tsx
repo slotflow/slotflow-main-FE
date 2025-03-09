@@ -115,9 +115,13 @@ export const serviceColumns: ColumnDef<Serivce>[] = [
   {
     accessorKey: "_id",
     header: "id",
+    cell: ({ row }) => {
+      const id = row.original._id;
+      return <span>{id.toString().slice(-4)}</span>;
+    },
   },
   {
-    accessorKey: "name",
+    accessorKey: "serviceName",
     header: ({ column }) => (<DataTableColumnHeader column={column} title="ServiceName" />)
   },
   {

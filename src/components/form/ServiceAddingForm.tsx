@@ -1,12 +1,10 @@
 import { useCallback, useState } from "react";
-import InputField from "./InputFieldWithLable"
-// import { useDispatch } from "react-redux";
-// import { AppDispatch } from "@/utils/redux/appStore";
+import InputField from "./InputFieldWithLable";
+import { useAdminServiceActions } from "@/utils/hooks/useAdminServiceActions";
 
 
 const ServiceAddingForm = () => {
 
-  // const dispatch = useDispatch<AppDispatch>();
   const [formData, setFormData] = useState({
           serviceName: "",
       });
@@ -14,10 +12,14 @@ const ServiceAddingForm = () => {
       const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
           setFormData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
       }, []);
-      
-      const handleSubmit = () => {
-       
-      }
+
+      const { handleServiceAdding } = useAdminServiceActions();
+
+      const handleSubmit = (e: React.SyntheticEvent) => {
+        e.preventDefault();
+        handleServiceAdding(formData.serviceName);
+        setFormData({ serviceName: "" });
+      };
 
   return (
     <div className="flex p-4 mt-17 flex-1 flex-col justify-center border-[1px] rounded-md">
