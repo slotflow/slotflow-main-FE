@@ -15,7 +15,7 @@ export type User = {
 }
 
 export type Serivce = {
-    _id: number
+    _id: string
     name: string
     isBlocked: boolean
 }

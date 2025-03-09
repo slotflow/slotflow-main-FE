@@ -125,7 +125,7 @@ export const chnageServiceBlockStatus = createAsyncThunk('/admin/changeServiceSt
                 toast.error(res.message);
             }
             console.log("response : ",res);
-            return { serviceId, updatedUser: res.updatedUser };
+            return { serviceId, updatedService : res.updatedService };
         } catch (error) {
             if (axios.isAxiosError(error) && error.response) {
                 return thunkAPI.rejectWithValue(error.response.data.message);

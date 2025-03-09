@@ -1,11 +1,12 @@
-import { Button } from "../ui/button"
-import { MoreHorizontal } from "lucide-react"
-import { Provider, Serivce, User } from "@/utils/types"
-import { ChangeUserStatus } from "./UserActions"
-import { ColumnDef } from "@tanstack/react-table"
-import { DataTableColumnHeader } from "./DataTableColumnHeader"
-import {ApproveProvider, ChangeProviderStatus } from "./ProviderActions"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu"
+import { Button } from "../ui/button";
+import { MoreHorizontal } from "lucide-react";
+import { BlockService } from "./SerivceActions";
+import { ChangeUserStatus } from "./UserActions";
+import { ColumnDef } from "@tanstack/react-table";
+import { Provider, Serivce, User } from "@/utils/types";
+import { DataTableColumnHeader } from "./DataTableColumnHeader";
+import {ApproveProvider, ChangeProviderStatus } from "./ProviderActions";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
 
 export const providerColumns: ColumnDef<Provider>[] = [
   {
@@ -136,7 +137,8 @@ export const serviceColumns: ColumnDef<Serivce>[] = [
     accessorKey: "actions",
     header: "Actions",
     id: "actions",
-    cell: () => {
+    cell: ({ row }) => {
+      const service = row.original;
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -148,7 +150,7 @@ export const serviceColumns: ColumnDef<Serivce>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Block</DropdownMenuItem>
+            <BlockService serviceId={service._id} status={service.isBlocked}/>
             <DropdownMenuItem>Edit</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
