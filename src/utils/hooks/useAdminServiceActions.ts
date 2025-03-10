@@ -1,16 +1,22 @@
 import { Serivce } from "../types";
+import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../redux/appStore";
 import { useQueryClient } from "@tanstack/react-query";
-import { addNewService, chnageServiceBlockStatus } from "../apis/admin.api";
+import { addNewService, chnageServiceBlockStatus } from "../apis/admin_service_api";
 
 export const useAdminServiceActions = () => {
   const queryClient = useQueryClient();
   const dispatch = useDispatch<AppDispatch>();
 
   const handleServiceAdding = (serviceName: string) => {
-    dispatch(addNewService(serviceName)).unwrap().then(() => {
+    dispatch(addNewService(serviceName))
+    .unwrap()
+    .then(() => {
       queryClient.invalidateQueries({ queryKey: ["services"] });
+    })
+    .catch((error) => {
+      toast.error(error.message);
     });
   };
 
@@ -28,6 +34,9 @@ export const useAdminServiceActions = () => {
           }
         );
         queryClient.invalidateQueries({ queryKey: ["services"] });
+      })
+      .catch((error) => {
+        toast.error(error.message);
       });
   }
 

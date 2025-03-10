@@ -1,10 +1,10 @@
-import ServiceAddingForm from '@/components/form/ServiceAddingForm'
-import ShimmerTable from '@/components/shimmers/ShimmerTable'
-import ShimmerTableTop from '@/components/shimmers/ShimmerTableTop'
-import { serviceColumns } from '@/components/table/columns'
-import { DataTable } from '@/components/table/data-table'
-import { fetchServices } from '@/utils/apis/admin.api'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query';
+import { DataTable } from '@/components/table/data-table';
+import { serviceColumns } from '@/components/table/columns';
+import ShimmerTable from '@/components/shimmers/ShimmerTable';
+import { fetchServices } from '@/utils/apis/admin_service_api';
+import ShimmerTableTop from '@/components/shimmers/ShimmerTableTop';
+import ServiceAddingForm from '@/components/form/ServiceAddingForm';
 
 const Services = () => {
 
@@ -13,7 +13,6 @@ const Services = () => {
     queryFn: fetchServices,
   });
 
-  console.log(services)
 
   if (isError) return <div>Error {error.message}</div>
 
