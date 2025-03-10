@@ -1,8 +1,9 @@
+import { toast } from "react-toastify";
 import { Provider } from "@/utils/types";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/utils/redux/appStore";
 import { useQueryClient } from "@tanstack/react-query";
-import { approveProvider, changeProviderBlockStatus } from "@/utils/apis/admin.api";
+import { approveProvider, changeProviderBlockStatus } from "@/utils/apis/admin_provider_api";
 
 export const useAdminProviderActions = () => {
   const queryClient = useQueryClient();
@@ -22,12 +23,15 @@ export const useAdminProviderActions = () => {
           }
         );
         queryClient.invalidateQueries({ queryKey: ["providers"] });
+      })
+      .catch((error) => {
+        toast.error(error.message);
       });
   };
 
   const hanldeChangeProviderBlockStatus = (providerId: string, status: boolean) => {
-    dispatch(changeProviderBlockStatus({providerId, status}))
-    .unwrap()
+    dispatch(changeProviderBlockStatus({ providerId, status }))
+      .unwrap()
       .then(({ providerId, updatedProvider }) => {
         queryClient.setQueryData(
           ["providers"],
@@ -39,6 +43,9 @@ export const useAdminProviderActions = () => {
           }
         );
         queryClient.invalidateQueries({ queryKey: ["providers"] });
+      })
+      .catch((error) => {
+        toast.error(error.message);
       });
   }
 

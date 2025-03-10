@@ -15,20 +15,20 @@ const adminSlice = createSlice({
     name: "admin",
     initialState,
     reducers: {
-        
+
     },
-        extraReducers: (builder) => {
-            builder
-                .addCase(addNewService.pending, (state) => {
-                    state.loading = true;
-                })
-                .addCase(addNewService.fulfilled, (state) => {
-                    state.loading = false;
-                })
-                .addCase(addNewService.rejected, (state) => {
-                    state.loading = false;
-                })
-        },
+    extraReducers: (builder) => {
+        builder
+            .addCase(addNewService.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(addNewService.fulfilled, (state) => {
+                state.loading = false;
+            })
+            .addCase(addNewService.rejected, (state) => {
+                state.loading = false;
+            })
+    },
 });
 
 const persistConfig = {
