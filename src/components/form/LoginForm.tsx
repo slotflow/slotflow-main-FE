@@ -18,6 +18,7 @@ const LoginForm: React.FC<LoginFormProp> = ({ isAdmin, role }) => {
     const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
     const { loading } = useSelector((store: RootState) => store.signform);
+    const [hasErrors, setHasErrors] = useState(false);
 
     const [formData, setFormData] = useState({
         email: "",
@@ -26,6 +27,7 @@ const LoginForm: React.FC<LoginFormProp> = ({ isAdmin, role }) => {
 
     const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+        setHasErrors(false);
     }, []);
 
     const handleNavigation = (role: string) => {
@@ -36,6 +38,10 @@ const LoginForm: React.FC<LoginFormProp> = ({ isAdmin, role }) => {
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        if(hasErrors){
+            toast.error("Please fix the form errors.");
+            return;
+        }
         if (role) {
             dispatch(signin({
                 email: formData.email,
@@ -66,6 +72,10 @@ const LoginForm: React.FC<LoginFormProp> = ({ isAdmin, role }) => {
         dispatch(setResetPasswordForm(false));
     };
 
+    const handleErrorChange = (hasError: boolean) => {
+        setHasErrors(hasError);
+      };
+
     return (
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -84,6 +94,7 @@ const LoginForm: React.FC<LoginFormProp> = ({ isAdmin, role }) => {
                         value={formData.email}
                         onChange={handleChange}
                         required={true}
+                        onHasError={handleErrorChange}
                     />
 
                     <InputField
@@ -96,6 +107,7 @@ const LoginForm: React.FC<LoginFormProp> = ({ isAdmin, role }) => {
                         required={true}
                         isPassword={true}
                         forgotPassword={true}
+                        onHasError={handleErrorChange}
                     />
 
                     <div>

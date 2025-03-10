@@ -12,6 +12,7 @@ const ResetPasswordForm = () => {
     const dispatch = useDispatch<AppDispatch>();
     const { loading } = useSelector((store: RootState) => store.signform);
     const { user, provider, authUser, authProvider } = useSelector((store: RootState) => store.auth);
+    const [hasErrors, setHasErrors] = useState(false);
 
     let role : string | undefined;
     let verificationToken : string | undefined;
@@ -24,6 +25,7 @@ const ResetPasswordForm = () => {
         verificationToken = authProvider?.verificationToken
     }
 
+
     const [formData, setFormData] = useState({
         password: "",
         confirmPassword: "",
@@ -31,11 +33,15 @@ const ResetPasswordForm = () => {
 
     const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+        setHasErrors(false);
     }, []);
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-
+        if(hasErrors){
+            toast.error("Please fix the form errors.");
+            return;
+        }
         if (role && verificationToken) {
             dispatch(updatePassword({
                 role,
@@ -70,6 +76,10 @@ const ResetPasswordForm = () => {
         dispatch(setSignUpForm(false));
     }
 
+    const handleErrorChange = (hasError: boolean) => {
+        setHasErrors(hasError);
+      };
+
     return (
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -91,6 +101,7 @@ const ResetPasswordForm = () => {
                         onChange={handleChange}
                         required={true}
                         isPassword={true}
+                        onHasError={handleErrorChange}
                     />
                     <InputField
                         label="Confirm Password"
@@ -101,6 +112,7 @@ const ResetPasswordForm = () => {
                         onChange={handleChange}
                         required={true}
                         isPassword={true}
+                        onHasError={handleErrorChange}
                     />
 
                     <div>

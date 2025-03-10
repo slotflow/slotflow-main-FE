@@ -7,9 +7,10 @@ import { AppDispatch, RootState } from '@/utils/redux/appStore';
 import { setResetPasswordForm, setsignInForm, setSignUpForm, setVerifyEmailForm, setVerifyOtpForm } from '@/utils/redux/slices/signFormSlice';
 
 const EmailVerificationForm = () => {
-    const dispatch = useDispatch<AppDispatch>();
 
+    const dispatch = useDispatch<AppDispatch>();
     const { loading } = useSelector((store: RootState) => store.signform);
+    const [hasErrors, setHasErrors] = useState(false);
 
     const [formData, setFormData] = useState({
         email: "",
@@ -18,10 +19,15 @@ const EmailVerificationForm = () => {
 
     const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         setFormData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+        setHasErrors(false);
     }, []);
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        if(hasErrors){
+            toast.error("Please fix the form errors.");
+            return;
+        }
         if (formData.role) {
             dispatch(resendOtp({ role: formData.role, email: formData.email }))
                 .unwrap()
@@ -52,6 +58,11 @@ const EmailVerificationForm = () => {
         dispatch(setSignUpForm(false));
         dispatch(setResetPasswordForm(false));
     }
+
+    const handleErrorChange = (hasError: boolean) => {
+        setHasErrors(hasError);
+      };
+
     return (
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -94,6 +105,7 @@ const EmailVerificationForm = () => {
                         value={formData.email}
                         onChange={handleChange}
                         required={true}
+                        onHasError={handleErrorChange}
                     />
 
                     <div>

@@ -14,6 +14,7 @@ const SignUpForm: React.FC<signUpProps> = ({role}) => {
 
     const dispatch = useDispatch<AppDispatch>();
     const { loading } = useSelector((store: RootState) => store.signform);
+    const [hasErrors, setHasErrors] = useState(false);
 
     const [formData, setFormData] = useState({
         username: "",
@@ -24,10 +25,15 @@ const SignUpForm: React.FC<signUpProps> = ({role}) => {
 
     const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+        setHasErrors(false);
     }, []);
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        if(hasErrors){
+            toast.error("Please fix the form errors.");
+            return;
+        }
         if (role) {
             dispatch(signup({
                 username: formData.username,
@@ -55,7 +61,6 @@ const SignUpForm: React.FC<signUpProps> = ({role}) => {
         } else {
             toast.error("Select your account type.");
         }
-
     };
 
     const changeToSignIn = () => {
@@ -65,6 +70,10 @@ const SignUpForm: React.FC<signUpProps> = ({role}) => {
         dispatch(setVerifyOtpForm(false));
         dispatch(setResetPasswordForm(false));
     }
+
+    const handleErrorChange = (hasError: boolean) => {
+        setHasErrors(hasError);
+      };
 
     return (
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -85,6 +94,7 @@ const SignUpForm: React.FC<signUpProps> = ({role}) => {
                         value={formData.username}
                         onChange={handleChange}
                         required={true}
+                        onHasError={handleErrorChange}
                     />
                     <InputField
                         label="Email address"
@@ -94,6 +104,7 @@ const SignUpForm: React.FC<signUpProps> = ({role}) => {
                         value={formData.email}
                         onChange={handleChange}
                         required={true}
+                        onHasError={handleErrorChange}
                     />
                     <InputField
                         label="Password"
@@ -104,6 +115,7 @@ const SignUpForm: React.FC<signUpProps> = ({role}) => {
                         onChange={handleChange}
                         required={true}
                         isPassword={true}
+                        onHasError={handleErrorChange}
                     />
                     <InputField
                         label="Confirm Password"
@@ -114,8 +126,8 @@ const SignUpForm: React.FC<signUpProps> = ({role}) => {
                         onChange={handleChange}
                         required={true}
                         isPassword={true}
+                        onHasError={handleErrorChange}
                     />
-
 
                     <div>
                         <button

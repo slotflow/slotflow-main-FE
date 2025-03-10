@@ -1,26 +1,37 @@
+import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 import { useCallback, useState } from "react";
 import InputField from "./InputFieldWithLable";
-import { useAdminServiceActions } from "@/utils/hooks/useAdminServiceActions";
-import { useSelector } from "react-redux";
 import { RootState } from "@/utils/redux/appStore";
+import { useAdminServiceActions } from "@/utils/hooks/useAdminServiceActions";
 
 const ServiceAddingForm = () => {
 
-  const { loading } = useSelector((store: RootState) => store.admin );
+  const { loading } = useSelector((store: RootState) => store.admin);
   const [formData, setFormData] = useState({
     serviceName: "",
   });
+  const [hasErrors, setHasErrors] = useState(false);
 
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+    setHasErrors(false);
   }, []);
 
   const { handleServiceAdding } = useAdminServiceActions();
 
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
+    if(hasErrors){
+      toast.error("Please fix the form errors.");
+      return;
+    }
     handleServiceAdding(formData.serviceName);
-    setFormData({ serviceName: "" });
+    setFormData({ serviceName: '' });
+  };
+
+  const handleErrorChange = (hasError: boolean) => {
+    setHasErrors(hasError);
   };
 
   return (
@@ -40,8 +51,8 @@ const ServiceAddingForm = () => {
             value={formData.serviceName}
             onChange={handleChange}
             required={true}
+            onHasError={handleErrorChange}
           />
-
           <div>
             <button
               type="submit"
