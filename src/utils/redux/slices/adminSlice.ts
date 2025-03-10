@@ -1,7 +1,7 @@
 import { persistReducer } from "redux-persist";
 import { createSlice } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
-import { addNewService } from "@/utils/apis/admin_service_api";
+import { addNewService } from "@/utils/apis/adminService_api";
 
 interface stateVariables {
     loading: boolean;

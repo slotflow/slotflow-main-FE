@@ -4,7 +4,6 @@ import axiosInstance from "@/lib/axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { setProviderBlocked } from "../redux/slices/authSlice";
 
-
 export const fetchProviders = async () => {
     try{
         const response = await axiosInstance.get("/admin/providers");

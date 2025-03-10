@@ -1,8 +1,9 @@
 import { User } from "@/utils/types";
+import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/utils/redux/appStore";
 import { useQueryClient } from "@tanstack/react-query";
-import { changeUserBlockStatus } from "../apis/admin.api";
+import { changeUserBlockStatus } from "../apis/adminUser.api";
 
 export const useAdminUserActions = () => {
   const queryClient = useQueryClient();
@@ -22,7 +23,10 @@ export const useAdminUserActions = () => {
           }
         );
         queryClient.invalidateQueries({ queryKey: ["users"] });
-      });
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      })
   }
 
   return { hanldeChangeUserBlockStatus };

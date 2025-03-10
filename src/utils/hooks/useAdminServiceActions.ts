@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../redux/appStore";
 import { useQueryClient } from "@tanstack/react-query";
-import { addNewService, chnageServiceBlockStatus } from "../apis/admin_service_api";
+import { addNewService, chnageServiceBlockStatus } from "../apis/adminService_api";
 
 export const useAdminServiceActions = () => {
   const queryClient = useQueryClient();

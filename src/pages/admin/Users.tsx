@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchUsers } from "@/utils/apis/admin.api";
+import { fetchUsers } from "@/utils/apis/adminUser.api";
 import { DataTable } from "@/components/table/data-table";
 import ShimmerTable from "@/components/shimmers/ShimmerTable";
 import { userColumns } from "@/components/table/columns";

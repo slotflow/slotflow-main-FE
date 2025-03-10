@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { DataTable } from "@/components/table/data-table";
 import { providerColumns } from "@/components/table/columns";
 import ShimmerTable from "@/components/shimmers/ShimmerTable";
-import { fetchProviders } from "@/utils/apis/admin_provider_api";
+import { fetchProviders } from "@/utils/apis/adminProvider_api";
 import ShimmerTableTop from "@/components/shimmers/ShimmerTableTop";
 
 const ServiceProviders = () => {
