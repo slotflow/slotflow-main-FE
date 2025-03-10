@@ -2,6 +2,7 @@ import { toast } from "react-toastify";
 import InputField from "./InputFieldWithLable";
 import { signup, } from "@/utils/apis/auth.api";
 import { useDispatch, useSelector } from "react-redux";
+import { FormButton, FormHeading } from "./FormSplits";
 import React, { FormEvent, useCallback, useState } from "react";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
 import { setResetPasswordForm, setsignInForm, setSignUpForm, setVerifyEmailForm, setVerifyOtpForm, startTimer } from "@/utils/redux/slices/signFormSlice";
@@ -77,15 +78,9 @@ const SignUpForm: React.FC<signUpProps> = ({role}) => {
 
     return (
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-            <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-                <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-[var(--textTwo)] hover:text-[var(--textTwoHover)]">
-                    Sign up for Continue
-                </h2>
-            </div>
-
+            <FormHeading title={"Sign Up"} />
             <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                 <form onSubmit={handleSubmit} className="space-y-6">
-
                     <InputField
                         label="Username"
                         id="username"
@@ -128,25 +123,14 @@ const SignUpForm: React.FC<signUpProps> = ({role}) => {
                         isPassword={true}
                         onHasError={handleErrorChange}
                     />
-
-                    <div>
-                        <button
-                            type="submit"
-                            className="flex w-full justify-center rounded-md bg-[var(--mainColor)] hover:bg-[var(--mainColorHover)] px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--mainColor)] cursor-pointer"
-                        >
-                            {loading ? "Loading" : "Sign Up"}
-                        </button>
-                    </div>
+                    <FormButton text={"Sign Up"} loading={loading} />
                 </form>
-
-
                 <p className="mt-10 text-center text-sm/6 text-[var(--textOne)] hover:text-[var(--textOneHover)]">
                     Already a Slotflow member?
                     <span className="font-semibold text-[var(--mainColor)] hover:text-[var(--mainColorHover)] cursor-pointer" onClick={changeToSignIn}>
                         {" "}Sign In
                     </span>
                 </p>
-
             </div>
         </div >
     )

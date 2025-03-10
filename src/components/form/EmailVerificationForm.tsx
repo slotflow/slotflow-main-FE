@@ -2,6 +2,7 @@ import { toast } from 'react-toastify';
 import InputField from './InputFieldWithLable'
 import { resendOtp } from '@/utils/apis/auth.api';
 import { useDispatch, useSelector } from 'react-redux';
+import { FormButton, FormHeading } from './FormSplits';
 import { FormEvent, useCallback, useState } from 'react';
 import { AppDispatch, RootState } from '@/utils/redux/appStore';
 import { setResetPasswordForm, setsignInForm, setSignUpForm, setVerifyEmailForm, setVerifyOtpForm } from '@/utils/redux/slices/signFormSlice';
@@ -65,11 +66,7 @@ const EmailVerificationForm = () => {
 
     return (
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-            <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-                <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-[var(--textTwo)] hover:text-[var(--textTwoHover)]">
-                    Email Verification
-                </h2>
-            </div>
+            <FormHeading title={"Email Verification"} />
 
             <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                 <form onSubmit={handleSubmit} className="space-y-6">
@@ -108,14 +105,7 @@ const EmailVerificationForm = () => {
                         onHasError={handleErrorChange}
                     />
 
-                    <div>
-                        <button
-                            type="submit"
-                            className="flex w-full justify-center rounded-md bg-[var(--mainColor)] hover:bg-[var(--mainColorHover)] px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--mainColor)] cursor-pointer"
-                        >
-                            {loading ? "Loading" : "Verify"}
-                        </button>
-                    </div>
+                    <FormButton text={"Submit"} loading={loading} />
                 </form>
 
                 <p className="mt-6 flex justify-between text-xs md:text-sm/6 text-[var(--textTwo)] px-2">

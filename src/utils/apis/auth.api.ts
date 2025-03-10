@@ -7,7 +7,6 @@ import { setAuthAdmin, setAuthProvider, setAuthUser } from "../redux/slices/auth
 export const signup = createAsyncThunk('auth/signup',
     async (userData: { username: string; email: string; password: string, role: string }, thunkAPI) => {
         try {
-            console.log("userData : ",userData);
             const response = await axiosInstance.post("/auth/signup", userData);
             const res = response.data;
             if (res.success) {             
@@ -19,6 +18,7 @@ export const signup = createAsyncThunk('auth/signup',
                     thunkAPI.dispatch(setAuthAdmin(res.authUser));
                 }
                 thunkAPI.dispatch(startTimer(300));
+                sessionStorage.setItem("role",res.authUser.role);
             }
             return res;
         } catch (error: unknown) {
@@ -99,6 +99,7 @@ export const resendOtp = createAsyncThunk("auth/resendOtp",
             const res = response.data;
             if(res.success){
                 thunkAPI.dispatch(setAuthUser(res.authUser));
+                sessionStorage.setItem("role",res.authUser.role);
                 thunkAPI.dispatch(startTimer(300));
             }
             return res;

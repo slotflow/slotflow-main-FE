@@ -2,6 +2,7 @@ import { toast } from "react-toastify";
 import InputField from "./InputFieldWithLable";
 import { signin } from "@/utils/apis/auth.api";
 import { useNavigate } from "react-router-dom";
+import { FormButton, FormHeading } from "./FormSplits";
 import { useDispatch, useSelector } from "react-redux";
 import { FormEvent, useCallback, useState } from "react";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
@@ -78,11 +79,7 @@ const LoginForm: React.FC<LoginFormProp> = ({ isAdmin, role }) => {
 
     return (
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-            <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-                <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-[var(--textTwo)] hover:text-[var(--textTwoHover)]">
-                    Sign in to your account
-                </h2>
-            </div>
+           <FormHeading title={"Sign In"} />
 
             <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                 <form onSubmit={handleSubmit} className="space-y-6">
@@ -110,14 +107,7 @@ const LoginForm: React.FC<LoginFormProp> = ({ isAdmin, role }) => {
                         onHasError={handleErrorChange}
                     />
 
-                    <div>
-                        <button
-                            type="submit"
-                            className="flex w-full justify-center rounded-md bg-[var(--mainColor)] hover:bg-[var(--mainColorHover)] px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--mainColor)] cursor-pointer"
-                        >
-                            {loading ? "Loading" : "Sign In"}
-                        </button>
-                    </div>
+                    <FormButton text={"Sign In"} loading={loading} />
                 </form>
 
                 {!isAdmin && (

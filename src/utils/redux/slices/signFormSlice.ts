@@ -110,10 +110,10 @@ const signFormSlice = createSlice({
                     state.loading = true;
                 })
                 .addCase(updatePassword.fulfilled, (state) => {
-                    state.loading = true;
+                    state.loading = false;
                 })
                 .addCase(updatePassword.rejected, (state) => {
-                    state.loading = true;
+                    state.loading = false;
                 })
         },
 });
