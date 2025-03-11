@@ -1,7 +1,7 @@
 import { persistReducer } from "redux-persist";
 import { createSlice } from "@reduxjs/toolkit";
-import storage from "redux-persist/lib/storage";
 import { addNewService } from "@/utils/apis/adminService_api";
+import sessionStorage from "redux-persist/lib/storage/session";
 
 interface stateVariables {
     loading: boolean;
@@ -33,7 +33,7 @@ const adminSlice = createSlice({
 
 const persistConfig = {
     key: "adminSlice",
-    storage,
+    storage: sessionStorage,
 };
 
 const persistedAdminReducer = persistReducer(persistConfig, adminSlice.reducer);

@@ -1,6 +1,6 @@
 import { persistReducer } from "redux-persist";
 import { createSlice } from "@reduxjs/toolkit";
-import storage from "redux-persist/lib/storage";
+import sessionStorage from "redux-persist/lib/storage/session";
 
 interface stateVariables {
     lightTheme: boolean;
@@ -24,7 +24,7 @@ const stateSlice = createSlice({
 
 const persistConfig = {
     key: "state",
-    storage,
+    storage: sessionStorage,
 };
 
 const persistedStateReducer = persistReducer(persistConfig, stateSlice.reducer);

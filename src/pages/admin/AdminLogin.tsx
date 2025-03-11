@@ -2,18 +2,18 @@ import LoginForm from "@/components/form/LoginForm";
 import { FormFilling } from "../../components/svgs/FormFilling";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "@/utils/redux/appStore";
 
 const AdminLogin = () => {
 
   const navigate = useNavigate();
-  const token = sessionStorage.getItem("adminToken");
-
+  const authUser = useSelector((store: RootState) => store.auth.authUser);
   useEffect(() => {
-    console.log("Admin login checking ")
-    if (token) {
+    if(authUser && authUser.role === "ADMIN"){
       navigate("/admin");
     }
-  }, [token, navigate]);
+  }, [authUser, navigate]);
 
   return (
     <div className='h-[100vh] flex bg-[var(--background)]'>

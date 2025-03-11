@@ -1,6 +1,6 @@
 import { persistReducer } from "redux-persist";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import storage from "redux-persist/lib/storage";
+import sessionStorage from "redux-persist/lib/storage/session";
 
 interface stateVariables {
     loading: boolean;
@@ -25,7 +25,7 @@ const userSlice = createSlice({
 
 const persistConfig = {
     key: "userSlice",
-    storage,
+    storage: sessionStorage,
 };
 
 const persistedUserReducer = persistReducer(persistConfig, userSlice.reducer);

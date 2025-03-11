@@ -12,19 +12,11 @@ const OtpVerificatioForm = () => {
 
     const dispatch = useDispatch<AppDispatch>();
     const { otpRemainingTime, otpTimerIsRunning, loading, forgotPassword } = useSelector((store: RootState) => store.signform);
-    const { authUser, authProvider } = useSelector((store: RootState) => store.auth);
+    const { authUser } = useSelector((store: RootState) => store.auth);
     const [hasErrors, setHasErrors] = useState(false);
 
-    let role : string | null = sessionStorage.getItem("role");
-    let verificationToken : string | undefined;
-
-    if(role === "USER"){
-        role = authUser?.role || null;
-        verificationToken = authUser?.verificationToken
-    }else if(role === "PROVIDER"){
-        role = authProvider?.role || null;
-        verificationToken = authProvider?.verificationToken
-    }
+    const role : string | null = authUser?.role || null;
+    const verificationToken : string | undefined = authUser?.verificationToken;
 
     const [formData, setFormData] = useState({
         otp: ""

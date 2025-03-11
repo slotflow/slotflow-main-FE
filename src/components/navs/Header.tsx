@@ -6,7 +6,7 @@ import { toggleTheme } from '@/utils/redux/slices/stateSlice';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { AppDispatch, RootState } from '../../utils/redux/appStore';
-import { setAuthAdmin, setAuthProvider, setAuthUser } from '../../utils/redux/slices/authSlice';
+import { setAuthUser } from '../../utils/redux/slices/authSlice';
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 
 const navigation = [
@@ -22,7 +22,7 @@ const Header = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const themeMode = useSelector((store: RootState) => store.state.lightTheme);
-  const role = sessionStorage.getItem("role");
+  const role = useSelector((store: RootState) => store.auth?.authUser?.role);
   const location = useLocation();
 
   const changeTheme = () => {
@@ -34,15 +34,12 @@ const Header = () => {
       toast.success(res.message);
       if(role === "USER"){
         dispatch(setAuthUser(null));
-        sessionStorage.removeItem("userToken");
         navigate("/user/login");
       }else if(role === "PROVIDER"){
-        dispatch(setAuthProvider(null));
-        sessionStorage.removeItem("providerToken");
+        dispatch(setAuthUser(null));
         navigate("/provider/login");
       }else if(role === "ADMIN"){
-        dispatch(setAuthAdmin(null));
-        sessionStorage.removeItem("adminToken");
+        dispatch(setAuthUser(null));
         navigate("/admin/login");
       }
     }).catch((error) => {

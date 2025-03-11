@@ -2,7 +2,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import axiosInstance from "@/lib/axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { setProviderBlocked } from "../redux/slices/authSlice";
+import { setUserBlocked } from "../redux/slices/authSlice";
 
 export const fetchProviders = async () => {
     try{
@@ -44,7 +44,7 @@ export const changeProviderBlockStatus = createAsyncThunk('/admin/changeProvider
             const res = response.data;
             if (res.success) {
                 toast.success(res.message);
-                thunkAPI.dispatch(setProviderBlocked(res.updatedProvider.isBlocked));
+                thunkAPI.dispatch(setUserBlocked(res.updatedProvider.isBlocked));
             } else {
                 toast.error(res.message);
             }

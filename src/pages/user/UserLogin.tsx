@@ -12,15 +12,13 @@ import { useNavigate } from "react-router-dom"
 const UserLogin = () => {
   const { resetPasswordForm, signInForm, verifyEmailForm, verifyOtpForm, signUpForm } = useSelector((store: RootState) => store.signform);
   const navigate = useNavigate();
-  const token = sessionStorage.getItem("adminToken");
-
+  const authUser = useSelector((store: RootState) => store.auth.authUser);
   useEffect(() => {
-    console.log("User login checking ")
-    if (token) {
+    if (authUser && authUser.role === "USER") {
       navigate("/user");
     }
-  }, [token, navigate]);
-  
+  }, [authUser, navigate]);
+
   return (
     <div className='h-[100vh] flex bg-[var(--background)]'>
       <div className="md:w-6/12 hidden md:flex items-center justify-center">
