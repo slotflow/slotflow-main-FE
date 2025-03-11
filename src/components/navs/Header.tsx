@@ -1,13 +1,15 @@
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { signout } from '../../utils/apis/auth.api';
-import { useDispatch, useSelector } from 'react-redux';
-import { toggleTheme } from '@/utils/redux/slices/stateSlice';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleSidebar, toggleTheme } from '@/utils/redux/slices/stateSlice';
+import { setAuthUser } from '../../utils/redux/slices/authSlice';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { AppDispatch, RootState } from '../../utils/redux/appStore';
-import { setAuthUser } from '../../utils/redux/slices/authSlice';
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
+import { RiMenuFold4Fill } from "react-icons/ri";
+import { RiMenuFold3Fill } from "react-icons/ri";
 
 const navigation = [
   { name: 'Home', href: '/', current: true },
@@ -20,9 +22,10 @@ const navigation = [
 const Header = () => {
 
   const dispatch = useDispatch<AppDispatch>();
-  const navigate = useNavigate();
   const themeMode = useSelector((store: RootState) => store.state.lightTheme);
   const role = useSelector((store: RootState) => store.auth?.authUser?.role);
+  const sidebarOpen = useSelector((store: RootState) => store.state.sidebarOpen);
+  const navigate = useNavigate();
   const location = useLocation();
 
   const changeTheme = () => {
@@ -32,13 +35,13 @@ const Header = () => {
   const handleSignout = () => {
     dispatch(signout()).unwrap().then((res) => {
       toast.success(res.message);
-      if(role === "USER"){
+      if (role === "USER") {
         dispatch(setAuthUser(null));
         navigate("/user/login");
-      }else if(role === "PROVIDER"){
+      } else if (role === "PROVIDER") {
         dispatch(setAuthUser(null));
         navigate("/provider/login");
-      }else if(role === "ADMIN"){
+      } else if (role === "ADMIN") {
         dispatch(setAuthUser(null));
         navigate("/admin/login");
       }
@@ -55,9 +58,13 @@ const Header = () => {
     }
   }, [themeMode]);
 
+  const handleSidebar = () => {
+    dispatch(toggleSidebar());
+  }
+
   return (
-    <Disclosure as="nav" className="w-full bg-[var(--background)] shadow-lg">
-      <div className={`mx-auto max-w-7xl px-2 sm:px-6 lg:px-8`}>
+    <Disclosure as="nav" className="w-full bg-[var(--background)] border-b-2 border-[var(--boxBorder)]">
+      <div className={`mx-auto px-2 sm:px-6 lg:px-8`}>
         <div className="relative flex h-16 items-center justify-between">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
             <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:ring-2 focus:ring-white focus:outline-hidden focus:ring-inset">
@@ -68,11 +75,18 @@ const Header = () => {
             </DisclosureButton>
           </div>
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-            <div className="flex shrink-0 items-center">
+            <div className="flex shrink-0 items-center cursor-pointer" onClick={handleSidebar}>
+              {sidebarOpen ? 
+              <RiMenuFold3Fill className='mx-4 text-2xl font-bold'/>
+              : 
+              <RiMenuFold4Fill className='mx-4 text-2xl font-bold'/>
+              }
+            </div>
+            <div className="flex shrink-0 items-center ml-4">
               <p className='text-[var(--mainColor)] text-sm md:text-xl font-semibold italic cursor-pointer hover:text-[var(--mainColorHover)]'>Slotflow</p>
             </div>
-            <div className="hidden sm:ml-6 sm:block">
-              {!location.pathname.startsWith("/admin") && (
+            {!location.pathname.startsWith("/admin") && (
+              <div className="hidden sm:ml-6 sm:block">
                 <div className="flex space-x-4">
                   {navigation.map((item) => (
                     <Link
@@ -85,9 +99,8 @@ const Header = () => {
                     </Link>
                   ))}
                 </div>
-              )}
-
-            </div>
+              </div>
+            )}
           </div>
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
 
