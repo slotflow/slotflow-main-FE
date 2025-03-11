@@ -297,3 +297,22 @@
     opacity: 1;
   }
 }
+
+body {
+  background-color: black;
+  scrollbar-width: 0;
+}
+
+body::-webkit-scrollbar {
+  display: none; 
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
