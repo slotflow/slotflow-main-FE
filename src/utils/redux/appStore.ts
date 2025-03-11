@@ -1,6 +1,7 @@
 import { persistStore } from 'redux-persist';
 import { configureStore } from "@reduxjs/toolkit";
 import persistedAuthReducer from "./slices/authSlice";
+import persistedUserReducer from './slices/userSlice';
 import persistedStateReducer from './slices/stateSlice';
 import persistedAdminReducer from './slices/adminSlice';
 import persistedSignFormReducer from "./slices/signFormSlice";
@@ -11,6 +12,7 @@ import persistedSignFormReducer from "./slices/signFormSlice";
         signform:  persistedSignFormReducer,
         state : persistedStateReducer,
         admin: persistedAdminReducer,
+        user: persistedUserReducer,
     },
 });
 

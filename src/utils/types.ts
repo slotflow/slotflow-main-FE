@@ -19,3 +19,8 @@ export type Serivce = {
     name: string
     isBlocked: boolean
 }
+
+export interface Route {
+    path: string;
+    name: string;
+  }
