@@ -53,7 +53,15 @@ const InputField: React.FC<InputFieldProps> = ({
                 Validator.validateOtp(inputValue);
             } else if (id === "phone") {
                 Validator.validatePhone(inputValue);
-            }
+            } else if(id === "planName"){
+                Validator.validatePlanName(inputValue);
+            } else if (id === "description") {
+                Validator.validateDescription(inputValue);
+            } else if (id === "price") {
+                Validator.validatePrice(Number(inputValue));
+            }  else if (id === "maxBookingPerMonth") {
+                Validator.validateMaxBookingPerMonth(Number(inputValue));
+            } 
             setErrorMessage(null);
             onHasError?.(false);
         } catch (error) {

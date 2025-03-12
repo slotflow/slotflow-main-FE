@@ -40,7 +40,6 @@ const PlanForm = () => {
 
     const handleSubmit = (e: React.SyntheticEvent) => {
         e.preventDefault();
-        console.log("formData : ",formData);
         if (hasErrors) {
             toast.error("Please fix the form errors.");
             return;
