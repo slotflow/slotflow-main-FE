@@ -18,6 +18,7 @@ const Admin = () => {
         pauseOnHover
         theme={themeMode ? "light" : "dark"}
         transition={Bounce}
+        style={{ zIndex: 9999 }}
     />
     <div className="flex h-screen">
       <Sidebar routes={adminRoutes} />

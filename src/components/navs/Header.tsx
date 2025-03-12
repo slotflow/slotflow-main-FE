@@ -7,9 +7,9 @@ import { toggleSidebar, toggleTheme } from '@/utils/redux/slices/stateSlice';
 import { setAuthUser } from '../../utils/redux/slices/authSlice';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { AppDispatch, RootState } from '../../utils/redux/appStore';
-import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { RiMenuFold4Fill } from "react-icons/ri";
 import { RiMenuFold3Fill } from "react-icons/ri";
+import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 
 const navigation = [
   { name: 'Home', href: '/', current: true },
@@ -23,7 +23,8 @@ const Header = () => {
 
   const dispatch = useDispatch<AppDispatch>();
   const themeMode = useSelector((store: RootState) => store.state.lightTheme);
-  const role = useSelector((store: RootState) => store.auth?.authUser?.role);
+  const user = useSelector((store: RootState) => store.auth?.authUser);
+  const role = user?.role;
   const sidebarOpen = useSelector((store: RootState) => store.state.sidebarOpen);
   const authUser = useSelector((store: RootState) => store.auth.authUser?.token);
   const navigate = useNavigate();
@@ -128,19 +129,21 @@ const Header = () => {
                   </div>
                 }
               </div>
-              <MenuItems
-                transition
-                className="absolute bg-[var(--menuBg)] right-0 z-10 mt-2 w-48 origin-top-right rounded-md py-1 ring-1 shadow-lg ring-black/5 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
-              >
-                <MenuItem>
-                  <span
-                    onClick={handleSignout}
-                    className="block px-4 py-2 text-sm cursor-pointer text-[var(--textOne)] hover:text-[var(--textOneHover)] hover:bg-[var(--menuItemHoverBg)]"
-                  >
-                    Sign Out
-                  </span>
-                </MenuItem>
-              </MenuItems>
+              {user && (
+                <MenuItems
+                  transition
+                  className="absolute bg-[var(--menuBg)] right-0 z-10 mt-2 w-48 origin-top-right rounded-md py-1 ring-1 shadow-lg ring-black/5 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
+                >
+                  <MenuItem>
+                    <span
+                      onClick={handleSignout}
+                      className="block px-4 py-2 text-sm cursor-pointer text-[var(--textOne)] hover:text-[var(--textOneHover)] hover:bg-[var(--menuItemHoverBg)]"
+                    >
+                      Sign Out
+                    </span>
+                  </MenuItem>
+                </MenuItems>
+              )}
             </Menu>
           </div>
         </div>

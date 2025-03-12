@@ -14,6 +14,7 @@ const AdminHeader = () => {
   const dispatch = useDispatch<AppDispatch>();
   const themeMode = useSelector((store: RootState) => store.state.lightTheme);
   const sidebarOpen = useSelector((store: RootState) => store.state.sidebarOpen);
+  const user = useSelector((store: RootState) => store.auth.authUser);
   const navigate = useNavigate();
 
   const changeTheme = () => {
@@ -22,6 +23,7 @@ const AdminHeader = () => {
 
   const handleSignout = () => {
     dispatch(signout()).unwrap().then((res) => {
+      console.log("call")
       toast.success(res.message);
       dispatch(setAuthUser(null));
       navigate("/admin/login");
@@ -39,18 +41,18 @@ const AdminHeader = () => {
   }, [themeMode]);
 
   const handleSidebar = () => {
-      dispatch(toggleSidebar());
-    }
+    dispatch(toggleSidebar());
+  }
 
   return (
     <Disclosure as="nav" className="w-full bg-[var(--background)] border-b-2 border-[var(--boxBorder)] ">
       <div className={`mx-auto px-2 sm:px-6 lg:px-8`}>
         <div className="relative flex h-16 items-center justify-between">
           <div className="inset-y-0 left-0 flex items-center">
-          {sidebarOpen ?
-              <RiMenuFold3Fill className='mx-4 text-2xl font-bold cursor-pointer text-[var(--textOne)] hover:text-[var(--textOneHover)]' onClick={handleSidebar}/>
+            {sidebarOpen ?
+              <RiMenuFold3Fill className='mx-4 text-2xl font-bold cursor-pointer text-[var(--textOne)] hover:text-[var(--textOneHover)]' onClick={handleSidebar} />
               :
-              <RiMenuFold4Fill className='mx-4 text-2xl font-bold cursor-pointer text-[var(--textOne)] hover:text-[var(--textOneHover)]' onClick={handleSidebar}/>
+              <RiMenuFold4Fill className='mx-4 text-2xl font-bold cursor-pointer text-[var(--textOne)] hover:text-[var(--textOneHover)]' onClick={handleSidebar} />
             }
             <h4 className='font-bold text-2xl text-[var(--mainColor)]'>Welcome Admin</h4>
           </div>
@@ -76,19 +78,21 @@ const AdminHeader = () => {
                   </div>
                 }
               </div>
-              <MenuItems
-                transition
-                className="absolute bg-[var(--menuBg)] right-0 z-10 mt-2 w-48 origin-top-right rounded-md py-1 ring-1 shadow-lg ring-black/5 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
-              >
-                <MenuItem>
-                  <span
-                    onClick={handleSignout}
-                    className="block px-4 py-2 text-sm cursor-pointer text-[var(--textOne)] hover:text-[var(--textOneHover)] hover:bg-[var(--menuItemHoverBg)]"
-                  >
-                    Sign Out
-                  </span>
-                </MenuItem>
-              </MenuItems>
+              {user && (
+                <MenuItems
+                  transition
+                  className="absolute bg-[var(--menuBg)] right-0 z-10 mt-2 w-48 origin-top-right rounded-md py-1 ring-1 shadow-lg ring-black/5 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
+                >
+                  <MenuItem>
+                    <span
+                      onClick={handleSignout}
+                      className="block px-4 py-2 text-sm cursor-pointer text-[var(--textOne)] hover:text-[var(--textOneHover)] hover:bg-[var(--menuItemHoverBg)]"
+                    >
+                      Sign Out
+                    </span>
+                  </MenuItem>
+                </MenuItems>
+              )}
             </Menu>
           </div>
         </div>

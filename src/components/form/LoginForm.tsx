@@ -52,6 +52,7 @@ const LoginForm: React.FC<LoginFormProp> = ({ isAdmin, role }) => {
                 .unwrap()
                 .then((res) => {
                     if (res.success) {
+                        console.log("login call")
                         toast.success(res.message);
                         handleNavigation(res.authUser.role);
                     } else {
