@@ -20,6 +20,7 @@ export const adminRoutes: Route[] = [
   ]
 
   export const providerRoutes: Route[] = [
+    { path: "/provider", name: "Dashboard" },
     { path: "profile", name: "Profile" },
     { path: "service", name: "Service" },
     { path: "appointments", name: "Appointments" },
