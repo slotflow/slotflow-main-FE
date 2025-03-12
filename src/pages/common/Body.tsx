@@ -1,7 +1,7 @@
-import { Outlet, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Header from "../../components/navs/Header";
 import Footer from "../../components/navs/Footer";
+import { Outlet, useLocation } from "react-router-dom";
 import { RootState } from "../../utils/redux/appStore";
 import { Bounce, ToastContainer } from "react-toastify";
 

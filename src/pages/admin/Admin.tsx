@@ -1,13 +1,24 @@
-import AdminHeader from "../../components/navs/AdminHeader";
 import { Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
-import Sidebar from "@/components/navs/SideBar";
 import { adminRoutes } from "@/utils/constants";
 import { RootState } from "@/utils/redux/appStore";
+import Sidebar from "@/components/navs/AdminSidebar";
+import { Bounce, ToastContainer } from "react-toastify";
+import AdminHeader from "../../components/navs/AdminHeader";
 
 const Admin = () => {
   const sidebarOpen = useSelector((store: RootState) => store.state.sidebarOpen);
+  const themeMode = useSelector((store: RootState) => store.state?.lightTheme);
   return (
+    <>
+    <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        pauseOnHover
+        theme={themeMode ? "light" : "dark"}
+        transition={Bounce}
+    />
     <div className="flex h-screen">
       <Sidebar routes={adminRoutes} />
       <div className={`flex-1 flex flex-col ${sidebarOpen ? 'w-[84%]' : 'w-[94%]'} transition-all duration-300`}>
@@ -17,6 +28,7 @@ const Admin = () => {
         </div>
       </div>
     </div>
+        </>
   );
 };
 

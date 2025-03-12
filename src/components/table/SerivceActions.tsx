@@ -10,12 +10,12 @@ export const BlockService: React.FC<BlockServiceProps> = ({ serviceId, status })
     
     const { handleChangeServiceStatus } = useAdminServiceActions();
 
-    const handleSeriveBlockStatus = () => {
+    const handleServiceBlockStatus = () => {
         handleChangeServiceStatus(serviceId, !status);
     }
 
     return(
-        <DropdownMenuItem onClick={handleSeriveBlockStatus}>
+        <DropdownMenuItem onClick={handleServiceBlockStatus}>
             {status ? "Unblock" : "Block"}
         </DropdownMenuItem>
     )

@@ -1,4 +1,5 @@
 import { Button } from "../ui/button";
+import { BlockPlan } from "./PlanActions";
 import { MoreHorizontal } from "lucide-react";
 import { BlockService } from "./SerivceActions";
 import { ChangeUserStatus } from "./UserActions";
@@ -186,7 +187,7 @@ export const planColumns: ColumnDef<Serivce>[] = [
     header: "Actions",
     id: "actions",
     cell: ({ row }) => {
-      const service = row.original;
+      const plan = row.original;
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -199,7 +200,7 @@ export const planColumns: ColumnDef<Serivce>[] = [
             <DropdownMenuSeparator />
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem>Details</DropdownMenuItem>
-            <BlockService serviceId={service._id} status={service.isBlocked}/>
+            <BlockPlan planId={plan._id} status={plan.isBlocked}/>
             <DropdownMenuItem>Edit</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

@@ -2,8 +2,8 @@ import { Plan } from "../types";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../redux/appStore";
-import { addNewPlan } from "../apis/adminPlan_api";
 import { useQueryClient } from "@tanstack/react-query"
+import { addNewPlan, changePlanBlockStatus } from "../apis/adminPlan_api";
 
 export const useAdminPlanActions = () => {
     const queryClient = useQueryClient();
@@ -20,5 +20,25 @@ export const useAdminPlanActions = () => {
             })
     }
 
-    return { handlePlanAdding };
+    const handleChangePlanStatus = (planId: string, status: boolean) => {
+        dispatch(changePlanBlockStatus({ planId, status }))
+          .unwrap()
+          .then(({ planId, updatedPlan }) => {
+            queryClient.setQueryData(
+              ["services"],
+              (oldData: Plan[] | undefined) => {
+                if (!oldData) return [];
+                return oldData.map((service) =>
+                  service._id === planId ? updatedPlan : service
+                );
+              }
+            );
+            queryClient.invalidateQueries({ queryKey: ["plans"] });
+          })
+          .catch((error) => {
+            toast.error(error.message);
+          });
+      }
+
+    return { handlePlanAdding, handleChangePlanStatus };
 }

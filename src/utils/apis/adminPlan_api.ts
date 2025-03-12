@@ -36,3 +36,28 @@ export const addNewPlan = createAsyncThunk('/admin/addNewPlan',
         }
     }
 )
+
+export const changePlanBlockStatus = createAsyncThunk('/admin/changePlanStatus',
+    async (statusData: { planId: string, status: boolean }) => {
+        try {
+            console.log("statusData : ",statusData);
+            const { planId, status } = statusData;
+            const response = await axiosInstance.put(`/admin/changePlanStatus/${planId}?status=${status}`);
+            const res = response.data;
+            console.log("response : ",res);
+            if (res.success) {
+                console.log("ok")
+                toast.success(res.message);
+            } else {
+                toast.error(res.message);
+            }
+            return { planId, updatedPlan: res.updatedPlan };
+        } catch (error) {
+            if (axios.isAxiosError(error) && error.response) {
+                throw error.response.data.message;
+            } else {
+                throw "An unexpected error occurred.";
+            }
+        }
+    }
+)
