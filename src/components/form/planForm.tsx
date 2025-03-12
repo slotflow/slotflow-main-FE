@@ -49,7 +49,7 @@ const PlanForm = () => {
             planName: "",
             description: "",
             price: 0,
-            features: [""],
+            features: ["", "", "", "", ""],
             billingCycle: BillingCycle.Monthly,
             maxBookingPerMonth: 0,
             adVisibility: false,
