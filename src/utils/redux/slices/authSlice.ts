@@ -10,6 +10,7 @@ interface UserData {
     token?: string;
     role?: string;
     isBlocked?: boolean;
+    isLoggedIn: boolean;
 }
 
 interface AuthState {
@@ -26,16 +27,7 @@ const authSlice = createSlice({
     reducers: {
         setAuthUser: (state, action: PayloadAction<UserData | null>) => {
             state.authUser = action.payload;
-        },
-        setUserBlocked: (state, action: PayloadAction<boolean>) => {
-            console.log("status changing");
-            console.log("authUser : ",state.authUser);
-            if (state.authUser?.username) {
-                console.log("state.authUser : ",state.authUser);
-                console.log("action.payload : ",action.payload);
-                state.authUser.isBlocked = action.payload;
-            }
-        },
+        }
     },
 });
 
@@ -48,7 +40,6 @@ const persistedAuthReducer = persistReducer(persistConfig, authSlice.reducer);
 
 export const { 
     setAuthUser, 
-    setUserBlocked,
 } = authSlice.actions;
 
 export default persistedAuthReducer;

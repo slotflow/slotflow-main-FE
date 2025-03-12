@@ -2,7 +2,6 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import axiosInstance from "../../lib/axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { setUserBlocked } from "../redux/slices/authSlice";
 
 export const fetchUsers = async () => {
     const response = await axiosInstance.get('/admin/users');
@@ -10,14 +9,13 @@ export const fetchUsers = async () => {
 }
 
 export const changeUserBlockStatus = createAsyncThunk('/admin/changeUserStatus',
-    async (statusData: { userId: string, status: boolean }, thunkAPI) => {
+    async (statusData: { userId: string, status: boolean }) => {
         try {
             const { userId, status } = statusData;
             const response = await axiosInstance.put(`/admin/user/changeStatus/${userId}?status=${status}`);
             const res = response.data;
             if (res.success) {
                 toast.success(res.message);
-                thunkAPI.dispatch(setUserBlocked(res.updatedUser.isBlocked));
             } else {
                 toast.error(res.message);
             }

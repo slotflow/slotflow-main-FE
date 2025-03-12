@@ -13,7 +13,6 @@ const AdminHeader = () => {
 
   const dispatch = useDispatch<AppDispatch>();
   const themeMode = useSelector((store: RootState) => store.state.lightTheme);
-  const role = useSelector((store: RootState) => store.auth?.authUser?.role);
   const sidebarOpen = useSelector((store: RootState) => store.state.sidebarOpen);
   const navigate = useNavigate();
 
@@ -24,16 +23,8 @@ const AdminHeader = () => {
   const handleSignout = () => {
     dispatch(signout()).unwrap().then((res) => {
       toast.success(res.message);
-      if (role === "USER") {
-        dispatch(setAuthUser(null));
-        navigate("/user/login");
-      } else if (role === "PROVIDER") {
-        dispatch(setAuthUser(null));
-        navigate("/provider/login");
-      } else if (role === "ADMIN") {
-        dispatch(setAuthUser(null));
-        navigate("/admin/login");
-      }
+      dispatch(setAuthUser(null));
+      navigate("/admin/login");
     }).catch((error) => {
       toast.error(error.message);
     })

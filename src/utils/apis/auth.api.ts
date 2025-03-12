@@ -58,9 +58,7 @@ export const signout = createAsyncThunk("auth/signin",
     async (_, thunkAPI) => {
         try {
             const response = await axiosInstance.post('/auth/signout');
-            if (response.data.success) { 
-                return response.data;
-            }
+            return response.data;
         } catch (error: unknown) {
             if (axios.isAxiosError(error) && error.response) {
                 return thunkAPI.rejectWithValue(error.response.data.message);
