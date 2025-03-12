@@ -4,7 +4,7 @@ import { serviceColumns } from '@/components/table/columns';
 import ShimmerTable from '@/components/shimmers/ShimmerTable';
 import { fetchServices } from '@/utils/apis/adminService_api';
 import ShimmerTableTop from '@/components/shimmers/ShimmerTableTop';
-import ServiceAddingForm from '@/components/form/ServiceAddingForm';
+import ServiceAddingForm from '@/components/form/ServiceForm';
 
 const Services = () => {
 
@@ -19,16 +19,16 @@ const Services = () => {
   return (
     <>
       <h2 className="text-2xl font-bold mb-4">Services</h2>
-      <div className='flex h-screen'>
+      <div className='flex'>
         <div className='w-8/12'>
-        {isLoading ?
-        <>
-          <ShimmerTableTop />
-          <ShimmerTable />
-        </>
-        :
-          <DataTable columns={serviceColumns} data={services} />
-        }
+          {isLoading ?
+            <>
+              <ShimmerTableTop />
+              <ShimmerTable />
+            </>
+            :
+            <DataTable columns={serviceColumns} data={services} />
+          }
         </div>
         <div className='w-4/12 mx-2'>
           <ServiceAddingForm />

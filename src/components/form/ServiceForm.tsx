@@ -3,11 +3,10 @@ import { useSelector } from "react-redux";
 import { useCallback, useState } from "react";
 import InputField from "./InputFieldWithLable";
 import { RootState } from "@/utils/redux/appStore";
-import { useAdminServiceActions } from "@/utils/hooks/useAdminServiceActions";
 import { FormButton, FormHeading } from "./FormSplits";
+import { useAdminServiceActions } from "@/utils/hooks/useAdminServiceActions";
 
 const ServiceAddingForm = () => {
-
   const { loading } = useSelector((store: RootState) => store.admin);
   const [formData, setFormData] = useState({
     serviceName: "",

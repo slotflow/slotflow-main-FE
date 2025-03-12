@@ -1,0 +1,145 @@
+import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
+import { ChangeEvent, useCallback, useState } from "react";
+import InputField from "./InputFieldWithLable";
+import SelectField from "./SelectFiledWithLabel";
+import { RootState } from "@/utils/redux/appStore";
+import { FormButton, FormHeading } from "./FormSplits";
+// import { useAdminServiceActions } from "@/utils/hooks/useAdminServiceActions";
+import { BillingCycle } from "@/utils/types";
+
+const PlanForm = () => {
+    const { loading } = useSelector((store: RootState) => store.admin);
+    const [formData, setFormData] = useState({
+        planName: "",
+        description: "",
+        price: 0,
+        features: ["", "", "", "", ""],
+        billingCycle: BillingCycle.Monthly,
+        maxBookingPerMonth: 0,
+        adVisibility: false,
+    });
+    const [hasErrors, setHasErrors] = useState(false);
+
+    const handleChange = useCallback((e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        const { id, value, type } = e.target;
+        const newValue = type === "checkbox" ? (e.target as HTMLInputElement).checked : value;
+        setFormData((prev) => ({ ...prev, [id]: newValue }));
+        setHasErrors(false);
+    }, []);
+
+    const handleFeatureChange = useCallback((e: React.ChangeEvent<HTMLInputElement>, index: number) => {
+        const newFeatures = [...formData.features];
+        newFeatures[index] = e.target.value;
+        setFormData((prev) => ({ ...prev, features: newFeatures }));
+        setHasErrors(false);
+    }, [formData.features]);
+
+    // const { handleServiceAdding } = useAdminServiceActions();
+
+    const handleSubmit = (e: React.SyntheticEvent) => {
+        e.preventDefault();
+        if (hasErrors) {
+            toast.error("Please fix the form errors.");
+            return;
+        }
+        // handleServiceAdding(formData as Plan);
+        setFormData({
+            planName: "",
+            description: "",
+            price: 0,
+            features: ["", "", "", "", ""],
+            billingCycle: BillingCycle.Monthly,
+            maxBookingPerMonth: 0,
+            adVisibility: false,
+        });
+    };
+
+    const handleErrorChange = (hasError: boolean) => {
+        setHasErrors(hasError);
+    };
+
+    return (
+        <div className="flex p-4 mt-17 flex-1 flex-col justify-center border-[1px] rounded-md">
+            <FormHeading title={"Add New Plan"} />
+            <div className="mt-8 sm:mx-auto sm:w-full">
+                <form onSubmit={handleSubmit} className="space-y-6">
+                    <InputField
+                        label="Plan Name"
+                        id="planName"
+                        placeholder="Premium Plan"
+                        type="text"
+                        value={formData.planName}
+                        onChange={handleChange}
+                        required={true}
+                        onHasError={handleErrorChange}
+                        />
+                    <InputField
+                        label="Description"
+                        id="description"
+                        placeholder="Description of the plan"
+                        type="text"
+                        value={formData.description}
+                        onChange={handleChange}
+                        required={true}
+                        onHasError={handleErrorChange}
+                        />
+                    <InputField
+                        label="Price"
+                        id="price"
+                        placeholder="99"
+                        type="number"
+                        value={formData.price}
+                        onChange={handleChange}
+                        required={true}
+                        onHasError={handleErrorChange}
+                        />
+                    {formData.features.map((feature, index) => (
+                        <InputField
+                            key={index}
+                            label={`Feature ${index + 1}`}
+                            id={`features[${index}]`}
+                            placeholder={`Feature ${index + 1}`}
+                            type="text"
+                            value={feature}
+                            onChange={(e) => handleFeatureChange(e, index)}
+                            required={index < 2}
+                            onHasError={handleErrorChange}
+                        />
+                    ))}
+                    <SelectField
+                        label="Billing Cycle"
+                        id="billingCycle"
+                        value={formData.billingCycle}
+                        onChange={handleChange}
+                        options={Object.values(BillingCycle)}
+                        required={true}
+                        onHasError={handleErrorChange}
+                    />
+                    <InputField
+                        label="Max Bookings Per Month"
+                        id="maxBookingPerMonth"
+                        placeholder="100"
+                        type="number"
+                        value={formData.maxBookingPerMonth}
+                        onChange={handleChange}
+                        required={true}
+                        onHasError={handleErrorChange}
+                    />
+                    <SelectField
+                        label="Ad Visibility"
+                        id="adVisibility"
+                        value={formData.adVisibility}
+                        onChange={handleChange}
+                        options={["true", "false"]}
+                        required={true}
+                        onHasError={handleErrorChange}
+                    />
+                    <FormButton text={"Add"} loading={loading} />
+                </form>
+            </div>
+        </div>
+    );
+};
+
+export default PlanForm;

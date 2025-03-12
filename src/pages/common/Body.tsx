@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Header from "../../components/navs/Header";
 import Footer from "../../components/navs/Footer";
@@ -7,9 +7,11 @@ import { Bounce, ToastContainer } from "react-toastify";
 
 const Body = () => {
   const themeMode = useSelector((store: RootState) => store.state?.lightTheme);
+  const location = useLocation();
+  const isAdminRoute = location.pathname.startsWith('/admin');
   return (
     <>
-    <ToastContainer
+      <ToastContainer
         position="top-right"
         autoClose={3000}
         hideProgressBar={false}
@@ -17,9 +19,9 @@ const Body = () => {
         theme={themeMode ? "light" : "dark"}
         transition={Bounce}
       />
-      <Header />
+      {!isAdminRoute && <Header />}
       <Outlet />
-      <Footer />
+      {!isAdminRoute && <Footer />}
     </>
   )
 }

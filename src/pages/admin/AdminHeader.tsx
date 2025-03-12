@@ -1,32 +1,21 @@
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 import { signout } from '../../utils/apis/auth.api';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleSidebar, toggleTheme } from '@/utils/redux/slices/stateSlice';
 import { setAuthUser } from '../../utils/redux/slices/authSlice';
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { AppDispatch, RootState } from '../../utils/redux/appStore';
-import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
-import { RiMenuFold4Fill } from "react-icons/ri";
-import { RiMenuFold3Fill } from "react-icons/ri";
+import { Disclosure, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
+import { RiMenuFold3Fill, RiMenuFold4Fill } from 'react-icons/ri';
 
-const navigation = [
-  { name: 'Home', href: '/', current: true },
-  { name: 'Plans', href: '#', current: false },
-  { name: 'Services', href: '#', current: false },
-  { name: 'About', href: '#', current: false },
-  { name: 'Contact', href: '#', current: false },
-]
-
-const Header = () => {
+const AdminHeader = () => {
 
   const dispatch = useDispatch<AppDispatch>();
   const themeMode = useSelector((store: RootState) => store.state.lightTheme);
   const role = useSelector((store: RootState) => store.auth?.authUser?.role);
   const sidebarOpen = useSelector((store: RootState) => store.state.sidebarOpen);
   const navigate = useNavigate();
-  const location = useLocation();
 
   const changeTheme = () => {
     dispatch(toggleTheme());
@@ -59,48 +48,20 @@ const Header = () => {
   }, [themeMode]);
 
   const handleSidebar = () => {
-    dispatch(toggleSidebar());
-  }
+      dispatch(toggleSidebar());
+    }
 
   return (
-    <Disclosure as="nav" className="w-full bg-[var(--background)] border-b-2 border-[var(--boxBorder)]">
+    <Disclosure as="nav" className="w-full bg-[var(--background)] border-b-2 border-[var(--boxBorder)] ">
       <div className={`mx-auto px-2 sm:px-6 lg:px-8`}>
         <div className="relative flex h-16 items-center justify-between">
-          <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
-            <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:ring-2 focus:ring-white focus:outline-hidden focus:ring-inset">
-              <span className="absolute -inset-0.5" />
-              <span className="sr-only">Open main menu</span>
-              <Bars3Icon aria-hidden="true" className="block size-6 group-data-open:hidden" />
-              <XMarkIcon aria-hidden="true" className="hidden size-6 group-data-open:block" />
-            </DisclosureButton>
-          </div>
-          <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-            <div className="flex shrink-0 items-center cursor-pointer" onClick={handleSidebar}>
-              {sidebarOpen ?
-                <RiMenuFold3Fill className='mx-4 text-2xl font-bold' />
-                :
-                <RiMenuFold4Fill className='mx-4 text-2xl font-bold' />
-              }
-            </div>
-            <div className="flex shrink-0 items-center ml-4">
-              <p className='text-[var(--mainColor)] text-sm md:text-xl font-semibold italic cursor-pointer hover:text-[var(--mainColorHover)]'>Slotflow</p>
-            </div>
-            {!location.pathname.startsWith("/admin") && (
-              <div className="hidden sm:ml-6 sm:block">
-                <div className="flex space-x-4">
-                  {navigation.map((item) => (
-                    <Link
-                      key={item.name}
-                      to={item.href}
-                      aria-current={item.current ? 'page' : undefined}
-                      className="rounded-md px-3 py-2 text-sm font-medium text-[var(--textOne)] hover:text-[var(--textOneHover)]"
-                    >
-                      {item.name}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            )}
+          <div className="inset-y-0 left-0 flex items-center">
+          {sidebarOpen ?
+              <RiMenuFold3Fill className='mx-4 text-2xl font-bold cursor-pointer' onClick={handleSidebar}/>
+              :
+              <RiMenuFold4Fill className='mx-4 text-2xl font-bold cursor-pointer' onClick={handleSidebar}/>
+            }
+            <h4 className='font-bold text-2xl text-[var(--mainColor)]'>Welcome Admin</h4>
           </div>
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
             <Menu as="div" className="relative ml-3">
@@ -141,24 +102,8 @@ const Header = () => {
           </div>
         </div>
       </div>
-
-      <DisclosurePanel className="sm:hidden">
-        <div className="space-y-1 px-2 pt-2 pb-3">
-          {navigation.map((item) => (
-            <DisclosureButton
-              key={item.name}
-              as="a"
-              href={item.href}
-              aria-current={item.current ? 'page' : undefined}
-              className="item.current ? 'bg-[var(--menuItemHoverBg)] text-[var(--textOne)]' : 'text-[var(--textOne)] hover:bg-[var(--menuItemHoverBg)] hover:text-[var(--textOneHover)] block rounded-md px-3 py-2 text-base font-medium"
-            >
-              {item.name}
-            </DisclosureButton>
-          ))}
-        </div>
-      </DisclosurePanel>
     </Disclosure>
   )
 }
 
-export default Header
+export default AdminHeader

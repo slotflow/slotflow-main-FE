@@ -30,6 +30,7 @@ import ProviderDashboard from "@/pages/provider/ProviderDashboard.tsx";
 import ProviderAddDetails from "@/pages/provider/ProviderAddDetails.tsx";
 import ProviderAppointments from "@/pages/provider/ProviderAppointments.tsx";
 import ProviderNotifications from "@/pages/provider/ProviderNotifications.tsx";
+import AdminPlans from "@/pages/admin/AdminPlans.tsx";
 
 
 export const appRouter = createBrowserRouter([
@@ -42,20 +43,6 @@ export const appRouter = createBrowserRouter([
             { path: "/admin/login", element: <AdminLogin /> },
             { path: "/user/login", element: <UserLogin /> },
             { path: "/provider/login", element: <ProviderLogin /> },
-            {
-                path: "/admin",
-                element: (
-                    <ProtectedRoute allowedRoles={["ADMIN"]}>
-                        <Admin />
-                    </ProtectedRoute>
-                ),
-                children: [
-                    { index: true, element: <Dashboard /> },
-                    { path: "service-providers", element: <ServiceProviders /> },
-                    { path: "users", element: <Users /> },
-                    { path: "services", element: <Services /> },
-                ],
-            },
             {
                 path: "/user",
                 element: (
@@ -87,6 +74,7 @@ export const appRouter = createBrowserRouter([
                     { path: "service", element: <ProviderService /> },
                     { path: "reviews", element: <ProviderReviews /> },
                     { path: "appointments", element: <ProviderAppointments /> },
+                    { path: "appointments", element: <ProviderAppointments /> },
                     { path: "payments", element: <ProviderPayments /> },
                     { path: "chat", element: <ProviderChat /> },
                     { path: "notifications", element: <ProviderNotifications /> },
@@ -94,6 +82,21 @@ export const appRouter = createBrowserRouter([
                     { path: "payment", element: <ProviderPayment />},
                 ],
             },
+        ],
+    },
+    {
+        path: "/admin",
+        element: (
+            <ProtectedRoute allowedRoles={["ADMIN"]}>
+                <Admin />
+            </ProtectedRoute>
+        ),
+        children: [
+            { index: true, element: <Dashboard /> },
+            { path: "service-providers", element: <ServiceProviders /> },
+            { path: "users", element: <Users /> },
+            { path: "services", element: <Services /> },
+            { path: "plans", element: <AdminPlans /> },
         ],
     },
 ])

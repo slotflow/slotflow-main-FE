@@ -11,7 +11,7 @@ interface InputFieldProps {
     id: string;
     placeholder: string;
     type: string;
-    value: string;
+    value: string | number;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     required: boolean;
     isPassword?: boolean;
