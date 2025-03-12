@@ -31,6 +31,7 @@ import ProviderAddDetails from "@/pages/provider/ProviderAddDetails.tsx";
 import ProviderAppointments from "@/pages/provider/ProviderAppointments.tsx";
 import ProviderNotifications from "@/pages/provider/ProviderNotifications.tsx";
 import AdminPlans from "@/pages/admin/AdminPlans.tsx";
+import Provider from "@/pages/provider/Provider.tsx";
 
 
 export const appRouter = createBrowserRouter([
@@ -43,45 +44,6 @@ export const appRouter = createBrowserRouter([
             { path: "/admin/login", element: <AdminLogin /> },
             { path: "/user/login", element: <UserLogin /> },
             { path: "/provider/login", element: <ProviderLogin /> },
-            {
-                path: "/user",
-                element: (
-                    <ProtectedRoute allowedRoles={["USER"]}>
-                        <User />
-                    </ProtectedRoute>
-                ),
-                children: [
-                    { index: true, element: <ServiceSelect /> },
-                    { path: "dashboard", element: <UserDashboard /> },
-                    { path: "providerProfile", element: <UserProviderProfile /> },
-                    { path: "profile", element: <UserProfile /> },
-                    { path: "bookings", element: <UserBookings /> },
-                    { path: "payments", element: <UserPayments /> },
-                    { path: "chat", element: <UserChat /> },
-                    { path: "notifications", element: <UserNotifications /> },
-                ],
-            },
-            {
-                path: "/provider",
-                element: (
-                    <ProtectedRoute allowedRoles={["PROVIDER"]}>
-                        <User />
-                    </ProtectedRoute>
-                ),
-                children: [
-                    { index: true, element: <ProviderDashboard /> },
-                    { path: "profile", element: <ProviderProfile /> },
-                    { path: "service", element: <ProviderService /> },
-                    { path: "reviews", element: <ProviderReviews /> },
-                    { path: "appointments", element: <ProviderAppointments /> },
-                    { path: "appointments", element: <ProviderAppointments /> },
-                    { path: "payments", element: <ProviderPayments /> },
-                    { path: "chat", element: <ProviderChat /> },
-                    { path: "notifications", element: <ProviderNotifications /> },
-                    { path: "addDetails", element: <ProviderAddDetails /> },
-                    { path: "payment", element: <ProviderPayment />},
-                ],
-            },
         ],
     },
     {
@@ -97,6 +59,45 @@ export const appRouter = createBrowserRouter([
             { path: "users", element: <Users /> },
             { path: "services", element: <Services /> },
             { path: "plans", element: <AdminPlans /> },
+        ],
+    },
+    {
+        path: "/user",
+        element: (
+            <ProtectedRoute allowedRoles={["USER"]}>
+                <User />
+            </ProtectedRoute>
+        ),
+        children: [
+            { index: true, element: <ServiceSelect /> },
+            { path: "dashboard", element: <UserDashboard /> },
+            { path: "providerProfile", element: <UserProviderProfile /> },
+            { path: "profile", element: <UserProfile /> },
+            { path: "bookings", element: <UserBookings /> },
+            { path: "payments", element: <UserPayments /> },
+            { path: "chat", element: <UserChat /> },
+            { path: "notifications", element: <UserNotifications /> },
+        ],
+    },
+    {
+        path: "/provider",
+        element: (
+            <ProtectedRoute allowedRoles={["PROVIDER"]}>
+                <Provider />
+            </ProtectedRoute>
+        ),
+        children: [
+            { index: true, element: <ProviderDashboard /> },
+            { path: "profile", element: <ProviderProfile /> },
+            { path: "service", element: <ProviderService /> },
+            { path: "reviews", element: <ProviderReviews /> },
+            { path: "appointments", element: <ProviderAppointments /> },
+            { path: "appointments", element: <ProviderAppointments /> },
+            { path: "payments", element: <ProviderPayments /> },
+            { path: "chat", element: <ProviderChat /> },
+            { path: "notifications", element: <ProviderNotifications /> },
+            { path: "addDetails", element: <ProviderAddDetails /> },
+            { path: "payment", element: <ProviderPayment />},
         ],
     },
 ])

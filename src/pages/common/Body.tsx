@@ -9,6 +9,8 @@ const Body = () => {
   const themeMode = useSelector((store: RootState) => store.state?.lightTheme);
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith('/admin');
+  const isUserRoute = location.pathname.startsWith('/user');
+  const isProviderRoute = location.pathname.startsWith('/provider');
   return (
     <>
       <ToastContainer
@@ -21,7 +23,7 @@ const Body = () => {
       />
       {!isAdminRoute && <Header />}
       <Outlet />
-      {!isAdminRoute && <Footer />}
+      {!isAdminRoute || !isUserRoute || !isProviderRoute && <Footer />}
     </>
   )
 }

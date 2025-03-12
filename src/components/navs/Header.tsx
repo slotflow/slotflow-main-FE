@@ -25,6 +25,7 @@ const Header = () => {
   const themeMode = useSelector((store: RootState) => store.state.lightTheme);
   const role = useSelector((store: RootState) => store.auth?.authUser?.role);
   const sidebarOpen = useSelector((store: RootState) => store.state.sidebarOpen);
+  const authUser = useSelector((store: RootState) => store.auth.authUser?.token);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -63,7 +64,7 @@ const Header = () => {
   }
 
   return (
-    <Disclosure as="nav" className="w-full bg-[var(--background)] border-b-2 border-[var(--boxBorder)]">
+    <Disclosure as="nav" className={`w-full bg-[var(--background)] border-b-2 border-[var(--boxBorder)]}`}>
       <div className={`mx-auto px-2 sm:px-6 lg:px-8`}>
         <div className="relative flex h-16 items-center justify-between">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -75,16 +76,19 @@ const Header = () => {
             </DisclosureButton>
           </div>
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-            <div className="flex shrink-0 items-center cursor-pointer" onClick={handleSidebar}>
-              {sidebarOpen ?
-                <RiMenuFold3Fill className='mx-4 text-2xl font-bold' />
-                :
-                <RiMenuFold4Fill className='mx-4 text-2xl font-bold' />
-              }
-            </div>
-            <div className="flex shrink-0 items-center ml-4">
-              <p className='text-[var(--mainColor)] text-sm md:text-xl font-semibold italic cursor-pointer hover:text-[var(--mainColorHover)]'>Slotflow</p>
-            </div>
+            {authUser ? (
+              <div className="flex shrink-0 items-center cursor-pointer" onClick={handleSidebar}>
+                {sidebarOpen ?
+                  <RiMenuFold3Fill className='mx-4 text-2xl font-bold cursor-pointer text-[var(--textOne)] hover:text-[var(--textOneHover)]' />
+                  :
+                  <RiMenuFold4Fill className='mx-4 text-2xl font-bold cursor-pointer text-[var(--textOne)] hover:text-[var(--textOneHover)]' />
+                }
+              </div>
+            ) : (
+              <div className="flex shrink-0 items-center ml-4">
+                <p className='text-[var(--mainColor)] text-sm md:text-xl font-semibold italic cursor-pointer hover:text-[var(--mainColorHover)]'>Slotflow</p>
+              </div>
+            )}
             {!location.pathname.startsWith("/admin") && (
               <div className="hidden sm:ml-6 sm:block">
                 <div className="flex space-x-4">

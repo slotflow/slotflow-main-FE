@@ -39,15 +39,13 @@ const ServiceSelect = () => {
                     services.map((service: Service) => (
                         <div
                             key={service._id}
-                            className={`p-3 rounded-md border-2 cursor-pointer ${selectedServices.includes(service._id)
+                            className={`p-3 rounded-md border-2 cursor-pointer cursor-pointer ${selectedServices.includes(service._id)
                                 ? "border-[var(--mainColor)]"
                                 : "border-gray-300"
                                 }`}
                             onClick={() => handleServiceToggle(service._id)}
                         >
-                            <label className="flex items-center">
                                 {service.serviceName}
-                            </label>
                         </div>
                     ))}
             </div>

@@ -57,9 +57,9 @@ const AdminHeader = () => {
         <div className="relative flex h-16 items-center justify-between">
           <div className="inset-y-0 left-0 flex items-center">
           {sidebarOpen ?
-              <RiMenuFold3Fill className='mx-4 text-2xl font-bold cursor-pointer' onClick={handleSidebar}/>
+              <RiMenuFold3Fill className='mx-4 text-2xl font-bold cursor-pointer text-[var(--textOne)] hover:text-[var(--textOneHover)]' onClick={handleSidebar}/>
               :
-              <RiMenuFold4Fill className='mx-4 text-2xl font-bold cursor-pointer' onClick={handleSidebar}/>
+              <RiMenuFold4Fill className='mx-4 text-2xl font-bold cursor-pointer text-[var(--textOne)] hover:text-[var(--textOneHover)]' onClick={handleSidebar}/>
             }
             <h4 className='font-bold text-2xl text-[var(--mainColor)]'>Welcome Admin</h4>
           </div>
