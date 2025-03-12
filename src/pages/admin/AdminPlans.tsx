@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 import { DataTable } from '@/components/table/data-table';
-import { serviceColumns } from '@/components/table/columns';
 import ShimmerTable from '@/components/shimmers/ShimmerTable';
 import ShimmerTableTop from '@/components/shimmers/ShimmerTableTop';
 import { fetchPlans } from '@/utils/apis/adminPlan_api';
 import PlanForm from '@/components/form/planForm';
+import { planColumns } from '@/components/table/columns';
 
 const AdminPlans = () => {
 
@@ -26,7 +26,7 @@ const AdminPlans = () => {
                             <ShimmerTable />
                         </>
                         :
-                        <DataTable columns={serviceColumns} data={plans} />
+                        <DataTable columns={planColumns} data={plans} />
                     }
                 </div>
                 <div className='w-4/12 mx-2'>

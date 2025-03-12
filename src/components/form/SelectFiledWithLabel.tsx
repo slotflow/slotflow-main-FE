@@ -28,7 +28,7 @@ const SelectFiledWithLabel: React.FC<SelectFieldProps> = ({
 
     return (
         <div>
-            <label htmlFor={id} className="block text-sm font-medium text-gray-700">
+            <label htmlFor={id} className="block text-xs md:text-sm/6 font-medium text-[var(--textTwo)] hover:text-[var(--textTwoHover)]">
                 {label}
                 {required && <span className="text-red-500">*</span>}
             </label>
@@ -37,7 +37,7 @@ const SelectFiledWithLabel: React.FC<SelectFieldProps> = ({
                 value={value.toString()}
                 onChange={handleChange}
                 required={required}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                className="block w-full rounded-md bg-[var(--inputBg)] px-2 py-1 md:px-3 md:py-2 text-[var(--textOne)] outline-1 -outline-offset-1 outline-[var(--boxBorder)] placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-[var(--mainColor)] text-xs  md:text-sm"
             >
                 {options.map((option) => (
                     <option key={option.toString()} value={option.toString()}>

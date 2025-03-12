@@ -159,3 +159,52 @@ export const serviceColumns: ColumnDef<Serivce>[] = [
   }
 ]
 
+
+export const planColumns: ColumnDef<Serivce>[] = [
+  {
+    accessorKey: "_id",
+    header: "id",
+    cell: ({ row }) => {
+      const id = row.original._id;
+      return <span>{id.toString().slice(-4)}</span>;
+    },
+  },
+  {
+    accessorKey: "planName",
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="Plan" />)
+  },
+  {
+    accessorKey: "isBlocked",
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="Status" />),
+    cell: ({ row }) => {
+      const isBlocked = row.original.isBlocked;
+      return <span>{isBlocked ? "Blocked" : "Active"}</span>;
+    },
+  },
+  {
+    accessorKey: "actions",
+    header: "Actions",
+    id: "actions",
+    cell: ({ row }) => {
+      const service = row.original;
+      return (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="h-8 w-8 p-0 cursor-pointer">
+              <span className="sr-only">Open menu</span>
+              <MoreHorizontal className="h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuSeparator />
+            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            <DropdownMenuItem>Details</DropdownMenuItem>
+            <BlockService serviceId={service._id} status={service.isBlocked}/>
+            <DropdownMenuItem>Edit</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      )
+    },
+  }
+]
+
