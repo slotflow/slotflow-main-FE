@@ -13,9 +13,6 @@ const AdminPlans = () => {
         queryFn: fetchPlans,
     });
 
-    console.log("plasn : ", plans);
-
-
     if (isError) return <div>Error {error.message}</div>
 
     return (

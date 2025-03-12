@@ -5,8 +5,8 @@ import InputField from "./InputFieldWithLable";
 import SelectField from "./SelectFiledWithLabel";
 import { RootState } from "@/utils/redux/appStore";
 import { FormButton, FormHeading } from "./FormSplits";
-// import { useAdminServiceActions } from "@/utils/hooks/useAdminServiceActions";
 import { BillingCycle } from "@/utils/types";
+import { useAdminPlanActions } from "@/utils/hooks/useAdminPlanActions";
 
 const PlanForm = () => {
     const { loading } = useSelector((store: RootState) => store.admin);
@@ -35,20 +35,22 @@ const PlanForm = () => {
         setHasErrors(false);
     }, [formData.features]);
 
-    // const { handleServiceAdding } = useAdminServiceActions();
+
+    const { handlePlanAdding } = useAdminPlanActions();
 
     const handleSubmit = (e: React.SyntheticEvent) => {
         e.preventDefault();
+        console.log("formData : ",formData);
         if (hasErrors) {
             toast.error("Please fix the form errors.");
             return;
         }
-        // handleServiceAdding(formData as Plan);
+        handlePlanAdding(formData)
         setFormData({
             planName: "",
             description: "",
             price: 0,
-            features: ["", "", "", "", ""],
+            features: [""],
             billingCycle: BillingCycle.Monthly,
             maxBookingPerMonth: 0,
             adVisibility: false,
