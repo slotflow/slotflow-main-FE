@@ -3,6 +3,7 @@ import  axiosInstance  from "../../lib/axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { startTimer } from "../redux/slices/signFormSlice";
 import { setAuthUser } from "../redux/slices/authSlice";
+import { toast } from "react-toastify";
 
 export const signup = createAsyncThunk('auth/signup',
     async (userData: { username: string; email: string; password: string, role: string }, thunkAPI) => {
@@ -100,3 +101,30 @@ export const updatePassword = createAsyncThunk("auth/updatePassword",
         }
     }
 )
+
+
+export const checkUserStatus = createAsyncThunk( "auth/checkUserStatus",
+    async (token: string, thunkAPI) => {
+        try {
+            console.log("call");
+            const response = await axiosInstance.post(
+                "/auth/checkUserStatus",
+                {},
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+            if(response.status === 403){
+                toast.error("Your account has been blocked.");
+            }
+            return response;
+        } catch (error: unknown) {
+            if (axios.isAxiosError(error) && error.response) {
+                return thunkAPI.rejectWithValue(error.response.data.message);
+            }
+            return thunkAPI.rejectWithValue("Unexpected error occurred, please try again.");
+        }
+    }
+);

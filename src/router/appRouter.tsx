@@ -27,7 +27,6 @@ import ProviderReviews from "@/pages/provider/ProviderReviews.tsx";
 import ProviderPayments from "@/pages/provider/ProviderPayments.tsx";
 import UserProviderProfile from "@/pages/user/UserProviderProfile.tsx";
 import ProviderDashboard from "@/pages/provider/ProviderDashboard.tsx";
-import ProviderAddDetails from "@/pages/provider/ProviderAddDetails.tsx";
 import ProviderAppointments from "@/pages/provider/ProviderAppointments.tsx";
 import ProviderNotifications from "@/pages/provider/ProviderNotifications.tsx";
 import AdminPlans from "@/pages/admin/AdminPlans.tsx";
@@ -92,11 +91,9 @@ export const appRouter = createBrowserRouter([
             { path: "service", element: <ProviderService /> },
             { path: "reviews", element: <ProviderReviews /> },
             { path: "appointments", element: <ProviderAppointments /> },
-            { path: "appointments", element: <ProviderAppointments /> },
             { path: "payments", element: <ProviderPayments /> },
             { path: "chat", element: <ProviderChat /> },
             { path: "notifications", element: <ProviderNotifications /> },
-            { path: "addDetails", element: <ProviderAddDetails /> },
             { path: "payment", element: <ProviderPayment />},
         ],
     },

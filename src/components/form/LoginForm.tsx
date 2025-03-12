@@ -20,7 +20,6 @@ const LoginForm: React.FC<LoginFormProp> = ({ isAdmin, role }) => {
     const navigate = useNavigate();
     const { loading } = useSelector((store: RootState) => store.signform);
     const [hasErrors, setHasErrors] = useState(false);
-
     const [formData, setFormData] = useState({
         email: "",
         password: "",
@@ -34,7 +33,8 @@ const LoginForm: React.FC<LoginFormProp> = ({ isAdmin, role }) => {
     const handleNavigation = (role: string) => {
         if (role === "ADMIN") navigate("/admin", {replace: true});
         else if (role === "USER") navigate("/user", {replace: true});
-        else if (role === "PROVIDER") navigate("/provider", {replace: true});
+        else if (role === "PROVIDER")navigate("/provider", {replace: true});
+            
     };
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
