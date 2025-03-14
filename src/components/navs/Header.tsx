@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { signout } from '../../utils/apis/auth.api';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleSidebar, toggleTheme } from '@/utils/redux/slices/stateSlice';
 import { setAuthUser } from '../../utils/redux/slices/authSlice';
@@ -28,7 +28,6 @@ const Header = () => {
   const sidebarOpen = useSelector((store: RootState) => store.state.sidebarOpen);
   const authUser = useSelector((store: RootState) => store.auth.authUser?.token);
   const navigate = useNavigate();
-  const location = useLocation();
 
   const changeTheme = () => {
     dispatch(toggleTheme());
@@ -90,22 +89,20 @@ const Header = () => {
                 <p className='text-[var(--mainColor)] text-sm md:text-xl font-semibold italic cursor-pointer hover:text-[var(--mainColorHover)]'>Slotflow</p>
               </div>
             )}
-            {!location.pathname.startsWith("/admin") && (
-              <div className="hidden sm:ml-6 sm:block">
-                <div className="flex space-x-4">
-                  {navigation.map((item) => (
-                    <Link
-                      key={item.name}
-                      to={item.href}
-                      aria-current={item.current ? 'page' : undefined}
-                      className="rounded-md px-3 py-2 text-sm font-medium text-[var(--textOne)] hover:text-[var(--textOneHover)]"
-                    >
-                      {item.name}
-                    </Link>
-                  ))}
-                </div>
+            <div className="hidden sm:ml-6 sm:block">
+              <div className="flex space-x-4">
+                {navigation.map((item) => (
+                  <Link
+                    key={item.name}
+                    to={item.href}
+                    aria-current={item.current ? 'page' : undefined}
+                    className="rounded-md px-3 py-2 text-sm font-medium text-[var(--textOne)] hover:text-[var(--textOneHover)]"
+                  >
+                    {item.name}
+                  </Link>
+                ))}
               </div>
-            )}
+            </div>
           </div>
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
             <Menu as="div" className="relative ml-3">

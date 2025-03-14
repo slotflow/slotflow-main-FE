@@ -21,7 +21,7 @@ const AdminLogin = () => {
         <FormFilling />
       </div>
       <div className="w-full md:w-6/12 flex justify-center items-center">
-        <LoginForm isAdmin={true} role={"ADMIN"} />
+        <LoginForm isAdmin={true} role={"ADMIN"} title={"Admin Sign In"}/>
       </div>
     </div>
   )

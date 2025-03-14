@@ -13,6 +13,7 @@ const UserLogin = () => {
   const { resetPasswordForm, signInForm, verifyEmailForm, verifyOtpForm, signUpForm } = useSelector((store: RootState) => store.signform);
   const navigate = useNavigate();
   const authUser = useSelector((store: RootState) => store.auth.authUser);
+  
   useEffect(() => {
     if (authUser && authUser.role === "USER") {
       navigate("/user");
@@ -25,7 +26,7 @@ const UserLogin = () => {
         <FormFilling />
       </div>
       <div className="w-full md:w-6/12 flex justify-center items-center">
-        {signInForm && <LoginForm role={"USER"} />}
+        {signInForm && <LoginForm role={"USER"} title={"Continue to Book an Appointment"}/>}
         {signUpForm && <SignUpForm role={"USER"} />}
         {verifyEmailForm && <EmailVerificationForm />}
         {resetPasswordForm && <ResetPasswordForm />}

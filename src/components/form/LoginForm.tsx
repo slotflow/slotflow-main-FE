@@ -11,10 +11,11 @@ import { setResetPasswordForm, setsignInForm, setSignUpForm, setVerifyEmailForm,
 
 interface LoginFormProp {
     isAdmin?: boolean;
-    role: string
+    role: string;
+    title: string;
 }
 
-const LoginForm: React.FC<LoginFormProp> = ({ isAdmin, role }) => {
+const LoginForm: React.FC<LoginFormProp> = ({ isAdmin, role, title }) => {
 
     const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
@@ -80,7 +81,7 @@ const LoginForm: React.FC<LoginFormProp> = ({ isAdmin, role }) => {
 
     return (
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-           <FormHeading title={"Sign In"} />
+           <FormHeading title={title} />
 
             <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                 <form onSubmit={handleSubmit} className="space-y-6">
