@@ -2,15 +2,16 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "@/utils/redux/appStore";
-import LoginForm from "@/components/form/LoginForm";
+import LoginForm from "@/components/form/CommonForms/LoginForm";
 import { FormFilling } from "../../components/svgs/FormFilling";
 
 const AdminLogin = () => {
 
   const navigate = useNavigate();
   const authUser = useSelector((store: RootState) => store.auth.authUser);
+  
   useEffect(() => {
-    if(authUser && authUser.role === "ADMIN"){
+    if(authUser && authUser.role === "ADMIN" && authUser.isLoggedIn){
       navigate("/admin");
     }
   }, [authUser, navigate]);

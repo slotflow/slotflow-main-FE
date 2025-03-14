@@ -1,11 +1,9 @@
-import SectionOne from "@/components/landing/SectionOne";
+import SectionOne from "@/components/Navs/SectionOne";
 
 const LandingPage = () => {
 
   return (
-    <>
-      <SectionOne />
-    </>
+    <SectionOne />
   )
 }
 

@@ -2,11 +2,11 @@ import { useQuery } from '@tanstack/react-query';
 import { DataTable } from '@/components/table/data-table';
 import { serviceColumns } from '@/components/table/columns';
 import ShimmerTable from '@/components/shimmers/ShimmerTable';
-import { fetchServices } from '@/utils/apis/adminService_api';
+import { fetchServices } from '@/utils/apis/adminService.api';
 import ShimmerTableTop from '@/components/shimmers/ShimmerTableTop';
-import ServiceAddingForm from '@/components/form/ServiceForm';
+import ServiceAddingForm from '@/components/form/AdminForms/ServiceForm';
 
-const Services = () => {
+const AdminServices = () => {
 
   const { data: services, isLoading, isError, error } = useQuery({
     queryKey: ["services"],
@@ -38,4 +38,4 @@ const Services = () => {
   )
 }
 
-export default Services
+export default AdminServices

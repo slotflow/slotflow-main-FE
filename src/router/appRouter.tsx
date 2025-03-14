@@ -1,19 +1,19 @@
 import User from "@/pages/user/User.tsx";
 import LandingLayout from "../pages/common/LandingLayout.tsx";
-import Users from "../pages/admin/Users.tsx";
+import AdminUsers from "../pages/admin/AdminUsers.tsx";
 import Admin from "../pages/admin/Admin.tsx";
 import UserChat from "@/pages/user/UserChat.tsx";
-import Services from "@/pages/admin/Services.tsx";
+import AdminServices from "@/pages/admin/AdminServices.tsx";
 import UserLogin from "@/pages/common/UserLogin.tsx";
 import LandingPage from "../pages/common/LandingPage.tsx";
-import Dashboard from "../pages/admin/Dashboard.tsx";
+import AdminDashboard from "../pages/admin/AdminDashboard.tsx";
 import AdminLogin from "@/pages/common/AdminLogin.tsx";
 import { createBrowserRouter } from "react-router-dom";
 import { ProtectedRoute } from "./protectedRoutes.tsx";
 import UserProfile from "@/pages/user/UserProfile.tsx";
 import UserPayments from "@/pages/user/UserPayments.tsx";
 import UserBookings from "@/pages/user/UserBookings.tsx";
-import ServiceSelect from "@/pages/user/ServiceSelect.tsx";
+import UserServiceSelect from "@/pages/user/UserServiceSelect.tsx";
 import UserDashboard from "@/pages/user/UserDashboard.tsx";
 import PasswordReset from "@/pages/common/PasswordReset.tsx";
 import ProviderChat from "@/pages/provider/ProviderChat.tsx";
@@ -21,7 +21,7 @@ import ProviderLogin from "@/pages/common/ProviderLogin.tsx";
 import ErrorDisplay from "@/pages/common/ErrorDisplay.tsx";
 import UserNotifications from "@/pages/user/UserNotifications.tsx";
 import ProviderPayment from "@/pages/provider/ProviderPayment.tsx";
-import ServiceProviders from "../pages/admin/ServiceProviders.tsx";
+import AdminServiceProviders from "../pages/admin/AdminServiceProviders.tsx";
 import ProviderProfile from "@/pages/provider/ProviderProfile.tsx";
 import ProviderService from "@/pages/provider/ProviderService.tsx";
 import ProviderReviews from "@/pages/provider/ProviderReviews.tsx";
@@ -44,61 +44,61 @@ export const appRouter = createBrowserRouter([
             { path: "/user/login", element: <UserLogin /> },
             { path: "/provider/login", element: <ProviderLogin /> },
             { path: "*", element: <ErrorDisplay /> },
-        ],
-    },
-    {
-        path: "/admin",
-        element: (
-            <ProtectedRoute allowedRoles={["ADMIN"]}>
-                <Admin />
-            </ProtectedRoute>
-        ),
-        children: [
-            { index: true, element: <Dashboard /> },
-            { path: "service-providers", element: <ServiceProviders /> },
-            { path: "users", element: <Users /> },
-            { path: "services", element: <Services /> },
-            { path: "plans", element: <AdminPlans /> },
-            { path: "*", element: <ErrorDisplay /> },
-        ],
-    },
-    {
-        path: "/user",
-        element: (
-            <ProtectedRoute allowedRoles={["USER"]}>
-                <User />
-            </ProtectedRoute>
-        ),
-        children: [
-            { index: true, element: <ServiceSelect /> },
-            { path: "dashboard", element: <UserDashboard /> },
-            { path: "providerProfile", element: <UserProviderProfile /> },
-            { path: "profile", element: <UserProfile /> },
-            { path: "bookings", element: <UserBookings /> },
-            { path: "payments", element: <UserPayments /> },
-            { path: "chat", element: <UserChat /> },
-            { path: "notifications", element: <UserNotifications /> },
-            { path: "*", element: <ErrorDisplay /> },
-        ],
-    },
-    {
-        path: "/provider",
-        element: (
-            <ProtectedRoute allowedRoles={["PROVIDER"]}>
-                <Provider />
-            </ProtectedRoute>
-        ),
-        children: [
-            { index: true, element: <ProviderDashboard /> },
-            { path: "profile", element: <ProviderProfile /> },
-            { path: "service", element: <ProviderService /> },
-            { path: "reviews", element: <ProviderReviews /> },
-            { path: "appointments", element: <ProviderAppointments /> },
-            { path: "payments", element: <ProviderPayments /> },
-            { path: "chat", element: <ProviderChat /> },
-            { path: "notifications", element: <ProviderNotifications /> },
-            { path: "payment", element: <ProviderPayment />},
-            { path: "*", element: <ErrorDisplay /> },
+            {
+                path: "/admin",
+                element: (
+                    <ProtectedRoute allowedRoles={["ADMIN"]}>
+                        <Admin />
+                    </ProtectedRoute>
+                ),
+                children: [
+                    { index: true, element: <AdminDashboard /> },
+                    { path: "service-providers", element: <AdminServiceProviders /> },
+                    { path: "users", element: <AdminUsers /> },
+                    { path: "services", element: <AdminServices /> },
+                    { path: "plans", element: <AdminPlans /> },
+                    { path: "*", element: <ErrorDisplay /> },
+                ],
+            },
+            {
+                path: "/user",
+                element: (
+                    <ProtectedRoute allowedRoles={["USER"]}>
+                        <User />
+                    </ProtectedRoute>
+                ),
+                children: [
+                    { index: true, element: <UserServiceSelect /> },
+                    { path: "dashboard", element: <UserDashboard /> },
+                    { path: "providerProfile", element: <UserProviderProfile /> },
+                    { path: "profile", element: <UserProfile /> },
+                    { path: "bookings", element: <UserBookings /> },
+                    { path: "payments", element: <UserPayments /> },
+                    { path: "chat", element: <UserChat /> },
+                    { path: "notifications", element: <UserNotifications /> },
+                    { path: "*", element: <ErrorDisplay /> },
+                ],
+            },
+            {
+                path: "/provider",
+                element: (
+                    <ProtectedRoute allowedRoles={["PROVIDER"]}>
+                        <Provider />
+                    </ProtectedRoute>
+                ),
+                children: [
+                    { index: true, element: <ProviderDashboard /> },
+                    { path: "profile", element: <ProviderProfile /> },
+                    { path: "service", element: <ProviderService /> },
+                    { path: "reviews", element: <ProviderReviews /> },
+                    { path: "appointments", element: <ProviderAppointments /> },
+                    { path: "payments", element: <ProviderPayments /> },
+                    { path: "chat", element: <ProviderChat /> },
+                    { path: "notifications", element: <ProviderNotifications /> },
+                    { path: "payment", element: <ProviderPayment />},
+                    { path: "*", element: <ErrorDisplay /> },
+                ],
+            },
         ],
     },
 ])

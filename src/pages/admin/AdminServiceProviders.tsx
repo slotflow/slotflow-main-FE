@@ -2,10 +2,10 @@ import { useQuery } from "@tanstack/react-query";
 import { DataTable } from "@/components/table/data-table";
 import { providerColumns } from "@/components/table/columns";
 import ShimmerTable from "@/components/shimmers/ShimmerTable";
-import { fetchProviders } from "@/utils/apis/adminProvider_api";
+import { fetchProviders } from "@/utils/apis/adminProvider.api";
 import ShimmerTableTop from "@/components/shimmers/ShimmerTableTop";
 
-const ServiceProviders = () => {
+const AdminServiceProviders = () => {
 
   const { data: providers, isLoading, isError, error } = useQuery({
     queryKey: ["providers"],
@@ -31,4 +31,4 @@ const ServiceProviders = () => {
   );
 };
 
-export default ServiceProviders;
+export default AdminServiceProviders;

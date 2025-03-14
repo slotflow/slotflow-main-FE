@@ -1,8 +1,8 @@
 import { toast } from 'react-toastify';
-import InputField from './InputFieldWithLable'
+import InputField from '../InputFieldWithLable'
 import { resendOtp } from '@/utils/apis/auth.api';
 import { useDispatch, useSelector } from 'react-redux';
-import { FormButton, FormHeading } from './FormSplits';
+import { FormButton, FormHeading } from '../FormSplits';
 import { FormEvent, useCallback, useState } from 'react';
 import { AppDispatch, RootState } from '@/utils/redux/appStore';
 import { setResetPasswordForm, setsignInForm, setSignUpForm, setVerifyEmailForm, setVerifyOtpForm } from '@/utils/redux/slices/signFormSlice';

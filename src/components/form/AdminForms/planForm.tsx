@@ -1,15 +1,15 @@
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { ChangeEvent, useCallback, useState } from "react";
-import InputField from "./InputFieldWithLable";
-import SelectField from "./SelectFiledWithLabel";
+import InputField from "../InputFieldWithLable";
+import SelectField from "../SelectFiledWithLabel";
 import { RootState } from "@/utils/redux/appStore";
-import { FormButton, FormHeading } from "./FormSplits";
+import { FormButton, FormHeading } from "../FormSplits";
 import { BillingCycle } from "@/utils/types";
 import { useAdminPlanActions } from "@/utils/hooks/useAdminPlanActions";
 
 const PlanForm = () => {
-    const { loading } = useSelector((store: RootState) => store.admin);
+    const { adminFormloading } = useSelector((store: RootState) => store.admin);
     const [formData, setFormData] = useState({
         planName: "",
         description: "",
@@ -136,7 +136,7 @@ const PlanForm = () => {
                         required={true}
                         onHasError={handleErrorChange}
                     />
-                    <FormButton text={"Add"} loading={loading} />
+                    <FormButton text={"Add"} loading={adminFormloading} />
                 </form>
             </div>
         </div>

@@ -5,7 +5,7 @@ import ShimmerTable from "@/components/shimmers/ShimmerTable";
 import { userColumns } from "@/components/table/columns";
 import ShimmerTableTop from "@/components/shimmers/ShimmerTableTop";
 
-const Users = () => {
+const AdminUsers = () => {
 
   const { data: users, isLoading, isError, error } = useQuery({
     queryKey: ["users"],
@@ -32,4 +32,4 @@ const Users = () => {
   );
 };
 
-export default Users;
+export default AdminUsers;

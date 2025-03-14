@@ -1,7 +1,5 @@
-import { persistReducer } from "redux-persist";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { resendOtp, signin, signup, verifyOtp, updatePassword } from '../../apis/auth.api'
-import sessionStorage from "redux-persist/lib/storage/session";
 
 interface stateVariables {
     signInForm: boolean;
@@ -118,13 +116,6 @@ const signFormSlice = createSlice({
         },
 });
 
-const persistConfig = {
-    key: "signForm",
-    storage: sessionStorage,
-};
-
-const persistedSignFormReducer = persistReducer(persistConfig, signFormSlice.reducer);
-
 export const {  
     stopTimer, 
     startTimer, 
@@ -137,4 +128,5 @@ export const {
     setVerifyEmailForm,
     setResetPasswordForm,
 } = signFormSlice.actions;
-export default persistedSignFormReducer;
+
+export default signFormSlice.reducer;

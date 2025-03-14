@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useDispatch, useSelector } from "react-redux";
 import { addService } from "@/utils/redux/slices/userSlice";
-import { fetchServices } from "@/utils/apis/adminService_api";
+import { fetchServices } from "@/utils/apis/adminService.api";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
 
 interface Service {
@@ -10,7 +10,7 @@ interface Service {
     isBlocked: boolean;
 }
 
-const ServiceSelect = () => {
+const UserServiceSelect = () => {
 
     const dispatch = useDispatch<AppDispatch>();
     const selectedServices = useSelector((state: RootState) => state.user.selectedServices);
@@ -58,4 +58,4 @@ const ServiceSelect = () => {
     );
 };
 
-export default ServiceSelect;
+export default UserServiceSelect;

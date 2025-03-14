@@ -3,7 +3,7 @@ import { Provider } from "@/utils/types";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/utils/redux/appStore";
 import { useQueryClient } from "@tanstack/react-query";
-import { approveProvider, changeProviderBlockStatus } from "@/utils/apis/adminProvider_api";
+import { approveProvider, changeProviderBlockStatus } from "@/utils/apis/adminProvider.api";
 
 export const useAdminProviderActions = () => {
   const queryClient = useQueryClient();

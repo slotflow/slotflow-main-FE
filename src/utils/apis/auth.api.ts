@@ -1,15 +1,15 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 import  axiosInstance  from "../../lib/axios"; 
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { startTimer } from "../redux/slices/signFormSlice";
 import { setAuthUser } from "../redux/slices/authSlice";
-import { toast } from "react-toastify";
+import { startTimer } from "../redux/slices/signFormSlice";
 
 export const signup = createAsyncThunk('auth/signup',
     async (userData: { username: string; email: string; password: string, role: string }, thunkAPI) => {
         try {
             const response = await axiosInstance.post("/auth/signup", userData);
-            if (response.data.success) {             
+            if (response.data.success) {        
                 thunkAPI.dispatch(setAuthUser(response.data.authUser));
                 thunkAPI.dispatch(startTimer(300));
             }
@@ -27,6 +27,9 @@ export const verifyOtp = createAsyncThunk("auth/verify-otp",
     async (authData : {otp: string, verificationToken: string, role: string},thunkAPI) => {
         try {
             const response = await axiosInstance.post('/auth/verify-otp', authData);
+            if(response.data.success){
+                thunkAPI.dispatch(setAuthUser(null));
+            }
             return response.data;
         } catch (error: unknown) {
             if (axios.isAxiosError(error) && error.response) {

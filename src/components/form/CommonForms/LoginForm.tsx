@@ -1,8 +1,8 @@
 import { toast } from "react-toastify";
-import InputField from "./InputFieldWithLable";
+import InputField from "../InputFieldWithLable";
 import { signin } from "@/utils/apis/auth.api";
 import { useNavigate } from "react-router-dom";
-import { FormButton, FormHeading } from "./FormSplits";
+import { FormButton, FormHeading } from "../FormSplits";
 import { useDispatch, useSelector } from "react-redux";
 import { FormEvent, useCallback, useState } from "react";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
@@ -53,7 +53,7 @@ const LoginForm: React.FC<LoginFormProp> = ({ isAdmin, role, title }) => {
                 .unwrap()
                 .then((res) => {
                     if (res.success) {
-                        console.log("login call")
+                        console.log("login call");
                         toast.success(res.message);
                         handleNavigation(res.authUser.role);
                     } else {

@@ -1,8 +1,8 @@
 import { toast } from "react-toastify";
-import InputField from "./InputFieldWithLable";
+import InputField from "../InputFieldWithLable";
 import { signup, } from "@/utils/apis/auth.api";
 import { useDispatch, useSelector } from "react-redux";
-import { FormButton, FormHeading } from "./FormSplits";
+import { FormButton, FormHeading } from "../FormSplits";
 import React, { FormEvent, useCallback, useState } from "react";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
 import { setResetPasswordForm, setsignInForm, setSignUpForm, setVerifyEmailForm, setVerifyOtpForm, startTimer } from "@/utils/redux/slices/signFormSlice";
@@ -57,7 +57,7 @@ const SignUpForm: React.FC<signUpProps> = ({role}) => {
                     }
                 })
                 .catch((error) => {
-                    toast.info(error || "An error occurred during signup.");
+                    toast.error(error || "An error occurred during signup.");
                 });
         } else {
             toast.error("Select your account type.");

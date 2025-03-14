@@ -1,12 +1,15 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
-import Header from "../../components/landing/Header";
-import Footer from "../../components/landing/Footer";
 import { RootState } from "../../utils/redux/appStore";
 import { Bounce, ToastContainer } from "react-toastify";
+import Header from "@/components/Navs/Header";
+import Footer from "@/components/Navs/Footer";
 
 const LandingLayout = () => {
   const themeMode = useSelector((store: RootState) => store.state?.lightTheme);
+  const location = useLocation();
+  const pathNames = ["/user", '/provider', '/admin'];
+  const shouldHideFooter = pathNames.some((path) => location.pathname.startsWith(path));
   return (
     <>
       <ToastContainer
@@ -19,7 +22,7 @@ const LandingLayout = () => {
       />
       <Header />
       <Outlet />
-      <Footer />
+      {!shouldHideFooter && <Footer />}
     </>
   )
 }

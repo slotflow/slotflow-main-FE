@@ -1,14 +1,12 @@
-import { persistReducer } from "redux-persist";
 import { createSlice } from "@reduxjs/toolkit";
-import { addNewService } from "@/utils/apis/adminService_api";
-import sessionStorage from "redux-persist/lib/storage/session";
+import { addNewService } from "@/utils/apis/adminService.api";
 
 interface stateVariables {
-    loading: boolean;
+    adminFormloading: boolean;
 }
 
 const initialState: stateVariables = {
-    loading: false,
+    adminFormloading: false,
 }
 
 const adminSlice = createSlice({
@@ -20,24 +18,18 @@ const adminSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(addNewService.pending, (state) => {
-                state.loading = true;
+                state.adminFormloading = true;
             })
             .addCase(addNewService.fulfilled, (state) => {
-                state.loading = false;
+                state.adminFormloading = false;
             })
             .addCase(addNewService.rejected, (state) => {
-                state.loading = false;
+                state.adminFormloading = false;
             })
     },
 });
 
-const persistConfig = {
-    key: "adminSlice",
-    storage: sessionStorage,
-};
-
-const persistedAdminReducer = persistReducer(persistConfig, adminSlice.reducer);
 
 // export const {} = adminSlice.actions;
 
-export default persistedAdminReducer;
+export default adminSlice.reducer;

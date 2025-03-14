@@ -1,6 +1,4 @@
-import { persistReducer } from "redux-persist";
 import { createSlice } from "@reduxjs/toolkit";
-import sessionStorage from "redux-persist/lib/storage/session";
 
 interface stateVariables {
     lightTheme: boolean;
@@ -27,16 +25,9 @@ const stateSlice = createSlice({
     }
 });
 
-const persistConfig = {
-    key: "state",
-    storage: sessionStorage,
-};
-
-const persistedStateReducer = persistReducer(persistConfig, stateSlice.reducer);
-
 export const { 
     toggleTheme, 
     toggleSidebar,
 } = stateSlice.actions;
 
-export default persistedStateReducer;
+export default stateSlice.reducer;

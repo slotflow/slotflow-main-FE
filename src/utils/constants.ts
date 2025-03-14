@@ -2,12 +2,12 @@ import { Route } from "./types";
 
 export const adminRoutes: Route[] = [
   { path: "/admin", name: "Dashboard" },
-  { path: "/admin/service-providers", name: "Service Providers" },
-  { path: "/admin/users", name: "Users" },
-  { path: "/admin/services", name: "Services" },
-  { path: "/admin/plans", name: "Plans" },
-  { path: "/admin/subscriptions", name: "Subscriptions" },
-  { path: "/admin/reviews", name: "Reviews" },
+  { path: "service-providers", name: "Service Providers" },
+  { path: "users", name: "Users" },
+  { path: "services", name: "Services" },
+  { path: "plans", name: "Plans" },
+  { path: "subscriptions", name: "Subscriptions" },
+  { path: "reviews", name: "Reviews" },
 ];
 
   export const userRoutes: Route[] = [

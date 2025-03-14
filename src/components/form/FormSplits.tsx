@@ -20,7 +20,6 @@ export const FormHeading: React.FC<AuthFormsHeadingProps> = React.memo(({ title 
 })
 
 export const FormButton: React.FC<AuthFormsButtonProps> = React.memo(({ text, loading = false }) => {
-    console.log("loading : ",loading)
     return (
         <div>
             <button

@@ -1,6 +1,4 @@
-import { persistReducer } from "redux-persist";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import sessionStorage from "redux-persist/lib/storage/session";
 
 interface UserData {
     username?: string;
@@ -31,15 +29,8 @@ const authSlice = createSlice({
     },
 });
 
-const persistConfig = {
-    key: "auth",
-    storage: sessionStorage,
-};
-
-const persistedAuthReducer = persistReducer(persistConfig, authSlice.reducer);
-
 export const { 
     setAuthUser, 
 } = authSlice.actions;
 
-export default persistedAuthReducer;
+export default authSlice.reducer;

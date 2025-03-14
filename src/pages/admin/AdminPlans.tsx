@@ -2,8 +2,8 @@ import { useQuery } from '@tanstack/react-query';
 import { DataTable } from '@/components/table/data-table';
 import ShimmerTable from '@/components/shimmers/ShimmerTable';
 import ShimmerTableTop from '@/components/shimmers/ShimmerTableTop';
-import { fetchPlans } from '@/utils/apis/adminPlan_api';
-import PlanForm from '@/components/form/planForm';
+import { fetchPlans } from '@/utils/apis/adminPlan.api';
+import PlanForm from '@/components/form/AdminForms/planForm';
 import { planColumns } from '@/components/table/columns';
 
 const AdminPlans = () => {

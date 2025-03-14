@@ -1,7 +1,7 @@
 import { toast } from "react-toastify";
 import { formatTime } from "@/utils/helper";
-import InputField from "./InputFieldWithLable";
-import { FormButton, FormHeading } from "./FormSplits";
+import InputField from "../InputFieldWithLable";
+import { FormButton, FormHeading } from "../FormSplits";
 import { useDispatch, useSelector } from "react-redux";
 import { resendOtp, verifyOtp } from "@/utils/apis/auth.api";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";

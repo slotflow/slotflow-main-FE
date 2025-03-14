@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
-import InputField from "./InputFieldWithLable";
-import { FormButton, FormHeading } from "./FormSplits";
+import InputField from "../InputFieldWithLable";
+import { FormButton, FormHeading } from "../FormSplits";
 import { useDispatch, useSelector } from "react-redux";
 import { updatePassword } from "@/utils/apis/auth.api";
 import { FormEvent, useCallback, useState } from "react";

@@ -1,13 +1,13 @@
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { useCallback, useState } from "react";
-import InputField from "./InputFieldWithLable";
+import InputField from "../InputFieldWithLable";
 import { RootState } from "@/utils/redux/appStore";
-import { FormButton, FormHeading } from "./FormSplits";
+import { FormButton, FormHeading } from "../FormSplits";
 import { useAdminServiceActions } from "@/utils/hooks/useAdminServiceActions";
 
 const ServiceAddingForm = () => {
-  const { loading } = useSelector((store: RootState) => store.admin);
+  const { adminFormloading } = useSelector((store: RootState) => store.admin);
   const [formData, setFormData] = useState({
     serviceName: "",
   });
@@ -49,7 +49,7 @@ const ServiceAddingForm = () => {
             required={true}
             onHasError={handleErrorChange}
           />
-          <FormButton text={"Add"} loading={loading} />
+          <FormButton text={"Add"} loading={adminFormloading} />
         </form>
       </div>
     </div>
