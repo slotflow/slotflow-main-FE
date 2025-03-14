@@ -1,9 +1,9 @@
 import { Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { userRoutes } from "@/utils/constants";
-import Header from "@/components/navs/Header";
+import Header from "@/components/landing/Header";
 import { RootState } from "@/utils/redux/appStore";
-import Sidebar from "@/components/navs/AdminSidebar";
+import Sidebar from "@/components/accountBars/Sidebar";
 import { Bounce, ToastContainer } from "react-toastify";
 
 const User = () => {

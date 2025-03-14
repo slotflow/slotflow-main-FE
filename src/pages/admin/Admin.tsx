@@ -2,9 +2,9 @@ import { Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { adminRoutes } from "@/utils/constants";
 import { RootState } from "@/utils/redux/appStore";
-import Sidebar from "@/components/navs/AdminSidebar";
+import Sidebar from "@/components/accountBars/Sidebar";
 import { Bounce, ToastContainer } from "react-toastify";
-import AdminHeader from "../../components/navs/AdminHeader";
+import AdminHeader from "../../components/accountBars/Header";
 
 const Admin = () => {
   const sidebarOpen = useSelector((store: RootState) => store.state.sidebarOpen);

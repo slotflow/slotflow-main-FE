@@ -1,11 +1,11 @@
 import { Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
-import Header from "../../components/navs/Header";
-import Footer from "../../components/navs/Footer";
+import Header from "../../components/landing/Header";
+import Footer from "../../components/landing/Footer";
 import { RootState } from "../../utils/redux/appStore";
 import { Bounce, ToastContainer } from "react-toastify";
 
-const Body = () => {
+const LandingLayout = () => {
   const themeMode = useSelector((store: RootState) => store.state?.lightTheme);
   return (
     <>
@@ -24,4 +24,4 @@ const Body = () => {
   )
 }
 
-export default Body
+export default LandingLayout

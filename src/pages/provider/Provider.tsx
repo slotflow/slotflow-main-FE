@@ -1,9 +1,9 @@
 import { Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
-import Header from "@/components/navs/Header";
+import Header from "@/components/landing/Header";
 import { providerRoutes } from "@/utils/constants";
 import { RootState } from "@/utils/redux/appStore";
-import Sidebar from "@/components/navs/AdminSidebar";
+import Sidebar from "@/components/accountBars/Sidebar";
 import { Bounce, ToastContainer } from "react-toastify";
 
 const Provider = () => {
