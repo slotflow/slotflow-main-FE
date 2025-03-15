@@ -11,7 +11,7 @@ const AdminLogin = () => {
   const authUser = useSelector((store: RootState) => store.auth.authUser);
   
   useEffect(() => {
-    if(authUser){
+    if(authUser && authUser.isLoggedIn){
       if(authUser.role === "ADMIN"){
         navigate("/admin");
       } else if(authUser.role === "USER"){

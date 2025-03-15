@@ -62,6 +62,7 @@ export const updatePassword = createAsyncThunk("auth/updatePassword",
 
 export const checkUserStatus = createAsyncThunk("auth/checkUserStatus",
     async (token: string | undefined) => {
+        console.log("checking")
         await axiosInstance.post(
             "/auth/checkUserStatus",
             {},

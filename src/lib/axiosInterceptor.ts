@@ -10,7 +10,7 @@ export const setupAxiosInterceptors = () => {
             return response;
         },
         (error) => {
-            console.log("instance error");
+            console.log("instance error", error);
             if(error.response?.status === 400) {
                 console.log("Throwing error 400 from backend")
                 toast.error(error.response?.data?.message || "Unexpected Error");

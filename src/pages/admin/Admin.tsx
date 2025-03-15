@@ -1,24 +1,11 @@
-import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { adminRoutes } from "@/utils/constants";
 import Sidebar from "@/components/Navs/Sidebar";
-import { useDispatch, useSelector } from "react-redux";
-import { checkUserStatus } from "@/utils/apis/auth.api";
-import { AppDispatch, RootState } from "@/utils/redux/appStore";
+import { RootState } from "@/utils/redux/appStore";
 
 const Admin = () => {
   const sidebarOpen = useSelector((store: RootState) => store.state.sidebarOpen);
-  const user = useSelector((state: RootState) => state.auth.authUser);
-  const dispatch = useDispatch<AppDispatch>();
-
-  useEffect(() => {
-    if (user?.token) {
-      const intervalId = setInterval(() => {
-        dispatch(checkUserStatus(user.token));
-      }, 60000);
-      return () => clearInterval(intervalId);
-    }
-  }, [user?.token, dispatch]);
 
   return (
     <div className="flex h-screen pt-16">

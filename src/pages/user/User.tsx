@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { userRoutes } from "@/utils/constants";
 import Sidebar from "@/components/Navs/Sidebar";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,15 +10,13 @@ const User = () => {
   const sidebarOpen = useSelector((store: RootState) => store.state.sidebarOpen);
   const user = useSelector((state: RootState) => state.auth.authUser);
   const dispatch = useDispatch<AppDispatch>();
+  const location = useLocation();
 
   useEffect(() => {
-    if (user?.token) {
-      const intervalId = setInterval(() => {
-        dispatch(checkUserStatus(user.token));
-      }, 60000);
-      return () => clearInterval(intervalId);
+    if (user?.isLoggedIn && user?.token) {
+      dispatch(checkUserStatus(user.token));
     }
-  }, [user?.token, dispatch]);
+  }, [user?.token, dispatch, location]);
 
   return (
       <div className="flex h-screen pt-16">
