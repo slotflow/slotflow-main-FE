@@ -2,12 +2,12 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "@/utils/redux/appStore";
+import { FormFilling } from "@/components/svgs/FormFilling";
 import LoginForm from "@/components/form/CommonForms/LoginForm";
 import SignUpForm from "@/components/form/CommonForms/SignUpForm";
-import { FormFilling } from "@/components/svgs/FormFilling";
-import EmailVerificationForm from "@/components/form/CommonForms/EmailVerificationForm";
 import ResetPasswordForm from "@/components/form/CommonForms/ResetPasswordForm";
 import OtpVerificatioForm from "@/components/form/CommonForms/OtpVerificatioForm";
+import EmailVerificationForm from "@/components/form/CommonForms/EmailVerificationForm";
 
 const ProviderLogin = () => {
 
@@ -16,8 +16,14 @@ const ProviderLogin = () => {
   const authUser = useSelector((store: RootState) => store.auth.authUser);
 
   useEffect(() => {
-    if (authUser && authUser.role === "PROVIDER" && authUser.isLoggedIn) {
-      navigate("/provider");
+    if(authUser){
+      if(authUser.role === "ADMIN"){
+        navigate("/admin");
+      } else if(authUser.role === "USER"){
+        navigate('/user');
+      }else if(authUser.role === "PROVIDER"){
+        navigate('/provider')
+      }
     }
   }, [authUser, navigate]);
   

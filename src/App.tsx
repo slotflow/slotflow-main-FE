@@ -7,7 +7,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { appStore, persistAppStore } from './utils/redux/appStore';
 
 function App() {
-
+ 
   return (
     <Provider store={appStore}>
       <PersistGate loading={null} persistor={persistAppStore}>

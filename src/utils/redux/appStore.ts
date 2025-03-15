@@ -6,6 +6,7 @@ import signFormReducer from "./slices/signFormSlice";
 import localStorage from 'redux-persist/lib/storage';
 import { persistReducer, persistStore } from 'redux-persist';
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { setupAxiosInterceptors } from "@/lib/axiosInterceptor";
 
 const persistConfig = {
     key: "root",
@@ -31,6 +32,8 @@ export const appStore = configureStore({
 });
 
 export const persistAppStore = persistStore(appStore);
+
+setupAxiosInterceptors();
 
 export type RootState = ReturnType<typeof appStore.getState>;
 export type AppDispatch = typeof appStore.dispatch;

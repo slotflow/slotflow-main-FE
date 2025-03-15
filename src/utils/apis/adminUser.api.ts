@@ -1,4 +1,3 @@
-import axios from "axios";
 import { toast } from "react-toastify";
 import axiosInstance from "../../lib/axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
@@ -10,7 +9,6 @@ export const fetchUsers = async () => {
 
 export const changeUserBlockStatus = createAsyncThunk('/admin/changeUserStatus',
     async (statusData: { userId: string, status: boolean }) => {
-        try {
             const { userId, status } = statusData;
             const response = await axiosInstance.put(`/admin/user/changeStatus/${userId}?status=${status}`);
             const res = response.data;
@@ -20,13 +18,6 @@ export const changeUserBlockStatus = createAsyncThunk('/admin/changeUserStatus',
                 toast.error(res.message);
             }
             return { userId, updatedUser: res.updatedUser };
-        } catch (error) {
-            if (axios.isAxiosError(error) && error.response) {
-                throw error.response.data.message;
-            } else {
-                throw "An unexpected error occurred.";
-            }
-        }
     }
 )
 
