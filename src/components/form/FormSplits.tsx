@@ -21,13 +21,11 @@ export const FormHeading: React.FC<AuthFormsHeadingProps> = React.memo(({ title 
 
 export const FormButton: React.FC<AuthFormsButtonProps> = React.memo(({ text, loading = false }) => {
     return (
-        <div>
-            <button
-                type="submit"
-                className="flex w-full justify-center rounded-md bg-[var(--mainColor)] hover:bg-[var(--mainColorHover)] px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--mainColor)] cursor-pointer"
-            >
-                {loading ? "Loading" : text}
-            </button>
-        </div>
+        <button
+            type="submit"
+            className="flex w-full justify-center rounded-md bg-[var(--mainColor)] hover:bg-[var(--mainColorHover)] px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--mainColor)] cursor-pointer"
+        >
+            {loading ? "Loading" : text}
+        </button>
     )
 })

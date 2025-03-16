@@ -1,11 +1,14 @@
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleTheme } from '@/utils/redux/slices/stateSlice';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { AppDispatch, RootState } from '../../utils/redux/appStore';
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu } from '@headlessui/react';
 import { greetings } from '@/utils/helper';
+import { signout } from '@/utils/apis/auth.api';
+import { toast } from 'react-toastify';
+import { setAuthUser } from '@/utils/redux/slices/authSlice';
 
 const navigation = [
   { name: 'Home', href: '/', current: true },
@@ -20,6 +23,8 @@ const Header = () => {
   const dispatch = useDispatch<AppDispatch>();
   const themeMode = useSelector((store: RootState) => store.state.lightTheme);
   const user = useSelector((store: RootState) => store.auth?.authUser);
+  const role = user?.role;
+  const navigate = useNavigate();
   const changeTheme = () => {
     dispatch(toggleTheme());
   }
@@ -33,6 +38,25 @@ const Header = () => {
   }, [themeMode]);
 
   const greetingString = greetings();
+
+  const handleSignout = () => {
+          dispatch(signout()).unwrap().then((res) => {
+              toast.success(res.message);
+              if (role === "USER") {
+                  dispatch(setAuthUser(null));
+                  navigate("/user/login");
+              } else if (role === "PROVIDER") {
+                  dispatch(setAuthUser(null));
+                  navigate("/provider/login");
+              } else if (role === "ADMIN") {
+                  console.log("logging out");
+                  dispatch(setAuthUser(null));
+                  navigate("/admin/login");
+              }
+          }).catch((error) => {
+              toast.error(error.message);
+          })
+      }
 
   return (
     <Disclosure as="nav" className={`w-full bg-[var(--background)] border-b-2 border-[var(--boxBorder)]} fixed`}>
@@ -80,6 +104,11 @@ const Header = () => {
               </div>
             </div>
           )}
+
+
+          <button className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-[var(--text-One)] hover:bg-[var(--menuItemHoverBg)] cursor-pointer" onClick={handleSignout}>
+            Log out
+          </button>
 
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
             <Menu as="div" className="relative ml-3">

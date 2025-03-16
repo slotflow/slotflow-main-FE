@@ -12,10 +12,11 @@ import EmailVerificationForm from "@/components/form/CommonForms/EmailVerificati
 const ProviderLogin = () => {
 
   const { resetPasswordForm, signInForm, verifyEmailForm, verifyOtpForm, signUpForm } = useSelector((store: RootState) => store.signform);
-  const navigate = useNavigate();
   const authUser = useSelector((store: RootState) => store.auth.authUser);
+  const navigate = useNavigate();
 
   useEffect(() => {
+    console.log("useEffect")
     if(authUser && authUser.isLoggedIn){
       if(authUser.role === "ADMIN"){
         navigate("/admin");

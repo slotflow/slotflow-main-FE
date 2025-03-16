@@ -9,6 +9,10 @@ interface UserData {
     role?: string;
     isBlocked?: boolean;
     isLoggedIn: boolean;
+    _id?: string;
+    address?: boolean;
+    service?: boolean;
+    approved?: boolean;
 }
 
 interface AuthState {
@@ -25,12 +29,18 @@ const authSlice = createSlice({
     reducers: {
         setAuthUser: (state, action: PayloadAction<UserData | null>) => {
             state.authUser = action.payload;
+        },
+        setAddress: (state, action: PayloadAction<boolean>) => {
+            if(state.authUser){
+                state.authUser.address = action.payload;
+            }
         }
     },
 });
 
 export const { 
     setAuthUser, 
+    setAddress,
 } = authSlice.actions;
 
 export default authSlice.reducer;

@@ -32,6 +32,8 @@ import ProviderAppointments from "@/pages/provider/ProviderAppointments.tsx";
 import ProviderNotifications from "@/pages/provider/ProviderNotifications.tsx";
 import AdminPlans from "@/pages/admin/AdminPlans.tsx";
 import Provider from "@/pages/provider/Provider.tsx";
+import ProviderAddAddress from "@/pages/provider/ProviderAddAddress.tsx";
+import ProviderAddServiceDetails from "@/pages/provider/ProviderAddServiceDetails.tsx";
 
 export const appRouter = createBrowserRouter([
     {
@@ -96,6 +98,8 @@ export const appRouter = createBrowserRouter([
                     { path: "chat", element: <ProviderChat /> },
                     { path: "notifications", element: <ProviderNotifications /> },
                     { path: "payment", element: <ProviderPayment />},
+                    { path: "addAddress", element: <ProviderAddAddress /> },
+                    { path: "addServiceDetails", element: <ProviderAddServiceDetails /> },
                     { path: "*", element: <ErrorDisplay /> },
                 ],
             },
