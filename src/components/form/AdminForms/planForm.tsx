@@ -2,7 +2,7 @@ import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { ChangeEvent, useCallback, useState } from "react";
 import InputField from "../InputFieldWithLable";
-import SelectField from "../SelectFiledWithLabel";
+import SelectFiledWithLabel from "../SelectFiledWithLabel";
 import { RootState } from "@/utils/redux/appStore";
 import { FormButton, FormHeading } from "../FormSplits";
 import { BillingCycle } from "@/utils/types";
@@ -108,7 +108,7 @@ const PlanForm = () => {
                             onHasError={handleErrorChange}
                         />
                     ))}
-                    <SelectField
+                    <SelectFiledWithLabel
                         label="Billing Cycle"
                         id="billingCycle"
                         value={formData.billingCycle}
@@ -127,7 +127,7 @@ const PlanForm = () => {
                         required={true}
                         onHasError={handleErrorChange}
                     />
-                    <SelectField
+                    <SelectFiledWithLabel
                         label="Ad Visibility"
                         id="adVisibility"
                         value={formData.adVisibility}

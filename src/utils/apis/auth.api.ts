@@ -3,8 +3,80 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { setAuthUser } from "../redux/slices/authSlice";
 import { startTimer } from "../redux/slices/signFormSlice";
 
-export const signup = createAsyncThunk('auth/signup',
-    async (userData: { username: string; email: string; password: string, role: string }, thunkAPI) => {
+interface signupRequest {
+    username: string;
+    email: string;
+    password: string;
+    role: string;
+}
+
+interface signupResponse {
+    success: boolean;
+    message: string;
+    authUser: {
+        verificationToken: string;
+        role: string;
+        token: string
+    }
+}
+
+interface verifyOtpRequestPayload {
+    otp: string;
+    verificationToken: string;
+    role: string
+}
+
+interface resendOtpRequestPayload {
+    role: string;
+    verificationToken?: string;
+    email?: string;
+}
+
+interface resendOtpRespone{
+    success: boolean;
+    message: string;
+    authUser: {
+        verificationToken: string;
+        role: string;
+    }
+}
+
+interface signinRequestPayload {
+    email: string;
+    password: string;
+    role: string;
+}
+
+interface signinResponse {
+    success: boolean;
+    message: string;
+    authUser: {
+        username: string;
+        profileImage?: string;
+        role: string;
+        token: string;
+        email: string;
+        isLoggedIn: boolean;
+        _id?: string;
+        address?: boolean;
+        service?: boolean;
+        approved?: boolean;
+    }
+}
+
+interface commonResponse {
+    success: boolean;
+    message: string;
+}
+
+interface updatePasswordRequestPayload {
+    role: string;
+    verificationToken: string;
+    password: string;
+}
+
+export const signup = createAsyncThunk<signupResponse, signupRequest>('auth/signup',
+    async (userData: signupRequest, thunkAPI) => {
         const response = await axiosInstance.post("/auth/signup", userData);
         if (response.data.success) {
             thunkAPI.dispatch(setAuthUser(response.data.authUser));
@@ -14,8 +86,8 @@ export const signup = createAsyncThunk('auth/signup',
     }
 );
 
-export const verifyOtp = createAsyncThunk("auth/verify-otp",
-    async (authData: { otp: string, verificationToken: string, role: string }, thunkAPI) => {
+export const verifyOtp = createAsyncThunk<commonResponse,verifyOtpRequestPayload>("auth/verify-otp",
+    async (authData: verifyOtpRequestPayload, thunkAPI) => {
         const response = await axiosInstance.post('/auth/verify-otp', authData);
         if (response.data.success) {
             thunkAPI.dispatch(setAuthUser(null));
@@ -24,25 +96,26 @@ export const verifyOtp = createAsyncThunk("auth/verify-otp",
     }
 )
 
-export const signin = createAsyncThunk("auth/signin",
-    async (userData: { email: string, password: string, role: string | null }, thunkAPI) => {
+export const signin = createAsyncThunk<signinResponse, signinRequestPayload>("auth/signin",
+    async (userData: signinRequestPayload, thunkAPI) => {
         const response = await axiosInstance.post('/auth/signin', userData);
         if (response.data.success) {
+            console.log("response : ", response.data);
             thunkAPI.dispatch(setAuthUser(response.data.authUser));
         }
         return response.data;
     }
 )
 
-export const signout = createAsyncThunk("auth/signin",
+export const signout = createAsyncThunk<commonResponse>("auth/signin",
     async () => {
         const response = await axiosInstance.post('/auth/signout');
         return response.data;
     }
 )
 
-export const resendOtp = createAsyncThunk("auth/resendOtp",
-    async (authData: { verificationToken?: string, role?: string, email?: string }, thunkAPI) => {
+export const resendOtp = createAsyncThunk<resendOtpRespone,resendOtpRequestPayload>("auth/resendOtp",
+    async (authData: resendOtpRequestPayload, thunkAPI) => {
         const response = await axiosInstance.post("/auth/resendOtp", authData);
         if (response.data.success) {
             thunkAPI.dispatch(setAuthUser(response.data.authUser));
@@ -52,8 +125,8 @@ export const resendOtp = createAsyncThunk("auth/resendOtp",
     }
 )
 
-export const updatePassword = createAsyncThunk("auth/updatePassword",
-    async (authData: { role: string, verificationToken: string, password: string }) => {
+export const updatePassword = createAsyncThunk<commonResponse,updatePasswordRequestPayload>("auth/updatePassword",
+    async (authData: updatePasswordRequestPayload) => {
         const response = await axiosInstance.put("/auth/updatePassword", authData);
         return response.data;
     }
@@ -74,3 +147,8 @@ export const checkUserStatus = createAsyncThunk("auth/checkUserStatus",
         );
     }
 );
+
+
+
+
+

@@ -11,7 +11,8 @@ interface UserData {
     isLoggedIn: boolean;
     _id?: string;
     address?: boolean;
-    service?: boolean;
+    serviceDetails?: boolean;
+    serviceAvailability?: boolean;
     approved?: boolean;
 }
 
@@ -34,6 +35,11 @@ const authSlice = createSlice({
             if(state.authUser){
                 state.authUser.address = action.payload;
             }
+        },
+        setServiceDetails: (state, action: PayloadAction<boolean>) => {
+            if(state.authUser){
+                state.authUser.serviceDetails = action.payload;
+            }
         }
     },
 });
@@ -41,6 +47,7 @@ const authSlice = createSlice({
 export const { 
     setAuthUser, 
     setAddress,
+    setServiceDetails,
 } = authSlice.actions;
 
 export default authSlice.reducer;

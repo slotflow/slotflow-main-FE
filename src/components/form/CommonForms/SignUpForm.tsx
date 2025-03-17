@@ -40,7 +40,7 @@ const SignUpForm: React.FC<signUpProps> = ({role}) => {
                 username: formData.username,
                 email: formData.email,
                 password: formData.password,
-                role
+                role: role
             }))
                 .unwrap()
                 .then((res: { success: boolean; message: string }) => {

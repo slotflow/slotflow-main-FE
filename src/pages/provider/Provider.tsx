@@ -7,6 +7,7 @@ import { checkUserStatus } from "@/utils/apis/auth.api";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
 import ProviderAddAddress from "./ProviderAddAddress";
 import ProviderAddServiceDetails from "./ProviderAddServiceDetails";
+import ProviderAddServiceAvailability from "./ProviderAddServiceAvailability";
 
 const Provider = () => {
   const sidebarOpen = useSelector((store: RootState) => store.state.sidebarOpen);
@@ -26,10 +27,14 @@ const Provider = () => {
       return (
         <ProviderAddAddress />
       );
-    } else if(!user?.service){
+    } else if(!user?.serviceDetails){
       return (
         <ProviderAddServiceDetails />
       );
+    } else if(!user?.serviceAvailability){
+      return (
+        <ProviderAddServiceAvailability />
+      )
     }
   }
 

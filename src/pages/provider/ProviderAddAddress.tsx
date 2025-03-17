@@ -74,7 +74,7 @@ const ProviderAddAddress = () => {
     return (
         <div className="h-screen pt-16 flex justify-center bg-[var(--background)]">
             <div className="p-2 w-11/12 md:w-10/12 lg:w-8/12 mt-10">
-                <h4 className="text-2xl font-semibold mb-6 text-start">Add Your Address</h4>
+                <h4 className="text-2xl font-semibold mb-6 text-start">Service Address</h4>
                 <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <InputField
@@ -169,7 +169,7 @@ const ProviderAddAddress = () => {
                         />
                     </div>
                     <div className="mt-10 flex justify-end">
-                        <button type="submit" className="w-full md:w-1/2 rounded-md bg-[var(--mainColor)] hover:bg-[var(--mainColorHover)] px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--mainColor)] cursor-pointer">{loading ? "Loading" : "Submit"}</button>
+                        <button type="submit" className="w-full md:w-1/4 rounded-md bg-[var(--mainColor)] hover:bg-[var(--mainColorHover)] px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--mainColor)] cursor-pointer">{loading ? "Loading" : "Next"}</button>
                     </div>
                 </form>
             </div>
