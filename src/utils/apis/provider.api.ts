@@ -16,7 +16,7 @@ interface AddProviderAddressPayload {
     };
 }
 
-interface AddressAddingResponse {
+interface AddProviderAddressResponse {
     success: boolean; 
     message: string; 
     address: boolean;
@@ -27,17 +27,16 @@ interface AddProviderServiceDetailsPayload {
     formData:FormData
 }
 
-interface ServiceDetailsAddingResponse {
+interface AddProviderServiceDetailsResponse {
     success: boolean; 
     message: string; 
     service: boolean;
 }
 
-export const addProviderAddress = createAsyncThunk<AddressAddingResponse,AddProviderAddressPayload>('/provider/addAddress',
+
+export const addProviderAddress = createAsyncThunk<AddProviderAddressResponse,AddProviderAddressPayload>('/provider/addAddress',
     async ({ providerId, formData }) => {
-        console.log("ProviderId : ",providerId,"formData : ",formData);
         const response = await axiosInstance.post(`/provider/addAddress/${providerId}`, formData);
-        console.log("response : ",response);
         return response.data;
     }
 )
@@ -45,19 +44,41 @@ export const addProviderAddress = createAsyncThunk<AddressAddingResponse,AddProv
 export const fetchAllServices = createAsyncThunk('/provider/fetchAllServices', 
     async () => {
         const response = await axiosInstance.get('/provider/fetchAllServices');
-        console.log("response : ",response);
         return response.data;
     }
 )
 
-export const addProviderServiceDetails = createAsyncThunk<ServiceDetailsAddingResponse,AddProviderServiceDetailsPayload>('/provider/addAddress',
+export const addProviderServiceDetails = createAsyncThunk<AddProviderServiceDetailsResponse,AddProviderServiceDetailsPayload>('/provider/addAddress',
     async ({ providerId, formData }) => {
-        console.log("ProviderId : ",providerId,"formData : ",formData);
-        formData.forEach((data) => {
-            console.log(data, " ", typeof data);
-        })
         const response = await axiosInstance.post(`/provider/addServiceDetails/${providerId}`, formData);
-        console.log("response : ",response);
+        return response.data;
+    }
+)
+
+interface Availability {
+    day: string;
+    duration: string;
+    startTime: string;
+    endTime: string;
+    modes: string[];
+    slots: string[];
+  }
+
+interface AddProviderServiceAvailabilityPayload {
+    data: Availability[];
+}
+
+interface AddProviderServiceAvailabilityResponse {
+    success: boolean;
+    message: string;
+    serviceAvailability: boolean;
+}
+
+export const addProviderServiceAvailability = createAsyncThunk<AddProviderServiceAvailabilityResponse,AddProviderServiceAvailabilityPayload>('/provider/addProviderServiceAvailability',
+    async ({ data }) => {
+        console.log("data : ",data);
+        const response = await axiosInstance.post(`/provider/addProviderServiceAvailability`,data);
+        console.log("Response : ",response);
         return response.data;
     }
 )

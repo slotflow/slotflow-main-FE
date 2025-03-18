@@ -5,6 +5,7 @@ interface Availability {
   duration: string;
   startTime: string;
   endTime: string;
+  modes: string[];
   slots: string[];
 }
 

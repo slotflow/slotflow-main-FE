@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, FormEvent } from 'react';
+import { useState, ChangeEvent, FormEvent } from 'react';
 import RightSideBox from '@/components/admin/RightSideBox';
 import SelectFiledWithLabel from '@/components/form/SelectFiledWithLabel';
 import CustomButton from '@/components/button/CustomButton';
@@ -6,12 +6,13 @@ import { addAvailability } from '@/utils/redux/slices/providerSlice';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/utils/redux/appStore';
-// import CustomButton from '@/components/button/CustomButton';
+import { addProviderServiceAvailability } from '@/utils/apis/provider.api';
 
 interface TimeSlot {
   startTime: string;
   endTime: string;
 }
+
 
 
 const ProviderAddServiceAvailability = () => {
@@ -27,6 +28,7 @@ const ProviderAddServiceAvailability = () => {
   });
   const [selectedTimeSlots, setSelectedTimeSlots] = useState<string[]>([]);
   const { availabilities } = useSelector((store: RootState) => store.provider);
+  const [modes, setModes] = useState<string[]>([]);
 
   const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   const serviceDurations = ['15 minutes', '30 minutes', '1 hour'];
@@ -86,29 +88,45 @@ const ProviderAddServiceAvailability = () => {
     }
   };
 
+  const toggleMode = (mode: string) => {
+    if (modes.includes(mode)) {
+      setModes(modes.filter((m) => m !== mode));
+    } else {
+      setModes([...modes, mode]);
+    }
+  };
+
   const handleAddAvailability = () => {
     const data = {
-      day : selectedDay,
-      duration : selectedDuration,
-      startTime : newTimeSlot.startTime,
-      endTime : newTimeSlot.endTime,
-      slots : selectedTimeSlots
+      day: selectedDay,
+      duration: selectedDuration,
+      startTime: newTimeSlot.startTime,
+      endTime: newTimeSlot.endTime,
+      modes: modes,
+      slots: selectedTimeSlots
     }
     dispatch(addAvailability(data));
-    console.log("availability : ",data);
+    console.log("availability : ", data);
     toast.success(`${selectedDay} availability added.`);
   }
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    if(availabilities.length === 0){
+    if (availabilities.length === 0) {
       toast.info("You didnt added any availability.");
       setLoading(false);
       return;
     }
-    console.log("Availability : ",availabilities)
+    dispatch(addProviderServiceAvailability({ data: availabilities }));
+    setLoading(false);
+    console.log("Availability : ", availabilities)
   }
+
+  const isModeSelected = (mode: string) => modes.includes(mode);
+
+  console.log("selectedTimeSlots : ",selectedTimeSlots);
+  console.log("availabilities : ",availabilities);
 
 
   return (
@@ -118,10 +136,10 @@ const ProviderAddServiceAvailability = () => {
         <form className="mt-10 p-12" onSubmit={handleSubmit}>
           <h4 className="text-2xl font-semibold mb-6 text-start">Let's fill out your Service Availability</h4>
 
-          <div className="flex w-full flex-col">
+          <div className="flex w-full flex-col space-y-6">
 
             <div className="w-full flex space-x-2">
-              <div className="w-1/2 py-6">
+              <div className="w-6/12">
                 <SelectFiledWithLabel
                   label="Select Day"
                   id="serviceDay"
@@ -131,7 +149,7 @@ const ProviderAddServiceAvailability = () => {
                   required={true}
                 />
               </div>
-              <div className="w-1/2 py-6">
+              <div className="w-6/12">
                 <SelectFiledWithLabel
                   label="Select Duration"
                   id="serviceDuration"
@@ -143,6 +161,26 @@ const ProviderAddServiceAvailability = () => {
               </div>
             </div>
 
+            <div>
+              <h6>Select service modes</h6>
+              <div className="w-1/2 flex space-x-4 mt-2">
+                <div
+                  className={`w-1/2 text-xs border rounded-md py-2 px-4 hover:bg-[var(--mainColor)/10] transition-colors duration-200 cursor-pointer ${isModeSelected('online') ? 'bg-[var(--mainColor)/20] border-[var(--mainColor)]' : 'border-gray-300'
+                    }`}
+                  onClick={() => toggleMode('online')}
+                >
+                  Online
+                </div>
+                <div
+                  className={`w-1/2 text-xs border rounded-md py-2 px-4 hover:bg-[var(--mainColor)/10] transition-colors duration-200 cursor-pointer ${isModeSelected('offline') ? 'bg-[var(--mainColor)/20] border-[var(--mainColor)]' : 'border-gray-300'
+                    }`}
+                  onClick={() => toggleMode('offline')}
+                >
+                  Offline
+                </div>
+              </div>
+            </div>
+
             <div className="flex items-end space-x-4 justify-between">
               <div className="w-4/12">
                 <label className="block text-sm font-medium text-gray-700">Start Time (HH:mm)</label>
@@ -150,7 +188,7 @@ const ProviderAddServiceAvailability = () => {
                   type="time"
                   value={newTimeSlot.startTime}
                   onChange={(e) => handleStartTimeChange(e.target.value)}
-                  className="block w-full rounded-md bg-[var(--inputBg)] px-2 py-1 md:px-3 md:py-2 text-[var(--textOne)] outline-1 -outline-offset-1 outline-[var(--boxBorder)] placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-[var(--mainColor)] text-xs  md:text-sm"
+                  className="mt-2 block w-full rounded-md bg-[var(--inputBg)] px-2 py-1 md:px-3 md:py-2 text-[var(--textOne)] outline-1 -outline-offset-1 outline-[var(--boxBorder)] placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-[var(--mainColor)] text-xs  md:text-sm"
                 />
               </div>
               <div className="w-4/12">
@@ -159,13 +197,13 @@ const ProviderAddServiceAvailability = () => {
                   type="time"
                   value={newTimeSlot.endTime}
                   onChange={(e) => handleEndTimeChange(e.target.value)}
-                  className="block w-full rounded-md bg-[var(--inputBg)] px-2 py-1 md:px-3 md:py-2 text-[var(--textOne)] outline-1 -outline-offset-1 outline-[var(--boxBorder)] placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-[var(--mainColor)] text-xs  md:text-sm"
+                  className="mt-2 block w-full rounded-md bg-[var(--inputBg)] px-2 py-1 md:px-3 md:py-2 text-[var(--textOne)] outline-1 -outline-offset-1 outline-[var(--boxBorder)] placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-[var(--mainColor)] text-xs  md:text-sm"
                 />
               </div>
               <button
                 type="button"
                 onClick={() => generateTimeSlots(newTimeSlot.startTime, newTimeSlot.endTime, selectedDuration)}
-                className="bg-[var(--mainColor)] hover:bg-[var(--mainColorHover)] text-white font-bold py-1.5 px-4 rounded cursor-pointer"
+                className="mt-2 bg-[var(--mainColor)] hover:bg-[var(--mainColorHover)] text-white font-bold py-1.5 px-4 rounded cursor-pointer"
               >
                 Generate Slots
               </button>
@@ -219,25 +257,3 @@ const ProviderAddServiceAvailability = () => {
 };
 
 export default ProviderAddServiceAvailability;
-
-
-// [{sunday: {
-//   duration: { durationId: 0, durationTime: "15 minutes"},
-//   startTime: "09:00 AM",
-//   endTime: "16:00 PM",
-//   slots : [
-//     { slotId: 0, slotTime: "09:00 AM"},
-//     { slotId: 1, slotTime: "09:15 AM"},
-//     { slotId: 3, slotTime: "09:30 AM"}
-//   ]
-// }},
-// {monday: {
-//   duration: { durationId: 0, durationTime: "15 minutes"},
-//   startTime: "09:00 AM",
-//   endTime: "16:00 PM",
-//   slots : [
-//     { slotId: 0, slotTime: "09:00 AM"},
-//     { slotId: 1, slotTime: "09:15 AM"},
-//     { slotId: 3, slotTime: "09:30 AM"}
-//   ]
-// }}]
