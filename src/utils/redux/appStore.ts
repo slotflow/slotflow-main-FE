@@ -4,6 +4,7 @@ import stateReducer from './slices/stateSlice';
 import adminReducer from './slices/adminSlice';
 import signFormReducer from "./slices/signFormSlice";
 import localStorage from 'redux-persist/lib/storage';
+import providerReducer from './slices/providerSlice';
 import { persistReducer, persistStore } from 'redux-persist';
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { setupAxiosInterceptors } from "@/lib/axiosInterceptor";
@@ -19,6 +20,7 @@ const rootReducers = {
     state: stateReducer,
     admin: adminReducer,
     user: userReducer,
+    provider: providerReducer,
 };
 
 const persistedReducer = persistReducer(persistConfig, combineReducers(rootReducers));

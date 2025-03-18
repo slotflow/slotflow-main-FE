@@ -23,11 +23,11 @@ const Provider = () => {
 
 
   if(!user?.approved){
-    if(!user?.address){
+    if(user?.address){
       return (
         <ProviderAddAddress />
       );
-    } else if(!user?.serviceDetails){
+    } else if(user?.serviceDetails){
       return (
         <ProviderAddServiceDetails />
       );

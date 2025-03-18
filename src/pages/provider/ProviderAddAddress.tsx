@@ -1,4 +1,5 @@
-import CustomButton from "@/components/Button/CustomButton";
+import RightSideBox from "@/components/admin/RightSideBox";
+import CustomButton from "@/components/button/CustomButton";
 import InputField from "@/components/form/InputFieldWithLable"
 import { addProviderAddress } from "@/utils/apis/provider.api";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
@@ -176,18 +177,11 @@ const ProviderAddAddress = () => {
                         </div>
                     </div>
                     <div className="mt-10 flex justify-end">
-                        <CustomButton props={{ loading }} />
+                        <CustomButton props={{ loading, text: "Next" }} />
                     </div>
                 </form>
             </div>
-            <div className="bg-violet-200 w-4/12 p-10">
-                <h3 className="p-6 text-2xl font-bold italic">Slotflow</h3>
-                <div className="w-full p-6 space-y-2 flex justify-between">
-                    <div className="h-2 w-4/12 bg-purple-500 mx-1 rounded-md"></div>
-                    <div className="h-2 w-4/12 bg-white mx-1 rounded-md"></div>
-                    <div className="h-2 w-4/12 bg-white mx-1 rounded-md"></div>
-                </div>
-            </div>
+            <RightSideBox props={{ pageNumber: 1 }} />
         </div>
     )
 }

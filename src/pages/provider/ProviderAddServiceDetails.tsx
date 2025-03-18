@@ -7,7 +7,8 @@ import { addProviderServiceDetails } from "@/utils/apis/provider.api";
 import SelectFiledWithLabel from "@/components/form/SelectFiledWithLabel";
 import React, { ChangeEvent, FormEvent, useCallback, useEffect, useState } from "react";
 import { setServiceDetails } from "@/utils/redux/slices/authSlice";
-import CustomButton from "@/components/Button/CustomButton";
+import CustomButton from "@/components/button/CustomButton";
+import RightSideBox from "@/components/admin/RightSideBox";
 
 interface Service {
   serviceName: string
@@ -212,13 +213,11 @@ const ProviderAddServiceDetails = () => {
             </div>
           </div>
           <div className="mt-10 flex justify-end">
-            <CustomButton props={{ loading }} />
+            <CustomButton props={{ loading, text: "Next" }} />
           </div>
         </form>
       </div>
-      <div className="bg-violet-200 w-4/12">
-
-      </div>
+      <RightSideBox props={{ pageNumber: 2 }} />
     </div>
   )
 }
