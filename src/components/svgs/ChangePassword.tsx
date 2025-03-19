@@ -1,10 +1,10 @@
-import { RootState } from '@/utils/redux/appStore';
 import { useSelector } from 'react-redux';
+import { RootState } from '@/utils/redux/appStore';
 
 export const ChangePassword = () => {
     const themeMode = useSelector((Store: RootState) => Store.state.lightTheme);
   return themeMode ? (
-    <svg className="w-full text-gray-800 dark:text-white" aria-hidden="true" width="610" height="524" viewBox="0 0 610 524" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg className="w-full h-40 md:h-full text-gray-800 dark:text-white" aria-hidden="true" width="610" height="524" viewBox="0 0 610 524" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M587 262C587 406.699 469.699 524 325 524C180.301 524 63 406.699 63 262C63 117.301 180.301 0 325 0C469.699 0 587 117.301 587 262Z" fill="#d6e2fb"/>
 <path d="M587 262C587 406.699 469.699 524 325 524C180.301 524 63 406.699 63 262C63 117.301 180.301 0 325 0C469.699 0 587 117.301 587 262Z" fill="url(#paint0_linear_383_362)"/>
 <path d="M51 87C51 83.6863 53.6863 81 57 81H604C607.314 81 610 83.6863 610 87V458C610 461.314 607.314 464 604 464H57C53.6863 464 51 461.314 51 458V87Z" fill="#d6e2fb"/>
@@ -60,7 +60,7 @@ export const ChangePassword = () => {
 </defs>
 </svg>
   ) : (
-    <svg className="w-full text-gray-800 dark:text-white" aria-hidden="true" width="610" height="524" viewBox="0 0 610 524" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg className="w-full h-40 md:h-full text-gray-800 dark:text-white" aria-hidden="true" width="610" height="524" viewBox="0 0 610 524" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M587 262C587 406.699 469.699 524 325 524C180.301 524 63 406.699 63 262C63 117.301 180.301 0 325 0C469.699 0 587 117.301 587 262Z" fill="url(#paint0_linear_383_545)"/>
 <path d="M51 93C51 86.3726 56.3726 81 63 81H598C604.627 81 610 86.3726 610 93V452C610 458.627 604.627 464 598 464H63C56.3726 464 51 458.627 51 452V93Z" fill="#1C2634"/>
 <path d="M41 71H600V454H41V71Z" fill="#374151"/>

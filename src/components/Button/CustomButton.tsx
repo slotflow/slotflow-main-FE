@@ -10,7 +10,7 @@ const CustomButton = ({ props }: CustomButtonProps) => {
     return (
         <button
         type="submit"
-            className="relative inline-flex items-center justify-center px-8 py-2.5 overflow-hidden tracking-tighter text-white bg-[var(--mainColor)] rounded-md group cursor-pointer"
+            className="relative inline-flex items-center justify-center px-8 py-1 md:px-10 md:py-2 overflow-hidden tracking-tighter text-white bg-[var(--mainColor)] rounded-md group cursor-pointer"
         >
             <span
                 className="absolute w-0 h-0 transition-all duration-500 ease-out bg-[var(--mainColorHover)] rounded-full group-hover:w-56 group-hover:h-56"

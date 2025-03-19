@@ -37,11 +37,11 @@ const ProviderApprovalPending = () => {
     }
 
     return (
-        <div className="h-screen pt-16 flex justify-center items-center w-full bg-[var(--background)] text-[var(--textOne)]">
-            <div className="w-1/2 flex justify-center items-center p-20" ref={manRef}>
+        <div className="min-h-screen pt-16 flex flex-col md:flex-row justify-center items-center w-full bg-[var(--background)] text-[var(--textOne)]">
+            <div className="md:w-1/2 flex justify-center items-center md:p-20" ref={manRef}>
                 <ManWorkingOnLaptop />
             </div>
-            <div className="w-1/2 flex justify-center items-center">
+            <div className="md:w-1/2 flex justify-center items-center">
                 <div className="p-8 rounded-lg text-center max-w-md">
                     <h1 className="text-2xl font-bold mb-4 text-[var(--mainColor)]">Approval in Progress</h1>
                     <p className="mb-4">Thank you for your patience. Your request is currently being reviewed. We will notify you as soon as the process is complete.</p>
