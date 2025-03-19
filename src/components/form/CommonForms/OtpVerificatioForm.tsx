@@ -14,9 +14,10 @@ const OtpVerificatioForm = () => {
     const { otpRemainingTime, otpTimerIsRunning, loading, forgotPassword } = useSelector((store: RootState) => store.signform);
     const { authUser } = useSelector((store: RootState) => store.auth);
     const [hasErrors, setHasErrors] = useState(false);
+    const [resentLoading, setResendLoading] = useState(false);
 
-    const role : string | null = authUser?.role || null;
-    const verificationToken : string | undefined = authUser?.verificationToken;
+    const role: string | null = authUser?.role || null;
+    const verificationToken: string | undefined = authUser?.verificationToken;
 
     const [formData, setFormData] = useState({
         otp: ""
@@ -38,7 +39,7 @@ const OtpVerificatioForm = () => {
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        if(hasErrors){
+        if (hasErrors) {
             toast.error("Please fix the form errors.");
             return;
         }
@@ -80,10 +81,12 @@ const OtpVerificatioForm = () => {
 
     const handleResendOtp = () => {
         if (verificationToken && role) {
+            setResendLoading(true);
             dispatch(resendOtp({ verificationToken, role }))
                 .unwrap()
                 .then((res: { success: boolean; message: string }) => {
                     if (res.success) {
+                        setResendLoading(false);
                         toast.success(res.message);
                     } else {
                         toast.error(res.message);
@@ -94,7 +97,7 @@ const OtpVerificatioForm = () => {
 
     const handleErrorChange = (hasError: boolean) => {
         setHasErrors(hasError);
-      };
+    };
 
     return (
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -119,10 +122,13 @@ const OtpVerificatioForm = () => {
 
                 <p className="mt-6 flex justify-between text-xs md:text-sm/6 text-[var(--textTwo)] px-2">
                     <span className="font-semibold text-[var(--mainColor)] hover:text-[var(--mainColorHover)] cursor-pointer" onClick={handleCancel}>Cencel</span>
-                    {otpTimerIsRunning ?
-                        <span className="text-center text-xs md:text-sm/6 text-[var(--textTwo)]">{formatTime(otpRemainingTime)}</span>
+                    {resentLoading ?
+                        <span className="font-semibold text-[var(--mainColor)] hover:text-[var(--mainColorHover)] cursor-pointer">Sending</span>
                         :
-                        <span className="font-semibold text-[var(--mainColor)] hover:text-[var(--mainColorHover)] cursor-pointer" onClick={handleResendOtp}>Resend OTP</span>
+                        otpTimerIsRunning ?
+                            <span className="text-center text-xs md:text-sm/6 text-[var(--textTwo)]">{formatTime(otpRemainingTime)}</span>
+                            :
+                            <span className="font-semibold text-[var(--mainColor)] hover:text-[var(--mainColorHover)] cursor-pointer" onClick={handleResendOtp}>Resend OTP</span>
                     }
                 </p>
 

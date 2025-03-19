@@ -17,26 +17,31 @@ const Provider = () => {
   const location = useLocation();
 
   useEffect(() => {
-    if (user?.isLoggedIn && user?.token) {
-        dispatch(checkUserStatus(user.token));
+    if (user?.isLoggedIn) {
+        dispatch(checkUserStatus());
     }
-  }, [user?.token, dispatch, location]);
+  }, [dispatch, location]);
 
-
+console.log("User : ",user);
   if(!user?.approved){
+    console.log("Not approved.");
     if(!user?.address){
+      console.log("no address.");
       return (
         <ProviderAddAddress />
       );
     } else if(!user?.serviceDetails){
+      console.log("No serviceDetails.");
       return (
         <ProviderAddServiceDetails />
       );
     } else if(!user?.serviceAvailability){
+      console.log("No serviceAvailability");
       return (
         <ProviderAddServiceAvailability />
       )
-    } else if(!user?.approved){
+    } else {
+      console.log("Else");
       return (
         <ProviderApprovalPending />
       )

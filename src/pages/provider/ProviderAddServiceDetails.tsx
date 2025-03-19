@@ -1,14 +1,15 @@
 import { toast } from "react-toastify";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/utils/redux/appStore";
+import RightSideBox from "@/components/admin/RightSideBox";
+import CustomButton from "@/components/button/CustomButton";
 import InputField from "@/components/form/InputFieldWithLable";
-import { AppDispatch, RootState } from "@/utils/redux/appStore";
 import { fetchAllServices } from "../../utils/apis/provider.api";
+import { setServiceDetails } from "@/utils/redux/slices/authSlice";
 import { addProviderServiceDetails } from "@/utils/apis/provider.api";
 import SelectFiledWithLabel from "@/components/form/SelectFiledWithLabel";
 import React, { ChangeEvent, FormEvent, useCallback, useEffect, useState } from "react";
-import { setServiceDetails } from "@/utils/redux/slices/authSlice";
-import CustomButton from "@/components/button/CustomButton";
-import RightSideBox from "@/components/admin/RightSideBox";
+
 
 interface Service {
   serviceName: string
@@ -17,7 +18,6 @@ interface Service {
 const ProviderAddServiceDetails = () => {
 
   const dispatch = useDispatch<AppDispatch>()
-  const user = useSelector((store: RootState) => store.auth.authUser);
   const [hasErrors, setHasErrors] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
@@ -36,6 +36,16 @@ const ProviderAddServiceDetails = () => {
     e.preventDefault();
     const file = e.target.files?.[0];
     if (file) {
+      if(!file.type.startsWith('image/')){
+        toast.info("Please select an image file.");
+        return;
+      }
+
+      if(file.size > 500 * 1024){
+        toast.info("Please select an image size less than 500 kb.");
+        return;
+      }
+
       setSelectedImage(file);
       setPreviewImage(URL.createObjectURL(file));
     } else {
@@ -74,9 +84,7 @@ const ProviderAddServiceDetails = () => {
     }
     setLoading(true);
     try {
-      if (user?._id) {
         const formDataToSend = new FormData();
-        formDataToSend.append('providerId', user._id);
         formDataToSend.append('serviceCategory', formData.serviceCategory);
         formDataToSend.append('serviceName', formData.serviceName);
         formDataToSend.append('serviceDescription', formData.serviceDescription);
@@ -86,7 +94,7 @@ const ProviderAddServiceDetails = () => {
         if (selectedImage) {
           formDataToSend.append('certificate', selectedImage);
         }
-        dispatch(addProviderServiceDetails({ providerId: user._id, formData: formDataToSend }))
+        dispatch(addProviderServiceDetails({ formData: formDataToSend }))
           .unwrap()
           .then((res) => {
             if (res.success) {
@@ -105,9 +113,6 @@ const ProviderAddServiceDetails = () => {
               toast.error(res.message);
             }
           })
-      } else {
-        toast.error("Something went wrong, please login again and try.");
-      }
     } catch {
       toast.error("An error occurred.");
     } finally {

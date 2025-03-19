@@ -5,11 +5,9 @@ interface UserData {
     profileImage?: string;
     email?: string;
     verificationToken?: string;
-    token?: string;
     role?: string;
     isBlocked?: boolean;
     isLoggedIn: boolean;
-    _id?: string;
     address?: boolean;
     serviceDetails?: boolean;
     serviceAvailability?: boolean;
@@ -45,7 +43,7 @@ const authSlice = createSlice({
             if(state.authUser){
                 state.authUser.serviceAvailability = action.payload;
             }
-        }
+        },
     },
 });
 

@@ -2,16 +2,15 @@ import RightSideBox from "@/components/admin/RightSideBox";
 import CustomButton from "@/components/button/CustomButton";
 import InputField from "@/components/form/InputFieldWithLable"
 import { addProviderAddress } from "@/utils/apis/provider.api";
-import { AppDispatch, RootState } from "@/utils/redux/appStore";
+import { AppDispatch } from "@/utils/redux/appStore";
 import { setAddress } from "@/utils/redux/slices/authSlice";
 import { FormEvent, useCallback, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 
 const ProviderAddAddress = () => {
 
     const dispatch = useDispatch<AppDispatch>()
-    const user = useSelector((store: RootState) => store.auth.authUser);
     const [hasErrors, setHasErrors] = useState(false);
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
@@ -43,34 +42,31 @@ const ProviderAddAddress = () => {
         }
         setLoading(true);
         console.log("formData : ", formData);
-        if (user?._id) {
-            dispatch(addProviderAddress({ providerId: user._id, formData }))
-                .unwrap()
-                .then((res) => {
-                    if (res.success) {
-                        toast.success(res.message);
-                        dispatch(setAddress(true));
-                        setFormData({
-                            addressLine: "",
-                            phone: "",
-                            place: "",
-                            city: "",
-                            district: "",
-                            pincode: "",
-                            state: "",
-                            country: "",
-                            googleMapLink: "",
-                        });
-                    } else {
-                        toast.error(res.message);
-                    }
-                })
-                .catch((error) => {
-                    toast.error(error.response.data.message);
-                })
-        } else {
-            toast.error("Something went wrong, please login again and try.");
-        }
+        dispatch(addProviderAddress({ formData }))
+            .unwrap()
+            .then((res) => {
+                if (res.success) {
+                    toast.success(res.message);
+                    dispatch(setAddress(true));
+                    setFormData({
+                        addressLine: "",
+                        phone: "",
+                        place: "",
+                        city: "",
+                        district: "",
+                        pincode: "",
+                        state: "",
+                        country: "",
+                        googleMapLink: "",
+                    });
+                } else {
+                    toast.error(res.message);
+                }
+            })
+            .catch((error) => {
+                toast.error(error.response.data.message);
+            })
+        setLoading(false);
     }
 
     return (
@@ -94,7 +90,7 @@ const ProviderAddAddress = () => {
                             <InputField
                                 label="Phone"
                                 id="phone"
-                                placeholder="+91 0000000000"
+                                placeholder="0000000000"
                                 type="text"
                                 value={formData.phone}
                                 onChange={handleChange}

@@ -2,7 +2,6 @@ import axiosInstance from "@/lib/axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 interface AddProviderAddressPayload {
-    providerId: string;
     formData: {
         addressLine: string;
         phone: string;
@@ -21,20 +20,12 @@ interface AddProviderAddressResponse {
     message: string; 
 }
 
-interface AddProviderServiceDetailsPayload {
-    providerId: string;
-    formData:FormData
-}
-
-interface AddProviderServiceDetailsResponse {
-    success: boolean; 
-    message: string; 
-}
-
 
 export const addProviderAddress = createAsyncThunk<AddProviderAddressResponse,AddProviderAddressPayload>('/provider/addAddress',
-    async ({ providerId, formData }) => {
-        const response = await axiosInstance.post(`/provider/addAddress/${providerId}`, formData);
+    async ({ formData }) => {
+        console.log("calling api")
+        const response = await axiosInstance.post(`/provider/addAddress`, formData);
+        console.log("Response : ",response)
         return response.data;
     }
 )
@@ -46,9 +37,18 @@ export const fetchAllServices = createAsyncThunk('/provider/fetchAllServices',
     }
 )
 
+interface AddProviderServiceDetailsPayload {
+    formData:FormData
+}
+
+interface AddProviderServiceDetailsResponse {
+    success: boolean; 
+    message: string; 
+}
+
 export const addProviderServiceDetails = createAsyncThunk<AddProviderServiceDetailsResponse,AddProviderServiceDetailsPayload>('/provider/addAddress',
-    async ({ providerId, formData }) => {
-        const response = await axiosInstance.post(`/provider/addServiceDetails/${providerId}`, formData);
+    async ({ formData }) => {
+        const response = await axiosInstance.post(`/provider/addServiceDetails`, formData);
         return response.data;
     }
 )

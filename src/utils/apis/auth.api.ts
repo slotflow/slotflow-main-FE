@@ -16,7 +16,6 @@ interface signupResponse {
     authUser: {
         verificationToken: string;
         role: string;
-        token: string
     }
 }
 
@@ -54,10 +53,7 @@ interface signinResponse {
         username: string;
         profileImage?: string;
         role: string;
-        token: string;
-        email: string;
         isLoggedIn: boolean;
-        _id?: string;
         address?: boolean;
         service?: boolean;
         approved?: boolean;
@@ -134,17 +130,9 @@ export const updatePassword = createAsyncThunk<commonResponse,updatePasswordRequ
 
 
 export const checkUserStatus = createAsyncThunk("auth/checkUserStatus",
-    async (token: string | undefined) => {
+    async () => {
         console.log("checking")
-        await axiosInstance.post(
-            "/auth/checkUserStatus",
-            {},
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            }
-        );
+        await axiosInstance.post("/auth/checkUserStatus",);
     }
 );
 

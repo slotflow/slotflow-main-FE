@@ -1,8 +1,8 @@
 import { useEffect } from "react";
-import { Outlet, useLocation } from "react-router-dom";
 import { userRoutes } from "@/utils/constants";
 import Sidebar from "@/components/Navs/Sidebar";
 import { useDispatch, useSelector } from "react-redux";
+import { Outlet, useLocation } from "react-router-dom";
 import { checkUserStatus } from "@/utils/apis/auth.api";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
 
@@ -13,10 +13,10 @@ const User = () => {
   const location = useLocation();
 
   useEffect(() => {
-    if (user?.isLoggedIn && user?.token) {
-      dispatch(checkUserStatus(user.token));
+    if (user?.isLoggedIn) {
+      dispatch(checkUserStatus());
     }
-  }, [user?.token, dispatch, location]);
+  }, [dispatch, location]);
 
   return (
       <div className="flex h-screen pt-16">
