@@ -15,9 +15,7 @@ interface TimeSlot {
 }
 
 
-
 const ProviderAddServiceAvailability = () => {
-  console.log("rendering")
   const dispatch = useDispatch<AppDispatch>();
   const [loading, setLoading] = useState<boolean>(false);
   const [selectedDay, setSelectedDay] = useState<string>('Sunday');
@@ -125,19 +123,15 @@ const ProviderAddServiceAvailability = () => {
       if(res.success){
         toast.success(res.message);
         dispatch(setServiceAvailability(true));
+        setLoading(false);
       }else{
         toast.error(res.message);
       }
     })
     setLoading(false);
-    console.log("Availability : ", availabilities)
   }
 
   const isModeSelected = (mode: string) => modes.includes(mode);
-
-  console.log("selectedTimeSlots : ",selectedTimeSlots);
-  console.log("availabilities : ",availabilities);
-
 
   return (
     <div className="h-screen pt-16 flex justify-center w-full bg-[var(--background)]">

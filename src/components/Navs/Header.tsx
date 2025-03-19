@@ -98,7 +98,7 @@ const Header = () => {
           ) : (
             <div className="flex flex-1 items-center justify-center">
               <div className="hidden sm:ml-6 sm:block">
-                <h2 className="text-lg font-semibold">
+                <h2 className="text-lg font-semibold text-[var(--textOne)]">
                   {greetingString} {user?.username ? user.username : 'User'}
                 </h2>
               </div>
@@ -106,7 +106,7 @@ const Header = () => {
           )}
 
 
-          <button className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-[var(--text-One)] hover:bg-[var(--menuItemHoverBg)] cursor-pointer" onClick={handleSignout}>
+          <button className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-[var(--textOne)] hover:bg-[var(--menuItemHoverBg)] cursor-pointer" onClick={handleSignout}>
             Log out
           </button>
 

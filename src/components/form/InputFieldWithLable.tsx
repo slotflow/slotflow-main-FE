@@ -7,7 +7,7 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { setForgotPassword, setResetPasswordForm, setsignInForm, setSignUpForm, setVerifyEmailForm, setVerifyOtpForm } from '@/utils/redux/slices/signFormSlice';
 
 interface InputFieldProps {
-    label: string;
+    label?: string;
     id: string;
     placeholder: string;
     type: string;
