@@ -1,15 +1,15 @@
 interface CustomButtonProps {
     props: {
-      loading: boolean;
-      text: string
+      loading?: boolean;
+      text: string;
     };
 }
 
 const CustomButton = ({ props }: CustomButtonProps) => {
-    const {loading, text} = props;
+    const {loading, text } = props;
     return (
         <button
-        type="submit"
+            type="submit"
             className="relative inline-flex items-center justify-center px-8 py-1 md:px-10 md:py-2 overflow-hidden tracking-tighter text-white bg-[var(--mainColor)] rounded-md group cursor-pointer"
         >
             <span

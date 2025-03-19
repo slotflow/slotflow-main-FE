@@ -6,7 +6,7 @@ export const Error404 = () => {
     const themeMode = useSelector((store: RootState) => store.state.lightTheme);
 
   return themeMode ? (
-    <svg className="w-full h-40 md:h-full text-gray-800 dark:text-white" aria-hidden="true" width="426" height="211" viewBox="0 0 426 211" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg className="w-full h-40 md:h-80 text-gray-800 dark:text-white" aria-hidden="true" width="426" height="211" viewBox="0 0 426 211" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M0.232565 117.709C0.108262 116.528 1.03417 115.5 2.22158 115.5H103.778C104.966 115.5 105.892 116.528 105.767 117.709L96.1885 208.709C96.0813 209.727 95.223 210.5 94.1995 210.5H11.8005C10.777 210.5 9.91866 209.727 9.81151 208.709L0.232565 117.709Z" fill="#d6e2fb"/>
 <path d="M33 115.5H72L69.3962 77.2841C68.7908 68.3984 61.4063 61.5 52.5 61.5C43.5937 61.5 36.2092 68.3984 35.6038 77.2842L33 115.5Z" fill="#d6e2fb"/>
 <path d="M33 115.5H72L69.3962 77.2841C68.7908 68.3984 61.4063 61.5 52.5 61.5C43.5937 61.5 36.2092 68.3984 35.6038 77.2842L33 115.5Z" fill="url(#paint0_linear_282_350)"/>
@@ -54,7 +54,7 @@ export const Error404 = () => {
 </defs>
 </svg>
   ) : (
-    <svg className="w-full h-40 md:h-full text-gray-800 dark:text-white" aria-hidden="true" width="426" height="211" viewBox="0 0 426 211" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg className="w-full h-40 md:h-80 text-gray-800 dark:text-white" aria-hidden="true" width="426" height="211" viewBox="0 0 426 211" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M0.232565 117.709C0.108262 116.528 1.03417 115.5 2.22158 115.5H103.778C104.966 115.5 105.892 116.528 105.767 117.709L96.1885 208.709C96.0813 209.727 95.223 210.5 94.1995 210.5H11.8005C10.777 210.5 9.91866 209.727 9.81151 208.709L0.232565 117.709Z" fill="#374151"/>
 <path d="M33 115.5H72L69.3962 77.2841C68.7908 68.3984 61.4063 61.5 52.5 61.5C43.5937 61.5 36.2092 68.3984 35.6038 77.2842L33 115.5Z" fill="#374151"/>
 <path d="M33 115.5H72L69.3962 77.2841C68.7908 68.3984 61.4063 61.5 52.5 61.5C43.5937 61.5 36.2092 68.3984 35.6038 77.2842L33 115.5Z" fill="url(#paint0_linear_282_515)"/>
