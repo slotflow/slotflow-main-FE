@@ -1,4 +1,4 @@
-import { Route } from '@/utils/types';
+import { Route } from '@/utils/interface';
 import { toast } from 'react-toastify';
 import { signout } from '@/utils/apis/auth.api';
 import { useDispatch, useSelector } from 'react-redux';

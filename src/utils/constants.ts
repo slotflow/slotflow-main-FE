@@ -1,4 +1,4 @@
-import { Route } from "./types";
+import { Route } from "./interface";
 
 export const adminRoutes: Route[] = [
   { path: "/admin", name: "Dashboard" },

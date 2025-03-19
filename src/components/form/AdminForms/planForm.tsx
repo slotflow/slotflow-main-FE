@@ -5,7 +5,7 @@ import InputField from "../InputFieldWithLable";
 import SelectFiledWithLabel from "../SelectFiledWithLabel";
 import { RootState } from "@/utils/redux/appStore";
 import { FormButton, FormHeading } from "../FormSplits";
-import { BillingCycle } from "@/utils/types";
+import { BillingCycle } from "@/utils/interface";
 import { useAdminPlanActions } from "@/utils/hooks/useAdminPlanActions";
 
 const PlanForm = () => {

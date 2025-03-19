@@ -1,4 +1,4 @@
-import { Plan } from "../types";
+import { Plan } from "../interface";
 import { toast } from "react-toastify";
 import axiosInstance from "@/lib/axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";

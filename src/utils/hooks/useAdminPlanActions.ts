@@ -1,4 +1,4 @@
-import { Plan } from "../types";
+import { Plan } from "../interface";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../redux/appStore";
