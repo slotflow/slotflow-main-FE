@@ -187,7 +187,7 @@ const ProviderAddServiceAvailability = () => {
 
             <div className="flex items-end space-x-4 justify-between">
               <div className="w-4/12">
-                <label className="block text-sm font-medium text-gray-700">Start Time (HH:mm)</label>
+                <label className="block text-sm font-medium">Start Time (HH:mm)</label>
                 <input
                   type="time"
                   value={newTimeSlot.startTime}
@@ -196,7 +196,7 @@ const ProviderAddServiceAvailability = () => {
                 />
               </div>
               <div className="w-4/12">
-                <label className="block text-sm font-medium text-gray-700">End Time (HH:mm)</label>
+                <label className="block text-sm font-medium">End Time (HH:mm)</label>
                 <input
                   type="time"
                   value={newTimeSlot.endTime}
@@ -223,7 +223,7 @@ const ProviderAddServiceAvailability = () => {
                     {timeSlots.map((timeSlot) => (
                       <div
                         key={timeSlot}
-                        className={`text-xs border rounded-md py-2 px-4 hover:bg-[var(--mainColor)/10] transition-colors duration-200 cursor-pointer ${selectedTimeSlots.includes(timeSlot)
+                        className={`text-xs text-center border rounded-md py-2 px-4 hover:bg-[var(--mainColor)/10] transition-colors duration-200 cursor-pointer ${selectedTimeSlots.includes(timeSlot)
                           ? 'bg-[var(--mainColor)/20] border-[var(--mainColor)]'
                           : 'border-gray-300'
                           }`}
