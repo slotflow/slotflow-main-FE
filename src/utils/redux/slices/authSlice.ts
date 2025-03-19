@@ -40,6 +40,11 @@ const authSlice = createSlice({
             if(state.authUser){
                 state.authUser.serviceDetails = action.payload;
             }
+        },
+        setServiceAvailability: (state, action: PayloadAction<boolean>) => {
+            if(state.authUser){
+                state.authUser.serviceAvailability = action.payload;
+            }
         }
     },
 });
@@ -48,6 +53,7 @@ export const {
     setAuthUser, 
     setAddress,
     setServiceDetails,
+    setServiceAvailability,
 } = authSlice.actions;
 
 export default authSlice.reducer;

@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/utils/redux/appStore';
 import { addProviderServiceAvailability } from '@/utils/apis/provider.api';
+import { setServiceAvailability } from '@/utils/redux/slices/authSlice';
 
 interface TimeSlot {
   startTime: string;
@@ -118,7 +119,16 @@ const ProviderAddServiceAvailability = () => {
       setLoading(false);
       return;
     }
-    dispatch(addProviderServiceAvailability({ data: availabilities }));
+    dispatch(addProviderServiceAvailability({ data: availabilities }))
+    .unwrap()
+    .then((res) => {
+      if(res.success){
+        toast.success(res.message);
+        dispatch(setServiceAvailability(true));
+      }else{
+        toast.error(res.message);
+      }
+    })
     setLoading(false);
     console.log("Availability : ", availabilities)
   }

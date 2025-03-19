@@ -32,7 +32,7 @@ export class Validator {
     }
 
     static validateServiceName(serviceName: string): void {
-        if (!validator.isAlpha(serviceName)) {
+        if (!/^[a-zA-Z ]+$/.test(serviceName)) {
             throw new Error("Invalid service Name, only letters allowed.");
         }
 

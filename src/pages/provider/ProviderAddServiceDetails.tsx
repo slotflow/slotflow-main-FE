@@ -118,7 +118,7 @@ const ProviderAddServiceDetails = () => {
     <div className="min-h-screen pt-16 flex justify-center w-full bg-[var(--background)]">
       <div className="w-8/12 px-10">
         <form onSubmit={handleSubmit} className="mt-10 p-12">
-          <h4 className="text-2xl font-semibold mb-6 text-start">Lets fillout your service details</h4>
+          <h4 className="text-2xl font-semibold mb-6 text-start">Lets Fill Your Service Details</h4>
           <div className="flex w-full flex-col md:flex-row">
             <div className="w-full md:w-1/2 py-6 space-y-6">
               <SelectFiledWithLabel
@@ -161,7 +161,7 @@ const ProviderAddServiceDetails = () => {
                 onHasError={handleErrorChange}
               />
               <InputField
-                label="Experience"
+                label="Experience In Years"
                 id="providerExperience"
                 placeholder="experience"
                 type="text"

@@ -8,6 +8,7 @@ import { AppDispatch, RootState } from "@/utils/redux/appStore";
 import ProviderAddAddress from "./ProviderAddAddress";
 import ProviderAddServiceDetails from "./ProviderAddServiceDetails";
 import ProviderAddServiceAvailability from "./ProviderAddServiceAvailability";
+import ProviderApprovalPending from "./ProviderApprovalPending";
 
 const Provider = () => {
   const sidebarOpen = useSelector((store: RootState) => store.state.sidebarOpen);
@@ -23,11 +24,11 @@ const Provider = () => {
 
 
   if(!user?.approved){
-    if(user?.address){
+    if(!user?.address){
       return (
         <ProviderAddAddress />
       );
-    } else if(user?.serviceDetails){
+    } else if(!user?.serviceDetails){
       return (
         <ProviderAddServiceDetails />
       );
@@ -35,11 +36,15 @@ const Provider = () => {
       return (
         <ProviderAddServiceAvailability />
       )
+    } else if(!user?.approved){
+      return (
+        <ProviderApprovalPending />
+      )
     }
   }
 
 
-  return !user?.approved && (
+  return user?.approved && (
     <div className="flex h-screen pt-16">
         <Sidebar routes={providerRoutes} />
       <div className={`flex-1 flex flex-col ${sidebarOpen ? 'w-[84%]' : 'w-[94%]'} transition-all duration-300`}>

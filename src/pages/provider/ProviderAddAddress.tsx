@@ -78,7 +78,7 @@ const ProviderAddAddress = () => {
         <div className="min-h-screen pt-16 flex justify-center w-full bg-[var(--background)]">
             <div className="w-8/12 px-10">
                 <form onSubmit={handleSubmit} className="mt-10 p-12">
-                    <h4 className="text-2xl font-semibold mb-6 text-start">Lets fillout your Address</h4>
+                    <h4 className="text-2xl font-semibold mb-6 text-start">Lets Fill Your Service Address</h4>
                     <div className="flex w-full flex-col md:flex-row">
                         <div className="w-full md:w-1/2 py-6 space-y-6">
                             <InputField

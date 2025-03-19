@@ -19,7 +19,6 @@ interface AddProviderAddressPayload {
 interface AddProviderAddressResponse {
     success: boolean; 
     message: string; 
-    address: boolean;
 }
 
 interface AddProviderServiceDetailsPayload {
@@ -30,7 +29,6 @@ interface AddProviderServiceDetailsPayload {
 interface AddProviderServiceDetailsResponse {
     success: boolean; 
     message: string; 
-    service: boolean;
 }
 
 
@@ -71,7 +69,6 @@ interface AddProviderServiceAvailabilityPayload {
 interface AddProviderServiceAvailabilityResponse {
     success: boolean;
     message: string;
-    serviceAvailability: boolean;
 }
 
 export const addProviderServiceAvailability = createAsyncThunk<AddProviderServiceAvailabilityResponse,AddProviderServiceAvailabilityPayload>('/provider/addProviderServiceAvailability',
