@@ -80,6 +80,7 @@ const LoginForm: React.FC<LoginFormProp> = ({ isAdmin, role, title }) => {
 
     return (
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+            
            <FormHeading title={title} />
 
             <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">

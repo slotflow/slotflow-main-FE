@@ -29,3 +29,11 @@ export const adminRoutes: Route[] = [
     { path: "chat", name: "Chat" },
     { path: "notifications", name: "Notifications" },
   ]
+
+  export const gsapBigSvgYDirectionAnimation = {
+    y: 20,
+    duration: 1,
+    yoyo: true,
+    repeat: -1,
+    ease: "sine.inOut",
+  }

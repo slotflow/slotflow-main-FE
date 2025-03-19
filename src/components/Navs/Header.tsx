@@ -40,23 +40,23 @@ const Header = () => {
   const greetingString = greetings();
 
   const handleSignout = () => {
-          dispatch(signout()).unwrap().then((res) => {
-              toast.success(res.message);
-              if (role === "USER") {
-                  dispatch(setAuthUser(null));
-                  navigate("/user/login");
-              } else if (role === "PROVIDER") {
-                  dispatch(setAuthUser(null));
-                  navigate("/provider/login");
-              } else if (role === "ADMIN") {
-                  console.log("logging out");
-                  dispatch(setAuthUser(null));
-                  navigate("/admin/login");
-              }
-          }).catch((error) => {
-              toast.error(error.message);
-          })
+    dispatch(signout()).unwrap().then((res) => {
+      toast.success(res.message);
+      if (role === "USER") {
+        dispatch(setAuthUser(null));
+        navigate("/user/login");
+      } else if (role === "PROVIDER") {
+        dispatch(setAuthUser(null));
+        navigate("/provider/login");
+      } else if (role === "ADMIN") {
+        console.log("logging out");
+        dispatch(setAuthUser(null));
+        navigate("/admin/login");
       }
+    }).catch((error) => {
+      toast.error(error.message);
+    })
+  }
 
   return (
     <Disclosure as="nav" className={`w-full bg-[var(--background)] border-b-2 border-[var(--boxBorder)]} fixed`}>
@@ -106,9 +106,11 @@ const Header = () => {
           )}
 
 
-          <button className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-[var(--textOne)] hover:bg-[var(--menuItemHoverBg)] cursor-pointer" onClick={handleSignout}>
-            Log out
-          </button>
+          {user && (
+            <button className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-[var(--textOne)] hover:bg-[var(--menuItemHoverBg)] cursor-pointer" onClick={handleSignout}>
+              Log out
+            </button>
+          )}
 
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
             <Menu as="div" className="relative ml-3">

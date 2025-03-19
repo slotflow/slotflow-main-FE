@@ -2,6 +2,7 @@ import gsap from 'gsap';
 import { toast } from 'react-toastify';
 import CustomButton from '@/components/button/CustomButton';
 import InputField from '@/components/form/InputFieldWithLable';
+import { gsapBigSvgYDirectionAnimation } from '@/utils/constants';
 import ManWorkingOnLaptop from "@/components/svgs/ManWorkingOnLaptop";
 import { FormEvent, useCallback, useEffect, useRef, useState } from "react";
 
@@ -20,13 +21,7 @@ const ProviderApprovalPending = () => {
     }, []);
 
     useEffect(() => {
-        gsap.to(manRef.current, {
-            y: 30,
-            duration: 1,
-            yoyo: true,
-            repeat: -1,
-            ease: "sine.inOut",
-        });
+        gsap.to(manRef.current,gsapBigSvgYDirectionAnimation);
     }, []);
 
     const handleErrorChange = (hasError: boolean) => {
