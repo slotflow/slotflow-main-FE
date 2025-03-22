@@ -48,3 +48,9 @@ export const fetchProviderAddress = async (providerId: string) => {
     const response = await axiosInstance.get(`/admin/fetchProviderAddress/${providerId}`);
     return response.data.address;
 }
+
+export const fetchProviderService = async (providerId: string) => {
+    console.log("Provider service api : ",providerId);
+    const response = await axiosInstance.get(`/admin/fetchProviderService/${providerId}`);
+    return response.data.service;
+}

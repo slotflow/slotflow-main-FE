@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { RootState } from "@/utils/redux/appStore";
 import AdminProviderDetails from "@/components/admin/AdminProviderDetails";
 import AdminProviderAddress from "@/components/admin/AdminProviderAddress";
+import AdmiProviderService from "@/components/admin/AdmiProviderService";
 
 const ServiceProviderDetail = () => {
 
@@ -19,7 +20,7 @@ const ServiceProviderDetail = () => {
     )
 
     return (
-        <div className="min-h-full border border-[var(--boxBorder)] rounded-lg p-2 flex flex-col">
+        <div className="border border-[var(--boxBorder)] rounded-lg p-2 flex flex-col">
             <div className="w-full h-50 flex justify-center items-center bg-[var(--menuItemHoverBg)] rounded-[6px]">
                 <img className={`h-32 w-32 rounded-full ${!themeMode && "invert"}`} src={'/images/avatar.png'} />
             </div>
@@ -36,6 +37,8 @@ const ServiceProviderDetail = () => {
 
             ) || tab === 1 && (
                 <AdminProviderAddress userId={providerId} onError={setHasError} />
+            ) || tab === 2 && (
+                <AdmiProviderService providerId={providerId} onError={setHasError} />
             )}
             </div>
         </div>

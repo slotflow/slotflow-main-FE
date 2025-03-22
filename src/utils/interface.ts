@@ -32,7 +32,19 @@ export interface Provider {
     createdAt: string;
 }
 
-// Service
+export interface ProviderService {
+    providerId: string,
+    serviceCategory: string,
+    serviceName: string,
+    serviceDescription: string,
+    servicePrice: number,
+    providerAdhaar: string,
+    providerExperience: string,
+    providerCertificateUrl: string,
+    _id: string,
+}
+
+// Admin Adding Service
 export interface Service {
     _id: string;
     serviceName: string;
