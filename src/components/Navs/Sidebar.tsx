@@ -6,21 +6,23 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { setAuthUser } from '@/utils/redux/slices/authSlice';
 import { toggleSidebar } from '@/utils/redux/slices/stateSlice';
 import { AppDispatch, RootState } from '@/utils/redux/appStore';
-import { RiMenuFold3Fill, RiMenuFold4Fill } from 'react-icons/ri';
 
-import ChatIcon from '@mui/icons-material/Chat';
-import GroupIcon from '@mui/icons-material/Group';
-import StyleIcon from '@mui/icons-material/Style';
-import LogoutIcon from '@mui/icons-material/Logout';
-import PaymentsIcon from '@mui/icons-material/Payments';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import AccountBoxIcon from '@mui/icons-material/AccountBox';
-import RateReviewIcon from '@mui/icons-material/RateReview';
-import BookOnlineIcon from '@mui/icons-material/BookOnline';
-import CreditCardIcon from '@mui/icons-material/CreditCard';
-import Diversity2Icon from '@mui/icons-material/Diversity2';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import DesignServicesIcon from '@mui/icons-material/DesignServices';
+import {
+    MessageSquare,
+    Users,
+    LayoutGrid,
+    CreditCard,
+    Star,
+    User,
+    Gauge,
+    CalendarCheck,
+    CreditCard as LucideCreditCard,
+    Bell,
+    Network,
+    LogOut,
+    Briefcase,
+    Menu,
+} from 'lucide-react';
 
 interface SideBarProps {
     routes: Route[];
@@ -57,26 +59,27 @@ const Sidebar = ({ routes }: SideBarProps) => {
     }
 
     const normalizeRouteName = (name: string): string => {
-        return name.toLowerCase().replace(/ /g,"-");
-    }
-    
-    const iconMap: Record<string, React.ReactNode> = {
-        'Chat': <ChatIcon />,
-        'users': <GroupIcon />,
-        'plans': <StyleIcon />,
-        'Payments': <PaymentsIcon />,
-        'reviews': <RateReviewIcon />,
-        'Profile': <AccountBoxIcon />,
-        'dashboard': <DashboardIcon />,
-        'Bookings': <BookOnlineIcon />,
-        'services': <DesignServicesIcon />,
-        'subscriptions': <CreditCardIcon />,
-        'Appointments': <BookOnlineIcon />,
-        'Notifications': <NotificationsIcon />,
-        'service-providers': <Diversity2Icon />,
+        return name.toLowerCase().replace(/ /g, "-");
     }
 
-    const getIcon = (name : string): React.ReactNode => {
+    const iconMap: Record<string, React.ReactNode> = {
+        'Chat': <MessageSquare />,
+        'users': <Users />,
+        'plans': <LayoutGrid />,
+        'Payments': <CreditCard />,
+        'reviews': <Star />,
+        'Profile': <User />,
+        'dashboard': <Gauge />,
+        'Bookings': <CalendarCheck />,
+        'services': <Briefcase />,
+        'subscriptions': <LucideCreditCard />,
+        'Appointments': <CalendarCheck />,
+        'Notifications': <Bell />,
+        'service-providers': <Network />,
+        'Logout': <LogOut />,
+    }
+
+    const getIcon = (name: string): React.ReactNode => {
         const normalizedName = normalizeRouteName(name);
         return iconMap[normalizedName];
     }
@@ -89,9 +92,9 @@ const Sidebar = ({ routes }: SideBarProps) => {
                     {user && (
                         <li className="px-3" onClick={handleSidebar}>
                             {sidebarOpen ?
-                                <RiMenuFold3Fill className='text-2xl font-bold cursor-pointer text-[var(--textOne)] hover:text-[var(--textOneHover)]' />
+                                <Menu className='text-2xl font-bold cursor-pointer text-[var(--textOne)] hover:text-[var(--textOneHover)]' />
                                 :
-                                <RiMenuFold4Fill className='text-2xl font-bold cursor-pointer text-[var(--textOne)] hover:text-[var(--textOneHover)]' />
+                                <Menu className='text-2xl font-bold cursor-pointer text-[var(--textOne)] hover:text-[var(--textOneHover)]' />
                             }
                         </li>
                     )}
@@ -106,10 +109,10 @@ const Sidebar = ({ routes }: SideBarProps) => {
 
                 </ul>
             </div>
-            
+
             <ul className='p-4'>
                 <li className="p-3 text-[var(--textTwo)] hover:text-[var(--textTwoHover)] font-semibold hover:bg-[var(--menuItemHoverBg)] cursor-pointer rounded-md mt-auto" onClick={handleSignout}>
-                    {sidebarOpen ? "Logout" : <LogoutIcon /> }
+                    {sidebarOpen ? "Logout" : <LogOut />}
                 </li>
             </ul>
         </div>

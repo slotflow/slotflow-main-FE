@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { Eye, EyeOff } from 'lucide-react';
 import { Validator } from '@/utils/validator';
 import { AppDispatch } from '@/utils/redux/appStore';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { setForgotPassword, setResetPasswordForm, setsignInForm, setSignUpForm, setVerifyEmailForm, setVerifyOtpForm } from '@/utils/redux/slices/signFormSlice';
 
 interface InputFieldProps {
@@ -117,7 +116,7 @@ const InputField: React.FC<InputFieldProps> = ({
                             className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400"
                             onClick={togglePasswordVisibility}
                         >
-                            {passwordVisible ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                            {passwordVisible ? <Eye /> : <EyeOff />}
                         </button>
                     )}
                 </div>
