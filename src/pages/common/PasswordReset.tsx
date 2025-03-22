@@ -14,8 +14,8 @@ const PasswordReset = () => {
 
   return (
     <div className='h-[100vh] flex bg-[var(--background)] justify-center items-center'>
-      <div className="md:w-6/12 hidden md:flex items-center justify-center" ref={changePasswordRef}>
-        <ChangePassword />
+      <div className="md:w-6/12 hidden md:flex items-center justify-center">
+        <ChangePassword ref={changePasswordRef}/>
       </div>
       <div className="w-full md:w-6/12 flex justify-center items-center">
         <ForgotPasswordForm />

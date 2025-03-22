@@ -1,18 +1,13 @@
 import gsap from 'gsap';
-import { Error404 } from '@/components/svgs/Error404';
 import React, { useEffect, useRef } from 'react';
+import { Error404 } from '@/components/svgs/Error404';
+import { gsapBigSvgYDirectionAnimation } from '@/utils/constants';
 
 const ErrorDisplay: React.FC = () => {
   const errorRef = useRef(null);
 
   useEffect(() => {
-    gsap.to(errorRef.current, {
-      y: 20,
-      duration: 1,
-      yoyo: true,
-      repeat: -1,
-      ease: "sine.inOut",
-    });
+    gsap.to(errorRef.current, gsapBigSvgYDirectionAnimation);
   },[]);
 
   return (

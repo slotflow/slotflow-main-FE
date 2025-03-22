@@ -1,11 +1,12 @@
 import { RootState } from "@/utils/redux/appStore";
+import { forwardRef } from "react";
 import { useSelector } from "react-redux";
 
-const ManWorkingOnLaptop = () => {
+const ManWorkingOnLaptop = forwardRef<SVGSVGElement>((_,ref) => {
     const themeMode = useSelector((store: RootState) => store.state.lightTheme);
 
     return !themeMode ? (
-        <svg className="w-full h-40 md:h-full text-gray-800 dark:text-white" aria-hidden="true" width="749" height="699" viewBox="0 0 749 699" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg className="w-full h-40 md:h-full text-gray-800 dark:text-white" aria-hidden="true" width="749" height="699" viewBox="0 0 749 699" fill="none" xmlns="http://www.w3.org/2000/svg" ref={ref}>
             <path d="M86.7031 53.9092C86.7031 52.8046 87.5986 51.9092 88.7031 51.9092H669.935C671.039 51.9092 671.935 52.8046 671.935 53.9092V69.5705H86.7031V53.9092Z" fill="#1F2A37" />
             <path d="M671.935 69.5706H86.7031V499.47C86.7031 500.574 87.5985 501.47 88.7031 501.47H669.935C671.039 501.47 671.935 500.574 671.935 499.47V69.5706Z" fill="#1F2A37" />
             <path fillRule="evenodd" clipRule="evenodd" d="M86.7031 69.5706H671.935V70.3733H86.7031V69.5706Z" fill="#6B7280" />
@@ -240,7 +241,7 @@ const ManWorkingOnLaptop = () => {
             </defs>
         </svg>
     ) : (
-        <svg className="w-full h-40 md:h-full text-gray-800 dark:text-white" aria-hidden="true" width="749" height="699" viewBox="0 0 749 699" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg className="w-full h-40 md:h-full text-gray-800 dark:text-white" aria-hidden="true" width="749" height="699" viewBox="0 0 749 699" fill="none" xmlns="http://www.w3.org/2000/svg" ref={ref}>
             <path d="M86.7031 51.9092H671.935V69.5705H86.7031V51.9092Z" fill="#d6e2fb" />
             <path d="M671.935 69.5706H86.7031V501.47H671.935V69.5706Z" fill="#d6e2fb" />
             <path fillRule="evenodd" clipRule="evenodd" d="M86.7031 69.5706H671.935V70.3733H86.7031V69.5706Z" fill="#c8d8fa" />
@@ -475,6 +476,6 @@ const ManWorkingOnLaptop = () => {
             </defs>
         </svg>
     )
-}
+})
 
 export default ManWorkingOnLaptop

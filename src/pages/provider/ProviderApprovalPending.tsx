@@ -38,8 +38,8 @@ const ProviderApprovalPending = () => {
 
     return (
         <div className="min-h-screen pt-16 flex flex-col md:flex-row justify-center items-center w-full bg-[var(--background)] text-[var(--textOne)]">
-            <div className="md:w-1/2 flex justify-center items-center md:p-20" ref={manRef}>
-                <ManWorkingOnLaptop />
+            <div className="md:w-1/2 flex justify-center items-center md:p-20">
+                <ManWorkingOnLaptop ref={manRef}/>
             </div>
             <div className="md:w-1/2 flex justify-center items-center">
                 <div className="p-8 rounded-lg text-center max-w-md">
