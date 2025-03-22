@@ -1,7 +1,9 @@
+import { useNavigate } from "react-router-dom";
 import { DropdownMenuItem } from "../ui/dropdown-menu";
 import { useAdminProviderActions } from "@/utils/hooks/useAdminProviderActions";
+import { memo } from "react";
 
-interface ApproveProviderItemProps {
+interface ProviderCommonProps {
     providerId: string;
 }
 
@@ -10,7 +12,7 @@ interface ChangeProviderStatusProps {
     status: boolean;
 }
 
-export const ApproveProvider: React.FC<ApproveProviderItemProps> = ({ providerId }) => {
+export const ApproveProvider: React.FC<ProviderCommonProps> = memo(({ providerId }) => {
     const { handleApproveProvider } = useAdminProviderActions();
     const hanldeApproveClick = () => {
         handleApproveProvider(providerId);
@@ -21,9 +23,9 @@ export const ApproveProvider: React.FC<ApproveProviderItemProps> = ({ providerId
             Approve
         </DropdownMenuItem>
     );
-};
+});
 
-export const ChangeProviderStatus: React.FC<ChangeProviderStatusProps> = ({ providerId, status }) => {
+export const ChangeProviderStatus: React.FC<ChangeProviderStatusProps> = memo(({ providerId, status }) => {
     const { hanldeChangeProviderBlockStatus } = useAdminProviderActions();
     
     const handleStatusChangeClick = () => {
@@ -35,4 +37,18 @@ export const ChangeProviderStatus: React.FC<ChangeProviderStatusProps> = ({ prov
             {status ? "Unblock" : "Block"}
         </DropdownMenuItem>
     );
-};
+});
+
+export const GetProviderDetailPage: React.FC<ProviderCommonProps> = memo(({ providerId }) => {
+    const navigate = useNavigate();
+
+    const handleGetProviderDetailPage = () => {
+        navigate(`/admin/service-provider/${providerId}`)
+    }
+
+    return(
+        <DropdownMenuItem onClick={handleGetProviderDetailPage}>
+            Details
+        </DropdownMenuItem>
+    )
+})

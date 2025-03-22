@@ -1,12 +1,12 @@
 import { Button } from "../ui/button";
-import { BlockPlan } from "./PlanActions";
 import { MoreHorizontal } from "lucide-react";
-import { BlockService } from "./SerivceActions";
-import { ChangeUserStatus } from "./UserActions";
+import { BlockPlan } from "./AdminPlanActions";
 import { ColumnDef } from "@tanstack/react-table";
-import { Plan, Provider, Service, User } from "@/utils/interface";
+import { BlockService } from "./AdminSerivceActions";
+import { ChangeUserStatus } from "./AdminUserActions";
 import { DataTableColumnHeader } from "./DataTableColumnHeader";
-import {ApproveProvider, ChangeProviderStatus } from "./ProviderActions";
+import { Plan, Provider, Service, User } from "@/utils/interface";
+import {ApproveProvider, ChangeProviderStatus, GetProviderDetailPage } from "./AdminProviderActions";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
 
 export const providerColumns: ColumnDef<Provider>[] = [
@@ -51,7 +51,7 @@ export const providerColumns: ColumnDef<Provider>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Details</DropdownMenuItem>
+            <GetProviderDetailPage providerId={provider._id} />
             <ChangeProviderStatus providerId={provider._id} status={provider.isBlocked}/>
             {provider.isAdminVerified === false && <ApproveProvider providerId={provider._id} />}
           </DropdownMenuContent>
