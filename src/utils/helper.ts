@@ -52,3 +52,16 @@ const format12HourTime = (time24: string): string => {
     const hour12 = hours % 12 === 0 ? 12 : hours % 12;
     return `${hour12}:${String(minutes).padStart(2, '0')} ${period}`;
   };
+
+// Formate date for infoDisplayCompoenent
+export  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString();
+};
+
+// Coupy to Clipboard
+export const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
+};
+
+// Formating the boolean value
+export const formatBoolean = (val: boolean) => (val ? "Yes" : "No");

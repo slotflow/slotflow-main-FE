@@ -29,6 +29,7 @@ export interface Provider {
     serviceAvailabilityId: string;
     subscription: [string];
     verificationToken: string;
+    createdAt: string;
 }
 
 // Service
