@@ -1,10 +1,49 @@
-// Common Response Type
-export interface ApiCommonResponse {
-    success: boolean; 
-    message: string; 
+//  User
+export interface User {
+    _id: string;
+    username: string;
+    email: string;
+    password: string;
+    isBlocked: boolean;
+    isEmailVerified: boolean;
+    phone: string;
+    profileImage: string;
+    addressId: string;
+    bookingsId: string;
+    verificationToken: string;
+}
+
+// Provider
+export interface Provider {
+    _id: string;
+    username: string;
+    email: string;
+    password: string;
+    isBlocked: boolean;
+    isEmailVerified: boolean;
+    isAdminVerified: boolean;
+    phone: string;
+    profileImage: string;
+    addressId: string;
+    serviceId: string;
+    serviceAvailabilityId: string;
+    subscription: [string];
+    verificationToken: string;
+}
+
+// Service
+export interface Service {
+    _id: string;
+    serviceName: string;
+    isBlocked: boolean;
 }
 
 
+// Common Response Type
+export interface ApiCommonResponse {
+    success: boolean;
+    message: string;
+}
 
 // Provider address adding
 export interface AddProviderAddressPayload {
@@ -25,7 +64,7 @@ export interface AddProviderAddressPayload {
 
 //  Provider add service details
 export interface AddProviderServiceDetailsPayload {
-    formData:FormData
+    formData: FormData
 }
 
 
@@ -38,7 +77,7 @@ interface Availability {
     endTime: string;
     modes: string[];
     slots: string[];
-  }
+}
 
 export interface AddProviderServiceAvailabilityPayload {
     data: Availability[];
@@ -68,4 +107,15 @@ export interface Plan {
 export interface Route {
     path: string;
     name: string;
+}
+
+
+//  Admin change user block status
+export interface AdminChangeUserStatusRequestPayload {
+    userId: string;
+    status: boolean;
+}
+
+export interface AdminChnageUserStatusResponse extends ApiCommonResponse {
+    updatedUser: Partial<User>
 }

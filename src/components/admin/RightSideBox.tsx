@@ -53,7 +53,7 @@ const RightSideBox: React.FC<RightSideBoxProps> = ({ props }) => {
           </div>
           <div className="flex justify-between items-center text-gray-700 px-2">
             {currentPageLabels.map((label, index) => (
-              <div key={index} className={`text-sm ${index === 0 ? 'font-semibold' : ''}`}>
+              <div key={index} className={`text-sm ${index+1 === pageNumber ? 'font-semibold' : ''}`}>
                 {label}
               </div>
             ))}

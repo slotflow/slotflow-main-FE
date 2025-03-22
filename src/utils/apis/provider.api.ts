@@ -2,12 +2,9 @@ import axiosInstance from "@/lib/axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { AddProviderAddressPayload, AddProviderServiceAvailabilityPayload, AddProviderServiceDetailsPayload, ApiCommonResponse } from "../interface";
 
-
 export const addProviderAddress = createAsyncThunk<ApiCommonResponse,AddProviderAddressPayload>('/provider/addAddress',
     async ({ formData }) => {
-        console.log("calling api")
         const response = await axiosInstance.post(`/provider/addAddress`, formData);
-        console.log("Response : ",response)
         return response.data;
     }
 )
@@ -28,9 +25,7 @@ export const addProviderServiceDetails = createAsyncThunk<ApiCommonResponse,AddP
 
 export const addProviderServiceAvailability = createAsyncThunk<ApiCommonResponse,AddProviderServiceAvailabilityPayload>('/provider/addProviderServiceAvailability',
     async ({ data }) => {
-        console.log("data : ",data);
         const response = await axiosInstance.post(`/provider/addProviderServiceAvailability`,data);
-        console.log("Response : ",response);
         return response.data;
     }
 )

@@ -4,7 +4,7 @@ import { MoreHorizontal } from "lucide-react";
 import { BlockService } from "./SerivceActions";
 import { ChangeUserStatus } from "./UserActions";
 import { ColumnDef } from "@tanstack/react-table";
-import { Provider, Serivce, User } from "@/utils/types";
+import { Plan, Provider, Service, User } from "@/utils/interface";
 import { DataTableColumnHeader } from "./DataTableColumnHeader";
 import {ApproveProvider, ChangeProviderStatus } from "./ProviderActions";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
@@ -113,7 +113,7 @@ export const userColumns: ColumnDef<User>[] = [
   }
 ]
 
-export const serviceColumns: ColumnDef<Serivce>[] = [
+export const serviceColumns: ColumnDef<Service>[] = [
   {
     accessorKey: "_id",
     header: "id",
@@ -161,7 +161,7 @@ export const serviceColumns: ColumnDef<Serivce>[] = [
 ]
 
 
-export const planColumns: ColumnDef<Serivce>[] = [
+export const planColumns: ColumnDef<Plan>[] = [
   {
     accessorKey: "_id",
     header: "id",

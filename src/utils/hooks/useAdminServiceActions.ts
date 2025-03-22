@@ -1,4 +1,4 @@
-import { Serivce } from "../types";
+import { Service } from "../interface";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../redux/appStore";
@@ -26,7 +26,7 @@ export const useAdminServiceActions = () => {
       .then(({ serviceId, updatedService }) => {
         queryClient.setQueryData(
           ["services"],
-          (oldData: Serivce[] | undefined) => {
+          (oldData: Service[] | undefined) => {
             if (!oldData) return [];
             return oldData.map((service) =>
               service._id === serviceId ? updatedService : service

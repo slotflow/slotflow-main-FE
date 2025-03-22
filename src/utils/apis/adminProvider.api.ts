@@ -7,16 +7,18 @@ export const fetchProviders = async () => {
     return response.data.providers;
 };
 
+
 export const approveProvider = createAsyncThunk('/admin/approve/provider/',
     async (providerId: string) => {
         const response = await axiosInstance.put(`/admin/provider/approve/${providerId}`);
         const res = response.data;
         if (res.success) {
             toast.success(res.message);
+            return { providerId, updatedProvider: res.updatedProvider };
         } else {
             toast.error(res.message);
+            return;
         }
-        return { providerId, updatedProvider: res.updatedProvider };
     }
 )
 
@@ -27,9 +29,10 @@ export const changeProviderBlockStatus = createAsyncThunk('/admin/changeProvider
         const res = response.data;
         if (res.success) {
             toast.success(res.message);
+            return { providerId, updatedProvider: res.updatedProvider };
         } else {
             toast.error(res.message);
+            return;
         }
-        return { providerId, updatedProvider: res.updatedProvider };
     }
 )

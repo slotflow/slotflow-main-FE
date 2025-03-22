@@ -31,8 +31,8 @@ const AdminLogin = () => {
 
   return (
     <div className='h-[100vh] flex bg-[var(--background)] justify-center items-center'>
-      <div className="md:w-6/12 hidden md:flex items-center justify-center" ref={formFilling}>
-        <FormFilling />
+      <div className="md:w-6/12 hidden md:flex items-center justify-center md:p-20">
+        <FormFilling ref={formFilling}/>
       </div>
       <div className="w-full md:w-6/12 flex justify-center items-center">
         <LoginForm isAdmin={true} role={"ADMIN"} title={"Admin Sign In"}/>

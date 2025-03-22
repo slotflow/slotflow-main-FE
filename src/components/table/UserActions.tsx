@@ -7,10 +7,10 @@ interface ChangeUserStatusProps {
 }
 
 export const ChangeUserStatus: React.FC<ChangeUserStatusProps> = ({ userId, status }) => {
-    const { hanldeChangeUserBlockStatus } = useAdminUserActions();
+    const { handleChangeUserBlockStatus } = useAdminUserActions();
     
     const handleStatusChangeClick = () => {
-        hanldeChangeUserBlockStatus(userId, !status)
+        handleChangeUserBlockStatus(userId, !status)
     }
     
     return (

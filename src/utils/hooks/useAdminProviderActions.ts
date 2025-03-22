@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
-import { Provider } from "@/utils/types";
 import { useDispatch } from "react-redux";
+import { Provider } from "@/utils/interface";
 import { AppDispatch } from "@/utils/redux/appStore";
 import { useQueryClient } from "@tanstack/react-query";
 import { approveProvider, changeProviderBlockStatus } from "@/utils/apis/adminProvider.api";
@@ -15,7 +15,7 @@ export const useAdminProviderActions = () => {
       .then(({ providerId, updatedProvider }) => {
         queryClient.setQueryData(
           ["providers"],
-          (oldData: Provider[] | undefined) => {
+          (oldData: Partial<Provider>[] | undefined) => {
             if (!oldData) return [];
             return oldData.map((provider) =>
               provider._id === providerId ? updatedProvider : provider
@@ -35,7 +35,7 @@ export const useAdminProviderActions = () => {
       .then(({ providerId, updatedProvider }) => {
         queryClient.setQueryData(
           ["providers"],
-          (oldData: Provider[] | undefined) => {
+          (oldData: Partial<Provider>[] | undefined) => {
             if (!oldData) return [];
             return oldData.map((provider) =>
               provider._id === providerId ? updatedProvider : provider
