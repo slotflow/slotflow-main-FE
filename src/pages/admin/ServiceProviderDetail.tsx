@@ -2,7 +2,8 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { RootState } from "@/utils/redux/appStore";
-import AdminProviderFUllPageDynamicSection from "@/components/admin/AdminProviderFUllPageDynamicSection";
+import AdminProviderDetails from "@/components/admin/AdminProviderDetails";
+import AdminProviderAddress from "@/components/admin/AdminProviderAddress";
 
 const ServiceProviderDetail = () => {
 
@@ -19,18 +20,23 @@ const ServiceProviderDetail = () => {
 
     return (
         <div className="min-h-full border border-[var(--boxBorder)] rounded-lg p-2 flex flex-col">
-            <div className="w-full h-50 flex justify-center items-center bg-[var(--menuItemHoverBg)]">
+            <div className="w-full h-50 flex justify-center items-center bg-[var(--menuItemHoverBg)] rounded-[6px]">
                 <img className={`h-32 w-32 rounded-full ${!themeMode && "invert"}`} src={'/images/avatar.png'} />
             </div>
 
-            <ul className="flex justify-around my-2 border-2">
+            <ul className="flex justify-around my-2 border-2 overflow-x-scroll no-scrollbar">
                 {tabButtons.map((button, index) => (
-                    <button className={`p-2 hover:bg-[var(--menuItemHoverBg)] w-3/12 cursor-pointer ${tab === index && `text-[var(--mainColor)] font-bold`}`} onClick={() => setTab(index)}>{button}</button>
+                    <button className={`p-2 hover:bg-[var(--menuItemHoverBg)] w-3/12 cursor-pointer text-xs md:text-[1rem] ${tab === index && `text-[var(--mainColor)] font-bold`}`} onClick={() => setTab(index)}>{button}</button>
                 ))}
             </ul>
             <div className={`flex-grow ${hasError && "flex items-center"}`}>
 
-              <AdminProviderFUllPageDynamicSection _id={providerId} onError={setHasError} providerData={tab}/>
+            {tab === 0 && (
+                <AdminProviderDetails _id={providerId} onError={setHasError} />
+
+            ) || tab === 1 && (
+                <AdminProviderAddress userId={providerId} onError={setHasError} />
+            )}
             </div>
         </div>
     )

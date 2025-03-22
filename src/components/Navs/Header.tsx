@@ -120,7 +120,7 @@ const Header = () => {
         </div>
       </div>
 
-      <div className="sm:hidden">
+      {/* <div className="sm:hidden">
         <div className="space-y-1 px-2 pt-2 pb-3">
           {navigation.map((item) => (
             <a
@@ -133,7 +133,7 @@ const Header = () => {
             </a>
           ))}
         </div>
-      </div>
+      </div> */}
     </nav>
   )
 }

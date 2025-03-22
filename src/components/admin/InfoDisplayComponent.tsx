@@ -14,7 +14,7 @@ const InfoDisplayComponent: React.FC<InfoDisplayComponentRowProps> = ({ label, v
     return (
         <>
             <tr>
-                <td className="p-4 font-medium text-[var(--textTwo)]">{label}</td>
+                <td className="p-4 font-medium text-[var(--infoDataLabel)]">{label}</td>
                 <td className="p-4">
                     {isBoolean ? (
                         <span>{formatBoolean(value as boolean)}</span>

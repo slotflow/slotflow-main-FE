@@ -26,6 +26,8 @@
 
     --error-color: red;
 
+    --infoDataLabel: #333333
+
     --foreground: oklch(0.145 0 0);
 
     --card: oklch(1 0 0);
@@ -113,6 +115,8 @@
     --inputBg: #27272a;
 
     --error-color: #ff6961;
+
+    --infoDataLabel: #b3b3b3;
 
     --foreground: oklch(0.985 0 0);
 

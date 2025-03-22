@@ -38,6 +38,13 @@ export const changeProviderBlockStatus = createAsyncThunk('/admin/changeProvider
 )
 
 export const fetchProviderDetails = async (providerId: string) => {
+    console.log("Provider details Api call")
     const response = await axiosInstance.get(`/admin/fetchProviderDetails/${providerId}`);
     return response.data.provider;
+}
+
+export const fetchProviderAddress = async (providerId: string) => {
+    console.log("Provider address api call")
+    const response = await axiosInstance.get(`/admin/fetchProviderAddress/${providerId}`);
+    return response.data.address;
 }

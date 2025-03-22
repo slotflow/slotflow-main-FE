@@ -40,6 +40,21 @@ export interface Service {
 }
 
 
+export interface Address {
+    _id: string;
+    userId: string,
+    addressLine: string,
+    phone: string,
+    place: string,
+    city: string,
+    district: string,
+    pincode: string,
+    state: string,
+    country: string,
+    googleMapLink: string,
+}
+
+
 // Common Response Type
 export interface ApiCommonResponse {
     success: boolean;
