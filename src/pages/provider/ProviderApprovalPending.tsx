@@ -1,6 +1,5 @@
 import gsap from 'gsap';
 import { toast } from 'react-toastify';
-import CustomButton from '@/components/button/CustomButton';
 import InputField from '@/components/form/InputFieldWithLable';
 import { gsapBigSvgYDirectionAnimation } from '@/utils/constants';
 import ManWorkingOnLaptop from "@/components/svgs/ManWorkingOnLaptop";
@@ -21,7 +20,7 @@ const ProviderApprovalPending = () => {
     }, []);
 
     useEffect(() => {
-        gsap.to(manRef.current,gsapBigSvgYDirectionAnimation);
+        gsap.to(manRef.current, gsapBigSvgYDirectionAnimation);
     }, []);
 
     const handleErrorChange = (hasError: boolean) => {
@@ -39,7 +38,7 @@ const ProviderApprovalPending = () => {
     return (
         <div className="min-h-screen pt-16 flex flex-col md:flex-row justify-center items-center w-full bg-[var(--background)] text-[var(--textOne)]">
             <div className="md:w-1/2 flex justify-center items-center md:p-20">
-                <ManWorkingOnLaptop ref={manRef}/>
+                <ManWorkingOnLaptop ref={manRef} />
             </div>
             <div className="md:w-1/2 flex justify-center items-center">
                 <div className="p-8 rounded-lg text-center max-w-md">
@@ -57,7 +56,11 @@ const ProviderApprovalPending = () => {
                             required={true}
                             onHasError={handleErrorChange}
                         />
-                        <CustomButton props={{ loading: false, text: "Submit" }} />
+                        <button
+                            type="submit"
+                            className="bg-[var(--mainColor)] hover:bg-[var(--mainColorHover)] text-white font-bold py-1.5 px-4 rounded cursor-pointer"
+                        > Submit
+                        </button>
                     </form>
                 </div>
             </div>

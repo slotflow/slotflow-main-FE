@@ -2,7 +2,6 @@ import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/utils/redux/appStore";
 import RightSideBox from "@/components/provider/RightSideBox";
-import CustomButton from "@/components/button/CustomButton";
 import InputField from "@/components/form/InputFieldWithLable";
 import { fetchAllServices } from "../../utils/apis/provider.api";
 import { setServiceDetails } from "@/utils/redux/slices/authSlice";
@@ -36,12 +35,12 @@ const ProviderAddServiceDetails = () => {
     e.preventDefault();
     const file = e.target.files?.[0];
     if (file) {
-      if(!file.type.startsWith('image/')){
+      if (!file.type.startsWith('image/')) {
         toast.info("Please select an image file.");
         return;
       }
 
-      if(file.size > 500 * 1024){
+      if (file.size > 500 * 1024) {
         toast.info("Please select an image size less than 500 kb.");
         return;
       }
@@ -84,35 +83,35 @@ const ProviderAddServiceDetails = () => {
     }
     setLoading(true);
     try {
-        const formDataToSend = new FormData();
-        formDataToSend.append('serviceCategory', formData.serviceCategory);
-        formDataToSend.append('serviceName', formData.serviceName);
-        formDataToSend.append('serviceDescription', formData.serviceDescription);
-        formDataToSend.append('servicePrice', formData.servicePrice);
-        formDataToSend.append('providerAdhaar', formData.providerAdhaar);
-        formDataToSend.append('providerExperience', formData.providerExperience);
-        if (selectedImage) {
-          formDataToSend.append('certificate', selectedImage);
-        }
-        dispatch(addProviderServiceDetails({ formData: formDataToSend }))
-          .unwrap()
-          .then((res) => {
-            if (res.success) {
-              toast.success(res.message);
-              dispatch(setServiceDetails(true));
-              setFormData({
-                serviceCategory: "",
-                serviceName: "",
-                serviceDescription: "",
-                servicePrice: "",
-                providerAdhaar: "",
-                providerExperience: "",
-              });
-              setSelectedImage(null);
-            } else {
-              toast.error(res.message);
-            }
-          })
+      const formDataToSend = new FormData();
+      formDataToSend.append('serviceCategory', formData.serviceCategory);
+      formDataToSend.append('serviceName', formData.serviceName);
+      formDataToSend.append('serviceDescription', formData.serviceDescription);
+      formDataToSend.append('servicePrice', formData.servicePrice);
+      formDataToSend.append('providerAdhaar', formData.providerAdhaar);
+      formDataToSend.append('providerExperience', formData.providerExperience);
+      if (selectedImage) {
+        formDataToSend.append('certificate', selectedImage);
+      }
+      dispatch(addProviderServiceDetails({ formData: formDataToSend }))
+        .unwrap()
+        .then((res) => {
+          if (res.success) {
+            toast.success(res.message);
+            dispatch(setServiceDetails(true));
+            setFormData({
+              serviceCategory: "",
+              serviceName: "",
+              serviceDescription: "",
+              servicePrice: "",
+              providerAdhaar: "",
+              providerExperience: "",
+            });
+            setSelectedImage(null);
+          } else {
+            toast.error(res.message);
+          }
+        })
     } catch {
       toast.error("An error occurred.");
     } finally {
@@ -188,7 +187,7 @@ const ProviderAddServiceDetails = () => {
             </div>
 
             <div className="w-full md:w-1/2 p-6 space-y-6">
-            <div>
+              <div>
                 <label className="block text-xs md:text-sm/6 font-medium text-[var(--textTwo)] hover:text-[var(--textTwoHover)]">
                   Certificate
                 </label>
@@ -218,7 +217,12 @@ const ProviderAddServiceDetails = () => {
             </div>
           </div>
           <div className="mt-10 flex justify-end">
-            <CustomButton props={{ loading, text: "Next" }} />
+            <button
+              type="submit"
+              className="bg-[var(--mainColor)] hover:bg-[var(--mainColorHover)] text-white font-bold py-1.5 px-4 rounded cursor-pointer"
+            >
+              {loading ? "Loading" : "Next"}
+            </button>
           </div>
         </form>
       </div>

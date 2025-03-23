@@ -1,5 +1,4 @@
 import RightSideBox from "@/components/provider/RightSideBox";
-import CustomButton from "@/components/button/CustomButton";
 import InputField from "@/components/form/InputFieldWithLable"
 import { addProviderAddress } from "@/utils/apis/provider.api";
 import { AppDispatch } from "@/utils/redux/appStore";
@@ -173,7 +172,12 @@ const ProviderAddAddress = () => {
                         </div>
                     </div>
                     <div className="mt-10 flex justify-end">
-                        <CustomButton props={{ loading, text: "Next" }} />
+                        <button
+                            type="submit"
+                            className="bg-[var(--mainColor)] hover:bg-[var(--mainColorHover)] text-white font-bold py-1.5 px-4 rounded cursor-pointer"
+                        >
+                            {loading ? "Loading" : "Next"}
+                        </button>
                     </div>
                 </form>
             </div>
