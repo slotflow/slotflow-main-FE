@@ -54,3 +54,10 @@ export const fetchProviderService = async (providerId: string) => {
     const response = await axiosInstance.get(`/admin/fetchProviderService/${providerId}`);
     return response.data.service;
 }
+
+export const fetchProviderServiceAvailability = async (providerId: string) => {
+    console.log("Provider service availability api : ",providerId);
+    const response = await axiosInstance.get(`/admin/fetchProviderServiceAvailability/${providerId}`);
+    console.log("response : ",response);
+    return response.data.availability;
+}

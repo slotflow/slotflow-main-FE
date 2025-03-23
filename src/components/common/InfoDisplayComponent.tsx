@@ -1,14 +1,6 @@
 import { Copy } from "lucide-react";
 import { formatBoolean } from "@/utils/helper";
-
-interface InfoDisplayComponentRowProps {
-    label: string;
-    value: string | boolean | undefined;
-    formatDate?: (dateString: string) => string;
-    copyToClipboard?: (text: string) => void;
-    link?: boolean;
-    isBoolean?: boolean;
-}
+import { InfoDisplayComponentRowProps } from "@/utils/interface/commonInterface";
 
 const InfoDisplayComponent: React.FC<InfoDisplayComponentRowProps> = ({ label, value, formatDate, copyToClipboard, isBoolean, link }) => {
 
@@ -35,20 +27,18 @@ const InfoDisplayComponent: React.FC<InfoDisplayComponentRowProps> = ({ label, v
                         <span>{formatDate(value)}</span>
                     ) : link && typeof value === 'string' ? (
                         <a
-                          href={value}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-blue-500 hover:underline"
+                            href={value}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-500 hover:underline"
                         >
-                          {value}
+                            {value}
                         </a>
-                      ) : (
+                    ) : (
                         <span>{value as string}</span>
                     )}
                 </td>
-
             </tr>
-
         </>
     )
 }

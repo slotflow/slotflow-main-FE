@@ -5,6 +5,7 @@ import { RootState } from "@/utils/redux/appStore";
 import AdminProviderDetails from "@/components/admin/AdminProviderDetails";
 import AdminProviderAddress from "@/components/admin/AdminProviderAddress";
 import AdmiProviderService from "@/components/admin/AdmiProviderService";
+import AdminProviderServiceAvailability from "@/components/admin/AdminProviderServiceAvailability";
 
 const ServiceProviderDetail = () => {
 
@@ -27,7 +28,7 @@ const ServiceProviderDetail = () => {
 
             <ul className="flex justify-around my-2 border-2 overflow-x-scroll no-scrollbar">
                 {tabButtons.map((button, index) => (
-                    <button className={`p-2 hover:bg-[var(--menuItemHoverBg)] w-3/12 cursor-pointer text-xs md:text-[1rem] ${tab === index && `text-[var(--mainColor)] font-bold`}`} onClick={() => setTab(index)}>{button}</button>
+                    <button key={index} className={`p-2 hover:bg-[var(--menuItemHoverBg)] w-3/12 cursor-pointer text-xs md:text-[1rem] ${tab === index && `text-[var(--mainColor)] font-bold`}`} onClick={() => setTab(index)}>{button}</button>
                 ))}
             </ul>
             <div className={`flex-grow ${hasError && "flex items-center"}`}>
@@ -38,6 +39,8 @@ const ServiceProviderDetail = () => {
                 <AdminProviderAddress userId={providerId} onError={setHasError} />
             ) || tab === 2 && (
                 <AdmiProviderService providerId={providerId} onError={setHasError} />
+            ) || tab === 3 && (
+                <AdminProviderServiceAvailability _id={providerId} onError={setHasError} />
             )}
             </div>
         </div>

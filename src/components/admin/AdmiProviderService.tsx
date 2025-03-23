@@ -1,16 +1,10 @@
-import { fetchProviderService } from '@/utils/apis/adminProvider.api';
-import { ProviderService } from '@/utils/interface'
+import React from 'react';
 import { useQuery } from '@tanstack/react-query';
-import React from 'react'
 import DataFetchingError from '../common/DataFetchingError';
+import InfoDisplayComponent from '../common/InfoDisplayComponent';
 import ShimmerProfileDetails from '../shimmers/ShimmerProfileDetails';
-import InfoDisplayComponent from './InfoDisplayComponent';
-
-type ProviderIdOnly = Pick<ProviderService, 'providerId'>;
-interface AdminProviderServiceProps extends ProviderIdOnly {
-    onError: (hasError: boolean) => void;
-}
-
+import { fetchProviderService } from '@/utils/apis/adminProvider.api';
+import { AdminProviderServiceProps } from '@/utils/interface/adminInterface';
 
 const AdmiProviderService: React.FC<AdminProviderServiceProps> = ({ providerId, onError }) => {
 
@@ -18,8 +12,6 @@ const AdmiProviderService: React.FC<AdminProviderServiceProps> = ({ providerId, 
         queryKey: ["PService", providerId],
         queryFn: () => fetchProviderService(providerId),
     })
-
-    console.log("Data : ", data);
 
     if (isError) {
         onError(true);
@@ -29,7 +21,6 @@ const AdmiProviderService: React.FC<AdminProviderServiceProps> = ({ providerId, 
     }
 
     if (isLoading) {
-        onError(false);
         return (
             <div className="w-full mx-auto mt-8 md:flex justify-start flex-grow bg">
                 <ShimmerProfileDetails row={6} />

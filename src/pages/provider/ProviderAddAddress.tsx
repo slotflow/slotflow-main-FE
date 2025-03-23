@@ -1,4 +1,4 @@
-import RightSideBox from "@/components/admin/RightSideBox";
+import RightSideBox from "@/components/provider/RightSideBox";
 import CustomButton from "@/components/button/CustomButton";
 import InputField from "@/components/form/InputFieldWithLable"
 import { addProviderAddress } from "@/utils/apis/provider.api";

@@ -1,13 +1,13 @@
-import { useState, ChangeEvent, FormEvent } from 'react';
-import RightSideBox from '@/components/admin/RightSideBox';
-import SelectFiledWithLabel from '@/components/form/SelectFiledWithLabel';
-import CustomButton from '@/components/button/CustomButton';
-import { addAvailability } from '@/utils/redux/slices/providerSlice';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
+import { useState, ChangeEvent, FormEvent } from 'react';
+import RightSideBox from '@/components/provider/RightSideBox';
+import CustomButton from '@/components/button/CustomButton';
 import { AppDispatch, RootState } from '@/utils/redux/appStore';
-import { addProviderServiceAvailability } from '@/utils/apis/provider.api';
+import { addAvailability } from '@/utils/redux/slices/providerSlice';
 import { setServiceAvailability } from '@/utils/redux/slices/authSlice';
+import SelectFiledWithLabel from '@/components/form/SelectFiledWithLabel';
+import { addProviderServiceAvailability } from '@/utils/apis/provider.api';
 
 interface TimeSlot {
   startTime: string;
@@ -19,7 +19,7 @@ const ProviderAddServiceAvailability = () => {
   const dispatch = useDispatch<AppDispatch>();
   const [loading, setLoading] = useState<boolean>(false);
   const [selectedDay, setSelectedDay] = useState<string>('Sunday');
-  const [selectedDuration, setSelectedDuration] = useState<string>("15 mimnutes");
+  const [selectedDuration, setSelectedDuration] = useState<string>("15 minutes");
   const [timeSlots, setTimeSlots] = useState<string[]>([])
   const [newTimeSlot, setNewTimeSlot] = useState<TimeSlot>({
     startTime: '00:00',
@@ -49,9 +49,17 @@ const ProviderAddServiceAvailability = () => {
   };
 
   const generateTimeSlots = (startTime: string, endTime: string, intervalMinutes: string): void => {
+    console.log("Generating");
+    console.log("startTime : ",startTime);
+    console.log("EndTime : ",endTime);
+    console.log("Interval in minutes : ", intervalMinutes);
     const slots: string[] = [];
     let currentTime = startTime;
     let interval = 0;
+
+    console.log("typeof intevalMinutes : ",typeof intervalMinutes);
+
+    console.log(intervalMinutes === "15 minutes")
 
     if (intervalMinutes === "15 minutes") {
       interval = 15;
@@ -59,9 +67,12 @@ const ProviderAddServiceAvailability = () => {
       interval = 30;
     } else if (intervalMinutes === "1 hour") {
       interval = 60;
+    }else{
+      return;
     }
-
+    
     while (currentTime <= endTime) {
+      console.log("inside while");
       slots.push(format12HourTime(currentTime));
       const [hours, minutes] = currentTime.split(':').map(Number);
       const nextMinutes = minutes + interval;
@@ -69,6 +80,7 @@ const ProviderAddServiceAvailability = () => {
       const nextMinutesAdjusted = nextMinutes % 60;
       currentTime = `${String(nextHours).padStart(2, '0')}:${String(nextMinutesAdjusted).padStart(2, '0')}`;
     }
+    console.log("timeSlots : ",slots);
     setTimeSlots(slots);
   };
 

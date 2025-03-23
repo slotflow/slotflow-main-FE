@@ -1,16 +1,11 @@
 import { memo } from "react";
-import { Provider } from "@/utils/interface";
 import { useQuery } from "@tanstack/react-query";
-import InfoDisplayComponent from "./InfoDisplayComponent";
 import DataFetchingError from "../common/DataFetchingError";
 import { copyToClipboard, formatDate } from "@/utils/helper";
+import InfoDisplayComponent from "../common/InfoDisplayComponent";
 import { fetchProviderDetails } from "@/utils/apis/adminProvider.api";
 import ShimmerProfileDetails from "../shimmers/ShimmerProfileDetails";
-
-type ProviderIdOnly = Pick<Provider, '_id'>;
-interface AdminProviderDetailsProps extends ProviderIdOnly {
-    onError: (hasError: boolean) => void;
-}
+import { AdminProviderDetailsProps } from "@/utils/interface/adminInterface";
 
 const AdminProviderDetails: React.FC<AdminProviderDetailsProps> = memo(({ _id, onError }) => {
 
@@ -27,7 +22,6 @@ const AdminProviderDetails: React.FC<AdminProviderDetailsProps> = memo(({ _id, o
     }
 
     if (isLoading) {
-        onError(false);
         return (
             <div className="w-full mx-auto mt-8 md:flex justify-start flex-grow bg">
                 <ShimmerProfileDetails row={7} />

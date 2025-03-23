@@ -1,15 +1,10 @@
-import { memo } from 'react'
-import { Address } from '@/utils/interface';
+import { memo } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import InfoDisplayComponent from './InfoDisplayComponent'
 import DataFetchingError from '../common/DataFetchingError';
+import InfoDisplayComponent from '../common/InfoDisplayComponent';
 import { fetchProviderAddress } from '@/utils/apis/adminProvider.api';
 import ShimmerProfileDetails from '../shimmers/ShimmerProfileDetails';
-
-type ProviderIdOnly = Pick<Address, 'userId'>;
-interface AdminProviderAddressProps extends ProviderIdOnly {
-    onError: (hasError: boolean) => void;
-}
+import { AdminProviderAddressProps } from '@/utils/interface/adminInterface';
 
 const AdminProviderAddress: React.FC<AdminProviderAddressProps> = memo(({ userId, onError }) => {
 
@@ -26,13 +21,13 @@ const AdminProviderAddress: React.FC<AdminProviderAddressProps> = memo(({ userId
     }
 
     if (isLoading) {
-        onError(false);
         return (
             <div className="w-full mx-auto mt-8 md:flex justify-start flex-grow bg">
                 <ShimmerProfileDetails row={9} />
             </div>
         )
     }
+
     return (
         <div className="w-full mx-auto mt-8 p-6 rounded-lg">
             <table className="table-auto border-collapse border border-[var(--boxBorder)] w-full">
