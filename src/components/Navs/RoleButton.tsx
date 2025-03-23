@@ -1,9 +1,5 @@
 import React from "react";
-
-interface RoleButtonProps {
-  onClick: () => void;
-  children: React.ReactNode;
-}
+import { RoleButtonProps } from "@/utils/interface/commonInterface";
 
 const RoleButton: React.FC<RoleButtonProps> = ({ onClick, children }) => {
   return (

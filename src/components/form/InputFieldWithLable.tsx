@@ -1,24 +1,12 @@
-import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Eye, EyeOff } from 'lucide-react';
+import React, { memo, useState } from 'react';
 import { Validator } from '@/utils/validator';
 import { AppDispatch } from '@/utils/redux/appStore';
+import { InputFieldProps } from '@/utils/interface/commonInterface';
 import { setForgotPassword, setResetPasswordForm, setsignInForm, setSignUpForm, setVerifyEmailForm, setVerifyOtpForm } from '@/utils/redux/slices/signFormSlice';
 
-interface InputFieldProps {
-    label?: string;
-    id: string;
-    placeholder: string;
-    type: string;
-    value: string | number;
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    required: boolean;
-    isPassword?: boolean;
-    forgotPassword?: boolean;
-    onHasError?: (hasError: boolean) => void;
-}
-
-const InputField: React.FC<InputFieldProps> = ({
+const InputField: React.FC<InputFieldProps> = memo(({
     label, id, placeholder, type, value, onChange, required, isPassword = false, forgotPassword, onHasError
 }) => {
 
@@ -126,6 +114,6 @@ const InputField: React.FC<InputFieldProps> = ({
             </div>
         </div>
     );
-};
+});
 
 export default InputField;

@@ -1,6 +1,6 @@
-import { RootState } from "@/utils/redux/appStore";
 import { forwardRef } from "react";
 import { useSelector } from "react-redux";
+import { RootState } from "@/utils/redux/appStore";
 
 const ManWorkingOnLaptop = forwardRef<SVGSVGElement>((_,ref) => {
     const themeMode = useSelector((store: RootState) => store.state.lightTheme);

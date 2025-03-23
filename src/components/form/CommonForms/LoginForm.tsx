@@ -1,19 +1,13 @@
 import { toast } from "react-toastify";
-import InputField from "../InputFieldWithLable";
 import { signin } from "@/utils/apis/auth.api";
 import { useNavigate } from "react-router-dom";
-import { FormButton, FormHeading } from "../FormSplits";
+import InputField from "../InputFieldWithLable";
 import { useDispatch, useSelector } from "react-redux";
+import { FormButton, FormHeading } from "../FormSplits";
 import { FormEvent, useCallback, useState } from "react";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
+import { LoginFormProp } from "@/utils/interface/commonInterface";
 import { setResetPasswordForm, setsignInForm, setSignUpForm, setVerifyEmailForm, setVerifyOtpForm } from "@/utils/redux/slices/signFormSlice";
-
-
-interface LoginFormProp {
-    isAdmin?: boolean;
-    role: string;
-    title: string;
-}
 
 const LoginForm: React.FC<LoginFormProp> = ({ isAdmin, role, title }) => {
 

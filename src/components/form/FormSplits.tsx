@@ -1,13 +1,5 @@
 import React from "react";
-
-interface AuthFormsHeadingProps {
-    title: string;
-}
-
-interface AuthFormsButtonProps {
-    text: string;
-    loading: boolean;
-}
+import { AuthFormsButtonProps, AuthFormsHeadingProps } from "@/utils/interface/commonInterface";
 
 export const FormHeading: React.FC<AuthFormsHeadingProps> = React.memo(({ title }) => {
     return (
