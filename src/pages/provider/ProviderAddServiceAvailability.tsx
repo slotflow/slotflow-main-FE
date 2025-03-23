@@ -129,6 +129,10 @@ const ProviderAddServiceAvailability = () => {
       setLoading(false);
       return;
     }
+    if(modes.length === 0){
+      toast.info("Please select your service mode.");
+      return;
+    }
     dispatch(addProviderServiceAvailability({ data: availabilities }))
     .unwrap()
     .then((res) => {

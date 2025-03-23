@@ -1,4 +1,5 @@
-import React from 'react';
+import { ImageUpscale } from 'lucide-react';
+import React, { memo, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import DataFetchingError from '../common/DataFetchingError';
 import InfoDisplayComponent from '../common/InfoDisplayComponent';
@@ -6,12 +7,15 @@ import ShimmerProfileDetails from '../shimmers/ShimmerProfileDetails';
 import { fetchProviderService } from '@/utils/apis/adminProvider.api';
 import { AdminProviderServiceProps } from '@/utils/interface/adminInterface';
 
-const AdmiProviderService: React.FC<AdminProviderServiceProps> = ({ providerId, onError }) => {
+const AdmiProviderService: React.FC<AdminProviderServiceProps> = memo(({ providerId, onError }) => {
 
+    const [largeImg, setLargeImg] = useState<boolean>(false);
     const { data, isLoading, isError, error } = useQuery({
         queryKey: ["PService", providerId],
         queryFn: () => fetchProviderService(providerId),
     })
+
+    console.log("data : ", data);
 
     if (isError) {
         onError(true);
@@ -41,13 +45,16 @@ const AdmiProviderService: React.FC<AdminProviderServiceProps> = ({ providerId, 
                 </tbody>
             </table>
             <div className='my-6 space-y-2'>
-            <label className='text-[var(--infoDisplayLabel)]'>Provider Certificate</label>
-            <div className='my-2'>
-                <img className='border border-[var(--boxBorder)] object-contain h-56 w-72' src="/images/imagePlaceholder.png" />
-            </div>
+                <div className='flex justify-start'>
+                    <label className='text-[var(--infoDisplayLabel)]'>Provider Certificate</label>
+                    <button className='mx-2 cursor-pointer' onClick={() => setLargeImg(!largeImg)}><ImageUpscale /></button>
+                </div>
+                <div className='my-2'>
+                    <img className={`border border-[var(--boxBorder)] object-contain ${largeImg ? 'h-auto w-full' : 'h-52 w-72'}`} src={data?.providerCertificateUrl || "/images/imagePlaceholder.png"} />
+                </div>
             </div>
         </div>
     )
-}
+})
 
 export default AdmiProviderService
