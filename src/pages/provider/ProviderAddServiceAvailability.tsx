@@ -2,7 +2,6 @@ import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, ChangeEvent, FormEvent } from 'react';
 import RightSideBox from '@/components/provider/RightSideBox';
-import CustomButton from '@/components/button/CustomButton';
 import { AppDispatch, RootState } from '@/utils/redux/appStore';
 import { addAvailability } from '@/utils/redux/slices/providerSlice';
 import { setServiceAvailability } from '@/utils/redux/slices/authSlice';
@@ -264,7 +263,12 @@ const ProviderAddServiceAvailability = () => {
               >
                 Add
               </button>
-              <CustomButton props={{ loading, text: "Submit" }} />
+              <button
+                type="submit"
+                className="bg-[var(--mainColor)] hover:bg-[var(--mainColorHover)] text-white font-bold py-1.5 px-4 rounded cursor-pointer"
+              >
+                {loading ? "Loading" : "Submit"}
+              </button>
             </div>
           )}
 
