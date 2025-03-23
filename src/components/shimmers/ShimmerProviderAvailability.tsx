@@ -1,9 +1,6 @@
-import ShimmerProfileDetails from "./ShimmerProfileDetails"
+import ShimmerProfileDetails from "./ShimmerProfileDetails";
+import { ShimmerProviderAvailabilityProps } from "@/utils/interface/shimmerInterface";
 
-interface ShimmerProviderAvailabilityProps {
-    btCount: number;
-    slotCount: number;
-}
 const ShimmerProviderAvailability: React.FC<ShimmerProviderAvailabilityProps> = ({btCount, slotCount}) => {
     return (
         <div className="w-full mx-auto mt-8 md:flex justify-start flex-grow">
