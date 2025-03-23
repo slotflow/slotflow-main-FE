@@ -29,14 +29,13 @@ export const signin = createAsyncThunk<SigninResponse, SigninRequestPayload>("au
     async (userData: SigninRequestPayload, thunkAPI) => {
         const response = await axiosInstance.post('/auth/signin', userData);
         if (response.data.success) {
-            console.log("response : ", response.data);
             thunkAPI.dispatch(setAuthUser(response.data.authUser));
         }
         return response.data;
     }
 )
 
-export const signout = createAsyncThunk<CommonResponse>("auth/signin",
+export const signout = createAsyncThunk<CommonResponse>("auth/signOut",
     async () => {
         const response = await axiosInstance.post('/auth/signout');
         return response.data;

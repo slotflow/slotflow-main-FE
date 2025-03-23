@@ -4,16 +4,19 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "../redux/appStore";
 import { useQueryClient } from "@tanstack/react-query";
 import { addNewService, chnageServiceBlockStatus } from "../apis/adminService.api";
+import { UseAdminServiceActionReturnType } from "../interface/adminServiceApiInterface";
 
-export const useAdminServiceActions = () => {
+export const useAdminServiceActions = (): UseAdminServiceActionReturnType => {
+  
   const queryClient = useQueryClient();
   const dispatch = useDispatch<AppDispatch>();
 
   const handleServiceAdding = (serviceName: string) => {
-    dispatch(addNewService(serviceName))
+    dispatch(addNewService({serviceName}))
     .unwrap()
-    .then(() => {
+    .then((res) => {
       queryClient.invalidateQueries({ queryKey: ["services"] });
+      toast.success(res.message);
     })
     .catch((error) => {
       toast.error(error.message);
@@ -23,17 +26,18 @@ export const useAdminServiceActions = () => {
   const handleChangeServiceStatus = (serviceId: string, status: boolean) => {
     dispatch(chnageServiceBlockStatus({ serviceId, status }))
       .unwrap()
-      .then(({ serviceId, updatedService }) => {
+      .then((res) => {
         queryClient.setQueryData(
           ["services"],
           (oldData: Service[] | undefined) => {
             if (!oldData) return [];
             return oldData.map((service) =>
-              service._id === serviceId ? updatedService : service
+              service._id === res.serviceId ? res.updatedService : service
             );
           }
         );
         queryClient.invalidateQueries({ queryKey: ["services"] });
+        toast.success(res.message);
       })
       .catch((error) => {
         toast.error(error.message);

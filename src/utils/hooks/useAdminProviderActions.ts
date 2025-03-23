@@ -6,23 +6,25 @@ import { useQueryClient } from "@tanstack/react-query";
 import { approveProvider, changeProviderBlockStatus } from "@/utils/apis/adminProvider.api";
 
 export const useAdminProviderActions = () => {
+  
   const queryClient = useQueryClient();
   const dispatch = useDispatch<AppDispatch>();
 
   const handleApproveProvider = (providerId: string) => {
-    dispatch(approveProvider(providerId))
+    dispatch(approveProvider({providerId}))
       .unwrap()
-      .then(({ providerId, updatedProvider }) => {
+      .then((res) => {
         queryClient.setQueryData(
           ["providers"],
           (oldData: Partial<Provider>[] | undefined) => {
             if (!oldData) return [];
             return oldData.map((provider) =>
-              provider._id === providerId ? updatedProvider : provider
+              provider._id === res.updatedProvider._id ? res.updatedProvider : provider
             );
           }
         );
         queryClient.invalidateQueries({ queryKey: ["providers"] });
+        toast.success(res.message);
       })
       .catch((error) => {
         toast.error(error.message);

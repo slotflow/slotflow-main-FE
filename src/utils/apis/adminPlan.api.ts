@@ -1,39 +1,24 @@
-import { Plan } from "../interface";
-import { toast } from "react-toastify";
 import axiosInstance from "@/lib/axios";
+import { Plan } from "../interface/planInterface";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { AdminAddNewPlanApiResponse, AdminAddNewPlanRequestPayload, AdminChangePlanStatusRequestPayload, AdminChangePlanStatusResponse } from "../interface/adminPlanApiInterface";
 
-export const fetchPlans = async () => {
+export const fetchPlans = async (): Promise<Partial<Plan>> => {
     const response = await axiosInstance.get("/admin/plans");
     return response.data.plans;
 };
 
-export const addNewPlan = createAsyncThunk('/admin/addNewPlan',
-    async (formData: Partial<Plan>, { rejectWithValue }) => {
+export const addNewPlan = createAsyncThunk<AdminAddNewPlanApiResponse,AdminAddNewPlanRequestPayload>('/admin/addNewPlan',
+    async (formData: AdminAddNewPlanRequestPayload) => {
         const response = await axiosInstance.post('/admin/addNewPlan', formData);
-        const res = response.data;
-        if (res.success) {
-            toast.success(res.message);
-            return res;
-        } else {
-            toast.error(res.message);
-            return rejectWithValue(res.message);
-        }
+        return response.data;
     }
 )
 
-export const changePlanBlockStatus = createAsyncThunk('/admin/changePlanStatus',
-    async (statusData: { planId: string, status: boolean }) => {
+export const changePlanBlockStatus = createAsyncThunk<AdminChangePlanStatusResponse,AdminChangePlanStatusRequestPayload>('/admin/changePlanStatus',
+    async (statusData: AdminChangePlanStatusRequestPayload) => {
         const { planId, status } = statusData;
         const response = await axiosInstance.put(`/admin/changePlanStatus/${planId}?status=${status}`);
-        const res = response.data;
-        console.log("response : ", res);
-        if (res.success) {
-            console.log("ok")
-            toast.success(res.message);
-        } else {
-            toast.error(res.message);
-        }
-        return { planId, updatedPlan: res.updatedPlan };
+        return response.data;
     }
 )

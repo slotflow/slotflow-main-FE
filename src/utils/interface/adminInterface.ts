@@ -2,7 +2,7 @@ import { Address } from "./addressInterface";
 import { Provider } from "./providerInterface";
 import { ProviderService } from "./providerServiceInterface";
 
-// **** Admin Provider Interfaces **** \\
+// **** Admin Provider Interfaces used in compoenents / admin**** \\
 
 // AdminProviderServiceAvailability compoenent using for the custom props
 type ProviderIdOnlyForProviderServiceAvailability = Pick<Provider, '_id'>;
@@ -26,4 +26,13 @@ export interface AdminProviderDetailsProps extends ProviderIdOnlyForProviderDeta
 type ProviderIdOnlyForProviderService = Pick<ProviderService, 'providerId'>;
 export interface AdminProviderServiceProps extends ProviderIdOnlyForProviderService {
     onError: (hasError: boolean) => void;
+}
+
+
+
+// **** Admin Slice **** \\
+
+// Admin Slice state interface used in adminSlice
+export interface stateVariables {
+    adminFormloading: boolean;
 }

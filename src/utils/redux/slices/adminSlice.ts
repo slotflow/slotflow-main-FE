@@ -1,9 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { addNewService } from "@/utils/apis/adminService.api";
-
-interface stateVariables {
-    adminFormloading: boolean;
-}
+import { stateVariables } from "@/utils/interface/adminInterface";
 
 const initialState: stateVariables = {
     adminFormloading: false,

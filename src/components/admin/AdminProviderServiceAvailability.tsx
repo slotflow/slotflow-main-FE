@@ -2,9 +2,9 @@ import { memo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import DataFetchingError from "../common/DataFetchingError";
 import InfoDisplayComponent from "../common/InfoDisplayComponent";
-import { Availability, Slot } from "@/utils/interface/providerInterface";
 import { fetchProviderServiceAvailability } from "@/utils/apis/adminProvider.api";
 import ShimmerProviderAvailability from "../shimmers/ShimmerProviderAvailability";
+import { Availability, Slot } from "@/utils/interface/serviceAvailabilityInterface";
 import { AdminProviderServiceAvailabilityProps } from "@/utils/interface/adminInterface";
 
 const AdminProviderServiceAvailability: React.FC<AdminProviderServiceAvailabilityProps> = memo(({ _id, onError }) => {

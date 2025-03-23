@@ -1,24 +1,18 @@
 import { toast } from "react-toastify";
 import axiosInstance from "@/lib/axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { AdminApproveProviderRequestPayload, AdminApproveProviderResponse, FetchAllProvidersQuestPayload } from "../interface/adminProviderApiInterface";
 
-export const fetchProviders = async () => {
+export const fetchProviders = async (): Promise<FetchAllProvidersQuestPayload[]> => {
     const response = await axiosInstance.get("/admin/providers");
     return response.data.providers;
 };
 
-
-export const approveProvider = createAsyncThunk('/admin/approve/provider/',
-    async (providerId: string) => {
+export const approveProvider = createAsyncThunk<AdminApproveProviderResponse,AdminApproveProviderRequestPayload>('/admin/approve/provider/',
+    async (payload: AdminApproveProviderRequestPayload) => {
+        const { providerId } = payload;
         const response = await axiosInstance.put(`/admin/provider/approve/${providerId}`);
-        const res = response.data;
-        if (res.success) {
-            toast.success(res.message);
-            return { providerId, updatedProvider: res.updatedProvider };
-        } else {
-            toast.error(res.message);
-            return;
-        }
+        return response.data;
     }
 )
 
