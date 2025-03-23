@@ -44,7 +44,7 @@ const AdminProviderAddress: React.FC<AdminProviderAddressProps> = memo(({ userId
                     <InfoDisplayComponent label="State" value={data?.state} />
                     <InfoDisplayComponent label="Pincode" value={data?.pincode} />
                     <InfoDisplayComponent label="Distrcit" value={data?.district} />
-                    <InfoDisplayComponent label="Google Map Link" value={data?.googleMapLink} />
+                    <InfoDisplayComponent label="Google Map Link" value={data?.googleMapLink} link={true}/>
                     <InfoDisplayComponent label="Country" value={data?.country} />
                 </tbody>
             </table>

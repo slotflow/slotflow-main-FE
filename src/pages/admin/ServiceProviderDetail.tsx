@@ -34,7 +34,6 @@ const ServiceProviderDetail = () => {
 
             {tab === 0 && (
                 <AdminProviderDetails _id={providerId} onError={setHasError} />
-
             ) || tab === 1 && (
                 <AdminProviderAddress userId={providerId} onError={setHasError} />
             ) || tab === 2 && (

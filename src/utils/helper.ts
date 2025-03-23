@@ -65,3 +65,10 @@ export const copyToClipboard = (text: string) => {
 
 // Formating the boolean value
 export const formatBoolean = (val: boolean) => (val ? "Yes" : "No");
+
+// link
+export const handleLinkClick = (url: string) => {
+  if (url) {
+    window.open(url, '_blank');
+  }
+}

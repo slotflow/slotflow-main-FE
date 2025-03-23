@@ -6,10 +6,11 @@ interface InfoDisplayComponentRowProps {
     value: string | boolean | undefined;
     formatDate?: (dateString: string) => string;
     copyToClipboard?: (text: string) => void;
+    link?: boolean;
     isBoolean?: boolean;
 }
 
-const InfoDisplayComponent: React.FC<InfoDisplayComponentRowProps> = ({ label, value, formatDate, copyToClipboard, isBoolean }) => {
+const InfoDisplayComponent: React.FC<InfoDisplayComponentRowProps> = ({ label, value, formatDate, copyToClipboard, isBoolean, link }) => {
 
     return (
         <>
@@ -32,7 +33,16 @@ const InfoDisplayComponent: React.FC<InfoDisplayComponentRowProps> = ({ label, v
                         </div>
                     ) : formatDate && typeof value === 'string' ? (
                         <span>{formatDate(value)}</span>
-                    ) : (
+                    ) : link && typeof value === 'string' ? (
+                        <a
+                          href={value}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-500 hover:underline"
+                        >
+                          {value}
+                        </a>
+                      ) : (
                         <span>{value as string}</span>
                     )}
                 </td>
