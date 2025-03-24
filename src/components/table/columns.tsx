@@ -1,11 +1,12 @@
 import { Button } from "../ui/button";
 import { MoreHorizontal } from "lucide-react";
 import { ColumnDef } from "@tanstack/react-table";
+import { Plan, Service } from "@/utils/interface";
 import { ChangeUserStatus } from "./AdminUserActions";
-import { Plan, Service, User } from "@/utils/interface";
 import { ChangePlanBlockStatus } from "./AdminPlanActions";
 import { DataTableColumnHeader } from "./DataTableColumnHeader";
 import { ChangeServiceBlockStatus } from "./AdminSerivceActions";
+import { fetchAllUsersResponseProps } from "@/utils/interface/api/adminUserApiInterface";
 import { FetchAllProvidersResponseProps } from "@/utils/interface/api/adminProviderApiInterface";
 import {ApproveProvider, ChangeProviderBlockStatus, GetProviderDetailPage } from "./AdminProviderActions";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
@@ -63,7 +64,7 @@ export const providerColumns: ColumnDef<FetchAllProvidersResponseProps>[] = [
   },
 ]
 
-export const userColumns: ColumnDef<User>[] = [
+export const userColumns: ColumnDef<fetchAllUsersResponseProps>[] = [
   {
     accessorKey: "isVerified",
     header: "Verication",

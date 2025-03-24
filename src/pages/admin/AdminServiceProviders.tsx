@@ -13,22 +13,23 @@ const AdminServiceProviders = () => {
     queryFn: fetchProviders,
   });
 
-  if (isError) return <DataFetchingError message={error.message}/>
-  if (!data) return <DataFetchingError message={"No data found"}/>
+  if (isError) return <DataFetchingError message={error.message} />
 
   return (
     <>
-      {isLoading ?
+      {isLoading ? (
         <>
           <ShimmerTableTop />
           <ShimmerTable />
         </>
-        :
+      ) : data ? (
         <>
           <h2 className="text-2xl font-bold mb-4">Service Providers</h2>
-          <DataTable columns={providerColumns} data={data?.providers} />
+          <DataTable columns={providerColumns} data={data.providers} />
         </>
-      }
+      ) : (
+        <DataFetchingError message={"No data found"} />
+      )}
     </>
   );
 };
