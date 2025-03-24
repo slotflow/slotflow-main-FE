@@ -16,11 +16,8 @@ export const signup = createAsyncThunk<SignupResponse, SignupRequest>('auth/sign
 );
 
 export const verifyOtp = createAsyncThunk<CommonResponse,VerifyOtpRequestPayload>("auth/verify-otp",
-    async (authData: VerifyOtpRequestPayload, thunkAPI) => {
+    async (authData: VerifyOtpRequestPayload) => {
         const response = await axiosInstance.post('/auth/verify-otp', authData);
-        if (response.data.success) {
-            thunkAPI.dispatch(setAuthUser(null));
-        }
         return response.data;
     }
 )
@@ -62,7 +59,7 @@ export const updatePassword = createAsyncThunk<CommonResponse,UpdatePasswordRequ
 
 export const checkUserStatus = createAsyncThunk("auth/checkUserStatus",
     async () => {
-        await axiosInstance.post("/auth/checkUserStatus",);
+        await axiosInstance.post("/auth/checkUserStatus");
     }
 );
 

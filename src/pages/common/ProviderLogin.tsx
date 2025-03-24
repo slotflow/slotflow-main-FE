@@ -42,7 +42,7 @@ const ProviderLogin = () => {
       <div className="w-full md:w-6/12 flex justify-center items-center">
         {signInForm && <LoginForm role={"PROVIDER"} title={"Continue to your Service Account"}/>}
         {signUpForm && <SignUpForm role={"PROVIDER"} />}
-        {verifyEmailForm && <EmailVerificationForm />}
+        {verifyEmailForm && <EmailVerificationForm role={"PROVIDER"}/>}
         {resetPasswordForm && <ResetPasswordForm />}
         {verifyOtpForm && <OtpVerificatioForm />}
       </div>

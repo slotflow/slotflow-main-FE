@@ -8,15 +8,18 @@ import { AppDispatch, RootState } from '@/utils/redux/appStore';
 import { EmailVerificationFormDataProps, HandleChangeFunction } from '@/utils/interface/commonInterface';
 import { setResetPasswordForm, setsignInForm, setSignUpForm, setVerifyEmailForm, setVerifyOtpForm } from '@/utils/redux/slices/signFormSlice';
 
-const EmailVerificationForm = () => {
+interface EmailVerificationFormProps {
+    role: string;
+}
+
+const EmailVerificationForm: React.FC<EmailVerificationFormProps> = ({role}) => {
 
     const dispatch = useDispatch<AppDispatch>();
     const loading: boolean = useSelector((store: RootState) => store.signform.loading);
     const [hasErrors, setHasErrors] = useState<boolean>(false);
 
     const [formData, setFormData] = useState<EmailVerificationFormDataProps>({
-        email: "",
-        role: "",
+        email: ""
     });
 
     const handleChange = useCallback<HandleChangeFunction>((e) => {
@@ -30,8 +33,8 @@ const EmailVerificationForm = () => {
             toast.error("Please fix the form errors.");
             return;
         }
-        if (formData.role) {
-            dispatch(resendOtp({ role: formData.role, email: formData.email }))
+        if (role) {
+            dispatch(resendOtp({ role, email: formData.email }))
                 .unwrap()
                 .then((res) => {
                     if (res.success) {
@@ -71,29 +74,6 @@ const EmailVerificationForm = () => {
 
             <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                 <form onSubmit={handleSubmit} className="space-y-6">
-
-                    <div>
-                        <div className='flex justify-between'>
-                            <label htmlFor="role" className="block text-xs md:text-sm/6 font-medium text-[var(--textTwo)] hover:text-[var(--textTwoHover)]">
-                                Select account type
-                            </label>
-                        </div>
-                        <div className="mt-2">
-                            <select
-                                id="role"
-                                name="role"
-                                value={formData.role}
-                                onChange={handleChange}
-                                required
-                                className="block w-full rounded-md bg-[var(--inputBg)] px-2 py-1 md:px-3 md:py-2 text-[var(--textOne)] outline-1 -outline-offset-1 outline-[var(--boxBorder)] placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-[var(--mainColor)] text-xs md:text-sm"
-                            >
-                                <option value="">Select account type</option>
-                                <option value="USER">User</option>
-                                <option value="PROVIDER">Service provider</option>
-                            </select>
-                        </div>
-                    </div>
-
 
                     <InputField
                         label="Email address"

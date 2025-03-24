@@ -42,7 +42,7 @@ const UserLogin = () => {
       <div className="w-full md:w-1/2 flex justify-center items-center">
         {signInForm && <LoginForm role={"USER"} title={"Continue to Book an Appointment"}/>}
         {signUpForm && <SignUpForm role={"USER"} />}
-        {verifyEmailForm && <EmailVerificationForm />}
+        {verifyEmailForm && <EmailVerificationForm role={"USER"}/>}
         {resetPasswordForm && <ResetPasswordForm />}
         {verifyOtpForm && <OtpVerificatioForm />}
       </div>

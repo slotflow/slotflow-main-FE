@@ -108,7 +108,6 @@ export interface LoginFormProp {
 // Email verification FormData interface
 export interface EmailVerificationFormDataProps {
     email: string;
-    role: string;
  }
 
 

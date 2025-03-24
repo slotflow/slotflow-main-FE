@@ -70,7 +70,7 @@ export interface SigninResponse extends CommonResponse{
 
 
 
-
+// Update password api request payload interface
 export interface UpdatePasswordRequestPayload {
     role: string;
     verificationToken: string;
