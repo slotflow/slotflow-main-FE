@@ -4,7 +4,7 @@ import { RootState } from '@/utils/redux/appStore';
 
 export const Error404 = forwardRef<SVGSVGElement>((_, ref) => {
 
-  const themeMode = useSelector((store: RootState) => store.state.lightTheme);
+  const themeMode: boolean = useSelector((store: RootState) => store.state.lightTheme);
 
   return themeMode ? (
     <svg className="w-full h-40 md:h-80 text-gray-800 dark:text-white" aria-hidden="true" width="426" height="211" viewBox="0 0 426 211" fill="none" xmlns="http://www.w3.org/2000/svg" ref={ref}>

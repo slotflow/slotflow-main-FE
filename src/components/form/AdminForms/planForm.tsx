@@ -11,7 +11,7 @@ import { HandleChangeFunction, HandleFeatureChangeFunction, PlanFormData } from 
 
 const PlanForm = () => {
     
-    const { adminFormloading } = useSelector((store: RootState) => store.admin);
+    const adminFormloading: boolean = useSelector((store: RootState) => store.admin.adminFormloading);
     const [formData, setFormData] = useState<PlanFormData>({
         planName: "",
         description: "",

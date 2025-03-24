@@ -1,12 +1,12 @@
 import { Button } from "../ui/button";
 import { MoreHorizontal } from "lucide-react";
-import { BlockPlan } from "./AdminPlanActions";
+import { ChangePlanBlockStatus } from "./AdminPlanActions";
 import { ColumnDef } from "@tanstack/react-table";
-import { BlockService } from "./AdminSerivceActions";
+import { ChangeServiceBlockStatus } from "./AdminSerivceActions";
 import { ChangeUserStatus } from "./AdminUserActions";
 import { DataTableColumnHeader } from "./DataTableColumnHeader";
 import { Plan, Provider, Service, User } from "@/utils/interface";
-import {ApproveProvider, ChangeProviderStatus, GetProviderDetailPage } from "./AdminProviderActions";
+import {ApproveProvider, ChangeProviderBlockStatus, GetProviderDetailPage } from "./AdminProviderActions";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
 
 export const providerColumns: ColumnDef<Provider>[] = [
@@ -52,7 +52,7 @@ export const providerColumns: ColumnDef<Provider>[] = [
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <GetProviderDetailPage providerId={provider._id} />
-            <ChangeProviderStatus providerId={provider._id} status={provider.isBlocked}/>
+            <ChangeProviderBlockStatus providerId={provider._id} status={provider.isBlocked}/>
             {provider.isAdminVerified === false && <ApproveProvider providerId={provider._id} />}
           </DropdownMenuContent>
         </DropdownMenu>
@@ -151,7 +151,7 @@ export const serviceColumns: ColumnDef<Service>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <BlockService serviceId={service._id} status={service.isBlocked}/>
+            <ChangeServiceBlockStatus serviceId={service._id} status={service.isBlocked}/>
             <DropdownMenuItem>Edit</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -200,7 +200,7 @@ export const planColumns: ColumnDef<Plan>[] = [
             <DropdownMenuSeparator />
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem>Details</DropdownMenuItem>
-            <BlockPlan planId={plan._id} status={plan.isBlocked}/>
+            <ChangePlanBlockStatus planId={plan._id} status={plan.isBlocked}/>
             <DropdownMenuItem>Edit</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

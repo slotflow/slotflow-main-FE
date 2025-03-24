@@ -154,3 +154,14 @@ export interface HeaderCompoenentNavsProps {
 // **** Section one interface **** \\
 //  Role section Button function interface 
 export type HandleRoleSelectionFunction = (url: string) => void;
+
+
+
+// **** Otp verification form Interfaces **** \\\\
+// Signform useSelector interface
+export interface SignFormUseSelectorProps {
+    otpRemainingTime: number;
+    otpTimerIsRunning: boolean;
+    loading: boolean;
+    forgotPassword: boolean;
+}

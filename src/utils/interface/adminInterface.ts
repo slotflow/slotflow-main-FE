@@ -3,7 +3,6 @@ import { Address } from "./addressInterface";
 import { ProviderService } from "./providerServiceInterface";
 
 // **** Admin Provider Interfaces used in compoenents / admin **** \\
-
 // AdminProviderServiceAvailability compoenent using for the custom props
 type ProviderIdOnlyForProviderServiceAvailability = Pick<Provider, '_id'>;
 export interface AdminProviderServiceAvailabilityProps extends ProviderIdOnlyForProviderServiceAvailability {
@@ -31,8 +30,49 @@ export interface AdminProviderServiceProps extends ProviderIdOnlyForProviderServ
 
 
 // **** Admin Slice **** \\
-
 // Admin Slice state interface used in adminSlice
 export interface stateVariables {
     adminFormloading: boolean;
+}
+
+
+
+
+// **** Admin Plan action interface **** \\
+// change block status of plan interface
+export interface ChangePlanBlockStatusProps {
+    planId: string,
+    status: boolean,
+}
+
+
+
+// **** Admin Provider action Interface **** \\
+// Approve provider
+export interface ProviderCommonProps {
+    providerId: string;
+}
+
+// Change block status
+export interface ChangeProviderBlockStatusProps extends ProviderCommonProps{
+    providerId: string;
+    status: boolean;
+}
+
+
+
+// **** Admin service action interface **** \\
+// Change service block status interface
+export interface ChangeServiceBlockStatusProps {
+    serviceId: string,
+    status: boolean,
+}
+
+
+
+// **** Admin User action interface **** \\
+// Change user block status interface
+export interface ChangeUserStatusProps {
+    userId: string;
+    status: boolean;
 }

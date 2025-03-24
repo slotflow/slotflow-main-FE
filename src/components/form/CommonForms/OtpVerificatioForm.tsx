@@ -1,19 +1,20 @@
 import { toast } from "react-toastify";
 import { formatTime } from "@/utils/helper";
 import InputField from "../InputFieldWithLable";
-import { FormButton, FormHeading } from "../FormSplits";
 import { useDispatch, useSelector } from "react-redux";
+import { FormButton, FormHeading } from "../FormSplits";
+import { UserData } from "@/utils/interface/sliceInterface";
 import { resendOtp, verifyOtp } from "@/utils/apis/auth.api";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
 import { FormEvent, useCallback, useEffect, useState } from "react";
-import { HandleChangeFunction } from "@/utils/interface/commonInterface";
+import { HandleChangeFunction, SignFormUseSelectorProps } from "@/utils/interface/commonInterface";
 import { setResetPasswordForm, setsignInForm, setSignUpForm, setVerifyEmailForm, setVerifyOtpForm, stopTimer, updateTimer } from "@/utils/redux/slices/signFormSlice";
 
 const OtpVerificatioForm = () => {
 
     const dispatch = useDispatch<AppDispatch>();
-    const { otpRemainingTime, otpTimerIsRunning, loading, forgotPassword } = useSelector((store: RootState) => store.signform);
-    const { authUser } = useSelector((store: RootState) => store.auth);
+    const { otpRemainingTime, otpTimerIsRunning, loading, forgotPassword }: SignFormUseSelectorProps = useSelector((store: RootState) => store.signform);
+    const authUser: UserData | null = useSelector((store: RootState) => store.auth.authUser);
     const [hasErrors, setHasErrors] = useState<boolean>(false);
     const [resentLoading, setResendLoading] = useState<boolean>(false);
 

@@ -6,6 +6,7 @@ import { navigation } from '@/utils/constants';
 import { signout } from '@/utils/apis/auth.api';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { UserData } from '@/utils/interface/sliceInterface';
 import { setAuthUser } from '@/utils/redux/slices/authSlice';
 import { toggleTheme } from '@/utils/redux/slices/stateSlice';
 import { AppDispatch, RootState } from '../../utils/redux/appStore';
@@ -13,10 +14,13 @@ import { AppDispatch, RootState } from '../../utils/redux/appStore';
 const Header = () => {
 
   const dispatch = useDispatch<AppDispatch>();
-  const themeMode = useSelector((store: RootState) => store.state.lightTheme);
-  const user = useSelector((store: RootState) => store.auth?.authUser);
-  const role: string | undefined = user?.role;
+
+  const themeMode: boolean = useSelector((store: RootState) => store.state.lightTheme);
+  const user: UserData | null = useSelector((store: RootState) => store.auth?.authUser);
+
   const navigate = useNavigate();
+
+  const role: string | undefined = user?.role;
   
   const changeTheme = (): void => {
     dispatch(toggleTheme());
@@ -30,7 +34,7 @@ const Header = () => {
     }
   }, [themeMode]);
 
-  const greetingString = greetings();
+  const greetingString: string = greetings();
 
   const handleSignout = (): void => {
     dispatch(signout()).unwrap().then((res) => {
@@ -42,7 +46,6 @@ const Header = () => {
         dispatch(setAuthUser(null));
         navigate("/provider/login");
       } else if (role === "ADMIN") {
-        console.log("logging out");
         dispatch(setAuthUser(null));
         navigate("/admin/login");
       }

@@ -11,7 +11,7 @@ import { setResetPasswordForm, setsignInForm, setSignUpForm, setVerifyEmailForm,
 const EmailVerificationForm = () => {
 
     const dispatch = useDispatch<AppDispatch>();
-    const { loading } = useSelector((store: RootState) => store.signform);
+    const loading: boolean = useSelector((store: RootState) => store.signform.loading);
     const [hasErrors, setHasErrors] = useState<boolean>(false);
 
     const [formData, setFormData] = useState<EmailVerificationFormDataProps>({

@@ -3,7 +3,7 @@ import { RootState } from '@/utils/redux/appStore';
 
 const FetchError = () => {
 
-  const themeMode = useSelector((store: RootState) => store.state.lightTheme);
+  const themeMode: boolean = useSelector((store: RootState) => store.state.lightTheme);
 
   return themeMode ? (
     <svg className="w-auto max-w-[16rem] h-52 text-gray-800 dark:text-white" aria-hidden="true" width="420" height="568" viewBox="0 0 420 568" fill="none" xmlns="http://www.w3.org/2000/svg">

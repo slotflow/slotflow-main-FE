@@ -9,7 +9,7 @@ import { useAdminServiceActions } from "@/utils/hooks/useAdminServiceActions";
 
 const ServiceAddingForm = () => {
 
-  const { adminFormloading } = useSelector((store: RootState) => store.admin);
+  const adminFormloading: boolean = useSelector((store: RootState) => store.admin.adminFormloading);
   const [formData, setFormData] = useState<{serviceName: string}>({
     serviceName: "",
   });

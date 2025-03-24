@@ -3,7 +3,7 @@ import { RootState } from "@/utils/redux/appStore";
 
 const WomenLaptop = () => {
 
-    const themeMode = useSelector((store: RootState) => store.state.lightTheme);
+    const themeMode: boolean = useSelector((store: RootState) => store.state.lightTheme);
 
     return themeMode ? (
         <svg className="w-auto h-40 md:h-80 text-gray-800 dark:text-white" aria-hidden="true" width="606" height="588" viewBox="0 0 606 588" fill="none" xmlns="http://www.w3.org/2000/svg">

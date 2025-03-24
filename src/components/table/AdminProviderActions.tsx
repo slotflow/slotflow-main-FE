@@ -1,16 +1,8 @@
+import { memo } from "react";
 import { useNavigate } from "react-router-dom";
 import { DropdownMenuItem } from "../ui/dropdown-menu";
 import { useAdminProviderActions } from "@/utils/hooks/useAdminProviderActions";
-import { memo } from "react";
-
-interface ProviderCommonProps {
-    providerId: string;
-}
-
-interface ChangeProviderStatusProps {
-    providerId: string;
-    status: boolean;
-}
+import { ChangeProviderBlockStatusProps, ProviderCommonProps } from "@/utils/interface/adminInterface";
 
 export const ApproveProvider: React.FC<ProviderCommonProps> = memo(({ providerId }) => {
     const { handleApproveProvider } = useAdminProviderActions();
@@ -25,7 +17,7 @@ export const ApproveProvider: React.FC<ProviderCommonProps> = memo(({ providerId
     );
 });
 
-export const ChangeProviderStatus: React.FC<ChangeProviderStatusProps> = memo(({ providerId, status }) => {
+export const ChangeProviderBlockStatus: React.FC<ChangeProviderBlockStatusProps> = memo(({ providerId, status }) => {
     const { hanldeChangeProviderBlockStatus } = useAdminProviderActions();
     
     const handleStatusChangeClick = () => {

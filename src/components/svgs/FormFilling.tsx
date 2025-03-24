@@ -4,7 +4,7 @@ import { RootState } from "@/utils/redux/appStore";
 
 export const FormFilling = forwardRef<SVGSVGElement>((_,ref) => {
 
-  const themeMode = useSelector((store: RootState) => store.state.lightTheme);
+  const themeMode: boolean = useSelector((store: RootState) => store.state.lightTheme);
   
   return !themeMode ? (
     <svg className="w-full h-40 md:h-full text-gray-800 dark:text-white" aria-hidden="true" width="608" height="495" viewBox="0 0 608 495" fill="none" xmlns="http://www.w3.org/2000/svg" ref={ref}>

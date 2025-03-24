@@ -13,7 +13,7 @@ const LoginForm: React.FC<LoginFormProp> = ({ isAdmin, role, title }) => {
 
     const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
-    const { loading } = useSelector((store: RootState) => store.signform);
+    const loading: boolean = useSelector((store: RootState) => store.signform.loading);
     const [hasErrors, setHasErrors] = useState<boolean>(false);
     const [formData, setFormData] = useState<{email: string, password: string}>({
         email: "",

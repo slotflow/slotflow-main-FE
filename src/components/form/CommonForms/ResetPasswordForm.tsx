@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updatePassword } from "@/utils/apis/auth.api";
 import { FormButton, FormHeading } from "../FormSplits";
 import { FormEvent, useCallback, useState } from "react";
+import { UserData } from "@/utils/interface/sliceInterface";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
 import { HandleChangeFunction, PasswordResetFormDataProps } from "@/utils/interface/commonInterface";
 import { setForgotPassword, setResetPasswordForm, setsignInForm, setSignUpForm, setVerifyEmailForm, setVerifyOtpForm } from "@/utils/redux/slices/signFormSlice";
@@ -12,13 +13,14 @@ import { setForgotPassword, setResetPasswordForm, setsignInForm, setSignUpForm, 
 const ResetPasswordForm = () => {
 
     const dispatch = useDispatch<AppDispatch>();
-    const { loading } = useSelector((store: RootState) => store.signform);
-    const { authUser } = useSelector((store: RootState) => store.auth);
-    const [hasErrors, setHasErrors] = useState<boolean>(false);
+
+    const loading: boolean = useSelector((store: RootState) => store.signform.loading);
+    const authUser: UserData | null = useSelector((store: RootState) => store.auth.authUser);
 
     const role : string | null = authUser?.role || null;
     const verificationToken : string | undefined = authUser?.verificationToken;
-
+    
+    const [hasErrors, setHasErrors] = useState<boolean>(false);
     const [formData, setFormData] = useState<PasswordResetFormDataProps>({
         password: "",
         confirmPassword: "",

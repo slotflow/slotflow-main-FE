@@ -3,15 +3,16 @@ import InputField from "../InputFieldWithLable";
 import { signup, } from "@/utils/apis/auth.api";
 import { useDispatch, useSelector } from "react-redux";
 import { FormButton, FormHeading } from "../FormSplits";
-import React, { FormEvent, useCallback, useState } from "react";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
+import React, { FormEvent, useCallback, useState } from "react";
 import { SignUpFormDataProps, signUpProps } from "@/utils/interface/commonInterface";
 import { setResetPasswordForm, setsignInForm, setSignUpForm, setVerifyEmailForm, setVerifyOtpForm, startTimer } from "@/utils/redux/slices/signFormSlice";
 
 const SignUpForm: React.FC<signUpProps> = ({role}) => {
 
     const dispatch = useDispatch<AppDispatch>();
-    const { loading } = useSelector((store: RootState) => store.signform);
+
+    const loading: boolean = useSelector((store: RootState) => store.signform.loading);
     const [hasErrors, setHasErrors] = useState<boolean>(false);
 
     const [formData, setFormData] = useState<SignUpFormDataProps>({

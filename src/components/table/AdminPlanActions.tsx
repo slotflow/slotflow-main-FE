@@ -1,16 +1,12 @@
-import { useAdminPlanActions } from "@/utils/hooks/useAdminPlanActions";
 import { DropdownMenuItem } from "../ui/dropdown-menu";
+import { useAdminPlanActions } from "@/utils/hooks/useAdminPlanActions";
+import { ChangePlanBlockStatusProps } from "@/utils/interface/adminInterface";
 
-interface BlockPlanProps {
-    planId: string,
-    status: boolean,
-}
-
-export const BlockPlan: React.FC<BlockPlanProps> = ({ planId, status }) => {
+export const ChangePlanBlockStatus: React.FC<ChangePlanBlockStatusProps> = ({ planId, status }) => {
     
     const { handleChangePlanStatus } = useAdminPlanActions();
 
-    const handlePlanBlockStatus = () => {
+    const handlePlanBlockStatus = (): void => {
         handleChangePlanStatus(planId, !status);
     }
 

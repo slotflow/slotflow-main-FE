@@ -1,17 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { stateVariables } from "@/utils/interface/sliceInterface";
 import { resendOtp, signin, signup, verifyOtp, updatePassword } from '../../apis/auth.api'
-
-interface stateVariables {
-    signInForm: boolean;
-    signUpForm: boolean;
-    verifyOtpForm: boolean;
-    verifyEmailForm: boolean;
-    resetPasswordForm: boolean;
-    forgotPassword: boolean;
-    otpRemainingTime: number;
-    otpTimerIsRunning: boolean;
-    loading: boolean;
-}
 
 const initialState: stateVariables = {
     signInForm: true,

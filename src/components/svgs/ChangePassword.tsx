@@ -4,7 +4,7 @@ import { RootState } from '@/utils/redux/appStore';
 
 export const ChangePassword = forwardRef<SVGSVGElement>((_, ref) => {
 
-  const themeMode = useSelector((Store: RootState) => Store.state.lightTheme);
+  const themeMode: boolean = useSelector((Store: RootState) => Store.state.lightTheme);
 
   return themeMode ? (
     <svg className="w-full h-40 md:h-full text-gray-800 dark:text-white" aria-hidden="true" width="610" height="524" viewBox="0 0 610 524" fill="none" xmlns="http://www.w3.org/2000/svg" ref={ref}>

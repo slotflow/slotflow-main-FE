@@ -1,12 +1,8 @@
 import { DropdownMenuItem } from "../ui/dropdown-menu";
+import { ChangeServiceBlockStatusProps } from "@/utils/interface/adminInterface";
 import { useAdminServiceActions } from "@/utils/hooks/useAdminServiceActions";
 
-interface BlockServiceProps {
-    serviceId: string,
-    status: boolean,
-}
-
-export const BlockService: React.FC<BlockServiceProps> = ({ serviceId, status }) => {
+export const ChangeServiceBlockStatus: React.FC<ChangeServiceBlockStatusProps> = ({ serviceId, status }) => {
     
     const { handleChangeServiceStatus } = useAdminServiceActions();
 

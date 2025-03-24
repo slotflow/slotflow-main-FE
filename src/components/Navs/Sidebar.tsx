@@ -22,14 +22,18 @@ import {
     Briefcase,
     Menu,
 } from 'lucide-react';
+import { UserData } from '@/utils/interface/sliceInterface';
 
 
 const Sidebar = ({ routes }: SideBarProps) => {
     
-    const sidebarOpen = useSelector((store: RootState) => store.state.sidebarOpen);
     const dispatch = useDispatch<AppDispatch>();
-    const user = useSelector((store: RootState) => store.auth?.authUser);
+
+    const sidebarOpen: boolean = useSelector((store: RootState) => store.state.sidebarOpen);
+    const user: UserData | null = useSelector((store: RootState) => store.auth?.authUser);
+
     const role: string | undefined= user?.role;
+
     const navigate = useNavigate();
 
     const handleSignout = (): void => {
