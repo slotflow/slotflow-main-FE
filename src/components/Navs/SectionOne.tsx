@@ -1,16 +1,18 @@
-import { AppDispatch } from '@/utils/redux/appStore';
-import { setsignInForm, setSignUpForm } from '@/utils/redux/slices/signFormSlice';
-import { useCallback } from 'react'
+import { useCallback } from 'react';
+import RoleButton from './RoleButton';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import RoleButton from './RoleButton';
+import { AppDispatch } from '@/utils/redux/appStore';
+import { HandleRoleSelectionFunction } from '@/utils/interface/commonInterface';
+import { setsignInForm, setSignUpForm } from '@/utils/redux/slices/signFormSlice';
+
 
 const SectionOne = () => {
 
     const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
 
-    const handleRoleSelection = useCallback(
+    const handleRoleSelection = useCallback<HandleRoleSelectionFunction>(
         (url: string) => {
             dispatch(setSignUpForm(false));
             dispatch(setsignInForm(true));

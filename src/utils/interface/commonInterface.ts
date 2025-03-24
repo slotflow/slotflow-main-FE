@@ -1,4 +1,7 @@
-// InputDisplay components interface, this shimmer is used for showing details in profiles
+import { ChangeEvent } from "react";
+import { BillingCycle } from "./planInterface";
+
+// InputDisplay components interface, this is used for showing details in profiles
 export interface InfoDisplayComponentRowProps {
     label: string;
     value: string | boolean | number | string[] | undefined;
@@ -14,32 +17,6 @@ export interface dataFetchingError {
     message: string;
 }
 
-
-// Login form props interface
-export interface LoginFormProp {
-    isAdmin?: boolean;
-    role: string;
-    title: string;
-}
-
-
-// Sign up form props interface
-export interface signUpProps {
-    role: string;
-}
-
-
-// Authentication forms heading props interface used in FormSplit compoenent
-export interface AuthFormsHeadingProps {
-    title: string;
-}
-
-
-// Authentication forms button props interface used in FormSplit compoenent
-export interface AuthFormsButtonProps {
-    text: string;
-    loading: boolean;
-}
 
 
 // Common input field with label compoenents props interface, used in InputFieldWithLabel compoenent
@@ -69,14 +46,14 @@ export interface SelectFieldProps {
 }
 
 
-// Common role button props interface, used in RoleButton compoenent
+// **** Common role button props interface, used in RoleButton compoenent **** \\
 export interface RoleButtonProps {
-  onClick: () => void;
-  children: React.ReactNode;
+    onClick: () => void;
+    children: React.ReactNode;
 }
 
 
-// Common sidebar compoenent props interface, used in sidebar compoenent
+// **** Common sidebar compoenent props interface **** \\
 export interface Route {
     path: string;
     name: string;
@@ -85,3 +62,95 @@ export interface Route {
 export interface SideBarProps {
     routes: Route[];
 }
+
+
+
+// **** Admin Forms Interface **** \\
+// PlanForm compoenent formData useState interface
+export interface PlanFormData {
+    planName: string;
+    description: string;
+    price: number;
+    features: string[];
+    billingCycle: BillingCycle;
+    maxBookingPerMonth: number;
+    adVisibility: boolean;
+}
+
+
+
+// **** SignUp form Interfaces **** \\
+// SignUp form Interface
+export interface signUpProps {
+    role: string;
+}
+
+// Sign up form FormData interface
+export interface SignUpFormDataProps {
+    username: string,
+    email: string,
+    password: string,
+    confirmPassword: string,
+}
+
+
+
+// **** Loogin Form Interfaces **** \\
+// Login form props interface
+export interface LoginFormProp {
+    isAdmin?: boolean;
+    role: string;
+    title: string;
+}
+
+
+// **** Eamil verification form interfaces **** \\
+// Email verification FormData interface
+export interface EmailVerificationFormDataProps {
+    email: string;
+    role: string;
+ }
+
+
+
+//  **** Password reset form interfaces **** \\
+// Password reset form FormData interface
+export interface PasswordResetFormDataProps {
+    password: string;
+    confirmPassword: string;
+}
+
+
+
+// **** Auth Forms Common Interfaces **** \\
+// Authentication forms heading props interface used in FormSplit compoenent
+export interface AuthFormsHeadingProps {
+    title: string;
+}
+
+// Authentication forms button props interface used in FormSplit compoenent
+export interface AuthFormsButtonProps {
+    text: string;
+    loading: boolean;
+}
+
+
+
+// ****  Common Forms Input handle change function type **** \\
+export type HandleChangeFunction = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
+export type HandleFeatureChangeFunction = (e: ChangeEvent<HTMLInputElement>, index: number) => void;
+
+
+
+// **** Header compoenent Navs Array Interface **** \\
+export interface HeaderCompoenentNavsProps {
+    name: string;
+    href: string;
+    current: boolean;
+}
+
+
+
+// **** Section one interface **** \\
+//  Role section Button function interface 
+export type HandleRoleSelectionFunction = (url: string) => void;

@@ -1,4 +1,5 @@
 import { Route } from "./interface";
+import { HeaderCompoenentNavsProps } from "./interface/commonInterface";
 
 export const adminRoutes: Route[] = [
   { path: "/admin", name: "Dashboard" },
@@ -30,6 +31,9 @@ export const adminRoutes: Route[] = [
     { path: "notifications", name: "Notifications" },
   ]
 
+
+
+  // **** Gsap animation common oject **** \\
   export const gsapBigSvgYDirectionAnimation = {
     y: 20,
     duration: 1,
@@ -37,3 +41,14 @@ export const adminRoutes: Route[] = [
     repeat: -1,
     ease: "sine.inOut",
   }
+
+
+
+// **** Header Navigation Array ***** \\
+  export const navigation: HeaderCompoenentNavsProps[] = [
+    { name: 'Home', href: '/', current: true },
+    { name: 'Plans', href: '#', current: false },
+    { name: 'Services', href: '#', current: false },
+    { name: 'About', href: '#', current: false },
+    { name: 'Contact', href: '#', current: false },
+  ]

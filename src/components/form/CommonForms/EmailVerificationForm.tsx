@@ -5,20 +5,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import { FormButton, FormHeading } from '../FormSplits';
 import { FormEvent, useCallback, useState } from 'react';
 import { AppDispatch, RootState } from '@/utils/redux/appStore';
+import { EmailVerificationFormDataProps, HandleChangeFunction } from '@/utils/interface/commonInterface';
 import { setResetPasswordForm, setsignInForm, setSignUpForm, setVerifyEmailForm, setVerifyOtpForm } from '@/utils/redux/slices/signFormSlice';
 
 const EmailVerificationForm = () => {
 
     const dispatch = useDispatch<AppDispatch>();
     const { loading } = useSelector((store: RootState) => store.signform);
-    const [hasErrors, setHasErrors] = useState(false);
+    const [hasErrors, setHasErrors] = useState<boolean>(false);
 
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState<EmailVerificationFormDataProps>({
         email: "",
         role: "",
     });
 
-    const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const handleChange = useCallback<HandleChangeFunction>((e) => {
         setFormData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
         setHasErrors(false);
     }, []);
@@ -52,7 +53,7 @@ const EmailVerificationForm = () => {
         }
     };
 
-    const handleCancel = () => {
+    const handleCancel = (): void => {
         dispatch(setVerifyEmailForm(false));
         dispatch(setsignInForm(true));
         dispatch(setVerifyOtpForm(false));

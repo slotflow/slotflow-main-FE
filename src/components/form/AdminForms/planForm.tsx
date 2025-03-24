@@ -1,16 +1,18 @@
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
-import { ChangeEvent, useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import InputField from "../InputFieldWithLable";
-import SelectFiledWithLabel from "../SelectFiledWithLabel";
 import { RootState } from "@/utils/redux/appStore";
 import { FormButton, FormHeading } from "../FormSplits";
-import { BillingCycle } from "@/utils/interface";
+import SelectFiledWithLabel from "../SelectFiledWithLabel";
+import { BillingCycle } from "@/utils/interface/planInterface";
 import { useAdminPlanActions } from "@/utils/hooks/useAdminPlanActions";
+import { HandleChangeFunction, HandleFeatureChangeFunction, PlanFormData } from "@/utils/interface/commonInterface";
 
 const PlanForm = () => {
+    
     const { adminFormloading } = useSelector((store: RootState) => store.admin);
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState<PlanFormData>({
         planName: "",
         description: "",
         price: 0,
@@ -19,16 +21,16 @@ const PlanForm = () => {
         maxBookingPerMonth: 0,
         adVisibility: false,
     });
-    const [hasErrors, setHasErrors] = useState(false);
+    const [hasErrors, setHasErrors] = useState<boolean>(false);
 
-    const handleChange = useCallback((e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const handleChange = useCallback<HandleChangeFunction>((e) => {
         const { id, value, type } = e.target;
-        const newValue = type === "checkbox" ? (e.target as HTMLInputElement).checked : value;
+        const newValue : string | boolean = type === "checkbox" ? (e.target as HTMLInputElement).checked : value;
         setFormData((prev) => ({ ...prev, [id]: newValue }));
         setHasErrors(false);
     }, []);
 
-    const handleFeatureChange = useCallback((e: React.ChangeEvent<HTMLInputElement>, index: number) => {
+    const handleFeatureChange = useCallback<HandleFeatureChangeFunction>((e, index) => {
         const newFeatures = [...formData.features];
         newFeatures[index] = e.target.value;
         setFormData((prev) => ({ ...prev, features: newFeatures }));

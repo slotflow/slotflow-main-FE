@@ -1,4 +1,3 @@
-import { Route } from '@/utils/interface';
 import { toast } from 'react-toastify';
 import { signout } from '@/utils/apis/auth.api';
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,7 +5,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { setAuthUser } from '@/utils/redux/slices/authSlice';
 import { toggleSidebar } from '@/utils/redux/slices/stateSlice';
 import { AppDispatch, RootState } from '@/utils/redux/appStore';
-
+import { SideBarProps } from '@/utils/interface/commonInterface';
 import {
     MessageSquare,
     Users,
@@ -24,18 +23,16 @@ import {
     Menu,
 } from 'lucide-react';
 
-interface SideBarProps {
-    routes: Route[];
-}
 
 const Sidebar = ({ routes }: SideBarProps) => {
+    
     const sidebarOpen = useSelector((store: RootState) => store.state.sidebarOpen);
     const dispatch = useDispatch<AppDispatch>();
     const user = useSelector((store: RootState) => store.auth?.authUser);
-    const role = user?.role;
+    const role: string | undefined= user?.role;
     const navigate = useNavigate();
 
-    const handleSignout = () => {
+    const handleSignout = (): void => {
         dispatch(signout()).unwrap().then((res) => {
             toast.success(res.message);
             if (role === "USER") {
@@ -54,7 +51,7 @@ const Sidebar = ({ routes }: SideBarProps) => {
         })
     }
 
-    const handleSidebar = () => {
+    const handleSidebar = (): void => {
         dispatch(toggleSidebar());
     }
 

@@ -4,16 +4,18 @@ import { useCallback, useState } from "react";
 import InputField from "../InputFieldWithLable";
 import { RootState } from "@/utils/redux/appStore";
 import { FormButton, FormHeading } from "../FormSplits";
+import { HandleChangeFunction } from "@/utils/interface/commonInterface";
 import { useAdminServiceActions } from "@/utils/hooks/useAdminServiceActions";
 
 const ServiceAddingForm = () => {
+
   const { adminFormloading } = useSelector((store: RootState) => store.admin);
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<{serviceName: string}>({
     serviceName: "",
   });
-  const [hasErrors, setHasErrors] = useState(false);
+  const [hasErrors, setHasErrors] = useState<boolean>(false);
 
-  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = useCallback<HandleChangeFunction>((e) => {
     setFormData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
     setHasErrors(false);
   }, []);

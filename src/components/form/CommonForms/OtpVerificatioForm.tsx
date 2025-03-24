@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { resendOtp, verifyOtp } from "@/utils/apis/auth.api";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
 import { FormEvent, useCallback, useEffect, useState } from "react";
+import { HandleChangeFunction } from "@/utils/interface/commonInterface";
 import { setResetPasswordForm, setsignInForm, setSignUpForm, setVerifyEmailForm, setVerifyOtpForm, stopTimer, updateTimer } from "@/utils/redux/slices/signFormSlice";
 
 const OtpVerificatioForm = () => {
@@ -13,13 +14,13 @@ const OtpVerificatioForm = () => {
     const dispatch = useDispatch<AppDispatch>();
     const { otpRemainingTime, otpTimerIsRunning, loading, forgotPassword } = useSelector((store: RootState) => store.signform);
     const { authUser } = useSelector((store: RootState) => store.auth);
-    const [hasErrors, setHasErrors] = useState(false);
-    const [resentLoading, setResendLoading] = useState(false);
+    const [hasErrors, setHasErrors] = useState<boolean>(false);
+    const [resentLoading, setResendLoading] = useState<boolean>(false);
 
     const role: string | null = authUser?.role || null;
     const verificationToken: string | undefined = authUser?.verificationToken;
 
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState<{otp: string}>({
         otp: ""
     });
 
@@ -32,7 +33,7 @@ const OtpVerificatioForm = () => {
         }
     }, [otpTimerIsRunning, dispatch]);
 
-    const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = useCallback<HandleChangeFunction>((e) => {
         setFormData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
         setHasErrors(false);
     }, []);
@@ -71,7 +72,7 @@ const OtpVerificatioForm = () => {
         }
     }
 
-    const handleCancel = () => {
+    const handleCancel = (): void => {
         dispatch(setVerifyOtpForm(false));
         dispatch(setSignUpForm(false));
         dispatch(setsignInForm(true));
@@ -79,19 +80,19 @@ const OtpVerificatioForm = () => {
         dispatch(setResetPasswordForm(false));
     }
 
-    const handleResendOtp = () => {
+    const handleResendOtp = (): void => {
         if (verificationToken && role) {
             setResendLoading(true);
             dispatch(resendOtp({ verificationToken, role }))
-                .unwrap()
-                .then((res: { success: boolean; message: string }) => {
-                    if (res.success) {
-                        setResendLoading(false);
-                        toast.success(res.message);
-                    } else {
-                        toast.error(res.message);
-                    }
-                })
+            .unwrap()
+            .then((res: { success: boolean; message: string }) => {
+                if (res.success) {
+                    setResendLoading(false);
+                    toast.success(res.message);
+                } else {
+                    toast.error(res.message);
+                }
+            })
         }
     };
 

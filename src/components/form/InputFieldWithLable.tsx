@@ -14,7 +14,7 @@ const InputField: React.FC<InputFieldProps> = memo(({
     const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-    const togglePasswordVisibility = () => {
+    const togglePasswordVisibility = (): void => {
         setPasswordVisible(!passwordVisible);
     };
 
@@ -65,7 +65,7 @@ const InputField: React.FC<InputFieldProps> = memo(({
         validateInput(e.target.value);
     };
 
-    const handleForgotPassword = () => {
+    const handleForgotPassword = (): void => {
         dispatch(setsignInForm(false));
         dispatch(setForgotPassword(true));
         dispatch(setVerifyEmailForm(true));

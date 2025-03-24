@@ -1,10 +1,11 @@
 import { toast } from "react-toastify";
 import InputField from "../InputFieldWithLable";
-import { FormButton, FormHeading } from "../FormSplits";
 import { useDispatch, useSelector } from "react-redux";
 import { updatePassword } from "@/utils/apis/auth.api";
+import { FormButton, FormHeading } from "../FormSplits";
 import { FormEvent, useCallback, useState } from "react";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
+import { HandleChangeFunction, PasswordResetFormDataProps } from "@/utils/interface/commonInterface";
 import { setForgotPassword, setResetPasswordForm, setsignInForm, setSignUpForm, setVerifyEmailForm, setVerifyOtpForm } from "@/utils/redux/slices/signFormSlice";
 
 
@@ -13,17 +14,17 @@ const ResetPasswordForm = () => {
     const dispatch = useDispatch<AppDispatch>();
     const { loading } = useSelector((store: RootState) => store.signform);
     const { authUser } = useSelector((store: RootState) => store.auth);
-    const [hasErrors, setHasErrors] = useState(false);
+    const [hasErrors, setHasErrors] = useState<boolean>(false);
 
     const role : string | null = authUser?.role || null;
     const verificationToken : string | undefined = authUser?.verificationToken;
 
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState<PasswordResetFormDataProps>({
         password: "",
         confirmPassword: "",
     });
 
-    const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = useCallback<HandleChangeFunction>((e) => {
         setFormData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
         setHasErrors(false);
     }, []);
@@ -60,7 +61,7 @@ const ResetPasswordForm = () => {
         }
     };
 
-    const handleCancel = () => {
+    const handleCancel = (): void => {
         dispatch(setResetPasswordForm(false));
         dispatch(setsignInForm(true));
         dispatch(setVerifyEmailForm(false));

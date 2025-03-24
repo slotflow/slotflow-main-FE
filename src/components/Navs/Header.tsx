@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { Moon, Sun } from 'lucide-react';
 import { greetings } from '@/utils/helper';
+import { navigation } from '@/utils/constants';
 import { signout } from '@/utils/apis/auth.api';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,22 +10,15 @@ import { setAuthUser } from '@/utils/redux/slices/authSlice';
 import { toggleTheme } from '@/utils/redux/slices/stateSlice';
 import { AppDispatch, RootState } from '../../utils/redux/appStore';
 
-const navigation = [
-  { name: 'Home', href: '/', current: true },
-  { name: 'Plans', href: '#', current: false },
-  { name: 'Services', href: '#', current: false },
-  { name: 'About', href: '#', current: false },
-  { name: 'Contact', href: '#', current: false },
-]
-
 const Header = () => {
 
   const dispatch = useDispatch<AppDispatch>();
   const themeMode = useSelector((store: RootState) => store.state.lightTheme);
   const user = useSelector((store: RootState) => store.auth?.authUser);
-  const role = user?.role;
+  const role: string | undefined = user?.role;
   const navigate = useNavigate();
-  const changeTheme = () => {
+  
+  const changeTheme = (): void => {
     dispatch(toggleTheme());
   }
 
@@ -38,7 +32,7 @@ const Header = () => {
 
   const greetingString = greetings();
 
-  const handleSignout = () => {
+  const handleSignout = (): void => {
     dispatch(signout()).unwrap().then((res) => {
       toast.success(res.message);
       if (role === "USER") {

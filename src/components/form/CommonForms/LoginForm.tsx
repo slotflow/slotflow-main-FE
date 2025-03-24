@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { FormButton, FormHeading } from "../FormSplits";
 import { FormEvent, useCallback, useState } from "react";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
-import { LoginFormProp } from "@/utils/interface/commonInterface";
+import { HandleChangeFunction, LoginFormProp } from "@/utils/interface/commonInterface";
 import { setResetPasswordForm, setsignInForm, setSignUpForm, setVerifyEmailForm, setVerifyOtpForm } from "@/utils/redux/slices/signFormSlice";
 
 const LoginForm: React.FC<LoginFormProp> = ({ isAdmin, role, title }) => {
@@ -14,13 +14,13 @@ const LoginForm: React.FC<LoginFormProp> = ({ isAdmin, role, title }) => {
     const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
     const { loading } = useSelector((store: RootState) => store.signform);
-    const [hasErrors, setHasErrors] = useState(false);
-    const [formData, setFormData] = useState({
+    const [hasErrors, setHasErrors] = useState<boolean>(false);
+    const [formData, setFormData] = useState<{email: string, password: string}>({
         email: "",
         password: "",
     });
 
-    const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = useCallback<HandleChangeFunction>((e) => {
         setFormData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
         setHasErrors(false);
     }, []);
@@ -60,7 +60,7 @@ const LoginForm: React.FC<LoginFormProp> = ({ isAdmin, role, title }) => {
         }
     };
 
-    const changeToSingUpForm = () => {
+    const changeToSingUpForm = (): void => {
         dispatch(setSignUpForm(true));
         dispatch(setsignInForm(false));
         dispatch(setVerifyEmailForm(false));

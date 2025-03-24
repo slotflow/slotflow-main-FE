@@ -11,8 +11,8 @@ const SelectFiledWithLabel: React.FC<SelectFieldProps> = memo(({
     onHasError,
 }) => {
     
-    const [isOpen, setIsOpen] = useState(false);
-    const [selectedValue, setSelectedValue] = useState(value.toString());
+    const [isOpen, setIsOpen] = useState<boolean>(false);
+    const [selectedValue, setSelectedValue] = useState<string>(value.toString());
     const selectRef = useRef<HTMLDivElement>(null);
 
     const handleSelect = (optionValue: string) => {
