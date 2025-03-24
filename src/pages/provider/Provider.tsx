@@ -1,16 +1,17 @@
 import { useEffect } from "react";
-import { Outlet, useLocation } from "react-router-dom";
 import Sidebar from "@/components/Navs/Sidebar";
 import { providerRoutes } from "@/utils/constants";
+import ProviderAddAddress from "./ProviderAddAddress";
+import { Outlet, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { checkUserStatus } from "@/utils/apis/auth.api";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
-import ProviderAddAddress from "./ProviderAddAddress";
+import ProviderApprovalPending from "./ProviderApprovalPending";
 import ProviderAddServiceDetails from "./ProviderAddServiceDetails";
 import ProviderAddServiceAvailability from "./ProviderAddServiceAvailability";
-import ProviderApprovalPending from "./ProviderApprovalPending";
 
 const Provider = () => {
+
   const sidebarOpen = useSelector((store: RootState) => store.state.sidebarOpen);
   const user = useSelector((state: RootState) => state.auth.authUser);
   const dispatch = useDispatch<AppDispatch>();
@@ -22,26 +23,20 @@ const Provider = () => {
     }
   }, [dispatch, location]);
 
-console.log("User : ",user);
   if(!user?.approved){
-    console.log("Not approved.");
     if(!user?.address){
-      console.log("no address.");
       return (
         <ProviderAddAddress />
       );
     } else if(!user?.serviceDetails){
-      console.log("No serviceDetails.");
       return (
         <ProviderAddServiceDetails />
       );
     } else if(!user?.serviceAvailability){
-      console.log("No serviceAvailability");
       return (
         <ProviderAddServiceAvailability />
       )
     } else {
-      console.log("Else");
       return (
         <ProviderApprovalPending />
       )

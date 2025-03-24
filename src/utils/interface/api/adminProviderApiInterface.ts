@@ -12,14 +12,12 @@ interface ApiCommonResponse {
 }
 
 
-
-// Admin fetch all providers api response interface
+// Admin fetch all providers api response provider type, used also in the admin sevice providers data listing tables coloums props in colomns.tsx
 export type FetchAllProvidersResponseProps = Pick<Provider, "_id" | "username" | "email" | "isBlocked" | "isAdminVerified">
+// Admin fetch all providers api response interface
 export interface AdminFetchAllProvidersResponse extends ApiCommonResponse {
     providers: FetchAllProvidersResponseProps[];
 }
-
-
 
 
 

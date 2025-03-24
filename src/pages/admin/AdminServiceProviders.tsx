@@ -14,10 +14,11 @@ const AdminServiceProviders = () => {
   });
 
   if (isError) return <DataFetchingError message={error.message}/>
+  if (!data) return <DataFetchingError message={"No data found"}/>
 
   return (
     <>
-      {isLoading || !data ?
+      {isLoading ?
         <>
           <ShimmerTableTop />
           <ShimmerTable />
@@ -25,7 +26,7 @@ const AdminServiceProviders = () => {
         :
         <>
           <h2 className="text-2xl font-bold mb-4">Service Providers</h2>
-          <DataTable columns={providerColumns} data={data.providers} />
+          <DataTable columns={providerColumns} data={data?.providers} />
         </>
       }
     </>

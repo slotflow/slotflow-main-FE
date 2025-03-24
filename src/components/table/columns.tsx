@@ -1,18 +1,18 @@
 import { Button } from "../ui/button";
 import { MoreHorizontal } from "lucide-react";
-import { ChangePlanBlockStatus } from "./AdminPlanActions";
 import { ColumnDef } from "@tanstack/react-table";
-import { ChangeServiceBlockStatus } from "./AdminSerivceActions";
 import { ChangeUserStatus } from "./AdminUserActions";
-import { DataTableColumnHeader } from "./DataTableColumnHeader";
 import { Plan, Service, User } from "@/utils/interface";
+import { ChangePlanBlockStatus } from "./AdminPlanActions";
+import { DataTableColumnHeader } from "./DataTableColumnHeader";
+import { ChangeServiceBlockStatus } from "./AdminSerivceActions";
+import { FetchAllProvidersResponseProps } from "@/utils/interface/api/adminProviderApiInterface";
 import {ApproveProvider, ChangeProviderBlockStatus, GetProviderDetailPage } from "./AdminProviderActions";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
-import { FetchAllProvidersResponseProps } from "@/utils/interface/api/adminProviderApiInterface";
 
 export const providerColumns: ColumnDef<FetchAllProvidersResponseProps>[] = [
   {
-    accessorKey: "isVerified",
+    accessorKey: "isAdminVerified",
     header: "Admin Verication",
     cell: ({ row }) => {
       const isVerified = row.original.isAdminVerified;
