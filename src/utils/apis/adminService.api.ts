@@ -1,7 +1,7 @@
 import axiosInstance from "@/lib/axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { Service } from "../interface/appServiceInterface";
-import { AdminAddNewServiceRequestPayload, AdminAddNewServiceResponse, AdminChangeServiceBlockStatusRequestPayload, AdminChangeServiceBlockStatusResponse } from "../interface/adminServiceApiInterface";
+import { AdminAddNewServiceRequestPayload, AdminAddNewServiceResponse, AdminChangeServiceBlockStatusRequestPayload, AdminChangeServiceBlockStatusResponse } from "../interface/api/adminServiceApiInterface";
 
 export const fetchServices = async (): Promise<Service[]> => {
     const response = await axiosInstance.get("/admin/services");

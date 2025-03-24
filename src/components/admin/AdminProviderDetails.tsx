@@ -33,13 +33,13 @@ const AdminProviderDetails: React.FC<AdminProviderDetailsProps> = memo(({ _id, o
         <div className="w-full mx-auto mt-8 p-6 rounded-lg">
             <table className="table-auto border-collapse border border-[var(--boxBorder)] w-full">
                 <tbody>
-                    <InfoDisplayComponent label="Username" value={data?.username} />
-                    <InfoDisplayComponent label="Email" value={data?.email} copyToClipboard={copyToClipboard} />
-                    <InfoDisplayComponent label="Phone Number" value={data?.phone || 'Not yet added'} copyToClipboard={copyToClipboard} />
-                    <InfoDisplayComponent label="Joined On" value={data?.createdAt} formatDate={formatDate} />
-                    <InfoDisplayComponent label="Email Verified" value={data?.isEmailVerified} isBoolean={true} />
-                    <InfoDisplayComponent label="Account Blocked" value={data?.isBlocked} isBoolean={true} />
-                    <InfoDisplayComponent label="Admin Verified" value={data?.isAdminVerified} isBoolean={true} />
+                    <InfoDisplayComponent label="Username" value={data?.provider?.username} />
+                    <InfoDisplayComponent label="Email" value={data?.provider?.email} copyToClipboard={copyToClipboard} />
+                    <InfoDisplayComponent label="Phone Number" value={data?.provider?.phone || 'Not yet added'} copyToClipboard={copyToClipboard} />
+                    <InfoDisplayComponent label="Joined On" value={data?.provider?.createdAt} formatDate={formatDate} />
+                    <InfoDisplayComponent label="Email Verified" value={data?.provider?.isEmailVerified} isBoolean={true} />
+                    <InfoDisplayComponent label="Account Blocked" value={data?.provider?.isBlocked} isBoolean={true} />
+                    <InfoDisplayComponent label="Admin Verified" value={data?.provider?.isAdminVerified} isBoolean={true} />
                 </tbody>
             </table>
         </div>

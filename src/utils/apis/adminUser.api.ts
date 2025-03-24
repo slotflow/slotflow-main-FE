@@ -1,7 +1,7 @@
 import axiosInstance from "../../lib/axios";
 import { User } from "../interface/userInterface";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { AdminChangeUserStatusRequestPayload, AdminChnageUserStatusResponse } from "../interface/adminUserApiInterface";
+import { AdminChangeUserStatusRequestPayload, AdminChnageUserStatusResponse } from "../interface/api/adminUserApiInterface";
 
 export const fetchUsers = async (): Promise<Partial<User[]>> => {
     const response = await axiosInstance.get('/admin/users');

@@ -11,4 +11,6 @@ export interface User {
     addressId: string;
     bookingsId: string;
     verificationToken: string;
+    createdAt: string;
+    updatedAt: string;
 }

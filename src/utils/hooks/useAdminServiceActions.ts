@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "../redux/appStore";
 import { useQueryClient } from "@tanstack/react-query";
 import { addNewService, chnageServiceBlockStatus } from "../apis/adminService.api";
-import { UseAdminServiceActionReturnType } from "../interface/adminServiceApiInterface";
+import { UseAdminServiceActionReturnType } from "../interface/api/adminServiceApiInterface";
 
 export const useAdminServiceActions = (): UseAdminServiceActionReturnType => {
   

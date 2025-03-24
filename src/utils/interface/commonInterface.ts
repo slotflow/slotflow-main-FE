@@ -1,7 +1,7 @@
 // InputDisplay components interface, this shimmer is used for showing details in profiles
 export interface InfoDisplayComponentRowProps {
     label: string;
-    value: string | boolean | undefined;
+    value: string | boolean | number | string[] | undefined;
     formatDate?: (dateString: string) => string;
     copyToClipboard?: (text: string) => void;
     link?: boolean;

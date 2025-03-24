@@ -1,9 +1,12 @@
-import { toast } from "react-toastify";
 import axiosInstance from "@/lib/axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { AdminApproveProviderRequestPayload, AdminApproveProviderResponse, FetchAllProvidersQuestPayload } from "../interface/adminProviderApiInterface";
+import { AdminApproveProviderRequestPayload, AdminApproveProviderResponse, 
+    AdminChangeProviderBlockStatusRequestPayload, AdminChangeProviderBlockStatusResponse, 
+    AdminFetchAllProvidersRequestPayload, AdminFetchProviderAddressResponse, 
+    AdminFetchProviderDetailsResponse, AdminFetchProviderServiceAvailabilityResponse, 
+    AdminFetchProviderServiceResponse } from "../interface/api/adminProviderApiInterface";
 
-export const fetchProviders = async (): Promise<FetchAllProvidersQuestPayload[]> => {
+export const fetchProviders = async (): Promise<AdminFetchAllProvidersRequestPayload[]> => {
     const response = await axiosInstance.get("/admin/providers");
     return response.data.providers;
 };
@@ -16,42 +19,30 @@ export const approveProvider = createAsyncThunk<AdminApproveProviderResponse,Adm
     }
 )
 
-export const changeProviderBlockStatus = createAsyncThunk('/admin/changeProviderStatus',
-    async (statusData: { providerId: string, status: boolean }) => {
-        const { providerId, status } = statusData;
+export const changeProviderBlockStatus = createAsyncThunk<AdminChangeProviderBlockStatusResponse,AdminChangeProviderBlockStatusRequestPayload>('/admin/changeProviderStatus',
+    async (payload: AdminChangeProviderBlockStatusRequestPayload) => {
+        const { providerId, status } = payload;
         const response = await axiosInstance.put(`/admin/provider/changeStatus/${providerId}?status=${status}`);
-        const res = response.data;
-        if (res.success) {
-            toast.success(res.message);
-            return { providerId, updatedProvider: res.updatedProvider };
-        } else {
-            toast.error(res.message);
-            return;
-        }
+        return response.data;
     }
 )
 
-export const fetchProviderDetails = async (providerId: string) => {
-    console.log("Provider details Api call")
+export const fetchProviderDetails = async (providerId: string): Promise<AdminFetchProviderDetailsResponse> => {
     const response = await axiosInstance.get(`/admin/fetchProviderDetails/${providerId}`);
-    return response.data.provider;
+    return response.data;
 }
 
-export const fetchProviderAddress = async (providerId: string) => {
-    console.log("Provider address api call")
+export const fetchProviderAddress = async (providerId: string): Promise<AdminFetchProviderAddressResponse> => {
     const response = await axiosInstance.get(`/admin/fetchProviderAddress/${providerId}`);
-    return response.data.address;
+    return response.data;
 }
 
-export const fetchProviderService = async (providerId: string) => {
-    console.log("Provider service api : ",providerId);
+export const fetchProviderService = async (providerId: string): Promise<AdminFetchProviderServiceResponse> => {
     const response = await axiosInstance.get(`/admin/fetchProviderService/${providerId}`);
-    return response.data.service;
+    return response.data;
 }
 
-export const fetchProviderServiceAvailability = async (providerId: string) => {
-    console.log("Provider service availability api : ",providerId);
+export const fetchProviderServiceAvailability = async (providerId: string): Promise<AdminFetchProviderServiceAvailabilityResponse> => {
     const response = await axiosInstance.get(`/admin/fetchProviderServiceAvailability/${providerId}`);
-    console.log("response : ",response);
-    return response.data.availability;
+    return response.data;
 }

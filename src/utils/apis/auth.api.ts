@@ -2,7 +2,7 @@ import axiosInstance from "../../lib/axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { setAuthUser } from "../redux/slices/authSlice";
 import { startTimer } from "../redux/slices/signFormSlice";
-import { CommonResponse, ResendOtpRequestPayload, ResendOtpResponse, SigninRequestPayload, SigninResponse, SignupRequest, SignupResponse, UpdatePasswordRequestPayload, VerifyOtpRequestPayload } from "../interface/authApiInterface";
+import { CommonResponse, ResendOtpRequestPayload, ResendOtpResponse, SigninRequestPayload, SigninResponse, SignupRequest, SignupResponse, UpdatePasswordRequestPayload, VerifyOtpRequestPayload } from "../interface/api/authApiInterface";
 
 export const signup = createAsyncThunk<SignupResponse, SignupRequest>('auth/signup',
     async (userData: SignupRequest, thunkAPI) => {

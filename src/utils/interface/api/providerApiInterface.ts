@@ -1,5 +1,5 @@
-import { service } from "./appServiceInterface";
-import { Availability } from "./serviceAvailabilityInterface";
+import { service } from "../appServiceInterface";
+import { Availability } from "../serviceAvailabilityInterface";
 
 // Common Response Type
 export interface ApiCommonResponse {

@@ -1,6 +1,6 @@
 import axiosInstance from "@/lib/axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { AddProviderAddressPayload, AddProviderServiceAvailabilityPayload, AddProviderServiceDetailsPayload, ApiCommonResponse, FetchAllServicesResponse } from "../interface/providerApiInterface";
+import { AddProviderAddressPayload, AddProviderServiceAvailabilityPayload, AddProviderServiceDetailsPayload, ApiCommonResponse, FetchAllServicesResponse } from "../interface/api/providerApiInterface";
 
 export const addProviderAddress = createAsyncThunk<ApiCommonResponse, AddProviderAddressPayload>('/provider/addAddress',
     async ({ formData }) => {

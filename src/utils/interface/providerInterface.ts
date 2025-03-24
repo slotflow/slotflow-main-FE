@@ -15,6 +15,7 @@ export interface Provider {
     subscription: [string];
     verificationToken: string;
     createdAt: string;
+    updatedAt: string;
 }
 
 

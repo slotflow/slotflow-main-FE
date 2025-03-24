@@ -1,8 +1,8 @@
-import { Address } from "./addressInterface";
 import { Provider } from "./providerInterface";
+import { Address } from "./addressInterface";
 import { ProviderService } from "./providerServiceInterface";
 
-// **** Admin Provider Interfaces used in compoenents / admin**** \\
+// **** Admin Provider Interfaces used in compoenents / admin **** \\
 
 // AdminProviderServiceAvailability compoenent using for the custom props
 type ProviderIdOnlyForProviderServiceAvailability = Pick<Provider, '_id'>;

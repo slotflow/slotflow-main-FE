@@ -1,4 +1,4 @@
-import { Service } from "./appServiceInterface";
+import { Service } from "../appServiceInterface";
 
 // **** Admin Service Api Interfaces **** \\
 

@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "../redux/appStore";
 import { useQueryClient } from "@tanstack/react-query"
 import { addNewPlan, changePlanBlockStatus } from "../apis/adminPlan.api";
-import { AdminAddNewPlanRequestPayload, UseAdminPlanActionsReturnType } from "../interface/adminPlanApiInterface";
+import { AdminAddNewPlanRequestPayload, UseAdminPlanActionsReturnType } from "../interface/api/adminPlanApiInterface";
 
 export const useAdminPlanActions = (): UseAdminPlanActionsReturnType => {
     const queryClient = useQueryClient();

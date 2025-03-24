@@ -1,4 +1,4 @@
-import { Plan } from "./planInterface";
+import { Plan } from "../planInterface";
 
 
  // *** Admin Plan Api interfaces **** \\
