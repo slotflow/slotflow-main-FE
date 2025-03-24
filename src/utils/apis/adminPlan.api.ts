@@ -1,11 +1,10 @@
 import axiosInstance from "@/lib/axios";
-import { Plan } from "../interface/planInterface";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { AdminAddNewPlanApiResponse, AdminAddNewPlanRequestPayload, AdminChangePlanStatusRequestPayload, AdminChangePlanStatusResponse } from "../interface/api/adminPlanApiInterface";
+import { AdminAddNewPlanApiResponse, AdminAddNewPlanRequestPayload, AdminChangePlanStatusRequestPayload, AdminChangePlanStatusResponse, AdminFetchAllPlansResponse } from "../interface/api/adminPlanApiInterface";
 
-export const fetchPlans = async (): Promise<Partial<Plan>> => {
+export const fetchAllPlans = async (): Promise<AdminFetchAllPlansResponse> => {
     const response = await axiosInstance.get("/admin/plans");
-    return response.data.plans;
+    return response.data;
 };
 
 export const addNewPlan = createAsyncThunk<AdminAddNewPlanApiResponse,AdminAddNewPlanRequestPayload>('/admin/addNewPlan',

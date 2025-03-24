@@ -4,31 +4,35 @@ import { serviceColumns } from '@/components/table/columns';
 import ShimmerTable from '@/components/shimmers/ShimmerTable';
 import { fetchServices } from '@/utils/apis/adminService.api';
 import ShimmerTableTop from '@/components/shimmers/ShimmerTableTop';
+import DataFetchingError from '@/components/common/DataFetchingError';
 import ServiceAddingForm from '@/components/form/AdminForms/ServiceForm';
 
 const AdminServices = () => {
 
-  const { data: services, isLoading, isError, error } = useQuery({
+  const { data, isLoading, isError, error } = useQuery({
     queryKey: ["services"],
     queryFn: fetchServices,
   });
 
 
-  if (isError) return <div>Error {error.message}</div>
+  if (isError) return <DataFetchingError message={error.message} />
 
   return (
     <>
       <h2 className="text-2xl font-bold mb-4">Services</h2>
       <div className='flex'>
         <div className='w-8/12'>
-          {isLoading ?
+          {isLoading ? (
             <>
               <ShimmerTableTop />
               <ShimmerTable />
             </>
-            :
-            <DataTable columns={serviceColumns} data={services} />
-          }
+          )
+            : data && data?.services ? (
+              <DataTable columns={serviceColumns} data={data?.services} />
+            ) : (
+              <DataFetchingError message={"No data found"} />
+            )}
         </div>
         <div className='w-4/12 mx-2'>
           <ServiceAddingForm />

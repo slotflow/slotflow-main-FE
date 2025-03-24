@@ -9,13 +9,25 @@ interface ApiCommonResponse {
     message: string;
 }
 
+
+
+// Admin fetch all plans type
+export type FetchAllPlansProps = Pick<Plan, "_id" | "planName" | "isBlocked">;
+// Admin fetch all plans api response interface
+export interface AdminFetchAllPlansResponse extends ApiCommonResponse {
+    plans : FetchAllPlansProps[];
+}
+
+
+
 // Admin adding new plan api request request payload type, used in adminPlanApi
 export type AdminAddNewPlanRequestPayload = Omit<Plan,'_id' | 'isBlocked' | 'createdAt' | 'updatedAt'>;
-
 // Admin add new plan api response interface, used in adminPlanApi
 export interface AdminAddNewPlanApiResponse extends ApiCommonResponse{
     plan: Plan
 }
+
+
 
 // Admin change block status of plan api request payload interface, used in adminPlanApi
 export interface AdminChangePlanStatusRequestPayload {
