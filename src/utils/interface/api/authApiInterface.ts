@@ -47,24 +47,29 @@ export interface ResendOtpResponse extends CommonResponse{
 
 
 
-
+// Sign in api request payload interface
 export interface SigninRequestPayload {
     email: string;
     password: string;
     role: string;
 }
 
+// Sign in api response interface
 export interface SigninResponse extends CommonResponse{
     authUser: {
         username: string;
-        profileImage?: string;
+        profileImage: string;
         role: string;
         isLoggedIn: boolean;
         address?: boolean;
-        service?: boolean;
-        approved?: boolean;
+        serviceDetails?: undefined,
+        serviceAvailability?: undefined,
+        approved?: undefined
     }
 }
+
+
+
 
 export interface UpdatePasswordRequestPayload {
     role: string;
