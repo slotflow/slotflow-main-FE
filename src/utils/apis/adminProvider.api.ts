@@ -2,13 +2,13 @@ import axiosInstance from "@/lib/axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { AdminApproveProviderRequestPayload, AdminApproveProviderResponse, 
     AdminChangeProviderBlockStatusRequestPayload, AdminChangeProviderBlockStatusResponse, 
-    AdminFetchAllProvidersRequestPayload, AdminFetchProviderAddressResponse, 
+    AdminFetchAllProvidersResponse, AdminFetchProviderAddressResponse, 
     AdminFetchProviderDetailsResponse, AdminFetchProviderServiceAvailabilityResponse, 
     AdminFetchProviderServiceResponse } from "../interface/api/adminProviderApiInterface";
 
-export const fetchProviders = async (): Promise<AdminFetchAllProvidersRequestPayload[]> => {
+export const fetchProviders = async (): Promise<AdminFetchAllProvidersResponse> => {
     const response = await axiosInstance.get("/admin/providers");
-    return response.data.providers;
+    return response.data;
 };
 
 export const approveProvider = createAsyncThunk<AdminApproveProviderResponse,AdminApproveProviderRequestPayload>('/admin/approve/provider/',

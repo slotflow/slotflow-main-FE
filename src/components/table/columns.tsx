@@ -5,11 +5,12 @@ import { ColumnDef } from "@tanstack/react-table";
 import { ChangeServiceBlockStatus } from "./AdminSerivceActions";
 import { ChangeUserStatus } from "./AdminUserActions";
 import { DataTableColumnHeader } from "./DataTableColumnHeader";
-import { Plan, Provider, Service, User } from "@/utils/interface";
+import { Plan, Service, User } from "@/utils/interface";
 import {ApproveProvider, ChangeProviderBlockStatus, GetProviderDetailPage } from "./AdminProviderActions";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
+import { FetchAllProvidersResponseProps } from "@/utils/interface/api/adminProviderApiInterface";
 
-export const providerColumns: ColumnDef<Provider>[] = [
+export const providerColumns: ColumnDef<FetchAllProvidersResponseProps>[] = [
   {
     accessorKey: "isVerified",
     header: "Admin Verication",

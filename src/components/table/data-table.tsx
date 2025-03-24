@@ -35,9 +35,9 @@ import {
 
 
 interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[]
-  data: TData[]
-  filterAccessorKeys?: string[]
+  columns: ColumnDef<TData, TValue>[];
+  data: TData[];
+  filterAccessorKeys?: string[];
 }
 
 export function DataTable<TData, TValue>({

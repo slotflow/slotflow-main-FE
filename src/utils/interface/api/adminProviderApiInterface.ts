@@ -14,9 +14,9 @@ interface ApiCommonResponse {
 
 
 // Admin fetch all providers api response interface
-type FetchAllProvidersRequestPayloadProps = Pick<Provider, "_id" | "username" | "email" | "isBlocked" | "isAdminVerified">
-export interface AdminFetchAllProvidersRequestPayload extends ApiCommonResponse {
-    providers: FetchAllProvidersRequestPayloadProps[];
+export type FetchAllProvidersResponseProps = Pick<Provider, "_id" | "username" | "email" | "isBlocked" | "isAdminVerified">
+export interface AdminFetchAllProvidersResponse extends ApiCommonResponse {
+    providers: FetchAllProvidersResponseProps[];
 }
 
 

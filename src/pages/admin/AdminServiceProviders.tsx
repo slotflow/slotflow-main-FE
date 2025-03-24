@@ -4,19 +4,20 @@ import { providerColumns } from "@/components/table/columns";
 import ShimmerTable from "@/components/shimmers/ShimmerTable";
 import { fetchProviders } from "@/utils/apis/adminProvider.api";
 import ShimmerTableTop from "@/components/shimmers/ShimmerTableTop";
+import DataFetchingError from "@/components/common/DataFetchingError";
 
 const AdminServiceProviders = () => {
 
-  const { data: providers, isLoading, isError, error } = useQuery({
+  const { data, isLoading, isError, error } = useQuery({
     queryKey: ["providers"],
     queryFn: fetchProviders,
   });
 
-  if (isError) return <div>Error {error.message}</div>
+  if (isError) return <DataFetchingError message={error.message}/>
 
   return (
     <>
-      {isLoading ?
+      {isLoading || !data ?
         <>
           <ShimmerTableTop />
           <ShimmerTable />
@@ -24,7 +25,7 @@ const AdminServiceProviders = () => {
         :
         <>
           <h2 className="text-2xl font-bold mb-4">Service Providers</h2>
-          <DataTable columns={providerColumns} data={providers} />
+          <DataTable columns={providerColumns} data={data.providers} />
         </>
       }
     </>

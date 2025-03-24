@@ -3,6 +3,8 @@ export interface CommonResponse {
     message: string;
 }
 
+// **** Sign Up Function Interfaces *** \\
+// Sign Up function request payload interface 
 export interface SignupRequest {
     username: string;
     email: string;
@@ -10,12 +12,16 @@ export interface SignupRequest {
     role: string;
 }
 
+// Sign up form response interface
 export interface SignupResponse extends CommonResponse {
     authUser: {
         verificationToken: string;
         role: string;
     }
 }
+
+
+
 
 export interface VerifyOtpRequestPayload {
     otp: string;

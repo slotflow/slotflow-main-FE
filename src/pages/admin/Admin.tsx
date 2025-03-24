@@ -5,7 +5,8 @@ import Sidebar from "@/components/Navs/Sidebar";
 import { RootState } from "@/utils/redux/appStore";
 
 const Admin = () => {
-  const sidebarOpen = useSelector((store: RootState) => store.state.sidebarOpen);
+  
+  const sidebarOpen: boolean = useSelector((store: RootState) => store.state.sidebarOpen);
 
   return (
     <div className="flex h-screen pt-16">
