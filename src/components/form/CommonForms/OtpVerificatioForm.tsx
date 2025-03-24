@@ -86,7 +86,7 @@ const OtpVerificatioForm = () => {
             setResendLoading(true);
             dispatch(resendOtp({ verificationToken, role }))
             .unwrap()
-            .then((res: { success: boolean; message: string }) => {
+            .then((res) => {
                 if (res.success) {
                     setResendLoading(false);
                     toast.success(res.message);
