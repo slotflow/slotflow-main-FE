@@ -2,6 +2,7 @@ import { useState } from "react";
 import { RootState } from "@/utils/redux/appStore";
 import { useSelector } from "react-redux";
 import ProviderDetails from "@/components/provider/ProviderDetails";
+import ProviderAddress from "@/components/provider/ProviderAddress";
 
 const ProviderProfile = () => {
 
@@ -25,9 +26,9 @@ const ProviderProfile = () => {
 
             <div className={`flex-grow ${hasError && "flex items-center"}`}>
             {tab === 0 && (
-              <ProviderDetails onError={setHasError}/>
+              <ProviderDetails onError={setHasError} />
             ) || tab === 1 && (
-              <h1>Address</h1>
+              <ProviderAddress onError={setHasError} />
             ) || tab === 2 && (
               <h1>Service details</h1>
             ) || tab === 3 && (

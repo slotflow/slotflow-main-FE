@@ -1,5 +1,5 @@
 import axiosInstance from "@/lib/axios";
-import { AddProviderAddressPayload, AddProviderServiceAvailabilityPayload, AddProviderServiceDetailsPayload, ApiCommonResponse, FetchAllServicesResponse, ProviderFetchProfileDetailsResponseProps } from "../interface/api/providerApiInterface";
+import { AddProviderAddressPayload, AddProviderServiceAvailabilityPayload, AddProviderServiceDetailsPayload, ApiCommonResponse, FetchAllServicesResponse, ProviderFetchAddressResponseProps, ProviderFetchProfileDetailsResponseProps } from "../interface/api/providerApiInterface";
 
 
 export const addProviderAddress = async ({ formData }: AddProviderAddressPayload): Promise<ApiCommonResponse> => {
@@ -25,4 +25,9 @@ export const addProviderServiceAvailability = async ({ data }: AddProviderServic
 export const fetchProviderProfileDetails = async (): Promise<ProviderFetchProfileDetailsResponseProps | null> => {
     const response = await axiosInstance.get('/provider/getProfileDetails');
     return response.data.provider;
+}
+
+export const fetchProviderAddress = async (): Promise<ProviderFetchAddressResponseProps | null> => {
+    const response = await axiosInstance.get('/provider/getAddress');
+    return response.data.address;
 }

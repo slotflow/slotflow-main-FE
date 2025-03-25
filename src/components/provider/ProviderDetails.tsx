@@ -13,7 +13,7 @@ const ProviderDetails: React.FC<ProviderProfileDetailsProps> = ({ onError }) => 
 
   const { data, isLoading, isError, error } = useQuery({
     queryFn: () => fetchProviderProfileDetails(),
-    queryKey: ["ProviderPRofileDetails"]
+    queryKey: ["ProviderDetails"]
   })
 
   if (isError) {

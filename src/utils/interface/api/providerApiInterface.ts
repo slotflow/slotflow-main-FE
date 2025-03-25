@@ -1,3 +1,4 @@
+import { Address } from "../addressInterface";
 import { Service } from "../appServiceInterface";
 import { Provider } from "../providerInterface";
 import { Availability } from "../serviceAvailabilityInterface";
@@ -39,4 +40,7 @@ export interface AddProviderServiceAvailabilityPayload {
 }
 
 // Profile profile details fetching api response 
-export type ProviderFetchProfileDetailsResponseProps = Pick<Provider, "username" | "email" | "isAdminVerified" | "isBlocked" | "isEmailVerified" | "phone" | "profileImage" | "createdAt">
+export type ProviderFetchProfileDetailsResponseProps = Pick<Provider, "username" | "email" | "isAdminVerified" | "isBlocked" | "isEmailVerified" | "phone" | "profileImage" | "createdAt">;
+
+// Profile profile details fetching api response 
+export type ProviderFetchAddressResponseProps = Pick<Address, "_id" | "addressLine" | "phone" | "place" | "city" | "district" | "pincode" | "state" | "country" | "googleMapLink">;
