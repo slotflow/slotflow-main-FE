@@ -54,5 +54,5 @@ export const fetchProviderService = async (providerId: string): Promise<AdminFet
 
 export const fetchProviderServiceAvailability = async (providerId: string): Promise<AdminFetchProviderAvailabilityResponseProps[] | null> => {
     const response = await axiosInstance.get(`/admin/fetchProviderServiceAvailability/${providerId}`);
-    return response.data.availability;
+    return response.data.availability.availability;
 }
