@@ -5,14 +5,14 @@ import { ChangeUserStatus } from "./AdminUserActions";
 import { ChangePlanBlockStatus } from "./AdminPlanActions";
 import { DataTableColumnHeader } from "./DataTableColumnHeader";
 import { ChangeServiceBlockStatus } from "./AdminSerivceActions";
-import { FetchAllPlansProps } from "@/utils/interface/api/adminPlanApiInterface";
-import { FetchAllServicesProps } from "@/utils/interface/api/adminServiceApiInterface";
-import { fetchAllUsersResponseProps } from "@/utils/interface/api/adminUserApiInterface";
-import { FetchAllProvidersResponseProps } from "@/utils/interface/api/adminProviderApiInterface";
+import { AdminFetchAllPlansResponseProps } from "@/utils/interface/api/adminPlanApiInterface";
+import { AdminfetchAllUsersResponseProps } from "@/utils/interface/api/adminUserApiInterface";
+import { AdminFetchAllServicesResponseProps } from "@/utils/interface/api/adminServiceApiInterface";
+import { AdminFetchAllProvidersResponseProps } from "@/utils/interface/api/adminProviderApiInterface";
 import {ApproveProvider, ChangeProviderBlockStatus, GetProviderDetailPage } from "./AdminProviderActions";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
 
-export const providerColumns: ColumnDef<FetchAllProvidersResponseProps>[] = [
+export const providerColumns: ColumnDef<AdminFetchAllProvidersResponseProps>[] = [
   {
     accessorKey: "isAdminVerified",
     header: "Admin Verication",
@@ -65,7 +65,7 @@ export const providerColumns: ColumnDef<FetchAllProvidersResponseProps>[] = [
   },
 ]
 
-export const userColumns: ColumnDef<fetchAllUsersResponseProps>[] = [
+export const userColumns: ColumnDef<AdminfetchAllUsersResponseProps>[] = [
   {
     accessorKey: "isVerified",
     header: "Verication",
@@ -116,7 +116,7 @@ export const userColumns: ColumnDef<fetchAllUsersResponseProps>[] = [
   }
 ]
 
-export const serviceColumns: ColumnDef<FetchAllServicesProps>[] = [
+export const serviceColumns: ColumnDef<AdminFetchAllServicesResponseProps>[] = [
   {
     accessorKey: "_id",
     header: "id",
@@ -164,7 +164,7 @@ export const serviceColumns: ColumnDef<FetchAllServicesProps>[] = [
 ]
 
 
-export const planColumns: ColumnDef<FetchAllPlansProps>[] = [
+export const planColumns: ColumnDef<AdminFetchAllPlansResponseProps>[] = [
   {
     accessorKey: "_id",
     header: "id",

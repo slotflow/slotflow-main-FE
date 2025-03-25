@@ -7,12 +7,13 @@ import { FormButton, FormHeading } from "../FormSplits";
 import SelectFiledWithLabel from "../SelectFiledWithLabel";
 import { BillingCycle } from "@/utils/interface/planInterface";
 import { useAdminPlanActions } from "@/utils/hooks/useAdminPlanActions";
-import { HandleChangeFunction, HandleFeatureChangeFunction, PlanFormData } from "@/utils/interface/commonInterface";
+import { AdminAddNewPlanRequestPayload } from "@/utils/interface/api/adminPlanApiInterface";
+import { HandleChangeFunction, HandleFeatureChangeFunction } from "@/utils/interface/commonInterface";
 
 const PlanForm = () => {
     
     const adminFormloading: boolean = useSelector((store: RootState) => store.admin.adminFormloading);
-    const [formData, setFormData] = useState<PlanFormData>({
+    const [formData, setFormData] = useState<AdminAddNewPlanRequestPayload>({
         planName: "",
         description: "",
         price: 0,

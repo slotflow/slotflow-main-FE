@@ -1,10 +1,9 @@
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
-import { Provider } from "@/utils/interface";
 import { AppDispatch } from "@/utils/redux/appStore";
 import { useQueryClient } from "@tanstack/react-query";
-import { UseAdminProviderActionReturnType } from "../interface/api/adminProviderApiInterface";
 import { approveProvider, changeProviderBlockStatus } from "@/utils/apis/adminProvider.api";
+import { AdminFetchAllProvidersResponseProps, UseAdminProviderActionReturnType } from "../interface/api/adminProviderApiInterface";
 
 export const useAdminProviderActions = (): UseAdminProviderActionReturnType => {
   
@@ -17,15 +16,14 @@ export const useAdminProviderActions = (): UseAdminProviderActionReturnType => {
       .then((res) => {
         queryClient.setQueryData(
           ["providers"],
-          (oldData: Partial<Provider>[] | undefined) => {
+          (oldData: AdminFetchAllProvidersResponseProps[] | []) => {
             if (!oldData) return [];
             return oldData.map((provider) =>
-              provider._id === res.updatedProvider._id ? res.updatedProvider : provider
+              provider._id === res._id ? res : provider
             );
           }
         );
         queryClient.invalidateQueries({ queryKey: ["providers"] });
-        toast.success(res.message);
       })
       .catch((error) => {
         toast.error(error.message);
@@ -38,15 +36,14 @@ export const useAdminProviderActions = (): UseAdminProviderActionReturnType => {
       .then((res) => {
         queryClient.setQueryData(
           ["providers"],
-          (oldData: Partial<Provider>[] | undefined) => {
+          (oldData: AdminFetchAllProvidersResponseProps[] | []) => {
             if (!oldData) return [];
             return oldData.map((provider) =>
-              provider._id === res.updatedProvider._id ? res.updatedProvider : provider
+              provider._id === res._id ? res : provider
             );
           }
         );
         queryClient.invalidateQueries({ queryKey: ["providers"] });
-        toast.success(res.message);
       })
       .catch((error) => {
         toast.error(error.message);

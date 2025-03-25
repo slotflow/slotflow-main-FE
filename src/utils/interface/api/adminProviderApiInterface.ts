@@ -5,37 +5,30 @@ import { ServiceAvailability } from "../serviceAvailabilityInterface";
 
 // **** Admin Provider Api Interface **** \\
 
-// Api Common Response
-interface ApiCommonResponse {
-    success: boolean;
-    message: string;
+// **** Api Common Response
+export interface ApiCommonResponse { 
+    success: boolean; 
+    message: string; 
 }
 
 
+// **** Fetch all Providers
 // Admin fetch all providers api response provider type, used also in the admin sevice providers data listing tables coloums props in colomns.tsx
-export type FetchAllProvidersResponseProps = Pick<Provider, "_id" | "username" | "email" | "isBlocked" | "isAdminVerified">
-// Admin fetch all providers api response interface
-export interface AdminFetchAllProvidersResponse extends ApiCommonResponse {
-    providers: FetchAllProvidersResponseProps[];
-}
+export type AdminFetchAllProvidersResponseProps = Pick<Provider, "_id" | "username" | "email" | "isBlocked" | "isAdminVerified">
 
 
 
+// **** Admin approove Provider
 // Admin approve provider api request payload interface
-export interface AdminApproveProviderRequestPayload {
-    providerId: string;
+export interface AdminApproveProviderRequestPayload { 
+    providerId: string; 
 }
-
 // Admin approve aprovider api response interface
-type ApproveProviderResponseProps = Pick<Provider, "_id" | "isAdminVerified">;
-export interface AdminApproveProviderResponse extends ApiCommonResponse{
-    updatedProvider: ApproveProviderResponseProps
-}
+export type AdminApproveProviderResponseProps = Pick<Provider, "_id" | "username" | "email" | "isBlocked" | "isAdminVerified">;
 
 
 
-
-
+// **** Admin change Provider block status
 // Admin Change provider block status request payload interface
 export interface AdminChangeProviderBlockStatusRequestPayload {
     providerId: string;
@@ -43,52 +36,21 @@ export interface AdminChangeProviderBlockStatusRequestPayload {
 }
 
 // Admin change Provider block status response interface
-type ChangeProviderBlockStatusProps = Pick<Provider, "_id" | "isBlocked">;
-export interface AdminChangeProviderBlockStatusResponse extends ApiCommonResponse{
-    updatedProvider : ChangeProviderBlockStatusProps
-}
+export type AdminChangeProviderBlockStatusResponse = Pick<Provider, "_id" | "username" | "email" | "isBlocked" | "isAdminVerified">;
 
 
 
+// **** Admin fetch provider details api response interface
+export type AdminFetchProviderDetailsResponseProps = Pick<Provider, "_id" | "username" | "email" | "isBlocked" | "isEmailVerified" | "isAdminVerified" | "phone" | "profileImage" | "createdAt">;
 
+// **** Admin fetch provider Address api response interface
+export type AdminFetchProviderAddressResponseProps = Pick<Address, "userId" | "addressLine" | "phone" | "place" | "city" | "district" | "pincode" | "state" | "country" | "googleMapLink">;
 
-// Admin fetch provider details api response interface
-type FetchProviderDetailsResponseProps = Pick<Provider, "_id" | "username" | "email" | "isBlocked" | "isEmailVerified" | "isAdminVerified" | "phone" | "profileImage" | "createdAt">;
-export interface AdminFetchProviderDetailsResponse extends ApiCommonResponse{
-    provider: FetchProviderDetailsResponseProps
-}
+// **** Admin fetch provider service details api response
+export type AdminFetchProviderServiceResponseProps = Pick<ProviderService, "providerId" | "serviceCategory" | "serviceName" | "serviceDescription" | "servicePrice" | "providerAdhaar" | "providerExperience" | "providerCertificateUrl">;
 
-
-
-
-
-// Admin fetch provider Address api response interface
-type FetchProviderAddressResponseProps = Pick<Address, "addressLine" | "phone" | "place" | "city" | "district" | "pincode" | "state" | "country" | "googleMapLink">;
-export interface AdminFetchProviderAddressResponse extends ApiCommonResponse{
-    address: FetchProviderAddressResponseProps
-}
-
-
-
-
-
-// Admin fetch provider service details api response
-type FetchProviderServiceResponseProps = Pick<ProviderService, "providerId" | "serviceCategory" | "serviceName" | "serviceDescription" | "servicePrice" | "providerAdhaar" | "providerExperience" | "providerCertificateUrl">;
-export interface AdminFetchProviderServiceResponse extends ApiCommonResponse {
-    service: FetchProviderServiceResponseProps
-}
-
-
-
-
-
-// Admin fetch provider service availability api response
-type fetchProviderAvailabilityResponseProps = Omit<ServiceAvailability, "createdAt" | "updatedAt">
-export interface AdminFetchProviderServiceAvailabilityResponse extends ApiCommonResponse {
-    availability: fetchProviderAvailabilityResponseProps[];
-}
-
-
+// **** Admin fetch provider service availability api response
+export type AdminFetchProviderAvailabilityResponseProps = Pick<ServiceAvailability, "day" | "duration" | "startTime" | "endTime" | "modes" | "slots">;
 
 
 
@@ -96,4 +58,4 @@ export interface AdminFetchProviderServiceAvailabilityResponse extends ApiCommon
 export interface UseAdminProviderActionReturnType {
     handleApproveProvider: (providerId: string) => void;
     hanldeChangeProviderBlockStatus: (providerId: string, status: boolean) => void;
-  }
+}

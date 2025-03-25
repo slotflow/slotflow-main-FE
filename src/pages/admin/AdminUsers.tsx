@@ -22,10 +22,10 @@ const AdminUsers = () => {
           <ShimmerTableTop />
           <ShimmerTable />
         </>
-      ) : data && data.users ? (
+      ) : data ? (
         <>
           <h2 className="text-2xl font-bold mb-4">Users</h2>
-          <DataTable columns={userColumns} data={data.users} />
+          <DataTable columns={userColumns} data={data} />
         </>
       ) : (
         <DataFetchingError message={"No data found"} />

@@ -1,10 +1,9 @@
-import { Service } from "../interface";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../redux/appStore";
 import { useQueryClient } from "@tanstack/react-query";
 import { addNewService, chnageServiceBlockStatus } from "../apis/adminService.api";
-import { UseAdminServiceActionReturnType } from "../interface/api/adminServiceApiInterface";
+import { AdminFetchAllServicesResponseProps, UseAdminServiceActionReturnType } from "../interface/api/adminServiceApiInterface";
 
 export const useAdminServiceActions = (): UseAdminServiceActionReturnType => {
   
@@ -14,9 +13,8 @@ export const useAdminServiceActions = (): UseAdminServiceActionReturnType => {
   const handleServiceAdding = (serviceName: string) => {
     dispatch(addNewService({serviceName}))
     .unwrap()
-    .then((res) => {
+    .then(() => {
       queryClient.invalidateQueries({ queryKey: ["services"] });
-      toast.success(res.message);
     })
     .catch((error) => {
       toast.error(error.message);
@@ -29,15 +27,14 @@ export const useAdminServiceActions = (): UseAdminServiceActionReturnType => {
       .then((res) => {
         queryClient.setQueryData(
           ["services"],
-          (oldData: Service[] | undefined) => {
+          (oldData: AdminFetchAllServicesResponseProps[] | []) => {
             if (!oldData) return [];
             return oldData.map((service) =>
-              service._id === res.serviceId ? res.updatedService : service
+              service._id === res._id ? res : service
             );
           }
         );
         queryClient.invalidateQueries({ queryKey: ["services"] });
-        toast.success(res.message);
       })
       .catch((error) => {
         toast.error(error.message);

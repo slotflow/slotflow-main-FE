@@ -25,7 +25,7 @@ const AdminServiceProviders = () => {
       ) : data ? (
         <>
           <h2 className="text-2xl font-bold mb-4">Service Providers</h2>
-          <DataTable columns={providerColumns} data={data.providers} />
+          <DataTable columns={providerColumns} data={data} />
         </>
       ) : (
         <DataFetchingError message={"No data found"} />

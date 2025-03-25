@@ -38,15 +38,6 @@ export interface stateVariables {
 
 
 
-// **** Admin Plan action interface **** \\
-// change block status of plan interface
-export interface ChangePlanBlockStatusProps {
-    planId: string,
-    status: boolean,
-}
-
-
-
 // **** Admin Provider action Interface **** \\
 // Approve provider
 export interface ProviderCommonProps {

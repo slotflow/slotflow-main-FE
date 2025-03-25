@@ -1,10 +1,9 @@
-import { Plan } from "../interface";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../redux/appStore";
 import { useQueryClient } from "@tanstack/react-query"
 import { addNewPlan, changePlanBlockStatus } from "../apis/adminPlan.api";
-import { AdminAddNewPlanRequestPayload, UseAdminPlanActionsReturnType } from "../interface/api/adminPlanApiInterface";
+import { AdminAddNewPlanRequestPayload, AdminFetchAllPlansResponseProps, UseAdminPlanActionsReturnType } from "../interface/api/adminPlanApiInterface";
 
 export const useAdminPlanActions = (): UseAdminPlanActionsReturnType => {
     const queryClient = useQueryClient();
@@ -13,9 +12,8 @@ export const useAdminPlanActions = (): UseAdminPlanActionsReturnType => {
     const handlePlanAdding = (formData : AdminAddNewPlanRequestPayload) => {
         dispatch(addNewPlan(formData))
             .unwrap()
-            .then((res) => {
+            .then(() => {
                 queryClient.invalidateQueries({ queryKey: ['plans'] });
-                toast.success(res.message);
             })
             .catch((error) => {
                 toast.error(error.message);
@@ -28,15 +26,14 @@ export const useAdminPlanActions = (): UseAdminPlanActionsReturnType => {
           .then((res) => {
             queryClient.setQueryData(
               ["plans"],
-              (oldData: Plan[] | undefined) => {
+              (oldData: AdminFetchAllPlansResponseProps[] | []) => {
                 if (!oldData) return [];
                 return oldData.map((plan) =>
-                  plan._id === res.updatedPlan._id ? res.updatedPlan : plan
+                  plan._id === res._id ? res : plan
                 );
               }
             );
             queryClient.invalidateQueries({ queryKey: ["plans"] });
-            toast.success(res.message);
           })
           .catch((error) => {
             toast.error(error.message);

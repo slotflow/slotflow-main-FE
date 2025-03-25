@@ -2,21 +2,10 @@ import { Service } from "../appServiceInterface";
 
 // **** Admin Service Api Interfaces **** \\
 
-// Common response interface
-interface ApiCommonResponse {
-    success: boolean;
-    message: string;
-}
-
-
-
 // **** Fetch All App Services **** \\
 // Admin fetch all app services type used as props in the column.tsx
-export type FetchAllServicesProps = Pick<Service , "_id" | "serviceName" | "isBlocked">;
-// Admin fetch all app service api response interface
-export interface AdminFetchAllServicesResponse extends ApiCommonResponse {
-    services : FetchAllServicesProps[];
-}
+export type AdminFetchAllServicesResponseProps = Pick<Service , "_id" | "serviceName" | "isBlocked">;
+
 
 
 
@@ -26,10 +15,8 @@ export interface AdminAddNewServiceRequestPayload {
     serviceName: string
 }
 // Admin add new app service api response interface used in adminServiceApi
-type AddNewServiceProps = Pick<Service , "_id" | "serviceName" | "isBlocked">;
-export interface AdminAddNewServiceResponse extends ApiCommonResponse {
-    service: AddNewServiceProps;
-}
+export type AdminAddNewServiceResponseProps = Pick<Service , "_id" | "serviceName" | "isBlocked">;
+
 
 
 
@@ -41,11 +28,8 @@ export interface AdminChangeServiceBlockStatusRequestPayload {
 }
 
 // Admin change service block status api response interface used in adminServiceApi
-type ChnageServicesBlockStatusProps = Pick<Service , "_id" | "isBlocked">;
-export interface AdminChangeServiceBlockStatusResponse extends ApiCommonResponse {
-    serviceId: string;
-    updatedService: ChnageServicesBlockStatusProps;
-}
+export type AdminChnageServicesBlockStatusResponseProps = Pick<Service , "_id" | "isBlocked">;
+
 
 
 

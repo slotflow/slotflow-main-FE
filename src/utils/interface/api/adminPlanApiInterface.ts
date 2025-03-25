@@ -2,30 +2,17 @@ import { Plan } from "../planInterface";
 
 
  // *** Admin Plan Api interfaces **** \\
- 
-// Api common response
-interface ApiCommonResponse {
-    success: boolean;
-    message: string;
-}
-
-
 
 // Admin fetch all plans type
-export type FetchAllPlansProps = Pick<Plan, "_id" | "planName" | "isBlocked">;
-// Admin fetch all plans api response interface
-export interface AdminFetchAllPlansResponse extends ApiCommonResponse {
-    plans : FetchAllPlansProps[];
-}
+export type AdminFetchAllPlansResponseProps = Pick<Plan, "_id" | "planName" | "isBlocked">;
 
 
 
 // Admin adding new plan api request request payload type, used in adminPlanApi
-export type AdminAddNewPlanRequestPayload = Omit<Plan,'_id' | 'isBlocked' | 'createdAt' | 'updatedAt'>;
+export type AdminAddNewPlanRequestPayload = Pick<Plan,'planName' | 'description' | 'price' | 'features' | "billingCycle" | "maxBookingPerMonth" | "adVisibility">;
 // Admin add new plan api response interface, used in adminPlanApi
-export interface AdminAddNewPlanApiResponse extends ApiCommonResponse{
-    plan: Plan
-}
+export type AdminAddNewPlanResponseProps = Pick<Plan, "_id" | "planName" | "isBlocked">;
+
 
 
 
@@ -36,10 +23,7 @@ export interface AdminChangePlanStatusRequestPayload {
 }
 
 // Admin chnage block status of plan api response interface, used in adminPlanApi
-export interface AdminChangePlanStatusResponse extends ApiCommonResponse{
-    updatedPlan: Partial<Plan>
-}
-
+export type AdminChangePlanStatusResponseProps = Pick<Plan, "_id" | "planName" | "isBlocked">;
 
 
 

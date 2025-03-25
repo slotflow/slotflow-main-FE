@@ -1,9 +1,9 @@
-import { User } from "../interface"; 
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/utils/redux/appStore";
 import { useQueryClient } from "@tanstack/react-query";
 import { changeUserBlockStatus } from "../apis/adminUser.api";
+import { AdminfetchAllUsersResponseProps } from "../interface/api/adminUserApiInterface";
 
 export const useAdminUserActions = () => {
   const queryClient = useQueryClient();
@@ -13,15 +13,14 @@ export const useAdminUserActions = () => {
     dispatch(changeUserBlockStatus({userId, status}))
     .unwrap()
       .then((res) => {
-        queryClient.setQueryData(["users"],(oldData: Partial<User>[] | undefined) => {
+        queryClient.setQueryData(["users"],(oldData: AdminfetchAllUsersResponseProps[] | []) => {
             if (!oldData) return [];
             return oldData.map((user) =>
-              user._id === res.updatedUser._id ? res.updatedUser : user
+              user._id === res._id ? res : user
             );
           }
         );
         queryClient.invalidateQueries({ queryKey: ["users"] });
-        toast.success(res.message)
       })
       .catch((error) => {
         toast.error(error.message);

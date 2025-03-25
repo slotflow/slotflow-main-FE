@@ -28,8 +28,8 @@ const AdminServices = () => {
               <ShimmerTable />
             </>
           )
-            : data && data?.services ? (
-              <DataTable columns={serviceColumns} data={data?.services} />
+            : data ? (
+              <DataTable columns={serviceColumns} data={data} />
             ) : (
               <DataFetchingError message={"No data found"} />
             )}

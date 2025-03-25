@@ -1,4 +1,4 @@
-import { service } from "../appServiceInterface";
+import { Service } from "../appServiceInterface";
 import { Availability } from "../serviceAvailabilityInterface";
 
 // Common Response Type
@@ -24,7 +24,7 @@ export interface AddProviderAddressPayload {
 
 // Fetch all services api request response 
 export interface FetchAllServicesResponse extends ApiCommonResponse{
-    services: service[]
+    services: Service[]
 }
 
 //  Provider service details adding request payload used in provider api

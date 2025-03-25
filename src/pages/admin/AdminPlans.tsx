@@ -14,6 +14,8 @@ const AdminPlans = () => {
         queryFn: fetchAllPlans,
     });
 
+    console.log("data : ",data)
+
     if (isError) return <DataFetchingError message={error.message} />
 
     return (
@@ -26,8 +28,8 @@ const AdminPlans = () => {
                             <ShimmerTableTop />
                             <ShimmerTable />
                         </>
-                    ) : data && data.plans ? (
-                        <DataTable columns={planColumns} data={data.plans} />
+                    ) : data && data ? (
+                        <DataTable columns={planColumns} data={data} />
                     ) : (
                         <DataFetchingError message={"No data found"} />
                     )}

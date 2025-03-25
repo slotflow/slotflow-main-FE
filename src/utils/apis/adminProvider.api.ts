@@ -1,21 +1,30 @@
+import { toast } from "react-toastify";
 import axiosInstance from "@/lib/axios";
+import { 
+    AdminApproveProviderResponseProps,
+    AdminApproveProviderRequestPayload, 
+    AdminFetchAllProvidersResponseProps,
+    AdminChangeProviderBlockStatusResponse,  
+    AdminFetchProviderDetailsResponseProps,
+    AdminFetchProviderAddressResponseProps,
+    AdminFetchProviderServiceResponseProps,
+    AdminFetchProviderAvailabilityResponseProps, 
+    AdminChangeProviderBlockStatusRequestPayload, 
+} from "../interface/api/adminProviderApiInterface";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { AdminApproveProviderRequestPayload, AdminApproveProviderResponse, 
-    AdminChangeProviderBlockStatusRequestPayload, AdminChangeProviderBlockStatusResponse, 
-    AdminFetchAllProvidersResponse, AdminFetchProviderAddressResponse, 
-    AdminFetchProviderDetailsResponse, AdminFetchProviderServiceAvailabilityResponse, 
-    AdminFetchProviderServiceResponse } from "../interface/api/adminProviderApiInterface";
 
-export const fetchProviders = async (): Promise<AdminFetchAllProvidersResponse> => {
+
+export const fetchProviders = async (): Promise<AdminFetchAllProvidersResponseProps[]> => {
     const response = await axiosInstance.get("/admin/providers");
-    return response.data;
+    return response.data.providers;
 };
 
-export const approveProvider = createAsyncThunk<AdminApproveProviderResponse,AdminApproveProviderRequestPayload>('/admin/approve/provider/',
+export const approveProvider = createAsyncThunk<AdminApproveProviderResponseProps,AdminApproveProviderRequestPayload>('/admin/approve/provider/',
     async (payload: AdminApproveProviderRequestPayload) => {
         const { providerId } = payload;
         const response = await axiosInstance.put(`/admin/provider/approve/${providerId}`);
-        return response.data;
+        toast.success(response.data.message);
+        return response.data.updatedProvider;
     }
 )
 
@@ -23,26 +32,27 @@ export const changeProviderBlockStatus = createAsyncThunk<AdminChangeProviderBlo
     async (payload: AdminChangeProviderBlockStatusRequestPayload) => {
         const { providerId, status } = payload;
         const response = await axiosInstance.put(`/admin/provider/changeStatus/${providerId}?status=${status}`);
-        return response.data;
+        toast.success(response.data.message);
+        return response.data.updatedProvider;
     }
 )
 
-export const fetchProviderDetails = async (providerId: string): Promise<AdminFetchProviderDetailsResponse> => {
+export const fetchProviderDetails = async (providerId: string): Promise<AdminFetchProviderDetailsResponseProps | null> => {
     const response = await axiosInstance.get(`/admin/fetchProviderDetails/${providerId}`);
-    return response.data;
+    return response.data.provider;
 }
 
-export const fetchProviderAddress = async (providerId: string): Promise<AdminFetchProviderAddressResponse> => {
+export const fetchProviderAddress = async (providerId: string): Promise<AdminFetchProviderAddressResponseProps | null> => {
     const response = await axiosInstance.get(`/admin/fetchProviderAddress/${providerId}`);
-    return response.data;
+    return response.data.address;
 }
 
-export const fetchProviderService = async (providerId: string): Promise<AdminFetchProviderServiceResponse> => {
+export const fetchProviderService = async (providerId: string): Promise<AdminFetchProviderServiceResponseProps | null> => {
     const response = await axiosInstance.get(`/admin/fetchProviderService/${providerId}`);
-    return response.data;
+    return response.data.service;
 }
 
-export const fetchProviderServiceAvailability = async (providerId: string): Promise<AdminFetchProviderServiceAvailabilityResponse> => {
+export const fetchProviderServiceAvailability = async (providerId: string): Promise<AdminFetchProviderAvailabilityResponseProps[] | null> => {
     const response = await axiosInstance.get(`/admin/fetchProviderServiceAvailability/${providerId}`);
-    return response.data;
+    return response.data.availability;
 }

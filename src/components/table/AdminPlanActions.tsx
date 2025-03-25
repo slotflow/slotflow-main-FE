@@ -1,8 +1,8 @@
 import { DropdownMenuItem } from "../ui/dropdown-menu";
 import { useAdminPlanActions } from "@/utils/hooks/useAdminPlanActions";
-import { ChangePlanBlockStatusProps } from "@/utils/interface/adminInterface";
+import { AdminChangePlanStatusRequestPayload } from "@/utils/interface/api/adminPlanApiInterface";
 
-export const ChangePlanBlockStatus: React.FC<ChangePlanBlockStatusProps> = ({ planId, status }) => {
+export const ChangePlanBlockStatus: React.FC<AdminChangePlanStatusRequestPayload> = ({ planId, status }) => {
     
     const { handleChangePlanStatus } = useAdminPlanActions();
 

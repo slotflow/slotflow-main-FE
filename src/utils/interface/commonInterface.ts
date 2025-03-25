@@ -1,10 +1,9 @@
 import { ChangeEvent } from "react";
-import { BillingCycle } from "./planInterface";
 
 // InputDisplay components interface, this is used for showing details in profiles
 export interface InfoDisplayComponentRowProps {
     label: string;
-    value: string | boolean | number | string[] | undefined;
+    value: string | boolean | number | string[] | undefined | null;
     formatDate?: (dateString: string) => string;
     copyToClipboard?: (text: string) => void;
     link?: boolean;
@@ -63,19 +62,6 @@ export interface SideBarProps {
     routes: Route[];
 }
 
-
-
-// **** Admin Forms Interface **** \\
-// PlanForm compoenent formData useState interface
-export interface PlanFormData {
-    planName: string;
-    description: string;
-    price: number;
-    features: string[];
-    billingCycle: BillingCycle;
-    maxBookingPerMonth: number;
-    adVisibility: boolean;
-}
 
 
 
