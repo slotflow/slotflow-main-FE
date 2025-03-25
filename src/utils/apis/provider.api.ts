@@ -1,31 +1,28 @@
 import axiosInstance from "@/lib/axios";
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import { AddProviderAddressPayload, AddProviderServiceAvailabilityPayload, AddProviderServiceDetailsPayload, ApiCommonResponse, FetchAllServicesResponse } from "../interface/api/providerApiInterface";
+import { AddProviderAddressPayload, AddProviderServiceAvailabilityPayload, AddProviderServiceDetailsPayload, ApiCommonResponse, FetchAllServicesResponse, ProviderFetchProfileDetailsResponseProps } from "../interface/api/providerApiInterface";
 
-export const addProviderAddress = createAsyncThunk<ApiCommonResponse, AddProviderAddressPayload>('/provider/addAddress',
-    async ({ formData }) => {
-        const response = await axiosInstance.post(`/provider/addAddress`, formData);
-        return response.data;
-    }
-)
 
-export const fetchAllServices = createAsyncThunk<FetchAllServicesResponse>('/provider/fetchAllServices',
-    async () => {
-        const response = await axiosInstance.get('/provider/fetchAllServices');
-        return response.data;
-    }
-)
+export const addProviderAddress = async ({ formData }: AddProviderAddressPayload): Promise<ApiCommonResponse> => {
+    const response = await axiosInstance.post(`/provider/addAddress`, formData);
+    return response.data;
+}
 
-export const addProviderServiceDetails = createAsyncThunk<ApiCommonResponse, AddProviderServiceDetailsPayload>('/provider/addAddress',
-    async ({ formData }) => {
-        const response = await axiosInstance.post(`/provider/addServiceDetails`, formData);
-        return response.data;
-    }
-)
+export const fetchAllServices = async (): Promise<FetchAllServicesResponse> => {
+    const response = await axiosInstance.get('/provider/fetchAllServices');
+    return response.data;
+}
 
-export const addProviderServiceAvailability = createAsyncThunk<ApiCommonResponse, AddProviderServiceAvailabilityPayload>('/provider/addProviderServiceAvailability',
-    async ({ data }) => {
-        const response = await axiosInstance.post(`/provider/addProviderServiceAvailability`, data);
-        return response.data;
-    }
-)
+export const addProviderServiceDetails = async ({ formData }: AddProviderServiceDetailsPayload): Promise<ApiCommonResponse> => {
+    const response = await axiosInstance.post(`/provider/addServiceDetails`, formData);
+    return response.data;
+}
+
+export const addProviderServiceAvailability = async ({ data }: AddProviderServiceAvailabilityPayload): Promise<ApiCommonResponse> => {
+    const response = await axiosInstance.post(`/provider/addProviderServiceAvailability`, data);
+    return response.data;
+}
+
+export const fetchProviderProfileDetails = async (): Promise<ProviderFetchProfileDetailsResponseProps | null> => {
+    const response = await axiosInstance.get('/provider/getProfileDetails');
+    return response.data.provider;
+}

@@ -2,23 +2,22 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { RootState } from "@/utils/redux/appStore";
-import AdminProviderDetails from "@/components/admin/AdminProviderDetails";
-import AdminProviderAddress from "@/components/admin/AdminProviderAddress";
+import DataFetchingError from "@/components/common/DataFetchingError";
 import AdmiProviderService from "@/components/admin/AdmiProviderService";
+import AdminProviderAddress from "@/components/admin/AdminProviderAddress";
+import AdminProviderDetails from "@/components/admin/AdminProviderDetails";
 import AdminProviderServiceAvailability from "@/components/admin/AdminProviderServiceAvailability";
 
-const ServiceProviderDetail = () => {
+const AdminServiceProviderDetailProfile = () => {
 
     const { providerId } = useParams();
-    const [tab, setTab] = useState(0);
+    const [tab, setTab] = useState<number>(0);
     const themeMode = useSelector((store: RootState) => store.state.lightTheme);
     const [hasError, setHasError] = useState<boolean>(false);
 
     const tabButtons: string[] = ["Details", "Address", "Service", "Availability"];
 
-    if(!providerId) return (
-        <div>No rpovider found</div>
-    )
+    if(!providerId) return <DataFetchingError message={"Provider Profile fetching error"}/>
 
     return (
         <div className="border border-[var(--boxBorder)] rounded-lg p-2 flex flex-col">
@@ -47,4 +46,4 @@ const ServiceProviderDetail = () => {
     )
 }
 
-export default ServiceProviderDetail
+export default AdminServiceProviderDetailProfile

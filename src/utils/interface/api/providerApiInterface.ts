@@ -1,4 +1,5 @@
 import { Service } from "../appServiceInterface";
+import { Provider } from "../providerInterface";
 import { Availability } from "../serviceAvailabilityInterface";
 
 // Common Response Type
@@ -36,3 +37,6 @@ export interface AddProviderServiceDetailsPayload {
 export interface AddProviderServiceAvailabilityPayload {
     data: Availability[];
 }
+
+// Profile profile details fetching api response 
+export type ProviderFetchProfileDetailsResponseProps = Pick<Provider, "username" | "email" | "isAdminVerified" | "isBlocked" | "isEmailVerified" | "phone" | "profileImage" | "createdAt">
