@@ -35,6 +35,8 @@ import Provider from "@/pages/provider/Provider.tsx";
 import ProviderAddAddress from "@/pages/provider/ProviderAddAddress.tsx";
 import ProviderAddServiceDetails from "@/pages/provider/ProviderAddServiceDetails.tsx";
 import AdminServiceProviderDetailProfile from "@/pages/admin/AdminServiceProviderDetailProfile.tsx";
+import ProviderAddress from "@/pages/provider/ProviderAddress.tsx";
+import ProviderAvailability from "@/pages/provider/ProviderAvailability.tsx";
 
 export const appRouter = createBrowserRouter([
     {
@@ -93,7 +95,9 @@ export const appRouter = createBrowserRouter([
                 children: [
                     { index: true, element: <ProviderDashboard /> },
                     { path: "profile", element: <ProviderProfile /> },
+                    { path: "address", element: <ProviderAddress /> },
                     { path: "service", element: <ProviderService /> },
+                    { path: "availability", element: <ProviderAvailability /> },
                     { path: "reviews", element: <ProviderReviews /> },
                     { path: "appointments", element: <ProviderAppointments /> },
                     { path: "payments", element: <ProviderPayments /> },

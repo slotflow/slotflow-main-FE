@@ -1,7 +1,8 @@
 import { Address } from "../addressInterface";
 import { Service } from "../appServiceInterface";
 import { Provider } from "../providerInterface";
-import { Availability } from "../serviceAvailabilityInterface";
+import { ProviderService } from "../providerServiceInterface";
+import { Availability, ServiceAvailability } from "../serviceAvailabilityInterface";
 
 // Common Response Type
 export interface ApiCommonResponse {
@@ -39,8 +40,14 @@ export interface AddProviderServiceAvailabilityPayload {
     data: Availability[];
 }
 
-// Profile profile details fetching api response 
+// Provider profile details fetching api response 
 export type ProviderFetchProfileDetailsResponseProps = Pick<Provider, "username" | "email" | "isAdminVerified" | "isBlocked" | "isEmailVerified" | "phone" | "profileImage" | "createdAt">;
 
-// Profile profile details fetching api response 
+// Provider details fetching api response 
 export type ProviderFetchAddressResponseProps = Pick<Address, "_id" | "addressLine" | "phone" | "place" | "city" | "district" | "pincode" | "state" | "country" | "googleMapLink">;
+
+// Provider service details api response 
+export type ProviderFetchServiceDetailsResponseProps = Pick<ProviderService, "_id" | "serviceCategory" | "serviceName" | "serviceDescription" | "servicePrice" | "providerAdhaar" | "providerExperience" | "providerCertificateUrl">;
+
+// Provider service availability api response
+export type ProviderFetchServiceAvailabilityResponseProps = Pick<ServiceAvailability, "_id" |  "availability" >

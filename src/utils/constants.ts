@@ -23,7 +23,9 @@ export const adminRoutes: Route[] = [
   export const providerRoutes: Route[] = [
     { path: "/provider", name: "Dashboard" },
     { path: "profile", name: "Profile" },
+    { path: "address", name: "Address" },
     { path: "service", name: "Service" },
+    { path: "availability", name: "Availability" },
     { path: "appointments", name: "Appointments" },
     { path: "reviews", name: "Reviews" },
     { path: "payments", name: "Payments" },

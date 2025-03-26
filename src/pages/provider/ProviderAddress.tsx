@@ -1,16 +1,15 @@
-import { formatDate } from "@/utils/helper";
 import { useQuery } from "@tanstack/react-query";
 import DataFetchingError from "@/components/common/DataFetchingError";
-import { fetchProviderProfileDetails } from "@/utils/apis/provider.api";
+import { fetchProviderAddress } from "@/utils/apis/provider.api";
 import InfoDisplayComponent from "@/components/common/InfoDisplayComponent";
 import ProviderProfileHead from "@/components/provider/ProviderProfileHead";
 import ShimmerProfileDetails from "@/components/shimmers/ShimmerProfileDetails";
 
-const ProviderProfile = () => {
+const ProviderAddress = () => {
 
   const { data, isLoading, isError, error } = useQuery({
-    queryFn: () => fetchProviderProfileDetails(),
-    queryKey: ["ProviderDetails"]
+      queryFn: () => fetchProviderAddress(),
+      queryKey: ["ProviderAddress"]
   })
 
   return (
@@ -24,13 +23,15 @@ const ProviderProfile = () => {
           ) : (
             <table className="table-auto w-full">
             <tbody>
-              <InfoDisplayComponent label="Username" value={data?.username} />
-              <InfoDisplayComponent label="Email" value={data?.email} />
-              <InfoDisplayComponent label="Phone Number" value={data?.phone || 'Not yet added'} />
-              <InfoDisplayComponent label="Joined On" value={data?.createdAt} formatDate={formatDate} />
-              <InfoDisplayComponent label="Email Verified" value={data?.isEmailVerified} isBoolean={true} />
-              <InfoDisplayComponent label="Account Blocked" value={data?.isBlocked} isBoolean={true} />
-              <InfoDisplayComponent label="Admin Verified" value={data?.isAdminVerified} isBoolean={true} />
+            <InfoDisplayComponent label="Address Line" value={data?.addressLine} />
+            <InfoDisplayComponent label="Place" value={data?.place} />
+            <InfoDisplayComponent label="City" value={data?.city} />
+            <InfoDisplayComponent label="Phone" value={data?.phone} />
+            <InfoDisplayComponent label="State" value={data?.state} />
+            <InfoDisplayComponent label="Pincode" value={data?.pincode} />
+            <InfoDisplayComponent label="Distrcit" value={data?.district} />
+            <InfoDisplayComponent label="Google Map Link" value={data?.googleMapLink} link={true}/>
+            <InfoDisplayComponent label="Country" value={data?.country} />
             </tbody>
           </table>
           )}
@@ -39,4 +40,4 @@ const ProviderProfile = () => {
   )
 }
 
-export default ProviderProfile
+export default ProviderAddress

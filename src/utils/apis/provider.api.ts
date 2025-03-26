@@ -1,5 +1,5 @@
 import axiosInstance from "@/lib/axios";
-import { AddProviderAddressPayload, AddProviderServiceAvailabilityPayload, AddProviderServiceDetailsPayload, ApiCommonResponse, FetchAllServicesResponse, ProviderFetchAddressResponseProps, ProviderFetchProfileDetailsResponseProps } from "../interface/api/providerApiInterface";
+import { AddProviderAddressPayload, AddProviderServiceAvailabilityPayload, AddProviderServiceDetailsPayload, ApiCommonResponse, FetchAllServicesResponse, ProviderFetchAddressResponseProps, ProviderFetchProfileDetailsResponseProps, ProviderFetchServiceAvailabilityResponseProps, ProviderFetchServiceDetailsResponseProps } from "../interface/api/providerApiInterface";
 
 
 export const addProviderAddress = async ({ formData }: AddProviderAddressPayload): Promise<ApiCommonResponse> => {
@@ -30,4 +30,15 @@ export const fetchProviderProfileDetails = async (): Promise<ProviderFetchProfil
 export const fetchProviderAddress = async (): Promise<ProviderFetchAddressResponseProps | null> => {
     const response = await axiosInstance.get('/provider/getAddress');
     return response.data.address;
+}
+
+export const fetchProviderServiceDetails = async (): Promise<ProviderFetchServiceDetailsResponseProps | null> => {
+    const response = await axiosInstance.get('/provider/getServiceDetails');
+    return response.data.service;
+}
+
+export const fetchProviderServiceAvailability = async (): Promise<ProviderFetchServiceAvailabilityResponseProps | null> => {
+    const response = await axiosInstance.get('/provider/getServiceAAvailability');
+    console.log("response : ",response);
+    return response.data.availability;
 }

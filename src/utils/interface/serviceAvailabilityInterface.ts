@@ -23,9 +23,10 @@ export interface AvailabilityForResponse extends Omit<Availability, "slots"> {
 }
 
 // Service availability interface
-export interface ServiceAvailability extends AvailabilityForResponse {
+export interface ServiceAvailability {
     _id: string;
     providerId: string;
+    availability: AvailabilityForResponse[]
     createdAt: string;
     updatedAt: string;
 }

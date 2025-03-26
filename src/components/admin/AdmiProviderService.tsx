@@ -15,8 +15,6 @@ const AdmiProviderService: React.FC<AdminProviderServiceProps> = memo(({ provide
         queryFn: () => fetchProviderService(providerId),
     })
 
-    console.log("data : ", data);
-
     if (isError) {
         onError(true);
         return (

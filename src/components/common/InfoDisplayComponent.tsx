@@ -6,7 +6,7 @@ const InfoDisplayComponent: React.FC<InfoDisplayComponentRowProps> = ({ label, v
 
     return (
         <>
-            <tr>
+            <tr className="border-b border-[var(--boxBorder)]">
                 <td className="p-4 font-medium text-[var(--infoDataLabel)]">{label}</td>
                 <td className="p-4">
                     {!value && "Not yet addedd"}
