@@ -15,14 +15,14 @@ const ProviderProfile = () => {
 
   return (
     <div className="min-h-full border border-[var(--boxBorder)] rounded-lg p-2 flex flex-col">
-     <ProviderProfileHead />
-        <div className="w-full mx-auto mt-8 p-6 rounded-lg flex-grow">
-          {isError ? (
-            <DataFetchingError message={error.message} />
-          ) : isLoading ? (
-            <ShimmerProfileDetails row={7} />
-          ) : (
-            <table className="table-auto w-full">
+      <ProviderProfileHead />
+      <div className="w-full mx-auto mt-8 py-6 rounded-lg flex-grow">
+        {isError ? (
+          <DataFetchingError message={error.message} />
+        ) : isLoading ? (
+          <ShimmerProfileDetails row={7} />
+        ) : (
+          <table className="table-auto border-collapse border border-[var(--boxBorder)] w-full">
             <tbody>
               <InfoDisplayComponent label="Username" value={data?.username} />
               <InfoDisplayComponent label="Email" value={data?.email} />
@@ -33,8 +33,8 @@ const ProviderProfile = () => {
               <InfoDisplayComponent label="Admin Verified" value={data?.isAdminVerified} isBoolean={true} />
             </tbody>
           </table>
-          )}
-        </div>
+        )}
+      </div>
     </div>
   )
 }

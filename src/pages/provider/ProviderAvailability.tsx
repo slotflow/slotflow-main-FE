@@ -5,7 +5,7 @@ import { Slot } from "@/utils/interface/serviceAvailabilityInterface";
 import InfoDisplayComponent from "@/components/common/InfoDisplayComponent";
 import ProviderProfileHead from "@/components/provider/ProviderProfileHead";
 import { fetchProviderServiceAvailability } from "@/utils/apis/provider.api";
-import ShimmerProfileDetails from "@/components/shimmers/ShimmerProfileDetails";
+import ShimmerProviderAvailability from "@/components/shimmers/ShimmerProviderAvailability";
 
 const ProviderAvailability = () => {
 
@@ -14,7 +14,7 @@ const ProviderAvailability = () => {
         queryFn: () => fetchProviderServiceAvailability(),
         queryKey: ["ProviderServiceAvailability"]
     })
-    
+
     return (
         <div className="min-h-full border border-[var(--boxBorder)] rounded-lg p-2 flex flex-col">
             <ProviderProfileHead />
@@ -22,16 +22,16 @@ const ProviderAvailability = () => {
                 {isError ? (
                     <DataFetchingError message={error.message} />
                 ) : isLoading ? (
-                    <ShimmerProfileDetails row={7} />
+                    <ShimmerProviderAvailability btCount={7} slotCount={20} />
                 ) : (
                     <div className="flex space-x-4">
-                        <div className="flex flex-col w-3/12 space-y-4 py-2">
+                        <div className="flex flex-col w-3/12 space-y-4 px-2 items-start">
                             {data && data.availability?.map((avail, index: number) => (
-                                <button key={index} className={`cursor-pointer bg-[var(--menuBg)] hover:bg-[var(--menuItemHoverBg)] p-2 rounded-lg ${tab === index && "text-[var(--mainColor)] font-semibold"}`} onClick={() => setTab(index)}>{avail.day}</button>
+                                <button key={index} className={`w-full cursor-pointer bg-[var(--menuBg)] hover:bg-[var(--menuItemHoverBg)] p-2 rounded-lg ${tab === index && "text-[var(--mainColor)] font-semibold"}`} onClick={() => setTab(index)}>{avail.day}</button>
                             ))}
                         </div>
                         <div className="table-auto w-full flex flex-col">
-                            <table>
+                            <table className="table-auto border-collapse border border-[var(--boxBorder)] w-full">
                                 <tbody className="w-1/2">
                                     <InfoDisplayComponent label="Start Time" value={data && data.availability[tab]?.startTime} />
                                     <InfoDisplayComponent label="End Time" value={data && data.availability[tab]?.endTime} />
@@ -57,4 +57,4 @@ const ProviderAvailability = () => {
     )
 }
 
-export default ProviderAvailability
+export default ProviderAvailability;

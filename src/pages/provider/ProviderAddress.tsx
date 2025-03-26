@@ -15,7 +15,7 @@ const ProviderAddress = () => {
   return (
     <div className="min-h-full border border-[var(--boxBorder)] rounded-lg p-2 flex flex-col">
      <ProviderProfileHead />
-        <div className="w-full mx-auto mt-8 p-6 rounded-lg flex-grow">
+        <div className="w-full mx-auto mt-8 py-6 rounded-lg flex-grow">
           {isError ? (
             <DataFetchingError message={error.message} />
           ) : isLoading ? (

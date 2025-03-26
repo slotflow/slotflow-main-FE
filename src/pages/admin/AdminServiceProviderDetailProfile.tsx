@@ -20,7 +20,7 @@ const AdminServiceProviderDetailProfile = () => {
     if(!providerId) return <DataFetchingError message={"Provider Profile fetching error"}/>
 
     return (
-        <div className="border border-[var(--boxBorder)] rounded-lg p-2 flex flex-col">
+        <div className="min-h-full border border-[var(--boxBorder)] rounded-lg p-2 flex flex-col">
             <div className="w-full h-50 flex justify-center items-center bg-[var(--menuItemHoverBg)] rounded-[6px]">
                 <img className={`h-32 w-32 rounded-full ${!themeMode && "invert"}`} src={'/images/avatar.png'} />
             </div>

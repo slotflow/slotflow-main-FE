@@ -50,7 +50,7 @@ export type AdminFetchProviderAddressResponseProps = Pick<Address, "userId" | "a
 export type AdminFetchProviderServiceResponseProps = Pick<ProviderService, "providerId" | "serviceCategory" | "serviceName" | "serviceDescription" | "servicePrice" | "providerAdhaar" | "providerExperience" | "providerCertificateUrl">;
 
 // **** Admin fetch provider service availability api response
-export type AdminFetchProviderAvailabilityResponseProps = Pick<ServiceAvailability, "day" | "duration" | "startTime" | "endTime" | "modes" | "slots">;
+export type AdminFetchProviderAvailabilityResponseProps = Pick<ServiceAvailability, "availability" >;
 
 
 

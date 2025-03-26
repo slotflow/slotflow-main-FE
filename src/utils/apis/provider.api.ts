@@ -39,6 +39,5 @@ export const fetchProviderServiceDetails = async (): Promise<ProviderFetchServic
 
 export const fetchProviderServiceAvailability = async (): Promise<ProviderFetchServiceAvailabilityResponseProps | null> => {
     const response = await axiosInstance.get('/provider/getServiceAAvailability');
-    console.log("response : ",response);
     return response.data.availability;
 }

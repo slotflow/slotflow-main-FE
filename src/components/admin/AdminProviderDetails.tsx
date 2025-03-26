@@ -30,7 +30,7 @@ const AdminProviderDetails: React.FC<AdminProviderDetailsProps> = memo(({ _id, o
     }
 
     return (
-        <div className="w-full mx-auto mt-8 p-6 rounded-lg">
+        <div className="w-full mx-auto mt-8 py-6 rounded-lg">
             <table className="table-auto border-collapse border border-[var(--boxBorder)] w-full">
                 <tbody>
                     <InfoDisplayComponent label="Username" value={data?.username} />
