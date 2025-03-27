@@ -50,4 +50,10 @@ export type ProviderFetchAddressResponseProps = Pick<Address, "_id" | "addressLi
 export type ProviderFetchServiceDetailsResponseProps = Pick<ProviderService, "_id" | "serviceCategory" | "serviceName" | "serviceDescription" | "servicePrice" | "providerAdhaar" | "providerExperience" | "providerCertificateUrl">;
 
 // Provider service availability api response
-export type ProviderFetchServiceAvailabilityResponseProps = Pick<ServiceAvailability, "_id" |  "availability" >
+export type ProviderFetchServiceAvailabilityResponseProps = Pick<ServiceAvailability, "_id" |  "availability" >;
+
+// Provider profile image updating api request
+export type ProviderUpdateProfileImageRequestProps = Pick<Provider, "profileImage">;
+export interface ProviderUpdateProfileImageResponseProps extends ApiCommonResponse {
+    profileImage: string;
+}

@@ -27,6 +27,11 @@ const authSlice = createSlice({
                 state.authUser.serviceAvailability = action.payload;
             }
         },
+        setProfileImage: (state, action: PayloadAction<string>) => {
+            if(state.authUser){
+                state.authUser.profileImage = action.payload;
+            }
+        }
     },
 });
 
@@ -35,6 +40,7 @@ export const {
     setAddress,
     setServiceDetails,
     setServiceAvailability,
+    setProfileImage,
 } = authSlice.actions;
 
 export default authSlice.reducer;
