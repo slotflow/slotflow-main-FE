@@ -1,17 +1,16 @@
 import axiosInstance from "@/lib/axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { 
-    AddProviderAddressPayload, 
-    AddProviderServiceAvailabilityPayload, 
-    AddProviderServiceDetailsPayload, 
     ApiCommonResponse, 
     FetchAllServicesResponse, 
+    AddProviderAddressPayload, 
+    AddProviderServiceDetailsPayload, 
     ProviderFetchAddressResponseProps, 
+    AddProviderServiceAvailabilityPayload, 
+    ProviderUpdateProfileImageResponseProps,
     ProviderFetchProfileDetailsResponseProps, 
-    ProviderFetchServiceAvailabilityResponseProps, 
     ProviderFetchServiceDetailsResponseProps, 
-    // ProviderUpdateProfileImageRequestProps, 
-    ProviderUpdateProfileImageResponseProps 
+    ProviderFetchServiceAvailabilityResponseProps, 
 } from "../interface/api/providerApiInterface";
 
 
@@ -21,7 +20,7 @@ export const addProviderAddress = async ({ formData }: AddProviderAddressPayload
 }
 
 export const fetchAllServices = async (): Promise<FetchAllServicesResponse> => {
-    const response = await axiosInstance.get('/provider/fetchAllServices');
+    const response = await axiosInstance.get('/provider/fetchAllAppServices');
     return response.data;
 }
 
@@ -51,7 +50,7 @@ export const fetchProviderServiceDetails = async (): Promise<ProviderFetchServic
 }
 
 export const fetchProviderServiceAvailability = async (): Promise<ProviderFetchServiceAvailabilityResponseProps | null> => {
-    const response = await axiosInstance.get('/provider/getServiceAAvailability');
+    const response = await axiosInstance.get('/provider/getServiceAvailability');
     return response.data.availability;
 }
 

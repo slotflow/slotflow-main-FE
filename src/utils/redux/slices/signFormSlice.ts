@@ -55,8 +55,8 @@ const signFormSlice = createSlice({
             state.otpTimerIsRunning = false;
         }
     },
-        extraReducers: (builder) => {
-            builder
+        extraReducers: (signLoader) => {
+            signLoader
                 .addCase(signup.pending, (state) => {
                     state.loading = true;
                 })

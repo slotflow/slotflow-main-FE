@@ -53,7 +53,6 @@ export type ProviderFetchServiceDetailsResponseProps = Pick<ProviderService, "_i
 export type ProviderFetchServiceAvailabilityResponseProps = Pick<ServiceAvailability, "_id" |  "availability" >;
 
 // Provider profile image updating api request
-export type ProviderUpdateProfileImageRequestProps = Pick<Provider, "profileImage">;
 export interface ProviderUpdateProfileImageResponseProps extends ApiCommonResponse {
     profileImage: string;
 }

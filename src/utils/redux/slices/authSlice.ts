@@ -1,8 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AuthState, UserData } from "@/utils/interface/sliceInterface";
+import { updateProviderProfileImage } from "@/utils/apis/provider.api";
 
 const initialState: AuthState = {
     authUser: null,
+    profileImageUpdating: false,
 };
 
 const authSlice = createSlice({
@@ -32,6 +34,21 @@ const authSlice = createSlice({
                 state.authUser.profileImage = action.payload;
             }
         }
+    },
+    extraReducers: (builder) => {
+        builder
+            .addCase(updateProviderProfileImage.pending, (state) => {
+                state.profileImageUpdating = true;
+            })
+            .addCase(updateProviderProfileImage.fulfilled, (state, action) => {
+                state.profileImageUpdating = false;
+                if(state.authUser){
+                    state.authUser.profileImage = action.payload.profileImage;
+                }
+            })
+            .addCase(updateProviderProfileImage.rejected, (state) => {
+                state.profileImageUpdating = false;
+            });
     },
 });
 

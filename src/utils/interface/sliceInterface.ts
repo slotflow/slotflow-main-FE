@@ -15,6 +15,7 @@ export interface UserData {
 
 export interface AuthState {
     authUser: UserData | null;
+    profileImageUpdating: boolean;
 }
 
 
