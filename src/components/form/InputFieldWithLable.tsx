@@ -27,8 +27,8 @@ const InputField: React.FC<InputFieldProps> = memo(({
         }
 
         try {
-            if (id === 'serviceName') {
-                Validator.validateServiceName(inputValue);
+            if (id === 'appServiceName') {
+                Validator.validateAppServiceName(inputValue);
             } else if (id === "username") {
                 Validator.validateUsername(inputValue);
             } else if (id === "email") {
@@ -43,13 +43,39 @@ const InputField: React.FC<InputFieldProps> = memo(({
                 Validator.validatePhone(inputValue);
             } else if(id === "planName"){
                 Validator.validatePlanName(inputValue);
-            } else if (id === "description") {
-                Validator.validateDescription(inputValue);
-            } else if (id === "price") {
-                Validator.validatePrice(Number(inputValue));
+            } else if (id === "planDescription") {
+                Validator.validatePlanDescription(inputValue);
+            } else if (id === "planPrice") {
+                Validator.validatePlanPrice(Number(inputValue));
             }  else if (id === "maxBookingPerMonth") {
                 Validator.validateMaxBookingPerMonth(Number(inputValue));
-            } 
+            } else if(id === "addressLine") {
+                Validator.validateAddressLine(inputValue);
+            } else if(id === "place") {
+                Validator.validatePlace(inputValue);
+            } else if(id === "city") {
+                Validator.validateCity(inputValue);
+            } else if(id === "state") {
+                Validator.validateState(inputValue);
+            } else if(id === "pincode") {
+                Validator.validatePincode(inputValue)
+            } else if(id === "district"){
+                Validator.validateDistrict(inputValue);
+            } else if(id === "country"){
+                Validator.validateCountry(inputValue);
+            } else if(id === "googleMapLink") {
+                Validator.validateGoogleMapLink(inputValue);
+            } else if(id === "serviceName"){
+                Validator.validateServiceName(inputValue);
+            } else if(id === "serviceDescription") {
+                Validator.validateServiceDescription(inputValue);
+            } else if(id === "servicePrice"){
+                Validator.validateServicePrice(Number(inputValue));
+            } else if(id === "providerExperience") {
+                Validator.validateProviderExperience(inputValue)
+            } else if(id === "providerAdhaar") {
+                Validator.validateProviderAdhaar(inputValue);
+            }
             setErrorMessage(null);
             onHasError?.(false);
         } catch (error) {
@@ -97,7 +123,7 @@ const InputField: React.FC<InputFieldProps> = memo(({
                         value={value}
                         onChange={handleInputChange}
                         required={required}
-                        className="block w-full rounded-md bg-[var(--inputBg)] px-2 py-2 md:px-3 md:py-2 text-[var(--textOne)] outline-1 -outline-offset-1 outline-[var(--boxBorder)] placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-[var(--mainColor)] text-xs  md:text-sm"
+                        className="block w-full rounded-md bg-[var(--inputBg)] px-2 py-2 md:px-3 md:py-2.5 text-[var(--textOne)] outline-1 -outline-offset-1 outline-[var(--boxBorder)] placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-[var(--mainColor)] text-xs  md:text-sm"
                     />
                     {isPassword && (
                         <button

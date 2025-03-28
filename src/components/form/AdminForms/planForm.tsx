@@ -80,7 +80,7 @@ const PlanForm = () => {
                         />
                     <InputField
                         label="Description"
-                        id="description"
+                        id="planDescription"
                         placeholder="Description of the plan"
                         type="text"
                         value={formData.description}
@@ -90,7 +90,7 @@ const PlanForm = () => {
                         />
                     <InputField
                         label="Price"
-                        id="price"
+                        id="planPrice"
                         placeholder="99"
                         type="number"
                         value={formData.price}

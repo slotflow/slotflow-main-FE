@@ -5,6 +5,8 @@ import UserProfileHead from "@/components/user/UserProfileHead";
 import DataFetchingError from "@/components/common/DataFetchingError";
 import InfoDisplayComponent from "@/components/common/InfoDisplayComponent";
 import ShimmerProfileDetails from "@/components/shimmers/ShimmerProfileDetails";
+import { useState } from "react";
+import AddAddress from "@/components/common/AddAddress";
 
 const UserAddress = () => {
 
@@ -13,21 +15,28 @@ const UserAddress = () => {
     queryKey: ["UserAddress"]
   });
 
-  const handleAddUserAddress = () => {
+  const [addAddress, setAddAddress] = useState<boolean>(false);
+  const [hasErrors, setHasErrors] = useState<boolean>(false);
 
+  const handleAAddAddress = () => {
+    console.log(hasErrors);
   }
+
+
 
   return (
     <div className="min-h-full border border-[var(--boxBorder)] rounded-lg p-2 flex flex-col">
       <UserProfileHead />
       <div className="w-full mx-auto mt-8 py-6 rounded-lg flex-grow">
         {data === null && (
-          <CommonButton onClick={handleAddUserAddress} text={"Add Address"}/>
+          <CommonButton onClick={() => setAddAddress(!addAddress)} text={"Add Address"}/>
         )}
         {isError ? (
           <DataFetchingError message={error.message} />
         ) : isLoading ? (
           <ShimmerProfileDetails row={8} />
+        ) : addAddress ? (
+          <AddAddress onSubmit={handleAAddAddress} formClassNames={"my-4 border rounded-lg py-6"} headingSize={"xs:text-md md:text-xl"} heading={"Lets Add Address"} buttonText={"Submit"} setHasErrors={setHasErrors}/>
         ) : (
           <table className="table-auto w-full">
             <tbody>

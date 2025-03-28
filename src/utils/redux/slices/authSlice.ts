@@ -14,6 +14,7 @@ const authSlice = createSlice({
     initialState,
     reducers: {
         setAuthUser: (state, action: PayloadAction<UserData | null>) => {
+            console.log("action.payload : ",action.payload);
             state.authUser = action.payload;
         },
         setProfileImage: (state, action: PayloadAction<string>) => {

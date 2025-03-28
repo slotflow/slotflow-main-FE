@@ -10,8 +10,8 @@ import { useAdminServiceActions } from "@/utils/hooks/useAdminServiceActions";
 const ServiceAddingForm = () => {
 
   const adminFormloading: boolean = useSelector((store: RootState) => store.admin.adminFormloading);
-  const [formData, setFormData] = useState<{serviceName: string}>({
-    serviceName: "",
+  const [formData, setFormData] = useState<{appServiceName: string}>({
+    appServiceName: "",
   });
   const [hasErrors, setHasErrors] = useState<boolean>(false);
 
@@ -28,8 +28,8 @@ const ServiceAddingForm = () => {
       toast.error("Please fix the form errors.");
       return;
     }
-    handleServiceAdding(formData.serviceName);
-    setFormData({ serviceName: '' });
+    handleServiceAdding(formData.appServiceName);
+    setFormData({ appServiceName: '' });
   };
 
   const handleErrorChange = (hasError: boolean) => {
@@ -43,10 +43,10 @@ const ServiceAddingForm = () => {
         <form onSubmit={handleSubmit} className="space-y-6">
           <InputField
             label="Service Name"
-            id="serviceName"
+            id="appServiceName"
             placeholder="Software Engineer"
             type="text"
-            value={formData.serviceName}
+            value={formData.appServiceName}
             onChange={handleChange}
             required={true}
             onHasError={handleErrorChange}

@@ -16,7 +16,7 @@ export const fetchServices = async (): Promise<AdminFetchAllServicesResponseProp
 
 export const addNewService = createAsyncThunk<AdminAddNewServiceResponseProps,AdminAddNewServiceRequestPayload>('/admin/addNewService',
     async (payload: AdminAddNewServiceRequestPayload) => {
-        const response = await axiosInstance.post('/admin/addNewService', { serviceName: payload.serviceName });
+        const response = await axiosInstance.post('/admin/addNewService', { serviceName: payload.appServiceName });
         toast.success(response.data.message);
         return response.data.service;
     }

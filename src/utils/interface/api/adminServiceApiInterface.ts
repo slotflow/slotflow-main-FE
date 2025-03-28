@@ -12,7 +12,7 @@ export type AdminFetchAllServicesResponseProps = Pick<Service , "_id" | "service
 // **** Add new app service **** \\
 // Admin adding new app service api request payload interface used in adminServiceApi
 export interface AdminAddNewServiceRequestPayload {
-    serviceName: string
+    appServiceName: string
 }
 // Admin add new app service api response interface used in adminServiceApi
 export type AdminAddNewServiceResponseProps = Pick<Service , "_id" | "serviceName" | "isBlocked">;
