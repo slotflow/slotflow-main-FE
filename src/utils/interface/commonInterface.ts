@@ -52,6 +52,14 @@ export interface RoleButtonProps {
 }
 
 
+
+// **** Common button props interface **** \\
+export interface CommonButtonProps {
+    onClick: () => void;
+    text: string;
+}
+
+
 // **** Common sidebar compoenent props interface **** \\
 export interface Route {
     path: string;

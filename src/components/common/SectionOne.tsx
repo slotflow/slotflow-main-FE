@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import RoleButton from './RoleButton';
+import RoleButton from '../common/RoleButton';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { AppDispatch } from '@/utils/redux/appStore';

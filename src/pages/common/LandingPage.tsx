@@ -1,4 +1,4 @@
-import SectionOne from "@/components/Navs/SectionOne";
+import SectionOne from "@/components/common/SectionOne"
 
 const LandingPage = () => {
 
