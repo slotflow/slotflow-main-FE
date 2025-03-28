@@ -1,10 +1,9 @@
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "@/utils/redux/appStore";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/utils/redux/appStore";
 import RightSideBox from "@/components/provider/RightSideBox";
 import InputField from "@/components/form/InputFieldWithLable";
 import { fetchAllServices } from "../../utils/apis/provider.api";
-import { setServiceDetails } from "@/utils/redux/slices/authSlice";
 import { addProviderServiceDetails } from "@/utils/apis/provider.api";
 import SelectFiledWithLabel from "@/components/form/SelectFiledWithLabel";
 import React, { ChangeEvent, FormEvent, useCallback, useEffect, useState } from "react";
@@ -16,9 +15,10 @@ interface Service {
 
 const ProviderAddServiceDetails = () => {
 
-  const dispatch = useDispatch<AppDispatch>()
+  const dispatch = useDispatch<AppDispatch>();
+  const { dataUpdating } = useSelector((store: RootState) => store.auth);
+
   const [hasErrors, setHasErrors] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [services, setServices] = useState<string[]>([]);
@@ -65,14 +65,19 @@ const ProviderAddServiceDetails = () => {
   };
 
   useEffect(() => {
-    dispatch(fetchAllServices())
-      .unwrap()
-      .then((res) => {
+    const fetchServices = async () => {
+      try {
+        const res = await fetchAllServices();
         if (res.success) {
           const serviceNames = res.services.map((service: Service) => service.serviceName);
           setServices(serviceNames);
         }
-      })
+      } catch (error) {
+        console.error("Error fetching services:", error);
+      }
+    };
+  
+    fetchServices();
   }, [])
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -81,7 +86,6 @@ const ProviderAddServiceDetails = () => {
       toast.error("Please fix the form errors.");
       return;
     }
-    setLoading(true);
     try {
       const formDataToSend = new FormData();
       formDataToSend.append('serviceCategory', formData.serviceCategory);
@@ -98,7 +102,6 @@ const ProviderAddServiceDetails = () => {
         .then((res) => {
           if (res.success) {
             toast.success(res.message);
-            dispatch(setServiceDetails(true));
             setFormData({
               serviceCategory: "",
               serviceName: "",
@@ -114,8 +117,6 @@ const ProviderAddServiceDetails = () => {
         })
     } catch {
       toast.error("An error occurred.");
-    } finally {
-      setLoading(false);
     }
   };
   return (
@@ -221,7 +222,7 @@ const ProviderAddServiceDetails = () => {
               type="submit"
               className="bg-[var(--mainColor)] hover:bg-[var(--mainColorHover)] text-white font-bold py-1.5 px-4 rounded cursor-pointer"
             >
-              {loading ? "Loading" : "Next"}
+              { dataUpdating ? "Loading" : "Next"}
             </button>
           </div>
         </form>

@@ -1,17 +1,16 @@
-import RightSideBox from "@/components/provider/RightSideBox";
-import InputField from "@/components/form/InputFieldWithLable"
-import { addProviderAddress } from "@/utils/apis/provider.api";
-import { AppDispatch } from "@/utils/redux/appStore";
-import { setAddress } from "@/utils/redux/slices/authSlice";
-import { FormEvent, useCallback, useState } from "react";
-import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { FormEvent, useCallback, useState } from "react";
+import RightSideBox from "@/components/provider/RightSideBox";
+import InputField from "@/components/form/InputFieldWithLable";
+import { addProviderAddress } from "@/utils/apis/provider.api";
+import { AppDispatch, RootState } from "@/utils/redux/appStore";
 
 const ProviderAddAddress = () => {
 
     const dispatch = useDispatch<AppDispatch>()
     const [hasErrors, setHasErrors] = useState(false);
-    const [loading, setLoading] = useState(false);
+    const { dataUpdating } = useSelector((store: RootState) => store.auth)
     const [formData, setFormData] = useState({
         addressLine: "",
         phone: "",
@@ -33,20 +32,17 @@ const ProviderAddAddress = () => {
         setHasErrors(hasError);
     };
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (hasErrors) {
             toast.error("Please fix the form errors.");
             return;
         }
-        setLoading(true);
-        console.log("formData : ", formData);
-        dispatch(addProviderAddress({ formData }))
+        await dispatch(addProviderAddress({ formData }))
             .unwrap()
             .then((res) => {
                 if (res.success) {
                     toast.success(res.message);
-                    dispatch(setAddress(true));
                     setFormData({
                         addressLine: "",
                         phone: "",
@@ -65,7 +61,6 @@ const ProviderAddAddress = () => {
             .catch((error) => {
                 toast.error(error.response.data.message);
             })
-        setLoading(false);
     }
 
     return (
@@ -176,7 +171,7 @@ const ProviderAddAddress = () => {
                             type="submit"
                             className="bg-[var(--mainColor)] hover:bg-[var(--mainColorHover)] text-white font-bold py-1.5 px-4 rounded cursor-pointer"
                         >
-                            {loading ? "Loading" : "Next"}
+                            {dataUpdating ? "Loading" : "Next" }
                         </button>
                     </div>
                 </form>

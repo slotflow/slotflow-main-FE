@@ -4,7 +4,6 @@ import { useState, ChangeEvent, FormEvent } from 'react';
 import RightSideBox from '@/components/provider/RightSideBox';
 import { AppDispatch, RootState } from '@/utils/redux/appStore';
 import { addAvailability } from '@/utils/redux/slices/providerSlice';
-import { setServiceAvailability } from '@/utils/redux/slices/authSlice';
 import SelectFiledWithLabel from '@/components/form/SelectFiledWithLabel';
 import { addProviderServiceAvailability } from '@/utils/apis/provider.api';
 
@@ -16,7 +15,8 @@ interface TimeSlot {
 
 const ProviderAddServiceAvailability = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const [loading, setLoading] = useState<boolean>(false);
+  const { dataUpdating } = useSelector((store: RootState) => store.auth);
+
   const [selectedDay, setSelectedDay] = useState<string>('Sunday');
   const [selectedDuration, setSelectedDuration] = useState<string>("15 minutes");
   const [timeSlots, setTimeSlots] = useState<string[]>([])
@@ -48,17 +48,9 @@ const ProviderAddServiceAvailability = () => {
   };
 
   const generateTimeSlots = (startTime: string, endTime: string, intervalMinutes: string): void => {
-    console.log("Generating");
-    console.log("startTime : ",startTime);
-    console.log("EndTime : ",endTime);
-    console.log("Interval in minutes : ", intervalMinutes);
     const slots: string[] = [];
     let currentTime = startTime;
     let interval = 0;
-
-    console.log("typeof intevalMinutes : ",typeof intervalMinutes);
-
-    console.log(intervalMinutes === "15 minutes")
 
     if (intervalMinutes === "15 minutes") {
       interval = 15;
@@ -71,7 +63,6 @@ const ProviderAddServiceAvailability = () => {
     }
     
     while (currentTime <= endTime) {
-      console.log("inside while");
       slots.push(format12HourTime(currentTime));
       const [hours, minutes] = currentTime.split(':').map(Number);
       const nextMinutes = minutes + interval;
@@ -79,7 +70,6 @@ const ProviderAddServiceAvailability = () => {
       const nextMinutesAdjusted = nextMinutes % 60;
       currentTime = `${String(nextHours).padStart(2, '0')}:${String(nextMinutesAdjusted).padStart(2, '0')}`;
     }
-    console.log("timeSlots : ",slots);
     setTimeSlots(slots);
   };
 
@@ -116,16 +106,13 @@ const ProviderAddServiceAvailability = () => {
       slots: selectedTimeSlots
     }
     dispatch(addAvailability(data));
-    console.log("availability : ", data);
     toast.success(`${selectedDay} availability added.`);
   }
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setLoading(true);
     if (availabilities.length === 0) {
       toast.info("You didnt added any availability.");
-      setLoading(false);
       return;
     }
     if(modes.length === 0){
@@ -137,13 +124,10 @@ const ProviderAddServiceAvailability = () => {
     .then((res) => {
       if(res.success){
         toast.success(res.message);
-        dispatch(setServiceAvailability(true));
-        setLoading(false);
       }else{
         toast.error(res.message);
       }
     })
-    setLoading(false);
   }
 
   const isModeSelected = (mode: string) => modes.includes(mode);
@@ -267,7 +251,7 @@ const ProviderAddServiceAvailability = () => {
                 type="submit"
                 className="bg-[var(--mainColor)] hover:bg-[var(--mainColorHover)] text-white font-bold py-1.5 px-4 rounded cursor-pointer"
               >
-                {loading ? "Loading" : "Submit"}
+                {dataUpdating ? "Loading" : "Submit"}
               </button>
             </div>
           )}
