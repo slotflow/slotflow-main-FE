@@ -1,6 +1,7 @@
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { FormEvent, useCallback, useState } from "react";
+import CommonButton from "@/components/common/CommonButton";
 import RightSideBox from "@/components/provider/RightSideBox";
 import InputField from "@/components/form/InputFieldWithLable";
 import { addProviderAddress } from "@/utils/apis/provider.api";
@@ -167,12 +168,7 @@ const ProviderAddAddress = () => {
                         </div>
                     </div>
                     <div className="mt-10 flex justify-end">
-                        <button
-                            type="submit"
-                            className="bg-[var(--mainColor)] hover:bg-[var(--mainColorHover)] text-white font-bold py-1.5 px-4 rounded cursor-pointer"
-                        >
-                            {dataUpdating ? "Loading" : "Next" }
-                        </button>
+                        <CommonButton text={dataUpdating ? "Loading" : "Next"} type={"submit"}/>
                     </div>
                 </form>
             </div>

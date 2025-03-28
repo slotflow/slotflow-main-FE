@@ -1,8 +1,9 @@
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "@/utils/redux/appStore";
+import CommonButton from "@/components/common/CommonButton";
 import RightSideBox from "@/components/provider/RightSideBox";
 import InputField from "@/components/form/InputFieldWithLable";
+import { AppDispatch, RootState } from "@/utils/redux/appStore";
 import { fetchAllServices } from "../../utils/apis/provider.api";
 import { addProviderServiceDetails } from "@/utils/apis/provider.api";
 import SelectFiledWithLabel from "@/components/form/SelectFiledWithLabel";
@@ -218,12 +219,7 @@ const ProviderAddServiceDetails = () => {
             </div>
           </div>
           <div className="mt-10 flex justify-end">
-            <button
-              type="submit"
-              className="bg-[var(--mainColor)] hover:bg-[var(--mainColorHover)] text-white font-bold py-1.5 px-4 rounded cursor-pointer"
-            >
-              { dataUpdating ? "Loading" : "Next"}
-            </button>
+            <CommonButton text={dataUpdating ? "Loading" : "Next"} type={"submit"}/>
           </div>
         </form>
       </div>

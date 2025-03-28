@@ -55,8 +55,9 @@ export interface RoleButtonProps {
 
 // **** Common button props interface **** \\
 export interface CommonButtonProps {
-    onClick: () => void;
+    onClick?: () => void;
     text: string;
+    type?: string;
 }
 
 

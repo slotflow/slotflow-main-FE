@@ -1,6 +1,7 @@
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, ChangeEvent, FormEvent } from 'react';
+import CommonButton from '@/components/common/CommonButton';
 import RightSideBox from '@/components/provider/RightSideBox';
 import { AppDispatch, RootState } from '@/utils/redux/appStore';
 import { addAvailability } from '@/utils/redux/slices/providerSlice';
@@ -240,19 +241,8 @@ const ProviderAddServiceAvailability = () => {
 
           {selectedTimeSlots.length > 0 && (
             <div className="mt-10 flex justify-end space-x-2">
-              <button
-                type="button"
-                onClick={handleAddAvailability}
-                className="bg-[var(--mainColor)] hover:bg-[var(--mainColorHover)] text-white font-bold py-1.5 px-4 rounded cursor-pointer"
-              >
-                Add
-              </button>
-              <button
-                type="submit"
-                className="bg-[var(--mainColor)] hover:bg-[var(--mainColorHover)] text-white font-bold py-1.5 px-4 rounded cursor-pointer"
-              >
-                {dataUpdating ? "Loading" : "Submit"}
-              </button>
+              <CommonButton text={"Add"} onClick={handleAddAvailability} />
+              <CommonButton text={dataUpdating ? "Loading" : "Submit"} type={"submit"} />
             </div>
           )}
 
