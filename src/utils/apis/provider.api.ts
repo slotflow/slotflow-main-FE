@@ -54,7 +54,7 @@ export const fetchProviderServiceAvailability = async (): Promise<ProviderFetchS
     return response.data.availability;
 }
 
-export const updateProviderProfileImage = createAsyncThunk<ProviderUpdateProfileImageResponseProps,FormData>('/providerUpdateProfileImage' ,
+export const updateProviderProfileImage = createAsyncThunk<ProviderUpdateProfileImageResponseProps,FormData>('/provider/UpdateProfileImage' ,
     async (formData: FormData) => {
         const response = await axiosInstance.post('/provider/updateProfileImage', formData);
         return response.data;

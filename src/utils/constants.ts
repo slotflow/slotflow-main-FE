@@ -14,6 +14,7 @@ export const adminRoutes: Route[] = [
   export const userRoutes: Route[] = [
     { path: "dashboard", name: "Dashboard" },
     { path: "profile", name: "Profile" },
+    { path: "address", name: "Address" },
     { path: "bookings", name: "Bookings" },
     { path: "payments", name: "Payments" },
     { path: "chat", name: "Chat" },

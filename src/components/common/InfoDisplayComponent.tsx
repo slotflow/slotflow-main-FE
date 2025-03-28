@@ -9,7 +9,7 @@ const InfoDisplayComponent: React.FC<InfoDisplayComponentRowProps> = ({ label, v
             <tr className="border-b border-[var(--boxBorder)]">
                 <td className="p-4 font-medium text-[var(--infoDataLabel)]">{label}</td>
                 <td className="p-4">
-                    {!value && "Not yet addedd"}
+                    {(value === null || value === undefined) && "Not Yet added"}
                     {isBoolean ? (
                         <span>{formatBoolean(value as boolean)}</span>
                     ) : typeof value === 'string' && copyToClipboard ? (
