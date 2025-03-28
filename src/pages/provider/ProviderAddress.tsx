@@ -10,7 +10,7 @@ const ProviderAddress = () => {
   const { data, isLoading, isError, error } = useQuery({
       queryFn: () => fetchProviderAddress(),
       queryKey: ["ProviderAddress"]
-  })
+  });
 
   return (
     <div className="min-h-full border border-[var(--boxBorder)] rounded-lg p-2 flex flex-col">

@@ -2,7 +2,8 @@ import axiosInstance from "@/lib/axios"
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { 
     UserUpdateProfileImageResponseProps,
-    UserFetchProfileDetailsResponseProps, 
+    UserFetchProfileDetailsResponseProps,
+    UserFetchAddressResponseProps, 
  } from "../interface/api/userApi.Interface";
 
 
@@ -17,3 +18,8 @@ export const updateUserProfileImage = createAsyncThunk<UserUpdateProfileImageRes
         return response.data;
     }
 )
+
+export const fetchUserAddress = async () :Promise<UserFetchAddressResponseProps> => {
+    const response = await axiosInstance.get('/user/getAddress');
+    return response.data.address;
+}

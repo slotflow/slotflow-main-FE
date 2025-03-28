@@ -1,3 +1,4 @@
+import { Address } from "../addressInterface";
 import { User } from "../userInterface";
 
 // Common Response Type
@@ -14,3 +15,6 @@ export type UserFetchProfileDetailsResponseProps = Pick<User, "username" | "emai
 export interface UserUpdateProfileImageResponseProps extends ApiCommonResponse {
     profileImage: string;
 }
+
+// Fetch user address api response
+export type UserFetchAddressResponseProps = Pick<Address, "_id" | "addressLine" | "phone" | "place" | "city" | "district" | "pincode" | "state" | "country" | "googleMapLink">;
