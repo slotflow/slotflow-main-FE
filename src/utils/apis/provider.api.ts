@@ -36,7 +36,7 @@ export const addProviderServiceAvailability = async ({ data }: AddProviderServic
 
 export const fetchProviderProfileDetails = async (): Promise<ProviderFetchProfileDetailsResponseProps | null> => {
     const response = await axiosInstance.get('/provider/getProfileDetails');
-    return response.data.provider;
+    return response.data.profileDetails;
 }
 
 export const fetchProviderAddress = async (): Promise<ProviderFetchAddressResponseProps | null> => {
