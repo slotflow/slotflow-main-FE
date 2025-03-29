@@ -11,10 +11,11 @@ import {
     ProviderFetchProfileDetailsResponseProps,
     ProviderFetchServiceDetailsResponseProps,
     ProviderFetchServiceAvailabilityResponseProps,
+    ProviderFetchPlansResponseProps,
 } from "../interface/api/providerApiInterface";
 
 
-export const addProviderAddress = createAsyncThunk<ApiCommonResponse, AddProviderAddressPayload>("/provider/addAddress", 
+export const addProviderAddress = createAsyncThunk<ApiCommonResponse, AddProviderAddressPayload>("/provider/addAddress",
     async ({ formData }: AddProviderAddressPayload) => {
         const response = await axiosInstance.post(`/provider/addAddress`, formData);
         return response.data;
@@ -26,14 +27,14 @@ export const fetchAllServices = async (): Promise<FetchAllServicesResponse> => {
     return response.data;
 }
 
-export const addProviderServiceDetails = createAsyncThunk<ApiCommonResponse,AddProviderServiceDetailsPayload>("/provider/addServiceDetails",
+export const addProviderServiceDetails = createAsyncThunk<ApiCommonResponse, AddProviderServiceDetailsPayload>("/provider/addServiceDetails",
     async ({ formData }: AddProviderServiceDetailsPayload) => {
         const response = await axiosInstance.post(`/provider/addServiceDetails`, formData);
         return response.data;
     }
 )
 
-export const addProviderServiceAvailability = createAsyncThunk<ApiCommonResponse,AddProviderServiceAvailabilityPayload>("/provider/addServiceAvailability",
+export const addProviderServiceAvailability = createAsyncThunk<ApiCommonResponse, AddProviderServiceAvailabilityPayload>("/provider/addServiceAvailability",
     async ({ data }: AddProviderServiceAvailabilityPayload) => {
         const response = await axiosInstance.post(`/provider/addProviderServiceAvailability`, data);
         return response.data;
@@ -66,3 +67,8 @@ export const updateProviderProfileImage = createAsyncThunk<ProviderUpdateProfile
         return response.data;
     }
 )
+
+export const fetchProviderPlans = async () : Promise<ProviderFetchPlansResponseProps[]> => {
+    const response = await axiosInstance.get('/provider/getPlans');
+    return response.data.plans;
+}

@@ -1,5 +1,6 @@
 import { Address } from "../addressInterface";
 import { Service } from "../appServiceInterface";
+import { Plan } from "../planInterface";
 import { Provider } from "../providerInterface";
 import { ProviderService } from "../providerServiceInterface";
 import { Availability, ServiceAvailability } from "../serviceAvailabilityInterface";
@@ -56,3 +57,6 @@ export type ProviderFetchServiceAvailabilityResponseProps = Pick<ServiceAvailabi
 export interface ProviderUpdateProfileImageResponseProps extends ApiCommonResponse {
     profileImage: string;
 }
+
+// Provider fetch plans api response 
+export type ProviderFetchPlansResponseProps = Pick<Plan, "_id" | "planName" | "price" | "features" | "description">
