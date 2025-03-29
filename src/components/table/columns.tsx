@@ -6,13 +6,13 @@ import { ChangePlanBlockStatus } from "./AdminPlanActions";
 import { DataTableColumnHeader } from "./DataTableColumnHeader";
 import { ChangeServiceBlockStatus } from "./AdminSerivceActions";
 import { PlanTableInterface } from "@/utils/interface/api/adminPlanApiInterface";
+import { UsersTableInterfaceProps } from "@/utils/interface/api/adminUserApiInterface";
 import { AppServiceTableInterface } from "@/utils/interface/api/adminServiceApiInterface";
-import { AdminfetchAllUsersResponseProps } from "@/utils/interface/api/adminUserApiInterface";
-import { AdminFetchAllProvidersResponseProps } from "@/utils/interface/api/adminProviderApiInterface";
+import { ProvidersTableInterfaceProps } from "@/utils/interface/api/adminProviderApiInterface";
 import {ApproveProvider, ChangeProviderBlockStatus, GetProviderDetailPage } from "./AdminProviderActions";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
 
-export const providerColumns: ColumnDef<AdminFetchAllProvidersResponseProps>[] = [
+export const providerColumns: ColumnDef<ProvidersTableInterfaceProps>[] = [
   {
     accessorKey: "isAdminVerified",
     header: "Admin Verication",
@@ -65,7 +65,7 @@ export const providerColumns: ColumnDef<AdminFetchAllProvidersResponseProps>[] =
   },
 ]
 
-export const userColumns: ColumnDef<AdminfetchAllUsersResponseProps>[] = [
+export const userColumns: ColumnDef<UsersTableInterfaceProps>[] = [
   {
     accessorKey: "isVerified",
     header: "Verication",

@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/utils/redux/appStore";
 import { useQueryClient } from "@tanstack/react-query";
 import { approveProvider, changeProviderBlockStatus } from "@/utils/apis/adminProvider.api";
-import { AdminFetchAllProvidersResponseProps, UseAdminProviderActionReturnType } from "../interface/api/adminProviderApiInterface";
+import { ProvidersTableInterfaceProps, UseAdminProviderActionReturnType } from "../interface/api/adminProviderApiInterface";
 
 export const useAdminProviderActions = (): UseAdminProviderActionReturnType => {
   
@@ -16,7 +16,7 @@ export const useAdminProviderActions = (): UseAdminProviderActionReturnType => {
       .then((res) => {
         queryClient.setQueryData(
           ["providers"],
-          (oldData: AdminFetchAllProvidersResponseProps[] | []) => {
+          (oldData: ProvidersTableInterfaceProps[] | []) => {
             if (!oldData) return [];
             return oldData.map((provider) =>
               provider._id === res._id ? res : provider
@@ -36,7 +36,7 @@ export const useAdminProviderActions = (): UseAdminProviderActionReturnType => {
       .then((res) => {
         queryClient.setQueryData(
           ["providers"],
-          (oldData: AdminFetchAllProvidersResponseProps[] | []) => {
+          (oldData: ProvidersTableInterfaceProps[] | []) => {
             if (!oldData) return [];
             return oldData.map((provider) =>
               provider._id === res._id ? res : provider

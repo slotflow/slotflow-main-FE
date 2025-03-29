@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/utils/redux/appStore";
 import { useQueryClient } from "@tanstack/react-query";
 import { changeUserBlockStatus } from "../apis/adminUser.api";
-import { AdminfetchAllUsersResponseProps } from "../interface/api/adminUserApiInterface";
+import { UsersTableInterfaceProps } from "../interface/api/adminUserApiInterface";
 
 export const useAdminUserActions = () => {
   const queryClient = useQueryClient();
@@ -13,7 +13,7 @@ export const useAdminUserActions = () => {
     dispatch(changeUserBlockStatus({userId, status}))
     .unwrap()
       .then((res) => {
-        queryClient.setQueryData(["users"],(oldData: AdminfetchAllUsersResponseProps[] | []) => {
+        queryClient.setQueryData(["users"],(oldData: UsersTableInterfaceProps[] | []) => {
             if (!oldData) return [];
             return oldData.map((user) =>
               user._id === res._id ? res : user

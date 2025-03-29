@@ -12,9 +12,15 @@ export interface ApiCommonResponse {
 }
 
 
+
+// Admin providers table interface props used in use admin providers action custom hook and the column.tsx
+export type ProvidersTableInterfaceProps = Pick<Provider, "_id" | "username" | "email" | "isBlocked" | "isAdminVerified">;
+
+
+
 // **** Fetch all Providers
 // Admin fetch all providers api response provider type, used also in the admin sevice providers data listing tables coloums props in colomns.tsx
-export type AdminFetchAllProvidersResponseProps = Pick<Provider, "_id" | "username" | "email" | "isBlocked" | "isAdminVerified">
+export type AdminFetchAllProvidersResponseProps = Pick<Provider, "_id" | "username" | "email" | "isBlocked" | "isAdminVerified">;
 
 
 
