@@ -1,15 +1,18 @@
-import { useQuery } from "@tanstack/react-query";
-import { fetchUserAddress } from "@/utils/apis/user.api";
+import { toast } from "react-toastify";
+import { FormEvent, useState } from "react";
+import AddAddress from "@/components/common/AddAddress";
 import CommonButton from "@/components/common/CommonButton";
 import UserProfileHead from "@/components/user/UserProfileHead";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { AddressFormProps } from "@/utils/interface/addressInterface";
 import DataFetchingError from "@/components/common/DataFetchingError";
+import { addUserAddress, fetchUserAddress } from "@/utils/apis/user.api";
 import InfoDisplayComponent from "@/components/common/InfoDisplayComponent";
 import ShimmerProfileDetails from "@/components/shimmers/ShimmerProfileDetails";
-import { useState } from "react";
-import AddAddress from "@/components/common/AddAddress";
 
 const UserAddress = () => {
 
+  const queryClient = useQueryClient();
   const { data, isLoading, isError, error } = useQuery({
     queryFn: () => fetchUserAddress(),
     queryKey: ["UserAddress"]
@@ -18,25 +21,31 @@ const UserAddress = () => {
   const [addAddress, setAddAddress] = useState<boolean>(false);
   const [hasErrors, setHasErrors] = useState<boolean>(false);
 
-  const handleAAddAddress = () => {
-    console.log(hasErrors);
+  const handleAAddAddress = async (e: FormEvent<HTMLFormElement>, formData: AddressFormProps) => {
+    e.preventDefault();
+    if (hasErrors) {
+      toast.error("Please fix the form errors.");
+      return;
+    }
+    const res = await addUserAddress({ formData });
+    toast.success(res.message);
+    queryClient.invalidateQueries({ queryKey: ["UserAddress"] });
+    setAddAddress(false);
   }
-
-
 
   return (
     <div className="min-h-full border border-[var(--boxBorder)] rounded-lg p-2 flex flex-col">
       <UserProfileHead />
       <div className="w-full mx-auto mt-8 py-6 rounded-lg flex-grow">
         {data === null && (
-          <CommonButton onClick={() => setAddAddress(!addAddress)} text={"Add Address"}/>
+          <CommonButton onClick={() => setAddAddress(!addAddress)} text={!addAddress ? "Add Address" : "Close"} />
         )}
         {isError ? (
           <DataFetchingError message={error.message} />
         ) : isLoading ? (
           <ShimmerProfileDetails row={8} />
         ) : addAddress ? (
-          <AddAddress onSubmit={handleAAddAddress} formClassNames={"my-4 border rounded-lg py-6"} headingSize={"xs:text-md md:text-xl"} heading={"Lets Add Address"} buttonText={"Submit"} setHasErrors={setHasErrors}/>
+          <AddAddress onSubmit={handleAAddAddress} formClassNames={"my-4 border rounded-lg py-6"} headingSize={"xs:text-md md:text-xl"} heading={"Lets Add Address"} buttonText={"Submit"} setHasErrors={setHasErrors} />
         ) : (
           <table className="table-auto w-full">
             <tbody>

@@ -18,3 +18,19 @@ export interface UserUpdateProfileImageResponseProps extends ApiCommonResponse {
 
 // Fetch user address api response
 export type UserFetchAddressResponseProps = Pick<Address, "_id" | "addressLine" | "phone" | "place" | "city" | "district" | "pincode" | "state" | "country" | "googleMapLink">;
+
+
+// user address adding request payload interface used in user api
+export interface AddUserAddressPayload {
+    formData: {
+        addressLine: string;
+        phone: string;
+        place: string;
+        city: string;
+        district: string;
+        pincode: string;
+        state: string;
+        country: string;
+        googleMapLink: string;
+    };
+}

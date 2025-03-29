@@ -5,18 +5,8 @@ import { AppDispatch } from "@/utils/redux/appStore";
 import AddAddress from "@/components/common/AddAddress";
 import RightSideBox from "@/components/provider/RightSideBox";
 import { addProviderAddress } from "@/utils/apis/provider.api";
+import { AddressFormProps } from "@/utils/interface/addressInterface";
 
-interface AddressFormProps {
-    addressLine: string,
-    phone: string,
-    place: string,
-    city: string,
-    district: string,
-    pincode: string,
-    state: string,
-    country: string,
-    googleMapLink: string,
-}
 
 const ProviderAddAddress = () => {
 

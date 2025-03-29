@@ -3,7 +3,9 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { 
     UserUpdateProfileImageResponseProps,
     UserFetchProfileDetailsResponseProps,
-    UserFetchAddressResponseProps, 
+    UserFetchAddressResponseProps,
+    AddUserAddressPayload,
+    ApiCommonResponse, 
  } from "../interface/api/userApi.Interface";
 
 
@@ -22,4 +24,9 @@ export const updateUserProfileImage = createAsyncThunk<UserUpdateProfileImageRes
 export const fetchUserAddress = async () :Promise<UserFetchAddressResponseProps> => {
     const response = await axiosInstance.get('/user/getAddress');
     return response.data.address;
+}
+
+export const addUserAddress = async ({formData} : AddUserAddressPayload): Promise<ApiCommonResponse> => {
+    const response = await axiosInstance.post('/user/addAddress', formData);
+    return response.data;
 }

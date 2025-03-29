@@ -1,3 +1,5 @@
+import { FormEvent } from "react";
+
 // User or Provider Address interface
 export interface Address {
     _id: string;
@@ -13,4 +15,15 @@ export interface Address {
     googleMapLink: string;
     createdAt: string;
     updatedAt: string;
+}
+
+export type AddressFormProps = Pick<Address, "addressLine" | "phone" | "place" | "city" | "district" | "pincode" | "state" | "country" | "googleMapLink">
+
+export interface AddAddressProps {
+    formClassNames: string;
+    heading: string;
+    headingSize: string;
+    buttonText: string;
+    onSubmit: (e: FormEvent<HTMLFormElement>, formData: AddressFormProps) => void;
+    setHasErrors: (hasError: boolean) => void;
 }

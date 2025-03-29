@@ -3,32 +3,12 @@ import { RootState } from '@/utils/redux/appStore';
 import CommonButton from '@/components/common/CommonButton';
 import InputField from '@/components/form/InputFieldWithLable';
 import React, { FormEvent, useCallback, useState } from 'react';
-
-interface AddressFormProps {
-    addressLine: string,
-    phone: string,
-    place: string,
-    city: string,
-    district: string,
-    pincode: string,
-    state: string,
-    country: string,
-    googleMapLink: string,
-}
-
-interface AddAddressProps {
-    formClassNames: string;
-    heading: string;
-    headingSize: string;
-    buttonText: string;
-    onSubmit: (e: FormEvent<HTMLFormElement>, formData: AddressFormProps) => void;
-    setHasErrors: (hasError: boolean) => void;
-}
+import { AddAddressProps, AddressFormProps } from '@/utils/interface/addressInterface';
 
 const AddAddress: React.FC<AddAddressProps> = ({ formClassNames, heading, headingSize, buttonText, onSubmit, setHasErrors }) => {
 
     const { dataUpdating } = useSelector((store: RootState) => store.auth)
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState<AddressFormProps>({
         addressLine: "",
         phone: "",
         place: "",
@@ -57,7 +37,7 @@ const AddAddress: React.FC<AddAddressProps> = ({ formClassNames, heading, headin
 
     return (
         <form onSubmit={handleSubmit} className={`${formClassNames}`}>
-            <h4 className={` ${headingSize} font-semibold text-start px-6`}>{heading}</h4>
+            <h4 className={`${headingSize} font-semibold text-start px-6`}>{heading}</h4>
             <div className="flex w-full flex-col md:flex-row">
                 <div className="w-full md:w-1/2 p-6 space-y-6">
                     <InputField
