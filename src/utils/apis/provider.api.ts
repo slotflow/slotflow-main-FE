@@ -12,6 +12,7 @@ import {
     ProviderFetchServiceDetailsResponseProps,
     ProviderFetchServiceAvailabilityResponseProps,
     ProviderFetchPlansResponseProps,
+    ProviderFetchSubscriptionHistoryResponseProps,
 } from "../interface/api/providerApiInterface";
 
 
@@ -71,4 +72,14 @@ export const updateProviderProfileImage = createAsyncThunk<ProviderUpdateProfile
 export const fetchProviderPlans = async () : Promise<ProviderFetchPlansResponseProps[]> => {
     const response = await axiosInstance.get('/provider/getPlans');
     return response.data.plans;
+}
+
+export const subscribeToPlan = async (data: {planId: string, planDuration: string}) : Promise<{success: boolean, message: string, sessionId: string}> => {
+    const response = await axiosInstance.post('/provider/create-checkout-session', data)
+    return response.data;
+}
+
+export const fetchProviderSubscriptions = async () : Promise<ProviderFetchSubscriptionHistoryResponseProps[]> => {
+    const response = await axiosInstance.get('/provider/getSubscriptions');
+    return response.data.subscriptions;
 }

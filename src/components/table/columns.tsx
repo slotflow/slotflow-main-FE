@@ -11,6 +11,7 @@ import { AppServiceTableInterface } from "@/utils/interface/api/adminServiceApiI
 import { ProvidersTableInterfaceProps } from "@/utils/interface/api/adminProviderApiInterface";
 import {ApproveProvider, ChangeProviderBlockStatus, GetProviderDetailPage } from "./AdminProviderActions";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
+import { UserSubscriptionTableInterfaceProps } from "@/utils/interface/subscriptionInterface";
 
 export const providerColumns: ColumnDef<ProvidersTableInterfaceProps>[] = [
   {
@@ -205,6 +206,59 @@ export const planColumns: ColumnDef<PlanTableInterface>[] = [
             <DropdownMenuItem>Details</DropdownMenuItem>
             <ChangePlanBlockStatus planId={plan._id} status={plan.isBlocked}/>
             <DropdownMenuItem>Edit</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      )
+    },
+  }
+]
+
+export const userSubscriptionColumns: ColumnDef<UserSubscriptionTableInterfaceProps>[] = [
+  {
+    accessorKey: "plan",
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="Plan" />)
+  },
+  {
+    accessorKey: "startDate",
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="Paid on" />)
+  },
+  {
+    accessorKey: "endDate",
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="Expires on" />)
+  },
+  {
+    accessorKey: "paymentStatus",
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="Payment Status" />)
+  },
+  {
+    accessorKey: "paymentMethod",
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="Payment Method" />)
+  },
+  {
+    accessorKey: "subscriptionStatus",
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="Status" />)
+  },
+  {
+    accessorKey: "transactionId",
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="TransactionId" />)
+  },
+  {
+    accessorKey: "actions",
+    header: "Actions",
+    id: "actions",
+    cell: () => {
+      return (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="h-8 w-8 p-0 cursor-pointer">
+              <span className="sr-only">Open menu</span>
+              <MoreHorizontal className="h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuSeparator />
+            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            <DropdownMenuItem>Cancel</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       )

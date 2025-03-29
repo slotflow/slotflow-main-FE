@@ -4,6 +4,7 @@ import { Plan } from "../planInterface";
 import { Provider } from "../providerInterface";
 import { ProviderService } from "../providerServiceInterface";
 import { Availability, ServiceAvailability } from "../serviceAvailabilityInterface";
+import { Subscription } from "../subscriptionInterface";
 
 // Common Response Type
 export interface ApiCommonResponse {
@@ -59,4 +60,9 @@ export interface ProviderUpdateProfileImageResponseProps extends ApiCommonRespon
 }
 
 // Provider fetch plans api response 
-export type ProviderFetchPlansResponseProps = Pick<Plan, "_id" | "planName" | "price" | "features" | "description">
+export type ProviderFetchPlansResponseProps = Pick<Plan, "_id" | "planName" | "price" | "features" | "description">;
+
+// Provider fetch subscription history api response props
+export type ProviderFetchSubscriptionHistoryResponseProps = Pick<Subscription, "createdAt" | "startDate" | "endDate" | "paymentMethod" | "paymentStatus" | "subscriptionStatus" | "transactionId"> & {
+    plan: string;
+}

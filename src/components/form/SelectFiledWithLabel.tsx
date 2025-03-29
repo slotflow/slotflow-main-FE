@@ -75,7 +75,7 @@ const SelectFiledWithLabel: React.FC<SelectFieldProps> = memo(({
                         {options.map((option) => (
                             <li
                                 key={option.toString()}
-                                className={`cursor-pointer px-3 py-2 text-sm hover:bg-gray-100 ${selectedValue === option.toString() ? 'bg-gray-200' : ''}`}
+                                className={`cursor-pointer px-3 py-2 text-sm hover:bg-[var(--menuItemHoverBg)] ${selectedValue === option.toString() ? 'bg-[var(--menuItemHoverBg)]' : ''}`}
                                 onClick={() => handleSelect(option.toString())}
                             >
                                 {option.toString()}
