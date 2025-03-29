@@ -14,8 +14,6 @@ const AdminPlans = () => {
         queryFn: fetchAllPlans,
     });
 
-    console.log("data : ",data)
-
     if (isError) return <DataFetchingError message={error.message} />
 
     return (

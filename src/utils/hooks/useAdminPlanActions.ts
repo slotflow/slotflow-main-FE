@@ -2,23 +2,12 @@ import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../redux/appStore";
 import { useQueryClient } from "@tanstack/react-query"
-import { addNewPlan, changePlanBlockStatus } from "../apis/adminPlan.api";
-import { AdminAddNewPlanRequestPayload, AdminFetchAllPlansResponseProps, UseAdminPlanActionsReturnType } from "../interface/api/adminPlanApiInterface";
+import { changePlanBlockStatus } from "../apis/adminPlan.api";
+import { AdminFetchAllPlansResponseProps, UseAdminPlanActionsReturnType } from "../interface/api/adminPlanApiInterface";
 
 export const useAdminPlanActions = (): UseAdminPlanActionsReturnType => {
     const queryClient = useQueryClient();
     const dispatch = useDispatch<AppDispatch>();
-
-    const handlePlanAdding = (formData : AdminAddNewPlanRequestPayload) => {
-        dispatch(addNewPlan(formData))
-            .unwrap()
-            .then(() => {
-                queryClient.invalidateQueries({ queryKey: ['plans'] });
-            })
-            .catch((error) => {
-                toast.error(error.message);
-            })
-    }
 
     const handleChangePlanStatus = (planId: string, status: boolean) => {
         dispatch(changePlanBlockStatus({ planId, status }))
@@ -40,5 +29,5 @@ export const useAdminPlanActions = (): UseAdminPlanActionsReturnType => {
           });
       }
 
-    return { handlePlanAdding, handleChangePlanStatus };
+    return { handleChangePlanStatus };
 }

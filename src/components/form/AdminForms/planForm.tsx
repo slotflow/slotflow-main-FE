@@ -3,15 +3,17 @@ import { useSelector } from "react-redux";
 import { useCallback, useState } from "react";
 import InputField from "../InputFieldWithLable";
 import { RootState } from "@/utils/redux/appStore";
+import { useQueryClient } from "@tanstack/react-query";
 import { FormButton, FormHeading } from "../FormSplits";
+import { addNewPlan } from "@/utils/apis/adminPlan.api";
 import SelectFiledWithLabel from "../SelectFiledWithLabel";
 import { BillingCycle } from "@/utils/interface/planInterface";
-import { useAdminPlanActions } from "@/utils/hooks/useAdminPlanActions";
 import { AdminAddNewPlanRequestPayload } from "@/utils/interface/api/adminPlanApiInterface";
 import { HandleChangeFunction, HandleFeatureChangeFunction } from "@/utils/interface/commonInterface";
 
 const PlanForm = () => {
     
+    const queryClient = useQueryClient();
     const adminFormloading: boolean = useSelector((store: RootState) => store.admin.adminFormloading);
     const [formData, setFormData] = useState<AdminAddNewPlanRequestPayload>({
         planName: "",
@@ -38,16 +40,15 @@ const PlanForm = () => {
         setHasErrors(false);
     }, [formData.features]);
 
-
-    const { handlePlanAdding } = useAdminPlanActions();
-
-    const handleSubmit = (e: React.SyntheticEvent) => {
+    const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault();
         if (hasErrors) {
             toast.error("Please fix the form errors.");
             return;
         }
-        handlePlanAdding(formData)
+        const res = await addNewPlan(formData);
+        toast.success(res.message);
+        queryClient.invalidateQueries({ queryKey: ["plans"] });
         setFormData({
             planName: "",
             description: "",
@@ -80,7 +81,7 @@ const PlanForm = () => {
                         />
                     <InputField
                         label="Description"
-                        id="planDescription"
+                        id="description"
                         placeholder="Description of the plan"
                         type="text"
                         value={formData.description}
@@ -90,7 +91,7 @@ const PlanForm = () => {
                         />
                     <InputField
                         label="Price"
-                        id="planPrice"
+                        id="price"
                         placeholder="99"
                         type="number"
                         value={formData.price}

@@ -43,9 +43,9 @@ const InputField: React.FC<InputFieldProps> = memo(({
                 Validator.validatePhone(inputValue);
             } else if(id === "planName"){
                 Validator.validatePlanName(inputValue);
-            } else if (id === "planDescription") {
+            } else if (id === "description") {
                 Validator.validatePlanDescription(inputValue);
-            } else if (id === "planPrice") {
+            } else if (id === "price") {
                 Validator.validatePlanPrice(Number(inputValue));
             }  else if (id === "maxBookingPerMonth") {
                 Validator.validateMaxBookingPerMonth(Number(inputValue));
