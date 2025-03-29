@@ -1,10 +1,27 @@
 import { toast } from "react-toastify";
 import { useQueryClient } from "@tanstack/react-query"
-import { changePlanBlockStatus } from "../apis/adminPlan.api";
-import { AdminFetchAllPlansResponseProps, UseAdminPlanActionsReturnType } from "../interface/api/adminPlanApiInterface";
+import { addNewPlan, changePlanBlockStatus } from "../apis/adminPlan.api";
+import { AdminAddNewPlanRequestPayload, AdminFetchAllPlansResponseProps, PlanTableInterface, UseAdminPlanActionsReturnType } from "../interface/api/adminPlanApiInterface";
 
 export const useAdminPlanActions = (): UseAdminPlanActionsReturnType => {
   const queryClient = useQueryClient();
+
+  const handleServiceAdding = (formData: AdminAddNewPlanRequestPayload, setLoading: (loading: boolean) => void) => {
+      addNewPlan(formData)
+      .then((res) => {
+        queryClient.setQueryData<PlanTableInterface[]>(
+          ["plans"],
+          (oldData = []) => {
+            return [...oldData, res.plan];
+          }
+        );
+          setLoading(false);
+          toast.success(res.message);
+      })
+      .catch(() => {
+        setLoading(false);
+      });
+    };
 
   const handleChangePlanStatus = (planId: string, status: boolean) => {
     changePlanBlockStatus({ planId, status })
@@ -20,10 +37,10 @@ export const useAdminPlanActions = (): UseAdminPlanActionsReturnType => {
         );
         toast.success(res.message);
       })
-      .catch((error) => {
-        toast.error(error.message);
+      .catch(() => {
+        toast.error("Please try again");
       });
   }
 
-  return { handleChangePlanStatus };
+  return { handleServiceAdding, handleChangePlanStatus };
 }

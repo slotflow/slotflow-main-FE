@@ -1,20 +1,17 @@
 import { toast } from "react-toastify";
-import { useSelector } from "react-redux";
 import { useCallback, useState } from "react";
 import InputField from "../InputFieldWithLable";
-import { RootState } from "@/utils/redux/appStore";
-import { useQueryClient } from "@tanstack/react-query";
 import { FormButton, FormHeading } from "../FormSplits";
-import { addNewPlan } from "@/utils/apis/adminPlan.api";
 import SelectFiledWithLabel from "../SelectFiledWithLabel";
 import { BillingCycle } from "@/utils/interface/planInterface";
+import { useAdminPlanActions } from "@/utils/hooks/useAdminPlanActions";
 import { AdminAddNewPlanRequestPayload } from "@/utils/interface/api/adminPlanApiInterface";
 import { HandleChangeFunction, HandleFeatureChangeFunction } from "@/utils/interface/commonInterface";
 
 const PlanForm = () => {
     
-    const queryClient = useQueryClient();
-    const adminFormloading: boolean = useSelector((store: RootState) => store.admin.adminFormloading);
+    const [loading, setLoading] = useState<boolean>(false);
+    const [hasErrors, setHasErrors] = useState<boolean>(false);
     const [formData, setFormData] = useState<AdminAddNewPlanRequestPayload>({
         planName: "",
         description: "",
@@ -24,7 +21,6 @@ const PlanForm = () => {
         maxBookingPerMonth: 0,
         adVisibility: false,
     });
-    const [hasErrors, setHasErrors] = useState<boolean>(false);
 
     const handleChange = useCallback<HandleChangeFunction>((e) => {
         const { id, value, type } = e.target;
@@ -40,15 +36,18 @@ const PlanForm = () => {
         setHasErrors(false);
     }, [formData.features]);
 
+
+    const { handleServiceAdding } = useAdminPlanActions();
+
     const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault();
+        setLoading(true);
         if (hasErrors) {
             toast.error("Please fix the form errors.");
             return;
         }
-        const res = await addNewPlan(formData);
-        toast.success(res.message);
-        queryClient.invalidateQueries({ queryKey: ["plans"] });
+
+        handleServiceAdding(formData, setLoading);
         setFormData({
             planName: "",
             description: "",
@@ -140,7 +139,7 @@ const PlanForm = () => {
                         required={true}
                         onHasError={handleErrorChange}
                     />
-                    <FormButton text={"Add"} loading={adminFormloading} />
+                    <FormButton text={"Add"} loading={loading} />
                 </form>
             </div>
         </div>

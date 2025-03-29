@@ -8,11 +8,23 @@ import { Plan } from "../planInterface";
 }
 
 
+
+// Plan listing table data Interface used in plan custom hook and the column.tsx
+export type PlanTableInterface = Pick<Plan , "_id" | "planName" | "isBlocked">;
+
+
+
 // Admin fetch all plans type
 export type AdminFetchAllPlansResponseProps = Pick<Plan, "_id" | "planName" | "isBlocked">;
 
+
+
 // Admin adding new plan api request request payload type, used in adminPlanApi
 export type AdminAddNewPlanRequestPayload = Pick<Plan,'planName' | 'description' | 'price' | 'features' | "billingCycle" | "maxBookingPerMonth" | "adVisibility">;
+type AddNewPlanResponseProps = Pick<Plan,"_id" | 'planName' | 'description' | 'isBlocked' >;
+export interface AdminAddNewPlanResponseProps extends ApiCommonResponse {
+    plan: AddNewPlanResponseProps
+}
 
 
 // Admin change block status of plan api request payload interface, used in adminPlanApi
@@ -33,5 +45,6 @@ export interface AdminChangePlanStatusResponseProps extends ApiCommonResponse {
 
 // Admin plan custom hook interface , used in useAdminPlanActions
 export interface UseAdminPlanActionsReturnType {
+    handleServiceAdding: (formData: AdminAddNewPlanRequestPayload, setLoading: (loading: boolean) => void) => void;
     handleChangePlanStatus: (planId: string, status: boolean) => void;
 }

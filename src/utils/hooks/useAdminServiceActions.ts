@@ -17,7 +17,7 @@ export const useAdminServiceActions = (): UseAdminServiceActionReturnType => {
         }
       );
         setLoading(false);
-        toast.success("This one"+res.message);
+        toast.success(res.message);
     })
     .catch(() => {
       setLoading(false);
