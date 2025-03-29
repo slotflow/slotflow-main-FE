@@ -29,15 +29,6 @@ export interface AdminProviderServiceProps extends ProviderIdOnlyForProviderServ
 
 
 
-// **** Admin Slice **** \\
-// Admin Slice state interface used in adminSlice
-export interface stateVariables {
-    adminFormloading: boolean;
-}
-
-
-
-
 // **** Admin Provider action Interface **** \\
 // Approve provider
 export interface ProviderCommonProps {

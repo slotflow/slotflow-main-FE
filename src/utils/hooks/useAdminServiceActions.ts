@@ -1,43 +1,45 @@
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../redux/appStore";
 import { useQueryClient } from "@tanstack/react-query";
 import { addNewService, chnageServiceBlockStatus } from "../apis/adminService.api";
-import { AdminFetchAllServicesResponseProps, UseAdminServiceActionReturnType } from "../interface/api/adminServiceApiInterface";
+import { AppServiceTableInterface, UseAdminServiceActionReturnType } from "../interface/api/adminServiceApiInterface";
 
 export const useAdminServiceActions = (): UseAdminServiceActionReturnType => {
   
   const queryClient = useQueryClient();
-  const dispatch = useDispatch<AppDispatch>();
 
-  const handleServiceAdding = (serviceName: string) => {
-    dispatch(addNewService({serviceName}))
-    .unwrap()
-    .then(() => {
-      queryClient.invalidateQueries({ queryKey: ["services"] });
+  const handleServiceAdding = (appServiceName: string, setLoading: (loading: boolean) => void) => {
+    addNewService({appServiceName})
+    .then((res) => {
+      queryClient.setQueryData<AppServiceTableInterface[]>(
+        ["services"],
+        (oldData = []) => {
+          return [...oldData, res.service];
+        }
+      );
+        setLoading(false);
+        toast.success("This one"+res.message);
     })
-    .catch((error) => {
-      toast.error(error.message);
+    .catch(() => {
+      setLoading(false);
     });
   };
 
   const handleChangeServiceStatus = (serviceId: string, status: boolean) => {
-    dispatch(chnageServiceBlockStatus({ serviceId, status }))
-      .unwrap()
+    chnageServiceBlockStatus({ serviceId, status })
       .then((res) => {
         queryClient.setQueryData(
           ["services"],
-          (oldData: AdminFetchAllServicesResponseProps[] | []) => {
+          (oldData: AppServiceTableInterface[] | []) => {
             if (!oldData) return [];
             return oldData.map((service) =>
-              service._id === res._id ? res : service
+              service._id === res.updatedService._id ? res.updatedService : service
             );
           }
         );
-        queryClient.invalidateQueries({ queryKey: ["services"] });
+        toast.success(res.message);
       })
-      .catch((error) => {
-        toast.error(error.message);
+      .catch(() => {
+        toast.error("Please try again");
       });
   }
 

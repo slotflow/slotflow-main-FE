@@ -5,9 +5,9 @@ import { ChangeUserStatus } from "./AdminUserActions";
 import { ChangePlanBlockStatus } from "./AdminPlanActions";
 import { DataTableColumnHeader } from "./DataTableColumnHeader";
 import { ChangeServiceBlockStatus } from "./AdminSerivceActions";
+import { AppServiceTableInterface } from "@/utils/interface/api/adminServiceApiInterface";
 import { AdminFetchAllPlansResponseProps } from "@/utils/interface/api/adminPlanApiInterface";
 import { AdminfetchAllUsersResponseProps } from "@/utils/interface/api/adminUserApiInterface";
-import { AdminFetchAllServicesResponseProps } from "@/utils/interface/api/adminServiceApiInterface";
 import { AdminFetchAllProvidersResponseProps } from "@/utils/interface/api/adminProviderApiInterface";
 import {ApproveProvider, ChangeProviderBlockStatus, GetProviderDetailPage } from "./AdminProviderActions";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
@@ -116,7 +116,7 @@ export const userColumns: ColumnDef<AdminfetchAllUsersResponseProps>[] = [
   }
 ]
 
-export const serviceColumns: ColumnDef<AdminFetchAllServicesResponseProps>[] = [
+export const serviceColumns: ColumnDef<AppServiceTableInterface>[] = [
   {
     accessorKey: "_id",
     header: "id",

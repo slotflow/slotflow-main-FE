@@ -1,12 +1,10 @@
-import { toast } from "react-toastify";
 import axiosInstance from "@/lib/axios";
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import { 
-    AdminAddNewServiceRequestPayload, 
-    AdminAddNewServiceResponseProps, 
-    AdminFetchAllServicesResponseProps, 
-    AdminChangeServiceBlockStatusRequestPayload, 
-    AdminChnageServicesBlockStatusResponseProps, 
+import {
+    AdminAddNewServiceRequestPayload,
+    AdminAddNewServiceResponseProps,
+    AdminFetchAllServicesResponseProps,
+    AdminChangeServiceBlockStatusRequestPayload,
+    AdminChangeServiceBlockStatusResponseProps,
 } from "../interface/api/adminServiceApiInterface";
 
 export const fetchServices = async (): Promise<AdminFetchAllServicesResponseProps[]> => {
@@ -14,19 +12,14 @@ export const fetchServices = async (): Promise<AdminFetchAllServicesResponseProp
     return response.data.services;
 }
 
-export const addNewService = createAsyncThunk<AdminAddNewServiceResponseProps,AdminAddNewServiceRequestPayload>('/admin/addNewService',
-    async (payload: AdminAddNewServiceRequestPayload) => {
-        const response = await axiosInstance.post('/admin/addNewService', { serviceName: payload.appServiceName });
-        toast.success(response.data.message);
-        return response.data.service;
-    }
-)
+export const addNewService = async (payload: AdminAddNewServiceRequestPayload): Promise<AdminAddNewServiceResponseProps> => {
+    const response = await axiosInstance.post('/admin/addNewService', { serviceName: payload.appServiceName });
+    return response.data;
+}
 
-export const chnageServiceBlockStatus = createAsyncThunk<AdminChnageServicesBlockStatusResponseProps, AdminChangeServiceBlockStatusRequestPayload>('/admin/changeServiceStatus',
-    async (statusData: AdminChangeServiceBlockStatusRequestPayload) => {
-        const { serviceId, status } = statusData;
-        const response = await axiosInstance.put(`/admin/changeServiceStatus/${serviceId}?status=${status}`);
-        toast.success(response.data.message);
-        return response.data.updatedService;
-    }
-)
+
+export const chnageServiceBlockStatus = async (statusData: AdminChangeServiceBlockStatusRequestPayload): Promise<AdminChangeServiceBlockStatusResponseProps> => {
+    const { serviceId, status } = statusData;
+    const response = await axiosInstance.put(`/admin/changeServiceStatus/${serviceId}?status=${status}`);
+    return response.data;
+}
