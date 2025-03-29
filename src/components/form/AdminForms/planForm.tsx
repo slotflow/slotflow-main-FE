@@ -3,7 +3,6 @@ import { useCallback, useState } from "react";
 import InputField from "../InputFieldWithLable";
 import { FormButton, FormHeading } from "../FormSplits";
 import SelectFiledWithLabel from "../SelectFiledWithLabel";
-import { BillingCycle } from "@/utils/interface/planInterface";
 import { useAdminPlanActions } from "@/utils/hooks/useAdminPlanActions";
 import { AdminAddNewPlanRequestPayload } from "@/utils/interface/api/adminPlanApiInterface";
 import { HandleChangeFunction, HandleFeatureChangeFunction } from "@/utils/interface/commonInterface";
@@ -17,7 +16,6 @@ const PlanForm = () => {
         description: "",
         price: 0,
         features: ["", "", "", "", ""],
-        billingCycle: BillingCycle.Monthly,
         maxBookingPerMonth: 0,
         adVisibility: false,
     });
@@ -53,7 +51,6 @@ const PlanForm = () => {
             description: "",
             price: 0,
             features: ["", "", "", "", ""],
-            billingCycle: BillingCycle.Monthly,
             maxBookingPerMonth: 0,
             adVisibility: false,
         });
@@ -111,15 +108,6 @@ const PlanForm = () => {
                             onHasError={handleErrorChange}
                         />
                     ))}
-                    <SelectFiledWithLabel
-                        label="Billing Cycle"
-                        id="billingCycle"
-                        value={formData.billingCycle}
-                        onChange={handleChange}
-                        options={Object.values(BillingCycle)}
-                        required={true}
-                        onHasError={handleErrorChange}
-                    />
                     <InputField
                         label="Max Bookings Per Month"
                         id="maxBookingPerMonth"

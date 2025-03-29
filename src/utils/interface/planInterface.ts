@@ -1,8 +1,4 @@
 //  Admin Plans
-export enum BillingCycle {
-    Monthly = "monthly",
-    Yearly = "yearly",
-}
 
 export interface Plan {
     _id: string;
@@ -10,7 +6,6 @@ export interface Plan {
     description: string;
     price: number;
     features: string[];
-    billingCycle: BillingCycle;
     maxBookingPerMonth: number;
     adVisibility: boolean;
     isBlocked: boolean;

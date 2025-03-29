@@ -20,7 +20,7 @@ export type AdminFetchAllPlansResponseProps = Pick<Plan, "_id" | "planName" | "i
 
 
 // Admin adding new plan api request request payload type, used in adminPlanApi
-export type AdminAddNewPlanRequestPayload = Pick<Plan,'planName' | 'description' | 'price' | 'features' | "billingCycle" | "maxBookingPerMonth" | "adVisibility">;
+export type AdminAddNewPlanRequestPayload = Pick<Plan,'planName' | 'description' | 'price' | 'features' | "maxBookingPerMonth" | "adVisibility">;
 type AddNewPlanResponseProps = Pick<Plan,"_id" | 'planName' | 'description' | 'isBlocked' >;
 export interface AdminAddNewPlanResponseProps extends ApiCommonResponse {
     plan: AddNewPlanResponseProps
