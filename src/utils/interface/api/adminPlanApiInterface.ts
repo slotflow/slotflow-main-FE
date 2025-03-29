@@ -22,8 +22,10 @@ export interface AdminChangePlanStatusRequestPayload {
 }
 
 // Admin chnage block status of plan api response interface, used in adminPlanApi
-export type AdminChangePlanStatusResponseProps = Pick<Plan, "_id" | "planName" | "isBlocked">;
-
+export type ChangePlanStatusResponseProps = Pick<Plan, "_id" | "planName" | "isBlocked">;
+export interface AdminChangePlanStatusResponseProps extends ApiCommonResponse {
+    updatedPlan : ChangePlanStatusResponseProps;
+}
 
 
 
