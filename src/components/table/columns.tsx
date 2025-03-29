@@ -5,8 +5,8 @@ import { ChangeUserStatus } from "./AdminUserActions";
 import { ChangePlanBlockStatus } from "./AdminPlanActions";
 import { DataTableColumnHeader } from "./DataTableColumnHeader";
 import { ChangeServiceBlockStatus } from "./AdminSerivceActions";
+import { PlanTableInterface } from "@/utils/interface/api/adminPlanApiInterface";
 import { AppServiceTableInterface } from "@/utils/interface/api/adminServiceApiInterface";
-import { AdminFetchAllPlansResponseProps } from "@/utils/interface/api/adminPlanApiInterface";
 import { AdminfetchAllUsersResponseProps } from "@/utils/interface/api/adminUserApiInterface";
 import { AdminFetchAllProvidersResponseProps } from "@/utils/interface/api/adminProviderApiInterface";
 import {ApproveProvider, ChangeProviderBlockStatus, GetProviderDetailPage } from "./AdminProviderActions";
@@ -164,7 +164,7 @@ export const serviceColumns: ColumnDef<AppServiceTableInterface>[] = [
 ]
 
 
-export const planColumns: ColumnDef<AdminFetchAllPlansResponseProps>[] = [
+export const planColumns: ColumnDef<PlanTableInterface>[] = [
   {
     accessorKey: "_id",
     header: "id",
