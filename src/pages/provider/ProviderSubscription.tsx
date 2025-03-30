@@ -10,20 +10,15 @@ import { fetchProviderPlans, fetchProviderSubscriptions, subscribeToPlan } from 
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
 import { setPaymentSelectionPage, setSubscribingData } from "@/utils/redux/slices/providerSlice";
-import { X } from "lucide-react";
+import { Loader, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import CommonButton from "@/components/common/CommonButton";
 import { loadStripe } from '@stripe/stripe-js';
 import { toast } from "react-toastify";
 import SelectFiledWithLabel from "@/components/form/SelectFiledWithLabel";
-
-const planDurations: { durationName: string; durationMonth: number }[] = [
-    { durationName: "1 Month", durationMonth: 1 },
-    { durationName: "3 Months", durationMonth: 3 },
-    { durationName: "6 Months", durationMonth: 6 },
-    { durationName: "12 Months", durationMonth: 12 }
-];
+import { planDurations } from "@/utils/constants";
+import React from 'react';
 
 const ProviderSubscription = () => {
 
@@ -32,6 +27,7 @@ const ProviderSubscription = () => {
     const paymentSelectionRef = useRef(null);
     const plansRef = useRef(null);
     const [showPlans, setShowPlans] = useState<boolean>(true);
+    const [paymentLoading, setPaymentLoading] = useState<boolean>(false)
 
     const [selectedPlanDuration, setSelectedPlanDuration] = useState(planDurations[0].durationName);
 
@@ -87,48 +83,48 @@ const ProviderSubscription = () => {
         dispatch(setPaymentSelectionPage(false));
     }
 
-    const makePayment = async () => {
+    const makeStripePayment = async () => {
         if (!import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY) {
             toast.error("Stripe key is missing!");
             return;
         }
-    
+
         const stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
         if (!stripe) {
             toast.error("Stripe failed to load!");
             return;
         }
-    
-        // Ensure planId is valid
+
         if (!planId) {
             toast.error("Invalid plan selected.");
             return;
         }
-    
-        // Prepare data
+
         const data = {
             planId,
             planDuration: selectedPlanDuration,
         };
-    
+
         try {
-            // Await the session ID response
-            const {sessionId} = await subscribeToPlan(data);
-    
+            setPaymentLoading(true);
+            const { sessionId } = await subscribeToPlan(data);
+
             if (!sessionId) {
                 toast.error("Failed to create checkout session.");
+                setPaymentLoading(false);
                 return;
             }
-    
-            // Redirect to Stripe checkout
-            const result = await stripe.redirectToCheckout({sessionId});
-    
+            
+            setPaymentLoading(false);
+            setPaymentSelectionPage(false);
+            const result = await stripe.redirectToCheckout({ sessionId });
+
             if (result?.error) {
+                setPaymentLoading(false);
                 toast.error(result.error.message);
             }
         } catch (error) {
-            console.error("Payment error:", error);
-            toast.error("An error occurred during payment.");
+            toast.error(error + "An error occurred during payment.");
         }
     };
 
@@ -142,9 +138,10 @@ const ProviderSubscription = () => {
                 </div>
                 <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 p-6 ${!showPlans && "hidden"}`} ref={plansRef}>
                     {isPlansLoading ? (
+                        // TODO Plan shimmer
                         <p>Loading</p>
                     ) : isPlansError ? (
-                        <p>Error {plansError.message}</p>
+                        <DataFetchingError message={plansError.message} />
                     ) : plansData && (
                         plansData.map((plan) => (
                             <Card key={plan._id} className="p-4 border rounded-2xl shadow-sm flex flex-col h-full">
@@ -189,36 +186,41 @@ const ProviderSubscription = () => {
             </div>
             {paymentSelectionOpen && (
                 <div className="fixed inset-0 flex justify-center items-center bg-black/70 z-50">
-                    <div className="w-3/12 rounded-lg shadow-lg bg-[var(--background)] border border-[var-[boxBorder]] p-4" ref={paymentSelectionRef}>
-                        <X className="cursor-pointer ml-auto" onClick={handlePaymentSelectionClose} />
-                        <div className="py-6">
-                            <h2 className="text-lg font-bold mb-4 text-center">Choose Payment Gateway</h2>
-                            <div className="space-y-6">
-                                <SelectFiledWithLabel
-                                    label="Select plan duration"
-                                    id="planDuration"
-                                    value={selectedPlanDuration}
-                                    onChange={handleDayChange}
-                                    options={planDurations.map(plan => plan.durationName)}
-                                    required={true}
-                                />
-                                <button className="w-full flex items-center justify-center space-x-2 p-3 bg-white/80  rounded-md shadow cursor-pointer hover:bg-gray-100" onClick={makePayment}>
-                                    <img src="/images/Stripe.jpeg" alt="Stripe" className="w-8 h-8" />
-                                    <h6 className="font-bold italic text-[#635bff]">Stripe</h6>
-                                </button>
+                    {!paymentLoading ? (
 
-                                <button className="w-full flex items-center justify-center space-x-2 p-3 bg-white/80 rounded-md shadow cursor-pointer hover:bg-gray-100">
-                                    <img src="/images/Paypal.png" alt="PayPal" className="w-8 h-8" />
-                                    <h6 className="font-bold italic"><span className="text-[#002991]">Pay</span><span className="text-[#60cdff]">pal</span></h6>
-                                </button>
+                        <div className="w-3/12 rounded-lg shadow-lg bg-[var(--background)] border border-[var-[boxBorder]] p-4" ref={paymentSelectionRef}>
+                            <X className="cursor-pointer ml-auto" onClick={handlePaymentSelectionClose} />
+                            <div className="py-6">
+                                <h2 className="text-lg font-bold mb-4 text-center">Choose Payment Gateway</h2>
+                                <div className="space-y-6">
+                                    <SelectFiledWithLabel
+                                        label="Select plan duration"
+                                        id="planDuration"
+                                        value={selectedPlanDuration}
+                                        onChange={handleDayChange}
+                                        options={planDurations.map(plan => plan.durationName)}
+                                        required={true}
+                                    />
+                                    <button className="w-full flex items-center justify-center space-x-2 p-3 bg-white/80  rounded-md shadow cursor-pointer hover:bg-gray-100" onClick={makeStripePayment}>
+                                        <img src="/images/Stripe.jpeg" alt="Stripe" className="w-8 h-8" />
+                                        <h6 className="font-bold italic text-[#635bff]">Stripe</h6>
+                                    </button>
 
-                                <button className="w-full flex items-center justify-center space-x-2 p-3 bg-white/80 rounded-md shadow cursor-pointer hover:bg-gray-100">
-                                    <img src="/images/Razorpay.png" alt="Razorpay" className="w-8 h-8" />
-                                    <h6 className="text-[#072654] font-bold italic">Razorpay</h6>
-                                </button>
+                                    <button className="w-full flex items-center justify-center space-x-2 p-3 bg-white/80 rounded-md shadow cursor-pointer hover:bg-gray-100">
+                                        <img src="/images/Paypal.png" alt="PayPal" className="w-8 h-8" />
+                                        <h6 className="font-bold italic"><span className="text-[#002991]">Pay</span><span className="text-[#60cdff]">pal</span></h6>
+                                    </button>
+
+                                    <button className="w-full flex items-center justify-center space-x-2 p-3 bg-white/80 rounded-md shadow cursor-pointer hover:bg-gray-100">
+                                        <img src="/images/Razorpay.png" alt="Razorpay" className="w-8 h-8" />
+                                        <h6 className="text-[#072654] font-bold italic">Razorpay</h6>
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    ) : (
+                        <Loader className="w-10 h-10 animate-spin" />
+                    )}
                 </div>
             )}
         </>

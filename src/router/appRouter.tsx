@@ -39,6 +39,7 @@ import ProviderAddress from "@/pages/provider/ProviderAddress.tsx";
 import ProviderAvailability from "@/pages/provider/ProviderAvailability.tsx";
 import UserAddress from "@/pages/user/userAddress.tsx";
 import ProviderSubscription from "@/pages/provider/ProviderSubscription.tsx";
+import PaymentConfirmPage from "@/pages/common/PaymentConfirmPage.tsx";
 
 export const appRouter = createBrowserRouter([
     {
@@ -110,6 +111,8 @@ export const appRouter = createBrowserRouter([
                     { path: "payment", element: <ProviderPayment />},
                     { path: "addAddress", element: <ProviderAddAddress /> },
                     { path: "addServiceDetails", element: <ProviderAddServiceDetails /> },
+                    { path: "payment-success", element: <PaymentConfirmPage status={true} /> },
+                    { path: "payment-failed", element: <PaymentConfirmPage status={false} /> },
                     { path: "*", element: <ErrorDisplay /> },
                 ],
             },

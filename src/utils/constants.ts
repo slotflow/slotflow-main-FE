@@ -56,3 +56,13 @@ export const adminRoutes: Route[] = [
     { name: 'About', href: '#', current: false },
     { name: 'Contact', href: '#', current: false },
   ]
+
+
+
+  // Provider plan subscription duration array
+  export const planDurations: { durationName: string; durationMonth: number }[] = [
+    { durationName: "1 Month", durationMonth: 1 },
+    { durationName: "3 Months", durationMonth: 3 },
+    { durationName: "6 Months", durationMonth: 6 },
+    { durationName: "12 Months", durationMonth: 12 }
+];

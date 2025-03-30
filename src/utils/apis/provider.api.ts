@@ -74,8 +74,15 @@ export const fetchProviderPlans = async () : Promise<ProviderFetchPlansResponseP
     return response.data.plans;
 }
 
+// This api will create the stripe session and return the session id 
 export const subscribeToPlan = async (data: {planId: string, planDuration: string}) : Promise<{success: boolean, message: string, sessionId: string}> => {
     const response = await axiosInstance.post('/provider/create-checkout-session', data)
+    return response.data;
+}
+
+// This api will send the session id to backend and validate the sessionid and retrieve the subscription details
+export const saveSubscription = async (sessionId: string): Promise<ApiCommonResponse> => {
+    const response = await axiosInstance.post('/provider/saveSubscription',{ sessionId });
     return response.data;
 }
 
