@@ -40,6 +40,7 @@ const AdminProviderDetails: React.FC<AdminProviderDetailsProps> = memo(({ _id, o
                     <InfoDisplayComponent label="Email Verified" value={data?.isEmailVerified} isBoolean={true} />
                     <InfoDisplayComponent label="Account Blocked" value={data?.isBlocked} isBoolean={true} />
                     <InfoDisplayComponent label="Admin Verified" value={data?.isAdminVerified} isBoolean={true} />
+                    <InfoDisplayComponent label="Slotflow Trsuted" value={data?.trustedBySlotflow} isBoolean={true} />
                 </tbody>
             </table>
         </div>

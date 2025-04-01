@@ -16,6 +16,7 @@ export interface Provider {
     serviceAvailabilityId: string;
     subscription: [string];
     verificationToken: string;
+    trustedBySlotflow: boolean;
     createdAt: string;
     updatedAt: string;
 }
@@ -30,31 +31,26 @@ export interface RightSideBoxProps {
   }
 
 
-
+// Plan card interface showing in the provider subscription page
 type CardProps = Pick<Plan, "_id" | "planName" | "description" | "features" | "price">;
 export interface PlanCardProps {
     plan: CardProps;
     storeSubscribingData: (id: string, planPrice: number) => void;
 }
 
+// Plan list interface showing in provider subscription page
 export interface PlanListProps {
     storeSubscribingData: (planId: string, planPrice: number) => void;
     showPlans: boolean;
     plansRef: React.RefObject<HTMLDivElement>;
 }
 
-
+// Payment confirmation page interface 
 export interface PaymentConfirmPageProps {
   status: boolean;
 }
 
+// Payment selection card interface used in the provider subscription page
 export interface PaymentSelectionProps {
   paymentSelectionRef: React.RefObject<HTMLDivElement>;
-}
-
-
-export interface PlanListProps {
-    storeSubscribingData: (planId: string, planPrice: number) => void;
-    showPlans: boolean;
-    plansRef: React.RefObject<HTMLDivElement>;
 }

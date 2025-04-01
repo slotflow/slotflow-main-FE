@@ -10,8 +10,8 @@ import { PlanTableInterface } from "@/utils/interface/api/adminPlanApiInterface"
 import { UsersTableInterfaceProps } from "@/utils/interface/api/adminUserApiInterface";
 import { AppServiceTableInterface } from "@/utils/interface/api/adminServiceApiInterface";
 import { ProvidersTableInterfaceProps } from "@/utils/interface/api/adminProviderApiInterface";
-import { ProviderPaymentsTableInterfaceProps, ProviderSubscriptionTableInterfaceProps } from "@/utils/interface/subscriptionInterface";
 import {ApproveProvider, ChangeProviderBlockStatus, GetProviderDetailPage } from "./AdminProviderActions";
+import { ProviderPaymentsTableInterfaceProps, ProviderSubscriptionTableInterfaceProps } from "@/utils/interface/subscriptionInterface";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
 
 export const providerColumns: ColumnDef<ProvidersTableInterfaceProps>[] = [
@@ -37,6 +37,14 @@ export const providerColumns: ColumnDef<ProvidersTableInterfaceProps>[] = [
     cell: ({ row }) => {
       const isBlocked = row.original.isBlocked;
       return <span>{isBlocked ? "Blocked" : "Active"}</span>;
+    },
+  },
+  {
+    accessorKey: "trustedBySlotflow",
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="Slotflow Trusted" />),
+    cell: ({ row }) => {
+      const isTrusted = row.original.isBlocked;
+      return <span>{isTrusted ? "Trusted" : "Pending"}</span>;
     },
   },
   {

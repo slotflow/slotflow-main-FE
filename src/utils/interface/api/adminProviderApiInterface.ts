@@ -14,13 +14,13 @@ export interface ApiCommonResponse {
 
 
 // Admin providers table interface props used in use admin providers action custom hook and the column.tsx
-export type ProvidersTableInterfaceProps = Pick<Provider, "_id" | "username" | "email" | "isBlocked" | "isAdminVerified">;
+export type ProvidersTableInterfaceProps = Pick<Provider, "_id" | "username" | "email" | "isBlocked" | "isAdminVerified" | "trustedBySlotflow">;
 
 
 
 // **** Fetch all Providers
 // Admin fetch all providers api response provider type, used also in the admin sevice providers data listing tables coloums props in colomns.tsx
-export type AdminFetchAllProvidersResponseProps = Pick<Provider, "_id" | "username" | "email" | "isBlocked" | "isAdminVerified">;
+export type AdminFetchAllProvidersResponseProps = Pick<Provider, "_id" | "username" | "email" | "isBlocked" | "isAdminVerified" | "trustedBySlotflow">;
 
 
 
@@ -30,7 +30,7 @@ export interface AdminApproveProviderRequestPayload {
     providerId: string; 
 }
 // Admin approve aprovider api response interface
-export type AdminApproveProviderResponseProps = Pick<Provider, "_id" | "username" | "email" | "isBlocked" | "isAdminVerified">;
+export type AdminApproveProviderResponseProps = Pick<Provider, "_id" | "username" | "email" | "isBlocked" | "isAdminVerified" | "trustedBySlotflow">;
 
 
 
@@ -42,12 +42,12 @@ export interface AdminChangeProviderBlockStatusRequestPayload {
 }
 
 // Admin change Provider block status response interface
-export type AdminChangeProviderBlockStatusResponse = Pick<Provider, "_id" | "username" | "email" | "isBlocked" | "isAdminVerified">;
+export type AdminChangeProviderBlockStatusResponse = Pick<Provider, "_id" | "username" | "email" | "isBlocked" | "isAdminVerified" | "trustedBySlotflow">;
 
 
 
 // **** Admin fetch provider details api response interface
-export type AdminFetchProviderDetailsResponseProps = Pick<Provider, "_id" | "username" | "email" | "isBlocked" | "isEmailVerified" | "isAdminVerified" | "phone" | "profileImage" | "createdAt">;
+export type AdminFetchProviderDetailsResponseProps = Pick<Provider, "_id" | "username" | "email" | "isBlocked" | "isEmailVerified" | "isAdminVerified" | "phone" | "profileImage" | "createdAt" | "trustedBySlotflow">;
 
 // **** Admin fetch provider Address api response interface
 export type AdminFetchProviderAddressResponseProps = Pick<Address, "userId" | "addressLine" | "phone" | "place" | "city" | "district" | "pincode" | "state" | "country" | "googleMapLink">;
