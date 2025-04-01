@@ -90,3 +90,8 @@ export const fetchProviderSubscriptions = async () : Promise<ProviderFetchSubscr
     const response = await axiosInstance.get('/provider/getSubscriptions');
     return response.data.subscriptions;
 }
+
+export const subscribeToTrialPlan = async (): Promise<ApiCommonResponse> => {
+    const response = await axiosInstance.post('/provider/subscribeToTrialPlan');
+    return response.data;
+}

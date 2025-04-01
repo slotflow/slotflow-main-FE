@@ -34,11 +34,11 @@ export interface RightSideBoxProps {
 type CardProps = Pick<Plan, "_id" | "planName" | "description" | "features" | "price">;
 export interface PlanCardProps {
     plan: CardProps;
-    storeSubscribingData: (id: string) => void;
+    storeSubscribingData: (id: string, planPrice: number) => void;
 }
 
 export interface PlanListProps {
-    storeSubscribingData: (planId: string) => void;
+    storeSubscribingData: (planId: string, planPrice: number) => void;
     showPlans: boolean;
     plansRef: React.RefObject<HTMLDivElement>;
 }
@@ -54,7 +54,7 @@ export interface PaymentSelectionProps {
 
 
 export interface PlanListProps {
-    storeSubscribingData: (planId: string) => void;
+    storeSubscribingData: (planId: string, planPrice: number) => void;
     showPlans: boolean;
     plansRef: React.RefObject<HTMLDivElement>;
 }

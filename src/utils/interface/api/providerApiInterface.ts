@@ -63,7 +63,7 @@ export interface ProviderUpdateProfileImageResponseProps extends ApiCommonRespon
 export type ProviderFetchPlansResponseProps = Pick<Plan, "_id" | "planName" | "price" | "features" | "description">;
 
 // Provider fetch subscription history api response props
-type SubscripionsResProps = Pick<Subscription, | "startDate" | "endDate" | "subscriptionStatus" | "subscriptionDurationInDays">;
+type SubscripionsResProps = Pick<Subscription, | "startDate" | "endDate" | "subscriptionStatus">;
 export interface ProviderFetchSubscriptionHistoryResponseProps extends SubscripionsResProps , Partial<Plan>{
     
 }

@@ -18,7 +18,7 @@ const PlanCard: React.FC<PlanCardProps> = ({ plan, storeSubscribingData }) => {
                 <p className="mt-4 text-sm">{plan.description}</p>
             </CardContent>
             <div className="mt-auto">
-                <Button className="w-full cursor-pointer" onClick={() => storeSubscribingData(plan._id)}>Choose Plan</Button>
+                <Button className="w-full cursor-pointer" onClick={() => storeSubscribingData(plan._id, plan.price)}>Choose Plan</Button>
             </div>
         </Card>
     )

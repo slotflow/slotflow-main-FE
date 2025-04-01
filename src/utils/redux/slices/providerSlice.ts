@@ -13,6 +13,7 @@ interface Availability {
 interface ProviderState {
   availabilities: Availability[];
   planId: string | null;
+  planPrice: number | null;
   paymentSelectionOpen: boolean;
   paymentPageOpen: boolean;
 }
@@ -20,6 +21,7 @@ interface ProviderState {
 const initialState: ProviderState = {
   availabilities: [],
   planId: null,
+  planPrice: null,
   paymentSelectionOpen: false,
   paymentPageOpen: false,
 };
@@ -40,7 +42,8 @@ const providerSlice = createSlice({
         state.availabilities.push(newAvailability);
       },
       setSubscribingData: (state, action) => {
-        state.planId = action.payload;
+        state.planId = action.payload.planId;
+        state.planPrice = action.payload.planPrice;
       },
       setPaymentSelectionPage: (state, action) => {
         state.paymentSelectionOpen = action.payload;

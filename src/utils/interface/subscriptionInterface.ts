@@ -5,7 +5,6 @@ export interface Subscription {
     _id: string,
     providerId: string,
     subscriptionPlanId: string,
-    subscriptionDurationInDays: number,
     startDate: Date,
     endDate: Date,
     subscriptionStatus: string,
@@ -14,6 +13,6 @@ export interface Subscription {
     updatedAt: Date,
 }
 
-type SubscriptionTableInterfaceProps = Pick<Subscription, "startDate" | "endDate" | "subscriptionStatus" | "subscriptionDurationInDays">;
+type SubscriptionTableInterfaceProps = Pick<Subscription, "startDate" | "endDate" | "subscriptionStatus">;
 export interface ProviderSubscriptionTableInterfaceProps extends SubscriptionTableInterfaceProps , Partial<Plan> {};
 
