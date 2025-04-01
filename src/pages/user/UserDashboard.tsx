@@ -10,6 +10,7 @@ const providers = [
     serviceCategory: "Plumbing",
     imageUrl: "https://via.placeholder.com/300", // Replace with actual image
     trusted: true,
+    rating: 4.5
   },
   {
     providerName: "Smith Electricians",
@@ -17,6 +18,8 @@ const providers = [
     description: "Professional electrical repair and installation services.",
     serviceCategory: "Electrical",
     imageUrl: "https://via.placeholder.com/300", // Replace with actual image
+    trusted: false,
+    rating: 4.5,
   },
   {
     providerName: "John's Plumbing",
@@ -25,6 +28,7 @@ const providers = [
     serviceCategory: "Plumbing",
     imageUrl: "https://via.placeholder.com/300", // Replace with actual image
     trusted: true,
+    rating: 4.5,
   },
   {
     providerName: "Smith Electricians",
@@ -32,6 +36,8 @@ const providers = [
     description: "Professional electrical repair and installation services.",
     serviceCategory: "Electrical",
     imageUrl: "https://via.placeholder.com/300", // Replace with actual image
+    trusted: false,
+    rating: 4.5,
   },
   {
     providerName: "John's Plumbing",
@@ -40,6 +46,7 @@ const providers = [
     serviceCategory: "Plumbing",
     imageUrl: "https://via.placeholder.com/300", // Replace with actual image
     trusted: true,
+    rating: 4.5,
   },
   {
     providerName: "Smith Electricians",
@@ -48,6 +55,7 @@ const providers = [
     serviceCategory: "Electrical",
     imageUrl: "https://via.placeholder.com/300", // Replace with actual image
     trusted: true,
+    rating: 4.5,
   },
   {
     providerName: "John's Plumbing",
@@ -55,6 +63,8 @@ const providers = [
     description: "Experienced plumbing solutions for all your home needs.",
     serviceCategory: "Plumbing",
     imageUrl: "https://via.placeholder.com/300", // Replace with actual image
+    trusted: false,
+    rating: 4.5,
   },
   {
     providerName: "Smith Electricians",
@@ -62,6 +72,8 @@ const providers = [
     description: "Professional electrical repair and installation services.",
     serviceCategory: "Electrical",
     imageUrl: "https://via.placeholder.com/300", // Replace with actual image
+    trusted: false,
+    rating: 4.5,
   },
 ];
 

@@ -1,5 +1,6 @@
 import { CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Star } from "lucide-react";
 
 interface ProviderCardProps {
     providerName: string;
@@ -8,6 +9,7 @@ interface ProviderCardProps {
     serviceCategory: string;
     imageUrl: string;
     trusted: boolean;
+    rating: number;
 }
 
 const ProviderCard: React.FC<ProviderCardProps> = ({
@@ -17,6 +19,7 @@ const ProviderCard: React.FC<ProviderCardProps> = ({
     serviceCategory,
     imageUrl,
     trusted,
+    rating,
 }) => {
     return (
         <div className="w-full max-w-sm rounded-lg shadow-md hover:shadow-lg transition-shadow border p-2 cursor-pointer hover:border hover:border-[var(--mainColor)]">
@@ -36,7 +39,10 @@ const ProviderCard: React.FC<ProviderCardProps> = ({
             </div>
             <div className="p-2 space-y-2">
                 <div>
-                    <CardTitle className="text-lg font-semibold">{providerName}</CardTitle>
+                    <div className="flex justify-between">
+                        <CardTitle className="text-lg font-semibold">{providerName}</CardTitle>
+                        <Badge className="mt-2 text-xs"><Star/> {rating}</Badge>
+                    </div>
                     <Badge className="mt-2 text-sm">{serviceCategory}</Badge>
                 </div>
                 <div>
