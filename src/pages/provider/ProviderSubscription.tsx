@@ -11,7 +11,7 @@ const ProviderSubscription = () => {
     const dispatch = useDispatch<AppDispatch>();
     const paymentSelectionRef = useRef<HTMLDivElement | null>(null);
     const plansRef = useRef<HTMLDivElement | null>(null);
-    const [showPlans, setShowPlans] = useState<boolean>(true);
+    const [showPlans, setShowPlans] = useState<boolean>(false);
 
     const storeSubscribingData = (planId: string, planPrice: number) => {
         dispatch(setSubscribingData({planId, planPrice}));
