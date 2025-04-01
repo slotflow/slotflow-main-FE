@@ -1,41 +1,19 @@
-export enum PaymentStatus {
-    Cancelled = "Cancelled",
-    Pending = "Pending",
-    Paid = "Paid",
-}
+import { Plan } from "./planInterface";
 
-export enum SubscriptionStatus {
-    Active = "Active",
-    Expired = "Expired",
-    Cancelled = "Cancelled",
-}
-
-export enum PaymentMethod {
-    Card = "Card",
-    UPI = "UPI",
-    Wallet = "Wallet",
-    NetBanking = "NetBanking"   
-}
-
+// Provider subscription interface
 export interface Subscription {
-    _id: string;
+    _id: string,
     providerId: string,
     subscriptionPlanId: string,
+    subscriptionDurationInDays: number,
     startDate: Date,
     endDate: Date,
-    paymentStatus: PaymentStatus,
-    paymentMethod: PaymentMethod,
-    transactionId: string,
-    subscriptionStatus: SubscriptionStatus,
-    createdAt: string;
-    updatedAt: string;
+    subscriptionStatus: string,
+    paymentId: string,
+    createdAt: Date,
+    updatedAt: Date,
 }
 
-export type AdminSubscriptionTableInterfaceProps = Pick<Subscription, "startDate" | "endDate" | "paymentStatus" | "paymentMethod" | "subscriptionStatus" | "transactionId" > & {
-    providerId?: string;
-    plan: string
-}
+type SubscriptionTableInterfaceProps = Pick<Subscription, "startDate" | "endDate" | "subscriptionStatus" | "subscriptionDurationInDays">;
+export interface ProviderSubscriptionTableInterfaceProps extends SubscriptionTableInterfaceProps , Partial<Plan> {};
 
-export type UserSubscriptionTableInterfaceProps = Pick<Subscription, "startDate" | "endDate" | "paymentStatus" | "paymentMethod" | "subscriptionStatus" | "transactionId" > & {
-    plan: string
-}

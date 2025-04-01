@@ -37,9 +37,9 @@ import ProviderAddServiceDetails from "@/pages/provider/ProviderAddServiceDetail
 import AdminServiceProviderDetailProfile from "@/pages/admin/AdminServiceProviderDetailProfile.tsx";
 import ProviderAddress from "@/pages/provider/ProviderAddress.tsx";
 import ProviderAvailability from "@/pages/provider/ProviderAvailability.tsx";
-import UserAddress from "@/pages/user/userAddress.tsx";
 import ProviderSubscription from "@/pages/provider/ProviderSubscription.tsx";
 import PaymentConfirmPage from "@/pages/common/PaymentConfirmPage.tsx";
+import UserAddress from "@/pages/user/UserAddress.tsx";
 
 export const appRouter = createBrowserRouter([
     {

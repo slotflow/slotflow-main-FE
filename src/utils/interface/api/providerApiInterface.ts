@@ -1,10 +1,10 @@
-import { Address } from "../addressInterface";
-import { Service } from "../appServiceInterface";
 import { Plan } from "../planInterface";
+import { Address } from "../addressInterface";
 import { Provider } from "../providerInterface";
+import { Service } from "../appServiceInterface";
+import { Subscription } from "../subscriptionInterface";
 import { ProviderService } from "../providerServiceInterface";
 import { Availability, ServiceAvailability } from "../serviceAvailabilityInterface";
-import { Subscription } from "../subscriptionInterface";
 
 // Common Response Type
 export interface ApiCommonResponse {
@@ -63,6 +63,7 @@ export interface ProviderUpdateProfileImageResponseProps extends ApiCommonRespon
 export type ProviderFetchPlansResponseProps = Pick<Plan, "_id" | "planName" | "price" | "features" | "description">;
 
 // Provider fetch subscription history api response props
-export type ProviderFetchSubscriptionHistoryResponseProps = Pick<Subscription, "createdAt" | "startDate" | "endDate" | "paymentMethod" | "paymentStatus" | "subscriptionStatus" | "transactionId"> & {
-    plan: string;
+type SubscripionsResProps = Pick<Subscription, | "startDate" | "endDate" | "subscriptionStatus" | "subscriptionDurationInDays">;
+export interface ProviderFetchSubscriptionHistoryResponseProps extends SubscripionsResProps , Partial<Plan>{
+    
 }

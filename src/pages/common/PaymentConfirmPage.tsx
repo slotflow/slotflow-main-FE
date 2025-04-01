@@ -1,14 +1,11 @@
 import { gsap } from "gsap";
 import { useEffect } from "react";
+import { toast } from "react-toastify";
+import { useSearchParams } from "react-router-dom";
 import { CheckCircle, XCircle } from "lucide-react";
 import CommonButton from "@/components/common/CommonButton";
-import { useSearchParams } from "react-router-dom";
 import { saveSubscription } from "@/utils/apis/provider.api";
-import { toast } from "react-toastify";
-
-interface PaymentConfirmPageProps {
-  status: boolean;
-}
+import { PaymentConfirmPageProps } from "@/utils/interface/providerInterface";
 
 const PaymentConfirmPage: React.FC<PaymentConfirmPageProps> = ({ status }) => {
 

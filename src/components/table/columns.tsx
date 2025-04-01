@@ -1,3 +1,4 @@
+import { format } from "date-fns";
 import { Button } from "../ui/button";
 import { MoreHorizontal } from "lucide-react";
 import { ColumnDef } from "@tanstack/react-table";
@@ -9,9 +10,9 @@ import { PlanTableInterface } from "@/utils/interface/api/adminPlanApiInterface"
 import { UsersTableInterfaceProps } from "@/utils/interface/api/adminUserApiInterface";
 import { AppServiceTableInterface } from "@/utils/interface/api/adminServiceApiInterface";
 import { ProvidersTableInterfaceProps } from "@/utils/interface/api/adminProviderApiInterface";
+import { ProviderSubscriptionTableInterfaceProps } from "@/utils/interface/subscriptionInterface";
 import {ApproveProvider, ChangeProviderBlockStatus, GetProviderDetailPage } from "./AdminProviderActions";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
-import { UserSubscriptionTableInterfaceProps } from "@/utils/interface/subscriptionInterface";
 
 export const providerColumns: ColumnDef<ProvidersTableInterfaceProps>[] = [
   {
@@ -213,40 +214,41 @@ export const planColumns: ColumnDef<PlanTableInterface>[] = [
   }
 ]
 
-export const userSubscriptionColumns: ColumnDef<UserSubscriptionTableInterfaceProps>[] = [
+export const providerSubscriptionColumns: ColumnDef<ProviderSubscriptionTableInterfaceProps>[] = [
   {
-    accessorKey: "plan",
+    accessorKey: "subscriptionPlanId.planName",
     header: ({ column }) => (<DataTableColumnHeader column={column} title="Plan" />)
   },
   {
     accessorKey: "startDate",
-    header: ({ column }) => (<DataTableColumnHeader column={column} title="Paid on" />)
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="Paid on" />),
+    cell: ({ row }) => {
+        const startDate = row.getValue("startDate"); // Get the raw startDate value
+        const formattedDate = startDate ? format(new Date(startDate as Date), "dd MMM yyyy") : "N/A"; // Format the date
+        return <span>{formattedDate}</span>;
+    }
+
   },
   {
     accessorKey: "endDate",
-    header: ({ column }) => (<DataTableColumnHeader column={column} title="Expires on" />)
-  },
-  {
-    accessorKey: "paymentStatus",
-    header: ({ column }) => (<DataTableColumnHeader column={column} title="Payment Status" />)
-  },
-  {
-    accessorKey: "paymentMethod",
-    header: ({ column }) => (<DataTableColumnHeader column={column} title="Payment Method" />)
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="Expires on" />),
+    cell: ({ row }) => {
+        const endDate = row.getValue("endDate"); // Get the raw endDate value
+        const formattedDate = endDate ? format(new Date(endDate as Date), "dd MMM yyyy") : "N/A"; // Format the date
+        return <span>{formattedDate}</span>;
+    }
+
   },
   {
     accessorKey: "subscriptionStatus",
     header: ({ column }) => (<DataTableColumnHeader column={column} title="Status" />)
   },
   {
-    accessorKey: "transactionId",
-    header: ({ column }) => (<DataTableColumnHeader column={column} title="TransactionId" />)
-  },
-  {
     accessorKey: "actions",
     header: "Actions",
     id: "actions",
-    cell: () => {
+    cell: ({ row }) => {
+      const subscription = row.original;
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -258,7 +260,9 @@ export const userSubscriptionColumns: ColumnDef<UserSubscriptionTableInterfacePr
           <DropdownMenuContent align="end">
             <DropdownMenuSeparator />
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem>Cancel</DropdownMenuItem>
+            {subscription.subscriptionStatus === "Active" && (
+              <DropdownMenuItem>Cancel</DropdownMenuItem>
+            )}
           </DropdownMenuContent>
         </DropdownMenu>
       )

@@ -1,3 +1,5 @@
+import { Plan } from "./planInterface";
+
 // Provider
 export interface Provider {
     _id: string;
@@ -26,3 +28,33 @@ export interface RightSideBoxProps {
       pageNumber: number;
     };
   }
+
+
+
+type CardProps = Pick<Plan, "_id" | "planName" | "description" | "features" | "price">;
+export interface PlanCardProps {
+    plan: CardProps;
+    storeSubscribingData: (id: string) => void;
+}
+
+export interface PlanListProps {
+    storeSubscribingData: (planId: string) => void;
+    showPlans: boolean;
+    plansRef: React.RefObject<HTMLDivElement>;
+}
+
+
+export interface PaymentConfirmPageProps {
+  status: boolean;
+}
+
+export interface PaymentSelectionProps {
+  paymentSelectionRef: React.RefObject<HTMLDivElement>;
+}
+
+
+export interface PlanListProps {
+    storeSubscribingData: (planId: string) => void;
+    showPlans: boolean;
+    plansRef: React.RefObject<HTMLDivElement>;
+}

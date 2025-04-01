@@ -1,5 +1,4 @@
-import { Route } from "./interface";
-import { HeaderCompoenentNavsProps } from "./interface/commonInterface";
+import { HeaderCompoenentNavsProps, Route } from "./interface/commonInterface";
 
 export const adminRoutes: Route[] = [
   { path: "/admin", name: "Dashboard" },
