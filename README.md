@@ -1,50 +1,33 @@
-# React + TypeScript + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+## Features ##
+1. Admin
+  * Users list Page
+    - Search
+    - Sort
+    - Block / Unblock
+    - Detailed Profile view Page
+  * Providers list Page
+    - Search
+    - Sort
+    - Block / Unblock
+    - Detailed Profile view Page
+    - Approve after validating details
+  * Plans List Page
+    - Add Plan
+2. Provider
+  * Add Address Page
+  * Add Service details with document upload Page
+  * Add service availability details with slots Page
+  * Approve pending showing Page
+  * Profile view Page
+  * Address view Page
+  * Service view Page
+    - resizable document view
+  * Service availability view Page
+  * Subscriptions List Page
+  * Subscription History Page
+  * Subscription with stripe gateway
+  * 7 days Trial subscription
+  * Payments List Page
+3. User
+ * Profile view Page
+ * Address view Page
