@@ -5,6 +5,7 @@ import { Service } from "../appServiceInterface";
 import { Subscription } from "../subscriptionInterface";
 import { ProviderService } from "../providerServiceInterface";
 import { Availability, ServiceAvailability } from "../serviceAvailabilityInterface";
+import { Payment } from "../paymentInterface";
 
 // Common Response Type
 export interface ApiCommonResponse {
@@ -67,3 +68,7 @@ type SubscripionsResProps = Pick<Subscription, | "startDate" | "endDate" | "subs
 export interface ProviderFetchSubscriptionHistoryResponseProps extends SubscripionsResProps , Partial<Plan>{
     
 }
+
+
+// Provider fetch all payments response
+export type ProviderFetchPaymentsResponseProps = Pick<Payment, "_id" | "createdAt" | "totalAmount" | "paymentFor" | "paymentMethod" | "paymentGateway" | "paymentStatus" | "discountAmount">

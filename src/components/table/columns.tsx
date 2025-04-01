@@ -10,7 +10,7 @@ import { PlanTableInterface } from "@/utils/interface/api/adminPlanApiInterface"
 import { UsersTableInterfaceProps } from "@/utils/interface/api/adminUserApiInterface";
 import { AppServiceTableInterface } from "@/utils/interface/api/adminServiceApiInterface";
 import { ProvidersTableInterfaceProps } from "@/utils/interface/api/adminProviderApiInterface";
-import { ProviderSubscriptionTableInterfaceProps } from "@/utils/interface/subscriptionInterface";
+import { ProviderPaymentsTableInterfaceProps, ProviderSubscriptionTableInterfaceProps } from "@/utils/interface/subscriptionInterface";
 import {ApproveProvider, ChangeProviderBlockStatus, GetProviderDetailPage } from "./AdminProviderActions";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
 
@@ -268,5 +268,42 @@ export const providerSubscriptionColumns: ColumnDef<ProviderSubscriptionTableInt
       )
     },
   }
+]
+
+
+export const providerPaymentsColumns: ColumnDef<ProviderPaymentsTableInterfaceProps>[] = [
+  {
+    accessorKey: "createdAt",
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="Paid on" />),
+    cell: ({ row }) => {
+        const startDate = row.getValue("createdAt");
+        const formattedDate = startDate ? format(new Date(startDate as Date), "dd MMM yyyy") : "N/A";
+        return <span>{formattedDate}</span>;
+    }
+  },
+  {
+    accessorKey: "totalAmount",
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="Total" />)
+  },
+  {
+    accessorKey: "discountAmount",
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="Discont" />)
+  },
+  {
+    accessorKey: "paymentFor",
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="Category" />)
+  },
+  {
+    accessorKey: "paymentGateway",
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="Gateway" />)
+  },
+  {
+    accessorKey: "paymentMethod",
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="Method" />)
+  },
+  {
+    accessorKey: "paymentStatus",
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="Status" />)
+  },
 ]
 

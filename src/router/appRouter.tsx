@@ -20,7 +20,6 @@ import ProviderChat from "@/pages/provider/ProviderChat.tsx";
 import ProviderLogin from "@/pages/common/ProviderLogin.tsx";
 import ErrorDisplay from "@/pages/common/ErrorDisplay.tsx";
 import UserNotifications from "@/pages/user/UserNotifications.tsx";
-import ProviderPayment from "@/pages/provider/ProviderPayment.tsx";
 import AdminServiceProviders from "../pages/admin/AdminServiceProviders.tsx";
 import ProviderProfile from "@/pages/provider/ProviderProfile.tsx";
 import ProviderService from "@/pages/provider/ProviderService.tsx";
@@ -108,7 +107,7 @@ export const appRouter = createBrowserRouter([
                     { path: "payments", element: <ProviderPayments /> },
                     { path: "chat", element: <ProviderChat /> },
                     { path: "notifications", element: <ProviderNotifications /> },
-                    { path: "payment", element: <ProviderPayment />},
+                    { path: "payment", element: <ProviderPayments />},
                     { path: "addAddress", element: <ProviderAddAddress /> },
                     { path: "addServiceDetails", element: <ProviderAddServiceDetails /> },
                     { path: "payment-success", element: <PaymentConfirmPage status={true} /> },
