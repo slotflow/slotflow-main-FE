@@ -13,10 +13,6 @@ const SubscriptionHistory = () => {
         queryFn: () => fetchProviderSubscriptions(),
     });
 
-    if (!data || data.length === 0) {
-        return <DataFetchingError message="No availability found." />;
-    }
-
     return (
         <div className="p-6">
             <h2 className="text-2xl font-bold mb-4">Your Subscription History</h2>

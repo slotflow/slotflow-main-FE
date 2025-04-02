@@ -11,11 +11,7 @@ const ProviderProfile = () => {
   const { data, isLoading, isError, error } = useQuery({
     queryFn: () => fetchProviderProfileDetails(),
     queryKey: ["ProviderDetails"]
-  })
-
-  if (!data) {
-    return <DataFetchingError message="No details found." />;
-  }
+  });
 
   return (
     <div className="min-h-full border border-[var(--boxBorder)] rounded-lg p-2 flex flex-col">
@@ -25,7 +21,7 @@ const ProviderProfile = () => {
           <DataFetchingError message={error.message} />
         ) : isLoading ? (
           <ShimmerProfileDetails row={7} />
-        ) : (
+        ) : data ? (
           <table className="table-auto border-collapse border border-[var(--boxBorder)] w-full">
             <tbody>
               <InfoDisplayComponent label="Username" value={data?.username} />
@@ -37,6 +33,8 @@ const ProviderProfile = () => {
               <InfoDisplayComponent label="Admin Verified" value={data?.isAdminVerified} isBoolean={true} />
             </tbody>
           </table>
+        ) : (
+          <DataFetchingError message="No details found." />
         )}
       </div>
     </div>

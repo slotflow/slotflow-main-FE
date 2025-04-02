@@ -12,10 +12,6 @@ const ProviderAddress = () => {
     queryKey: ["ProviderAddress"]
   });
 
-  if (!data) {
-    return <DataFetchingError message="No address found." />;
-  }
-
   return (
     <div className="min-h-full border border-[var(--boxBorder)] rounded-lg p-2 flex flex-col">
       <ProviderProfileHead />
@@ -24,7 +20,7 @@ const ProviderAddress = () => {
           <DataFetchingError message={error.message} />
         ) : isLoading ? (
           <ShimmerProfileDetails row={7} />
-        ) : (
+        ) : data? (
           <table className="table-auto w-full">
             <tbody>
               <InfoDisplayComponent label="Address Line" value={data?.addressLine} />
@@ -38,6 +34,8 @@ const ProviderAddress = () => {
               <InfoDisplayComponent label="Country" value={data?.country} />
             </tbody>
           </table>
+        ) : (
+          <DataFetchingError message="No address found." />
         )}
       </div>
     </div>

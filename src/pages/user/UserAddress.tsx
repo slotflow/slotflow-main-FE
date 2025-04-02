@@ -33,10 +33,6 @@ const UserAddress = () => {
     setAddAddress(false);
   }
 
-  if (!data) {
-    return <DataFetchingError message="No address found." />;
-  }
-
   return (
     <div className="min-h-full border border-[var(--boxBorder)] rounded-lg p-2 flex flex-col">
       <UserProfileHead />
@@ -50,7 +46,7 @@ const UserAddress = () => {
           <ShimmerProfileDetails row={8} />
         ) : addAddress ? (
           <AddAddress onSubmit={handleAAddAddress} formClassNames={"my-4 border rounded-lg py-6"} headingSize={"xs:text-md md:text-xl"} heading={"Lets Add Address"} buttonText={"Submit"} setHasErrors={setHasErrors} />
-        ) : (
+        ) : data? (
           <table className="table-auto w-full">
             <tbody>
               <InfoDisplayComponent label="Address Line" value={data?.addressLine} />
@@ -64,6 +60,8 @@ const UserAddress = () => {
               <InfoDisplayComponent label="Country" value={data?.country} />
             </tbody>
           </table>
+        ) : (
+          <DataFetchingError message="No address found." />
         )}
       </div>
     </div>

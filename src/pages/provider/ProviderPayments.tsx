@@ -13,10 +13,6 @@ const ProviderPayments = () => {
     queryFn: () => fetchProviderPayments(),
   });
 
-  if (!data || data.length === 0) {
-    return <DataFetchingError message="No payments found." />;
-  }
-
   return (
     <div className="p-6">
       <h2 className="text-2xl font-bold mb-4">Your Payments</h2>

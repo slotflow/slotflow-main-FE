@@ -12,10 +12,6 @@ const UserProfile = () => {
     queryFn: () => fetchUserProfileDetails(),
     queryKey: ["UserDetails"]
   });
-
-  if (!data) {
-    return <DataFetchingError message="No details found." />;
-  }
   
   return (
     <div className="min-h-full border border-[var(--boxBorder)] rounded-lg p-2 flex flex-col">
@@ -25,7 +21,7 @@ const UserProfile = () => {
           <DataFetchingError message={error.message} />
         ) : isLoading ? (
           <ShimmerProfileDetails row={7} />
-        ) : (
+        ) : data? (
           <table className="table-auto border-collapse border border-[var(--boxBorder)] w-full">
             <tbody>
               <InfoDisplayComponent label="Username" value={data?.username} />
@@ -36,6 +32,8 @@ const UserProfile = () => {
               <InfoDisplayComponent label="Account Blocked" value={data?.isBlocked} isBoolean={true} />
             </tbody>
           </table>
+        ) : (
+          <DataFetchingError message="No details found." />
         )}
       </div>
     </div>

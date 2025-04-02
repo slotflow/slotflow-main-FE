@@ -3,9 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { addService } from "@/utils/redux/slices/userSlice";
 import { fetchServices } from "@/utils/apis/adminService.api";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
+import DataFetchingError from "@/components/common/DataFetchingError";
+import CommonButton from "@/components/common/CommonButton";
 
 interface Service {
-    _id: number;
+    _id: string;
     serviceName: string;
     isBlocked: boolean;
 }
@@ -23,36 +25,38 @@ const UserServiceSelect = () => {
         }
     };
 
-    const { data: services, isLoading, isError, error } = useQuery({
+    const { data, isLoading, isError, error } = useQuery({
         queryKey: ["services"],
         queryFn: fetchServices,
     });
-
-
-    if (isError) return <div>Error {error.message}</div>
 
     return (
         <div className="py-20  px-28 h-screen flex flex-col">
             <h2 className="text-2xl font-semibold mb-10">What are you looking for ?</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-10">
-                {!isLoading &&
-                    services.map((service: Service) => (
+                {isError ? (
+                    <DataFetchingError message={error.message} />
+                ) : isLoading ? (
+                    <div>Loading</div>
+                ) : data ? (
+                    data.map((service: Service) => (
                         <div
                             key={service._id}
-                            className={`p-3 rounded-md border-2 cursor-pointer ${selectedServices.includes(service._id)
+                            className={`p-3 rounded-md border-2 cursor-pointer ${selectedServices.includes((Number(service._id)))
                                 ? "border-[var(--mainColor)]"
                                 : "border-gray-300"
                                 }`}
-                            onClick={() => handleServiceToggle(service._id)}
+                            onClick={() => handleServiceToggle(Number(service._id))}
                         >
-                                {service.serviceName}
+                            {service.serviceName}
                         </div>
-                    ))}
+                    ))
+                ) : (
+                    <DataFetchingError message="No services found." />
+                )}
             </div>
             <div className="flex justify-end mt-6">
-                <button className="bg-[var(--mainColor)] hover:bg-[var(--mainColorHover)] text-white font-bold py-2 px-10 rounded cursor-pointer">
-                    Next
-                </button>
+               <CommonButton text={"Next"} />
             </div>
         </div>
     );

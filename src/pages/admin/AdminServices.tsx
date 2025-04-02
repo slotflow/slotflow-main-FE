@@ -14,7 +14,6 @@ const AdminServices = () => {
     queryFn: fetchServices,
   });
 
-
   if (isError) return <DataFetchingError message={error.message} />
 
   return (

@@ -15,10 +15,6 @@ const ProviderAvailability = () => {
         queryKey: ["ProviderServiceAvailability"]
     })
 
-    if (!data?.availability) {
-        return <DataFetchingError message="No availability found." />;
-    }
-
     return (
         <div className="min-h-full border border-[var(--boxBorder)] rounded-lg p-2 flex flex-col">
             <ProviderProfileHead />
@@ -27,10 +23,10 @@ const ProviderAvailability = () => {
                     <DataFetchingError message={error.message} />
                 ) : isLoading ? (
                     <ShimmerProviderAvailability btCount={7} slotCount={20} />
-                ) : (
+                ) : data ? (
                     <div className="flex space-x-4">
                         <div className="flex flex-col w-3/12 space-y-4 px-2 items-start">
-                            {data && data.availability?.map((avail, index: number) => (
+                            {data.availability?.map((avail, index: number) => (
                                 <button key={index} className={`w-full cursor-pointer bg-[var(--menuBg)] hover:bg-[var(--menuItemHoverBg)] p-2 rounded-lg ${tab === index && "text-[var(--mainColor)] font-semibold"}`} onClick={() => setTab(index)}>{avail.day}</button>
                             ))}
                         </div>
@@ -55,6 +51,8 @@ const ProviderAvailability = () => {
                             </div>
                         </div>
                     </div>
+                ) : (
+                    <DataFetchingError message="No availability found." />
                 )}
             </div>
         </div>
