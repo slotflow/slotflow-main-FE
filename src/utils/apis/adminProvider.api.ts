@@ -20,17 +20,17 @@ export const fetchProviders = async (): Promise<AdminFetchAllProvidersResponsePr
 };
 
 export const approveProvider = async (data: AdminApproveProviderRequestPayload): Promise<AdminApproveProviderResponseProps> => {
-    const response = await axiosInstance.put(`/admin/provider/approve`, data);
+    const response = await axiosInstance.put(`/admin/approveProvider`, data);
     return response.data;
 }
 
 export const changeProviderBlockStatus = async (data: AdminChangeProviderBlockStatusRequestPayload): Promise<AdminChangeProviderBlockStatusResponse> => {
-    const response = await axiosInstance.put(`/admin/provider/changeStatus`, data);
+    const response = await axiosInstance.put(`/admin/changeProviderStatus`, data);
     return response.data;
 }
 
 export const changeProviderTrustTag = async (data: AdminChangeProviderTrustedTagRequestPayload): Promise<AdminChangeProviderTrustedTagResponse> => {
-    const response = await axiosInstance.post(`/admin/provider/changetrustedTag`, data);
+    const response = await axiosInstance.post(`/admin/changeProvidertrustedTag`, data);
     return response.data;
 }
 
