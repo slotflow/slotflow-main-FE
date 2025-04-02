@@ -58,3 +58,11 @@ export interface ChangeUserStatusProps {
     userId: string;
     status: boolean;
 }
+
+
+
+// Admin Provider trust tag change action button interface
+export interface ChangeProviderTrustTagProps {
+    providerId: string,
+    trustedBySlotflow: boolean,
+}

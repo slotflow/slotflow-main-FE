@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchUsers } from "@/utils/apis/adminUser.api";
-import { userColumns } from "@/components/table/columns";
 import { DataTable } from "@/components/table/data-table";
 import ShimmerTable from "@/components/shimmers/ShimmerTable";
 import ShimmerTableTop from "@/components/shimmers/ShimmerTableTop";
 import DataFetchingError from "@/components/common/DataFetchingError";
+import { userColumns } from "@/components/table/columns";
 
 const AdminUsers = () => {
 

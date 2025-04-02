@@ -1,17 +1,17 @@
-import { toast } from "react-toastify";
 import axiosInstance from "@/lib/axios";
-import { 
+import {
     AdminApproveProviderResponseProps,
-    AdminApproveProviderRequestPayload, 
+    AdminApproveProviderRequestPayload,
     AdminFetchAllProvidersResponseProps,
-    AdminChangeProviderBlockStatusResponse,  
+    AdminChangeProviderBlockStatusResponse,
     AdminFetchProviderDetailsResponseProps,
     AdminFetchProviderAddressResponseProps,
     AdminFetchProviderServiceResponseProps,
-    AdminFetchProviderAvailabilityResponseProps, 
-    AdminChangeProviderBlockStatusRequestPayload, 
+    AdminFetchProviderAvailabilityResponseProps,
+    AdminChangeProviderBlockStatusRequestPayload,
+    AdminChangeProviderTrustedTagRequestPayload,
+    AdminChangeProviderTrustedTagResponse,
 } from "../interface/api/adminProviderApiInterface";
-import { createAsyncThunk } from "@reduxjs/toolkit";
 
 
 export const fetchProviders = async (): Promise<AdminFetchAllProvidersResponseProps[]> => {
@@ -19,23 +19,20 @@ export const fetchProviders = async (): Promise<AdminFetchAllProvidersResponsePr
     return response.data.providers;
 };
 
-export const approveProvider = createAsyncThunk<AdminApproveProviderResponseProps,AdminApproveProviderRequestPayload>('/admin/approve/provider/',
-    async (payload: AdminApproveProviderRequestPayload) => {
-        const { providerId } = payload;
-        const response = await axiosInstance.put(`/admin/provider/approve/${providerId}`);
-        toast.success(response.data.message);
-        return response.data.updatedProvider;
-    }
-)
+export const approveProvider = async (data: AdminApproveProviderRequestPayload): Promise<AdminApproveProviderResponseProps> => {
+    const response = await axiosInstance.put(`/admin/provider/approve`, data);
+    return response.data;
+}
 
-export const changeProviderBlockStatus = createAsyncThunk<AdminChangeProviderBlockStatusResponse,AdminChangeProviderBlockStatusRequestPayload>('/admin/changeProviderStatus',
-    async (payload: AdminChangeProviderBlockStatusRequestPayload) => {
-        const { providerId, status } = payload;
-        const response = await axiosInstance.put(`/admin/provider/changeStatus/${providerId}?status=${status}`);
-        toast.success(response.data.message);
-        return response.data.updatedProvider;
-    }
-)
+export const changeProviderBlockStatus = async (data: AdminChangeProviderBlockStatusRequestPayload): Promise<AdminChangeProviderBlockStatusResponse> => {
+    const response = await axiosInstance.put(`/admin/provider/changeStatus`, data);
+    return response.data;
+}
+
+export const changeProviderTrustTag = async (data: AdminChangeProviderTrustedTagRequestPayload): Promise<AdminChangeProviderTrustedTagResponse> => {
+    const response = await axiosInstance.post(`/admin/provider/changetrustedTag`, data);
+    return response.data;
+}
 
 export const fetchProviderDetails = async (providerId: string): Promise<AdminFetchProviderDetailsResponseProps | null> => {
     const response = await axiosInstance.get(`/admin/fetchProviderDetails/${providerId}`);

@@ -30,8 +30,10 @@ export interface AdminApproveProviderRequestPayload {
     providerId: string; 
 }
 // Admin approve aprovider api response interface
-export type AdminApproveProviderResponseProps = Pick<Provider, "_id" | "username" | "email" | "isBlocked" | "isAdminVerified" | "trustedBySlotflow">;
-
+type ApproveProviderResponseProps = Pick<Provider, "_id" | "username" | "email" | "isBlocked" | "isAdminVerified" | "trustedBySlotflow">;
+export interface AdminApproveProviderResponseProps extends ApiCommonResponse {
+    updatedProvider: ApproveProviderResponseProps
+}
 
 
 // **** Admin change Provider block status
@@ -40,10 +42,25 @@ export interface AdminChangeProviderBlockStatusRequestPayload {
     providerId: string;
     status: boolean;
 }
+// Admin change Provider block status response interface
+type ChangeProviderBlockStatusResponse = Pick<Provider, "_id" | "username" | "email" | "isBlocked" | "isAdminVerified" | "trustedBySlotflow">;
+export interface AdminChangeProviderBlockStatusResponse extends ApiCommonResponse {
+    updatedProvider: ChangeProviderBlockStatusResponse
+}
+
+
+// **** Admin change Provider trusted tag
+// Admin Change provider trusted tag request payload interface
+export interface AdminChangeProviderTrustedTagRequestPayload {
+    providerId: string;
+    trustedBySlotflow: boolean;
+}
 
 // Admin change Provider block status response interface
-export type AdminChangeProviderBlockStatusResponse = Pick<Provider, "_id" | "username" | "email" | "isBlocked" | "isAdminVerified" | "trustedBySlotflow">;
-
+type ChangeProviderTrustedTagResponse = Pick<Provider, "_id" | "username" | "email" | "isBlocked" | "isAdminVerified" | "trustedBySlotflow">;
+export interface AdminChangeProviderTrustedTagResponse extends ApiCommonResponse {
+    updatedProvider: ChangeProviderTrustedTagResponse
+}
 
 
 // **** Admin fetch provider details api response interface
@@ -64,4 +81,5 @@ export type AdminFetchProviderAvailabilityResponseProps = Pick<ServiceAvailabili
 export interface UseAdminProviderActionReturnType {
     handleApproveProvider: (providerId: string) => void;
     hanldeChangeProviderBlockStatus: (providerId: string, status: boolean) => void;
+    hanldeProviderTrustTag: (providerId: string, trustedBySlotflow: boolean) => void;
 }

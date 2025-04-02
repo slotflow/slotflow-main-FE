@@ -10,7 +10,7 @@ import { PlanTableInterface } from "@/utils/interface/api/adminPlanApiInterface"
 import { UsersTableInterfaceProps } from "@/utils/interface/api/adminUserApiInterface";
 import { AppServiceTableInterface } from "@/utils/interface/api/adminServiceApiInterface";
 import { ProvidersTableInterfaceProps } from "@/utils/interface/api/adminProviderApiInterface";
-import {ApproveProvider, ChangeProviderBlockStatus, GetProviderDetailPage } from "./AdminProviderActions";
+import { ApproveProvider, ChangeProviderBlockStatus, ChangeProviderTrustTag, GetProviderDetailPage } from "./AdminProviderActions";
 import { ProviderPaymentsTableInterfaceProps, ProviderSubscriptionTableInterfaceProps } from "@/utils/interface/subscriptionInterface";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
 
@@ -43,7 +43,8 @@ export const providerColumns: ColumnDef<ProvidersTableInterfaceProps>[] = [
     accessorKey: "trustedBySlotflow",
     header: ({ column }) => (<DataTableColumnHeader column={column} title="Slotflow Trusted" />),
     cell: ({ row }) => {
-      const isTrusted = row.original.isBlocked;
+      const isTrusted = row.original.trustedBySlotflow;
+      console.log("isTrusted : ", isTrusted)
       return <span>{isTrusted ? "Trusted" : "Pending"}</span>;
     },
   },
@@ -65,13 +66,15 @@ export const providerColumns: ColumnDef<ProvidersTableInterfaceProps>[] = [
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <GetProviderDetailPage providerId={provider._id} />
-            <ChangeProviderBlockStatus providerId={provider._id} status={provider.isBlocked}/>
-            {provider.isAdminVerified === false && <ApproveProvider providerId={provider._id} />}
+            {!provider.isAdminVerified && (
+              <ApproveProvider providerId={provider._id} />
+            )}
+            <ChangeProviderBlockStatus providerId={provider._id} status={provider.isBlocked} />
+            <ChangeProviderTrustTag providerId={provider._id} trustedBySlotflow={provider.trustedBySlotflow} />
           </DropdownMenuContent>
         </DropdownMenu>
       )
     }
-
   },
 ]
 
@@ -164,7 +167,7 @@ export const serviceColumns: ColumnDef<AppServiceTableInterface>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <ChangeServiceBlockStatus serviceId={service._id} status={service.isBlocked}/>
+            <ChangeServiceBlockStatus serviceId={service._id} status={service.isBlocked} />
             <DropdownMenuItem>Edit</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -213,7 +216,7 @@ export const planColumns: ColumnDef<PlanTableInterface>[] = [
             <DropdownMenuSeparator />
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem>Details</DropdownMenuItem>
-            <ChangePlanBlockStatus planId={plan._id} status={plan.isBlocked}/>
+            <ChangePlanBlockStatus planId={plan._id} status={plan.isBlocked} />
             <DropdownMenuItem>Edit</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -231,9 +234,9 @@ export const providerSubscriptionColumns: ColumnDef<ProviderSubscriptionTableInt
     accessorKey: "startDate",
     header: ({ column }) => (<DataTableColumnHeader column={column} title="Paid on" />),
     cell: ({ row }) => {
-        const startDate = row.getValue("startDate"); // Get the raw startDate value
-        const formattedDate = startDate ? format(new Date(startDate as Date), "dd MMM yyyy") : "N/A"; // Format the date
-        return <span>{formattedDate}</span>;
+      const startDate = row.getValue("startDate"); // Get the raw startDate value
+      const formattedDate = startDate ? format(new Date(startDate as Date), "dd MMM yyyy") : "N/A"; // Format the date
+      return <span>{formattedDate}</span>;
     }
 
   },
@@ -241,9 +244,9 @@ export const providerSubscriptionColumns: ColumnDef<ProviderSubscriptionTableInt
     accessorKey: "endDate",
     header: ({ column }) => (<DataTableColumnHeader column={column} title="Expires on" />),
     cell: ({ row }) => {
-        const endDate = row.getValue("endDate"); // Get the raw endDate value
-        const formattedDate = endDate ? format(new Date(endDate as Date), "dd MMM yyyy") : "N/A"; // Format the date
-        return <span>{formattedDate}</span>;
+      const endDate = row.getValue("endDate"); // Get the raw endDate value
+      const formattedDate = endDate ? format(new Date(endDate as Date), "dd MMM yyyy") : "N/A"; // Format the date
+      return <span>{formattedDate}</span>;
     }
 
   },
@@ -284,9 +287,9 @@ export const providerPaymentsColumns: ColumnDef<ProviderPaymentsTableInterfacePr
     accessorKey: "createdAt",
     header: ({ column }) => (<DataTableColumnHeader column={column} title="Paid on" />),
     cell: ({ row }) => {
-        const startDate = row.getValue("createdAt");
-        const formattedDate = startDate ? format(new Date(startDate as Date), "dd MMM yyyy") : "N/A";
-        return <span>{formattedDate}</span>;
+      const startDate = row.getValue("createdAt");
+      const formattedDate = startDate ? format(new Date(startDate as Date), "dd MMM yyyy") : "N/A";
+      return <span>{formattedDate}</span>;
     }
   },
   {

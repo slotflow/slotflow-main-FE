@@ -2,7 +2,7 @@ import { memo } from "react";
 import { useNavigate } from "react-router-dom";
 import { DropdownMenuItem } from "../ui/dropdown-menu";
 import { useAdminProviderActions } from "@/utils/hooks/useAdminProviderActions";
-import { ChangeProviderBlockStatusProps, ProviderCommonProps } from "@/utils/interface/adminInterface";
+import { ChangeProviderBlockStatusProps, ChangeProviderTrustTagProps, ProviderCommonProps } from "@/utils/interface/adminInterface";
 
 export const ApproveProvider: React.FC<ProviderCommonProps> = memo(({ providerId }) => {
     const { handleApproveProvider } = useAdminProviderActions();
@@ -44,3 +44,17 @@ export const GetProviderDetailPage: React.FC<ProviderCommonProps> = memo(({ prov
         </DropdownMenuItem>
     )
 })
+
+export const ChangeProviderTrustTag: React.FC<ChangeProviderTrustTagProps> = memo(({ providerId, trustedBySlotflow }) => {
+    const { hanldeProviderTrustTag } = useAdminProviderActions();
+    
+    const handleProviderTrustTagChangeClick = () => {
+        hanldeProviderTrustTag(providerId, !trustedBySlotflow)
+    }
+    
+    return (
+        <DropdownMenuItem onClick={handleProviderTrustTagChangeClick}>
+            {trustedBySlotflow ? "Remove Tag" : "Give Tag"}
+        </DropdownMenuItem>
+    );
+});
