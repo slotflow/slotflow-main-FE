@@ -1,6 +1,6 @@
 import { User } from "../userInterface";
 
-export interface ApiCommonReponse {
+export interface ApiCommonResponse {
     success: boolean;
     message: string;
 }
@@ -24,4 +24,7 @@ export interface AdminChangeUserStatusRequestPayload {
 }
 
 // Admin change user block status response interface
-export type AdminChnageUserStatusResponse = Pick<User, "_id" | "username" | "email" | "isBlocked" | "isEmailVerified">;
+type ChnageUserStatusResponse = Pick<User, "_id" | "username" | "email" | "isBlocked" | "isEmailVerified">;
+export interface AdminChnageUserStatusResponse extends ApiCommonResponse {
+    updatedUser: ChnageUserStatusResponse
+}

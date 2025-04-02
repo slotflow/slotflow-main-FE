@@ -1,11 +1,9 @@
-import { toast } from "react-toastify";
 import axiosInstance from "../../lib/axios";
-import { 
-    AdminChnageUserStatusResponse, 
-    AdminfetchAllUsersResponseProps, 
-    AdminChangeUserStatusRequestPayload, 
+import {
+    AdminChnageUserStatusResponse,
+    AdminfetchAllUsersResponseProps,
+    AdminChangeUserStatusRequestPayload,
 } from "../interface/api/adminUserApiInterface";
-import { createAsyncThunk } from "@reduxjs/toolkit";
 
 
 export const fetchUsers = async (): Promise<AdminfetchAllUsersResponseProps[]> => {
@@ -13,13 +11,9 @@ export const fetchUsers = async (): Promise<AdminfetchAllUsersResponseProps[]> =
     return response.data.users;
 }
 
-export const changeUserBlockStatus = createAsyncThunk<AdminChnageUserStatusResponse, AdminChangeUserStatusRequestPayload>('/admin/changeUserStatus',
-    async (statusData: AdminChangeUserStatusRequestPayload) => {
-        const { userId, status } = statusData;
-        const response = await axiosInstance.put(`/admin/user/changeStatus/${userId}?status=${status}`);
-        toast.success(response.data.message)
-        return response.data.updatedUser;
-    }
-)
+export const changeUserBlockStatus = async (data: AdminChangeUserStatusRequestPayload): Promise<AdminChnageUserStatusResponse> => {
+    const response = await axiosInstance.put(`/admin/changeUserStatus`, data);
+    return response.data;
+}
 
 
