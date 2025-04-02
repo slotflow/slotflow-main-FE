@@ -1,4 +1,5 @@
 import { Address } from "../addressInterface";
+import { Payment } from "../paymentInterface";
 import { Plan } from "../planInterface";
 import { Provider } from "../providerInterface";
 import { ProviderService } from "../providerServiceInterface";
@@ -79,9 +80,13 @@ export type AdminFetchProviderAvailabilityResponseProps = Pick<ServiceAvailabili
 
 // **** Admin fetch Provider subscriptions api response props
 type SubscripionsResProps = Pick<Subscription, | "startDate" | "endDate" | "subscriptionStatus">;
-export interface AdminFetchProviderSubscriptionsResponseProps extends SubscripionsResProps , Partial<Plan>{
+export interface AdminFetchProviderSubscriptionsResponseProps extends SubscripionsResProps , Partial<Pick<Plan , "planName" >>{
     
 }
+
+// **** Admin fetch Provider payments api response props
+export type AdminFetchProviderPaymentsResponseProps = Pick<Payment,  "_id" | "createdAt" | "totalAmount" | "paymentFor" | "paymentMethod" | "paymentGateway" | "paymentStatus" | "discountAmount">;
+
 
 // **** Admin Provider Custom Hook Interface **** \\
 export interface UseAdminProviderActionReturnType {

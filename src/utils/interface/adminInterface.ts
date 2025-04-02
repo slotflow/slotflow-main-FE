@@ -4,34 +4,26 @@ import { ProviderService } from "./providerServiceInterface";
 
 // **** Admin Provider Interfaces used in compoenents / admin **** \\
 // AdminProviderServiceAvailability compoenent using for the custom props
-type ProviderIdOnlyForProviderServiceAvailability = Pick<Provider, '_id'>;
-export interface AdminProviderServiceAvailabilityProps extends ProviderIdOnlyForProviderServiceAvailability {
-    onError: (hasError: boolean) => void;
-}
+export type AdminProviderServiceAvailabilityProps = Pick<Provider, '_id'>;
+
 
 // AdminProviderAddress component using for the custom props
-type ProviderIdOnlyForProviderAddress = Pick<Address, 'userId'>;
-export interface AdminProviderAddressProps extends ProviderIdOnlyForProviderAddress {
-    onError: (hasError: boolean) => void;
-}
+export type AdminProviderAddressProps = Pick<Address, 'userId'>;
+
 
 // AdminProviderDetails component using for the custom props
-type ProviderIdOnlyForProviderDetails = Pick<Provider, '_id'>;
-export interface AdminProviderDetailsProps extends ProviderIdOnlyForProviderDetails {
-    onError: (hasError: boolean) => void;
-}
+export type AdminProviderDetailsProps = Pick<Provider, '_id'>;
+
 
 // AdminProviderService compoenent using for the custom props
-type ProviderIdOnlyForProviderService = Pick<ProviderService, 'providerId'>;
-export interface AdminProviderServiceProps extends ProviderIdOnlyForProviderService {
-    onError: (hasError: boolean) => void;
-}
+export type AdminProviderServiceProps = Pick<ProviderService, 'providerId'>;
+
 
 // Admin fetch provider subscriptions component interface
-type ProviderIdOnlyForProviderSubscriptions = Pick<Provider, "_id">;
-export interface AdminFetchProviderSubscriptions extends ProviderIdOnlyForProviderSubscriptions {
-    onError: (hasError: boolean) => void;
-}
+export type AdminFetchProviderSubscriptions = Pick<Provider, "_id">;
+
+// Admin fetch provider payments component interface
+export type AdminFetchProviderPayments = Pick<Provider, "_id">;
 
 
 

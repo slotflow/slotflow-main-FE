@@ -8,15 +8,15 @@ import AdminProviderAddress from "@/components/admin/AdminProviderAddress";
 import AdminProviderDetails from "@/components/admin/AdminProviderDetails";
 import AdminProviderServiceAvailability from "@/components/admin/AdminProviderServiceAvailability";
 import AdminProviderSubscriptions from "@/components/admin/AdminProviderSubscriptions";
+import AdminProviderPayments from "@/components/admin/AdminProviderPayments";
 
 const AdminServiceProviderDetailProfile = () => {
 
     const { providerId } = useParams();
     const [tab, setTab] = useState<number>(0);
     const themeMode = useSelector((store: RootState) => store.state.lightTheme);
-    const [hasError, setHasError] = useState<boolean>(false);
 
-    const tabButtons: string[] = ["Details", "Address", "Service", "Availability", "Subscriptions"];
+    const tabButtons: string[] = ["Details", "Address", "Service", "Availability", "Subscriptions", "Payments"];
 
     if(!providerId) return <DataFetchingError message={"Provider Profile fetching error"}/>
 
@@ -31,18 +31,20 @@ const AdminServiceProviderDetailProfile = () => {
                     <button key={index} className={`p-2 hover:bg-[var(--menuItemHoverBg)] w-3/12 cursor-pointer text-xs md:text-[1rem] ${tab === index && `text-[var(--mainColor)] font-bold`}`} onClick={() => setTab(index)}>{button}</button>
                 ))}
             </ul>
-            <div className={`flex-grow ${hasError && "flex items-center"}`}>
+            <div className={`flex-grow`}>
 
             {tab === 0 && (
-                <AdminProviderDetails _id={providerId} onError={setHasError} />
+                <AdminProviderDetails _id={providerId} />
             ) || tab === 1 && (
-                <AdminProviderAddress userId={providerId} onError={setHasError} />
+                <AdminProviderAddress userId={providerId} />
             ) || tab === 2 && (
-                <AdmiProviderService providerId={providerId} onError={setHasError} />
+                <AdmiProviderService providerId={providerId} />
             ) || tab === 3 && (
-                <AdminProviderServiceAvailability _id={providerId} onError={setHasError} />
+                <AdminProviderServiceAvailability _id={providerId} />
             ) || tab === 4 && (
-                <AdminProviderSubscriptions _id={providerId} onError={setHasError} />
+                <AdminProviderSubscriptions _id={providerId} />
+            ) || tab === 5 && (
+                <AdminProviderPayments _id={providerId} />
             )}
             </div>
         </div>

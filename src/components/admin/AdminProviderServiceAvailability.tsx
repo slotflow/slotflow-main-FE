@@ -7,7 +7,7 @@ import { adminFetchProviderServiceAvailability } from "@/utils/apis/adminProvide
 import ShimmerProviderAvailability from "../shimmers/ShimmerProviderAvailability";
 import { AdminProviderServiceAvailabilityProps } from "@/utils/interface/adminInterface";
 
-const AdminProviderServiceAvailability: React.FC<AdminProviderServiceAvailabilityProps> = memo(({ _id, onError }) => {
+const AdminProviderServiceAvailability: React.FC<AdminProviderServiceAvailabilityProps> = memo(({ _id }) => {
 
     const [tab, setTab] = useState(0);
     const { data, isLoading, isError, error } = useQuery({
@@ -18,7 +18,6 @@ const AdminProviderServiceAvailability: React.FC<AdminProviderServiceAvailabilit
     console.log("data : ", data);
 
     if (isError) {
-        onError(true);
         return (
             <DataFetchingError message={error.message} />
         )

@@ -7,7 +7,7 @@ import ShimmerProfileDetails from '../shimmers/ShimmerProfileDetails';
 import { fetchProviderService } from '@/utils/apis/adminProvider.api';
 import { AdminProviderServiceProps } from '@/utils/interface/adminInterface';
 
-const AdmiProviderService: React.FC<AdminProviderServiceProps> = memo(({ providerId, onError }) => {
+const AdmiProviderService: React.FC<AdminProviderServiceProps> = memo(({ providerId }) => {
 
     const [largeImg, setLargeImg] = useState<boolean>(false);
     const { data, isLoading, isError, error } = useQuery({
@@ -16,7 +16,6 @@ const AdmiProviderService: React.FC<AdminProviderServiceProps> = memo(({ provide
     })
 
     if (isError) {
-        onError(true);
         return (
             <DataFetchingError message={error.message} />
         )

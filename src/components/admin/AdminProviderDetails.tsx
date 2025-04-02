@@ -7,7 +7,7 @@ import { fetchProviderDetails } from "@/utils/apis/adminProvider.api";
 import ShimmerProfileDetails from "../shimmers/ShimmerProfileDetails";
 import { AdminProviderDetailsProps } from "@/utils/interface/adminInterface";
 
-const AdminProviderDetails: React.FC<AdminProviderDetailsProps> = memo(({ _id, onError }) => {
+const AdminProviderDetails: React.FC<AdminProviderDetailsProps> = memo(({ _id }) => {
 
     const { data, isLoading, isError, error } = useQuery({
         queryFn: () => fetchProviderDetails(_id),
@@ -15,7 +15,6 @@ const AdminProviderDetails: React.FC<AdminProviderDetailsProps> = memo(({ _id, o
     })
 
     if (isError) {
-        onError(true);
         return (
             <DataFetchingError message={error.message} />
         )
