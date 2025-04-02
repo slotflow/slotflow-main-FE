@@ -28,6 +28,10 @@ const AdminProviderAddress: React.FC<AdminProviderAddressProps> = memo(({ userId
         )
     }
 
+    if (!data) {
+        return <DataFetchingError message="No address found." />;
+    }
+
     return (
         <div className="w-full mx-auto mt-8 py-6 rounded-lg">
             <table className="table-auto border-collapse border border-[var(--boxBorder)] w-full">

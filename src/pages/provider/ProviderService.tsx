@@ -15,6 +15,10 @@ const ProviderService = () => {
     queryFn: () => fetchProviderServiceDetails(),
   });
 
+  if (!data) {
+    return <DataFetchingError message="No service found." />;
+  }
+
   return (
 
     <div className="min-h-full border border-[var(--boxBorder)] rounded-lg p-2 flex flex-col">

@@ -7,10 +7,15 @@ import { providerSubscriptionColumns } from '../table/columns';
 import { fetchProviderSubscriptions } from '@/utils/apis/provider.api';
 
 const SubscriptionHistory = () => {
+    
     const { data, isLoading, isError, error } = useQuery({
         queryKey: ["subscriptions"],
         queryFn: () => fetchProviderSubscriptions(),
     });
+
+    if (!data || data.length === 0) {
+        return <DataFetchingError message="No availability found." />;
+    }
 
     return (
         <div className="p-6">

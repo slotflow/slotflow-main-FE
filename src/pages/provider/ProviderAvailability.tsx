@@ -15,6 +15,10 @@ const ProviderAvailability = () => {
         queryKey: ["ProviderServiceAvailability"]
     })
 
+    if (!data?.availability) {
+        return <DataFetchingError message="No availability found." />;
+    }
+
     return (
         <div className="min-h-full border border-[var(--boxBorder)] rounded-lg p-2 flex flex-col">
             <ProviderProfileHead />

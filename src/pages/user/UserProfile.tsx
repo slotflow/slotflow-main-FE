@@ -11,7 +11,11 @@ const UserProfile = () => {
   const { data, isLoading, isError, error } = useQuery({
     queryFn: () => fetchUserProfileDetails(),
     queryKey: ["UserDetails"]
-  })
+  });
+
+  if (!data) {
+    return <DataFetchingError message="No details found." />;
+  }
   
   return (
     <div className="min-h-full border border-[var(--boxBorder)] rounded-lg p-2 flex flex-col">

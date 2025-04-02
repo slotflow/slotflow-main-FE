@@ -3,8 +3,8 @@ import { useQuery } from "@tanstack/react-query";
 import DataFetchingError from "../common/DataFetchingError";
 import InfoDisplayComponent from "../common/InfoDisplayComponent";
 import { Slot } from "@/utils/interface/serviceAvailabilityInterface";
-import { adminFetchProviderServiceAvailability } from "@/utils/apis/adminProvider.api";
 import ShimmerProviderAvailability from "../shimmers/ShimmerProviderAvailability";
+import { adminFetchProviderServiceAvailability } from "@/utils/apis/adminProvider.api";
 import { AdminProviderServiceAvailabilityProps } from "@/utils/interface/adminInterface";
 
 const AdminProviderServiceAvailability: React.FC<AdminProviderServiceAvailabilityProps> = memo(({ _id }) => {
@@ -14,8 +14,6 @@ const AdminProviderServiceAvailability: React.FC<AdminProviderServiceAvailabilit
         queryKey: ["PSAvailability", _id],
         queryFn: () => adminFetchProviderServiceAvailability(_id)
     });
-
-    console.log("data : ", data);
 
     if (isError) {
         return (
@@ -27,6 +25,10 @@ const AdminProviderServiceAvailability: React.FC<AdminProviderServiceAvailabilit
         return (
             <ShimmerProviderAvailability btCount={6} slotCount={20} />
         )
+    }
+
+    if (!data?.availability) {
+        return <DataFetchingError message="No availability found." />;
     }
 
     return (
@@ -46,15 +48,16 @@ const AdminProviderServiceAvailability: React.FC<AdminProviderServiceAvailabilit
                     </tbody>
                 </table>
                 <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 px-2 mt-4">
-                    {data && data.availability[tab]?.slots.map((slot: Slot) => (
+                    {data.availability[tab]?.slots?.map((slot: Slot) => (
                         <div
                             key={slot._id}
                             className={`text-xs text-center border rounded-md py-2 px-4 hover:bg-[var(--mainColor)/10] transition-colors duration-200 cursor-pointer ${slot.available ? 'bg-[var(--mainColor)/20] border-[var(--mainColor)]' : 'border-gray-300'}`}
                         >
                             {slot.slot}
                         </div>
-                    ))}
+                    )) || "No slots available"}
                 </div>
+
             </div>
         </div>
     )

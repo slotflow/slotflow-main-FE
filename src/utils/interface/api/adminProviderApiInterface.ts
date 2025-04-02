@@ -80,7 +80,7 @@ export type AdminFetchProviderAvailabilityResponseProps = Pick<ServiceAvailabili
 
 // **** Admin fetch Provider subscriptions api response props
 type SubscripionsResProps = Pick<Subscription, | "startDate" | "endDate" | "subscriptionStatus">;
-export interface AdminFetchProviderSubscriptionsResponseProps extends SubscripionsResProps , Partial<Pick<Plan , "planName" >>{
+export interface AdminFetchProviderSubscriptionsResponseProps extends SubscripionsResProps , Partial<Pick<Plan , "_id" | "planName" >>{
     
 }
 

@@ -33,6 +33,10 @@ const UserAddress = () => {
     setAddAddress(false);
   }
 
+  if (!data) {
+    return <DataFetchingError message="No address found." />;
+  }
+
   return (
     <div className="min-h-full border border-[var(--boxBorder)] rounded-lg p-2 flex flex-col">
       <UserProfileHead />

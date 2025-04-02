@@ -7,10 +7,15 @@ import { fetchProviderPayments } from '@/utils/apis/provider.api';
 import { providerPaymentsColumns } from '@/components/table/columns';
 
 const ProviderPayments = () => {
+
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["Payments"],
     queryFn: () => fetchProviderPayments(),
   });
+
+  if (!data || data.length === 0) {
+    return <DataFetchingError message="No payments found." />;
+  }
 
   return (
     <div className="p-6">

@@ -36,22 +36,22 @@ export const changeProviderTrustTag = async (data: AdminChangeProviderTrustedTag
     return response.data;
 }
 
-export const fetchProviderDetails = async (providerId: string): Promise<AdminFetchProviderDetailsResponseProps | null> => {
+export const fetchProviderDetails = async (providerId: string): Promise<AdminFetchProviderDetailsResponseProps> => {
     const response = await axiosInstance.get(`/admin/fetchProviderDetails/${providerId}`);
     return response.data.provider;
 }
 
-export const fetchProviderAddress = async (providerId: string): Promise<AdminFetchProviderAddressResponseProps | null> => {
+export const fetchProviderAddress = async (providerId: string): Promise<AdminFetchProviderAddressResponseProps> => {
     const response = await axiosInstance.get(`/admin/fetchProviderAddress/${providerId}`);
     return response.data.address;
 }
 
-export const fetchProviderService = async (providerId: string): Promise<AdminFetchProviderServiceResponseProps | null> => {
+export const fetchProviderService = async (providerId: string): Promise<AdminFetchProviderServiceResponseProps> => {
     const response = await axiosInstance.get(`/admin/fetchProviderService/${providerId}`);
     return response.data.service;
 }
 
-export const adminFetchProviderServiceAvailability = async (providerId: string): Promise<AdminFetchProviderAvailabilityResponseProps | null> => {
+export const adminFetchProviderServiceAvailability = async (providerId: string): Promise<AdminFetchProviderAvailabilityResponseProps> => {
     const response = await axiosInstance.get(`/admin/fetchProviderServiceAvailability/${providerId}`);
     return response.data.availability;
 }
