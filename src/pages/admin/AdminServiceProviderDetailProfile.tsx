@@ -7,6 +7,7 @@ import AdmiProviderService from "@/components/admin/AdmiProviderService";
 import AdminProviderAddress from "@/components/admin/AdminProviderAddress";
 import AdminProviderDetails from "@/components/admin/AdminProviderDetails";
 import AdminProviderServiceAvailability from "@/components/admin/AdminProviderServiceAvailability";
+import AdminProviderSubscriptions from "@/components/admin/AdminProviderSubscriptions";
 
 const AdminServiceProviderDetailProfile = () => {
 
@@ -15,7 +16,7 @@ const AdminServiceProviderDetailProfile = () => {
     const themeMode = useSelector((store: RootState) => store.state.lightTheme);
     const [hasError, setHasError] = useState<boolean>(false);
 
-    const tabButtons: string[] = ["Details", "Address", "Service", "Availability"];
+    const tabButtons: string[] = ["Details", "Address", "Service", "Availability", "Subscriptions"];
 
     if(!providerId) return <DataFetchingError message={"Provider Profile fetching error"}/>
 
@@ -40,6 +41,8 @@ const AdminServiceProviderDetailProfile = () => {
                 <AdmiProviderService providerId={providerId} onError={setHasError} />
             ) || tab === 3 && (
                 <AdminProviderServiceAvailability _id={providerId} onError={setHasError} />
+            ) || tab === 4 && (
+                <AdminProviderSubscriptions _id={providerId} onError={setHasError} />
             )}
             </div>
         </div>

@@ -27,6 +27,12 @@ export interface AdminProviderServiceProps extends ProviderIdOnlyForProviderServ
     onError: (hasError: boolean) => void;
 }
 
+// Admin fetch provider subscriptions component interface
+type ProviderIdOnlyForProviderSubscriptions = Pick<Provider, "_id">;
+export interface AdminFetchProviderSubscriptions extends ProviderIdOnlyForProviderSubscriptions {
+    onError: (hasError: boolean) => void;
+}
+
 
 
 // **** Admin Provider action Interface **** \\
