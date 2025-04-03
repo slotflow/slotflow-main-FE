@@ -21,18 +21,21 @@ import {
     LogOut,
     Briefcase,
     Menu,
+    MapPinHouse,
+    CalendarDays,
+    Handshake,
 } from 'lucide-react';
 import { UserData } from '@/utils/interface/sliceInterface';
 
 
 const Sidebar = ({ routes }: SideBarProps) => {
-    
+
     const dispatch = useDispatch<AppDispatch>();
 
     const sidebarOpen: boolean = useSelector((store: RootState) => store.state.sidebarOpen);
     const user: UserData | null = useSelector((store: RootState) => store.auth?.authUser);
 
-    const role: string | undefined= user?.role;
+    const role: string | undefined = user?.role;
 
     const navigate = useNavigate();
 
@@ -64,20 +67,25 @@ const Sidebar = ({ routes }: SideBarProps) => {
     }
 
     const iconMap: Record<string, React.ReactNode> = {
-        'Chat': <MessageSquare />,
-        'users': <Users />,
-        'plans': <LayoutGrid />,
-        'Payments': <CreditCard />,
-        'reviews': <Star />,
-        'Profile': <User />,
         'dashboard': <Gauge />,
-        'Bookings': <CalendarCheck />,
+        'users': <Users />,
+        'providers': <Handshake />,
+        'profile': <User />,
+        'address': <MapPinHouse />,
+        'chat': <MessageSquare />,
+        'plans': <LayoutGrid />,
+        'payments': <CreditCard />,
+        'reviews': <Star />,
+        'bookings': <CalendarCheck />,
         'services': <Briefcase />,
+        'service': <Briefcase />,
         'subscriptions': <LucideCreditCard />,
-        'Appointments': <CalendarCheck />,
-        'Notifications': <Bell />,
+        'subscription': <CreditCard />,
+        'appointments': <CalendarCheck />,
+        'notifications': <Bell />,
         'service-providers': <Network />,
-        'Logout': <LogOut />,
+        'availability': <CalendarDays />,
+        'logout': <LogOut />,
     }
 
     const getIcon = (name: string): React.ReactNode => {
@@ -86,12 +94,12 @@ const Sidebar = ({ routes }: SideBarProps) => {
     }
 
     return (
-        <div className={` ${sidebarOpen ? 'w-[16%]' : 'w-[6%]'} overflow-y-scroll no-scrollbar border-r-2 transition-all duration-300 flex flex-col`}>
+        <div className={` ${sidebarOpen ? 'w-[15%]' : 'w-[5%]'} overflow-y-scroll no-scrollbar border-r-2 transition-all duration-300 flex flex-col`}>
             <div className="p-4 flex-1">
                 <ul className="space-y-4">
 
                     {user && (
-                        <li className="px-3" onClick={handleSidebar}>
+                        <li className={`p-3 text-[var(--textTwo)] hover:text-[var(--textTwoHover)] font-semibold hover:bg-[var(--menuItemHoverBg)] cursor-pointer rounded-md ${!sidebarOpen && 'flex justify-center'}`} onClick={handleSidebar}>
                             {sidebarOpen ?
                                 <Menu className='text-2xl font-bold cursor-pointer text-[var(--textOne)] hover:text-[var(--textOneHover)]' />
                                 :
@@ -102,8 +110,16 @@ const Sidebar = ({ routes }: SideBarProps) => {
 
                     {routes.map((route) => (
                         <NavLink key={route.path} to={route.path}>
-                            <li className="p-3 text-[var(--textTwo)] hover:text-[var(--textTwoHover)] font-semibold hover:bg-[var(--menuItemHoverBg)] cursor-pointer rounded-md">
-                                {sidebarOpen ? route.name : getIcon(route.name)}
+                            <li title={route.name} 
+                                className={`relative group p-3 text-[var(--textTwo)] hover:text-[var(--textTwoHover)] font-semibold hover:bg-[var(--menuItemHoverBg)] cursor-pointer rounded-md ${!sidebarOpen && 'flex justify-center'}`}
+                            >
+                                {sidebarOpen ? route.name : getIcon(route.name) || route.name}
+
+                                {!sidebarOpen && (
+                                    <span className="absolute left-full ml-2 px-2 py-1 text-xs font-medium text-white bg-black rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                                        {route.name}
+                                    </span>
+                                )}
                             </li>
                         </NavLink>
                     ))}
@@ -112,7 +128,7 @@ const Sidebar = ({ routes }: SideBarProps) => {
             </div>
 
             <ul className='p-4'>
-                <li className="p-3 text-[var(--textTwo)] hover:text-[var(--textTwoHover)] font-semibold hover:bg-[var(--menuItemHoverBg)] cursor-pointer rounded-md mt-auto" onClick={handleSignout}>
+                <li className={`p-3 text-[var(--textTwo)] hover:text-[var(--textTwoHover)] font-semibold hover:bg-[var(--menuItemHoverBg)] cursor-pointer rounded-md mt-auto flex justify-center ${!sidebarOpen && 'flex justify-center'}`} onClick={handleSignout}>
                     {sidebarOpen ? "Logout" : <LogOut />}
                 </li>
             </ul>
