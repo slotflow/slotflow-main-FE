@@ -87,6 +87,7 @@ export interface AdminFetchProviderSubscriptionsResponseProps extends Subscripio
 // **** Admin fetch Provider payments api response props
 export type AdminFetchProviderPaymentsResponseProps = Pick<Payment,  "_id" | "createdAt" | "totalAmount" | "paymentFor" | "paymentMethod" | "paymentGateway" | "paymentStatus" | "discountAmount">;
 
+export type AdminFetchAllSubscriptionsResponseProps = Pick<Subscription, "_id" | "createdAt" | "providerId" | "startDate" | "endDate" | "subscriptionStatus">;
 
 // **** Admin Provider Custom Hook Interface **** \\
 export interface UseAdminProviderActionReturnType {

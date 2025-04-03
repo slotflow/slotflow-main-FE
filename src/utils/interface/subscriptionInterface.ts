@@ -1,4 +1,3 @@
-import { Payment } from "./paymentInterface";
 import { Plan } from "./planInterface";
 
 // Provider subscription interface
@@ -14,10 +13,10 @@ export interface Subscription {
     updatedAt: Date,
 }
 
-// Provider subscription History Table props
-type SubscriptionTableInterfaceProps = Pick<Subscription, "startDate" | "endDate" | "subscriptionStatus">;
-export interface ProviderSubscriptionTableInterfaceProps extends SubscriptionTableInterfaceProps , Partial<Plan> {};
+// Provider subscription History Table props for provider
+type SubscriptionTableInterfacePropsForProvider = Pick<Subscription, "startDate" | "endDate" | "subscriptionStatus">;
+export interface ProviderSubscriptionTableInterfaceProps extends SubscriptionTableInterfacePropsForProvider , Partial<Plan> {};
 
-
-
-export type ProviderPaymentsTableInterfaceProps = Pick<Payment, "createdAt" | "totalAmount" | "paymentFor" | "paymentMethod" | "paymentGateway" | "paymentStatus" | "discountAmount">
+// Provider subscriptions Table props for admin
+type SubscriptionTableInterfacePropsForAdmin = Pick<Subscription, "_id" | "createdAt" | "providerId" | "startDate" | "endDate" | "subscriptionStatus">;
+export interface AdminProviderSubscriptionTableInterfaceProps extends SubscriptionTableInterfacePropsForAdmin , Partial<Pick<Plan, "planName" | "price">> {};

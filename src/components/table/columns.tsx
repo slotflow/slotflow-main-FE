@@ -11,8 +11,9 @@ import { UsersTableInterfaceProps } from "@/utils/interface/api/adminUserApiInte
 import { AppServiceTableInterface } from "@/utils/interface/api/adminServiceApiInterface";
 import { ProvidersTableInterfaceProps } from "@/utils/interface/api/adminProviderApiInterface";
 import { ApproveProvider, ChangeProviderBlockStatus, ChangeProviderTrustTag, GetProviderDetailPage } from "./AdminProviderActions";
-import { ProviderPaymentsTableInterfaceProps, ProviderSubscriptionTableInterfaceProps } from "@/utils/interface/subscriptionInterface";
+import { AdminProviderSubscriptionTableInterfaceProps, ProviderSubscriptionTableInterfaceProps } from "@/utils/interface/subscriptionInterface";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
+import { ProviderPaymentsTableInterfaceProps } from "@/utils/interface/paymentInterface";
 
 export const providerColumns: ColumnDef<ProvidersTableInterfaceProps>[] = [
   {
@@ -316,5 +317,73 @@ export const providerPaymentsColumns: ColumnDef<ProviderPaymentsTableInterfacePr
     accessorKey: "paymentStatus",
     header: ({ column }) => (<DataTableColumnHeader column={column} title="Status" />)
   },
+]
+
+export const ProviderSubscriptionColumnsForAdmin: ColumnDef<AdminProviderSubscriptionTableInterfaceProps>[] = [
+  {
+    accessorKey: "providerId",
+    header: "Provider Id",
+    cell: ({ row }) => {
+      const id = row.original.providerId;
+      return <span>{id.toString().slice(-6)}</span>;
+    },
+  },
+  {
+    accessorKey: "subscriptionPlanId.planName",
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="Plan" />)
+  },
+  {
+    accessorKey: "subscriptionPlanId.price",
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="Amount" />)
+  },
+  {
+    accessorKey: "startDate",
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="Start Date" />),
+    cell: ({ row }) => {
+      const startDate = row.getValue("startDate");
+      const formattedDate = startDate ? format(new Date(startDate as Date), "dd MMM yyyy") : "N/A";
+      return <span>{formattedDate}</span>;
+    }
+
+  },
+  {
+    accessorKey: "endDate",
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="Expires on" />),
+    cell: ({ row }) => {
+      const endDate = row.getValue("endDate");
+      const formattedDate = endDate ? format(new Date(endDate as Date), "dd MMM yyyy") : "N/A";
+      return <span>{formattedDate}</span>;
+    }
+
+  },
+  {
+    accessorKey: "subscriptionStatus",
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="Status" />)
+  },
+  {
+    accessorKey: "actions",
+    header: "Actions",
+    id: "actions",
+    cell: ({ row }) => {
+      const subscription = row.original;
+      return (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="h-8 w-8 p-0 cursor-pointer">
+              <span className="sr-only">Open menu</span>
+              <MoreHorizontal className="h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuSeparator />
+            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            {subscription.subscriptionStatus === "Active" && (
+              <DropdownMenuItem>Cancel</DropdownMenuItem>
+            )}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      )
+    },
+  }
 ]
 

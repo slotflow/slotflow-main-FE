@@ -13,10 +13,11 @@ import {
     AdminChangeProviderTrustedTagResponse,
     AdminFetchProviderSubscriptionsResponseProps,
     AdminFetchProviderPaymentsResponseProps,
+    AdminFetchAllSubscriptionsResponseProps,
 } from "../interface/api/adminProviderApiInterface";
 
 
-export const fetchProviders = async (): Promise<AdminFetchAllProvidersResponseProps[]> => {
+export const fetchProviders = async (): Promise<Array<AdminFetchAllProvidersResponseProps>> => {
     const response = await axiosInstance.get("/admin/providers");
     return response.data.providers;
 };
@@ -56,12 +57,17 @@ export const adminFetchProviderServiceAvailability = async (providerId: string):
     return response.data.availability;
 }
 
-export const adminFetchProviderSubscriptions = async (providerId: string) : Promise<AdminFetchProviderSubscriptionsResponseProps[]> => {
+export const adminFetchProviderSubscriptions = async (providerId: string) : Promise<Array<AdminFetchProviderSubscriptionsResponseProps>> => {
     const response = await axiosInstance.get(`/admin/fetchProviderSubscriptions/${providerId}`);
     return response.data.subscriptions;
 }
 
-export const adminFetchProviderPayments = async (providerId: string): Promise<AdminFetchProviderPaymentsResponseProps[]> => {
+export const adminFetchProviderPayments = async (providerId: string): Promise<Array<AdminFetchProviderPaymentsResponseProps>> => {
     const response = await axiosInstance.get(`/admin/fetchProviderPayments/${providerId}`);
     return response.data.payments;
+}
+
+export const adminFetchAllSubscriptions = async (): Promise<Array<AdminFetchAllSubscriptionsResponseProps>> => {
+    const response = await axiosInstance.get('/admin/getSubscriptions');
+    return response.data.subscriptions;
 }
