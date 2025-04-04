@@ -41,7 +41,6 @@ export const AdminProvidersTableColumns: ColumnDef<AdminProvidersTableColumnsPro
     header: ({ column }) => (<DataTableColumnHeader column={column} title="Slotflow Trusted" />),
     cell: ({ row }) => {
       const isTrusted = row.original.trustedBySlotflow;
-      console.log("isTrusted : ", isTrusted)
       return <span>{isTrusted ? "Trusted" : "Pending"}</span>;
     },
   },

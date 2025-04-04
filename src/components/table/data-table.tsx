@@ -50,6 +50,8 @@ export function DataTable<TData, TValue>({
   );
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
+  const [globalFilter, setGlobalFilter] = React.useState("");
+
   const table = useReactTable({
     data,
     columns,
@@ -64,16 +66,17 @@ export function DataTable<TData, TValue>({
       sorting,
       columnFilters,
       columnVisibility,
+      globalFilter,
     },
   })
   return (
     <div>
       <div className="flex items-center py-4">
         <Input
-          placeholder="Filter emails..."
-          value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
+          placeholder="Filter values"
+          value={globalFilter}
           onChange={(event) =>
-            table.getColumn("email")?.setFilterValue(event.target.value)
+            setGlobalFilter(event.target.value)
           }
           className="max-w-sm"
         />
