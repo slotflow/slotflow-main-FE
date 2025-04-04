@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface stateVariables {
-    selectedServices: number[];
+    selectedServices: string[];
   }
   
   const initialState: stateVariables = {
@@ -12,7 +12,7 @@ const userSlice = createSlice({
     name: "user",
     initialState,
     reducers: {
-        addService: (state, action: PayloadAction<number[]>) => {
+        addService: (state, action: PayloadAction<string[]>) => {
             state.selectedServices = action.payload;
           },
     },
