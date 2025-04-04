@@ -13,7 +13,7 @@ import { ProvidersTableInterfaceProps } from "@/utils/interface/api/adminProvide
 import { ApproveProvider, ChangeProviderBlockStatus, ChangeProviderTrustTag, GetProviderDetailPage } from "./AdminProviderActions";
 import { AdminProviderSubscriptionTableInterfaceProps, ProviderSubscriptionTableInterfaceProps } from "@/utils/interface/subscriptionInterface";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
-import { ProviderPaymentsTableInterfaceProps } from "@/utils/interface/paymentInterface";
+import { Payment, ProviderPaymentsTableInterfaceProps } from "@/utils/interface/paymentInterface";
 import { GetSubscriptionDetails } from "./AddminSubscriptionActions";
 
 export const providerColumns: ColumnDef<ProvidersTableInterfaceProps>[] = [
@@ -383,6 +383,40 @@ export const ProviderSubscriptionColumnsForAdmin: ColumnDef<AdminProviderSubscri
         </DropdownMenu>
       )
     },
+  }
+]
+
+type AdminFetchAllPaymentsTableType = Pick<Payment, "createdAt" | "totalAmount" | "paymentFor" | "paymentGateway" | "paymentStatus" | "paymentMethod">
+export const AdminPaymentsTableColumn: ColumnDef<AdminFetchAllPaymentsTableType>[] = [
+  {
+    accessorKey: "paymentStatus",
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="Status" />)
+  },
+  {
+    accessorKey: "paymentFor",
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="Paid For" />)
+  },
+  {
+    accessorKey: "createdAt",
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="Paid On" />),
+    cell: ({ row }) => {
+      const startDate = row.getValue("startDate");
+      const formattedDate = startDate ? format(new Date(startDate as Date), "dd MMM yyyy") : "N/A";
+      return <span>{formattedDate}</span>;
+    }
+
+  },
+  {
+    accessorKey: "paymentGateway",
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="Gateway" />)
+  },
+  {
+    accessorKey: "paymentMethod",
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="Method" />)
+  },
+  {
+    accessorKey: "totalAmount",
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="Amount" />)
   }
 ]
 
