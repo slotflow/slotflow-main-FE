@@ -94,7 +94,7 @@ const Sidebar = ({ routes }: SideBarProps) => {
     }
 
     return (
-        <div className={` ${sidebarOpen ? 'w-[15%]' : 'w-[5%]'} overflow-y-scroll no-scrollbar border-r-2 transition-all duration-300 flex flex-col`}>
+        <div className={` ${sidebarOpen ? 'w-[15%]' : 'w-[6%]'} overflow-y-scroll no-scrollbar border-r-2 transition-all duration-300 flex flex-col`}>
             <div className="p-4 flex-1">
                 <ul className="space-y-4">
 
