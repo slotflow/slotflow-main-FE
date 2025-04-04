@@ -18,7 +18,6 @@ export interface dataFetchingError {
 }
 
 
-
 // Common input field with label compoenents props interface, used in InputFieldWithLabel compoenent
 export interface InputFieldProps {
     label?: string;
@@ -56,9 +55,9 @@ export interface RoleButtonProps {
 
 // **** Common button props interface **** \\
 export interface CommonButtonProps {
-    onClick?: () => void;
+    onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
     text: string;
-    type?: string;
+    type?: "button" | "submit" | "reset";
 }
 
 

@@ -97,7 +97,8 @@ const ProviderAddServiceAvailability = () => {
     }
   };
 
-  const handleAddAvailability = () => {
+  const handleAddAvailability = (e: React.MouseEvent<HTMLButtonElement>): void => {
+    e.preventDefault();
     const data = {
       day: selectedDay,
       duration: selectedDuration,
@@ -241,7 +242,7 @@ const ProviderAddServiceAvailability = () => {
 
           {selectedTimeSlots.length > 0 && (
             <div className="mt-10 flex justify-end space-x-2">
-              <CommonButton text={"Add"} onClick={handleAddAvailability} />
+              <CommonButton text={"Add"} onClick={handleAddAvailability} type={"button"}/>
               <CommonButton text={dataUpdating ? "Loading" : "Submit"} type={"submit"} />
             </div>
           )}

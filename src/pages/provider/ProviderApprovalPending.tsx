@@ -4,6 +4,7 @@ import InputField from '@/components/form/InputFieldWithLable';
 import { gsapBigSvgYDirectionAnimation } from '@/utils/constants';
 import ManWorkingOnLaptop from "@/components/svgs/ManWorkingOnLaptop";
 import { FormEvent, useCallback, useEffect, useRef, useState } from "react";
+import CommonButton from '@/components/common/CommonButton';
 
 const ProviderApprovalPending = () => {
 
@@ -56,11 +57,7 @@ const ProviderApprovalPending = () => {
                             required={true}
                             onHasError={handleErrorChange}
                         />
-                        <button
-                            type="submit"
-                            className="bg-[var(--mainColor)] hover:bg-[var(--mainColorHover)] text-white font-bold py-1.5 px-4 rounded cursor-pointer"
-                        > Submit
-                        </button>
+                        <CommonButton text={"Submit"} type={"submit"}/>
                     </form>
                 </div>
             </div>

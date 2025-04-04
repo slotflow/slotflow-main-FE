@@ -6,7 +6,7 @@ const WomenLaptop = () => {
     const themeMode: boolean = useSelector((store: RootState) => store.state.lightTheme);
 
     return themeMode ? (
-        <svg className="w-auto h-40 md:h-80 text-gray-800 dark:text-white" aria-hidden="true" width="606" height="588" viewBox="0 0 606 588" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg className="w-full h-40 md:h-80 text-gray-800 dark:text-white" aria-hidden="true" width="606" height="588" viewBox="0 0 606 588" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M407 166C407 164.895 407.895 164 409 164H604C605.105 164 606 164.895 606 166V585C606 586.105 605.105 587 604 587H409C407.895 587 407 586.105 407 585V166Z" fill="#d6e2fb" />
             <path d="M407 166C407 164.895 407.895 164 409 164H604C605.105 164 606 164.895 606 166V585C606 586.105 605.105 587 604 587H409C407.895 587 407 586.105 407 585V166Z" fill="url(#paint0_linear_243_1702)" />
             <path d="M407 176H606V8C606 3.58173 602.418 0 598 0H415C410.582 0 407 3.58173 407 8V176Z" fill="#d6e2fb" />

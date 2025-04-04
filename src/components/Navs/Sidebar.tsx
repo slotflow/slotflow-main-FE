@@ -24,6 +24,7 @@ import {
     MapPinHouse,
     CalendarDays,
     Handshake,
+    HandCoins,
 } from 'lucide-react';
 import { UserData } from '@/utils/interface/sliceInterface';
 
@@ -74,7 +75,7 @@ const Sidebar = ({ routes }: SideBarProps) => {
         'address': <MapPinHouse />,
         'chat': <MessageSquare />,
         'plans': <LayoutGrid />,
-        'payments': <CreditCard />,
+        'payments': <HandCoins />,
         'reviews': <Star />,
         'bookings': <CalendarCheck />,
         'services': <Briefcase />,
