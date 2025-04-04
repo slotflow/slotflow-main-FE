@@ -3,7 +3,7 @@ import { DataTable } from '@/components/table/data-table';
 import ShimmerTable from '@/components/shimmers/ShimmerTable';
 import ShimmerTableTop from '@/components/shimmers/ShimmerTableTop';
 import DataFetchingError from '@/components/common/DataFetchingError';
-import { adminFetchAllSubscriptions } from '@/utils/apis/adminProvider.api';
+import { adminFetchAllSubscriptions } from '@/utils/apis/adminSubscription.api';
 import { ProviderSubscriptionColumnsForAdmin } from '@/components/table/columns';
 
 const AdminSubscriptions = () => {
@@ -14,7 +14,6 @@ const AdminSubscriptions = () => {
     });
 
     if (isError) return <DataFetchingError message={error.message} />
-
 
     return (
         <>

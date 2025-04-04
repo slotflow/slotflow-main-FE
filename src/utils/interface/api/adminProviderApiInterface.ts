@@ -1,10 +1,10 @@
+import { Plan } from "../planInterface";
 import { Address } from "../addressInterface";
 import { Payment } from "../paymentInterface";
-import { Plan } from "../planInterface";
 import { Provider } from "../providerInterface";
+import { Subscription } from "../subscriptionInterface";
 import { ProviderService } from "../providerServiceInterface";
 import { ServiceAvailability } from "../serviceAvailabilityInterface";
-import { Subscription } from "../subscriptionInterface";
 
 // **** Admin Provider Api Interface **** \\
 
@@ -87,7 +87,6 @@ export interface AdminFetchProviderSubscriptionsResponseProps extends Subscripio
 // **** Admin fetch Provider payments api response props
 export type AdminFetchProviderPaymentsResponseProps = Pick<Payment,  "_id" | "createdAt" | "totalAmount" | "paymentFor" | "paymentMethod" | "paymentGateway" | "paymentStatus" | "discountAmount">;
 
-export type AdminFetchAllSubscriptionsResponseProps = Pick<Subscription, "_id" | "createdAt" | "providerId" | "startDate" | "endDate" | "subscriptionStatus">;
 
 // **** Admin Provider Custom Hook Interface **** \\
 export interface UseAdminProviderActionReturnType {

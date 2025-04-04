@@ -32,7 +32,7 @@ const AdminProviderServiceAvailability: React.FC<AdminProviderServiceAvailabilit
     }
 
     return (
-        <div className="flex w-full mx-auto mt-8 p-6 rounded-lg">
+        <div className="flex w-full mx-auto p-6 rounded-lg">
             <div className="flex flex-col w-3/12 space-y-4 px-2 items-start">
                 {data && data.availability?.map((avail, index: number) => (
                     <button key={index} className={`w-full cursor-pointer bg-[var(--menuBg)] hover:bg-[var(--menuItemHoverBg)] p-2 rounded-lg ${tab === index && "text-[var(--mainColor)] font-semibold"}`} onClick={() => setTab(index)}>{avail.day}</button>

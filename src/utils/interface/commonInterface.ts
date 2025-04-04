@@ -3,11 +3,12 @@ import { ChangeEvent } from "react";
 // InputDisplay components interface, this is used for showing details in profiles
 export interface InfoDisplayComponentRowProps {
     label: string;
-    value: string | boolean | number | string[] | undefined | null;
+    value: string | boolean | number | string[] | Date | undefined | null;
     formatDate?: (dateString: string) => string;
     copyToClipboard?: (text: string) => void;
     link?: boolean;
     isBoolean?: boolean;
+    isPrice? : boolean;
 }
 
 

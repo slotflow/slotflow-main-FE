@@ -40,6 +40,7 @@ import ProviderSubscription from "@/pages/provider/ProviderSubscription.tsx";
 import PaymentConfirmPage from "@/pages/common/PaymentConfirmPage.tsx";
 import UserAddress from "@/pages/user/UserAddress.tsx";
 import AdminSubscriptions from "@/pages/admin/AdminSubscriptions.tsx";
+import AdminSubcriptionDetailedView from "@/pages/admin/AdminSubcriptionDetailedView.tsx";
 
 export const appRouter = createBrowserRouter([
     {
@@ -67,6 +68,7 @@ export const appRouter = createBrowserRouter([
                     { path: "services", element: <AdminServices /> },
                     { path: "plans", element: <AdminPlans /> },
                     { path: "subscriptions", element: <AdminSubscriptions /> },
+                    { path: "subscription/:subscriptionId", element: <AdminSubcriptionDetailedView /> },
                     { path: "*", element: <ErrorDisplay /> },
                 ],
             },

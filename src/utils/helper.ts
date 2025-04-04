@@ -55,7 +55,15 @@ const format12HourTime = (time24: string): string => {
 
 // Formate date for infoDisplayCompoenent
 export  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString();
+  return new Date(dateString).toLocaleString("en-US", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: true,
+});
 };
 
 // Coupy to Clipboard

@@ -13,7 +13,6 @@ import {
     AdminChangeProviderTrustedTagResponse,
     AdminFetchProviderSubscriptionsResponseProps,
     AdminFetchProviderPaymentsResponseProps,
-    AdminFetchAllSubscriptionsResponseProps,
 } from "../interface/api/adminProviderApiInterface";
 
 
@@ -67,7 +66,3 @@ export const adminFetchProviderPayments = async (providerId: string): Promise<Ar
     return response.data.payments;
 }
 
-export const adminFetchAllSubscriptions = async (): Promise<Array<AdminFetchAllSubscriptionsResponseProps>> => {
-    const response = await axiosInstance.get('/admin/getSubscriptions');
-    return response.data.subscriptions;
-}

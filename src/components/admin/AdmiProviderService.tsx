@@ -23,7 +23,7 @@ const AdmiProviderService: React.FC<AdminProviderServiceProps> = memo(({ provide
 
     if (isLoading) {
         return (
-            <div className="w-full mx-auto mt-8 md:flex justify-start flex-grow bg">
+            <div className="w-full mx-auto md:flex justify-start flex-grow bg">
                 <ShimmerProfileDetails row={6} />
             </div>
         )
@@ -34,7 +34,7 @@ const AdmiProviderService: React.FC<AdminProviderServiceProps> = memo(({ provide
     }
 
     return (
-        <div className="w-full mx-auto mt-8 py-6 rounded-lg">
+        <div className="w-full mx-auto py-6 rounded-lg">
             <table className="table-auto border-collapse border border-[var(--boxBorder)] w-full">
                 <tbody>
                     <InfoDisplayComponent label="Service Category" value={data?.serviceCategory} />

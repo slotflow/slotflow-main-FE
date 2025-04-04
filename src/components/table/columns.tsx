@@ -14,6 +14,7 @@ import { ApproveProvider, ChangeProviderBlockStatus, ChangeProviderTrustTag, Get
 import { AdminProviderSubscriptionTableInterfaceProps, ProviderSubscriptionTableInterfaceProps } from "@/utils/interface/subscriptionInterface";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import { ProviderPaymentsTableInterfaceProps } from "@/utils/interface/paymentInterface";
+import { GetSubscriptionDetails } from "./AddminSubscriptionActions";
 
 export const providerColumns: ColumnDef<ProvidersTableInterfaceProps>[] = [
   {
@@ -377,9 +378,7 @@ export const ProviderSubscriptionColumnsForAdmin: ColumnDef<AdminProviderSubscri
           <DropdownMenuContent align="end">
             <DropdownMenuSeparator />
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            {subscription.subscriptionStatus === "Active" && (
-              <DropdownMenuItem>Cancel</DropdownMenuItem>
-            )}
+            <GetSubscriptionDetails subscriptionId={subscription._id}/>
           </DropdownMenuContent>
         </DropdownMenu>
       )

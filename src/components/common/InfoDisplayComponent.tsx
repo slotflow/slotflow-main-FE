@@ -2,16 +2,18 @@ import { Copy } from "lucide-react";
 import { formatBoolean } from "@/utils/helper";
 import { InfoDisplayComponentRowProps } from "@/utils/interface/commonInterface";
 
-const InfoDisplayComponent: React.FC<InfoDisplayComponentRowProps> = ({ label, value, formatDate, copyToClipboard, isBoolean, link }) => {
+const InfoDisplayComponent: React.FC<InfoDisplayComponentRowProps> = ({ label, value, formatDate, copyToClipboard, isBoolean, link, isPrice }) => {
 
     return (
         <>
             <tr className="border-b border-[var(--boxBorder)]">
-                <td className="p-4 font-medium text-[var(--infoDataLabel)]">{label}</td>
-                <td className="p-4">
+                <td className="p-4 font-medium text-[var(--infoDataLabel)] w-4/12">{label}</td>
+                <td className="p-4 w-8/12">
                     {(value === null || value === undefined) && "Not Yet added"}
                     {isBoolean ? (
                         <span>{formatBoolean(value as boolean)}</span>
+                    ) : isPrice ? (
+                        <span>	₹ {value as string} INR</span>
                     ) : typeof value === 'string' && copyToClipboard ? (
                         <div className="flex items-center">
                             <p className="mr-2">{value}</p>
