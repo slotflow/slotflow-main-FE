@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import ShimmerTable from "../shimmers/ShimmerTable";
 import ShimmerTableTop from "../shimmers/ShimmerTableTop";
 import DataFetchingError from "../common/DataFetchingError";
-import { providerSubscriptionColumns } from "../table/columns";
+import { ProviderSubscriptionSTableColumns } from "../table/columns";
 import { adminFetchProviderSubscriptions } from "@/utils/apis/adminProvider.api";
 import { AdminFetchProviderSubscriptions } from "@/utils/interface/adminInterface";
 
@@ -26,7 +26,7 @@ const AdminProviderSubscriptions: React.FC<AdminFetchProviderSubscriptions> = me
                     <ShimmerTable />
                 </>
             ) : data ? (
-                <DataTable columns={providerSubscriptionColumns} data={data} />
+                <DataTable columns={ProviderSubscriptionSTableColumns} data={data} />
             ) : (
                 <DataFetchingError message="No data found" />
             )}

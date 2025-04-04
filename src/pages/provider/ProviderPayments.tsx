@@ -4,7 +4,7 @@ import ShimmerTable from '@/components/shimmers/ShimmerTable';
 import ShimmerTableTop from '@/components/shimmers/ShimmerTableTop';
 import DataFetchingError from '@/components/common/DataFetchingError';
 import { fetchProviderPayments } from '@/utils/apis/provider.api';
-import { providerPaymentsColumns } from '@/components/table/columns';
+import { ProviderPaymentsTableColumns } from '@/components/table/columns';
 
 const ProviderPayments = () => {
 
@@ -24,7 +24,7 @@ const ProviderPayments = () => {
           <ShimmerTable />
         </>
       ) : data ? (
-        <DataTable columns={providerPaymentsColumns} data={data} />
+        <DataTable columns={ProviderPaymentsTableColumns} data={data} />
       ) : (
         <DataFetchingError message="No data found" />
       )}

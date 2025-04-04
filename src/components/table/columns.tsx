@@ -6,17 +6,12 @@ import { ChangeUserStatus } from "./AdminUserActions";
 import { ChangePlanBlockStatus } from "./AdminPlanActions";
 import { DataTableColumnHeader } from "./DataTableColumnHeader";
 import { ChangeServiceBlockStatus } from "./AdminSerivceActions";
-import { PlanTableInterface } from "@/utils/interface/api/adminPlanApiInterface";
-import { UsersTableInterfaceProps } from "@/utils/interface/api/adminUserApiInterface";
-import { AppServiceTableInterface } from "@/utils/interface/api/adminServiceApiInterface";
-import { ProvidersTableInterfaceProps } from "@/utils/interface/api/adminProviderApiInterface";
-import { ApproveProvider, ChangeProviderBlockStatus, ChangeProviderTrustTag, GetProviderDetailPage } from "./AdminProviderActions";
-import { AdminProviderSubscriptionTableInterfaceProps, ProviderSubscriptionTableInterfaceProps } from "@/utils/interface/subscriptionInterface";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
-import { Payment, ProviderPaymentsTableInterfaceProps } from "@/utils/interface/paymentInterface";
 import { GetSubscriptionDetails } from "./AddminSubscriptionActions";
+import { ApproveProvider, ChangeProviderBlockStatus, ChangeProviderTrustTag, GetProviderDetailPage } from "./AdminProviderActions";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
+import { AdminAllPaymentsTableColumnsProps, AdminAppServicesTableColumnsProps, AdminPlansTableColumnsProps, AdminProvidersSubscriptionsTableColumnsProps, AdminProvidersTableColumnsProps, AdminUsersTableColumnsProps, ProviderPaymentsTableColumnsProps, ProviderSubscriptionsTableColumnsProps } from "@/utils/interface/tableColumnInterface";
 
-export const providerColumns: ColumnDef<ProvidersTableInterfaceProps>[] = [
+export const AdminProvidersTableColumns: ColumnDef<AdminProvidersTableColumnsProps>[] = [
   {
     accessorKey: "isAdminVerified",
     header: "Admin Verication",
@@ -80,7 +75,7 @@ export const providerColumns: ColumnDef<ProvidersTableInterfaceProps>[] = [
   },
 ]
 
-export const userColumns: ColumnDef<UsersTableInterfaceProps>[] = [
+export const AdminUsersTableColumns: ColumnDef<AdminUsersTableColumnsProps>[] = [
   {
     accessorKey: "isVerified",
     header: "Verication",
@@ -131,7 +126,7 @@ export const userColumns: ColumnDef<UsersTableInterfaceProps>[] = [
   }
 ]
 
-export const serviceColumns: ColumnDef<AppServiceTableInterface>[] = [
+export const AdminAppServicesTableColumns: ColumnDef<AdminAppServicesTableColumnsProps>[] = [
   {
     accessorKey: "_id",
     header: "id",
@@ -178,8 +173,7 @@ export const serviceColumns: ColumnDef<AppServiceTableInterface>[] = [
   }
 ]
 
-
-export const planColumns: ColumnDef<PlanTableInterface>[] = [
+export const AdminPlansTableColumns: ColumnDef<AdminPlansTableColumnsProps>[] = [
   {
     accessorKey: "_id",
     header: "id",
@@ -227,7 +221,7 @@ export const planColumns: ColumnDef<PlanTableInterface>[] = [
   }
 ]
 
-export const providerSubscriptionColumns: ColumnDef<ProviderSubscriptionTableInterfaceProps>[] = [
+export const ProviderSubscriptionSTableColumns: ColumnDef<ProviderSubscriptionsTableColumnsProps>[] = [
   {
     accessorKey: "subscriptionPlanId.planName",
     header: ({ column }) => (<DataTableColumnHeader column={column} title="Plan" />)
@@ -236,8 +230,8 @@ export const providerSubscriptionColumns: ColumnDef<ProviderSubscriptionTableInt
     accessorKey: "startDate",
     header: ({ column }) => (<DataTableColumnHeader column={column} title="Paid on" />),
     cell: ({ row }) => {
-      const startDate = row.getValue("startDate"); // Get the raw startDate value
-      const formattedDate = startDate ? format(new Date(startDate as Date), "dd MMM yyyy") : "N/A"; // Format the date
+      const startDate = row.getValue("startDate");
+      const formattedDate = startDate ? format(new Date(startDate as Date), "dd MMM yyyy") : "N/A";
       return <span>{formattedDate}</span>;
     }
 
@@ -246,8 +240,8 @@ export const providerSubscriptionColumns: ColumnDef<ProviderSubscriptionTableInt
     accessorKey: "endDate",
     header: ({ column }) => (<DataTableColumnHeader column={column} title="Expires on" />),
     cell: ({ row }) => {
-      const endDate = row.getValue("endDate"); // Get the raw endDate value
-      const formattedDate = endDate ? format(new Date(endDate as Date), "dd MMM yyyy") : "N/A"; // Format the date
+      const endDate = row.getValue("endDate");
+      const formattedDate = endDate ? format(new Date(endDate as Date), "dd MMM yyyy") : "N/A";
       return <span>{formattedDate}</span>;
     }
 
@@ -283,8 +277,7 @@ export const providerSubscriptionColumns: ColumnDef<ProviderSubscriptionTableInt
   }
 ]
 
-
-export const providerPaymentsColumns: ColumnDef<ProviderPaymentsTableInterfaceProps>[] = [
+export const ProviderPaymentsTableColumns: ColumnDef<ProviderPaymentsTableColumnsProps>[] = [
   {
     accessorKey: "createdAt",
     header: ({ column }) => (<DataTableColumnHeader column={column} title="Paid on" />),
@@ -320,7 +313,8 @@ export const providerPaymentsColumns: ColumnDef<ProviderPaymentsTableInterfacePr
   },
 ]
 
-export const ProviderSubscriptionColumnsForAdmin: ColumnDef<AdminProviderSubscriptionTableInterfaceProps>[] = [
+
+export const AdminProvidersSubscriptionsTableColumns: ColumnDef<AdminProvidersSubscriptionsTableColumnsProps>[] = [
   {
     accessorKey: "providerId",
     header: "Provider Id",
@@ -386,8 +380,7 @@ export const ProviderSubscriptionColumnsForAdmin: ColumnDef<AdminProviderSubscri
   }
 ]
 
-type AdminFetchAllPaymentsTableType = Pick<Payment, "createdAt" | "totalAmount" | "paymentFor" | "paymentGateway" | "paymentStatus" | "paymentMethod">
-export const AdminPaymentsTableColumn: ColumnDef<AdminFetchAllPaymentsTableType>[] = [
+export const AdminAllPaymentsTableColumns: ColumnDef<AdminAllPaymentsTableColumnsProps>[] = [
   {
     accessorKey: "paymentStatus",
     header: ({ column }) => (<DataTableColumnHeader column={column} title="Status" />)

@@ -4,7 +4,7 @@ import ShimmerTable from '@/components/shimmers/ShimmerTable';
 import ShimmerTableTop from '@/components/shimmers/ShimmerTableTop';
 import DataFetchingError from '@/components/common/DataFetchingError';
 import { adminFetchAllPayments } from '@/utils/apis/adminPayment.api';
-import { AdminPaymentsTableColumn } from '@/components/table/columns';
+import { AdminAllPaymentsTableColumns } from '@/components/table/columns';
 
 const AdminPayments = () => {
     const { data, isLoading, isError, error } = useQuery({
@@ -24,7 +24,7 @@ const AdminPayments = () => {
             ) : data ? (
                 <>
                     <h2 className="text-2xl font-bold mb-4">Payments</h2>
-                    <DataTable columns={AdminPaymentsTableColumn} data={data} />
+                    <DataTable columns={AdminAllPaymentsTableColumns} data={data} />
                 </>
             ) : (
                 <DataFetchingError message={"No data found"} />

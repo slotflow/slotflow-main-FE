@@ -7,8 +7,6 @@ export interface ApiCommonResponse {
 
 
 
-// Admin users table interface props used in  use Admin action custom hook and the column.tsx
-export type UsersTableInterfaceProps = Pick<User, "_id" | "username" | "email" | "isBlocked" | "isEmailVerified">;
 
 
 

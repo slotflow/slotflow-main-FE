@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import ShimmerTable from '../shimmers/ShimmerTable';
 import ShimmerTableTop from '../shimmers/ShimmerTableTop';
 import DataFetchingError from '../common/DataFetchingError';
-import { providerSubscriptionColumns } from '../table/columns';
+import { ProviderSubscriptionSTableColumns } from '../table/columns';
 import { fetchProviderSubscriptions } from '@/utils/apis/provider.api';
 
 const SubscriptionHistory = () => {
@@ -24,7 +24,7 @@ const SubscriptionHistory = () => {
                     <ShimmerTable />
                 </>
             ) : data ? (
-                <DataTable columns={providerSubscriptionColumns} data={data} />
+                <DataTable columns={ProviderSubscriptionSTableColumns} data={data} />
             ) : (
                 <DataFetchingError message="No data found" />
             )}

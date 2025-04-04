@@ -4,7 +4,7 @@ import ShimmerTable from '@/components/shimmers/ShimmerTable';
 import ShimmerTableTop from '@/components/shimmers/ShimmerTableTop';
 import DataFetchingError from '@/components/common/DataFetchingError';
 import { adminFetchAllSubscriptions } from '@/utils/apis/adminSubscription.api';
-import { ProviderSubscriptionColumnsForAdmin } from '@/components/table/columns';
+import { AdminProvidersSubscriptionsTableColumns } from '@/components/table/columns';
 
 const AdminSubscriptions = () => {
 
@@ -25,7 +25,7 @@ const AdminSubscriptions = () => {
             ) : data ? (
                 <>
                     <h2 className="text-2xl font-bold mb-4">Subscriptions</h2>
-                    <DataTable columns={ProviderSubscriptionColumnsForAdmin} data={data} />
+                    <DataTable columns={AdminProvidersSubscriptionsTableColumns} data={data} />
                 </>
             ) : (
                 <DataFetchingError message={"No data found"} />

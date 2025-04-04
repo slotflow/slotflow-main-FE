@@ -9,8 +9,6 @@ import { Plan } from "../planInterface";
 
 
 
-// Plan listing table data Interface used in plan custom hook and the column.tsx
-export type PlanTableInterface = Pick<Plan , "_id" | "planName" | "isBlocked">;
 
 
 

@@ -14,4 +14,3 @@ export interface Payment {
     providerId?: string,
 }
 
-export type ProviderPaymentsTableInterfaceProps = Pick<Payment, "createdAt" | "totalAmount" | "paymentFor" | "paymentMethod" | "paymentGateway" | "paymentStatus" | "discountAmount">

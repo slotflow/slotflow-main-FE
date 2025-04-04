@@ -2,7 +2,7 @@ import { DataTable } from "../table/data-table";
 import { useQuery } from "@tanstack/react-query";
 import ShimmerTable from "../shimmers/ShimmerTable";
 import ShimmerTableTop from "../shimmers/ShimmerTableTop";
-import { providerPaymentsColumns } from "../table/columns";
+import { ProviderPaymentsTableColumns } from "../table/columns";
 import DataFetchingError from "../common/DataFetchingError";
 import { adminFetchProviderPayments } from "@/utils/apis/adminProvider.api";
 import { AdminFetchProviderPayments } from "@/utils/interface/adminInterface";
@@ -24,7 +24,7 @@ const AdminProviderPayments: React.FC<AdminFetchProviderPayments> = ({ _id }) =>
                     <ShimmerTable />
                 </>
             ) : data ? (
-                <DataTable columns={providerPaymentsColumns} data={data} />
+                <DataTable columns={ProviderPaymentsTableColumns} data={data} />
             ) : (
                 <DataFetchingError message="No data found" />
             )}

@@ -9,8 +9,6 @@ interface ApiCommonResponse {
 }
 
 
-// Service listing table data Interface used in service custom hook and the column.tsx
-export type AppServiceTableInterface = Pick<Service , "_id" | "serviceName" | "isBlocked">;
 
 
 

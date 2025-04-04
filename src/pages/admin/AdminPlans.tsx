@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
-import { planColumns } from '@/components/table/columns';
 import { DataTable } from '@/components/table/data-table';
 import { fetchAllPlans } from '@/utils/apis/adminPlan.api';
 import PlanForm from '@/components/form/AdminForms/planForm';
 import ShimmerTable from '@/components/shimmers/ShimmerTable';
 import ShimmerTableTop from '@/components/shimmers/ShimmerTableTop';
+import { AdminPlansTableColumns } from '@/components/table/columns';
 import DataFetchingError from '@/components/common/DataFetchingError';
 
 const AdminPlans = () => {
@@ -27,7 +27,7 @@ const AdminPlans = () => {
                             <ShimmerTable />
                         </>
                     ) : data && data ? (
-                        <DataTable columns={planColumns} data={data} />
+                        <DataTable columns={AdminPlansTableColumns} data={data} />
                     ) : (
                         <DataFetchingError message={"No data found"} />
                     )}

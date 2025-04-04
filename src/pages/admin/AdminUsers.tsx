@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchUsers } from "@/utils/apis/adminUser.api";
-import { userColumns } from "@/components/table/columns";
 import { DataTable } from "@/components/table/data-table";
 import ShimmerTable from "@/components/shimmers/ShimmerTable";
 import ShimmerTableTop from "@/components/shimmers/ShimmerTableTop";
+import { AdminUsersTableColumns } from "@/components/table/columns";
 import DataFetchingError from "@/components/common/DataFetchingError";
 
 const AdminUsers = () => {
@@ -25,7 +25,7 @@ const AdminUsers = () => {
       ) : data ? (
         <>
           <h2 className="text-2xl font-bold mb-4">Users</h2>
-          <DataTable columns={userColumns} data={data} />
+          <DataTable columns={AdminUsersTableColumns} data={data} />
         </>
       ) : (
         <DataFetchingError message={"No data found"} />
