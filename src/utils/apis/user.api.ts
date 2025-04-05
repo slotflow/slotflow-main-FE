@@ -1,12 +1,14 @@
 import axiosInstance from "@/lib/axios"
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { 
+import {
     UserUpdateProfileImageResponseProps,
     UserFetchProfileDetailsResponseProps,
     UserFetchAddressResponseProps,
     AddUserAddressPayload,
-    ApiCommonResponse, 
- } from "../interface/api/userApi.Interface";
+    ApiCommonResponse,
+} from "../interface/api/userApi.Interface";
+import { Provider } from "../interface/providerInterface";
+import { ProviderService } from "../interface/providerServiceInterface";
 
 
 export const fetchUserProfileDetails = async (): Promise<UserFetchProfileDetailsResponseProps> => {
@@ -16,17 +18,27 @@ export const fetchUserProfileDetails = async (): Promise<UserFetchProfileDetails
 
 export const updateUserProfileImage = createAsyncThunk<UserUpdateProfileImageResponseProps, FormData>("/user/updateProfileImage",
     async (payload: FormData) => {
-        const response = await axiosInstance.post('/user/updateProfileImage',payload);
+        const response = await axiosInstance.post('/user/updateProfileImage', payload);
         return response.data;
     }
 )
 
-export const fetchUserAddress = async () :Promise<UserFetchAddressResponseProps> => {
+export const fetchUserAddress = async (): Promise<UserFetchAddressResponseProps> => {
     const response = await axiosInstance.get('/user/getAddress');
     return response.data.address;
 }
 
-export const addUserAddress = async ({formData} : AddUserAddressPayload): Promise<ApiCommonResponse> => {
+export const addUserAddress = async ({ formData }: AddUserAddressPayload): Promise<ApiCommonResponse> => {
     const response = await axiosInstance.post('/user/addAddress', formData);
     return response.data;
 }
+
+type ServiceProviderProps = Pick<Provider, "_id" | "username" | "profileImage" | "trustedBySlotflow">;
+type ServiceProps = Pick<ProviderService, "serviceCategory" | "serviceName" | "servicePrice">;
+interface UserFetchServiceProvidersResponseProps extends ServiceProviderProps, ApiCommonResponse {
+    serviceId: ServiceProps
+}
+export const userSearchServiceProviders = async (selectedServices: string[]): Promise<UserFetchServiceProvidersResponseProps> => {
+    const response = await axiosInstance.get(`/user/getServiceProviders/${selectedServices.join(",")}`);
+    return response.data;
+};

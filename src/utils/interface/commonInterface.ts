@@ -39,7 +39,7 @@ export interface SelectFieldProps {
     id: string;
     value: string | boolean | number;
     onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-    options: string[] | boolean[] | number[];
+    options: string[] | boolean[] | number[] | { label: string; value: string; }[];
     required?: boolean;
     onHasError?: (hasError: boolean) => void;
 }

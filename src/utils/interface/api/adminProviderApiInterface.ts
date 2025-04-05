@@ -5,6 +5,7 @@ import { Provider } from "../providerInterface";
 import { Subscription } from "../subscriptionInterface";
 import { ProviderService } from "../providerServiceInterface";
 import { ServiceAvailability } from "../serviceAvailabilityInterface";
+import { Service } from "../appServiceInterface";
 
 // **** Admin Provider Api Interface **** \\
 
@@ -68,7 +69,11 @@ export type AdminFetchProviderDetailsResponseProps = Pick<Provider, "_id" | "use
 export type AdminFetchProviderAddressResponseProps = Pick<Address, "userId" | "addressLine" | "phone" | "place" | "city" | "district" | "pincode" | "state" | "country" | "googleMapLink">;
 
 // **** Admin fetch provider service details api response
-export type AdminFetchProviderServiceResponseProps = Pick<ProviderService, "providerId" | "serviceCategory" | "serviceName" | "serviceDescription" | "servicePrice" | "providerAdhaar" | "providerExperience" | "providerCertificateUrl">;
+type FetchServiceDetailsProps = Pick<ProviderService, "serviceName" | "serviceDescription" | "servicePrice" | "providerAdhaar" | "providerExperience" | "providerCertificateUrl">;
+export interface AdminFetchProviderServiceResponseProps extends FetchServiceDetailsProps {
+    serviceCategory: Pick<Service, "serviceName">
+}
+
 
 // **** Admin fetch provider service availability api response
 export type AdminFetchProviderAvailabilityResponseProps = Pick<ServiceAvailability, "availability" >;

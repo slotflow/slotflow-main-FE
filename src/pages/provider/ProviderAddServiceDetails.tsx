@@ -4,15 +4,11 @@ import CommonButton from "@/components/common/CommonButton";
 import RightSideBox from "@/components/provider/RightSideBox";
 import InputField from "@/components/form/InputFieldWithLable";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
-import { fetchAllServices } from "../../utils/apis/provider.api";
+import { fetchAllAppServices } from "../../utils/apis/provider.api";
 import { addProviderServiceDetails } from "@/utils/apis/provider.api";
 import SelectFiledWithLabel from "@/components/form/SelectFiledWithLabel";
 import React, { ChangeEvent, FormEvent, useCallback, useEffect, useState } from "react";
 
-
-interface Service {
-  serviceName: string
-}
 
 const ProviderAddServiceDetails = () => {
 
@@ -22,7 +18,7 @@ const ProviderAddServiceDetails = () => {
   const [hasErrors, setHasErrors] = useState<boolean>(false);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
-  const [services, setServices] = useState<string[]>([]);
+  const [services, setServices] = useState<{ label: string, value: string }[] | []>([]);
   const [formData, setFormData] = useState({
     serviceCategory: "",
     serviceName: "",
@@ -68,11 +64,12 @@ const ProviderAddServiceDetails = () => {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const res = await fetchAllServices();
-        if (res.success) {
-          const serviceNames = res.services.map((service: Service) => service.serviceName);
-          setServices(serviceNames);
-        }
+        const res = await fetchAllAppServices();
+        const transformed = res.services.map((service: { _id: string; serviceName: string }) => ({
+          label: service.serviceName,
+          value: service._id
+        }));
+        setServices(transformed);
       } catch (error) {
         console.error("Error fetching services:", error);
       }
@@ -120,6 +117,7 @@ const ProviderAddServiceDetails = () => {
       toast.error("An error occurred.");
     }
   };
+
   return (
     <div className="min-h-screen pt-16 flex justify-center w-full bg-[var(--background)]">
       <div className="w-8/12 px-10">

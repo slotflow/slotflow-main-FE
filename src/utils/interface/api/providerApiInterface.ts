@@ -30,7 +30,7 @@ export interface AddProviderAddressPayload {
 
 // Fetch all services api request response 
 export interface FetchAllServicesResponse extends ApiCommonResponse{
-    services: Service[]
+    services: Array<Pick<Service, "_id" | "serviceName">>
 }
 
 //  Provider service details adding request payload used in provider api
@@ -50,7 +50,10 @@ export type ProviderFetchProfileDetailsResponseProps = Pick<Provider, "username"
 export type ProviderFetchAddressResponseProps = Pick<Address, "_id" | "addressLine" | "phone" | "place" | "city" | "district" | "pincode" | "state" | "country" | "googleMapLink">;
 
 // Provider service details api response 
-export type ProviderFetchServiceDetailsResponseProps = Pick<ProviderService, "_id" | "serviceCategory" | "serviceName" | "serviceDescription" | "servicePrice" | "providerAdhaar" | "providerExperience" | "providerCertificateUrl">;
+type FetchServiceDetailsProps = Pick<ProviderService, "serviceName" | "serviceDescription" | "servicePrice" | "providerAdhaar" | "providerExperience" | "providerCertificateUrl">;
+export interface ProviderFetchServiceDetailsResponseProps extends FetchServiceDetailsProps {
+    serviceCategory: Pick<Service, "serviceName">
+}
 
 // Provider service availability api response
 export type ProviderFetchServiceAvailabilityResponseProps = Pick<ServiceAvailability, "_id" |  "availability" >;

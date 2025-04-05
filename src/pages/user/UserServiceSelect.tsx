@@ -5,6 +5,8 @@ import CommonButton from "@/components/common/CommonButton";
 import { fetchServices } from "@/utils/apis/adminService.api";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
 import DataFetchingError from "@/components/common/DataFetchingError";
+import { toast } from "react-toastify";
+import { userSearchServiceProviders } from "@/utils/apis/user.api";
 
 interface Service {
     _id: string;
@@ -24,6 +26,11 @@ const UserServiceSelect = () => {
             dispatch(addService([...selectedServices, serviceId]));
         }
     };
+
+    const handleSubmitSelectedServices = async () => {
+        const response = await userSearchServiceProviders(selectedServices);
+        toast.success(response.message);
+    }
 
     const { data, isLoading, isError, error } = useQuery({
         queryKey: ["services"],
@@ -46,7 +53,10 @@ const UserServiceSelect = () => {
                                 ? "border-[var(--mainColor)]"
                                 : "border-gray-300"
                                 }`}
-                            onClick={() => handleServiceToggle(service._id)}
+                            onClick={(e) => {
+                                e.preventDefault();
+                                handleServiceToggle(service._id)
+                            }}
                         >
                             {service.serviceName}
                         </div>
@@ -56,7 +66,7 @@ const UserServiceSelect = () => {
                 )}
             </div>
             <div className="flex justify-end mt-6">
-               <CommonButton text={"Next"} />
+               <CommonButton text={"Next"} onClick={handleSubmitSelectedServices}/>
             </div>
         </div>
     );

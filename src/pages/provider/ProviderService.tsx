@@ -27,7 +27,7 @@ const ProviderService = () => {
         ) : data ? (
           <table className="table-auto w-full">
             <tbody>
-              <InfoDisplayComponent label="Service Category" value={data?.serviceCategory} />
+              <InfoDisplayComponent label="Service Category" value={data?.serviceCategory.serviceName} />
               <InfoDisplayComponent label="Service Name" value={data?.serviceName} />
               <InfoDisplayComponent label="Service Description" value={data?.serviceDescription} />
               <InfoDisplayComponent label="Service Price" value={data?.servicePrice} />

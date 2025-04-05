@@ -10,7 +10,7 @@ const SelectFiledWithLabel: React.FC<SelectFieldProps> = memo(({
     required = false,
     onHasError,
 }) => {
-    
+
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [selectedValue, setSelectedValue] = useState<string>(value.toString());
     const selectRef = useRef<HTMLDivElement>(null);
@@ -44,6 +44,22 @@ const SelectFiledWithLabel: React.FC<SelectFieldProps> = memo(({
         };
     }, []);
 
+    const getSelectedLabel = () => {
+        const matchedOption = options.find((opt) => {
+            if (typeof opt === 'object' && opt !== null) {
+                return opt.value.toString() === selectedValue;
+            } else {
+                return opt.toString() === selectedValue;
+            }
+        });
+
+        if (typeof matchedOption === 'object' && matchedOption !== null) {
+            return matchedOption.label.toString();
+        } else {
+            return selectedValue || 'Select';
+        }
+    };
+
     return (
         <div className="relative" ref={selectRef}>
             <label htmlFor={id} className="block text-xs md:text-sm/6 font-medium text-[var(--textTwo)] hover:text-[var(--textTwoHover)]">
@@ -54,7 +70,8 @@ const SelectFiledWithLabel: React.FC<SelectFieldProps> = memo(({
                 className="flex w-full items-center justify-between rounded-md bg-[var(--inputBg)] px-3 py-1.5 text-smring-offset-background data-[placeholder]:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1 border border-[var(--boxBorder)] mt-2 cursor-pointer"
                 onClick={() => setIsOpen(!isOpen)}
             >
-                <span>{selectedValue || "Select"}</span>
+                {/* <span>{selectedValue || "Select"}</span> */}
+                <span>{getSelectedLabel()}</span>
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20"
@@ -73,13 +90,23 @@ const SelectFiledWithLabel: React.FC<SelectFieldProps> = memo(({
                 <div className="absolute z-10 mt-1 w-full rounded-md border bg-popover text-popover-foreground shadow-md">
                     <ul className="max-h-56 overflow-y-auto py-1">
                         {options.map((option) => (
-                            <li
-                                key={option.toString()}
-                                className={`cursor-pointer px-3 py-2 text-sm hover:bg-[var(--menuItemHoverBg)] ${selectedValue === option.toString() ? 'bg-[var(--menuItemHoverBg)]' : ''}`}
-                                onClick={() => handleSelect(option.toString())}
-                            >
-                                {option.toString()}
-                            </li>
+                            typeof option === "object" && option !== null ? (
+                                <li
+                                    key={option.value}
+                                    className={`cursor-pointer px-3 py-2 text-sm hover:bg-[var(--menuItemHoverBg)] ${selectedValue === option.label.toString() ? 'bg-[var(--menuItemHoverBg)]' : ''}`}
+                                    onClick={() => handleSelect(option.value.toString())}
+                                >
+                                    {option.label.toString()}
+                                </li>
+                            ) : (
+                                <li
+                                    key={option.toString()}
+                                    className={`cursor-pointer px-3 py-2 text-sm hover:bg-[var(--menuItemHoverBg)] ${selectedValue === option.toString() ? 'bg-[var(--menuItemHoverBg)]' : ''}`}
+                                    onClick={() => handleSelect(option.toString())}
+                                >
+                                    {option.toString()}
+                                </li>
+                            )
                         ))}
                     </ul>
                 </div>

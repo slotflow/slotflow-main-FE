@@ -16,7 +16,7 @@ import {
     ProviderFetchPaymentsResponseProps,
 } from "../interface/api/providerApiInterface";
 
-
+// Create asyn thunk for updating the authSlice with address: true
 export const addProviderAddress = createAsyncThunk<ApiCommonResponse, AddProviderAddressPayload>("/provider/addAddress",
     async ({ formData }: AddProviderAddressPayload) => {
         const response = await axiosInstance.post(`/provider/addAddress`, formData);
@@ -24,11 +24,12 @@ export const addProviderAddress = createAsyncThunk<ApiCommonResponse, AddProvide
     }
 )
 
-export const fetchAllServices = async (): Promise<FetchAllServicesResponse> => {
+export const fetchAllAppServices = async (): Promise<FetchAllServicesResponse> => {
     const response = await axiosInstance.get('/provider/fetchAllAppServices');
     return response.data;
 }
 
+// Create async thunk for upating authSlice serviceDetails: true
 export const addProviderServiceDetails = createAsyncThunk<ApiCommonResponse, AddProviderServiceDetailsPayload>("/provider/addServiceDetails",
     async ({ formData }: AddProviderServiceDetailsPayload) => {
         const response = await axiosInstance.post(`/provider/addServiceDetails`, formData);
@@ -36,6 +37,7 @@ export const addProviderServiceDetails = createAsyncThunk<ApiCommonResponse, Add
     }
 )
 
+// Create async thunk for updating authSlice serviceAvailability: true
 export const addProviderServiceAvailability = createAsyncThunk<ApiCommonResponse, AddProviderServiceAvailabilityPayload>("/provider/addServiceAvailability",
     async ({ data }: AddProviderServiceAvailabilityPayload) => {
         const response = await axiosInstance.post(`/provider/addProviderServiceAvailability`, data);

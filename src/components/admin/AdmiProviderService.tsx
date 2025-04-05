@@ -33,14 +33,16 @@ const AdmiProviderService: React.FC<AdminProviderServiceProps> = memo(({ provide
         return <DataFetchingError message="No service found." />;
     }
 
+    console.log("data : ",data);
+
     return (
         <div className="w-full mx-auto py-6 rounded-lg">
             <table className="table-auto border-collapse border border-[var(--boxBorder)] w-full">
                 <tbody>
-                    <InfoDisplayComponent label="Service Category" value={data?.serviceCategory} />
+                    <InfoDisplayComponent label="Service Category" value={data?.serviceCategory.serviceName} />
                     <InfoDisplayComponent label="Service Name" value={data?.serviceName} />
                     <InfoDisplayComponent label="Service Description" value={data?.serviceDescription} />
-                    <InfoDisplayComponent label="Service Price" value={data?.servicePrice} />
+                    <InfoDisplayComponent label="Service Price" value={data?.servicePrice} isPrice={true} />
                     <InfoDisplayComponent label="Provider Adhaar" value={data?.providerAdhaar} />
                     <InfoDisplayComponent label="Provider Experience" value={data?.providerExperience} />
                 </tbody>
