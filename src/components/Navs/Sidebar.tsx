@@ -129,7 +129,7 @@ const Sidebar = ({ routes }: SideBarProps) => {
             </div>
 
             <ul className='p-4'>
-                <li className={`p-3 text-[var(--textTwo)] hover:text-[var(--textTwoHover)] font-semibold hover:bg-[var(--menuItemHoverBg)] cursor-pointer rounded-md mt-auto flex justify-center ${!sidebarOpen && 'flex justify-center'}`} onClick={handleSignout}>
+                <li className={`p-3 text-[var(--textTwo)] hover:text-[var(--textTwoHover)] font-semibold hover:bg-[var(--menuItemHoverBg)] cursor-pointer rounded-md mt-auto ${!sidebarOpen && 'flex justify-center'}`} onClick={handleSignout}>
                     {sidebarOpen ? "Logout" : <LogOut />}
                 </li>
             </ul>
