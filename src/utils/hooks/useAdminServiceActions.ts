@@ -1,7 +1,8 @@
 import { toast } from "react-toastify";
 import { useQueryClient } from "@tanstack/react-query";
 import { addNewService, chnageServiceBlockStatus } from "../apis/adminService.api";
-import { AdminFetchAllServices, UseAdminServiceActionReturnType } from "../interface/api/adminServiceApiInterface";
+import { AdminAppServicesTableColumnsProps } from "../interface/tableColumnInterface";
+import { UseAdminServiceActionReturnType } from "../interface/api/adminServiceApiInterface";
 
 export const useAdminServiceActions = (): UseAdminServiceActionReturnType => {
   
@@ -10,7 +11,7 @@ export const useAdminServiceActions = (): UseAdminServiceActionReturnType => {
   const handleServiceAdding = (appServiceName: string, setLoading: (loading: boolean) => void) => {
     addNewService({appServiceName})
     .then((res) => {
-      queryClient.setQueryData<AdminFetchAllServices[]>(
+      queryClient.setQueryData<AdminAppServicesTableColumnsProps[]>(
         ["services"],
         (oldData = []) => {
           return [...oldData, res.service];
@@ -29,7 +30,7 @@ export const useAdminServiceActions = (): UseAdminServiceActionReturnType => {
       .then((res) => {
         queryClient.setQueryData(
           ["services"],
-          (oldData: AdminFetchAllServices[] | []) => {
+          (oldData: AdminAppServicesTableColumnsProps[] | []) => {
             if (!oldData) return [];
             return oldData.map((service) =>
               service._id === res.updatedService._id ? res.updatedService : service

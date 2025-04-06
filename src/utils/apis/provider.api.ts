@@ -1,9 +1,7 @@
 import axiosInstance from "@/lib/axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
-    ApiCommonResponse,
     FetchAllServicesResponse,
-    AddProviderAddressPayload,
     AddProviderServiceDetailsPayload,
     ProviderFetchAddressResponseProps,
     AddProviderServiceAvailabilityPayload,
@@ -14,10 +12,12 @@ import {
     ProviderFetchPlansResponseProps,
     ProviderFetchSubscriptionHistoryResponseProps,
     ProviderFetchPaymentsResponseProps,
+    AddProviderAddressPayload,
 } from "../interface/api/providerApiInterface";
+import { CommonResponse } from "../interface/commonInterface";
 
 // Create asyn thunk for updating the authSlice with address: true
-export const addProviderAddress = createAsyncThunk<ApiCommonResponse, AddProviderAddressPayload>("/provider/addAddress",
+export const addProviderAddress = createAsyncThunk<CommonResponse, AddProviderAddressPayload>("/provider/addAddress",
     async ({ formData }: AddProviderAddressPayload) => {
         const response = await axiosInstance.post(`/provider/addAddress`, formData);
         return response.data;
@@ -30,7 +30,7 @@ export const fetchAllAppServices = async (): Promise<FetchAllServicesResponse> =
 }
 
 // Create async thunk for upating authSlice serviceDetails: true
-export const addProviderServiceDetails = createAsyncThunk<ApiCommonResponse, AddProviderServiceDetailsPayload>("/provider/addServiceDetails",
+export const addProviderServiceDetails = createAsyncThunk<CommonResponse, AddProviderServiceDetailsPayload>("/provider/addServiceDetails",
     async ({ formData }: AddProviderServiceDetailsPayload) => {
         const response = await axiosInstance.post(`/provider/addServiceDetails`, formData);
         return response.data;
@@ -38,7 +38,7 @@ export const addProviderServiceDetails = createAsyncThunk<ApiCommonResponse, Add
 )
 
 // Create async thunk for updating authSlice serviceAvailability: true
-export const addProviderServiceAvailability = createAsyncThunk<ApiCommonResponse, AddProviderServiceAvailabilityPayload>("/provider/addServiceAvailability",
+export const addProviderServiceAvailability = createAsyncThunk<CommonResponse, AddProviderServiceAvailabilityPayload>("/provider/addServiceAvailability",
     async ({ data }: AddProviderServiceAvailabilityPayload) => {
         const response = await axiosInstance.post(`/provider/addProviderServiceAvailability`, data);
         return response.data;
@@ -84,7 +84,7 @@ export const subscribeToPlan = async (data: {planId: string, planDuration: strin
 }
 
 // This api will send the session id to backend and validate the sessionid and retrieve the subscription details
-export const saveSubscription = async (sessionId: string): Promise<ApiCommonResponse> => {
+export const saveSubscription = async (sessionId: string): Promise<CommonResponse> => {
     const response = await axiosInstance.post('/provider/saveSubscription',{ sessionId });
     return response.data;
 }
@@ -94,7 +94,7 @@ export const fetchProviderSubscriptions = async () : Promise<ProviderFetchSubscr
     return response.data.subscriptions;
 }
 
-export const subscribeToTrialPlan = async (): Promise<ApiCommonResponse> => {
+export const subscribeToTrialPlan = async (): Promise<CommonResponse> => {
     const response = await axiosInstance.post('/provider/subscribeToTrialPlan');
     return response.data;
 }

@@ -1,7 +1,7 @@
 import { toast } from "react-toastify";
 import { useQueryClient } from "@tanstack/react-query";
 import { changeUserBlockStatus } from "../apis/adminUser.api";
-import { AdminfetchAllUsersResponseProps } from "../interface/api/adminUserApiInterface";
+import { AdminUsersTableColumnsProps } from "../interface/tableColumnInterface";
 
 export const useAdminUserActions = () => {
   const queryClient = useQueryClient();
@@ -9,7 +9,7 @@ export const useAdminUserActions = () => {
   const handleChangeUserBlockStatus = (userId: string, status: boolean) => {
     changeUserBlockStatus({userId, status})
       .then((res) => {
-        queryClient.setQueryData(["users"],(oldData: AdminfetchAllUsersResponseProps[] | []) => {
+        queryClient.setQueryData(["users"],(oldData: AdminUsersTableColumnsProps[] | []) => {
             if (!oldData) return [];
             return oldData.map((user) =>
               user._id === res.updatedUser._id ? res.updatedUser : user

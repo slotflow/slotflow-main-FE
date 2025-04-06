@@ -72,6 +72,5 @@ export interface ProviderFetchSubscriptionHistoryResponseProps extends Subscripi
     
 }
 
-
 // Provider fetch all payments response
 export type ProviderFetchPaymentsResponseProps = Pick<Payment, "_id" | "createdAt" | "totalAmount" | "paymentFor" | "paymentMethod" | "paymentGateway" | "paymentStatus" | "discountAmount">

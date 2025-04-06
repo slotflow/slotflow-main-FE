@@ -1,7 +1,8 @@
 import { toast } from "react-toastify";
 import { useQueryClient } from "@tanstack/react-query";
+import { AdminProvidersTableColumnsProps } from "../interface/tableColumnInterface";
+import { UseAdminProviderActionReturnType } from "../interface/api/adminProviderApiInterface";
 import { approveProvider, changeProviderBlockStatus, changeProviderTrustTag } from "@/utils/apis/adminProvider.api";
-import { ProvidersTableInterfaceProps, UseAdminProviderActionReturnType } from "../interface/api/adminProviderApiInterface";
 
 export const useAdminProviderActions = (): UseAdminProviderActionReturnType => {
 
@@ -12,7 +13,7 @@ export const useAdminProviderActions = (): UseAdminProviderActionReturnType => {
       .then((res) => {
         queryClient.setQueryData(
           ["providers"],
-          (oldData: ProvidersTableInterfaceProps[] | []) => {
+          (oldData: AdminProvidersTableColumnsProps[] | []) => {
             if (!oldData) return [];
             return oldData.map((provider) =>
               provider._id === res.updatedProvider._id ? res.updatedProvider : provider
@@ -31,7 +32,7 @@ export const useAdminProviderActions = (): UseAdminProviderActionReturnType => {
       .then((res) => {
         queryClient.setQueryData(
           ["providers"],
-          (oldData: ProvidersTableInterfaceProps[] | []) => {
+          (oldData: AdminProvidersTableColumnsProps[] | []) => {
             if (!oldData) return [];
             return oldData.map((provider) =>
               provider._id === res.updatedProvider._id ? res.updatedProvider : provider
@@ -50,7 +51,7 @@ export const useAdminProviderActions = (): UseAdminProviderActionReturnType => {
       .then((res) => {
         queryClient.setQueryData(
           ["providers"],
-          (oldData: ProvidersTableInterfaceProps[] | []) => {
+          (oldData: AdminProvidersTableColumnsProps[] | []) => {
             if (!oldData) return [];
             return oldData.map((provider) =>
               provider._id === res.updatedProvider._id ? res.updatedProvider : provider

@@ -23,6 +23,10 @@ export interface Provider {
 
 
 
+
+
+//  **** PROVIDER COMPONENT / PAGES INTERFACES START **** //
+
 // This is the interface of a right side showing compoenent in the provider address adding, service adding and availability adding page
 export interface RightSideBoxProps {
     props: {
@@ -54,3 +58,5 @@ export interface PaymentConfirmPageProps {
 export interface PaymentSelectionProps {
   paymentSelectionRef: React.RefObject<HTMLDivElement>;
 }
+
+//  **** PROVIDER COMPONENT / PAGES INTERFACES END **** //

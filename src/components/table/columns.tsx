@@ -9,8 +9,7 @@ import { ChangeServiceBlockStatus } from "./AdminSerivceActions";
 import { GetSubscriptionDetails } from "./AddminSubscriptionActions";
 import { ApproveProvider, ChangeProviderBlockStatus, ChangeProviderTrustTag, GetProviderDetailPage } from "./AdminProviderActions";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
-import { AdminAllPaymentsTableColumnsProps, AdminPlansTableColumnsProps, AdminProvidersSubscriptionsTableColumnsProps, AdminProvidersTableColumnsProps, AdminUsersTableColumnsProps, ProviderPaymentsTableColumnsProps, ProviderSubscriptionsTableColumnsProps } from "@/utils/interface/tableColumnInterface";
-import { AdminFetchAllServices } from "@/utils/interface/api/adminServiceApiInterface";
+import { AdminAllPaymentsTableColumnsProps, AdminAppServicesTableColumnsProps, AdminPlansTableColumnsProps, AdminProvidersSubscriptionsTableColumnsProps, AdminProvidersTableColumnsProps, AdminUsersTableColumnsProps, ProviderPaymentsTableColumnsProps, ProviderSubscriptionsTableColumnsProps } from "@/utils/interface/tableColumnInterface";
 
 export const AdminProvidersTableColumns: ColumnDef<AdminProvidersTableColumnsProps>[] = [
   {
@@ -126,7 +125,7 @@ export const AdminUsersTableColumns: ColumnDef<AdminUsersTableColumnsProps>[] = 
   }
 ]
 
-export const AdminAppServicesTableColumns: ColumnDef<AdminFetchAllServices>[] = [
+export const AdminAppServicesTableColumns: ColumnDef<AdminAppServicesTableColumnsProps>[] = [
   {
     accessorKey: "_id",
     header: "id",

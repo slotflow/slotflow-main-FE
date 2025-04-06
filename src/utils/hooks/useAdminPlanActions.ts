@@ -1,7 +1,8 @@
 import { toast } from "react-toastify";
 import { useQueryClient } from "@tanstack/react-query"
 import { addNewPlan, changePlanBlockStatus } from "../apis/adminPlan.api";
-import { AdminAddNewPlanRequestPayload, AdminFetchAllPlansResponseProps, PlanTableInterface, UseAdminPlanActionsReturnType } from "../interface/api/adminPlanApiInterface";
+import { AdminPlansTableColumnsProps } from "../interface/tableColumnInterface";
+import { AdminAddNewPlanRequestPayload, UseAdminPlanActionsReturnType } from "../interface/api/adminPlanApiInterface";
 
 export const useAdminPlanActions = (): UseAdminPlanActionsReturnType => {
   const queryClient = useQueryClient();
@@ -9,7 +10,7 @@ export const useAdminPlanActions = (): UseAdminPlanActionsReturnType => {
   const handleServiceAdding = (formData: AdminAddNewPlanRequestPayload, setLoading: (loading: boolean) => void) => {
       addNewPlan(formData)
       .then((res) => {
-        queryClient.setQueryData<PlanTableInterface[]>(
+        queryClient.setQueryData<AdminPlansTableColumnsProps[]>(
           ["plans"],
           (oldData = []) => {
             return [...oldData, res.plan];
@@ -28,7 +29,7 @@ export const useAdminPlanActions = (): UseAdminPlanActionsReturnType => {
       .then((res) => {
         queryClient.setQueryData(
           ["plans"],
-          (oldData: AdminFetchAllPlansResponseProps[] | []) => {
+          (oldData: AdminPlansTableColumnsProps[] | []) => {
             if (!oldData) return [];
             return oldData.map((plan) =>
               plan._id === res.updatedPlan._id ? res.updatedPlan : plan

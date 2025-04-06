@@ -1,7 +1,7 @@
 import axiosInstance from "@/lib/axios"
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { CommonResponse } from "../interface/commonInterface";
-import { AddUserAddressPayload, FetchUserAddressResponse, FetchUserProfileResponse, UpdateUserProfileImageResponse, UserFetchServiceProvidersResponse } from "../interface/userInterface";
+import { AddUserAddressPayload, FetchUserAddressResponse, FetchUserProfileResponse, UpdateUserProfileImageResponse, UserFetchServiceProvidersResponse } from "../interface/api/userApiInterface";
 
 export const fetchUserProfileDetails = async (): Promise<FetchUserProfileResponse> => {
     const response = await axiosInstance.get('/user/getProfileDetails');
