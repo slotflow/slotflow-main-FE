@@ -7,8 +7,6 @@ import {
     AddUserAddressPayload,
     ApiCommonResponse,
 } from "../interface/api/userApi.Interface";
-import { Provider } from "../interface/providerInterface";
-import { ProviderService } from "../interface/providerServiceInterface";
 
 
 export const fetchUserProfileDetails = async (): Promise<UserFetchProfileDetailsResponseProps> => {
@@ -33,12 +31,24 @@ export const addUserAddress = async ({ formData }: AddUserAddressPayload): Promi
     return response.data;
 }
 
-type ServiceProviderProps = Pick<Provider, "_id" | "username" | "profileImage" | "trustedBySlotflow">;
-type ServiceProps = Pick<ProviderService, "serviceCategory" | "serviceName" | "servicePrice">;
-interface UserFetchServiceProvidersResponseProps extends ServiceProviderProps, ApiCommonResponse {
-    serviceId: ServiceProps
+export interface UserFetchServiceProviders {
+    _id: string,
+    provider: {
+        _id: string,
+        username: string,
+        profileImage: string | null,
+        trustedBySlotflow: boolean,
+    },
+    service: {
+        serviceCategory: string,
+        serviceName: string,
+        servicePrice: number,
+        categoryName: string
+    }
 }
-export const userSearchServiceProviders = async (selectedServices: string[]): Promise<UserFetchServiceProvidersResponseProps> => {
+
+
+export const userSearchServiceProviders = async (selectedServices: string[]): Promise<Array<UserFetchServiceProviders>> => {
     const response = await axiosInstance.get(`/user/getServiceProviders/${selectedServices.join(",")}`);
-    return response.data;
+    return response.data.providers;
 };

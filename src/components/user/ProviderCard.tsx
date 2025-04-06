@@ -1,53 +1,42 @@
-import { CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Star } from "lucide-react";
+import { CardTitle } from "@/components/ui/card";
+import { UserFetchServiceProviders } from "@/utils/apis/user.api";
 
-interface ProviderCardProps {
-    providerName: string;
-    serviceName: string;
-    description: string;
-    serviceCategory: string;
-    imageUrl: string;
-    trusted: boolean;
-    rating: number;
-}
+const ProviderCard: React.FC<UserFetchServiceProviders> = ({
+    provider, service
 
-const ProviderCard: React.FC<ProviderCardProps> = ({
-    providerName,
-    serviceName,
-    description,
-    serviceCategory,
-    imageUrl,
-    trusted,
-    rating,
 }) => {
     return (
-        <div className="w-full max-w-sm rounded-lg shadow-md hover:shadow-lg transition-shadow border p-2 cursor-pointer hover:border hover:border-[var(--mainColor)]">
-            <div className="w-full flex justify-between bg-[var(--menuItemHoverBg)] rounded-sm p-2">
-                <div>
-                    {trusted && (
-                        <Badge className="mt-2 text-sm bg-[var(--mainColor)] text-white">Trusted By Slotflow</Badge>
-                    )}
+        <div className="w-full max-w-sm rounded-2xl shadow-sm hover:shadow-md transition-all border p-4 cursor-pointer">
+            <div className="flex items-start justify-between">
+                <div className="flex flex-col gap-1">
+                    <CardTitle className="text-base font-semibold">
+                        {provider.username}
+                    </CardTitle>
+                    <Badge variant="secondary" className="text-xs capitalize w-fit">
+                        {service.categoryName}
+                    </Badge>
                 </div>
-                <div>
-                    <img
-                        src={imageUrl || '/images/imagePlaceholder.png'}
-                        alt={providerName}
-                        className="w-28 h-28 object-cover rounded-lg"
-                    />
-                </div>
+
+                <img
+                    src={provider.profileImage || "/images/imagePlaceholder.png"}
+                    alt={provider.username}
+                    className="w-20 h-20 object-cover rounded-xl border"
+                />
             </div>
-            <div className="p-2 space-y-2">
-                <div>
-                    <div className="flex justify-between">
-                        <CardTitle className="text-lg font-semibold">{providerName}</CardTitle>
-                        <Badge className="mt-2 text-xs"><Star/> {rating}</Badge>
-                    </div>
-                    <Badge className="mt-2 text-sm">{serviceCategory}</Badge>
-                </div>
-                <div>
-                    <p className="text-sm">{serviceName}</p>
-                    <p className="text-sm line-clamp-2">{description}</p>
+
+            <div className="my-3 border-t" />
+
+            <div className="space-y-1 text-sm">
+                <p className="font-medium">{service.serviceName}</p>
+
+                <div className="flex justify-between items-center">
+                    <p>₹ {service.servicePrice}</p>
+                    {!provider.trustedBySlotflow && (
+                        <span className="text-xs text-green-600 font-medium whitespace-nowrap">
+                            ✅ Trusted by Slotflow
+                        </span>
+                    )}
                 </div>
             </div>
         </div>

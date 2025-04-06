@@ -13,7 +13,6 @@ import { ProtectedRoute } from "./protectedRoutes.tsx";
 import UserProfile from "@/pages/user/UserProfile.tsx";
 import UserPayments from "@/pages/user/UserPayments.tsx";
 import UserBookings from "@/pages/user/UserBookings.tsx";
-import UserServiceSelect from "@/pages/user/UserServiceSelect.tsx";
 import UserDashboard from "@/pages/user/UserDashboard.tsx";
 import PasswordReset from "@/pages/common/PasswordReset.tsx";
 import ProviderChat from "@/pages/provider/ProviderChat.tsx";
@@ -42,6 +41,7 @@ import UserAddress from "@/pages/user/UserAddress.tsx";
 import AdminSubscriptions from "@/pages/admin/AdminSubscriptions.tsx";
 import AdminSubcriptionDetailedView from "@/pages/admin/AdminSubcriptionDetailedView.tsx";
 import AdminPayments from "@/pages/admin/AdminPayments.tsx";
+import UserServiceSelect from "@/pages/user/UserServiceSelect.tsx";
 
 export const appRouter = createBrowserRouter([
     {

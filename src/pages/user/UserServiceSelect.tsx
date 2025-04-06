@@ -5,8 +5,7 @@ import CommonButton from "@/components/common/CommonButton";
 import { fetchServices } from "@/utils/apis/adminService.api";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
 import DataFetchingError from "@/components/common/DataFetchingError";
-import { toast } from "react-toastify";
-import { userSearchServiceProviders } from "@/utils/apis/user.api";
+import { useNavigate } from "react-router-dom";
 
 interface Service {
     _id: string;
@@ -18,6 +17,12 @@ const UserServiceSelect = () => {
 
     const dispatch = useDispatch<AppDispatch>();
     const selectedServices = useSelector((state: RootState) => state.user.selectedServices);
+    const navigate = useNavigate();
+
+    const { data, isLoading, isError, error } = useQuery({
+        queryKey: ["services"],
+        queryFn: fetchServices,
+    });
 
     const handleServiceToggle = (serviceId: string) => {
         if (selectedServices.includes(serviceId)) {
@@ -28,14 +33,8 @@ const UserServiceSelect = () => {
     };
 
     const handleSubmitSelectedServices = async () => {
-        const response = await userSearchServiceProviders(selectedServices);
-        toast.success(response.message);
-    }
-
-    const { data, isLoading, isError, error } = useQuery({
-        queryKey: ["services"],
-        queryFn: fetchServices,
-    });
+        navigate('/user/dashboard');
+    }    
 
     return (
         <div className="px-6 h-screen flex flex-col">

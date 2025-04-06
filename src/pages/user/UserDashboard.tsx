@@ -1,98 +1,45 @@
-import { Search } from 'lucide-react';
+import { useSelector } from 'react-redux';
+import { Loader, Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
+import { useQuery } from '@tanstack/react-query';
+import { RootState } from '@/utils/redux/appStore';
 import ProviderCard from '@/components/user/ProviderCard';
-
-const providers = [
-  {
-    providerName: "John's Plumbing",
-    serviceName: "Home Plumbing Services",
-    description: "Experienced plumbing solutions for all your home needs.",
-    serviceCategory: "Plumbing",
-    imageUrl: "https://via.placeholder.com/300", // Replace with actual image
-    trusted: true,
-    rating: 4.5
-  },
-  {
-    providerName: "Smith Electricians",
-    serviceName: "Electrical Repairs",
-    description: "Professional electrical repair and installation services.",
-    serviceCategory: "Electrical",
-    imageUrl: "https://via.placeholder.com/300", // Replace with actual image
-    trusted: false,
-    rating: 4.5,
-  },
-  {
-    providerName: "John's Plumbing",
-    serviceName: "Home Plumbing Services",
-    description: "Experienced plumbing solutions for all your home needs.",
-    serviceCategory: "Plumbing",
-    imageUrl: "https://via.placeholder.com/300", // Replace with actual image
-    trusted: true,
-    rating: 4.5,
-  },
-  {
-    providerName: "Smith Electricians",
-    serviceName: "Electrical Repairs",
-    description: "Professional electrical repair and installation services.",
-    serviceCategory: "Electrical",
-    imageUrl: "https://via.placeholder.com/300", // Replace with actual image
-    trusted: false,
-    rating: 4.5,
-  },
-  {
-    providerName: "John's Plumbing",
-    serviceName: "Home Plumbing Services",
-    description: "Experienced plumbing solutions for all your home needs.",
-    serviceCategory: "Plumbing",
-    imageUrl: "https://via.placeholder.com/300", // Replace with actual image
-    trusted: true,
-    rating: 4.5,
-  },
-  {
-    providerName: "Smith Electricians",
-    serviceName: "Electrical Repairs",
-    description: "Professional electrical repair and installation services.",
-    serviceCategory: "Electrical",
-    imageUrl: "https://via.placeholder.com/300", // Replace with actual image
-    trusted: true,
-    rating: 4.5,
-  },
-  {
-    providerName: "John's Plumbing",
-    serviceName: "Home Plumbing Services",
-    description: "Experienced plumbing solutions for all your home needs.",
-    serviceCategory: "Plumbing",
-    imageUrl: "https://via.placeholder.com/300", // Replace with actual image
-    trusted: false,
-    rating: 4.5,
-  },
-  {
-    providerName: "Smith Electricians",
-    serviceName: "Electrical Repairs",
-    description: "Professional electrical repair and installation services.",
-    serviceCategory: "Electrical",
-    imageUrl: "https://via.placeholder.com/300", // Replace with actual image
-    trusted: false,
-    rating: 4.5,
-  },
-];
+import { userSearchServiceProviders } from '@/utils/apis/user.api';
+import DataFetchingError from '@/components/common/DataFetchingError';
 
 const UserDashboard = () => {
+  const selectedServices = useSelector((store: RootState) => store.user.selectedServices);
+
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ['providers'],
+    queryFn: () => userSearchServiceProviders(selectedServices),
+  });
+
+  if (isLoading) {
+    return (
+      <div className="fixed inset-0 flex justify-center items-center bg-black/70 z-50">
+        <Loader className="w-10 h-10 animate-spin text-white" />
+      </div>
+    );
+  }
+
+  if (isError) {
+    return <DataFetchingError message={error?.message || "Something went wrong"} />;
+  }
+
   return (
-    <div className='px-4'>
-      <div>
-        <div className="relative w-full max-w-sm">
-          <Search className="absolute left-2 top-2 h-5 w-5 text-gray-500" />
-          <Input type="text" placeholder="Search..." className="pl-8" />
-        </div>
+    <div className='px-6'>
+      <div className="relative w-full max-w-sm">
+        <Search className="absolute left-2 top-2 h-5 w-5 text-gray-500" />
+        <Input type="text" placeholder="Search..." className="pl-8" />
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 my-4">
-        {providers.map((provider, index) => (
+        {data?.map((provider, index) => (
           <ProviderCard key={index} {...provider} />
         ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default UserDashboard
+export default UserDashboard;
