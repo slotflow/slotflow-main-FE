@@ -1,13 +1,13 @@
 import axiosInstance from "@/lib/axios";
 import {
+    AdminFetchAllServices,
     AdminAddNewServiceRequestPayload,
     AdminAddNewServiceResponseProps,
-    AdminFetchAllServicesResponseProps,
     AdminChangeServiceBlockStatusRequestPayload,
     AdminChangeServiceBlockStatusResponseProps,
 } from "../interface/api/adminServiceApiInterface";
 
-export const fetchServices = async (): Promise<AdminFetchAllServicesResponseProps[]> => {
+export const fetchServices = async (): Promise<Array<AdminFetchAllServices>> => {
     const response = await axiosInstance.get("/admin/services");
     return response.data.services;
 }
@@ -16,7 +16,6 @@ export const addNewService = async (payload: AdminAddNewServiceRequestPayload): 
     const response = await axiosInstance.post('/admin/addNewService', { serviceName: payload.appServiceName });
     return response.data;
 }
-
 
 export const chnageServiceBlockStatus = async (statusData: AdminChangeServiceBlockStatusRequestPayload): Promise<AdminChangeServiceBlockStatusResponseProps> => {
     const { serviceId, status } = statusData;

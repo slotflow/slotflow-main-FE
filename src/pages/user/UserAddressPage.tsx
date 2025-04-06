@@ -10,7 +10,7 @@ import { addUserAddress, fetchUserAddress } from "@/utils/apis/user.api";
 import InfoDisplayComponent from "@/components/common/InfoDisplayComponent";
 import ShimmerProfileDetails from "@/components/shimmers/ShimmerProfileDetails";
 
-const UserAddress = () => {
+const UserAddressPage = () => {
 
   const queryClient = useQueryClient();
   const { data, isLoading, isError, error } = useQuery({
@@ -68,4 +68,4 @@ const UserAddress = () => {
   )
 }
 
-export default UserAddress
+export default UserAddressPage

@@ -1,8 +1,8 @@
 import { Badge } from "@/components/ui/badge";
 import { CardTitle } from "@/components/ui/card";
-import { UserFetchServiceProviders } from "@/utils/apis/user.api";
+import { UserFetchServiceProvidersResponse } from "@/utils/interface/userInterface";
 
-const ProviderCard: React.FC<UserFetchServiceProviders> = ({
+const ProviderCard: React.FC<UserFetchServiceProvidersResponse> = ({
     provider, service
 
 }) => {

@@ -1,55 +1,45 @@
 import { Service } from "../appServiceInterface";
+import { CommonResponse } from "../commonInterface";
 
-// **** Admin Service Api Interfaces **** \\
+// **** ADMIN APP SERVICE API INTERFACES START **** \\
 
-// Api common response
-interface ApiCommonResponse {
-    success: boolean;
-    message: string;
-}
+// Admin fetch all app services
+// Used in adminService.api.ts, columns.tsx, useAdminServiceActions.ts
+export type AdminFetchAllServices = Pick<Service , "_id" | "serviceName" | "isBlocked">;
 
-
-
-
-
-// **** Fetch All App Services **** \\
-// Admin fetch all app services type used as props in the column.tsx
-export type AdminFetchAllServicesResponseProps = Pick<Service , "_id" | "serviceName" | "isBlocked">;
-
-
-
-// **** Add new app service **** \\
-// Admin adding new app service api request payload interface used in adminServiceApi
+// Admin adding new app service api request payload interface used in adminService.api.ts
 export interface AdminAddNewServiceRequestPayload {
     appServiceName: string
 }
 
-// Admin add new app service api response interface used in adminServiceApi
-export type AddNewServiceResponseProps = Pick<Service , "_id" | "serviceName" | "isBlocked">;
-export interface AdminAddNewServiceResponseProps extends ApiCommonResponse {
-    service: AddNewServiceResponseProps;
+// Admin add new app service api response interface used in adminService.api.ts
+export interface AdminAddNewServiceResponseProps extends CommonResponse {
+    service: Pick<Service , "_id" | "serviceName" | "isBlocked">;
 }
 
-
-
-// **** Change block status of service **** \\
-// Admin change service block status api request payload interface used in adminServiceApi
+// Admin change app service block status api request payload interface used in adminService.api.ts
 export interface AdminChangeServiceBlockStatusRequestPayload {
     serviceId: string;
     status: boolean;
 }
 
-// Admin change service block status api response interface used in adminServiceApi
-export type ChangeServicesBlockStatusResponseProps = Pick<Service , "_id" | "serviceName" | "isBlocked">;
-export interface AdminChangeServiceBlockStatusResponseProps extends ApiCommonResponse {
-    updatedService: ChangeServicesBlockStatusResponseProps;
+// Admin change service block status api response interface used in adminService.api.ts
+export interface AdminChangeServiceBlockStatusResponseProps extends CommonResponse {
+    updatedService: Pick<Service , "_id" | "serviceName" | "isBlocked">;
 }
 
+// **** ADMIN APP SERVICE API INTERFACES END **** \\
 
 
-// **** Admin Service Custom hook interface **** \\
+
+
+
+// **** ADMIN SERVICE CUSTOM HOOK INTERFACES START **** \\
+
 // Admin service custom hook interface used in useAdminServiceAction
 export interface UseAdminServiceActionReturnType {
     handleServiceAdding: (serviceName: string,setLoading: (loading: boolean) => void) => void;
     handleChangeServiceStatus: (serviceId: string, status: boolean) => void;
-  }
+}
+
+// **** ADMIN SERVICE CUSTOM HOOK INTERFACES END **** \\

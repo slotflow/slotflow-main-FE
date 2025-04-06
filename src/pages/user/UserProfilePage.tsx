@@ -6,7 +6,7 @@ import DataFetchingError from '@/components/common/DataFetchingError';
 import InfoDisplayComponent from '@/components/common/InfoDisplayComponent';
 import ShimmerProfileDetails from '@/components/shimmers/ShimmerProfileDetails';
 
-const UserProfile = () => {
+const UserProfilePage = () => {
 
   const { data, isLoading, isError, error } = useQuery({
     queryFn: () => fetchUserProfileDetails(),
@@ -40,4 +40,4 @@ const UserProfile = () => {
   )
 }
 
-export default UserProfile
+export default UserProfilePage

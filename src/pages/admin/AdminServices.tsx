@@ -1,11 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import { DataTable } from '@/components/table/data-table';
-import { AdminAppServicesTableColumns } from '@/components/table/columns';
 import ShimmerTable from '@/components/shimmers/ShimmerTable';
 import { fetchServices } from '@/utils/apis/adminService.api';
 import ShimmerTableTop from '@/components/shimmers/ShimmerTableTop';
 import DataFetchingError from '@/components/common/DataFetchingError';
 import ServiceAddingForm from '@/components/form/AdminForms/ServiceForm';
+import { AdminAppServicesTableColumns } from '@/components/table/columns';
 
 const AdminServices = () => {
 

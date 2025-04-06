@@ -7,7 +7,7 @@ import ProviderCard from '@/components/user/ProviderCard';
 import { userSearchServiceProviders } from '@/utils/apis/user.api';
 import DataFetchingError from '@/components/common/DataFetchingError';
 
-const UserDashboard = () => {
+const UserDashboardPage = () => {
   const selectedServices = useSelector((store: RootState) => store.user.selectedServices);
 
   const { data, isLoading, isError, error } = useQuery({
@@ -42,4 +42,4 @@ const UserDashboard = () => {
   );
 };
 
-export default UserDashboard;
+export default UserDashboardPage;

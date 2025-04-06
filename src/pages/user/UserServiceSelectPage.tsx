@@ -1,19 +1,14 @@
+import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { useDispatch, useSelector } from "react-redux";
 import { addService } from "@/utils/redux/slices/userSlice";
 import CommonButton from "@/components/common/CommonButton";
 import { fetchServices } from "@/utils/apis/adminService.api";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
+import { UserSelectService } from "@/utils/interface/userInterface";
 import DataFetchingError from "@/components/common/DataFetchingError";
-import { useNavigate } from "react-router-dom";
 
-interface Service {
-    _id: string;
-    serviceName: string;
-    isBlocked: boolean;
-}
-
-const UserServiceSelect = () => {
+const UserServiceSelectPage = () => {
 
     const dispatch = useDispatch<AppDispatch>();
     const selectedServices = useSelector((state: RootState) => state.user.selectedServices);
@@ -45,7 +40,7 @@ const UserServiceSelect = () => {
                 ) : isLoading ? (
                     <div>Loading</div>
                 ) : data ? (
-                    data.map((service: Service) => (
+                    data.map((service: UserSelectService) => (
                         <div
                             key={service._id}
                             className={`p-3 rounded-md border-2 cursor-pointer text-center ${selectedServices.includes(((service._id)))
@@ -71,4 +66,4 @@ const UserServiceSelect = () => {
     );
 };
 
-export default UserServiceSelect;
+export default UserServiceSelectPage;

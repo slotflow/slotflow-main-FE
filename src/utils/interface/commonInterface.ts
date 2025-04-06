@@ -1,5 +1,11 @@
 import { ChangeEvent } from "react";
 
+// Common Response Type
+export interface CommonResponse {
+    success: boolean;
+    message: string;
+}
+
 // InputDisplay components interface, this is used for showing details in profiles
 export interface InfoDisplayComponentRowProps {
     label: string;
