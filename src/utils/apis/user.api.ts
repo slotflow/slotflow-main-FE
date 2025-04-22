@@ -44,5 +44,5 @@ export const userFetchProviderDetails = async (providerId : string) : Promise<Us
 
 export const userfetchProviderAddress = async (providerId : string) : Promise<UserFetchProviderAddressResponseProps> => {
     const response = await axiosInstance.get(`/user/getServiceProviderAddress/${providerId}`);
-    return response.data.provider;
+    return response.data.address;
 }
