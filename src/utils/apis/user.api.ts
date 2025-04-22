@@ -6,6 +6,7 @@ import { AddUserAddressPayload,
     FetchUserProfileResponse, 
     UpdateUserProfileImageResponse, 
     UserFetchProviderAddressResponseProps, 
+    UserFetchProviderAvailabilityResponseProps, 
     UserFetchProviderProfileDetailsResponse, 
     UserFetchProviderServiceResponseProps, 
     UserFetchServiceProvidersResponse 
@@ -51,4 +52,9 @@ export const userFetchProviderAddress = async (providerId : string) : Promise<Us
 export const userFetchProviderService = async (providerId : string) : Promise<UserFetchProviderServiceResponseProps> => {
     const response = await axiosInstance.get(`/user/getServiceProviderServiceDetails/${providerId}`);
     return response.data.service;
+}
+
+export const userFetchProviderServiceAvailability = async (providerId : string) : Promise<UserFetchProviderAvailabilityResponseProps> => {
+    const response = await axiosInstance.get(`/user/getServiceProviderServiceAvailability/${providerId}`);
+    return response.data.availability;
 }

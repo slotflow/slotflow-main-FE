@@ -5,7 +5,6 @@ import { UserFetchServiceProvidersResponse } from "@/utils/interface/api/userApi
 
 const ProviderCard: React.FC<UserFetchServiceProvidersResponse> = ({
     provider, service
-    
 }) => {
 
     const navigate = useNavigate();

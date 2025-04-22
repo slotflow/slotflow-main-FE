@@ -4,6 +4,7 @@ import { Provider } from "../providerInterface";
 import { CommonResponse } from "../commonInterface";
 import { ProviderService } from "../providerServiceInterface";
 import { Service } from "../appServiceInterface";
+import { ServiceAvailability } from "../serviceAvailabilityInterface";
 
 // User Fetch profile details api response
 export type FetchUserProfileResponse = Pick<User, "username" | "email" | "isBlocked" | "isEmailVerified" | "phone" | "createdAt">;
@@ -59,3 +60,6 @@ type FetchServiceDetailsProps = Pick<ProviderService, "serviceName" | "serviceDe
 export interface UserFetchProviderServiceResponseProps extends FetchServiceDetailsProps {
     serviceCategory: Pick<Service, "serviceName">
 }
+
+// User fetch provider service availability api response
+export type UserFetchProviderAvailabilityResponseProps = Pick<ServiceAvailability, "availability" >;

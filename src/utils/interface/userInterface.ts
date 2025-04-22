@@ -38,4 +38,7 @@ export type UserProviderAddressProps = Pick<Provider, "_id">
 //user fetch service provider Service  used in UserProviderService.tsx
 export type UserProviderServiceProps = Pick<Provider, "_id">
 
+// User service provider availability used in UserProviderServiceAvailability.tsx
+export type UserProviderServiceAvailabilityProps = Pick<Provider, '_id'>;
+
 // **** INTERFACES USED IN USER PAGES END **** //

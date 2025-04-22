@@ -3,10 +3,10 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { RootState } from "@/utils/redux/appStore";
 import DataFetchingError from "@/components/common/DataFetchingError";
-import UserProviderProfileDetails from "@/components/user/UserProviderProfileDetails";
-import AdminProviderServiceAvailability from "@/components/admin/AdminProviderServiceAvailability";
-import UserProviderAddress from "@/components/user/UserProviderAddress";
 import UserProviderService from "@/components/user/UserProviderService";
+import UserProviderAddress from "@/components/user/UserProviderAddress";
+import UserProviderProfileDetails from "@/components/user/UserProviderProfileDetails";
+import UserProviderServiceAvailability from "@/components/user/UserProviderServiceAvailability";
 
 const UserServiceProviderDetailPage = () => {
 
@@ -39,7 +39,7 @@ const UserServiceProviderDetailPage = () => {
             ) || tab === 2 && (
                 <UserProviderService _id={providerId} />
             ) || tab === 3 && (
-                <AdminProviderServiceAvailability _id={providerId} />
+                <UserProviderServiceAvailability _id={providerId} />
             )}
             </div>
         </div>
