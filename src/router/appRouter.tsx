@@ -24,7 +24,7 @@ import ProviderProfile from "@/pages/provider/ProviderProfile.tsx";
 import ProviderService from "@/pages/provider/ProviderService.tsx";
 import ProviderReviews from "@/pages/provider/ProviderReviews.tsx";
 import ProviderPayments from "@/pages/provider/ProviderPayments.tsx";
-import UserProviderProfilePage from "@/pages/user/UserProviderProfilePage.tsx";
+import UserServiceProviderDetailPage from "@/pages/user/UserServiceProviderDetailPage.tsx";
 import ProviderDashboard from "@/pages/provider/ProviderDashboard.tsx";
 import ProviderAppointments from "@/pages/provider/ProviderAppointments.tsx";
 import ProviderNotifications from "@/pages/provider/ProviderNotifications.tsx";
@@ -32,7 +32,7 @@ import AdminPlans from "@/pages/admin/AdminPlans.tsx";
 import Provider from "@/pages/provider/Provider.tsx";
 import ProviderAddAddress from "@/pages/provider/ProviderAddAddress.tsx";
 import ProviderAddServiceDetails from "@/pages/provider/ProviderAddServiceDetails.tsx";
-import AdminServiceProviderDetailProfile from "@/pages/admin/AdminServiceProviderDetailProfile.tsx";
+import AdminServiceProviderDetailPage from "@/pages/admin/AdminServiceProviderDetailPage.tsx";
 import ProviderAddress from "@/pages/provider/ProviderAddress.tsx";
 import ProviderAvailability from "@/pages/provider/ProviderAvailability.tsx";
 import ProviderSubscription from "@/pages/provider/ProviderSubscription.tsx";
@@ -64,7 +64,7 @@ export const appRouter = createBrowserRouter([
                 children: [
                     { index: true, element: <AdminDashboard /> },
                     { path: "service-providers", element: <AdminServiceProviders /> },
-                    { path: "service-provider/:providerId", element: <AdminServiceProviderDetailProfile /> },
+                    { path: "service-provider/:providerId", element: <AdminServiceProviderDetailPage /> },
                     { path: "users", element: <AdminUsers /> },
                     { path: "services", element: <AdminServices /> },
                     { path: "plans", element: <AdminPlans /> },
@@ -84,7 +84,7 @@ export const appRouter = createBrowserRouter([
                 children: [
                     { index: true, element: <UserServiceSelectPage /> },
                     { path: "dashboard", element: <UserDashboardPage /> },
-                    { path: "providerProfile", element: <UserProviderProfilePage /> },
+                    { path: "providerProfile/:providerId", element: <UserServiceProviderDetailPage /> },
                     { path: "profile", element: <UserProfilePage /> },
                     { path: "address", element: <UserAddressPage /> },
                     { path: "bookings", element: <UserBookingsPage /> },

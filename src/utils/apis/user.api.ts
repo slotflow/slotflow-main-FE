@@ -1,7 +1,14 @@
 import axiosInstance from "@/lib/axios"
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { CommonResponse } from "../interface/commonInterface";
-import { AddUserAddressPayload, FetchUserAddressResponse, FetchUserProfileResponse, UpdateUserProfileImageResponse, UserFetchServiceProvidersResponse } from "../interface/api/userApiInterface";
+import { AddUserAddressPayload, 
+    FetchUserAddressResponse, 
+    FetchUserProfileResponse, 
+    UpdateUserProfileImageResponse, 
+    UserFetchProviderAddressResponseProps, 
+    UserFetchProviderProfileDetailsResponse, 
+    UserFetchServiceProvidersResponse 
+} from "../interface/api/userApiInterface";
 
 export const fetchUserProfileDetails = async (): Promise<FetchUserProfileResponse> => {
     const response = await axiosInstance.get('/user/getProfileDetails');
@@ -29,3 +36,13 @@ export const userSearchServiceProviders = async (selectedServices: string[]): Pr
     const response = await axiosInstance.get(`/user/getServiceProviders/${selectedServices.join(",")}`);
     return response.data.providers;
 };
+
+export const userFetchProviderDetails = async (providerId : string) : Promise<UserFetchProviderProfileDetailsResponse> => {
+    const response = await axiosInstance.get(`/user/getServiceProviderProfileDetails/${providerId}`);
+    return response.data.provider;
+}
+
+export const userfetchProviderAddress = async (providerId : string) : Promise<UserFetchProviderAddressResponseProps> => {
+    const response = await axiosInstance.get(`/user/getServiceProviderAddress/${providerId}`);
+    return response.data.provider;
+}

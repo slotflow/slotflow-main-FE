@@ -1,5 +1,6 @@
 import { User } from "../userInterface";
 import { Address } from "../addressInterface";
+import { Provider } from "../providerInterface";
 import { CommonResponse } from "../commonInterface";
 
 // User Fetch profile details api response
@@ -44,3 +45,9 @@ export interface UserFetchServiceProvidersResponse {
         categoryName: string
     }
 }
+
+// User fetch service provider detials api response
+export type UserFetchProviderProfileDetailsResponse = Pick<Provider, "_id" | "username" | "email" | "phone" | "profileImage" | "trustedBySlotflow">;
+
+// User fetch service provider address api response
+export type UserFetchProviderAddressResponseProps = Pick<Address, "userId" | "addressLine" | "phone" | "place" | "city" | "district" | "pincode" | "state" | "country" | "googleMapLink">;

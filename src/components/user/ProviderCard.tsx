@@ -1,13 +1,22 @@
 import { Badge } from "@/components/ui/badge";
+import { useNavigate } from "react-router-dom";
 import { CardTitle } from "@/components/ui/card";
-import { UserFetchServiceProvidersResponse } from "@/utils/interface/userInterface";
+import { UserFetchServiceProvidersResponse } from "@/utils/interface/api/userApiInterface";
 
 const ProviderCard: React.FC<UserFetchServiceProvidersResponse> = ({
     provider, service
-
+    
 }) => {
+
+    const navigate = useNavigate();
+    
     return (
-        <div className="w-full max-w-sm rounded-2xl shadow-sm hover:shadow-md transition-all border p-4 cursor-pointer">
+        <div className="w-full max-w-sm rounded-2xl shadow-sm hover:shadow-md transition-all border p-4 cursor-pointer" 
+            onClick={(e) => {
+                e.preventDefault();
+                navigate(`/user/providerProfile/${provider._id}`);
+            }}
+        >
             <div className="flex items-start justify-between">
                 <div className="flex flex-col gap-1">
                     <CardTitle className="text-base font-semibold">
@@ -32,7 +41,7 @@ const ProviderCard: React.FC<UserFetchServiceProvidersResponse> = ({
 
                 <div className="flex justify-between items-center">
                     <p>₹ {service.servicePrice}</p>
-                    {!provider.trustedBySlotflow && (
+                    {provider.trustedBySlotflow && (
                         <span className="text-xs text-green-600 font-medium whitespace-nowrap">
                             ✅ Trusted by Slotflow
                         </span>
