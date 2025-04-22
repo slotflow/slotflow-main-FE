@@ -63,3 +63,10 @@ export interface UserFetchProviderServiceResponseProps extends FetchServiceDetai
 
 // User fetch provider service availability api response
 export type UserFetchProviderAvailabilityResponseProps = Pick<ServiceAvailability, "availability" >;
+
+//User book an appoint api request props
+export interface UserBookAnAppointmentRequestProps {
+    providerId : string,
+    selectedDay : string,
+    slotId : string
+}

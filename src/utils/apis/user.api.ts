@@ -5,6 +5,7 @@ import { AddUserAddressPayload,
     FetchUserAddressResponse, 
     FetchUserProfileResponse, 
     UpdateUserProfileImageResponse, 
+    UserBookAnAppointmentRequestProps, 
     UserFetchProviderAddressResponseProps, 
     UserFetchProviderAvailabilityResponseProps, 
     UserFetchProviderProfileDetailsResponse, 
@@ -57,4 +58,9 @@ export const userFetchProviderService = async (providerId : string) : Promise<Us
 export const userFetchProviderServiceAvailability = async (providerId : string) : Promise<UserFetchProviderAvailabilityResponseProps> => {
     const response = await axiosInstance.get(`/user/getServiceProviderServiceAvailability/${providerId}`);
     return response.data.availability;
+}
+
+export const userBookAnAppointment = async (data : UserBookAnAppointmentRequestProps) : Promise<any>  => {
+    const response = await axiosInstance.post('/user/bookAnAppointment', data);
+    return response;
 }

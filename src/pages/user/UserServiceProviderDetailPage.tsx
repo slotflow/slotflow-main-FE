@@ -1,7 +1,5 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { RootState } from "@/utils/redux/appStore";
 import DataFetchingError from "@/components/common/DataFetchingError";
 import UserProviderService from "@/components/user/UserProviderService";
 import UserProviderAddress from "@/components/user/UserProviderAddress";
@@ -12,7 +10,6 @@ const UserServiceProviderDetailPage = () => {
 
     const { providerId } = useParams<string>();
     const [tab, setTab] = useState<number>(0);
-    const themeMode = useSelector((store: RootState) => store.state.lightTheme);
     const [providerProfileImg, setProviderProfileImg] = useState<string | null>(null)
 
     const tabButtons: string[] = ["Details", "Address", "Service", "Availability" ];
@@ -22,7 +19,7 @@ const UserServiceProviderDetailPage = () => {
     return (
         <div className="min-h-full border border-[var(--boxBorder)] rounded-lg p-2 flex flex-col">
             <div className="w-full h-50 flex justify-center items-center bg-[var(--menuItemHoverBg)] rounded-[6px]">
-                <img className={`h-32 w-32 rounded-full ${!themeMode && "invert"}`} src={providerProfileImg || '/images/avatar.png'} />
+                <img className={`h-32 w-32 rounded-full`} src={providerProfileImg || '/images/avatar.png'} />
             </div>
 
             <ul className="flex justify-around my-2 border-2 overflow-x-scroll no-scrollbar">
