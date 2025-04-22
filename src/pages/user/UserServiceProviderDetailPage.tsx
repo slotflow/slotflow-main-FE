@@ -3,10 +3,10 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { RootState } from "@/utils/redux/appStore";
 import DataFetchingError from "@/components/common/DataFetchingError";
-import AdmiProviderService from "@/components/admin/AdmiProviderService";
 import UserProviderProfileDetails from "@/components/user/UserProviderProfileDetails";
 import AdminProviderServiceAvailability from "@/components/admin/AdminProviderServiceAvailability";
 import UserProviderAddress from "@/components/user/UserProviderAddress";
+import UserProviderService from "@/components/user/UserProviderService";
 
 const UserServiceProviderDetailPage = () => {
 
@@ -14,8 +14,6 @@ const UserServiceProviderDetailPage = () => {
     const [tab, setTab] = useState<number>(0);
     const themeMode = useSelector((store: RootState) => store.state.lightTheme);
     const [providerProfileImg, setProviderProfileImg] = useState<string | null>(null)
-
-    console.log("providerProfileImg : ",providerProfileImg)
 
     const tabButtons: string[] = ["Details", "Address", "Service", "Availability" ];
 
@@ -39,7 +37,7 @@ const UserServiceProviderDetailPage = () => {
             ) || tab === 1 && (
                 <UserProviderAddress _id={providerId} />
             ) || tab === 2 && (
-                <AdmiProviderService providerId={providerId} />
+                <UserProviderService _id={providerId} />
             ) || tab === 3 && (
                 <AdminProviderServiceAvailability _id={providerId} />
             )}

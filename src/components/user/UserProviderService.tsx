@@ -1,19 +1,16 @@
-import { ImageUpscale } from 'lucide-react';
-import React, { memo, useState } from 'react';
+import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import DataFetchingError from '../common/DataFetchingError';
+import { userFetchProviderService } from '@/utils/apis/user.api';
 import InfoDisplayComponent from '../common/InfoDisplayComponent';
 import ShimmerProfileDetails from '../shimmers/ShimmerProfileDetails';
-import { fetchProviderService } from '@/utils/apis/adminProvider.api';
-import { AdminProviderServiceProps } from '@/utils/interface/adminInterface';
+import { UserProviderServiceProps } from '@/utils/interface/userInterface';
 
-const AdmiProviderService: React.FC<AdminProviderServiceProps> = memo(({ providerId }) => {
-
-    const [largeImg, setLargeImg] = useState<boolean>(false);
+const UserProviderService: React.FC<UserProviderServiceProps> = ({ _id }) => {
 
     const { data, isLoading, isError, error } = useQuery({
-        queryKey: ["PService", providerId],
-        queryFn: () => fetchProviderService(providerId),
+        queryKey: ["PService", _id],
+        queryFn: () => userFetchProviderService(_id),
     })
 
     if (isError) {
@@ -42,21 +39,11 @@ const AdmiProviderService: React.FC<AdminProviderServiceProps> = memo(({ provide
                     <InfoDisplayComponent label="Service Name" value={data?.serviceName} />
                     <InfoDisplayComponent label="Service Description" value={data?.serviceDescription} />
                     <InfoDisplayComponent label="Service Price" value={data?.servicePrice} isPrice={true} />
-                    <InfoDisplayComponent label="Provider Adhaar" value={data?.providerAdhaar} />
                     <InfoDisplayComponent label="Provider Experience" value={data?.providerExperience} />
                 </tbody>
             </table>
-            <div className='my-6 space-y-2'>
-                <div className='flex justify-start'>
-                    <label className='text-[var(--infoDisplayLabel)]'>Provider Certificate</label>
-                    <button className='mx-2 cursor-pointer' onClick={() => setLargeImg(!largeImg)}><ImageUpscale /></button>
-                </div>
-                <div className='my-2'>
-                    <img className={`border border-[var(--boxBorder)] object-contain ${largeImg ? 'h-auto w-full' : 'h-52 w-72'}`} src={data?.providerCertificateUrl || "/images/imagePlaceholder.png"} />
-                </div>
-            </div>
         </div>
     )
-})
+}
 
-export default AdmiProviderService
+export default UserProviderService

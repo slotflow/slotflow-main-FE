@@ -1,17 +1,17 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import DataFetchingError from '../common/DataFetchingError';
-import { userfetchProviderAddress } from '@/utils/apis/user.api';
+import { userFetchProviderAddress } from '@/utils/apis/user.api';
 import InfoDisplayComponent from '../common/InfoDisplayComponent';
 import ShimmerProfileDetails from '../shimmers/ShimmerProfileDetails';
 import { UserProviderAddressProps } from '@/utils/interface/userInterface';
 
 const UserProviderAddress : React.FC<UserProviderAddressProps> = ({ _id }) => {
+
     const { data, isLoading, isError, error } = useQuery({
-        queryFn: () => userfetchProviderAddress(_id),
+        queryFn: () => userFetchProviderAddress(_id),
         queryKey: ["PAddress", _id]
     })
-
     
     if (isError) {
         return (

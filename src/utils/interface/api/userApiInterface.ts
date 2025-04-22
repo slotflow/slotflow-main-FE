@@ -2,6 +2,8 @@ import { User } from "../userInterface";
 import { Address } from "../addressInterface";
 import { Provider } from "../providerInterface";
 import { CommonResponse } from "../commonInterface";
+import { ProviderService } from "../providerServiceInterface";
+import { Service } from "../appServiceInterface";
 
 // User Fetch profile details api response
 export type FetchUserProfileResponse = Pick<User, "username" | "email" | "isBlocked" | "isEmailVerified" | "phone" | "createdAt">;
@@ -51,3 +53,9 @@ export type UserFetchProviderProfileDetailsResponse = Pick<Provider, "_id" | "us
 
 // User fetch service provider address api response
 export type UserFetchProviderAddressResponseProps = Pick<Address, "userId" | "addressLine" | "phone" | "place" | "city" | "district" | "pincode" | "state" | "country" | "googleMapLink">;
+
+// User fetch provider service details api response
+type FetchServiceDetailsProps = Pick<ProviderService, "serviceName" | "serviceDescription" | "servicePrice" | "providerExperience" >;
+export interface UserFetchProviderServiceResponseProps extends FetchServiceDetailsProps {
+    serviceCategory: Pick<Service, "serviceName">
+}
