@@ -70,8 +70,9 @@ export interface UserBookAnAppointmentRequestProps {
     selectedServiceMode : string,
     providerId : string,
     selectedDay : string,
-    slotId : string
+    slotId : string,
+    date : Date,
 }
 
 // User fetch bookings response props
-export type UserFetchBookingsResponseProps = Pick<Booking, "_id" | "appointmentDay" | "appointmentMode" | "appointmentStatus" | "appointmentTime" | "createdAt">;
+export type UserFetchBookingsResponseProps = Pick<Booking, "_id" | "appointmentDay" | "appointmentDate" | "appointmentMode" | "appointmentStatus" | "appointmentTime" | "createdAt">;

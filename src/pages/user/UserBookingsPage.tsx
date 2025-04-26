@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import { DataTable } from "@/components/table/data-table";
+import { userFetchBookings } from "@/utils/apis/user.api";
+// import { DataTable } from "@/components/table/data-table";
 import ShimmerTable from "@/components/shimmers/ShimmerTable";
 import ShimmerTableTop from "@/components/shimmers/ShimmerTableTop";
 import DataFetchingError from "@/components/common/DataFetchingError";
-import { userFetchBookings } from "@/utils/apis/user.api";
 
 const UserBookingsPage = () => {
  const { data, isLoading, isError, error } = useQuery({
@@ -22,7 +22,11 @@ const UserBookingsPage = () => {
                      <ShimmerTable />
                  </>
              ) : data ? (
-                 <DataTable columns={} data={} />
+                //  <DataTable columns={} data={} />
+                <>
+                     <ShimmerTableTop />
+                     <ShimmerTable />
+                 </>
              ) : (
                  <DataFetchingError message="No data found" />
              )}

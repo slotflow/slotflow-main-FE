@@ -1,6 +1,7 @@
 import { toast } from 'react-toastify';
 import { useQuery } from '@tanstack/react-query';
 import React, { useEffect, useState } from 'react';
+import { Calendar } from "@/components/ui/calendar";
 import UserPaymentSelection from './UserPaymentSelection';
 import DataFetchingError from '../common/DataFetchingError';
 import InfoDisplayComponent from '../common/InfoDisplayComponent';
@@ -8,6 +9,7 @@ import { Slot } from '@/utils/interface/serviceAvailabilityInterface';
 import { userFetchProviderServiceAvailability } from '@/utils/apis/user.api';
 import ShimmerProviderAvailability from '../shimmers/ShimmerProviderAvailability';
 import { UserProviderServiceAvailabilityProps } from '@/utils/interface/userInterface';
+import CommonButton from '../common/CommonButton';
 
 const UserProviderServiceAvailability: React.FC<UserProviderServiceAvailabilityProps> = ({ _id }) => {
 
@@ -15,6 +17,8 @@ const UserProviderServiceAvailability: React.FC<UserProviderServiceAvailabilityP
     const [selectedSlotId, setSelectedSlotId] = useState<string | null>(null);
     const [tab, setTab] = useState<number>(0);
     const [day, setDay] = useState<string>("");
+    const [date, setDate] = useState<Date | undefined>(new Date());
+    const [showCalendar, setShowCalendar] = useState<boolean>(false);
     const { data, isLoading, isError, error } = useQuery({
         queryKey: ["PSAvailability", _id],
         queryFn: () => userFetchProviderServiceAvailability(_id)
@@ -43,7 +47,7 @@ const UserProviderServiceAvailability: React.FC<UserProviderServiceAvailabilityP
     }
 
     const handleBookAnAppoint = (slotId: string, availability: boolean) => {
-        if(!availability) {
+        if (!availability) {
             toast.error("Slot already booked.");
             return;
         }
@@ -53,6 +57,15 @@ const UserProviderServiceAvailability: React.FC<UserProviderServiceAvailabilityP
 
     return (
         <>
+            <div className='px-8 space-y-4'>
+                <CommonButton onClick={() => setShowCalendar(!showCalendar)} text={`${showCalendar ? "Close calendar" : "Show calendar"}`}/>
+                <Calendar
+                    mode="single"
+                    selected={date}
+                    onSelect={setDate}
+                    className={`rounded-md border w-3/12 ${!showCalendar && 'hidden'}`}
+                />
+            </div>
             <div className="flex w-full mx-auto p-6 rounded-lg">
                 <div className="flex flex-col w-3/12 space-y-4 px-2 items-start">
                     {data && data.availability?.map((avail, index: number) => (
@@ -92,6 +105,7 @@ const UserProviderServiceAvailability: React.FC<UserProviderServiceAvailabilityP
                     providerId={_id}
                     selectedDay={day}
                     slotId={selectedSlotId}
+                    date={date || new Date()}
                 />
             )}
         </>

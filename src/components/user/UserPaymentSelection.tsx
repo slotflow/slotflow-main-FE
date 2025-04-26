@@ -11,9 +11,10 @@ interface UserPaymentSelect {
     providerId: string,
     selectedDay: string,
     slotId: string
+    date: Date
 }
 
-const UserPaymentSelection: React.FC<UserPaymentSelect> = ({ modes, setOpenPayment, providerId, selectedDay, slotId }) => {
+const UserPaymentSelection: React.FC<UserPaymentSelect> = ({ modes, setOpenPayment, providerId, selectedDay, slotId, date }) => {
 
     const [paymentLoading, setPaymentLoading] = useState<boolean>(false);
     const [selectedServiceMode, setSelectedServiceMode] = useState<string>(modes[0]);
@@ -38,13 +39,14 @@ const UserPaymentSelection: React.FC<UserPaymentSelect> = ({ modes, setOpenPayme
         console.log("providerId : ",providerId);
         console.log("selectedDay : ",selectedDay);
         console.log("selectedServiceMode : ",selectedServiceMode);
+        console.log("date : ",date);
 
-        if (!slotId || !providerId || !selectedDay || !selectedServiceMode) {
+        if (!slotId || !providerId || !selectedDay || !selectedServiceMode || !date) {
             toast.error("Something went wrong.");
             return;
         }
 
-        const data = { providerId, selectedDay, slotId, selectedServiceMode };
+        const data = { providerId, selectedDay, slotId, selectedServiceMode, date };
 
         try {
             setPaymentLoading(true);
