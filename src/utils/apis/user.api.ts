@@ -61,7 +61,6 @@ export const userFetchProviderServiceAvailability = async (providerId : string) 
 }
 
 export const userBookAnAppointment = async (data : UserBookAnAppointmentRequestProps) : Promise<{success: boolean, message: string, sessionId: string}>  => {
-    console.log("data : ",data);
     const response = await axiosInstance.post('/user/createBookingCheckoutSession', data);
     return response.data;
 }

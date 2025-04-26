@@ -5,6 +5,7 @@ import { useSearchParams } from "react-router-dom";
 import { CheckCircle, XCircle } from "lucide-react";
 import CommonButton from "@/components/common/CommonButton";
 import { saveSubscription } from "@/utils/apis/provider.api";
+import { saveAppointmentBooking } from "@/utils/apis/user.api";
 import { PaymentConfirmPageProps } from "@/utils/interface/providerInterface";
 
 const PaymentConfirmPage: React.FC<PaymentConfirmPageProps> = ({ status, userType }) => {
@@ -25,10 +26,13 @@ const PaymentConfirmPage: React.FC<PaymentConfirmPageProps> = ({ status, userTyp
   const save = async () => {
     if(!sessionId) return;
     if(userType === "provider") {
+      console.log("provider")
       const response = await saveSubscription(sessionId);
       toast.success(response.message);
     } else if (userType === "user") {
+      console.log("user");
       const response = await saveAppointmentBooking(sessionId);
+      console.log("response : ",response);
       toast.success(response.message);
     }
   }
