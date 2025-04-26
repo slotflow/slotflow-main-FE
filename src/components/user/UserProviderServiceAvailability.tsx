@@ -22,8 +22,8 @@ const UserProviderServiceAvailability: React.FC<UserProviderServiceAvailabilityP
     useEffect(() => {
         setOpenPayment(false);
         if (!data) return;
-        setDay(data.availability[0].day || "")
-    }, [])
+        setDay(data?.availability[0].day || "")
+    }, [data])
 
     if (!data?.availability) {
         return <DataFetchingError message="No availability found." />;
@@ -84,6 +84,7 @@ const UserProviderServiceAvailability: React.FC<UserProviderServiceAvailabilityP
             </div>
             {openPayment && selectedSlotId && (
                 <UserPaymentSelection
+                    modes={data?.availability[tab]?.modes}
                     setOpenPayment={setOpenPayment}
                     providerId={_id}
                     selectedDay={day}

@@ -3,17 +3,24 @@ import { toast } from 'react-toastify';
 import { Loader, X } from 'lucide-react';
 import { loadStripe } from '@stripe/stripe-js';
 import { userBookAnAppointment } from '@/utils/apis/user.api';
+import SelectFiledWithLabel from '../form/SelectFiledWithLabel';
 
 interface UserPaymentSelect {
+    modes: string[],
     setOpenPayment: (data: boolean) => void;
     providerId: string,
     selectedDay: string,
     slotId: string
 }
 
-const UserPaymentSelection: React.FC<UserPaymentSelect> = ({ setOpenPayment, providerId, selectedDay, slotId }) => {
+const UserPaymentSelection: React.FC<UserPaymentSelect> = ({ modes, setOpenPayment, providerId, selectedDay, slotId }) => {
 
     const [paymentLoading, setPaymentLoading] = useState<boolean>(false);
+    const [selectedServiceMode, setSelectedServiceMode] = useState<string>(modes[0]);
+
+    const handleDayChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setSelectedServiceMode(event.target.value);
+    };
 
     const makeStripePayment = async () => {
         if (!import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY) {
@@ -27,16 +34,22 @@ const UserPaymentSelection: React.FC<UserPaymentSelect> = ({ setOpenPayment, pro
             return;
         }
 
-        if (!slotId || !providerId || !selectedDay) {
+        console.log("SlotId : ",slotId);
+        console.log("providerId : ",providerId);
+        console.log("selectedDay : ",selectedDay);
+        console.log("selectedServiceMode : ",selectedServiceMode);
+
+        if (!slotId || !providerId || !selectedDay || !selectedServiceMode) {
             toast.error("Something went wrong.");
             return;
         }
 
-        const data = { providerId, selectedDay, slotId };
+        const data = { providerId, selectedDay, slotId, selectedServiceMode };
 
         try {
             setPaymentLoading(true);
             const { sessionId } = await userBookAnAppointment(data);
+            console.log("sessionId : ",sessionId);
             if (!sessionId) {
                 toast.error("Failed to create checkout session.");
                 setPaymentLoading(false);
@@ -50,7 +63,8 @@ const UserPaymentSelection: React.FC<UserPaymentSelect> = ({ setOpenPayment, pro
             if (result?.error) {
                 toast.error(result.error.message);
             }
-        } catch {
+        } catch(error) {
+            console.log("error : ",error);
             toast.error("An error occurred during payment.");
             setPaymentLoading(false);
         }
@@ -63,6 +77,14 @@ const UserPaymentSelection: React.FC<UserPaymentSelect> = ({ setOpenPayment, pro
                     <X className="cursor-pointer ml-auto" onClick={() => { setOpenPayment(false) }} />
                     <div className="py-6 space-y-4">
                         <h2 className="text-lg font-bold mb-4 text-center">Choose Payment Gateway</h2>
+                        <SelectFiledWithLabel
+                                    label="Select service mode"
+                                    id="serviceMode"
+                                    value={selectedServiceMode}
+                                    onChange={handleDayChange}
+                                    options={modes.map((mode) =>  mode)}
+                                    required
+                                />
                         <button className="w-full flex items-center justify-center space-x-4 p-3 rounded-md shadow cursor-pointer bg-[var(--menuBg)] hover:bg-[var(--menuItemHoverBg)]" onClick={makeStripePayment}>
                             <img src="/images/Stripe.jpeg" alt="Stripe" className="w-8 h-8" />
                             <h6 className="font-bold italic text-[#635bff]">Stripe</h6>

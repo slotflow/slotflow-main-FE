@@ -79,7 +79,7 @@ export const fetchProviderPlans = async () : Promise<ProviderFetchPlansResponseP
 
 // This api will create the stripe session and return the session id 
 export const subscribeToPlan = async (data: {planId: string, planDuration: string}) : Promise<{success: boolean, message: string, sessionId: string}> => {
-    const response = await axiosInstance.post('/provider/create-checkout-session', data)
+    const response = await axiosInstance.post('/provider/createSubscriptionCheckoutSession', data)
     return response.data;
 }
 

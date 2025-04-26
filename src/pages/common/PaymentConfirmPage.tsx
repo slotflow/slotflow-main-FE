@@ -7,7 +7,7 @@ import CommonButton from "@/components/common/CommonButton";
 import { saveSubscription } from "@/utils/apis/provider.api";
 import { PaymentConfirmPageProps } from "@/utils/interface/providerInterface";
 
-const PaymentConfirmPage: React.FC<PaymentConfirmPageProps> = ({ status }) => {
+const PaymentConfirmPage: React.FC<PaymentConfirmPageProps> = ({ status, userType }) => {
 
   const [searchParams] = useSearchParams();
   const sessionId = searchParams.get("session_id");
@@ -24,8 +24,13 @@ const PaymentConfirmPage: React.FC<PaymentConfirmPageProps> = ({ status }) => {
 
   const save = async () => {
     if(!sessionId) return;
-    const response = await saveSubscription(sessionId);
-    toast.success(response.message);
+    if(userType === "provider") {
+      const response = await saveSubscription(sessionId);
+      toast.success(response.message);
+    } else if (userType === "user") {
+      const response = await saveAppointmentBooking(sessionId);
+      toast.success(response.message);
+    }
   }
 
   useEffect(() => {

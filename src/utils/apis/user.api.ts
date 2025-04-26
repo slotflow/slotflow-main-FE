@@ -60,7 +60,13 @@ export const userFetchProviderServiceAvailability = async (providerId : string) 
     return response.data.availability;
 }
 
-export const userBookAnAppointment = async (data : UserBookAnAppointmentRequestProps) : Promise<any>  => {
-    const response = await axiosInstance.post('/user/bookAnAppointment', data);
-    return response;
+export const userBookAnAppointment = async (data : UserBookAnAppointmentRequestProps) : Promise<{success: boolean, message: string, sessionId: string}>  => {
+    console.log("data : ",data);
+    const response = await axiosInstance.post('/user/createBookingCheckoutSession', data);
+    return response.data;
+}
+
+export const saveAppointmentBooking = async (sessionId: string) : Promise<CommonResponse> => {
+    const response = await axiosInstance.post('/user/saveAppointmentBooking', { sessionId });
+    return response.data;
 }

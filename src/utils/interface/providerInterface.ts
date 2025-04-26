@@ -52,6 +52,7 @@ export interface PlanListProps {
 // Payment confirmation page interface 
 export interface PaymentConfirmPageProps {
   status: boolean;
+  userType: string;
 }
 
 // Payment selection card interface used in the provider subscription page
