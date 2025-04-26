@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import { useQuery } from '@tanstack/react-query';
 import React, { useEffect, useState } from 'react';
 import UserPaymentSelection from './UserPaymentSelection';
@@ -41,9 +42,11 @@ const UserProviderServiceAvailability: React.FC<UserProviderServiceAvailabilityP
         )
     }
 
-    console.log("data : ", data);
-
-    const handleBookAnAppoint = (slotId: string) => {
+    const handleBookAnAppoint = (slotId: string, availability: boolean) => {
+        if(!availability) {
+            toast.error("Slot already booked.");
+            return;
+        }
         setSelectedSlotId(slotId);
         setOpenPayment(true);
     }
@@ -72,7 +75,7 @@ const UserProviderServiceAvailability: React.FC<UserProviderServiceAvailabilityP
                                 onClick={(e) => {
                                     e.preventDefault();
                                     e.stopPropagation();
-                                    handleBookAnAppoint(slot?._id)
+                                    handleBookAnAppoint(slot?._id, slot.available)
                                 }}
                                 className={`text-xs text-center border rounded-md py-2 px-4 hover:bg-[var(--mainColor)/10] transition-colors duration-200 ${slot.available ? 'bg-[var(--mainColor)/20] border-[var(--mainColor)] cursor-pointer' : 'border-gray-300'}`}
                             >

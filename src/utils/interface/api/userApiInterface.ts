@@ -5,6 +5,7 @@ import { CommonResponse } from "../commonInterface";
 import { ProviderService } from "../providerServiceInterface";
 import { Service } from "../appServiceInterface";
 import { ServiceAvailability } from "../serviceAvailabilityInterface";
+import { Booking } from "../bookingInterface";
 
 // User Fetch profile details api response
 export type FetchUserProfileResponse = Pick<User, "username" | "email" | "isBlocked" | "isEmailVerified" | "phone" | "createdAt">;
@@ -71,3 +72,6 @@ export interface UserBookAnAppointmentRequestProps {
     selectedDay : string,
     slotId : string
 }
+
+// User fetch bookings response props
+export type UserFetchBookingsResponseProps = Pick<Booking, "_id" | "appointmentDay" | "appointmentMode" | "appointmentStatus" | "appointmentTime" | "createdAt">;
