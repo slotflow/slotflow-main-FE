@@ -2,6 +2,10 @@ import { format } from "date-fns";
 import { ColumnDef } from "@tanstack/react-table";
 import { DataTableColumnHeader } from "./DataTableColumnHeader";
 import { UserBookingsTableColumnsProps, UserPaymentsTableColumnsProps } from "@/utils/interface/tableColumnInterface";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
+import { Button } from "../ui/button";
+import { MoreHorizontal } from "lucide-react";
+import { UserCancelBooking } from "./userOptions/UserBookingActions";
 
 export const userAllBookingsTableColumns: ColumnDef<UserBookingsTableColumnsProps>[] = [
   {
@@ -38,6 +42,32 @@ export const userAllBookingsTableColumns: ColumnDef<UserBookingsTableColumnsProp
       return <span>{date}</span>;
     }
   },
+  {
+    accessorKey: "actions",
+    header: "Actions",
+    id: "actions",
+    cell: ({ row }) => {
+      const booking = row.original;
+      console.log("bookingId : ",booking._id);
+      return (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="h-8 w-8 p-0 cursor-pointer">
+              <span className="sr-only">Open menu</span>
+              <MoreHorizontal className="h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuSeparator />
+            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            {booking.appointmentStatus === "Booked" && (
+              <UserCancelBooking bookingId={booking._id}/>
+            )}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      )
+    },
+  }
 ]
 
 export const UserPaymentsTableColumns: ColumnDef<UserPaymentsTableColumnsProps>[] = [

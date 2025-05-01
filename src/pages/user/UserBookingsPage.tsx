@@ -15,6 +15,8 @@ const UserBookingsPage = () => {
         refetchOnWindowFocus: false,
     });
 
+    console.log("data : ",data);
+
     return (
         <div className="p-6">
             <h2 className="text-2xl font-bold mb-4">Your Bookings History</h2>

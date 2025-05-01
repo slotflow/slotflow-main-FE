@@ -42,3 +42,16 @@ export type UserProviderServiceProps = Pick<Provider, "_id">
 export type UserProviderServiceAvailabilityProps = Pick<Provider, '_id'>;
 
 // **** INTERFACES USED IN USER PAGES END **** //
+
+
+
+
+
+// ****  INTERFACES USED IN USER TABLE ACTION COMPONENTS START **** \\
+
+// user cancel booking table option component props
+export interface UserCancelBookingProps {
+    bookingId : string
+}
+
+// ****  INTERFACES USED IN USER TABLE ACTION COMPONENTS END **** \\

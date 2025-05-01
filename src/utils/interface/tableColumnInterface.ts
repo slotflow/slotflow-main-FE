@@ -47,7 +47,7 @@ export type ProviderPaymentsTableColumnsProps = Pick<Payment, "createdAt" | "tot
 // **** User Table **** \\
 
 // user bookings listing table column props
-export type UserBookingsTableColumnsProps = Pick<Booking, "appointmentMode" | "appointmentStatus" | "appointmentTime" | "appointmentDate" | "appointmentDay" | "createdAt" >
+export type UserBookingsTableColumnsProps = Pick<Booking, "_id" | "appointmentMode" | "appointmentStatus" | "appointmentTime" | "appointmentDate" | "appointmentDay" | "createdAt" >
 
 // user payments table column props
 export type UserPaymentsTableColumnsProps = Pick<Payment, "createdAt" | "totalAmount" | "paymentFor" | "paymentMethod" | "paymentGateway" | "paymentStatus" | "discountAmount">;

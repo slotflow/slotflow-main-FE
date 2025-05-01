@@ -76,6 +76,12 @@ export interface UserBookAnAppointmentRequestProps {
 }
 
 // User fetch bookings response props
-export type UserFetchBookingsResponseProps = Pick<Booking, "appointmentDay" | "appointmentDate" | "appointmentMode" | "appointmentStatus" | "appointmentTime" | "createdAt">;
+export type UserFetchBookingsResponseProps = Pick<Booking, "_id" | "appointmentDay" | "appointmentDate" | "appointmentMode" | "appointmentStatus" | "appointmentTime" | "createdAt">;
 
-export type UserFetchPaymentsResponseProps = Pick<Payment, "_id" | "createdAt" | "totalAmount" | "paymentFor" | "paymentMethod" | "paymentGateway" | "paymentStatus" | "discountAmount">
+// user fetch payments response props
+export type UserFetchPaymentsResponseProps = Pick<Payment, "_id" | "createdAt" | "totalAmount" | "paymentFor" | "paymentMethod" | "paymentGateway" | "paymentStatus" | "discountAmount">;
+
+// user cancel booking response props
+export interface UserCancelBookingResponseProps extends CommonResponse {
+    updatedBooking : Pick<Booking, "_id" | "appointmentDay" | "appointmentDate" | "appointmentMode" | "appointmentStatus" | "appointmentTime" | "createdAt">;
+}
