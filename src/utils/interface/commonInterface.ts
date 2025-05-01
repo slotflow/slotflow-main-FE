@@ -61,9 +61,9 @@ export interface RoleButtonProps {
 
 // **** Common button props interface **** \\
 export interface CommonButtonProps {
-    onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
-    text: string;
-    type?: "button" | "submit" | "reset";
+    onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void,
+    text: string,
+    type?: "button" | "submit" | "reset",
 }
 
 

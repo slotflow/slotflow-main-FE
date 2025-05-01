@@ -75,4 +75,4 @@ export interface UserBookAnAppointmentRequestProps {
 }
 
 // User fetch bookings response props
-export type UserFetchBookingsResponseProps = Pick<Booking, "_id" | "appointmentDay" | "appointmentDate" | "appointmentMode" | "appointmentStatus" | "appointmentTime" | "createdAt">;
+export type UserFetchBookingsResponseProps = Pick<Booking, "appointmentDay" | "appointmentDate" | "appointmentMode" | "appointmentStatus" | "appointmentTime" | "createdAt">;

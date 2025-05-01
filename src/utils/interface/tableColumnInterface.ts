@@ -45,4 +45,4 @@ export type ProviderPaymentsTableColumnsProps = Pick<Payment, "createdAt" | "tot
 
 
 // **** User Table **** \\
-export type UserBookingsTableColumnsProps = Pick<Booking, "appointmentMode" | "appointmentStatus" | "appointmentTime" | "createdAt" >
+export type UserBookingsTableColumnsProps = Pick<Booking, "appointmentMode" | "appointmentStatus" | "appointmentTime" | "appointmentDate" | "appointmentDay" | "createdAt" >

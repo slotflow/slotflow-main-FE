@@ -19,6 +19,7 @@ const UserProviderServiceAvailability: React.FC<UserProviderServiceAvailabilityP
     const [day, setDay] = useState<string>("");
     const [date, setDate] = useState<Date | undefined>(new Date());
     const [showCalendar, setShowCalendar] = useState<boolean>(false);
+
     const { data, isLoading, isError, error } = useQuery({
         queryKey: ["PSAvailability", _id],
         queryFn: () => userFetchProviderServiceAvailability(_id)
@@ -58,7 +59,6 @@ const UserProviderServiceAvailability: React.FC<UserProviderServiceAvailabilityP
     return (
         <>
             <div className='px-8 space-y-4'>
-                <CommonButton onClick={() => setShowCalendar(!showCalendar)} text={`${showCalendar ? "Close calendar" : "Show calendar"}`}/>
                 <Calendar
                     mode="single"
                     selected={date}
@@ -68,6 +68,10 @@ const UserProviderServiceAvailability: React.FC<UserProviderServiceAvailabilityP
             </div>
             <div className="flex w-full mx-auto p-6 rounded-lg">
                 <div className="flex flex-col w-3/12 space-y-4 px-2 items-start">
+                <CommonButton 
+                    onClick={() => setShowCalendar(!showCalendar)} 
+                    text={`${showCalendar ? "Close calendar" : "Show calendar"}`}
+                />
                     {data && data.availability?.map((avail, index: number) => (
                         <button key={index} className={`w-full cursor-pointer bg-[var(--menuBg)] hover:bg-[var(--menuItemHoverBg)] p-2 rounded-lg ${tab === index && "text-[var(--mainColor)] font-semibold"}`} onClick={() => { setTab(index); setDay(avail.day) }}>{avail.day}</button>
                     ))}

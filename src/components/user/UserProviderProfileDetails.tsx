@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { copyToClipboard } from "@/utils/helper";
 import DataFetchingError from "../common/DataFetchingError";
@@ -14,6 +14,12 @@ const UserProviderProfileDetails: React.FC<UserProviderProfileDetailsProps> = me
         queryKey: ["Provider", _id]
     })
 
+    useEffect(() => {
+        if (data) {
+            setProfileImage(data.profileImage);
+        }
+    }, [data, setProfileImage]);
+        
     if (isError) {
         return (
             <DataFetchingError message={error.message} />
@@ -32,9 +38,6 @@ const UserProviderProfileDetails: React.FC<UserProviderProfileDetailsProps> = me
         return <DataFetchingError message="No details found." />;
     }
 
-    if(data) {
-        setProfileImage(data?.profileImage);
-    }
 
     return (
         <div className="w-full mx-auto py-6 rounded-lg">
