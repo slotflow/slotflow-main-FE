@@ -1,10 +1,9 @@
 import { format } from "date-fns";
 import { ColumnDef } from "@tanstack/react-table";
 import { DataTableColumnHeader } from "./DataTableColumnHeader";
-import { UserListAllBookingsTableColumnsProps } from "@/utils/interface/userTableColumnInterface";
+import { UserBookingsTableColumnsProps, UserPaymentsTableColumnsProps } from "@/utils/interface/tableColumnInterface";
 
-// User Bookings listing Table column
-export const userAllBookingsTableColumns: ColumnDef<UserListAllBookingsTableColumnsProps>[] = [
+export const userAllBookingsTableColumns: ColumnDef<UserBookingsTableColumnsProps>[] = [
   {
     accessorKey: "appointmentDate",
     header: ({ column }) => (<DataTableColumnHeader column={column} title="Date" />),
@@ -41,3 +40,38 @@ export const userAllBookingsTableColumns: ColumnDef<UserListAllBookingsTableColu
   },
 ]
 
+export const UserPaymentsTableColumns: ColumnDef<UserPaymentsTableColumnsProps>[] = [
+  {
+    accessorKey: "createdAt",
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="Paid on" />),
+    cell: ({ row }) => {
+      const createdAt = row.getValue("createdAt");
+      const formattedDate = createdAt ? format(new Date(createdAt as Date), "dd MMM yyyy") : "N/A";
+      return <span>{formattedDate}</span>;
+    }
+  },
+  {
+    accessorKey: "totalAmount",
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="Total" />)
+  },
+  {
+    accessorKey: "discountAmount",
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="Discont" />)
+  },
+  {
+    accessorKey: "paymentFor",
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="Category" />)
+  },
+  {
+    accessorKey: "paymentGateway",
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="Gateway" />)
+  },
+  {
+    accessorKey: "paymentMethod",
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="Method" />)
+  },
+  {
+    accessorKey: "paymentStatus",
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="Status" />)
+  },
+]

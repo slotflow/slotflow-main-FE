@@ -6,6 +6,7 @@ import { ProviderService } from "../providerServiceInterface";
 import { Service } from "../appServiceInterface";
 import { ServiceAvailability } from "../serviceAvailabilityInterface";
 import { Booking } from "../bookingInterface";
+import { Payment } from "../paymentInterface";
 
 // User Fetch profile details api response
 export type FetchUserProfileResponse = Pick<User, "username" | "email" | "isBlocked" | "isEmailVerified" | "phone" | "createdAt">;
@@ -76,3 +77,5 @@ export interface UserBookAnAppointmentRequestProps {
 
 // User fetch bookings response props
 export type UserFetchBookingsResponseProps = Pick<Booking, "appointmentDay" | "appointmentDate" | "appointmentMode" | "appointmentStatus" | "appointmentTime" | "createdAt">;
+
+export type UserFetchPaymentsResponseProps = Pick<Payment, "_id" | "createdAt" | "totalAmount" | "paymentFor" | "paymentMethod" | "paymentGateway" | "paymentStatus" | "discountAmount">

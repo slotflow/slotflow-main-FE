@@ -7,6 +7,7 @@ import { AddUserAddressPayload,
     UpdateUserProfileImageResponse, 
     UserBookAnAppointmentRequestProps, 
     UserFetchBookingsResponseProps, 
+    UserFetchPaymentsResponseProps, 
     UserFetchProviderAddressResponseProps, 
     UserFetchProviderAvailabilityResponseProps, 
     UserFetchProviderProfileDetailsResponse, 
@@ -73,7 +74,13 @@ export const saveAppointmentBooking = async (sessionId: string) : Promise<Common
 }
 
 export const userFetchBookings = async () : Promise<Array<UserFetchBookingsResponseProps>> => {
-    console.log("fetching")
     const response = await axiosInstance.get('/user/getBookings');
     return response.data.bookings;
+}
+
+export const userfetchPayments = async () : Promise<Array<UserFetchPaymentsResponseProps>> => {
+    console.log("fetch payments");
+    const response = await axiosInstance.get('/user/getPayments');
+    console.log("response : ",response)
+    return response.data.payments;
 }

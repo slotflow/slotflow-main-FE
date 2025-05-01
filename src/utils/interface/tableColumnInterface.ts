@@ -33,11 +33,11 @@ export type AdminAllPaymentsTableColumnsProps = Pick<Payment, "createdAt" | "tot
 
 // **** Provider Table **** \\
 
-// **** Provider subscriptions listing table columns props
+// provider subscriptions listing table columns props
 type SubscriptionTableInterfacePropsForProvider = Pick<Subscription, "startDate" | "endDate" | "subscriptionStatus">;
 export interface ProviderSubscriptionsTableColumnsProps extends SubscriptionTableInterfacePropsForProvider , Partial<Plan> {};
 
-// **** Provider payments listing table columns props
+// provider payments listing table columns props
 export type ProviderPaymentsTableColumnsProps = Pick<Payment, "createdAt" | "totalAmount" | "paymentFor" | "paymentMethod" | "paymentGateway" | "paymentStatus" | "discountAmount">;
 
 
@@ -45,4 +45,9 @@ export type ProviderPaymentsTableColumnsProps = Pick<Payment, "createdAt" | "tot
 
 
 // **** User Table **** \\
+
+// user bookings listing table column props
 export type UserBookingsTableColumnsProps = Pick<Booking, "appointmentMode" | "appointmentStatus" | "appointmentTime" | "appointmentDate" | "appointmentDay" | "createdAt" >
+
+// user payments table column props
+export type UserPaymentsTableColumnsProps = Pick<Payment, "createdAt" | "totalAmount" | "paymentFor" | "paymentMethod" | "paymentGateway" | "paymentStatus" | "discountAmount">;
