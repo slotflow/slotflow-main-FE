@@ -1,16 +1,18 @@
 import { useQuery } from '@tanstack/react-query';
 import { DataTable } from '@/components/table/data-table';
 import ShimmerTable from '@/components/shimmers/ShimmerTable';
+import { fetchProviderPayments } from '@/utils/apis/provider.api';
 import ShimmerTableTop from '@/components/shimmers/ShimmerTableTop';
 import DataFetchingError from '@/components/common/DataFetchingError';
-import { fetchProviderPayments } from '@/utils/apis/provider.api';
-import { ProviderPaymentsTableColumns } from '@/components/table/columns';
+import { ProviderPaymentsTableColumns } from '@/components/table/providerTableColumns';
 
 const ProviderPayments = () => {
 
   const { data, isLoading, isError, error } = useQuery({
+    queryFn: fetchProviderPayments,
     queryKey: ["Payments"],
-    queryFn: () => fetchProviderPayments(),
+    staleTime: 5 * 60 * 1000,
+    refetchOnWindowFocus: false,
   });
 
   return (

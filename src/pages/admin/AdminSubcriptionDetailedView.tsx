@@ -10,8 +10,10 @@ const AdminSubcriptionDetailedView = () => {
     const { subscriptionId } = useParams<{ subscriptionId: string }>();
 
     const { data, isLoading, isError, error } = useQuery({
-        queryKey: ["subcription"],
         queryFn: () => adminFetchSubscriptionDetails(subscriptionId!),
+        queryKey: ["subcription"],
+        staleTime: 5 * 60 * 1000,
+        refetchOnWindowFocus: false,
     });
 
     return (

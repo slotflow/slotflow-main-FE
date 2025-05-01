@@ -14,8 +14,10 @@ const UserAddressPage = () => {
 
   const queryClient = useQueryClient();
   const { data, isLoading, isError, error } = useQuery({
-    queryFn: () => fetchUserAddress(),
-    queryKey: ["UserAddress"]
+    queryFn: fetchUserAddress,
+    queryKey: ["UserAddress"],
+    staleTime: 5 * 60 * 1000,
+    refetchOnWindowFocus: false,
   });
 
   const [addAddress, setAddAddress] = useState<boolean>(false);

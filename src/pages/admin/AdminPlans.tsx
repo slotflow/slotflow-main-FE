@@ -4,14 +4,16 @@ import { fetchAllPlans } from '@/utils/apis/adminPlan.api';
 import PlanForm from '@/components/form/AdminForms/planForm';
 import ShimmerTable from '@/components/shimmers/ShimmerTable';
 import ShimmerTableTop from '@/components/shimmers/ShimmerTableTop';
-import { AdminPlansTableColumns } from '@/components/table/columns';
+import { AdminPlansTableColumns } from '@/components/table/adminTableColumns';
 import DataFetchingError from '@/components/common/DataFetchingError';
 
 const AdminPlans = () => {
 
     const { data, isLoading, isError, error } = useQuery({
-        queryKey: ["plans"],
         queryFn: fetchAllPlans,
+        queryKey: ["plans"],
+        staleTime: 5 * 60 * 1000,
+        refetchOnWindowFocus: false,
     });
 
     if (isError) return <DataFetchingError message={error.message} />

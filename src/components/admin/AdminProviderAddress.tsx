@@ -10,7 +10,9 @@ const AdminProviderAddress: React.FC<AdminProviderAddressProps> = memo(({ userId
 
     const { data, isLoading, isError, error } = useQuery({
         queryFn: () => fetchProviderAddress(userId),
-        queryKey: ["PAddress", userId]
+        queryKey: ["PAddress", userId],
+        staleTime: 5 * 60 * 1000,
+        refetchOnWindowFocus: false,
     })
 
     

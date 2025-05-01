@@ -3,14 +3,16 @@ import { fetchUsers } from "@/utils/apis/adminUser.api";
 import { DataTable } from "@/components/table/data-table";
 import ShimmerTable from "@/components/shimmers/ShimmerTable";
 import ShimmerTableTop from "@/components/shimmers/ShimmerTableTop";
-import { AdminUsersTableColumns } from "@/components/table/columns";
+import { AdminUsersTableColumns } from "@/components/table/adminTableColumns";
 import DataFetchingError from "@/components/common/DataFetchingError";
 
 const AdminUsers = () => {
 
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["users"],
     queryFn: fetchUsers,
+    queryKey: ["users"],
+    staleTime: 5 * 60 * 1000,
+    refetchOnWindowFocus: false,
   });
 
   if (isError) return <DataFetchingError message={error.message} />

@@ -11,9 +11,11 @@ const ProviderAvailability = () => {
 
     const [tab, setTab] = useState<number>(0);
     const { data, isLoading, isError, error } = useQuery({
-        queryFn: () => fetchProviderServiceAvailability(),
-        queryKey: ["ProviderServiceAvailability"]
-    })
+        queryFn: fetchProviderServiceAvailability,
+        queryKey: ["ProviderServiceAvailability"],
+        staleTime: 5 * 60 * 1000,
+        refetchOnWindowFocus: false,
+    });
 
     return (
         <div className="min-h-full border border-[var(--boxBorder)] rounded-lg p-2 flex flex-col">

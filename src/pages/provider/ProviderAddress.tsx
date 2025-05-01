@@ -8,8 +8,10 @@ import ShimmerProfileDetails from "@/components/shimmers/ShimmerProfileDetails";
 const ProviderAddress = () => {
 
   const { data, isLoading, isError, error } = useQuery({
-    queryFn: () => fetchProviderAddress(),
-    queryKey: ["ProviderAddress"]
+    queryFn: fetchProviderAddress,
+    queryKey: ["ProviderAddress"],
+    staleTime: 5 * 60 * 1000,
+    refetchOnWindowFocus: false,
   });
 
   return (

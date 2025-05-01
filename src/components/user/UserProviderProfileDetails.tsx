@@ -11,7 +11,9 @@ const UserProviderProfileDetails: React.FC<UserProviderProfileDetailsProps> = me
 
     const { data, isLoading, isError, error } = useQuery({
         queryFn: () => userFetchProviderDetails(_id),
-        queryKey: ["Provider", _id]
+        queryKey: ["Provider", _id],
+        staleTime: 5 * 60 * 1000,
+        refetchOnWindowFocus: false,
     })
 
     useEffect(() => {

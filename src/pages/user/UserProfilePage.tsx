@@ -9,8 +9,10 @@ import ShimmerProfileDetails from '@/components/shimmers/ShimmerProfileDetails';
 const UserProfilePage = () => {
 
   const { data, isLoading, isError, error } = useQuery({
-    queryFn: () => fetchUserProfileDetails(),
-    queryKey: ["UserDetails"]
+    queryFn: fetchUserProfileDetails,
+    queryKey: ["UserDetails"],
+    staleTime: 5 * 60 * 1000,
+    refetchOnWindowFocus: false,
   });
   
   return (

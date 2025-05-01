@@ -2,16 +2,18 @@ import { DataTable } from "../table/data-table";
 import { useQuery } from "@tanstack/react-query";
 import ShimmerTable from "../shimmers/ShimmerTable";
 import ShimmerTableTop from "../shimmers/ShimmerTableTop";
-import { ProviderPaymentsTableColumns } from "../table/columns";
 import DataFetchingError from "../common/DataFetchingError";
 import { adminFetchProviderPayments } from "@/utils/apis/adminProvider.api";
+import { ProviderPaymentsTableColumns } from "../table/providerTableColumns";
 import { AdminFetchProviderPayments } from "@/utils/interface/adminInterface";
 
 const AdminProviderPayments: React.FC<AdminFetchProviderPayments> = ({ _id }) => {
 
     const { data, isLoading, isError, error } = useQuery({
         queryFn: () => adminFetchProviderPayments(_id),
-        queryKey: ["PPayments", _id]
+        queryKey: ["PPayments", _id],
+        staleTime: 5 * 60 * 1000,
+        refetchOnWindowFocus: false,
     })
 
     return (

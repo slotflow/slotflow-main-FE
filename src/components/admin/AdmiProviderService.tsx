@@ -12,8 +12,10 @@ const AdmiProviderService: React.FC<AdminProviderServiceProps> = memo(({ provide
     const [largeImg, setLargeImg] = useState<boolean>(false);
 
     const { data, isLoading, isError, error } = useQuery({
-        queryKey: ["PService", providerId],
         queryFn: () => fetchProviderService(providerId),
+        queryKey: ["PService", providerId],
+        staleTime: 5 * 60 * 1000,
+        refetchOnWindowFocus: false,
     })
 
     if (isError) {

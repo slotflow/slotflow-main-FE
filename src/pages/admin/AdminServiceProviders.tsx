@@ -4,13 +4,15 @@ import ShimmerTable from "@/components/shimmers/ShimmerTable";
 import { fetchProviders } from "@/utils/apis/adminProvider.api";
 import ShimmerTableTop from "@/components/shimmers/ShimmerTableTop";
 import DataFetchingError from "@/components/common/DataFetchingError";
-import { AdminProvidersTableColumns } from "@/components/table/columns";
+import { AdminProvidersTableColumns } from "@/components/table/adminTableColumns";
 
 const AdminServiceProviders = () => {
 
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["providers"],
     queryFn: fetchProviders,
+    queryKey: ["providers"],
+    staleTime: 5 * 60 * 1000,
+    refetchOnWindowFocus: false,
   });
 
   if (isError) return <DataFetchingError message={error.message} />

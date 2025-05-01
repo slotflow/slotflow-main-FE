@@ -4,13 +4,15 @@ import ShimmerTable from '@/components/shimmers/ShimmerTable';
 import ShimmerTableTop from '@/components/shimmers/ShimmerTableTop';
 import DataFetchingError from '@/components/common/DataFetchingError';
 import { adminFetchAllSubscriptions } from '@/utils/apis/adminSubscription.api';
-import { AdminProvidersSubscriptionsTableColumns } from '@/components/table/columns';
+import { AdminProvidersSubscriptionsTableColumns } from '@/components/table/adminTableColumns';
 
 const AdminSubscriptions = () => {
 
     const { data, isLoading, isError, error } = useQuery({
-        queryKey: ["subscriptions"],
         queryFn: adminFetchAllSubscriptions,
+        queryKey: ["subscriptions"],
+        staleTime: 5 * 60 * 1000,
+        refetchOnWindowFocus: false,
     });
 
     if (isError) return <DataFetchingError message={error.message} />

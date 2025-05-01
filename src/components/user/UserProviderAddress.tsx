@@ -10,7 +10,9 @@ const UserProviderAddress : React.FC<UserProviderAddressProps> = ({ _id }) => {
 
     const { data, isLoading, isError, error } = useQuery({
         queryFn: () => userFetchProviderAddress(_id),
-        queryKey: ["PAddress", _id]
+        queryKey: ["PAddress", _id],
+        staleTime: 5 * 60 * 1000,
+        refetchOnWindowFocus: false,
     })
     
     if (isError) {

@@ -9,8 +9,10 @@ import { PlanListProps } from '@/utils/interface/providerInterface';
 const PlanList: React.FC<PlanListProps> = ({ storeSubscribingData, showPlans, plansRef }) => {
 
     const { data: plansData, isLoading, isError, error } = useQuery({
-        queryKey: ["plans"],
         queryFn: fetchProviderPlans,
+        queryKey: ["plans"],
+        staleTime: 5 * 60 * 1000,
+        refetchOnWindowFocus: false,
     });
 
     return (

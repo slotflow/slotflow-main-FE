@@ -9,8 +9,10 @@ import ShimmerProfileDetails from "@/components/shimmers/ShimmerProfileDetails";
 const ProviderProfile = () => {
 
   const { data, isLoading, isError, error } = useQuery({
-    queryFn: () => fetchProviderProfileDetails(),
-    queryKey: ["ProviderDetails"]
+    queryFn: fetchProviderProfileDetails,
+    queryKey: ["ProviderDetails"],
+    staleTime: 5 * 60 * 1000,
+    refetchOnWindowFocus: false,
   });
 
   return (

@@ -3,14 +3,16 @@ import { useQuery } from '@tanstack/react-query';
 import ShimmerTable from '../shimmers/ShimmerTable';
 import ShimmerTableTop from '../shimmers/ShimmerTableTop';
 import DataFetchingError from '../common/DataFetchingError';
-import { ProviderSubscriptionSTableColumns } from '../table/columns';
 import { fetchProviderSubscriptions } from '@/utils/apis/provider.api';
+import { ProviderSubscriptionsTableColumns } from '../table/providerTableColumns';
 
 const SubscriptionHistory = () => {
     
     const { data, isLoading, isError, error } = useQuery({
-        queryKey: ["subscriptions"],
         queryFn: () => fetchProviderSubscriptions(),
+        queryKey: ["subscriptions"],
+        staleTime: 5 * 60 * 1000,
+        refetchOnWindowFocus: false,
     });
 
     return (
@@ -24,7 +26,7 @@ const SubscriptionHistory = () => {
                     <ShimmerTable />
                 </>
             ) : data ? (
-                <DataTable columns={ProviderSubscriptionSTableColumns} data={data} />
+                <DataTable columns={ProviderSubscriptionsTableColumns} data={data} />
             ) : (
                 <DataFetchingError message="No data found" />
             )}

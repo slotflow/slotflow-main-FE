@@ -11,8 +11,10 @@ const ProviderService = () => {
 
   const [largeImg, setLargeImg] = useState<boolean>(false);
   const { data, isLoading, isError, error } = useQuery({
+    queryFn: fetchProviderServiceDetails,
     queryKey: ["ProviderService"],
-    queryFn: () => fetchProviderServiceDetails(),
+    staleTime: 5 * 60 * 1000,
+    refetchOnWindowFocus: false,
   });
 
   return (

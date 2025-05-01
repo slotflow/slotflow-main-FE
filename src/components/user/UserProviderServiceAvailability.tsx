@@ -21,8 +21,10 @@ const UserProviderServiceAvailability: React.FC<UserProviderServiceAvailabilityP
     const [showCalendar, setShowCalendar] = useState<boolean>(false);
 
     const { data, isLoading, isError, error } = useQuery({
+        queryFn: () => userFetchProviderServiceAvailability(_id),
         queryKey: ["PSAvailability", _id],
-        queryFn: () => userFetchProviderServiceAvailability(_id)
+        staleTime: 5 * 60 * 1000,
+        refetchOnWindowFocus: false,
     });
 
     useEffect(() => {

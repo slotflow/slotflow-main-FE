@@ -9,8 +9,8 @@ import { userAllBookingsTableColumns } from "@/components/table/userTableColumns
 const UserBookingsPage = () => {
 
     const { data, isLoading, isError, error } = useQuery({
+        queryFn: userFetchBookings,
         queryKey: ["bookings"],
-        queryFn: () => userFetchBookings(),
         staleTime: 5 * 60 * 1000,
         refetchOnWindowFocus: false,
     });

@@ -11,7 +11,9 @@ const AdminProviderDetails: React.FC<AdminProviderDetailsProps> = memo(({ _id })
 
     const { data, isLoading, isError, error } = useQuery({
         queryFn: () => fetchProviderDetails(_id),
-        queryKey: ["Provider", _id]
+        queryKey: ["Provider", _id],
+        staleTime: 5 * 60 * 1000,
+        refetchOnWindowFocus: false,
     })
 
     if (isError) {

@@ -15,8 +15,10 @@ const UserServiceSelectPage = () => {
     const navigate = useNavigate();
 
     const { data, isLoading, isError, error } = useQuery({
-        queryKey: ["services"],
         queryFn: fetchServices,
+        queryKey: ["services"],
+        staleTime: 5 * 60 * 1000,
+        refetchOnWindowFocus: false,
     });
 
     const handleServiceToggle = (serviceId: string) => {

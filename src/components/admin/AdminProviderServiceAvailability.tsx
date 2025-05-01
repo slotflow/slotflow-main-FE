@@ -11,8 +11,10 @@ const AdminProviderServiceAvailability: React.FC<AdminProviderServiceAvailabilit
 
     const [tab, setTab] = useState(0);
     const { data, isLoading, isError, error } = useQuery({
+        queryFn: () => adminFetchProviderServiceAvailability(_id),
         queryKey: ["PSAvailability", _id],
-        queryFn: () => adminFetchProviderServiceAvailability(_id)
+        staleTime: 5 * 60 * 1000,
+        refetchOnWindowFocus: false,
     });
 
     if (isError) {

@@ -11,6 +11,8 @@ const UserProviderService: React.FC<UserProviderServiceProps> = ({ _id }) => {
     const { data, isLoading, isError, error } = useQuery({
         queryKey: ["PService", _id],
         queryFn: () => userFetchProviderService(_id),
+        staleTime: 5 * 60 * 1000,
+        refetchOnWindowFocus: false,
     })
 
     if (isError) {

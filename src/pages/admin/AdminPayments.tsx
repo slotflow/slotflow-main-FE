@@ -4,12 +4,14 @@ import ShimmerTable from '@/components/shimmers/ShimmerTable';
 import ShimmerTableTop from '@/components/shimmers/ShimmerTableTop';
 import DataFetchingError from '@/components/common/DataFetchingError';
 import { adminFetchAllPayments } from '@/utils/apis/adminPayment.api';
-import { AdminAllPaymentsTableColumns } from '@/components/table/columns';
+import { AdminAllPaymentsTableColumns } from '@/components/table/adminTableColumns';
 
 const AdminPayments = () => {
     const { data, isLoading, isError, error } = useQuery({
-        queryKey: ["payments"],
         queryFn: adminFetchAllPayments,
+        queryKey: ["payments"],
+        staleTime: 5 * 60 * 1000,
+        refetchOnWindowFocus: false,
     });
 
     if (isError) return <DataFetchingError message={error.message} />
