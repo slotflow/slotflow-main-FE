@@ -1,33 +1,40 @@
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
-import { useState, ChangeEvent, FormEvent } from 'react';
+import { TimePicker } from '@/components/ui/TimePicker';
+import { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import CommonButton from '@/components/common/CommonButton';
 import RightSideBox from '@/components/provider/RightSideBox';
 import { AppDispatch, RootState } from '@/utils/redux/appStore';
+import { format, addMinutes, isBefore, isEqual } from "date-fns";
 import { addAvailability } from '@/utils/redux/slices/providerSlice';
 import SelectFiledWithLabel from '@/components/form/SelectFiledWithLabel';
-import { addProviderServiceAvailability } from '@/utils/apis/provider.api';
+import { addProviderServiceAvailabilities } from '@/utils/apis/provider.api';
+import { Checkbox } from '@/components/ui/checkbox';
 
 interface TimeSlot {
-  startTime: string;
-  endTime: string;
+  startTime: Date;
+  endTime: Date;
 }
 
-
 const ProviderAddServiceAvailability = () => {
+
   const dispatch = useDispatch<AppDispatch>();
   const { dataUpdating } = useSelector((store: RootState) => store.auth);
 
   const [selectedDay, setSelectedDay] = useState<string>('Sunday');
   const [selectedDuration, setSelectedDuration] = useState<string>("15 minutes");
-  const [timeSlots, setTimeSlots] = useState<string[]>([])
+  const [timeSlots, setTimeSlots] = useState<string[]>([]);
   const [newTimeSlot, setNewTimeSlot] = useState<TimeSlot>({
-    startTime: '00:00',
-    endTime: '00:00',
+    startTime: new Date(),
+    endTime: new Date(),
   });
   const [selectedTimeSlots, setSelectedTimeSlots] = useState<string[]>([]);
   const { availabilities } = useSelector((store: RootState) => store.provider);
   const [modes, setModes] = useState<string[]>([]);
+  const [selectAllSlots, setSelectAllSlots] = useState<boolean>(false);
+
+  useEffect(() => {
+  }, [selectedTimeSlots]);
 
   const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   const serviceDurations = ['15 minutes', '30 minutes', '1 hour'];
@@ -40,17 +47,21 @@ const ProviderAddServiceAvailability = () => {
     setSelectedDuration(e.target.value);
   };
 
-  const handleStartTimeChange = (time: string) => {
+  const handleStartTimeChange = (time: Date) => {
     setNewTimeSlot({ ...newTimeSlot, startTime: time });
   };
 
-  const handleEndTimeChange = (time: string) => {
+  const handleEndTimeChange = (time: Date) => {
     setNewTimeSlot({ ...newTimeSlot, endTime: time });
   };
 
-  const generateTimeSlots = (startTime: string, endTime: string, intervalMinutes: string): void => {
+  const generateTimeSlots = (start: Date, end: Date, intervalMinutes: string): void => {
+    if (!start || !end) {
+      toast.warning("Please select the startTime and endTime");
+      return;
+    }
+
     const slots: string[] = [];
-    let currentTime = startTime;
     let interval = 0;
 
     if (intervalMinutes === "15 minutes") {
@@ -59,26 +70,20 @@ const ProviderAddServiceAvailability = () => {
       interval = 30;
     } else if (intervalMinutes === "1 hour") {
       interval = 60;
-    }else{
+    } else {
+      toast.warning("Invalid interval");
       return;
     }
-    
-    while (currentTime <= endTime) {
-      slots.push(format12HourTime(currentTime));
-      const [hours, minutes] = currentTime.split(':').map(Number);
-      const nextMinutes = minutes + interval;
-      const nextHours = hours + Math.floor(nextMinutes / 60);
-      const nextMinutesAdjusted = nextMinutes % 60;
-      currentTime = `${String(nextHours).padStart(2, '0')}:${String(nextMinutesAdjusted).padStart(2, '0')}`;
-    }
-    setTimeSlots(slots);
-  };
 
-  const format12HourTime = (time24: string): string => {
-    const [hours, minutes] = time24.split(':').map(Number);
-    const period = hours >= 12 ? 'PM' : 'AM';
-    const hour12 = hours % 12 === 0 ? 12 : hours % 12;
-    return `${hour12}:${String(minutes).padStart(2, '0')} ${period}`;
+    let current = new Date(start);
+
+    while (isBefore(current, end) || isEqual(current, end)) {
+      const formatted = format(current, "hh:mm a");
+      slots.push(formatted);
+      current = addMinutes(current, interval);
+    }
+
+    setTimeSlots(slots);
   };
 
   const handleTimeSlotAdding = (timeSlot: string) => {
@@ -99,14 +104,41 @@ const ProviderAddServiceAvailability = () => {
 
   const handleAddAvailability = (e: React.MouseEvent<HTMLButtonElement>): void => {
     e.preventDefault();
+
+    if (!selectedDay) {
+      toast.warning("Please select a day");
+      return;
+    } else if (!selectedDuration) {
+      toast.warning("Please select a duration");
+      return;
+    } else if (!newTimeSlot.startTime) {
+      toast.warning("Please select a startTime");
+      return;
+    } else if (!newTimeSlot.endTime) {
+      toast.warning("Please select an endTime");
+      return;
+    } else if (modes.length === 0) {
+      toast.warning("Please select a service mode");
+      return;
+    } else if (selectedTimeSlots.length === 0) {
+      toast.warning("Please select time slots")
+      return;
+    }
+
+    const startTime = format(newTimeSlot.startTime, "hh:mm a");
+    const endTime = format(newTimeSlot.endTime, "hh:mm a");
+
     const data = {
       day: selectedDay,
       duration: selectedDuration,
-      startTime: newTimeSlot.startTime,
-      endTime: newTimeSlot.endTime,
+      startTime: startTime,
+      endTime: endTime,
       modes: modes,
       slots: selectedTimeSlots
     }
+
+    console.log("data : ", data);
+
     dispatch(addAvailability(data));
     toast.success(`${selectedDay} availability added.`);
   }
@@ -117,22 +149,32 @@ const ProviderAddServiceAvailability = () => {
       toast.info("You didnt added any availability.");
       return;
     }
-    if(modes.length === 0){
+    if (modes.length === 0) {
       toast.info("Please select your service mode.");
       return;
     }
-    dispatch(addProviderServiceAvailability({ data: availabilities }))
-    .unwrap()
-    .then((res) => {
-      if(res.success){
-        toast.success(res.message);
-      }else{
-        toast.error(res.message);
-      }
-    })
+    dispatch(addProviderServiceAvailabilities({ data: availabilities }))
+      .unwrap()
+      .then((res) => {
+        if (res.success) {
+          toast.success(res.message);
+        } else {
+          toast.error(res.message);
+        }
+      })
   }
 
   const isModeSelected = (mode: string) => modes.includes(mode);
+
+  const handleAllSlots = (push : boolean) => {
+    if(push && timeSlots.length > 0) {
+      setSelectedTimeSlots(timeSlots);
+    } else if(!push && selectedTimeSlots.length > 0){
+      setSelectedTimeSlots([])
+    } else {
+      toast.error("Please generate slots");
+    }
+  }
 
   return (
     <div className="h-screen pt-16 flex justify-center w-full bg-[var(--background)]">
@@ -189,21 +231,21 @@ const ProviderAddServiceAvailability = () => {
             <div className="flex items-end space-x-4 justify-between">
               <div className="w-4/12">
                 <label className="block text-sm font-medium">Start Time (HH:mm)</label>
-                <input
-                  type="time"
-                  value={newTimeSlot.startTime}
-                  onChange={(e) => handleStartTimeChange(e.target.value)}
-                  className="mt-2 block w-full rounded-md bg-[var(--inputBg)] px-2 py-1 md:px-3 md:py-2 text-[var(--textOne)] outline-1 -outline-offset-1 outline-[var(--boxBorder)] placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-[var(--mainColor)] text-xs  md:text-sm"
-                />
+                <div className='mt-2'>
+                  <TimePicker
+                    value={newTimeSlot.startTime}
+                    onChange={(newTime) => handleStartTimeChange(newTime)}
+                  />
+                </div>
               </div>
               <div className="w-4/12">
                 <label className="block text-sm font-medium">End Time (HH:mm)</label>
-                <input
-                  type="time"
-                  value={newTimeSlot.endTime}
-                  onChange={(e) => handleEndTimeChange(e.target.value)}
-                  className="mt-2 block w-full rounded-md bg-[var(--inputBg)] px-2 py-1 md:px-3 md:py-2 text-[var(--textOne)] outline-1 -outline-offset-1 outline-[var(--boxBorder)] placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-[var(--mainColor)] text-xs  md:text-sm"
-                />
+                <div className='mt-2'>
+                  <TimePicker
+                    value={newTimeSlot.endTime}
+                    onChange={(newTime) => handleEndTimeChange(newTime)}
+                  />
+                </div>
               </div>
               <button
                 type="button"
@@ -217,9 +259,20 @@ const ProviderAddServiceAvailability = () => {
             <div className="w-full space-y-6">
               {timeSlots && timeSlots.length > 0 && (
                 <div className="mt-6">
-                  <h3 className="text-lg font-semibold mb-4">
-                    Select your time slots
-                  </h3>
+                  <div className='flex items-center mb-4'>
+                    <h3 className="text-lg font-semibold">
+                      Select your time slots
+                    </h3>
+                    <Checkbox
+                      checked={selectAllSlots}
+                      onCheckedChange={(checked) => {
+                        setSelectAllSlots(!!checked);
+                        handleAllSlots(!selectAllSlots)
+                      }}
+                      className='ml-4 cursor-pointer'
+                    />
+                    <p className='ml-2'>{selectAllSlots ? "Deselect all slots" : "Select all slots"}</p>
+                  </div>
                   <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
                     {timeSlots.map((timeSlot) => (
                       <div
@@ -241,15 +294,19 @@ const ProviderAddServiceAvailability = () => {
           </div>
 
           {selectedTimeSlots.length > 0 && (
-            <div className="mt-10 flex justify-end space-x-2">
-              <CommonButton text={"Add"} onClick={handleAddAvailability} type={"button"}/>
-              <CommonButton text={dataUpdating ? "Loading" : "Submit"} type={"submit"} />
-            </div>
+            <>
+              <div className="mt-10 flex justify-end space-x-2">
+                <CommonButton text={"Add"} onClick={handleAddAvailability} type={"button"} />
+                <CommonButton text={dataUpdating ? "Loading" : "Submit"} type={"submit"} />
+              </div>
+              <div className='mt-10'>
+                <p className='text-sm text-gray-400 italic'>Note: Please add your daily service available slots by selecting a day, Once you're done, only click Submit</p>
+              </div>
+            </>
           )}
 
         </form>
       </div>
-
       <RightSideBox props={{ pageNumber: 3 }} />
     </div>
   );

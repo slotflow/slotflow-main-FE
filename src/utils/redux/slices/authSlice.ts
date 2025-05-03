@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { AuthState, UserData } from "@/utils/interface/sliceInterface";
-import { addProviderAddress, addProviderServiceAvailability, addProviderServiceDetails, updateProviderProfileImage } from "@/utils/apis/provider.api";
 import { updateUserProfileImage } from "@/utils/apis/user.api";
+import { AuthState, UserData } from "@/utils/interface/sliceInterface";
+import { addProviderAddress, addProviderServiceAvailabilities, addProviderServiceDetails, updateProviderProfileImage } from "@/utils/apis/provider.api";
 
 const initialState: AuthState = {
     authUser: null,
@@ -14,7 +14,6 @@ const authSlice = createSlice({
     initialState,
     reducers: {
         setAuthUser: (state, action: PayloadAction<UserData | null>) => {
-            console.log("action.payload : ",action.payload);
             state.authUser = action.payload;
         },
         setProfileImage: (state, action: PayloadAction<string>) => {
@@ -73,16 +72,16 @@ const authSlice = createSlice({
             .addCase(addProviderServiceDetails.rejected, (state) => {
                 state.dataUpdating = false;
             })
-            .addCase(addProviderServiceAvailability.pending, (state) => {
+            .addCase(addProviderServiceAvailabilities.pending, (state) => {
                 state.dataUpdating = true;
             })
-            .addCase(addProviderServiceAvailability.fulfilled, (state, action) => {
+            .addCase(addProviderServiceAvailabilities.fulfilled, (state, action) => {
                 state.dataUpdating = false;
                 if(state.authUser){
                     state.authUser.serviceAvailability = action.payload.success;
                 }
             })
-            .addCase(addProviderServiceAvailability.rejected, (state) => {
+            .addCase(addProviderServiceAvailabilities.rejected, (state) => {
                 state.dataUpdating = false;
             });
     },

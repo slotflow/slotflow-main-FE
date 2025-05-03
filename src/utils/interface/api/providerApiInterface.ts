@@ -39,7 +39,7 @@ export interface AddProviderServiceDetailsPayload {
 }
 
 // Provider service availability adding request payload used in provider api
-export interface AddProviderServiceAvailabilityPayload {
+export interface AddProviderServiceAvailabilitiesPayload {
     data: Availability[];
 }
 

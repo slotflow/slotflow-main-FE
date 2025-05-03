@@ -4,7 +4,7 @@ import {
     FetchAllServicesResponse,
     AddProviderServiceDetailsPayload,
     ProviderFetchAddressResponseProps,
-    AddProviderServiceAvailabilityPayload,
+    AddProviderServiceAvailabilitiesPayload,
     ProviderUpdateProfileImageResponseProps,
     ProviderFetchProfileDetailsResponseProps,
     ProviderFetchServiceDetailsResponseProps,
@@ -38,8 +38,8 @@ export const addProviderServiceDetails = createAsyncThunk<CommonResponse, AddPro
 )
 
 // Create async thunk for updating authSlice serviceAvailability: true
-export const addProviderServiceAvailability = createAsyncThunk<CommonResponse, AddProviderServiceAvailabilityPayload>("/provider/addServiceAvailability",
-    async ({ data }: AddProviderServiceAvailabilityPayload) => {
+export const addProviderServiceAvailabilities = createAsyncThunk<CommonResponse, AddProviderServiceAvailabilitiesPayload>("/provider/addServiceAvailability",
+    async ({ data }: AddProviderServiceAvailabilitiesPayload) => {
         const response = await axiosInstance.post(`/provider/addProviderServiceAvailability`, data);
         return response.data;
     }
