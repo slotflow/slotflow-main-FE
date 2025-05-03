@@ -9,19 +9,38 @@ import { Slot } from '@/utils/interface/serviceAvailabilityInterface';
 import { userFetchProviderServiceAvailability } from '@/utils/apis/user.api';
 import ShimmerProviderAvailability from '../shimmers/ShimmerProviderAvailability';
 import { UserProviderServiceAvailabilityProps } from '@/utils/interface/userInterface';
-import CommonButton from '../common/CommonButton';
+import { format } from 'date-fns';
+
+const dayMap: { [ key : string ] :  {
+    day:  string,
+    tab: number
+}}= {
+    "Sun": { day: "Sunday", tab: 0 },
+    "Mon": { day: "Monday", tab: 1 },
+    "Tue": { day: "Tuesday", tab: 2 },
+    "Wed": { day: "Wednesday", tab: 3 },
+    "Thu": { day: "Thursday", tab: 4 },
+    "Fri": { day: "Friday", tab: 5 },
+    "Sat": { day: "Saturday", tab: 6 }
+}
 
 const UserProviderServiceAvailability: React.FC<UserProviderServiceAvailabilityProps> = ({ _id }) => {
 
-    const [openPayment, setOpenPayment] = useState<boolean>(false);
-    const [selectedSlotId, setSelectedSlotId] = useState<string | null>(null);
     const [tab, setTab] = useState<number>(0);
     const [day, setDay] = useState<string>("");
+    const [openPayment, setOpenPayment] = useState<boolean>(false);
     const [date, setDate] = useState<Date | undefined>(new Date());
-    const [showCalendar, setShowCalendar] = useState<boolean>(false);
+    const [selectedSlotId, setSelectedSlotId] = useState<string | null>(null);
+
+    const findDayFromCalendar = (date: Date) => {
+        const dayName = format(date, "EEE");
+        const mapDay = dayMap[dayName];
+        setDay(mapDay.day);
+        setTab(mapDay.tab);
+    }
 
     const { data, isLoading, isError, error } = useQuery({
-        queryFn: () => userFetchProviderServiceAvailability(_id),
+        queryFn: () => userFetchProviderServiceAvailability(_id, date!),
         queryKey: ["PSAvailability", _id],
         staleTime: 5 * 60 * 1000,
         refetchOnWindowFocus: false,
@@ -29,9 +48,12 @@ const UserProviderServiceAvailability: React.FC<UserProviderServiceAvailabilityP
 
     useEffect(() => {
         setOpenPayment(false);
-        if (!data) return;
-        setDay(data?.availability[0].day || "")
-    }, [data])
+        if (!data || !date || date === null) return;
+        findDayFromCalendar(date)
+    }, [data, date])
+
+    console.log("tab : ",tab);
+    console.log("day : ",day);
 
     if (!data?.availability) {
         return <DataFetchingError message="No availability found." />;
@@ -60,23 +82,14 @@ const UserProviderServiceAvailability: React.FC<UserProviderServiceAvailabilityP
 
     return (
         <>
-            <div className='px-8 space-y-4'>
-                <Calendar
-                    mode="single"
-                    selected={date}
-                    onSelect={setDate}
-                    className={`rounded-md border w-3/12 ${!showCalendar && 'hidden'}`}
-                />
-            </div>
-            <div className="flex w-full mx-auto p-6 rounded-lg">
-                <div className="flex flex-col w-3/12 space-y-4 px-2 items-start">
-                <CommonButton 
-                    onClick={() => setShowCalendar(!showCalendar)} 
-                    text={`${showCalendar ? "Close calendar" : "Show calendar"}`}
-                />
-                    {data && data.availability?.map((avail, index: number) => (
-                        <button key={index} className={`w-full cursor-pointer bg-[var(--menuBg)] hover:bg-[var(--menuItemHoverBg)] p-2 rounded-lg ${tab === index && "text-[var(--mainColor)] font-semibold"}`} onClick={() => { setTab(index); setDay(avail.day) }}>{avail.day}</button>
-                    ))}
+            <div className="flex w-full mx-auto rounded-lg">
+                <div className='space-y-4'>
+                    <Calendar
+                        mode="single"
+                        selected={date}
+                        onSelect={setDate}
+                        className={`rounded-md border`}
+                    />
                 </div>
                 <div className="table-auto w-full flex flex-col">
                     <table className="table-auto border-collapse border border-[var(--boxBorder)] w-full">
