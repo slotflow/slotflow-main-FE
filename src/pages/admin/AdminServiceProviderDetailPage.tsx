@@ -35,7 +35,7 @@ const AdminServiceProviderDetailPage = () => {
             <div className={`flex-grow`}>
 
             {tab === 0 && (
-                <UserOrProviderProfileDetails fetchApiFunction={() => fetchProviderDetails(providerId)} userOrProviderId={providerId} authUserType="admin" profileuUserType="provider" />
+                <UserOrProviderProfileDetails fetchApiFunction={() => fetchProviderDetails(providerId)} queryKey="providerProfile" userOrProviderId={providerId} authUserType="admin" profileuUserType="provider" />
             ) || tab === 1 && (
                 <UserOrProviderAddressDetails userOrProviderId={providerId} fetchApiFunction={() => fetchProviderAddress(providerId)} quryKey="providerAddress" authUserType="admin" addressUserType="provider" />
             ) || tab === 2 && (

@@ -7,7 +7,7 @@ const UserProfilePage = () => {
   return (
     <div className="min-h-full border border-[var(--boxBorder)] rounded-lg p-2 flex flex-col">
       <UserProfileHead />
-      <UserOrProviderProfileDetails fetchApiFunction={userFetchUserProfileDetails} authUserType='user' profileuUserType='user'/>
+      <UserOrProviderProfileDetails fetchApiFunction={userFetchUserProfileDetails} queryKey='profileDetails' authUserType='user' profileuUserType='user'/>
     </div>
   )
 }

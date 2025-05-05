@@ -17,6 +17,7 @@ interface UserOrProviderProfileDetailsComponentProps {
         UserFetchProviderProfileDetailsResponse |
         UserFetchUserProfileResponse
     >;
+    queryKey: string;
     authUserType: "admin" | "user" | "provider";
     profileuUserType: "user" | "provider";
     setProfileImage?: (image: string) => void,
@@ -25,6 +26,7 @@ interface UserOrProviderProfileDetailsComponentProps {
 const UserOrProviderProfileDetails: React.FC<UserOrProviderProfileDetailsComponentProps> = ({
     userOrProviderId,
     fetchApiFunction,
+    queryKey,
     authUserType,
     profileuUserType,
     setProfileImage
@@ -32,7 +34,7 @@ const UserOrProviderProfileDetails: React.FC<UserOrProviderProfileDetailsCompone
 
     const { data, isLoading, isError, error } = useQuery({
         queryFn: () => fetchApiFunction(userOrProviderId && userOrProviderId),
-        queryKey: ["userOrProviderProfile", userOrProviderId],
+        queryKey: [queryKey],
         staleTime: 5 * 60 * 1000,
         refetchOnWindowFocus: false,
     })

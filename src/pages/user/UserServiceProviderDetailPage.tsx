@@ -33,7 +33,7 @@ const UserServiceProviderDetailPage = () => {
             <div className={`flex-grow`}>
 
             {tab === 0 && (
-                <UserOrProviderProfileDetails fetchApiFunction={() => userFetchProviderDetails(providerId)} setProfileImage={setProviderProfileImg} userOrProviderId={providerId} authUserType="user" profileuUserType="provider" />
+                <UserOrProviderProfileDetails fetchApiFunction={() => userFetchProviderDetails(providerId)} queryKey="providerProfile" setProfileImage={setProviderProfileImg} userOrProviderId={providerId} authUserType="user" profileuUserType="provider" />
             ) || tab === 1 && (
                 <UserOrProviderAddressDetails userOrProviderId={providerId} fetchApiFunction={() => userFetchProviderAddress(providerId)} quryKey="providerAddress" authUserType="user" addressUserType="provider" />
             ) || tab === 2 && (
