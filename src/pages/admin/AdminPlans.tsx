@@ -31,7 +31,7 @@ const AdminPlans = () => {
                     ) : data && data ? (
                         <DataTable columns={AdminPlansTableColumns} data={data} />
                     ) : (
-                        <DataFetchingError message={"No data found"} />
+                        <DataFetchingError message={"No plan data found"} />
                     )}
                 </div>
                 <div className='w-4/12 mx-2'>

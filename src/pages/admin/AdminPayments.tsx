@@ -7,6 +7,7 @@ import { adminFetchAllPayments } from '@/utils/apis/adminPayment.api';
 import { AdminAllPaymentsTableColumns } from '@/components/table/adminTableColumns';
 
 const AdminPayments = () => {
+
     const { data, isLoading, isError, error } = useQuery({
         queryFn: adminFetchAllPayments,
         queryKey: ["payments"],
@@ -29,7 +30,7 @@ const AdminPayments = () => {
                     <DataTable columns={AdminAllPaymentsTableColumns} data={data} />
                 </>
             ) : (
-                <DataFetchingError message={"No data found"} />
+                <DataFetchingError message={"No payments data found"} />
             )}
         </>
     )
