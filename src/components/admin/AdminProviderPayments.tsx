@@ -1,35 +1,24 @@
-import { DataTable } from "../table/data-table";
-import { useQuery } from "@tanstack/react-query";
-import ShimmerTable from "../shimmers/ShimmerTable";
-import ShimmerTableTop from "../shimmers/ShimmerTableTop";
-import DataFetchingError from "../common/DataFetchingError";
+import CommonTable from "../common/CommonTable";
 import { adminFetchProviderPayments } from "@/utils/apis/adminProvider.api";
 import { ProviderPaymentsTableColumns } from "../table/providerTableColumns";
-import { AdminFetchProviderPayments } from "@/utils/interface/adminInterface";
+import { ProviderPaymentsTableColumnsProps } from "@/utils/interface/tableColumnInterface";
+import { AdminFetchProviderPaymentsResponseProps } from "@/utils/interface/api/adminProviderApiInterface";
 
-const AdminProviderPayments: React.FC<AdminFetchProviderPayments> = ({ _id }) => {
+interface AdminFetchProviderPayments {
+    providerId : string
+}
 
-    const { data, isLoading, isError, error } = useQuery({
-        queryFn: () => adminFetchProviderPayments(_id),
-        queryKey: ["PPayments", _id],
-        staleTime: 5 * 60 * 1000,
-        refetchOnWindowFocus: false,
-    })
+const AdminProviderPayments: React.FC<AdminFetchProviderPayments> = ({ providerId }) => {
 
     return (
         <div className="p-6">
-            {isError ? (
-                <DataFetchingError message={error.message} />
-            ) : isLoading ? (
-                <>
-                    <ShimmerTableTop />
-                    <ShimmerTable />
-                </>
-            ) : data ? (
-                <DataTable columns={ProviderPaymentsTableColumns} data={data} />
-            ) : (
-                <DataFetchingError message="No data found" />
-            )}
+            <CommonTable<AdminFetchProviderPaymentsResponseProps, ProviderPaymentsTableColumnsProps>
+                fetchApiFunction={() => adminFetchProviderPayments(providerId)}
+                queryKey="providerPayments"
+                column={ProviderPaymentsTableColumns}
+                columnsCount={7}
+                id={providerId}
+            />
         </div>
     )
 }

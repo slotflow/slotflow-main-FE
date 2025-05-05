@@ -6,11 +6,12 @@ import DataFetchingError from "./DataFetchingError";
 import ShimmerTableTop from "../shimmers/ShimmerTableTop";
 
 interface CommonTableComponentProps<TData, TColumn> {
-    fetchApiFunction: () => Promise<TData[]>;
+    fetchApiFunction: (id?: string) => Promise<TData[]>;
     queryKey: string;
-    heading: string;
+    heading?: string;
     column: ColumnDef<TColumn>[];
     columnsCount: number;
+    id?: string
 }
 
 const CommonTable = <TData extends TColumn, TColumn> ({
@@ -19,10 +20,11 @@ const CommonTable = <TData extends TColumn, TColumn> ({
     heading,
     column,
     columnsCount,
+    id,
 }: CommonTableComponentProps<TData, TColumn>) => {
 
     const { data, isLoading, isError, error } = useQuery({
-        queryFn: fetchApiFunction,
+        queryFn: () => fetchApiFunction(id && id),
         queryKey: [queryKey],
         staleTime: 1 * 60 * 1000,
         refetchOnWindowFocus: false,
@@ -37,7 +39,9 @@ const CommonTable = <TData extends TColumn, TColumn> ({
             </>
         ) : data ? (
             <>
-            <h2 className="text-2xl font-bold my-4">{heading}</h2>
+            { heading && (
+                <h2 className="text-2xl font-bold my-4">{heading}</h2>
+            )}
             <DataTable columns={column} data={data} />
             </>
         ) : isError ? (

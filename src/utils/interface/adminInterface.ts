@@ -7,8 +7,7 @@ import { Provider } from "./providerInterface";
 // Admin fetch provider subscriptions component interface
 export type AdminFetchProviderSubscriptions = Pick<Provider, "_id">;
 
-// Admin fetch provider payments component interface
-export type AdminFetchProviderPayments = Pick<Provider, "_id">;
+
 
 
 
