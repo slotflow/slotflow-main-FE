@@ -24,7 +24,7 @@ const CommonTable = <TData extends TColumn, TColumn> ({
 }: CommonTableComponentProps<TData, TColumn>) => {
 
     const { data, isLoading, isError, error } = useQuery({
-        queryFn: () => fetchApiFunction(id && id),
+        queryFn: () => fetchApiFunction(id),
         queryKey: [queryKey],
         staleTime: 1 * 60 * 1000,
         refetchOnWindowFocus: false,

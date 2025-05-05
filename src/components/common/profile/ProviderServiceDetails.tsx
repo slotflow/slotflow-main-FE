@@ -29,7 +29,7 @@ const ProviderServiceDetails: React.FC<ProviderServiceDetailsComponentProps> = (
     const [largeImg, setLargeImg] = useState<boolean>(false);
 
     const { data, isLoading, isError, error } = useQuery({
-        queryFn: () => fetchApiFunction(providerId && providerId),
+        queryFn: () => fetchApiFunction(providerId),
         queryKey: [queryKey],
         staleTime: 1 * 60 * 1000,
         refetchOnWindowFocus: false,

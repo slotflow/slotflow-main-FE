@@ -31,7 +31,7 @@ const UserOrProviderAddressDetails: React.FC<UserOrProviderAddressDetailsCompone
 }) => {
 
     const { data, isLoading, isError, error } = useQuery({
-        queryFn: () => fetchApiFunction(userOrProviderId && userOrProviderId),
+        queryFn: () => fetchApiFunction(userOrProviderId),
         queryKey: [quryKey],
         staleTime: 1 * 60 * 1000,
         refetchOnWindowFocus: false,
