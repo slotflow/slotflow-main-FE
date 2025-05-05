@@ -32,7 +32,7 @@ export interface AddUserAddressPayload {
 }
 
 // User Fetch address api response
-export type FetchUserAddressResponse = Pick<Address, "_id" | "addressLine" | "phone" | "place" | "city" | "district" | "pincode" | "state" | "country" | "googleMapLink">;
+export type UserFetchUserAddressResponse = Pick<Address, "_id" | "addressLine" | "phone" | "place" | "city" | "district" | "pincode" | "state" | "country" | "googleMapLink">;
 
 // User Fetch service providers response
 export interface UserFetchServiceProvidersResponse {

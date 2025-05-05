@@ -2,10 +2,10 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import DataFetchingError from "@/components/common/DataFetchingError";
 import UserProviderService from "@/components/user/UserProviderService";
-import UserProviderAddress from "@/components/user/UserProviderAddress";
 import ProviderServiceAvailability from "@/components/provider/ProviderServiceAvailability";
 import UserOrProviderProfileDetails from "@/components/common/profile/UserOrProviderProfileDetails";
-import { userFetchProviderDetails, userFetchProviderServiceAvailability } from "@/utils/apis/user.api";
+import { userFetchProviderAddress, userFetchProviderDetails, userFetchProviderServiceAvailability } from "@/utils/apis/user.api";
+import UserOrProviderAddressDetails from "@/components/common/profile/UserOrProviderAddressDetails";
 
 const UserServiceProviderDetailPage = () => {
 
@@ -35,7 +35,7 @@ const UserServiceProviderDetailPage = () => {
             {tab === 0 && (
                 <UserOrProviderProfileDetails fetchApiFunction={() => userFetchProviderDetails(providerId)} setProfileImage={setProviderProfileImg} userOrProviderId={providerId} authUserType="user" profileuUserType="provider" />
             ) || tab === 1 && (
-                <UserProviderAddress _id={providerId} />
+                <UserOrProviderAddressDetails userOrProviderId={providerId} fetchApiFunction={() => userFetchProviderAddress(providerId)} quryKey="providerAddress" authUserType="user" addressUserType="provider" />
             ) || tab === 2 && (
                 <UserProviderService _id={providerId} />
             ) || tab === 3 && (

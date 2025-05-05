@@ -4,12 +4,12 @@ import { useParams } from "react-router-dom";
 import { RootState } from "@/utils/redux/appStore";
 import DataFetchingError from "@/components/common/DataFetchingError";
 import AdmiProviderService from "@/components/admin/AdmiProviderService";
-import AdminProviderAddress from "@/components/admin/AdminProviderAddress";
 import AdminProviderPayments from "@/components/admin/AdminProviderPayments";
 import AdminProviderSubscriptions from "@/components/admin/AdminProviderSubscriptions";
 import ProviderServiceAvailability from "@/components/provider/ProviderServiceAvailability";
+import UserOrProviderAddressDetails from "@/components/common/profile/UserOrProviderAddressDetails";
 import UserOrProviderProfileDetails from "@/components/common/profile/UserOrProviderProfileDetails";
-import { adminFetchProviderServiceAvailability, fetchProviderDetails } from "@/utils/apis/adminProvider.api";
+import { adminFetchProviderServiceAvailability, fetchProviderAddress, fetchProviderDetails } from "@/utils/apis/adminProvider.api";
 
 const AdminServiceProviderDetailPage = () => {
 
@@ -37,7 +37,7 @@ const AdminServiceProviderDetailPage = () => {
             {tab === 0 && (
                 <UserOrProviderProfileDetails fetchApiFunction={() => fetchProviderDetails(providerId)} userOrProviderId={providerId} authUserType="admin" profileuUserType="provider" />
             ) || tab === 1 && (
-                <AdminProviderAddress userId={providerId} />
+                <UserOrProviderAddressDetails userOrProviderId={providerId} fetchApiFunction={() => fetchProviderAddress(providerId)} quryKey="providerAddress" authUserType="admin" addressUserType="provider" />
             ) || tab === 2 && (
                 <AdmiProviderService providerId={providerId} />
             ) || tab === 3 && (

@@ -17,6 +17,8 @@ const UserDashboardPage = () => {
     refetchOnWindowFocus: false,
   });
 
+  console.log("data : ",data);
+
   if (isLoading) {
     return (
       <div className="fixed inset-0 flex justify-center items-center bg-black/70 z-50">

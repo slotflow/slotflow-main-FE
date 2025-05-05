@@ -2,7 +2,7 @@ import axiosInstance from "@/lib/axios"
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { CommonResponse } from "../interface/commonInterface";
 import { AddUserAddressPayload, 
-    FetchUserAddressResponse, 
+    UserFetchUserAddressResponse, 
     UserFetchUserProfileResponse, 
     UpdateUserProfileImageResponse, 
     UserBookAnAppointmentRequestProps, 
@@ -33,7 +33,7 @@ export const addUserAddress = async ({ formData }: AddUserAddressPayload): Promi
     return response.data;
 }
 
-export const fetchUserAddress = async (): Promise<FetchUserAddressResponse> => {
+export const fetchUserAddress = async (): Promise<UserFetchUserAddressResponse> => {
     const response = await axiosInstance.get('/user/getAddress');
     return response.data.address;
 }
