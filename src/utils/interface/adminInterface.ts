@@ -3,9 +3,6 @@ import { Address } from "./addressInterface";
 import { ProviderService } from "./providerServiceInterface";
 
 // **** Admin Provider Interfaces used in compoenents / admin **** \\
-// AdminProviderServiceAvailability compoenent using for the custom props
-export type AdminProviderServiceAvailabilityProps = Pick<Provider, '_id'>;
-
 
 // AdminProviderAddress component using for the custom props
 export type AdminProviderAddressProps = Pick<Address, 'userId'>;

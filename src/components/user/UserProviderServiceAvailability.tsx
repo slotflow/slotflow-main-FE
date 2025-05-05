@@ -1,3 +1,4 @@
+import { format } from 'date-fns';
 import { toast } from 'react-toastify';
 import { useQuery } from '@tanstack/react-query';
 import React, { useEffect, useState } from 'react';
@@ -9,7 +10,6 @@ import { Slot } from '@/utils/interface/serviceAvailabilityInterface';
 import { userFetchProviderServiceAvailability } from '@/utils/apis/user.api';
 import ShimmerProviderAvailability from '../shimmers/ShimmerProviderAvailability';
 import { UserProviderServiceAvailabilityProps } from '@/utils/interface/userInterface';
-import { format } from 'date-fns';
 
 const dayMap: { [ key : string ] :  {
     day:  string,

@@ -5,10 +5,10 @@ import { loadStripe } from '@stripe/stripe-js';
 import { planDurations } from "@/utils/constants";
 import { RootState } from "@/utils/redux/appStore";
 import { useDispatch, useSelector } from "react-redux";
-import { subscribeToPlan, subscribeToTrialPlan } from "@/utils/apis/provider.api";
 import SelectFiledWithLabel from "@/components/form/SelectFiledWithLabel";
 import { PaymentSelectionProps } from "@/utils/interface/providerInterface";
 import { setPaymentSelectionPage } from "@/utils/redux/slices/providerSlice";
+import { subscribeToPlan, subscribeToTrialPlan } from "@/utils/apis/provider.api";
 
 const PaymentSelection: React.FC<PaymentSelectionProps> = ({ paymentSelectionRef }) => {
     const dispatch = useDispatch();

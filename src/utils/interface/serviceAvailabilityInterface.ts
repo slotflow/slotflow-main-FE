@@ -12,9 +12,9 @@ export interface Availability {
 // *** Availability Slot interface **** \\
 // Provider service availability slot interface that is coming from the server with updation, used in AdminProviderServiceAvailability component
 export interface Slot {
-    slot: string;
-    available: boolean;
+    time: string;
     _id: string;
+    available: boolean;
 }
 
 //  Availability interface for the response
@@ -26,7 +26,7 @@ export interface AvailabilityForResponse extends Omit<Availability, "slots"> {
 export interface ServiceAvailability {
     _id: string;
     providerId: string;
-    availability: AvailabilityForResponse[]
+    availabilities: AvailabilityForResponse[]
     createdAt: string;
     updatedAt: string;
 }

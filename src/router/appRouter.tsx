@@ -32,7 +32,6 @@ import AdminPlans from "@/pages/admin/AdminPlans.tsx";
 import Provider from "@/pages/provider/Provider.tsx";
 import ProviderAddAddress from "@/pages/provider/ProviderAddAddress.tsx";
 import ProviderAddServiceDetails from "@/pages/provider/ProviderAddServiceDetails.tsx";
-import AdminServiceProviderDetailPage from "@/pages/admin/AdminServiceProviderDetailPage.tsx";
 import ProviderAddress from "@/pages/provider/ProviderAddress.tsx";
 import ProviderAvailability from "@/pages/provider/ProviderAvailability.tsx";
 import ProviderSubscription from "@/pages/provider/ProviderSubscription.tsx";
@@ -42,6 +41,7 @@ import AdminSubscriptions from "@/pages/admin/AdminSubscriptions.tsx";
 import AdminSubcriptionDetailedView from "@/pages/admin/AdminSubcriptionDetailedView.tsx";
 import AdminPayments from "@/pages/admin/AdminPayments.tsx";
 import UserServiceSelectPage from "@/pages/user/UserServiceSelectPage.tsx";
+import AdminServiceProviderDetailPage from "@/pages/admin/AdminServiceProviderDetailPage.tsx";
 
 export const appRouter = createBrowserRouter([
     {

@@ -51,9 +51,15 @@ export const fetchProviderService = async (providerId: string): Promise<AdminFet
     return response.data.service;
 }
 
-export const adminFetchProviderServiceAvailability = async (providerId: string): Promise<AdminFetchProviderAvailabilityResponseProps> => {
-    const response = await axiosInstance.get(`/admin/fetchProviderServiceAvailability/${providerId}`);
-    return response.data.availability;
+export const adminFetchProviderServiceAvailability = async (providerId: string, date: Date): Promise<AdminFetchProviderAvailabilityResponseProps> => {
+    console.log("fetching service provider service availability : ",providerId);
+    const response = await axiosInstance.get(`/admin/fetchProviderServiceAvailability/${providerId}`, {
+        params : {
+            date : date.toISOString()
+        }
+    });
+    console.log("response.data : ",response.data);
+    return response.data.availabilities;
 }
 
 export const adminFetchProviderSubscriptions = async (providerId: string) : Promise<Array<AdminFetchProviderSubscriptionsResponseProps>> => {

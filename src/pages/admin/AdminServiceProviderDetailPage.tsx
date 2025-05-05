@@ -7,8 +7,9 @@ import AdmiProviderService from "@/components/admin/AdmiProviderService";
 import AdminProviderAddress from "@/components/admin/AdminProviderAddress";
 import AdminProviderDetails from "@/components/admin/AdminProviderDetails";
 import AdminProviderPayments from "@/components/admin/AdminProviderPayments";
+import { adminFetchProviderServiceAvailability } from "@/utils/apis/adminProvider.api";
 import AdminProviderSubscriptions from "@/components/admin/AdminProviderSubscriptions";
-import AdminProviderServiceAvailability from "@/components/admin/AdminProviderServiceAvailability";
+import ProviderServiceAvailability from "@/components/provider/ProviderServiceAvailability";
 
 const AdminServiceProviderDetailPage = () => {
 
@@ -40,7 +41,7 @@ const AdminServiceProviderDetailPage = () => {
             ) || tab === 2 && (
                 <AdmiProviderService providerId={providerId} />
             ) || tab === 3 && (
-                <AdminProviderServiceAvailability _id={providerId} />
+                <ProviderServiceAvailability providerId={providerId} fetchApiFuntion={adminFetchProviderServiceAvailability} userType="admin" />
             ) || tab === 4 && (
                 <AdminProviderSubscriptions _id={providerId} />
             ) || tab === 5 && (

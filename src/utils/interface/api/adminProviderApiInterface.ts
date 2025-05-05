@@ -76,7 +76,7 @@ export interface AdminFetchProviderServiceResponseProps extends FetchServiceDeta
 
 
 // **** Admin fetch provider service availability api response
-export type AdminFetchProviderAvailabilityResponseProps = Pick<ServiceAvailability, "availability" >;
+export type AdminFetchProviderAvailabilityResponseProps = Pick<ServiceAvailability, "availabilities" >;
 
 // **** Admin fetch Provider subscriptions api response props
 type SubscripionsResProps = Pick<Subscription, | "startDate" | "endDate" | "subscriptionStatus">;
