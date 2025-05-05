@@ -3,13 +3,13 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { RootState } from "@/utils/redux/appStore";
 import DataFetchingError from "@/components/common/DataFetchingError";
-import AdmiProviderService from "@/components/admin/AdmiProviderService";
 import AdminProviderPayments from "@/components/admin/AdminProviderPayments";
 import AdminProviderSubscriptions from "@/components/admin/AdminProviderSubscriptions";
 import ProviderServiceAvailability from "@/components/common/profile/ProviderServiceAvailability";
 import UserOrProviderAddressDetails from "@/components/common/profile/UserOrProviderAddressDetails";
 import UserOrProviderProfileDetails from "@/components/common/profile/UserOrProviderProfileDetails";
-import { adminFetchProviderServiceAvailability, fetchProviderAddress, fetchProviderDetails } from "@/utils/apis/adminProvider.api";
+import { adminFetchProviderServiceAvailability, fetchProviderAddress, fetchProviderDetails, fetchProviderService } from "@/utils/apis/adminProvider.api";
+import ProviderServiceDetails from "@/components/common/profile/ProviderServiceDetails";
 
 const AdminServiceProviderDetailPage = () => {
 
@@ -39,7 +39,7 @@ const AdminServiceProviderDetailPage = () => {
             ) || tab === 1 && (
                 <UserOrProviderAddressDetails userOrProviderId={providerId} fetchApiFunction={() => fetchProviderAddress(providerId)} quryKey="providerAddress" authUserType="admin" addressUserType="provider" />
             ) || tab === 2 && (
-                <AdmiProviderService providerId={providerId} />
+                <ProviderServiceDetails providerId={providerId} fetchApiFunction={() => fetchProviderService(providerId)} queryKey="providerService" authUserType="admin" />
             ) || tab === 3 && (
                 <ProviderServiceAvailability providerId={providerId} fetchApiFuntion={() => adminFetchProviderServiceAvailability(new Date(), providerId)} userType="admin" queryKey="providerServiceAvailability"/>
             ) || tab === 4 && (

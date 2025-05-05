@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import DataFetchingError from "@/components/common/DataFetchingError";
-import UserProviderService from "@/components/user/UserProviderService";
-import UserOrProviderProfileDetails from "@/components/common/profile/UserOrProviderProfileDetails";
-import { userFetchProviderAddress, userFetchProviderDetails, userFetchProviderServiceAvailability } from "@/utils/apis/user.api";
-import UserOrProviderAddressDetails from "@/components/common/profile/UserOrProviderAddressDetails";
+import ProviderServiceDetails from "@/components/common/profile/ProviderServiceDetails";
 import ProviderServiceAvailability from "@/components/common/profile/ProviderServiceAvailability";
+import UserOrProviderAddressDetails from "@/components/common/profile/UserOrProviderAddressDetails";
+import UserOrProviderProfileDetails from "@/components/common/profile/UserOrProviderProfileDetails";
+import { userFetchProviderAddress, userFetchProviderDetails, userFetchProviderService, userFetchProviderServiceAvailability } from "@/utils/apis/user.api";
 
 const UserServiceProviderDetailPage = () => {
 
@@ -13,11 +13,9 @@ const UserServiceProviderDetailPage = () => {
     const [tab, setTab] = useState<number>(0);
     const [providerProfileImg, setProviderProfileImg] = useState<string | null>(null);
 
-    console.log("providerProfileImg : ",providerProfileImg)
+    const tabButtons: string[] = ["Details", "Address", "Service", "Availability"];
 
-    const tabButtons: string[] = ["Details", "Address", "Service", "Availability" ];
-
-    if(!providerId) return <DataFetchingError message={"Provider Profile fetching error"}/>
+    if (!providerId) return <DataFetchingError message={"Provider Profile fetching error"} />
 
     return (
         <div className="min-h-full border border-[var(--boxBorder)] rounded-lg p-2 flex flex-col">
@@ -31,16 +29,15 @@ const UserServiceProviderDetailPage = () => {
                 ))}
             </ul>
             <div className={`flex-grow`}>
-
-            {tab === 0 && (
-                <UserOrProviderProfileDetails fetchApiFunction={() => userFetchProviderDetails(providerId)} queryKey="providerProfile" setProfileImage={setProviderProfileImg} userOrProviderId={providerId} authUserType="user" profileuUserType="provider" />
-            ) || tab === 1 && (
-                <UserOrProviderAddressDetails userOrProviderId={providerId} fetchApiFunction={() => userFetchProviderAddress(providerId)} quryKey="providerAddress" authUserType="user" addressUserType="provider" />
-            ) || tab === 2 && (
-                <UserProviderService _id={providerId} />
-            ) || tab === 3 && (
-                <ProviderServiceAvailability providerId={providerId} fetchApiFuntion={() => userFetchProviderServiceAvailability(new Date(), providerId)} userType="user" queryKey="providerServiceAvailability"/>
-            )}
+                {tab === 0 && (
+                    <UserOrProviderProfileDetails fetchApiFunction={() => userFetchProviderDetails(providerId)} queryKey="providerProfile" setProfileImage={setProviderProfileImg} userOrProviderId={providerId} authUserType="user" profileuUserType="provider" />
+                ) || tab === 1 && (
+                    <UserOrProviderAddressDetails userOrProviderId={providerId} fetchApiFunction={() => userFetchProviderAddress(providerId)} quryKey="providerAddress" authUserType="user" addressUserType="provider" />
+                ) || tab === 2 && (
+                    <ProviderServiceDetails providerId={providerId} fetchApiFunction={() => userFetchProviderService(providerId)} queryKey="providerService" authUserType="user" />
+                ) || tab === 3 && (
+                    <ProviderServiceAvailability providerId={providerId} fetchApiFuntion={() => userFetchProviderServiceAvailability(new Date(), providerId)} userType="user" queryKey="providerServiceAvailability" />
+                )}
             </div>
         </div>
     )

@@ -1,11 +1,7 @@
 import { Provider } from "./providerInterface";
-import { ProviderService } from "./providerServiceInterface";
 
 // **** Admin Provider Interfaces used in compoenents / admin **** \\
 
-
-// AdminProviderService compoenent using for the custom props
-export type AdminProviderServiceProps = Pick<ProviderService, 'providerId'>;
 
 
 // Admin fetch provider subscriptions component interface
