@@ -56,7 +56,7 @@ export interface ProviderFetchServiceDetailsResponseProps extends FetchServiceDe
 }
 
 // Provider service availability api response
-export type ProviderFetchServiceAvailabilityResponseProps = Pick<ServiceAvailability, "_id" |  "availability" >;
+export type ProviderFetchServiceAvailabilityResponseProps = Pick<ServiceAvailability, "availabilities" >;
 
 // Provider profile image updating api request
 export interface ProviderUpdateProfileImageResponseProps extends ApiCommonResponse {

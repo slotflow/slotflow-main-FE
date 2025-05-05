@@ -27,9 +27,9 @@ const dayMap: {
 }
 
 interface ProviderServiceAvailabilityComponentProps {
-    providerId: string;
-    fetchApiFuntion: (providerId: string, date: Date) => Promise<ProviderServiceAvailabilityFetchApiFunctionResponseProps>;
-    userType: "admin" | "user" | "provider"
+    providerId? : string;
+    fetchApiFuntion: (date: Date, providerId?: string ) => Promise<ProviderServiceAvailabilityFetchApiFunctionResponseProps>;
+    userType: "admin" | "user" | "provider";
 }
 
 const ProviderServiceAvailability: React.FC<ProviderServiceAvailabilityComponentProps> = ({
@@ -45,8 +45,8 @@ const ProviderServiceAvailability: React.FC<ProviderServiceAvailabilityComponent
     const [selectedSlotId, setSelectedSlotId] = useState<string | null>(null);
 
     const { data, isLoading, isError, error } = useQuery({
-        queryFn: () => fetchApiFuntion(providerId, date || new Date()),
-        queryKey: ["PSAvailability", providerId],
+        queryFn: () => fetchApiFuntion(date || new Date(), providerId),
+        queryKey: ["PSAvailability", providerId, date?.toDateString()],
         staleTime: 1 * 60 * 1000,
         refetchOnWindowFocus: false,
     });
@@ -141,7 +141,7 @@ const ProviderServiceAvailability: React.FC<ProviderServiceAvailabilityComponent
                 </div>
             </div>
 
-            {openPayment && selectedSlotId && (
+            {openPayment && selectedSlotId && providerId &&(
                 <UserPaymentSelection
                     modes={data?.availabilities[tab]?.modes}
                     setOpenPayment={setOpenPayment}
@@ -155,4 +155,4 @@ const ProviderServiceAvailability: React.FC<ProviderServiceAvailabilityComponent
     )
 }
 
-export default ProviderServiceAvailability
+export default ProviderServiceAvailability;
