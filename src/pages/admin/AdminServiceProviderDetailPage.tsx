@@ -41,7 +41,7 @@ const AdminServiceProviderDetailPage = () => {
             ) || tab === 2 && (
                 <AdmiProviderService providerId={providerId} />
             ) || tab === 3 && (
-                <ProviderServiceAvailability providerId={providerId} fetchApiFuntion={adminFetchProviderServiceAvailability} userType="admin" />
+                <ProviderServiceAvailability providerId={providerId} fetchApiFuntion={() => adminFetchProviderServiceAvailability(new Date(), providerId)} userType="admin" />
             ) || tab === 4 && (
                 <AdminProviderSubscriptions _id={providerId} />
             ) || tab === 5 && (

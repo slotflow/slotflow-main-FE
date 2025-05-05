@@ -27,8 +27,8 @@ const dayMap: {
 }
 
 interface ProviderServiceAvailabilityComponentProps {
-    providerId? : string;
-    fetchApiFuntion: (date: Date, providerId?: string ) => Promise<ProviderServiceAvailabilityFetchApiFunctionResponseProps>;
+    providerId?: string;
+    fetchApiFuntion: (date: Date, providerId?: string) => Promise<ProviderServiceAvailabilityFetchApiFunctionResponseProps>;
     userType: "admin" | "user" | "provider";
 }
 
@@ -91,12 +91,12 @@ const ProviderServiceAvailability: React.FC<ProviderServiceAvailabilityComponent
     return (
         <>
             <div className="flex w-full mx-auto p-6 rounded-lg">
-                <div className='space-y-4'>
+                <div>
                     <Calendar
                         mode="single"
                         selected={date}
                         onSelect={setDate}
-                        className={`rounded-md border`}
+                        className={`rounded-md border mx-1`}
                     />
                 </div>
                 <div className="table-auto w-full flex flex-col">
@@ -141,7 +141,7 @@ const ProviderServiceAvailability: React.FC<ProviderServiceAvailabilityComponent
                 </div>
             </div>
 
-            {openPayment && selectedSlotId && providerId &&(
+            {openPayment && selectedSlotId && providerId && (
                 <UserPaymentSelection
                     modes={data?.availabilities[tab]?.modes}
                     setOpenPayment={setOpenPayment}

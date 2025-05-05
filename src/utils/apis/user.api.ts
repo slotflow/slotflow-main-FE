@@ -59,7 +59,7 @@ export const userFetchProviderService = async (providerId : string) : Promise<Us
     return response.data.service;
 }
 
-export const userFetchProviderServiceAvailability = async (providerId : string, date : Date) : Promise<UserFetchProviderAvailabilityResponseProps> => {
+export const userFetchProviderServiceAvailability = async (date : Date, providerId : string) : Promise<UserFetchProviderAvailabilityResponseProps> => {
     const response = await axiosInstance.get(`/user/getServiceProviderServiceAvailability/${providerId}`, {
         params : {
             date : date.toISOString()
