@@ -6,7 +6,7 @@ import DataFetchingError from "@/components/common/DataFetchingError";
 import AdmiProviderService from "@/components/admin/AdmiProviderService";
 import AdminProviderPayments from "@/components/admin/AdminProviderPayments";
 import AdminProviderSubscriptions from "@/components/admin/AdminProviderSubscriptions";
-import ProviderServiceAvailability from "@/components/provider/ProviderServiceAvailability";
+import ProviderServiceAvailability from "@/components/common/profile/ProviderServiceAvailability";
 import UserOrProviderAddressDetails from "@/components/common/profile/UserOrProviderAddressDetails";
 import UserOrProviderProfileDetails from "@/components/common/profile/UserOrProviderProfileDetails";
 import { adminFetchProviderServiceAvailability, fetchProviderAddress, fetchProviderDetails } from "@/utils/apis/adminProvider.api";
@@ -41,7 +41,7 @@ const AdminServiceProviderDetailPage = () => {
             ) || tab === 2 && (
                 <AdmiProviderService providerId={providerId} />
             ) || tab === 3 && (
-                <ProviderServiceAvailability providerId={providerId} fetchApiFuntion={() => adminFetchProviderServiceAvailability(new Date(), providerId)} userType="admin" />
+                <ProviderServiceAvailability providerId={providerId} fetchApiFuntion={() => adminFetchProviderServiceAvailability(new Date(), providerId)} userType="admin" queryKey="providerServiceAvailability"/>
             ) || tab === 4 && (
                 <AdminProviderSubscriptions _id={providerId} />
             ) || tab === 5 && (

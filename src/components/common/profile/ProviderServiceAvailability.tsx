@@ -1,13 +1,13 @@
 import { format } from "date-fns";
 import { toast } from "react-toastify";
-import { Calendar } from "../ui/calendar";
 import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import DataFetchingError from "../common/DataFetchingError";
-import UserPaymentSelection from "../user/UserPaymentSelection";
-import InfoDisplayComponent from "../common/InfoDisplayComponent";
-import ShimmerProviderAvailability from "../shimmers/ShimmerProviderAvailability";
+import { Calendar } from "@/components/ui/calendar";
+import DataFetchingError from "../DataFetchingError";
+import InfoDisplayComponent from "../InfoDisplayComponent";
+import UserPaymentSelection from "@/components/user/UserPaymentSelection";
 import { ServiceAvailability, Slot } from "@/utils/interface/serviceAvailabilityInterface";
+import ShimmerProviderAvailability from "@/components/shimmers/ShimmerProviderAvailability";
 
 type ProviderServiceAvailabilityFetchApiFunctionResponseProps = Pick<ServiceAvailability, "availabilities">;
 
@@ -30,12 +30,14 @@ interface ProviderServiceAvailabilityComponentProps {
     providerId?: string;
     fetchApiFuntion: (date: Date, providerId?: string) => Promise<ProviderServiceAvailabilityFetchApiFunctionResponseProps>;
     userType: "admin" | "user" | "provider";
+    queryKey: string;
 }
 
 const ProviderServiceAvailability: React.FC<ProviderServiceAvailabilityComponentProps> = ({
     providerId,
     fetchApiFuntion,
-    userType
+    userType,
+    queryKey
 }) => {
 
     const [tab, setTab] = useState<number>(0);
@@ -46,7 +48,7 @@ const ProviderServiceAvailability: React.FC<ProviderServiceAvailabilityComponent
 
     const { data, isLoading, isError, error } = useQuery({
         queryFn: () => fetchApiFuntion(date || new Date(), providerId),
-        queryKey: ["PSAvailability", providerId, date?.toDateString()],
+        queryKey: [queryKey],
         staleTime: 1 * 60 * 1000,
         refetchOnWindowFocus: false,
     });
@@ -64,15 +66,11 @@ const ProviderServiceAvailability: React.FC<ProviderServiceAvailabilityComponent
     }, [data, date])
 
     if (isError) {
-        return (
-            <DataFetchingError message={error.message} />
-        )
+        return  <DataFetchingError message={error.message} />
     }
 
     if (isLoading) {
-        return (
-            <ShimmerProviderAvailability btCount={6} slotCount={20} />
-        )
+        return <ShimmerProviderAvailability btCount={6} slotCount={20} />
     }
 
     if (!data?.availabilities) {

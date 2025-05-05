@@ -2,10 +2,10 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import DataFetchingError from "@/components/common/DataFetchingError";
 import UserProviderService from "@/components/user/UserProviderService";
-import ProviderServiceAvailability from "@/components/provider/ProviderServiceAvailability";
 import UserOrProviderProfileDetails from "@/components/common/profile/UserOrProviderProfileDetails";
 import { userFetchProviderAddress, userFetchProviderDetails, userFetchProviderServiceAvailability } from "@/utils/apis/user.api";
 import UserOrProviderAddressDetails from "@/components/common/profile/UserOrProviderAddressDetails";
+import ProviderServiceAvailability from "@/components/common/profile/ProviderServiceAvailability";
 
 const UserServiceProviderDetailPage = () => {
 
@@ -39,7 +39,7 @@ const UserServiceProviderDetailPage = () => {
             ) || tab === 2 && (
                 <UserProviderService _id={providerId} />
             ) || tab === 3 && (
-                <ProviderServiceAvailability providerId={providerId} fetchApiFuntion={() => userFetchProviderServiceAvailability(new Date(), providerId)} userType="user"/>
+                <ProviderServiceAvailability providerId={providerId} fetchApiFuntion={() => userFetchProviderServiceAvailability(new Date(), providerId)} userType="user" queryKey="providerServiceAvailability"/>
             )}
             </div>
         </div>
