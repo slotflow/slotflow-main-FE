@@ -30,18 +30,20 @@ const CommonTable = <TData extends TColumn, TColumn> ({
 
   return (
     <>
-        <h2 className="text-2xl font-bold my-4">{heading}</h2>
         {isLoading ? (
             <>
             <ShimmerTableTop />
             <ShimmerTable columnsCount={columnsCount}/>
             </>
         ) : data ? (
+            <>
+            <h2 className="text-2xl font-bold my-4">{heading}</h2>
             <DataTable columns={column} data={data} />
+            </>
         ) : isError ? (
-            <DataFetchingError message={error.message} />
+            <DataFetchingError message={error?.message} className="min-h-full"/>
         ) : (
-            <DataFetchingError message={"No data found"} />
+            <DataFetchingError message={"No service providers found"} className="min-h-full"/>
         )}
     </>
   )

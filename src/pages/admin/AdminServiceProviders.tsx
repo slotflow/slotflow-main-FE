@@ -15,6 +15,7 @@ const AdminServiceProviders = () => {
       columnsCount={5} 
     />
   );
+  
 };
 
 export default AdminServiceProviders;

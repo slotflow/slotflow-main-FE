@@ -18,11 +18,6 @@ export interface InfoDisplayComponentRowProps {
 }
 
 
-// Data fetching error compoenent interface, used for showing a good error compoenent with message in details showing page if there is any error
-export interface dataFetchingError {
-    message: string;
-}
-
 
 // Common input field with label compoenents props interface, used in InputFieldWithLabel compoenent
 export interface InputFieldProps {
