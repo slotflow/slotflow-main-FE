@@ -63,7 +63,7 @@ export interface AdminChangeProviderTrustedTagResponse extends ApiCommonResponse
 
 
 // **** Admin fetch provider details api response interface
-export type AdminFetchProviderDetailsResponseProps = Pick<Provider, "_id" | "username" | "email" | "isBlocked" | "isEmailVerified" | "isAdminVerified" | "phone" | "profileImage" | "createdAt" | "trustedBySlotflow">;
+export type AdminFetchProviderProfileDetailsResponseProps = Pick<Provider, "_id" | "username" | "email" | "isBlocked" | "isEmailVerified" | "isAdminVerified" | "phone" | "profileImage" | "createdAt" | "trustedBySlotflow">;
 
 // **** Admin fetch provider Address api response interface
 export type AdminFetchProviderAddressResponseProps = Pick<Address, "userId" | "addressLine" | "phone" | "place" | "city" | "district" | "pincode" | "state" | "country" | "googleMapLink">;

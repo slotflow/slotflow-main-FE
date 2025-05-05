@@ -8,9 +8,6 @@ import { ProviderService } from "./providerServiceInterface";
 export type AdminProviderAddressProps = Pick<Address, 'userId'>;
 
 
-// AdminProviderDetails component using for the custom props
-export type AdminProviderDetailsProps = Pick<Provider, '_id'>;
-
 
 // AdminProviderService compoenent using for the custom props
 export type AdminProviderServiceProps = Pick<ProviderService, 'providerId'>;

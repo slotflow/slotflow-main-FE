@@ -4,12 +4,12 @@ import {
     AdminApproveProviderRequestPayload,
     AdminFetchAllProvidersResponseProps,
     AdminChangeProviderBlockStatusResponse,
-    AdminFetchProviderDetailsResponseProps,
     AdminFetchProviderAddressResponseProps,
     AdminFetchProviderServiceResponseProps,
     AdminFetchProviderAvailabilityResponseProps,
     AdminChangeProviderBlockStatusRequestPayload,
     AdminChangeProviderTrustedTagRequestPayload,
+    AdminFetchProviderProfileDetailsResponseProps,
     AdminChangeProviderTrustedTagResponse,
     AdminFetchProviderSubscriptionsResponseProps,
     AdminFetchProviderPaymentsResponseProps,
@@ -36,7 +36,7 @@ export const changeProviderTrustTag = async (data: AdminChangeProviderTrustedTag
     return response.data;
 }
 
-export const fetchProviderDetails = async (providerId: string): Promise<AdminFetchProviderDetailsResponseProps> => {
+export const fetchProviderDetails = async (providerId: string): Promise<AdminFetchProviderProfileDetailsResponseProps> => {
     const response = await axiosInstance.get(`/admin/fetchProviderDetails/${providerId}`);
     return response.data.provider;
 }

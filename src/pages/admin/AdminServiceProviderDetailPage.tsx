@@ -5,11 +5,11 @@ import { RootState } from "@/utils/redux/appStore";
 import DataFetchingError from "@/components/common/DataFetchingError";
 import AdmiProviderService from "@/components/admin/AdmiProviderService";
 import AdminProviderAddress from "@/components/admin/AdminProviderAddress";
-import AdminProviderDetails from "@/components/admin/AdminProviderDetails";
 import AdminProviderPayments from "@/components/admin/AdminProviderPayments";
-import { adminFetchProviderServiceAvailability } from "@/utils/apis/adminProvider.api";
 import AdminProviderSubscriptions from "@/components/admin/AdminProviderSubscriptions";
 import ProviderServiceAvailability from "@/components/provider/ProviderServiceAvailability";
+import UserOrProviderProfileDetails from "@/components/common/profile/UserOrProviderProfileDetails";
+import { adminFetchProviderServiceAvailability, fetchProviderDetails } from "@/utils/apis/adminProvider.api";
 
 const AdminServiceProviderDetailPage = () => {
 
@@ -35,7 +35,7 @@ const AdminServiceProviderDetailPage = () => {
             <div className={`flex-grow`}>
 
             {tab === 0 && (
-                <AdminProviderDetails _id={providerId} />
+                <UserOrProviderProfileDetails fetchApiFunction={() => fetchProviderDetails(providerId)} userOrProviderId={providerId} authUserType="admin" profileuUserType="provider" />
             ) || tab === 1 && (
                 <AdminProviderAddress userId={providerId} />
             ) || tab === 2 && (

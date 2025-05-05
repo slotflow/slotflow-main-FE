@@ -44,7 +44,7 @@ export interface AddProviderServiceAvailabilitiesPayload {
 }
 
 // Provider profile details fetching api response 
-export type ProviderFetchProfileDetailsResponseProps = Pick<Provider, "username" | "email" | "isAdminVerified" | "isBlocked" | "isEmailVerified" | "phone" | "createdAt">;
+export type ProviderFetchProfileDetailsResponseProps = Pick<Provider, "username" | "email" | "isAdminVerified" | "isBlocked" | "isEmailVerified" | "phone" | "createdAt" | "trustedBySlotflow">;
 
 // Provider details fetching api response 
 export type ProviderFetchAddressResponseProps = Pick<Address, "_id" | "addressLine" | "phone" | "place" | "city" | "district" | "pincode" | "state" | "country" | "googleMapLink">;

@@ -3,7 +3,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { CommonResponse } from "../interface/commonInterface";
 import { AddUserAddressPayload, 
     FetchUserAddressResponse, 
-    FetchUserProfileResponse, 
+    UserFetchUserProfileResponse, 
     UpdateUserProfileImageResponse, 
     UserBookAnAppointmentRequestProps, 
     UserCancelBookingResponseProps, 
@@ -16,7 +16,7 @@ import { AddUserAddressPayload,
     UserFetchServiceProvidersResponse 
 } from "../interface/api/userApiInterface";
 
-export const fetchUserProfileDetails = async (): Promise<FetchUserProfileResponse> => {
+export const userFetchUserProfileDetails = async (): Promise<UserFetchUserProfileResponse> => {
     const response = await axiosInstance.get('/user/getProfileDetails');
     return response.data.profileDetails;
 }

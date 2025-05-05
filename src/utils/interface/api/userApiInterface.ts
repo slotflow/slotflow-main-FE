@@ -9,7 +9,7 @@ import { Booking } from "../bookingInterface";
 import { Payment } from "../paymentInterface";
 
 // User Fetch profile details api response
-export type FetchUserProfileResponse = Pick<User, "username" | "email" | "isBlocked" | "isEmailVerified" | "phone" | "createdAt">;
+export type UserFetchUserProfileResponse = Pick<User, "username" | "email" | "isBlocked" | "isEmailVerified" | "phone" | "createdAt">;
 
 // User update profile Image api response
 export interface UpdateUserProfileImageResponse extends CommonResponse {
