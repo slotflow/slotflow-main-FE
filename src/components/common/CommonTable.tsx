@@ -14,7 +14,7 @@ interface CommonTableComponentProps<TData, TColumn> {
     id?: string
 }
 
-const CommonTable = <TData extends TColumn, TColumn> ({
+const CommonTable = <TData extends TColumn, TColumn>({
     fetchApiFunction,
     queryKey,
     heading,
@@ -30,27 +30,27 @@ const CommonTable = <TData extends TColumn, TColumn> ({
         refetchOnWindowFocus: false,
     });
 
-  return (
-    <>
-        {isLoading ? (
-            <>
-            <ShimmerTableTop />
-            <ShimmerTable columnsCount={columnsCount}/>
-            </>
-        ) : data ? (
-            <>
-            { heading && (
-                <h2 className="text-2xl font-bold my-4">{heading}</h2>
+    return (
+        <>
+            {isLoading ? (
+                <div className="mt-2">
+                    <ShimmerTableTop />
+                    <ShimmerTable columnsCount={columnsCount} />
+                </div>
+            ) : data ? (
+                <>
+                    {heading && (
+                        <h2 className="text-2xl font-bold mt-5">{heading}</h2>
+                    )}
+                    <DataTable columns={column} data={data} />
+                </>
+            ) : isError ? (
+                <DataFetchingError message={error?.message} className="min-h-full" />
+            ) : (
+                <DataFetchingError message={"No service providers found"} className="min-h-full" />
             )}
-            <DataTable columns={column} data={data} />
-            </>
-        ) : isError ? (
-            <DataFetchingError message={error?.message} className="min-h-full"/>
-        ) : (
-            <DataFetchingError message={"No service providers found"} className="min-h-full"/>
-        )}
-    </>
-  )
+        </>
+    )
 }
 
 export default CommonTable

@@ -12,7 +12,7 @@ const AdminServiceProviders = () => {
       queryKey="providers" 
       heading="Service Providers" 
       column={AdminProvidersTableColumns}
-      columnsCount={5} 
+      columnsCount={6} 
     />
   );
   

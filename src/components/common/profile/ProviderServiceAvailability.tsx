@@ -37,7 +37,7 @@ const ProviderServiceAvailability: React.FC<ProviderServiceAvailabilityComponent
     providerId,
     fetchApiFuntion,
     userType,
-    queryKey
+    queryKey    
 }) => {
 
     const [tab, setTab] = useState<number>(0);
