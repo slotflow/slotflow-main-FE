@@ -14,19 +14,17 @@ const ProviderSubscription = () => {
     const [showPlans, setShowPlans] = useState<boolean>(false);
 
     const storeSubscribingData = (planId: string, planPrice: number) => {
-        dispatch(setSubscribingData({planId, planPrice}));
+        dispatch(setSubscribingData({ planId, planPrice }));
         dispatch(setPaymentSelectionPage(true));
     };
 
     return (
-        <div>
-            <div className="px-6">
-                <CommonButton onClick={() => setShowPlans(!showPlans)} text={showPlans ? "Hide Plans" : "Show Plans"} />
-            </div>
+        <>
+            <CommonButton onClick={() => setShowPlans(!showPlans)} text={showPlans ? "Hide Plans" : "Show Plans"} />
             <PlanList storeSubscribingData={storeSubscribingData} showPlans={showPlans} plansRef={plansRef as React.RefObject<HTMLDivElement>} />
             <SubscriptionHistory />
             <PaymentSelection paymentSelectionRef={paymentSelectionRef as React.RefObject<HTMLDivElement>} />
-        </div>
+        </>
     );
 };
 

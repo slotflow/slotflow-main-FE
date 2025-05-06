@@ -11,6 +11,7 @@ const AdminSubscriptions = () => {
             fetchApiFunction={adminFetchAllSubscriptions}
             queryKey="subscription"
             heading="Subscription"
+            headingClassName="mt-4"
             column={AdminProvidersSubscriptionsTableColumns}
             columnsCount={6}
         />

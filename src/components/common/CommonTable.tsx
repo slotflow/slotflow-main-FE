@@ -9,6 +9,7 @@ interface CommonTableComponentProps<TData, TColumn> {
     fetchApiFunction: (id?: string) => Promise<TData[]>;
     queryKey: string;
     heading?: string;
+    headingClassName?: string;
     column: ColumnDef<TColumn>[];
     columnsCount: number;
     id?: string
@@ -18,6 +19,7 @@ const CommonTable = <TData extends TColumn, TColumn>({
     fetchApiFunction,
     queryKey,
     heading,
+    headingClassName,
     column,
     columnsCount,
     id,
@@ -40,7 +42,7 @@ const CommonTable = <TData extends TColumn, TColumn>({
             ) : data ? (
                 <>
                     {heading && (
-                        <h2 className="text-2xl font-bold mt-5">{heading}</h2>
+                        <h2 className={`text-2xl font-bold ${headingClassName}`}>{heading}</h2>
                     )}
                     <DataTable columns={column} data={data} />
                 </>

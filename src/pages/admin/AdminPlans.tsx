@@ -15,6 +15,7 @@ const AdminPlans = () => {
                         fetchApiFunction={fetchAllPlans}
                         queryKey='plans'
                         heading='Plans'
+                        headingClassName="mt-4"
                         column={AdminPlansTableColumns}
                         columnsCount={4}
                     />

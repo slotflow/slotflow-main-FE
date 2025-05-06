@@ -37,7 +37,7 @@ const ServiceAddingForm = () => {
   };
 
   return (
-    <div className="flex p-4 mt-17 flex-1 flex-col justify-center border-[1px] rounded-md">
+    <div className="flex p-4 mt-16 flex-1 flex-col justify-center border-[1px] rounded-md">
       <FormHeading title={"Add New Service"} />
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <form onSubmit={handleSubmit} className="space-y-6">

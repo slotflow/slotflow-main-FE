@@ -1,36 +1,19 @@
-import { DataTable } from '../table/data-table';
-import { useQuery } from '@tanstack/react-query';
-import ShimmerTable from '../shimmers/ShimmerTable';
-import ShimmerTableTop from '../shimmers/ShimmerTableTop';
-import DataFetchingError from '../common/DataFetchingError';
+import CommonTable from '../common/CommonTable';
 import { fetchProviderSubscriptions } from '@/utils/apis/provider.api';
 import { ProviderSubscriptionsTableColumns } from '../table/providerTableColumns';
+import { ProviderSubscriptionsTableColumnsProps } from '@/utils/interface/tableColumnInterface';
+import { ProviderFetchSubscriptionHistoryResponseProps } from '@/utils/interface/api/providerApiInterface';
 
 const SubscriptionHistory = () => {
-    
-    const { data, isLoading, isError, error } = useQuery({
-        queryFn: () => fetchProviderSubscriptions(),
-        queryKey: ["subscriptions"],
-        staleTime: 5 * 60 * 1000,
-        refetchOnWindowFocus: false,
-    });
-
     return (
-        <div className="p-6">
-            <h2 className="text-2xl font-bold mb-4">Your Subscription History</h2>
-            {isError ? (
-                <DataFetchingError message={(error as Error).message} />
-            ) : isLoading ? (
-                <>
-                    <ShimmerTableTop />
-                    <ShimmerTable />
-                </>
-            ) : data ? (
-                <DataTable columns={ProviderSubscriptionsTableColumns} data={data} />
-            ) : (
-                <DataFetchingError message="No data found" />
-            )}
-        </div>
+        <CommonTable<ProviderFetchSubscriptionHistoryResponseProps, ProviderSubscriptionsTableColumnsProps>
+            fetchApiFunction={fetchProviderSubscriptions}
+            queryKey='subscriptions'
+            heading='Subscription History'
+            headingClassName="mt-5"
+            column={ProviderSubscriptionsTableColumns}
+            columnsCount={5}
+        />
     );
 }
 

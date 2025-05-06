@@ -7,11 +7,11 @@ import { AdminFetchAllPaymentsResponseProps } from '@/utils/interface/api/adminP
 const AdminPayments = () => {
 
     return (
-
         <CommonTable<AdminFetchAllPaymentsResponseProps, AdminAllPaymentsTableColumnsProps>
             fetchApiFunction={adminFetchAllPayments}
             queryKey='payments'
             heading='Payments'
+            headingClassName="mt-4"
             column={AdminAllPaymentsTableColumns}
             columnsCount={6}
         />

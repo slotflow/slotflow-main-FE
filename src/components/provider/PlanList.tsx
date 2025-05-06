@@ -16,7 +16,7 @@ const PlanList: React.FC<PlanListProps> = ({ storeSubscribingData, showPlans, pl
     });
 
     return (
-        <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 p-6 ${!showPlans && "hidden"}`} ref={plansRef}>
+        <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 py-6 ${!showPlans && "hidden"}`} ref={plansRef}>
             {isLoading ? (
                 <>
                     <ShimmerPlanCard />
