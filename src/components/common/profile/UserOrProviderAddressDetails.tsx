@@ -46,17 +46,11 @@ const UserOrProviderAddressDetails: React.FC<UserOrProviderAddressDetailsCompone
     }, [data, authUserType, addressUserType]);
 
     if (isError) {
-        return (
-            <DataFetchingError message={error?.message} />
-        )
+        return <DataFetchingError message={error?.message} />
     };
 
     if (isLoading) {
-        return (
-            <div className="w-full mx-auto md:flex justify-start flex-grow bg">
-                <ShimmerProfileDetails row={9} />
-            </div>
-        )
+        return <ShimmerProfileDetails row={9} />
     };
 
     if (!data) {
@@ -64,7 +58,7 @@ const UserOrProviderAddressDetails: React.FC<UserOrProviderAddressDetailsCompone
     };
 
     return (
-        <div className="w-full mx-auto py-6 rounded-lg">
+        <div className="w-full mx-auto rounded-lg">
             <table className="table-auto border-collapse border border-[var(--boxBorder)] w-full">
                 <tbody>
                     <>
@@ -81,6 +75,7 @@ const UserOrProviderAddressDetails: React.FC<UserOrProviderAddressDetailsCompone
                 </tbody>
             </table>
         </div>
+        
     )
 };
 

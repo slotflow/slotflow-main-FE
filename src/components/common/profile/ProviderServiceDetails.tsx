@@ -59,7 +59,7 @@ const ProviderServiceDetails: React.FC<ProviderServiceDetailsComponentProps> = (
     }
 
     return (
-        <div className="w-full mx-auto py-6 rounded-lg">
+        <div className="w-full mx-auto rounded-lg">
             <table className="table-auto border-collapse border border-[var(--boxBorder)] w-full">
                 <tbody>
                     <>

@@ -15,6 +15,7 @@ export interface InfoDisplayComponentRowProps {
     link?: boolean;
     isBoolean?: boolean;
     isPrice? : boolean;
+    isLast?: boolean;
 }
 
 

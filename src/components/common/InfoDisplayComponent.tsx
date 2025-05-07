@@ -2,11 +2,11 @@ import { Copy } from "lucide-react";
 import { formatBoolean } from "@/utils/helper";
 import { InfoDisplayComponentRowProps } from "@/utils/interface/commonInterface";
 
-const InfoDisplayComponent: React.FC<InfoDisplayComponentRowProps> = ({ label, value, formatDate, copyToClipboard, isBoolean, link, isPrice }) => {
+const InfoDisplayComponent: React.FC<InfoDisplayComponentRowProps> = ({ label, value, formatDate, copyToClipboard, isBoolean, link, isPrice, isLast }) => {
 
     return (
         <>
-            <tr className="border-b border-[var(--boxBorder)]">
+            <tr className={` ${!isLast ? "border-b border-[var(--boxBorder)]" : ""} `}>
                 <td className="p-4 font-medium text-[var(--infoDataLabel)] w-4/12">{label}</td>
                 <td className="p-4 w-8/12">
                     {(value === null || value === undefined) && "Not Yet added"}

@@ -1,5 +1,6 @@
 import { format } from "date-fns";
 import { toast } from "react-toastify";
+import { dayMap } from "@/utils/constants";
 import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Calendar } from "@/components/ui/calendar";
@@ -10,21 +11,6 @@ import { ServiceAvailability, Slot } from "@/utils/interface/serviceAvailability
 import ShimmerProviderAvailability from "@/components/shimmers/ShimmerProviderAvailability";
 
 type ProviderServiceAvailabilityFetchApiFunctionResponseProps = Pick<ServiceAvailability, "availabilities">;
-
-const dayMap: {
-    [key: string]: {
-        day: string,
-        tab: number
-    }
-} = {
-    "Sun": { day: "Sunday", tab: 0 },
-    "Mon": { day: "Monday", tab: 1 },
-    "Tue": { day: "Tuesday", tab: 2 },
-    "Wed": { day: "Wednesday", tab: 3 },
-    "Thu": { day: "Thursday", tab: 4 },
-    "Fri": { day: "Friday", tab: 5 },
-    "Sat": { day: "Saturday", tab: 6 }
-}
 
 interface ProviderServiceAvailabilityComponentProps {
     providerId?: string;
@@ -37,7 +23,7 @@ const ProviderServiceAvailability: React.FC<ProviderServiceAvailabilityComponent
     providerId,
     fetchApiFuntion,
     userType,
-    queryKey    
+    queryKey
 }) => {
 
     const [tab, setTab] = useState<number>(0);
@@ -66,11 +52,11 @@ const ProviderServiceAvailability: React.FC<ProviderServiceAvailabilityComponent
     }, [data, date])
 
     if (isError) {
-        return  <DataFetchingError message={error.message} />
+        return <DataFetchingError message={error.message} />
     }
 
     if (isLoading) {
-        return <ShimmerProviderAvailability btCount={6} slotCount={20} />
+        return <ShimmerProviderAvailability slotCount={20} />
     }
 
     if (!data?.availabilities) {
@@ -88,7 +74,7 @@ const ProviderServiceAvailability: React.FC<ProviderServiceAvailabilityComponent
 
     return (
         <>
-            <div className="flex w-full mx-auto p-6 rounded-lg">
+            <div className="flex w-full mx-auto">
                 <div>
                     <Calendar
                         mode="single"
@@ -98,15 +84,17 @@ const ProviderServiceAvailability: React.FC<ProviderServiceAvailabilityComponent
                     />
                 </div>
                 <div className="table-auto w-full flex flex-col">
-                    <table className="table-auto border-collapse border border-[var(--boxBorder)] w-full">
-                        <tbody className="w-1/2">
-                            <InfoDisplayComponent label="Day" value={data && data.availabilities[tab]?.day} />
-                            <InfoDisplayComponent label="Start Time" value={data && data.availabilities[tab]?.startTime} />
-                            <InfoDisplayComponent label="End Time" value={data && data.availabilities[tab]?.endTime} />
-                            <InfoDisplayComponent label="Duration" value={data && data.availabilities[tab]?.duration} />
-                            <InfoDisplayComponent label="Service Modes" value={data && data.availabilities[tab]?.modes.map((item: string) => item + " ")} />
-                        </tbody>
-                    </table>
+                    <div className="border-[var(--boxBorder)] border rounded-md overflow-hidden w-full">
+                        <table className="table-auto w-full">
+                            <tbody className="w-1/2">
+                                <InfoDisplayComponent label="Day" value={data?.availabilities[tab]?.day} />
+                                <InfoDisplayComponent label="Start Time" value={data?.availabilities[tab]?.startTime} />
+                                <InfoDisplayComponent label="End Time" value={data?.availabilities[tab]?.endTime} />
+                                <InfoDisplayComponent label="Duration" value={data?.availabilities[tab]?.duration} />
+                                <InfoDisplayComponent label="Service Modes" value={data?.availabilities[tab]?.modes.map((item: string) => item + " ")} isLast />
+                            </tbody>
+                        </table>
+                    </div>
                     {(userType === "admin" || userType === "provider") && (
                         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 px-2 mt-4">
                             {data.availabilities[tab]?.slots?.map((slot: Slot) => (

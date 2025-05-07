@@ -5,6 +5,5 @@ export interface ShimmerProfileDetailsProps {
 
 // Shimmer for provider availability compoenent interface
 export interface ShimmerProviderAvailabilityProps {
-    btCount: number;
     slotCount: number;
 }

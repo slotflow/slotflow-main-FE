@@ -18,18 +18,26 @@ interface UserOrProviderProfileDetailsComponentProps {
         UserFetchUserProfileResponse
     >;
     queryKey: string;
-    authUserType: "admin" | "user" | "provider";
-    profileuUserType: "user" | "provider";
+    adminLookingProvider?: boolean;
+    adminLookingUser?: boolean;
+    providerSelf?: boolean;
+    userSelf?: boolean;
+    userLookingProvider?: boolean;
     setProfileImage?: (image: string) => void,
+    shimmerRow: number;
 }
 
 const UserOrProviderProfileDetails: React.FC<UserOrProviderProfileDetailsComponentProps> = ({
     userOrProviderId,
     fetchApiFunction,
     queryKey,
-    authUserType,
-    profileuUserType,
-    setProfileImage
+    adminLookingProvider,
+    // adminLookingUser,
+    providerSelf,
+    userSelf,
+    userLookingProvider,
+    setProfileImage,
+    shimmerRow,
 }) => {
 
     const { data, isLoading, isError, error } = useQuery({
@@ -46,17 +54,11 @@ const UserOrProviderProfileDetails: React.FC<UserOrProviderProfileDetailsCompone
     }, [data, setProfileImage]);
 
     if (isError) {
-        return (
-            <DataFetchingError message={error?.message} />
-        )
+        return <DataFetchingError message={error?.message} />
     }
 
     if (isLoading) {
-        return (
-            <div className="w-full mx-auto md:flex justify-start flex-grow bg">
-                <ShimmerProfileDetails row={7} />
-            </div>
-        )
+        return <ShimmerProfileDetails row={shimmerRow || 7} />
     }
 
     if (!data) {
@@ -64,12 +66,12 @@ const UserOrProviderProfileDetails: React.FC<UserOrProviderProfileDetailsCompone
     }
 
     return (
-        <div className="w-full mx-auto py-6 rounded-lg">
-            <table className="table-auto border-collapse border border-[var(--boxBorder)] w-full">
-                <tbody>
+        <div className="border-[var(--boxBorder)] border rounded-md overflow-hidden w-full">
+            <table className="table-auto w-full">
+                <tbody className="w-1/2">
 
                     {/* Admin looking provider profile */}
-                    {(authUserType === "admin" && profileuUserType === "provider") && (() => {
+                    {adminLookingProvider && (() => {
                         const providerProfileData = data as (AdminFetchProviderProfileDetailsResponseProps);
                         return (
                             <>
@@ -89,7 +91,7 @@ const UserOrProviderProfileDetails: React.FC<UserOrProviderProfileDetailsCompone
                     {/* Admin looking user profile */}
 
                     {/* Provider looking self profile */}
-                    {(authUserType === "provider" && profileuUserType === "provider") && (() => {
+                    {providerSelf && (() => {
                         const providerProfileData = data as (ProviderFetchProfileDetailsResponseProps);
                         return (
                             <>
@@ -106,7 +108,7 @@ const UserOrProviderProfileDetails: React.FC<UserOrProviderProfileDetailsCompone
                     })()}
 
                     {/* User looking provider profile */}
-                    {(authUserType === "user" && profileuUserType === "provider") && (() => {
+                    {userLookingProvider && (() => {
                         const providerProfileData = data as (UserFetchProviderProfileDetailsResponse);
                         return (
                             <>
@@ -119,11 +121,11 @@ const UserOrProviderProfileDetails: React.FC<UserOrProviderProfileDetailsCompone
                     })()}
 
                     {/* User looking self profile */}
-                    {(authUserType === "user" && profileuUserType === "user") && (() => {
+                    {userSelf && (() => {
                         const userProfileData = data as (UserFetchUserProfileResponse);
                         return (
                             <>
-                                <InfoDisplayComponent label="Username" value={data?.username} />
+                                <InfoDisplayComponent label="Username" value={userProfileData?.username} />
                                 <InfoDisplayComponent label="Email" value={userProfileData?.email} />
                                 <InfoDisplayComponent label="Phone Number" value={userProfileData?.phone} />
                                 <InfoDisplayComponent label="Joined On" value={userProfileData?.createdAt} formatDate={formatDate} />

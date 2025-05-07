@@ -18,7 +18,7 @@ const UserServiceProviderDetailPage = () => {
     if (!providerId) return <DataFetchingError message={"Provider Profile fetching error"} />
 
     return (
-        <div className="min-h-full border border-[var(--boxBorder)] rounded-lg p-2 flex flex-col">
+        <div className="min-h-full p-2 flex flex-col">
 
             <ProfileHead updation={false} profileImage={providerProfileImg || "/images/avatar.png"}/>
 
@@ -26,7 +26,7 @@ const UserServiceProviderDetailPage = () => {
 
             <div className={`flex-grow`}>
                 {tab === 0 && (
-                    <UserOrProviderProfileDetails fetchApiFunction={() => userFetchProviderDetails(providerId)} queryKey="providerProfile" setProfileImage={setProviderProfileImg} userOrProviderId={providerId} authUserType="user" profileuUserType="provider" />
+                    <UserOrProviderProfileDetails fetchApiFunction={() => userFetchProviderDetails(providerId)} queryKey="providerProfile" setProfileImage={setProviderProfileImg} userOrProviderId={providerId} userLookingProvider shimmerRow={4} />
                 ) || tab === 1 && (
                     <UserOrProviderAddressDetails userOrProviderId={providerId} fetchApiFunction={() => userFetchProviderAddress(providerId)} quryKey="providerAddress" authUserType="user" addressUserType="provider" />
                 ) || tab === 2 && (
