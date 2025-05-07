@@ -3,7 +3,6 @@ import { useQuery } from "@tanstack/react-query";
 import { ColumnDef } from "@tanstack/react-table";
 import ShimmerTable from "../shimmers/ShimmerTable";
 import DataFetchingError from "./DataFetchingError";
-import ShimmerTableTop from "../shimmers/ShimmerTableTop";
 
 interface CommonTableComponentProps<TData, TColumn> {
     fetchApiFunction: (id?: string) => Promise<TData[]>;
@@ -34,18 +33,16 @@ const CommonTable = <TData extends TColumn, TColumn>({
 
     return (
         <>
+            {heading && (
+                <h2 className={`text-2xl font-bold ${headingClassName}`}>{heading}</h2>
+            )}
             {isLoading ? (
                 <div className="mt-2">
-                    <ShimmerTableTop />
                     <ShimmerTable columnsCount={columnsCount} />
                 </div>
             ) : data ? (
-                <>
-                    {heading && (
-                        <h2 className={`text-2xl font-bold ${headingClassName}`}>{heading}</h2>
-                    )}
-                    <DataTable columns={column} data={data} />
-                </>
+
+                <DataTable columns={column} data={data} />
             ) : isError ? (
                 <DataFetchingError message={error?.message} className="min-h-full" />
             ) : (
