@@ -15,15 +15,15 @@ type ProviderServiceAvailabilityFetchApiFunctionResponseProps = Pick<ServiceAvai
 interface ProviderServiceAvailabilityComponentProps {
     providerId?: string;
     fetchApiFuntion: (date: Date, providerId?: string) => Promise<ProviderServiceAvailabilityFetchApiFunctionResponseProps>;
-    userType: "admin" | "user" | "provider";
     queryKey: string;
+    isUser?: boolean;
 }
 
 const ProviderServiceAvailability: React.FC<ProviderServiceAvailabilityComponentProps> = ({
     providerId,
     fetchApiFuntion,
-    userType,
-    queryKey
+    queryKey,
+    isUser
 }) => {
 
     const [tab, setTab] = useState<number>(0);
@@ -84,6 +84,7 @@ const ProviderServiceAvailability: React.FC<ProviderServiceAvailabilityComponent
                     />
                 </div>
                 <div className="table-auto w-full flex flex-col">
+
                     <div className="border-[var(--boxBorder)] border rounded-md overflow-hidden w-full">
                         <table className="table-auto w-full">
                             <tbody className="w-1/2">
@@ -95,35 +96,38 @@ const ProviderServiceAvailability: React.FC<ProviderServiceAvailabilityComponent
                             </tbody>
                         </table>
                     </div>
-                    {(userType === "admin" || userType === "provider") && (
-                        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 px-2 mt-4">
-                            {data.availabilities[tab]?.slots?.map((slot: Slot) => (
-                                <div
-                                    key={slot._id}
-                                    className={`text-xs text-center border rounded-md py-2 px-4 hover:bg-[var(--mainColor)/10] transition-colors duration-200 ${slot.available ? 'bg-[var(--mainColor)/20] border-[var(--mainColor)]' : 'border-gray-300'}`}
-                                >
-                                    {slot.time}
-                                </div>
-                            )) || "No slots available"}
-                        </div>
-                    )}
-                    {userType === "user" && (
-                        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 px-2 mt-4">
-                            {data.availabilities[tab]?.slots?.map((slot: Slot) => (
-                                <button
-                                    key={slot._id}
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        e.stopPropagation();
-                                        handleBookAnAppoint(slot?._id, slot.available)
-                                    }}
-                                    className={`text-xs text-center border rounded-md py-2 px-4 hover:bg-[var(--mainColor)/10] transition-colors duration-200 ${slot.available ? 'bg-[var(--mainColor)/20] border-[var(--mainColor)] cursor-pointer' : 'border-gray-300'}`}
-                                >
-                                    {slot.time}
-                                </button>
-                            )) || "No slots available"}
-                        </div>
-                    )}
+
+                    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 px-2 mt-4">
+                        {data.availabilities[tab]?.slots?.length ? (
+                            data.availabilities[tab].slots.map((slot: Slot) => {
+                                const commonClasses = `text-xs text-center border rounded-md py-2 px-4 hover:bg-[var(--mainColor)] transition-colors duration-200 ${slot.available
+                                        ? 'bg-[var(--mainColor)/20] border-[var(--mainColor)]'
+                                        : 'border-gray-300'
+                                    }`;
+
+                                return isUser ? (
+                                    <button
+                                        key={slot._id}
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            e.stopPropagation();
+                                            handleBookAnAppoint(slot._id, slot.available);
+                                        }}
+                                        className={`${commonClasses} ${slot.available ? 'cursor-pointer' : ''}`}
+                                    >
+                                        {slot.time}
+                                    </button>
+                                ) : (
+                                    <div key={slot._id} className={commonClasses}>
+                                        {slot.time}
+                                    </div>
+                                );
+                            })
+                        ) : (
+                            <p className="col-span-full text-sm text-gray-500 text-center">No slots available</p>
+                        )}
+                    </div>
+
                 </div>
             </div>
 
@@ -137,6 +141,7 @@ const ProviderServiceAvailability: React.FC<ProviderServiceAvailabilityComponent
                     date={date || new Date()}
                 />
             )}
+
         </>
     )
 }

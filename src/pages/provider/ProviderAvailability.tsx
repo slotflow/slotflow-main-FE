@@ -7,7 +7,7 @@ const ProviderAvailability = () => {
     return (
         <div className="min-h-full border border-[var(--boxBorder)] rounded-lg p-2 flex flex-col">
             <ProfileHead updateProfileImageApiFunction={updateProviderProfileImage} updation={true} />
-            <ProviderServiceAvailability fetchApiFuntion={fetchProviderServiceAvailability} userType="provider" queryKey="serviceAvailability"/>
+            <ProviderServiceAvailability fetchApiFuntion={fetchProviderServiceAvailability} queryKey="serviceAvailability" />
         </div>
     )
     
