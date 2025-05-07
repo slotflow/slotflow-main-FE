@@ -4,7 +4,7 @@ import { AdminProvidersTableColumns } from "@/components/table/adminTableColumns
 import { AdminProvidersTableColumnsProps } from "@/utils/interface/tableColumnInterface";
 import { AdminFetchAllProvidersResponseProps } from "@/utils/interface/api/adminProviderApiInterface";
 
-const AdminServiceProviders = () => {
+const AdminServiceProvidersPage = () => {
 
   return (
     <CommonTable<AdminFetchAllProvidersResponseProps, AdminProvidersTableColumnsProps>
@@ -19,4 +19,4 @@ const AdminServiceProviders = () => {
   
 };
 
-export default AdminServiceProviders;
+export default AdminServiceProvidersPage;

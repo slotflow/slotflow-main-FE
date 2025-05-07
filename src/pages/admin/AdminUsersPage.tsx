@@ -4,7 +4,7 @@ import { AdminUsersTableColumns } from "@/components/table/adminTableColumns";
 import { AdminUsersTableColumnsProps } from "@/utils/interface/tableColumnInterface";
 import { AdminfetchAllUsersResponseProps } from "@/utils/interface/api/adminUserApiInterface";
 
-const AdminUsers = () => {
+const AdminUsersPage = () => {
 
   return (
     <CommonTable<AdminfetchAllUsersResponseProps, AdminUsersTableColumnsProps>
@@ -17,4 +17,4 @@ const AdminUsers = () => {
   );
 };
 
-export default AdminUsers;
+export default AdminUsersPage

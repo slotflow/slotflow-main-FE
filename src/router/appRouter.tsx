@@ -1,46 +1,46 @@
-import User from "@/pages/user/User.tsx";
-import LandingLayout from "../pages/common/LandingLayout.tsx";
-import AdminUsers from "../pages/admin/AdminUsers.tsx";
-import Admin from "../pages/admin/Admin.tsx";
-import UserChatPage from "@/pages/user/UserChatPage.tsx";
-import AdminServices from "@/pages/admin/AdminServices.tsx";
 import UserLogin from "@/pages/common/UserLogin.tsx";
-import LandingPage from "../pages/common/LandingPage.tsx";
-import AdminDashboard from "../pages/admin/AdminDashboard.tsx";
+import AdminPlansPage from "@/pages/admin/AdminPlansPage.tsx";
 import AdminLogin from "@/pages/common/AdminLogin.tsx";
 import { createBrowserRouter } from "react-router-dom";
 import { ProtectedRoute } from "./protectedRoutes.tsx";
-import UserProfilePage from "@/pages/user/UserProfilePage.tsx";
-import UserPaymentsPage from "@/pages/user/UserPaymentsPage.tsx";
-import UserBookingsPage from "@/pages/user/UserBookingsPage.tsx";
-import UserDashboardPage from "@/pages/user/UserDashboardPage.tsx";
+import AdminUsersPage from "../pages/admin/AdminUsersPage.tsx";
+import UserChatPage from "@/pages/user/UserChatPage.tsx";
+import UserMainPage from "@/pages/user/UserMainPage.tsx";
+import LandingPage from "../pages/common/LandingPage.tsx";
+import ErrorDisplay from "@/pages/common/ErrorDisplay.tsx";
+import AdminPaymentsPage from "@/pages/admin/AdminPaymentsPage.tsx";
+import AdminServicesPage from "@/pages/admin/AdminServicesPage.tsx";
+import AdminMainPage from "../pages/admin/AdminMainPage.tsx";
 import PasswordReset from "@/pages/common/PasswordReset.tsx";
 import ProviderChat from "@/pages/provider/ProviderChat.tsx";
 import ProviderLogin from "@/pages/common/ProviderLogin.tsx";
-import ErrorDisplay from "@/pages/common/ErrorDisplay.tsx";
-import UserNotificationsPage from "@/pages/user/UserNotificationsPage.tsx";
-import AdminServiceProviders from "../pages/admin/AdminServiceProviders.tsx";
+import LandingLayout from "../pages/common/LandingLayout.tsx";
+import AdminDashboardPage from "../pages/admin/AdminDashboardPage.tsx";
+import UserProfilePage from "@/pages/user/UserProfilePage.tsx";
+import UserAddressPage from "@/pages/user/UserAddressPage.tsx";
+import UserPaymentsPage from "@/pages/user/UserPaymentsPage.tsx";
+import UserBookingsPage from "@/pages/user/UserBookingsPage.tsx";
+import UserDashboardPage from "@/pages/user/UserDashboardPage.tsx";
 import ProviderProfile from "@/pages/provider/ProviderProfile.tsx";
 import ProviderService from "@/pages/provider/ProviderService.tsx";
 import ProviderReviews from "@/pages/provider/ProviderReviews.tsx";
-import ProviderPayments from "@/pages/provider/ProviderPayments.tsx";
-import UserServiceProviderDetailPage from "@/pages/user/UserServiceProviderDetailPage.tsx";
-import ProviderDashboard from "@/pages/provider/ProviderDashboard.tsx";
-import ProviderAppointments from "@/pages/provider/ProviderAppointments.tsx";
-import ProviderNotifications from "@/pages/provider/ProviderNotifications.tsx";
-import AdminPlans from "@/pages/admin/AdminPlans.tsx";
-import Provider from "@/pages/provider/Provider.tsx";
-import ProviderAddAddress from "@/pages/provider/ProviderAddAddress.tsx";
-import ProviderAddServiceDetails from "@/pages/provider/ProviderAddServiceDetails.tsx";
 import ProviderAddress from "@/pages/provider/ProviderAddress.tsx";
+import ProviderPayments from "@/pages/provider/ProviderPayments.tsx";
+import ProviderMainPage from "@/pages/provider/ProviderMainPage.tsx";
+import AdminSubscriptionsPage from "@/pages/admin/AdminSubscriptionsPage.tsx";
+import ProviderDashboard from "@/pages/provider/ProviderDashboard.tsx";
+import PaymentConfirmPage from "@/pages/common/PaymentConfirmPage.tsx";
+import ProviderAddAddress from "@/pages/provider/ProviderAddAddress.tsx";
+import UserNotificationsPage from "@/pages/user/UserNotificationsPage.tsx";
+import UserServiceSelectPage from "@/pages/user/UserServiceSelectPage.tsx";
+import AdminServiceProvidersPage from "../pages/admin/AdminServiceProvidersPage.tsx";
+import ProviderAppointments from "@/pages/provider/ProviderAppointments.tsx";
 import ProviderAvailability from "@/pages/provider/ProviderAvailability.tsx";
 import ProviderSubscription from "@/pages/provider/ProviderSubscription.tsx";
-import PaymentConfirmPage from "@/pages/common/PaymentConfirmPage.tsx";
-import UserAddressPage from "@/pages/user/UserAddressPage.tsx";
-import AdminSubscriptions from "@/pages/admin/AdminSubscriptions.tsx";
-import AdminSubcriptionDetailedView from "@/pages/admin/AdminSubcriptionDetailedView.tsx";
-import AdminPayments from "@/pages/admin/AdminPayments.tsx";
-import UserServiceSelectPage from "@/pages/user/UserServiceSelectPage.tsx";
+import ProviderNotifications from "@/pages/provider/ProviderNotifications.tsx";
+import ProviderAddServiceDetails from "@/pages/provider/ProviderAddServiceDetails.tsx";
+import AdminSubcriptionDetailedViewPage from "@/pages/admin/AdminSubcriptionDetailedViewPage.tsx";
+import UserServiceProviderDetailPage from "@/pages/user/UserServiceProviderDetailPage.tsx";
 import AdminServiceProviderDetailPage from "@/pages/admin/AdminServiceProviderDetailPage.tsx";
 
 export const appRouter = createBrowserRouter([
@@ -58,19 +58,19 @@ export const appRouter = createBrowserRouter([
                 path: "/admin",
                 element: (
                     <ProtectedRoute allowedRoles={["ADMIN"]}>
-                        <Admin />
+                        <AdminMainPage />
                     </ProtectedRoute>
                 ),
                 children: [
-                    { index: true, element: <AdminDashboard /> },
-                    { path: "service-providers", element: <AdminServiceProviders /> },
+                    { index: true, element: <AdminDashboardPage /> },
+                    { path: "service-providers", element: <AdminServiceProvidersPage /> },
                     { path: "service-provider/:providerId", element: <AdminServiceProviderDetailPage /> },
-                    { path: "users", element: <AdminUsers /> },
-                    { path: "services", element: <AdminServices /> },
-                    { path: "plans", element: <AdminPlans /> },
-                    { path: "subscriptions", element: <AdminSubscriptions /> },
-                    { path: "payments", element: <AdminPayments /> },
-                    { path: "subscription/:subscriptionId", element: <AdminSubcriptionDetailedView /> },
+                    { path: "users", element: <AdminUsersPage /> },
+                    { path: "services", element: <AdminServicesPage /> },
+                    { path: "plans", element: <AdminPlansPage /> },
+                    { path: "subscriptions", element: <AdminSubscriptionsPage /> },
+                    { path: "payments", element: <AdminPaymentsPage /> },
+                    { path: "subscription/:subscriptionId", element: <AdminSubcriptionDetailedViewPage /> },
                     { path: "*", element: <ErrorDisplay /> },
                 ],
             },
@@ -78,7 +78,7 @@ export const appRouter = createBrowserRouter([
                 path: "/user",
                 element: (
                     <ProtectedRoute allowedRoles={["USER"]}>
-                        <User />
+                        <UserMainPage />
                     </ProtectedRoute>
                 ),
                 children: [
@@ -100,7 +100,7 @@ export const appRouter = createBrowserRouter([
                 path: "/provider",
                 element: (
                     <ProtectedRoute allowedRoles={["PROVIDER"]}>
-                        <Provider />
+                        <ProviderMainPage />
                     </ProtectedRoute>
                 ),
                 children: [

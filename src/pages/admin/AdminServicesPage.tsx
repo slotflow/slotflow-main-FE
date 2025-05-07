@@ -5,7 +5,7 @@ import { AdminAppServicesTableColumns } from '@/components/table/adminTableColum
 import { AdminFetchAllServices } from '@/utils/interface/api/adminServiceApiInterface';
 import { AdminAppServicesTableColumnsProps } from '@/utils/interface/tableColumnInterface';
 
-const AdminServices = () => {
+const AdminServicesPage = () => {
 
   return (
     <>
@@ -27,4 +27,4 @@ const AdminServices = () => {
   )
 }
 
-export default AdminServices
+export default AdminServicesPage

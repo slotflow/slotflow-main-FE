@@ -1,14 +1,27 @@
 import { Badge } from "@/components/ui/badge";
 import { useNavigate } from "react-router-dom";
 import { CardTitle } from "@/components/ui/card";
-import { UserFetchServiceProvidersResponse } from "@/utils/interface/api/userApiInterface";
 
-const ProviderCard: React.FC<UserFetchServiceProvidersResponse> = ({
+export interface UserViewProviderCardComponentProps {
+    _id: string,
+    provider: {
+        _id: string,
+        username: string,
+        profileImage: string | null,
+        trustedBySlotflow: boolean,
+    },
+    service: {
+        serviceCategory: string,
+        serviceName: string,
+        servicePrice: number,
+        categoryName: string
+    }
+}
+
+const UserViewProviderCard: React.FC<UserViewProviderCardComponentProps> = ({
     provider, service
 }) => {
 
-    console.log("provider : ",provider);
-    console.log("service : ",service);
     const navigate = useNavigate();
     
     return (
@@ -53,4 +66,4 @@ const ProviderCard: React.FC<UserFetchServiceProvidersResponse> = ({
     );
 }
 
-export default ProviderCard;
+export default UserViewProviderCard;

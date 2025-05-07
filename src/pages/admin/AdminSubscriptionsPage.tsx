@@ -4,7 +4,7 @@ import { AdminProvidersSubscriptionsTableColumns } from '@/components/table/admi
 import { AdminProvidersSubscriptionsTableColumnsProps } from '@/utils/interface/tableColumnInterface';
 import { AdminFetchAllSubscriptionsResponseProps } from '@/utils/interface/api/adminSubscription.api';
 
-const AdminSubscriptions = () => {
+const AdminSubscriptionsPage = () => {
 
     return (
         <CommonTable<AdminFetchAllSubscriptionsResponseProps, AdminProvidersSubscriptionsTableColumnsProps>
@@ -17,4 +17,4 @@ const AdminSubscriptions = () => {
     )
 }
 
-export default AdminSubscriptions
+export default AdminSubscriptionsPage

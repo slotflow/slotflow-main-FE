@@ -10,7 +10,7 @@ import ProviderApprovalPending from "./ProviderApprovalPending";
 import ProviderAddServiceDetails from "./ProviderAddServiceDetails";
 import ProviderAddServiceAvailability from "./ProviderAddServiceAvailability";
 
-const Provider = () => {
+const ProviderMainPage = () => {
 
   const sidebarOpen = useSelector((store: RootState) => store.state.sidebarOpen);
   const user = useSelector((state: RootState) => state.auth.authUser);
@@ -56,4 +56,4 @@ const Provider = () => {
   )
 }
 
-export default Provider
+export default ProviderMainPage

@@ -5,7 +5,7 @@ import { AdminPlansTableColumns } from '@/components/table/adminTableColumns';
 import { AdminPlansTableColumnsProps } from '@/utils/interface/tableColumnInterface';
 import { AdminFetchAllPlansResponseProps } from '@/utils/interface/api/adminPlanApiInterface';
 
-const AdminPlans = () => {
+const AdminPlansPage = () => {
 
     return (
         <>
@@ -27,4 +27,4 @@ const AdminPlans = () => {
     )
 }
 
-export default AdminPlans
+export default AdminPlansPage

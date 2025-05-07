@@ -3,7 +3,7 @@ import { Loader, Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { useQuery } from '@tanstack/react-query';
 import { RootState } from '@/utils/redux/appStore';
-import ProviderCard from '@/components/user/ProviderCard';
+import UserViewProviderCard from '@/components/user/UserViewProviderCard';
 import { userSearchServiceProviders } from '@/utils/apis/user.api';
 import DataFetchingError from '@/components/common/DataFetchingError';
 
@@ -39,7 +39,7 @@ const UserDashboardPage = () => {
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 my-4">
         {data?.map((provider, index) => (
-          <ProviderCard key={index} {...provider} />
+          <UserViewProviderCard key={index} {...provider} />
         ))}
       </div>
     </div>

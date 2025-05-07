@@ -6,7 +6,7 @@ import { Outlet, useLocation } from "react-router-dom";
 import { checkUserStatus } from "@/utils/apis/auth.api";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
 
-const User = () => {
+const UserMainPage = () => {
   const sidebarOpen = useSelector((store: RootState) => store.state.sidebarOpen);
   const user = useSelector((state: RootState) => state.auth.authUser);
   const dispatch = useDispatch<AppDispatch>();
@@ -30,4 +30,4 @@ const User = () => {
   )
 }
 
-export default User
+export default UserMainPage

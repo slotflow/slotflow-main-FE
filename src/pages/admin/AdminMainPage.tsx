@@ -4,7 +4,7 @@ import { adminRoutes } from "@/utils/constants";
 import Sidebar from "@/components/Navs/Sidebar";
 import { RootState } from "@/utils/redux/appStore";
 
-const Admin = () => {
+const AdminMainPage = () => {
   
   const sidebarOpen: boolean = useSelector((store: RootState) => store.state.sidebarOpen);
 
@@ -20,4 +20,4 @@ const Admin = () => {
   );
 };
 
-export default Admin;
+export default AdminMainPage;

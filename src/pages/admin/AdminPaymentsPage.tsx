@@ -4,7 +4,7 @@ import { AdminAllPaymentsTableColumns } from '@/components/table/adminTableColum
 import { AdminAllPaymentsTableColumnsProps } from '@/utils/interface/tableColumnInterface';
 import { AdminFetchAllPaymentsResponseProps } from '@/utils/interface/api/adminPaymentInterfac';
 
-const AdminPayments = () => {
+const AdminPaymentsPage = () => {
 
     return (
         <CommonTable<AdminFetchAllPaymentsResponseProps, AdminAllPaymentsTableColumnsProps>
@@ -17,4 +17,4 @@ const AdminPayments = () => {
     )
 }
 
-export default AdminPayments
+export default AdminPaymentsPage

@@ -6,7 +6,7 @@ import InfoDisplayComponent from "@/components/common/InfoDisplayComponent";
 import ShimmerProfileDetails from "@/components/shimmers/ShimmerProfileDetails";
 import { adminFetchSubscriptionDetails } from "@/utils/apis/adminSubscription.api";
 
-const AdminSubcriptionDetailedView = () => {
+const AdminSubcriptionDetailedViewPage = () => {
     const { subscriptionId } = useParams<{ subscriptionId: string }>();
 
     const { data, isLoading, isError, error } = useQuery({
@@ -53,4 +53,4 @@ const AdminSubcriptionDetailedView = () => {
     )
 }
 
-export default AdminSubcriptionDetailedView
+export default AdminSubcriptionDetailedViewPage
