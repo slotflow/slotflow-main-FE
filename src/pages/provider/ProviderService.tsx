@@ -7,7 +7,7 @@ const ProviderService = () => {
   return (
     <div className="min-h-full border border-[var(--boxBorder)] rounded-lg p-2 flex flex-col">
       <ProfileHead updateProfileImageApiFunction={updateProviderProfileImage} updation={true} />
-      <ProviderServiceDetails fetchApiFunction={fetchProviderServiceDetails} queryKey="providerService" authUserType="provider" />
+      <ProviderServiceDetails fetchApiFunction={fetchProviderServiceDetails} queryKey="providerService" />
     </div>
   )
   

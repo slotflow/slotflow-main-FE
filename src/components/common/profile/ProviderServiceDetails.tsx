@@ -16,14 +16,14 @@ interface ProviderServiceDetailsComponentProps {
         UserFetchProviderServiceResponseProps
     >;
     queryKey: string;
-    authUserType: "admin" | "user" | "provider"
+    isUser?: boolean;
 }
 
 const ProviderServiceDetails: React.FC<ProviderServiceDetailsComponentProps> = ({
     providerId,
     fetchApiFunction,
     queryKey,
-    authUserType,
+    isUser,
 }) => {
 
     const [largeImg, setLargeImg] = useState<boolean>(false);
@@ -54,7 +54,7 @@ const ProviderServiceDetails: React.FC<ProviderServiceDetailsComponentProps> = (
     }
 
     let serviceData: AdminFetchProviderServiceResponseProps | ProviderFetchServiceDetailsResponseProps | null = null;
-    if (authUserType !== "user") {
+    if (!isUser) {
         serviceData = data as (AdminFetchProviderServiceResponseProps | ProviderFetchServiceDetailsResponseProps);
     }
 
@@ -67,14 +67,14 @@ const ProviderServiceDetails: React.FC<ProviderServiceDetailsComponentProps> = (
                         <InfoDisplayComponent label="Service Name" value={data?.serviceName} />
                         <InfoDisplayComponent label="Service Description" value={data?.serviceDescription} />
                         <InfoDisplayComponent label="Service Price" value={data?.servicePrice} isPrice={true} />
-                        {authUserType !== "user" && (
+                        {!isUser && (
                         <InfoDisplayComponent label="Provider Adhaar" value={serviceData?.providerAdhaar} />
                         )}
                         <InfoDisplayComponent label="Provider Experience" value={data?.providerExperience} />
                     </>
                 </tbody>
             </table>
-            {(authUserType === "admin" || authUserType === "provider") && (
+            {!isUser && (
                 <div className='my-6 space-y-2'>
                     <div className='flex justify-start'>
                         <label className='text-[var(--infoDisplayLabel)]'>Provider Certificate</label>
