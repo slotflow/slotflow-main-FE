@@ -16,8 +16,7 @@ interface UserOrProviderAddressDetailsComponentProps {
         UserFetchProviderAddressResponseProps
     >;
     quryKey: string;
-    addressUserType: "user" | "provider";
-    authUserType: "admin" | "user" | "provider";
+    isUser?: boolean
     setShowAddAddressBtn?: (show: boolean) => void;
 }
 
@@ -25,8 +24,7 @@ const UserOrProviderAddressDetails: React.FC<UserOrProviderAddressDetailsCompone
     userOrProviderId,
     fetchApiFunction,
     quryKey,
-    authUserType,
-    addressUserType,
+    isUser,
     setShowAddAddressBtn
 }) => {
 
@@ -38,12 +36,12 @@ const UserOrProviderAddressDetails: React.FC<UserOrProviderAddressDetailsCompone
     });
 
     useEffect(() => {
-        if (authUserType === "user" && addressUserType === "user" && !data) {
+        if (isUser && !data) {
             setShowAddAddressBtn?.(true);
         } else {
             setShowAddAddressBtn?.(false);
         }
-    }, [data, authUserType, addressUserType]);
+    }, [data, isUser, setShowAddAddressBtn]);
 
     if (isError) {
         return <DataFetchingError message={error?.message} />

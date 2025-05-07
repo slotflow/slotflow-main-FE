@@ -28,7 +28,7 @@ const UserServiceProviderDetailPage = () => {
                 {tab === 0 && (
                     <UserOrProviderProfileDetails fetchApiFunction={() => userFetchProviderDetails(providerId)} queryKey="providerProfile" setProfileImage={setProviderProfileImg} userOrProviderId={providerId} userLookingProvider shimmerRow={4} />
                 ) || tab === 1 && (
-                    <UserOrProviderAddressDetails userOrProviderId={providerId} fetchApiFunction={() => userFetchProviderAddress(providerId)} quryKey="providerAddress" authUserType="user" addressUserType="provider" />
+                    <UserOrProviderAddressDetails userOrProviderId={providerId} fetchApiFunction={() => userFetchProviderAddress(providerId)} quryKey="providerAddress" />
                 ) || tab === 2 && (
                     <ProviderServiceDetails providerId={providerId} fetchApiFunction={() => userFetchProviderService(providerId)} queryKey="providerService" authUserType="user" />
                 ) || tab === 3 && (

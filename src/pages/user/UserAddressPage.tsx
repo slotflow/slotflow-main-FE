@@ -36,7 +36,7 @@ const UserAddressPage = () => {
         {addAddress ? (
           <AddAddress onSubmit={handleAAddAddress} formClassNames={"my-4 border rounded-lg py-6"} headingSize={"xs:text-md md:text-xl"} heading={"Lets Add Address"} buttonText={"Submit"} setHasErrors={setHasErrors} />
         ) : (
-          <UserOrProviderAddressDetails fetchApiFunction={fetchUserAddress} quryKey="userAddress" authUserType="user" addressUserType="user" setShowAddAddressBtn={setShowAddAddressBtn} />
+          <UserOrProviderAddressDetails fetchApiFunction={fetchUserAddress} quryKey="userAddress" isUser setShowAddAddressBtn={setShowAddAddressBtn} />
         )}
     </div>
   )
