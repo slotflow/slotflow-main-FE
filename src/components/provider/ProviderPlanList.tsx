@@ -1,12 +1,14 @@
-import React from 'react'
-import PlanCard from './PlanCard';
+import React from 'react';
 import { useQuery } from '@tanstack/react-query';
-import ShimmerPlanCard from '../shimmers/ShimmerPlanCard';
+import ProviderPlanCard from './ProviderPlanCard';
 import DataFetchingError from '../common/DataFetchingError';
 import { fetchProviderPlans } from '@/utils/apis/provider.api';
-import { PlanListProps } from '@/utils/interface/providerInterface';
+import ProviderPlanCardShimmer from '../shimmers/ProviderPlanCardShimmer';
+import { ProviderPlanListProps } from '@/utils/interface/providerInterface';
 
-const PlanList: React.FC<PlanListProps> = ({ storeSubscribingData, showPlans, plansRef }) => {
+const ShimmerCount = Array.from({ length: 3 });
+
+const ProviderPlanList: React.FC<ProviderPlanListProps> = ({ storeSubscribingData, showPlans, plansRef }) => {
 
     const { data: plansData, isLoading, isError, error } = useQuery({
         queryFn: fetchProviderPlans,
@@ -18,16 +20,14 @@ const PlanList: React.FC<PlanListProps> = ({ storeSubscribingData, showPlans, pl
     return (
         <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 py-6 ${!showPlans && "hidden"}`} ref={plansRef}>
             {isLoading ? (
-                <>
-                    <ShimmerPlanCard />
-                    <ShimmerPlanCard />
-                    <ShimmerPlanCard />
-                </>
+                ShimmerCount.map((_, index) => (
+                    <ProviderPlanCardShimmer key={index} />
+                ))
             ) : isError ? (
                 <DataFetchingError message={(error as Error).message} />
             ) : plansData ? (
                 plansData.map((plan) => (
-                    <PlanCard key={plan._id} plan={plan} storeSubscribingData={storeSubscribingData} />
+                    <ProviderPlanCard key={plan._id} plan={plan} storeSubscribingData={storeSubscribingData} />
                 ))
             ) : (
                 <DataFetchingError message="No plans found" />
@@ -36,4 +36,4 @@ const PlanList: React.FC<PlanListProps> = ({ storeSubscribingData, showPlans, pl
     );
 };
 
-export default PlanList;
+export default ProviderPlanList;

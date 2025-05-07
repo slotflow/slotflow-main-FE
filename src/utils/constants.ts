@@ -66,3 +66,16 @@ export const adminRoutes: Route[] = [
     { durationName: "6 Months", durationMonth: 6 },
     { durationName: "12 Months", durationMonth: 12 }
 ];
+
+
+
+
+// Tabs for provider profile showing in admin side and provider side
+export const providerTabs: { tabName : string, admin: boolean, user: boolean  }[] = [
+  { tabName: "Details", admin: true, user: true },
+  { tabName: "Address", admin: true, user: true },
+  { tabName: "Service", admin: true, user: true },
+  { tabName: "Availability", admin: true, user: true },
+  { tabName: "Subscriptions", admin: true, user: false },
+  { tabName: "Payments", admin: true, user: false }
+];

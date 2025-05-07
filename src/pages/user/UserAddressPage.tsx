@@ -3,9 +3,9 @@ import { FormEvent, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import AddAddress from "@/components/common/AddAddress";
 import CommonButton from "@/components/common/CommonButton";
-import UserProfileHead from "@/components/user/UserProfileHead";
+import ProfileHead from "@/components/common/profile/ProfileHead";
 import { AddressFormProps } from "@/utils/interface/addressInterface";
-import { addUserAddress, fetchUserAddress } from "@/utils/apis/user.api";
+import { addUserAddress, fetchUserAddress, updateUserProfileImage } from "@/utils/apis/user.api";
 import UserOrProviderAddressDetails from "@/components/common/profile/UserOrProviderAddressDetails";
 
 const UserAddressPage = () => {
@@ -29,9 +29,9 @@ const UserAddressPage = () => {
 
   return (
     <div className="min-h-full border border-[var(--boxBorder)] rounded-lg p-2 flex flex-col">
-      <UserProfileHead />
+      <ProfileHead updateProfileImageApiFunction={updateUserProfileImage} updation={true} />
         {showAddAddressBtn && (
-          <CommonButton onClick={() => setAddAddress(!addAddress)} text={!addAddress ? "Add Address" : "Close"} />
+          <CommonButton onClick={() => setAddAddress(!addAddress)} text={!addAddress ? "Add Address" : "Close"} className="w-3/12 mt-6"/>
         )}
         {addAddress ? (
           <AddAddress onSubmit={handleAAddAddress} formClassNames={"my-4 border rounded-lg py-6"} headingSize={"xs:text-md md:text-xl"} heading={"Lets Add Address"} buttonText={"Submit"} setHasErrors={setHasErrors} />
@@ -40,6 +40,7 @@ const UserAddressPage = () => {
         )}
     </div>
   )
+
 }
 
 export default UserAddressPage

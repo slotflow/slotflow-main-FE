@@ -59,6 +59,7 @@ export interface CommonButtonProps {
     onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void,
     text: string,
     type?: "button" | "submit" | "reset",
+    className?: string;
 }
 
 

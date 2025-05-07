@@ -1,6 +1,6 @@
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 
-const ShimmerPlanCard = () => {
+const ProviderPlanCardShimmer = () => {
     return (
         <Card className="p-4 border rounded-2xl shadow-sm flex flex-col h-full">
             <CardHeader>
@@ -22,4 +22,4 @@ const ShimmerPlanCard = () => {
     )
 }
 
-export default ShimmerPlanCard
+export default ProviderPlanCardShimmer

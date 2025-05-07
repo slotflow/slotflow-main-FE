@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/utils/redux/appStore";
-import PlanList from "@/components/provider/PlanList";
+import ProviderPlanList from "@/components/provider/ProviderPlanList";
 import CommonButton from "@/components/common/CommonButton";
 import PaymentSelection from "@/components/provider/PaymentSelection";
 import ProviderSubscriptionHistory from "@/components/provider/ProviderSubscriptionHistory";
@@ -21,7 +21,7 @@ const ProviderSubscription = () => {
     return (
         <>
             <CommonButton onClick={() => setShowPlans(!showPlans)} text={showPlans ? "Hide Plans" : "Show Plans"} />
-            <PlanList storeSubscribingData={storeSubscribingData} showPlans={showPlans} plansRef={plansRef as React.RefObject<HTMLDivElement>} />
+            <ProviderPlanList storeSubscribingData={storeSubscribingData} showPlans={showPlans} plansRef={plansRef as React.RefObject<HTMLDivElement>} />
             <ProviderSubscriptionHistory />
             <PaymentSelection paymentSelectionRef={paymentSelectionRef as React.RefObject<HTMLDivElement>} />
         </>

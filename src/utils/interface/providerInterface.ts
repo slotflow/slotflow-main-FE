@@ -37,13 +37,13 @@ export interface RightSideBoxProps {
 
 // Plan card interface showing in the provider subscription page
 type CardProps = Pick<Plan, "_id" | "planName" | "description" | "features" | "price">;
-export interface PlanCardProps {
+export interface ProviderPlanCardProps {
     plan: CardProps;
     storeSubscribingData: (id: string, planPrice: number) => void;
 }
 
 // Plan list interface showing in provider subscription page
-export interface PlanListProps {
+export interface ProviderPlanListProps {
     storeSubscribingData: (planId: string, planPrice: number) => void;
     showPlans: boolean;
     plansRef: React.RefObject<HTMLDivElement>;

@@ -1,8 +1,8 @@
 import { Button } from '../ui/button';
-import { PlanCardProps } from '@/utils/interface/providerInterface';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
+import { ProviderPlanCardProps } from '@/utils/interface/providerInterface';
 
-const PlanCard: React.FC<PlanCardProps> = ({ plan, storeSubscribingData }) => {
+const ProviderPlanCard: React.FC<ProviderPlanCardProps> = ({ plan, storeSubscribingData }) => {
     return (
         <Card key={plan._id} className="p-4 border rounded-2xl shadow-sm flex flex-col h-full">
             <CardHeader>
@@ -24,4 +24,4 @@ const PlanCard: React.FC<PlanCardProps> = ({ plan, storeSubscribingData }) => {
     )
 }
 
-export default PlanCard
+export default ProviderPlanCard
