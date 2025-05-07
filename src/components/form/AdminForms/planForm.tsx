@@ -61,7 +61,7 @@ const PlanForm = () => {
     };
 
     return (
-        <div className="flex p-4 mt-16 flex-1 flex-col justify-center border-[1px] rounded-md">
+        <div className="flex p-4 flex-1 flex-col justify-center border-[1px] rounded-md">
             <FormHeading title={"Add New Plan"} />
             <div className="sm:mx-auto sm:w-full">
                 <form onSubmit={handleSubmit} className="space-y-6">

@@ -11,7 +11,6 @@ const AdminPayments = () => {
             fetchApiFunction={adminFetchAllPayments}
             queryKey='payments'
             heading='Payments'
-            headingClassName="mt-4"
             column={AdminAllPaymentsTableColumns}
             columnsCount={6}
         />

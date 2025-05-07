@@ -11,7 +11,6 @@ const AdminUsers = () => {
       fetchApiFunction={fetchUsers}
       queryKey="users"
       heading="Users"
-      headingClassName="mt-4"
       column={AdminUsersTableColumns}
       columnsCount={6}
     />

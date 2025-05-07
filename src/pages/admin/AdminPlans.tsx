@@ -15,12 +15,11 @@ const AdminPlans = () => {
                         fetchApiFunction={fetchAllPlans}
                         queryKey='plans'
                         heading='Plans'
-                        headingClassName="mt-4"
                         column={AdminPlansTableColumns}
                         columnsCount={4}
                     />
                 </div>
-                <div className='w-4/12 mx-2'>
+                <div className='w-4/12 mx-2 mt-12'>
                     <PlanForm />
                 </div>
             </div>

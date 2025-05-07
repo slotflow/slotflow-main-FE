@@ -4,7 +4,7 @@ import { AppDispatch } from "@/utils/redux/appStore";
 import PlanList from "@/components/provider/PlanList";
 import CommonButton from "@/components/common/CommonButton";
 import PaymentSelection from "@/components/provider/PaymentSelection";
-import SubscriptionHistory from "@/components/provider/SubscriptionHistory";
+import ProviderSubscriptionHistory from "@/components/provider/ProviderSubscriptionHistory";
 import { setPaymentSelectionPage, setSubscribingData } from "@/utils/redux/slices/providerSlice";
 
 const ProviderSubscription = () => {
@@ -22,7 +22,7 @@ const ProviderSubscription = () => {
         <>
             <CommonButton onClick={() => setShowPlans(!showPlans)} text={showPlans ? "Hide Plans" : "Show Plans"} />
             <PlanList storeSubscribingData={storeSubscribingData} showPlans={showPlans} plansRef={plansRef as React.RefObject<HTMLDivElement>} />
-            <SubscriptionHistory />
+            <ProviderSubscriptionHistory />
             <PaymentSelection paymentSelectionRef={paymentSelectionRef as React.RefObject<HTMLDivElement>} />
         </>
     );

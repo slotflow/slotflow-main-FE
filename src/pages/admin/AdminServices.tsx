@@ -15,12 +15,11 @@ const AdminServices = () => {
             fetchApiFunction={fetchServices}
             queryKey="fetchServices"
             heading="Services"
-            headingClassName="mt-4"
             column={AdminAppServicesTableColumns}
             columnsCount={4}
           />
         </div>
-        <div className='w-4/12 mx-2'>
+        <div className='w-4/12 mx-2 mt-12'>
           <ServiceAddingForm />
         </div>
       </div>

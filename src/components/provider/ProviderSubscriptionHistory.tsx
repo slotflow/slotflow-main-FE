@@ -4,7 +4,7 @@ import { ProviderSubscriptionsTableColumns } from '../table/providerTableColumns
 import { ProviderSubscriptionsTableColumnsProps } from '@/utils/interface/tableColumnInterface';
 import { ProviderFetchSubscriptionHistoryResponseProps } from '@/utils/interface/api/providerApiInterface';
 
-const SubscriptionHistory = () => {
+const ProviderSubscriptionHistory = () => {
     return (
         <CommonTable<ProviderFetchSubscriptionHistoryResponseProps, ProviderSubscriptionsTableColumnsProps>
             fetchApiFunction={fetchProviderSubscriptions}
@@ -17,4 +17,4 @@ const SubscriptionHistory = () => {
     );
 }
 
-export default SubscriptionHistory
+export default ProviderSubscriptionHistory
