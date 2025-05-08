@@ -2,11 +2,11 @@ import { ProfileDetailsShimmerProps } from "@/utils/interface/componentInterface
 
 const ProfileDetailsShimmer: React.FC<ProfileDetailsShimmerProps> = ({ row }) => {
     return (
-        <div className="space-y-1 w-full">
+        <div className="w-full">
             {Array.from({ length: row }).map((_, index) => (
                 <div key={index} className="flex w-full space-x-4 items-center">
-                    <label className="text-sm flex items-center my-1 shimmer h-12 w-4/12"></label>
-                    <p className="py-1 shimmer h-12 w-8/12"></p>
+                    <label className="text-sm flex items-center mb-3 shimmer h-12 w-4/12"></label>
+                    <p className="mb-3 shimmer h-12 w-8/12"></p>
                 </div>
             ))}
         </div>
