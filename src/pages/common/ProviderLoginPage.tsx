@@ -11,13 +11,13 @@ import ResetPasswordForm from "@/components/form/CommonForms/ResetPasswordForm";
 import OtpVerificatioForm from "@/components/form/CommonForms/OtpVerificatioForm";
 import EmailVerificationForm from "@/components/form/CommonForms/EmailVerificationForm";
 
-const UserLogin = () => {
-  
+const ProviderLoginPage = () => {
+
   const { resetPasswordForm, signInForm, verifyEmailForm, verifyOtpForm, signUpForm } = useSelector((store: RootState) => store.signform);
-  const navigate = useNavigate();
   const authUser = useSelector((store: RootState) => store.auth.authUser);
+  const navigate = useNavigate();
   const formFillingRef = useRef(null);
-  
+
   useEffect(() => {
     if(authUser && authUser.isLoggedIn){
       if(authUser.role === "ADMIN"){
@@ -31,18 +31,18 @@ const UserLogin = () => {
   }, [authUser, navigate]);
 
   useEffect(() => {
-    gsap.to(formFillingRef.current, gsapBigSvgYDirectionAnimation);
-  },[]);
-
+    gsap.to(formFillingRef.current,gsapBigSvgYDirectionAnimation)
+  })
+  
   return (
     <div className='h-[100vh] flex bg-[var(--background)] justify-center items-center'>
-      <div className="md:w-1/2 hidden md:flex items-center justify-center md:p-20">
+      <div className="md:w-6/12 hidden md:flex items-center justify-center md:p-20">
         <FormFilling ref={formFillingRef}/>
       </div>
-      <div className="w-full md:w-1/2 flex justify-center items-center">
-        {signInForm && <LoginForm role={"USER"} title={"Continue to Book an Appointment"}/>}
-        {signUpForm && <SignUpForm role={"USER"} />}
-        {verifyEmailForm && <EmailVerificationForm role={"USER"}/>}
+      <div className="w-full md:w-6/12 flex justify-center items-center">
+        {signInForm && <LoginForm role={"PROVIDER"} title={"Continue to your Service Account"}/>}
+        {signUpForm && <SignUpForm role={"PROVIDER"} />}
+        {verifyEmailForm && <EmailVerificationForm role={"PROVIDER"}/>}
         {resetPasswordForm && <ResetPasswordForm />}
         {verifyOtpForm && <OtpVerificatioForm />}
       </div>
@@ -50,4 +50,4 @@ const UserLogin = () => {
   )
 }
 
-export default UserLogin
+export default ProviderLoginPage

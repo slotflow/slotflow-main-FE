@@ -1,16 +1,14 @@
-import UserLogin from "@/pages/common/UserLogin.tsx";
-import AdminLogin from "@/pages/common/AdminLogin.tsx";
 import { createBrowserRouter } from "react-router-dom";
 import { ProtectedRoute } from "./protectedRoutes.tsx";
 import UserChatPage from "@/pages/user/UserChatPage.tsx";
 import UserMainPage from "@/pages/user/UserMainPage.tsx";
 import LandingPage from "../pages/common/LandingPage.tsx";
-import ErrorDisplay from "@/pages/common/ErrorDisplay.tsx";
+import Error404Page from "@/pages/common/Error404Page.tsx";
+import UserLoginPage from "@/pages/common/UserLoginPage.tsx";
 import AdminMainPage from "../pages/admin/AdminMainPage.tsx";
-import PasswordReset from "@/pages/common/PasswordReset.tsx";
-import ProviderLogin from "@/pages/common/ProviderLogin.tsx";
 import AdminPlansPage from "@/pages/admin/AdminPlansPage.tsx";
 import LandingLayout from "../pages/common/LandingLayout.tsx";
+import AdminLoginPage from "@/pages/common/AdminLoginPage.tsx";
 import AdminUsersPage from "../pages/admin/AdminUsersPage.tsx";
 import UserProfilePage from "@/pages/user/UserProfilePage.tsx";
 import UserAddressPage from "@/pages/user/UserAddressPage.tsx";
@@ -19,6 +17,8 @@ import UserBookingsPage from "@/pages/user/UserBookingsPage.tsx";
 import UserDashboardPage from "@/pages/user/UserDashboardPage.tsx";
 import AdminPaymentsPage from "@/pages/admin/AdminPaymentsPage.tsx";
 import AdminServicesPage from "@/pages/admin/AdminServicesPage.tsx";
+import PasswordResetPage from "@/pages/common/PasswordResetPage.tsx";
+import ProviderLoginPage from "@/pages/common/ProviderLoginPage.tsx";
 import ProviderChatPage from "@/pages/provider/ProviderChatPage.tsx";
 import ProviderMainPage from "@/pages/provider/ProviderMainPage.tsx";
 import AdminDashboardPage from "../pages/admin/AdminDashboardPage.tsx";
@@ -49,11 +49,11 @@ export const appRouter = createBrowserRouter([
         element: <LandingLayout />,
         children: [
             { path: "/", element: <LandingPage /> },
-            { path: "/forgotPassword", element: <PasswordReset /> },
-            { path: "/admin/login", element: <AdminLogin /> },
-            { path: "/user/login", element: <UserLogin /> },
-            { path: "/provider/login", element: <ProviderLogin /> },
-            { path: "*", element: <ErrorDisplay /> },
+            { path: "/forgotPassword", element: <PasswordResetPage /> },
+            { path: "/admin/login", element: <AdminLoginPage /> },
+            { path: "/user/login", element: <UserLoginPage /> },
+            { path: "/provider/login", element: <ProviderLoginPage /> },
+            { path: "*", element: <Error404Page /> },
             {
                 path: "/admin",
                 element: (
@@ -71,7 +71,7 @@ export const appRouter = createBrowserRouter([
                     { path: "subscriptions", element: <AdminSubscriptionsPage /> },
                     { path: "payments", element: <AdminPaymentsPage /> },
                     { path: "subscription/:subscriptionId", element: <AdminSubcriptionDetailedViewPage /> },
-                    { path: "*", element: <ErrorDisplay /> },
+                    { path: "*", element: <Error404Page /> },
                 ],
             },
             {
@@ -93,7 +93,7 @@ export const appRouter = createBrowserRouter([
                     { path: "notifications", element: <UserNotificationsPage /> },
                     { path: "payment-success", element: <PaymentConfirmPage status={true} userType={"user"} /> },
                     { path: "payment-failed", element: <PaymentConfirmPage status={false} userType={"user"} /> },
-                    { path: "*", element: <ErrorDisplay /> },
+                    { path: "*", element: <Error404Page /> },
                 ],
             },
             {
@@ -119,7 +119,7 @@ export const appRouter = createBrowserRouter([
                     { path: "addServiceDetails", element: <ProviderAddServiceDetailsPage /> },
                     { path: "payment-success", element: <PaymentConfirmPage status={true} userType={"provider"} /> },
                     { path: "payment-failed", element: <PaymentConfirmPage status={false} userType={"provider"} /> },
-                    { path: "*", element: <ErrorDisplay /> },
+                    { path: "*", element: <Error404Page /> },
                 ],
             },
         ],

@@ -3,7 +3,7 @@ import React, { useEffect, useRef } from 'react';
 import { Error404 } from '@/components/svgs/Error404';
 import { gsapBigSvgYDirectionAnimation } from '@/utils/constants';
 
-const ErrorDisplay: React.FC = () => {
+const Error404Page: React.FC = () => {
   const errorRef = useRef(null);
 
   useEffect(() => {
@@ -17,4 +17,4 @@ const ErrorDisplay: React.FC = () => {
   );
 };
 
-export default ErrorDisplay;
+export default Error404Page;

@@ -7,7 +7,7 @@ import LoginForm from "@/components/form/CommonForms/LoginForm";
 import { FormFilling } from "../../components/svgs/FormFilling";
 import { gsapBigSvgYDirectionAnimation } from '@/utils/constants';
 
-const AdminLogin = () => {
+const AdminLoginPage = () => {
 
   const navigate = useNavigate();
   const authUser = useSelector((store: RootState) => store.auth.authUser);
@@ -41,4 +41,4 @@ const AdminLogin = () => {
   )
 }
 
-export default AdminLogin
+export default AdminLoginPage

@@ -4,7 +4,7 @@ import { gsapBigSvgYDirectionAnimation } from '@/utils/constants';
 import { ChangePassword } from "@/components/svgs/ChangePassword";
 import ForgotPasswordForm from "@/components/form/CommonForms/ResetPasswordForm";
 
-const PasswordReset = () => {
+const PasswordResetPage = () => {
   
   const changePasswordRef = useRef(null);
 
@@ -24,4 +24,4 @@ const PasswordReset = () => {
   )
 }
 
-export default PasswordReset
+export default PasswordResetPage
