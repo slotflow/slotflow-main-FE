@@ -8,7 +8,7 @@ import DataFetchingError from "../DataFetchingError";
 import InfoDisplayComponent from "../InfoDisplayComponent";
 import UserPaymentSelection from "@/components/user/UserPaymentSelection";
 import { ServiceAvailability, Slot } from "@/utils/interface/serviceAvailabilityInterface";
-import ShimmerProviderAvailability from "@/components/shimmers/ShimmerProviderAvailability";
+import ProviderAvailabilityShimmer from "@/components/shimmers/ProviderAvailabilityShimmer";
 
 type ProviderServiceAvailabilityFetchApiFunctionResponseProps = Pick<ServiceAvailability, "availabilities">;
 
@@ -56,7 +56,7 @@ const ProviderServiceAvailability: React.FC<ProviderServiceAvailabilityComponent
     }
 
     if (isLoading) {
-        return <ShimmerProviderAvailability slotCount={20} />
+        return <ProviderAvailabilityShimmer slotCount={20} />
     }
 
     if (!data?.availabilities) {

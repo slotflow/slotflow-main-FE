@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import DataFetchingError from '../DataFetchingError';
 import InfoDisplayComponent from '../InfoDisplayComponent';
-import ShimmerProfileDetails from '@/components/shimmers/ShimmerProfileDetails';
+import ProfileDetailsShimmer from '@/components/shimmers/ProfileDetailsShimmer';
 import { ProviderFetchAddressResponseProps } from '@/utils/interface/api/providerApiInterface';
 import { AdminFetchProviderAddressResponseProps } from '@/utils/interface/api/adminProviderApiInterface';
 import { UserFetchProviderAddressResponseProps, UserFetchUserAddressResponse } from '@/utils/interface/api/userApiInterface';
@@ -48,7 +48,7 @@ const UserOrProviderAddressDetails: React.FC<UserOrProviderAddressDetailsCompone
     };
 
     if (isLoading) {
-        return <ShimmerProfileDetails row={9} />
+        return <ProfileDetailsShimmer row={9} />
     };
 
     if (!data) {

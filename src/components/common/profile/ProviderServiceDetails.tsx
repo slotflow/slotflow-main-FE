@@ -1,9 +1,9 @@
-import { ImageUpscale } from 'lucide-react';
 import React, { useState } from 'react';
+import { ImageUpscale } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import DataFetchingError from '../DataFetchingError';
 import InfoDisplayComponent from '../InfoDisplayComponent';
-import ShimmerProfileDetails from '../../shimmers/ShimmerProfileDetails';
+import ProfileDetailsShimmer from '../../shimmers/ProfileDetailsShimmer';
 import { UserFetchProviderServiceResponseProps } from '@/utils/interface/api/userApiInterface';
 import { ProviderFetchServiceDetailsResponseProps } from '@/utils/interface/api/providerApiInterface';
 import { AdminFetchProviderServiceResponseProps } from '@/utils/interface/api/adminProviderApiInterface';
@@ -17,6 +17,7 @@ interface ProviderServiceDetailsComponentProps {
     >;
     queryKey: string;
     isUser?: boolean;
+    shimmerRow?: number;
 }
 
 const ProviderServiceDetails: React.FC<ProviderServiceDetailsComponentProps> = ({
@@ -24,6 +25,7 @@ const ProviderServiceDetails: React.FC<ProviderServiceDetailsComponentProps> = (
     fetchApiFunction,
     queryKey,
     isUser,
+    shimmerRow
 }) => {
 
     const [largeImg, setLargeImg] = useState<boolean>(false);
@@ -44,7 +46,7 @@ const ProviderServiceDetails: React.FC<ProviderServiceDetailsComponentProps> = (
     if (isLoading) {
         return (
             <div className="w-full mx-auto md:flex justify-start flex-grow bg">
-                <ShimmerProfileDetails row={6} />
+                <ProfileDetailsShimmer row={shimmerRow || 6} />
             </div>
         )
     }

@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import DataFetchingError from "@/components/common/DataFetchingError";
 import InfoDisplayComponent from "@/components/common/InfoDisplayComponent";
-import ShimmerProfileDetails from "@/components/shimmers/ShimmerProfileDetails";
+import ProfileDetailsShimmer from "@/components/shimmers/ProfileDetailsShimmer";
 import { adminFetchSubscriptionDetails } from "@/utils/apis/adminSubscription.api";
 
 const AdminSubcriptionDetailedViewPage = () => {
@@ -21,7 +21,7 @@ const AdminSubcriptionDetailedViewPage = () => {
             {isError ? (
                 <DataFetchingError message={error.message} />
             ) : isLoading ? (
-                <ShimmerProfileDetails row={14} />
+                <ProfileDetailsShimmer row={14} />
             ) : data ? (
                 <div className="w-full">
                     <h2 className="text-2xl font-bold mb-4">Subscription Details</h2>

@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import DataFetchingError from "../DataFetchingError";
 import InfoDisplayComponent from "../InfoDisplayComponent";
 import { copyToClipboard, formatDate } from "@/utils/helper";
-import ShimmerProfileDetails from "@/components/shimmers/ShimmerProfileDetails";
+import ProfileDetailsShimmer from "@/components/shimmers/ProfileDetailsShimmer";
 import { ProviderFetchProfileDetailsResponseProps } from "@/utils/interface/api/providerApiInterface";
 import { AdminFetchProviderProfileDetailsResponseProps } from "@/utils/interface/api/adminProviderApiInterface";
 import { UserFetchProviderProfileDetailsResponse, UserFetchUserProfileResponse } from "@/utils/interface/api/userApiInterface";
@@ -58,7 +58,7 @@ const UserOrProviderProfileDetails: React.FC<UserOrProviderProfileDetailsCompone
     }
 
     if (isLoading) {
-        return <ShimmerProfileDetails row={shimmerRow || 7} />
+        return <ProfileDetailsShimmer row={shimmerRow || 7} />
     }
 
     if (!data) {

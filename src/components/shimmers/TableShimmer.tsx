@@ -1,10 +1,9 @@
-interface ShimmerTableComponentProps {
-    columnsCount?: number;
-}
+import { TableShimmerProps } from "@/utils/interface/componentInterface/shimmerInterface";
 
-const ShimmerTable: React.FC<ShimmerTableComponentProps> = ({
+const TableShimmer: React.FC<TableShimmerProps> = ({
     columnsCount
 }) => {
+    
     return (
         <>
         <div className="flex flex-col rounded-md overflow-hidden">
@@ -26,4 +25,4 @@ const ShimmerTable: React.FC<ShimmerTableComponentProps> = ({
     );
 };
 
-export default ShimmerTable;
+export default TableShimmer;

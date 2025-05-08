@@ -1,7 +1,7 @@
 import { DataTable } from "../table/data-table";
 import { useQuery } from "@tanstack/react-query";
 import { ColumnDef } from "@tanstack/react-table";
-import ShimmerTable from "../shimmers/ShimmerTable";
+import TableShimmer from "../shimmers/TableShimmer";
 import DataFetchingError from "./DataFetchingError";
 
 interface CommonTableComponentProps<TData, TColumn> {
@@ -38,7 +38,7 @@ const CommonTable = <TData extends TColumn, TColumn>({
             )}
             {isLoading ? (
                 <div className="mt-2">
-                    <ShimmerTable columnsCount={columnsCount} />
+                    <TableShimmer columnsCount={columnsCount} />
                 </div>
             ) : data ? (
 

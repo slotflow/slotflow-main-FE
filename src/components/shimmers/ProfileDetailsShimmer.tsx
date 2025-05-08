@@ -1,6 +1,6 @@
-import { ShimmerProfileDetailsProps } from "@/utils/interface/shimmerInterface"
+import { ProfileDetailsShimmerProps } from "@/utils/interface/componentInterface/shimmerInterface"
 
-const ShimmerProfileDetails: React.FC<ShimmerProfileDetailsProps> = ({ row }) => {
+const ProfileDetailsShimmer: React.FC<ProfileDetailsShimmerProps> = ({ row }) => {
     return (
         <div className="space-y-1 w-full">
             {Array.from({ length: row }).map((_, index) => (
@@ -13,4 +13,4 @@ const ShimmerProfileDetails: React.FC<ShimmerProfileDetailsProps> = ({ row }) =>
     )
 }
 
-export default ShimmerProfileDetails
+export default ProfileDetailsShimmer
