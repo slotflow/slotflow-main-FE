@@ -25,7 +25,7 @@ const ProfileHorizontalTabs: React.FC<ProfileHorizontalTabsComponentProps> = ({
     }, [isAdmin]);
 
     return (
-        <ul className="flex justify-around my-2 border-2 overflow-x-scroll no-scrollbar">
+        <ul className="flex justify-around my-2 border overflow-x-scroll no-scrollbar rounded-md">
             {profileTabs.map((button, index) => (
                 <button key={index} className={`p-2 hover:bg-[var(--menuItemHoverBg)] w-full cursor-pointer text-xs md:text-[1rem] ${tab === index && `text-[var(--mainColor)] font-bold`}`} onClick={() => setTab(index)}>{button}</button>
             ))}

@@ -97,7 +97,7 @@ const ProviderServiceAvailability: React.FC<ProviderServiceAvailabilityComponent
                         </table>
                     </div>
 
-                    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 px-2 mt-4">
+                    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mt-4">
                         {data.availabilities[tab]?.slots?.length ? (
                             data.availabilities[tab].slots.map((slot: Slot) => {
                                 const commonClasses = `text-xs text-center border rounded-md py-2 px-4 hover:bg-[var(--mainColor)] transition-colors duration-200 ${slot.available
