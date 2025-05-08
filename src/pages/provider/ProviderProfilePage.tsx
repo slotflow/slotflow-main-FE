@@ -2,7 +2,7 @@ import ProfileHead from "@/components/common/profile/ProfileHead";
 import { fetchProviderProfileDetails, updateProviderProfileImage } from "@/utils/apis/provider.api";
 import UserOrProviderProfileDetails from "@/components/common/profile/UserOrProviderProfileDetails";
 
-const ProviderProfile = () => {
+const ProviderProfilePage = () => {
 
   return (
     <div className="min-h-full border border-[var(--boxBorder)] rounded-lg p-2 flex flex-col">
@@ -13,4 +13,4 @@ const ProviderProfile = () => {
   
 }
 
-export default ProviderProfile
+export default ProviderProfilePage

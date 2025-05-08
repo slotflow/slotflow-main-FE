@@ -8,7 +8,7 @@ import { addProviderAddress } from "@/utils/apis/provider.api";
 import { AddressFormProps } from "@/utils/interface/addressInterface";
 
 
-const ProviderAddAddress = () => {
+const ProviderAddAddressPage = () => {
 
     const dispatch = useDispatch<AppDispatch>()
     const [hasErrors, setHasErrors] = useState(false);
@@ -44,4 +44,4 @@ const ProviderAddAddress = () => {
     )
 }
 
-export default ProviderAddAddress
+export default ProviderAddAddressPage

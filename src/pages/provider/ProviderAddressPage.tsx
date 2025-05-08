@@ -2,7 +2,7 @@ import ProfileHead from "@/components/common/profile/ProfileHead";
 import { fetchProviderAddress, updateProviderProfileImage } from "@/utils/apis/provider.api";
 import UserOrProviderAddressDetails from "@/components/common/profile/UserOrProviderAddressDetails";
 
-const ProviderAddress = () => {
+const ProviderAddressPage = () => {
 
   return (
     <div className="min-h-full border border-[var(--boxBorder)] rounded-lg p-2 flex flex-col">
@@ -13,4 +13,4 @@ const ProviderAddress = () => {
 
 }
 
-export default ProviderAddress
+export default ProviderAddressPage

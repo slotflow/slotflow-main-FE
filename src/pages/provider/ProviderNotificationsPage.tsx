@@ -1,9 +1,9 @@
 import React from 'react'
 
-const ProviderNotifications = () => {
+const ProviderNotificationsPage = () => {
   return (
     <div>ProviderNotifications</div>
   )
 }
 
-export default ProviderNotifications
+export default ProviderNotificationsPage

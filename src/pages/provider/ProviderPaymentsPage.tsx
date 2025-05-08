@@ -4,7 +4,7 @@ import { ProviderPaymentsTableColumns } from '@/components/table/providerTableCo
 import { ProviderPaymentsTableColumnsProps } from '@/utils/interface/tableColumnInterface';
 import { ProviderFetchPaymentsResponseProps } from '@/utils/interface/api/providerApiInterface';
 
-const ProviderPayments = () => {
+const ProviderPaymentsPage = () => {
 
   return (
     <CommonTable<ProviderFetchPaymentsResponseProps, ProviderPaymentsTableColumnsProps>
@@ -17,4 +17,4 @@ const ProviderPayments = () => {
   )
 }
 
-export default ProviderPayments
+export default ProviderPaymentsPage

@@ -10,7 +10,7 @@ import SelectFiledWithLabel from "@/components/form/SelectFiledWithLabel";
 import React, { ChangeEvent, FormEvent, useCallback, useEffect, useState } from "react";
 
 
-const ProviderAddServiceDetails = () => {
+const ProviderAddServiceDetailsPage = () => {
 
   const dispatch = useDispatch<AppDispatch>();
   const { dataUpdating } = useSelector((store: RootState) => store.auth);
@@ -226,5 +226,5 @@ const ProviderAddServiceDetails = () => {
   )
 }
 
-export default ProviderAddServiceDetails
+export default ProviderAddServiceDetailsPage
 

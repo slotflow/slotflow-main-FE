@@ -1,9 +1,9 @@
 import React from 'react'
 
-const ProviderChat = () => {
+const ProviderChatPage = () => {
   return (
     <div>ProviderChat</div>
   )
 }
 
-export default ProviderChat
+export default ProviderChatPage

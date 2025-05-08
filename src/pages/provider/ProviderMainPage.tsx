@@ -1,14 +1,14 @@
 import { useEffect } from "react";
 import Sidebar from "@/components/Navs/Sidebar";
 import { providerRoutes } from "@/utils/constants";
-import ProviderAddAddress from "./ProviderAddAddress";
 import { Outlet, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { checkUserStatus } from "@/utils/apis/auth.api";
+import ProviderAddAddressPage from "./ProviderAddAddressPage";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
-import ProviderApprovalPending from "./ProviderApprovalPending";
-import ProviderAddServiceDetails from "./ProviderAddServiceDetails";
-import ProviderAddServiceAvailability from "./ProviderAddServiceAvailability";
+import ProviderApprovalPendingPage from "./ProviderApprovalPendingPage";
+import ProviderAddServiceDetailsPage from "./ProviderAddServiceDetailsPage";
+import ProviderAddServiceAvailabilityPage from "./ProviderAddServiceAvailabilityPage";
 
 const ProviderMainPage = () => {
 
@@ -26,19 +26,19 @@ const ProviderMainPage = () => {
   if(!user?.approved){
     if(!user?.address){
       return (
-        <ProviderAddAddress />
+        <ProviderAddAddressPage />
       );
     } else if(!user?.serviceDetails){
       return (
-        <ProviderAddServiceDetails />
+        <ProviderAddServiceDetailsPage />
       );
     } else if(!user?.serviceAvailability){
       return (
-        <ProviderAddServiceAvailability />
+        <ProviderAddServiceAvailabilityPage />
       )
     } else {
       return (
-        <ProviderApprovalPending />
+        <ProviderApprovalPendingPage />
       )
     }
   }

@@ -6,7 +6,7 @@ import ManWorkingOnLaptop from "@/components/svgs/ManWorkingOnLaptop";
 import { FormEvent, useCallback, useEffect, useRef, useState } from "react";
 import CommonButton from '@/components/common/CommonButton';
 
-const ProviderApprovalPending = () => {
+const ProviderApprovalPendingPage = () => {
 
     const manRef = useRef(null);
     const [hasErrors, setHasErrors] = useState(false);
@@ -65,4 +65,4 @@ const ProviderApprovalPending = () => {
     )
 }
 
-export default ProviderApprovalPending
+export default ProviderApprovalPendingPage

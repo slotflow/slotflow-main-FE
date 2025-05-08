@@ -7,7 +7,8 @@ import PaymentSelection from "@/components/provider/PaymentSelection";
 import ProviderSubscriptionHistory from "@/components/provider/ProviderSubscriptionHistory";
 import { setPaymentSelectionPage, setSubscribingData } from "@/utils/redux/slices/providerSlice";
 
-const ProviderSubscription = () => {
+const ProviderSubscriptionPage = () => {
+
     const dispatch = useDispatch<AppDispatch>();
     const paymentSelectionRef = useRef<HTMLDivElement | null>(null);
     const plansRef = useRef<HTMLDivElement | null>(null);
@@ -28,4 +29,4 @@ const ProviderSubscription = () => {
     );
 };
 
-export default ProviderSubscription;
+export default ProviderSubscriptionPage;

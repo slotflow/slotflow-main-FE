@@ -1,9 +1,9 @@
 import React from 'react'
 
-const ProviderReviews = () => {
+const ProviderReviewsPage = () => {
   return (
     <div>ProviderReviews</div>
   )
 }
 
-export default ProviderReviews
+export default ProviderReviewsPage

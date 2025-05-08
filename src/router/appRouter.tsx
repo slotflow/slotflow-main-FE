@@ -1,47 +1,47 @@
 import UserLogin from "@/pages/common/UserLogin.tsx";
-import AdminPlansPage from "@/pages/admin/AdminPlansPage.tsx";
 import AdminLogin from "@/pages/common/AdminLogin.tsx";
 import { createBrowserRouter } from "react-router-dom";
 import { ProtectedRoute } from "./protectedRoutes.tsx";
-import AdminUsersPage from "../pages/admin/AdminUsersPage.tsx";
 import UserChatPage from "@/pages/user/UserChatPage.tsx";
 import UserMainPage from "@/pages/user/UserMainPage.tsx";
 import LandingPage from "../pages/common/LandingPage.tsx";
 import ErrorDisplay from "@/pages/common/ErrorDisplay.tsx";
-import AdminPaymentsPage from "@/pages/admin/AdminPaymentsPage.tsx";
-import AdminServicesPage from "@/pages/admin/AdminServicesPage.tsx";
 import AdminMainPage from "../pages/admin/AdminMainPage.tsx";
 import PasswordReset from "@/pages/common/PasswordReset.tsx";
-import ProviderChat from "@/pages/provider/ProviderChat.tsx";
 import ProviderLogin from "@/pages/common/ProviderLogin.tsx";
+import AdminPlansPage from "@/pages/admin/AdminPlansPage.tsx";
 import LandingLayout from "../pages/common/LandingLayout.tsx";
-import AdminDashboardPage from "../pages/admin/AdminDashboardPage.tsx";
+import AdminUsersPage from "../pages/admin/AdminUsersPage.tsx";
 import UserProfilePage from "@/pages/user/UserProfilePage.tsx";
 import UserAddressPage from "@/pages/user/UserAddressPage.tsx";
 import UserPaymentsPage from "@/pages/user/UserPaymentsPage.tsx";
 import UserBookingsPage from "@/pages/user/UserBookingsPage.tsx";
 import UserDashboardPage from "@/pages/user/UserDashboardPage.tsx";
-import ProviderProfile from "@/pages/provider/ProviderProfile.tsx";
-import ProviderService from "@/pages/provider/ProviderService.tsx";
-import ProviderReviews from "@/pages/provider/ProviderReviews.tsx";
-import ProviderAddress from "@/pages/provider/ProviderAddress.tsx";
-import ProviderPayments from "@/pages/provider/ProviderPayments.tsx";
+import AdminPaymentsPage from "@/pages/admin/AdminPaymentsPage.tsx";
+import AdminServicesPage from "@/pages/admin/AdminServicesPage.tsx";
+import ProviderChatPage from "@/pages/provider/ProviderChatPage.tsx";
 import ProviderMainPage from "@/pages/provider/ProviderMainPage.tsx";
-import AdminSubscriptionsPage from "@/pages/admin/AdminSubscriptionsPage.tsx";
-import ProviderDashboard from "@/pages/provider/ProviderDashboard.tsx";
+import AdminDashboardPage from "../pages/admin/AdminDashboardPage.tsx";
 import PaymentConfirmPage from "@/pages/common/PaymentConfirmPage.tsx";
-import ProviderAddAddress from "@/pages/provider/ProviderAddAddress.tsx";
+import ProviderProfilePage from "@/pages/provider/ProviderProfilePage.tsx";
+import ProviderServicePage from "@/pages/provider/ProviderServicePage.tsx";
+import ProviderReviewsPage from "@/pages/provider/ProviderReviewsPage.tsx";
+import ProviderAddressPage from "@/pages/provider/ProviderAddressPage.tsx";
 import UserNotificationsPage from "@/pages/user/UserNotificationsPage.tsx";
 import UserServiceSelectPage from "@/pages/user/UserServiceSelectPage.tsx";
+import ProviderPaymentsPage from "@/pages/provider/ProviderPaymentsPage.tsx";
+import AdminSubscriptionsPage from "@/pages/admin/AdminSubscriptionsPage.tsx";
+import ProviderDashboardPage from "@/pages/provider/ProviderDashboardPage.tsx";
+import ProviderAddAddressPage from "@/pages/provider/ProviderAddAddressPage.tsx";
 import AdminServiceProvidersPage from "../pages/admin/AdminServiceProvidersPage.tsx";
-import ProviderAppointments from "@/pages/provider/ProviderAppointments.tsx";
-import ProviderAvailability from "@/pages/provider/ProviderAvailability.tsx";
-import ProviderSubscription from "@/pages/provider/ProviderSubscription.tsx";
-import ProviderNotifications from "@/pages/provider/ProviderNotifications.tsx";
-import ProviderAddServiceDetails from "@/pages/provider/ProviderAddServiceDetails.tsx";
-import AdminSubcriptionDetailedViewPage from "@/pages/admin/AdminSubcriptionDetailedViewPage.tsx";
+import ProviderAppointmentsPage from "@/pages/provider/ProviderAppointmentsPage.tsx";
+import ProviderAvailabilityPage from "@/pages/provider/ProviderAvailabilityPage.tsx";
+import ProviderSubscriptionPage from "@/pages/provider/ProviderSubscriptionPage.tsx";
+import ProviderNotificationsPage from "@/pages/provider/ProviderNotificationsPage.tsx";
 import UserServiceProviderDetailPage from "@/pages/user/UserServiceProviderDetailPage.tsx";
 import AdminServiceProviderDetailPage from "@/pages/admin/AdminServiceProviderDetailPage.tsx";
+import ProviderAddServiceDetailsPage from "@/pages/provider/ProviderAddServiceDetailsPage.tsx";
+import AdminSubcriptionDetailedViewPage from "@/pages/admin/AdminSubcriptionDetailedViewPage.tsx";
 
 export const appRouter = createBrowserRouter([
     {
@@ -104,20 +104,19 @@ export const appRouter = createBrowserRouter([
                     </ProtectedRoute>
                 ),
                 children: [
-                    { index: true, element: <ProviderDashboard /> },
-                    { path: "profile", element: <ProviderProfile /> },
-                    { path: "address", element: <ProviderAddress /> },
-                    { path: "service", element: <ProviderService /> },
-                    { path: "availability", element: <ProviderAvailability /> },
-                    { path: "reviews", element: <ProviderReviews /> },
-                    { path: "appointments", element: <ProviderAppointments /> },
-                    { path: "subscription", element: <ProviderSubscription /> },
-                    { path: "payments", element: <ProviderPayments /> },
-                    { path: "chat", element: <ProviderChat /> },
-                    { path: "reviews", element: <ProviderReviews /> },
-                    { path: "notifications", element: <ProviderNotifications /> },
-                    { path: "addAddress", element: <ProviderAddAddress /> },
-                    { path: "addServiceDetails", element: <ProviderAddServiceDetails /> },
+                    { index: true, element: <ProviderDashboardPage /> },
+                    { path: "profile", element: <ProviderProfilePage /> },
+                    { path: "address", element: <ProviderAddressPage /> },
+                    { path: "service", element: <ProviderServicePage /> },
+                    { path: "availability", element: <ProviderAvailabilityPage /> },
+                    { path: "reviews", element: <ProviderReviewsPage /> },
+                    { path: "appointments", element: <ProviderAppointmentsPage /> },
+                    { path: "subscription", element: <ProviderSubscriptionPage /> },
+                    { path: "payments", element: <ProviderPaymentsPage /> },
+                    { path: "chat", element: <ProviderChatPage /> },
+                    { path: "notifications", element: <ProviderNotificationsPage /> },
+                    { path: "addAddress", element: <ProviderAddAddressPage /> },
+                    { path: "addServiceDetails", element: <ProviderAddServiceDetailsPage /> },
                     { path: "payment-success", element: <PaymentConfirmPage status={true} userType={"provider"} /> },
                     { path: "payment-failed", element: <PaymentConfirmPage status={false} userType={"provider"} /> },
                     { path: "*", element: <ErrorDisplay /> },

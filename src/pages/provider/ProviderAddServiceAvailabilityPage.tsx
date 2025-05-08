@@ -16,7 +16,7 @@ interface TimeSlot {
   endTime: Date;
 }
 
-const ProviderAddServiceAvailability = () => {
+const ProviderAddServiceAvailabilityPage = () => {
 
   const dispatch = useDispatch<AppDispatch>();
   const { dataUpdating } = useSelector((store: RootState) => store.auth);
@@ -312,4 +312,4 @@ const ProviderAddServiceAvailability = () => {
   );
 };
 
-export default ProviderAddServiceAvailability;
+export default ProviderAddServiceAvailabilityPage;
