@@ -48,7 +48,6 @@ export const userAllBookingsTableColumns: ColumnDef<UserBookingsTableColumnsProp
     id: "actions",
     cell: ({ row }) => {
       const booking = row.original;
-      console.log("bookingId : ",booking._id);
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>

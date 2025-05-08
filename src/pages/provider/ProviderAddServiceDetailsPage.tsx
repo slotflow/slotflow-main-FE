@@ -70,8 +70,8 @@ const ProviderAddServiceDetailsPage = () => {
           value: service._id
         }));
         setServices(transformed);
-      } catch (error) {
-        console.error("Error fetching services:", error);
+      } catch {
+        toast.error("Please wait we are trying");
       }
     };
   

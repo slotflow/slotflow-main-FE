@@ -32,15 +32,12 @@ const ResetPasswordForm = () => {
     }, []);
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-        console.log("updating password")
         event.preventDefault();
         if(hasErrors){
-            console.log("hasError");
             toast.error("Please fix the form errors.");
             return;
         }
         if (role && verificationToken) {
-            console.log("calling api function",role, verificationToken)
             dispatch(updatePassword({
                 role,
                 verificationToken,

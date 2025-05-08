@@ -44,7 +44,6 @@ export const userSearchServiceProviders = async (selectedServices: string[]): Pr
 };
 
 export const userFetchProviderDetails = async (providerId : string) : Promise<UserFetchProviderProfileDetailsResponse> => {
-    console.log("Fetching provider details")
     const response = await axiosInstance.get(`/user/getServiceProviderProfileDetails/${providerId}`);
     return response.data.provider;
 }
@@ -89,7 +88,6 @@ export const userfetchPayments = async () : Promise<Array<UserFetchPaymentsRespo
 }
 
 export const UserCancelBooking = async (bookingId: string) : Promise<UserCancelBookingResponseProps> => {
-    console.log("cancel booking : ", bookingId)
     const response = await axiosInstance.put(`/user/cancelBooking/${bookingId}`);
     return response.data;
 }

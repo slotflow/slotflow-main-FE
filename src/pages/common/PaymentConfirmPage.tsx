@@ -13,8 +13,6 @@ const PaymentConfirmPage: React.FC<PaymentConfirmPageProps> = ({ status, userTyp
   const [searchParams] = useSearchParams();
   const sessionId = searchParams.get("session_id");
 
-  console.log("session id : ",sessionId);
-
   useEffect(() => {
     gsap.fromTo(
       ".icon",
@@ -26,13 +24,10 @@ const PaymentConfirmPage: React.FC<PaymentConfirmPageProps> = ({ status, userTyp
   const save = async () => {
     if(!sessionId) return;
     if(userType === "provider") {
-      console.log("provider")
       const response = await saveSubscription(sessionId);
       toast.success(response.message);
     } else if (userType === "user") {
-      console.log("user");
       const response = await saveAppointmentBooking(sessionId);
-      console.log("response : ",response);
       toast.success(response.message);
     }
   }

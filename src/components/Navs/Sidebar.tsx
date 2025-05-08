@@ -50,7 +50,6 @@ const Sidebar = ({ routes }: SideBarProps) => {
                 dispatch(setAuthUser(null));
                 navigate("/provider/login");
             } else if (role === "ADMIN") {
-                console.log("logging out");
                 dispatch(setAuthUser(null));
                 navigate("/admin/login");
             }

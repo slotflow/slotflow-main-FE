@@ -137,8 +137,6 @@ const ProviderAddServiceAvailabilityPage = () => {
       slots: selectedTimeSlots
     }
 
-    console.log("data : ", data);
-
     dispatch(addAvailability(data));
     toast.success(`${selectedDay} availability added.`);
   }

@@ -18,7 +18,6 @@ interface AdminFEetchSubscriptionResponseProps extends SubscriptionProps {
 }
 export const adminFetchSubscriptionDetails = async (subscriptionId: string): Promise<AdminFEetchSubscriptionResponseProps> => {
     const response = await axiosInstance.get(`/admin/getSubscription/${subscriptionId}`);
-    console.log("response : ",response)
     return response.data.subscriptionDetails;
 }
 

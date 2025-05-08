@@ -35,12 +35,6 @@ const UserPaymentSelection: React.FC<UserPaymentSelect> = ({ modes, setOpenPayme
             return;
         }
 
-        console.log("SlotId : ",slotId);
-        console.log("providerId : ",providerId);
-        console.log("selectedDay : ",selectedDay);
-        console.log("selectedServiceMode : ",selectedServiceMode);
-        console.log("date : ",date);
-
         if (!slotId || !providerId || !selectedDay || !selectedServiceMode || !date) {
             toast.error("Something went wrong.");
             return;
@@ -51,7 +45,6 @@ const UserPaymentSelection: React.FC<UserPaymentSelect> = ({ modes, setOpenPayme
         try {
             setPaymentLoading(true);
             const { sessionId } = await userBookAnAppointment(data);
-            console.log("sessionId : ",sessionId);
             if (!sessionId) {
                 toast.error("Failed to create checkout session.");
                 setPaymentLoading(false);
@@ -65,8 +58,7 @@ const UserPaymentSelection: React.FC<UserPaymentSelect> = ({ modes, setOpenPayme
             if (result?.error) {
                 toast.error(result.error.message);
             }
-        } catch(error) {
-            console.log("error : ",error);
+        } catch {
             toast.error("An error occurred during payment.");
             setPaymentLoading(false);
         }
