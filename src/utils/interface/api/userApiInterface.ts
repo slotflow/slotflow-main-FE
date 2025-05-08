@@ -4,7 +4,7 @@ import { Provider } from "../providerInterface";
 import { CommonResponse } from "../commonInterface";
 import { ProviderService } from "../providerServiceInterface";
 import { Service } from "../appServiceInterface";
-import { ServiceAvailability } from "../serviceAvailabilityInterface";
+import { AvailabilityForResponse } from "../serviceAvailabilityInterface";
 import { Booking } from "../bookingInterface";
 import { Payment } from "../paymentInterface";
 
@@ -64,7 +64,7 @@ export interface UserFetchProviderServiceResponseProps extends FetchServiceDetai
 }
 
 // User fetch provider service availability api response
-export type UserFetchProviderAvailabilityResponseProps = Pick<ServiceAvailability, "availabilities" >;
+export type UserFetchProviderAvailabilityResponseProps = AvailabilityForResponse;
 
 //User book an appoint api request props
 export interface UserBookAnAppointmentRequestProps {

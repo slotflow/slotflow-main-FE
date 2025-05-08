@@ -6,15 +6,15 @@ import { useQuery } from "@tanstack/react-query";
 import { Calendar } from "@/components/ui/calendar";
 import DataFetchingError from "../DataFetchingError";
 import InfoDisplayComponent from "../InfoDisplayComponent";
+import { Slot } from "@/utils/interface/serviceAvailabilityInterface";
 import UserPaymentSelection from "@/components/user/UserPaymentSelection";
-import { ServiceAvailability, Slot } from "@/utils/interface/serviceAvailabilityInterface";
 import ProviderAvailabilityShimmer from "@/components/shimmers/ProviderAvailabilityShimmer";
+import { ProviderFetchServiceAvailabilityResponseProps } from "@/utils/interface/api/providerApiInterface";
 
-type ProviderServiceAvailabilityFetchApiFunctionResponseProps = Pick<ServiceAvailability, "availabilities">;
 
 interface ProviderServiceAvailabilityComponentProps {
     providerId?: string;
-    fetchApiFuntion: (date: Date, providerId?: string) => Promise<ProviderServiceAvailabilityFetchApiFunctionResponseProps>;
+    fetchApiFuntion: (date: Date, providerId?: string) => Promise<ProviderFetchServiceAvailabilityResponseProps>;
     queryKey: string;
     isUser?: boolean;
 }
@@ -26,7 +26,6 @@ const ProviderServiceAvailability: React.FC<ProviderServiceAvailabilityComponent
     isUser
 }) => {
 
-    const [tab, setTab] = useState<number>(0);
     const [day, setDay] = useState<string>("");
     const [date, setDate] = useState<Date | undefined>(new Date());
     const [openPayment, setOpenPayment] = useState<boolean>(false);
@@ -34,7 +33,7 @@ const ProviderServiceAvailability: React.FC<ProviderServiceAvailabilityComponent
 
     const { data, isLoading, isError, error } = useQuery({
         queryFn: () => fetchApiFuntion(date || new Date(), providerId),
-        queryKey: [queryKey],
+        queryKey: [queryKey, date],
         staleTime: 1 * 60 * 1000,
         refetchOnWindowFocus: false,
     });
@@ -43,7 +42,6 @@ const ProviderServiceAvailability: React.FC<ProviderServiceAvailabilityComponent
         const dayName = format(date, "EEE");
         const mapDay = dayMap[dayName];
         setDay(mapDay.day);
-        setTab(mapDay.tab);
     }
 
     useEffect(() => {
@@ -59,7 +57,7 @@ const ProviderServiceAvailability: React.FC<ProviderServiceAvailabilityComponent
         return <ProviderAvailabilityShimmer slotCount={20} />
     }
 
-    if (!data?.availabilities) {
+    if (!data) {
         return <DataFetchingError message="No availability found." />;
     }
 
@@ -74,35 +72,36 @@ const ProviderServiceAvailability: React.FC<ProviderServiceAvailabilityComponent
 
     return (
         <>
-            <div className="flex w-full mx-auto">
+            <div className="flex w-full mt-2 space-x-1">
                 <div>
                     <Calendar
                         mode="single"
                         selected={date}
                         onSelect={setDate}
-                        className={`rounded-md border mx-1`}
+                        className={`rounded-md border`}
                     />
                 </div>
-                <div className="table-auto w-full flex flex-col">
+
+                <div className="w-full flex flex-col">
 
                     <div className="border-[var(--boxBorder)] border rounded-md overflow-hidden w-full">
                         <table className="table-auto w-full">
                             <tbody className="w-1/2">
-                                <InfoDisplayComponent label="Day" value={data?.availabilities[tab]?.day} />
-                                <InfoDisplayComponent label="Start Time" value={data?.availabilities[tab]?.startTime} />
-                                <InfoDisplayComponent label="End Time" value={data?.availabilities[tab]?.endTime} />
-                                <InfoDisplayComponent label="Duration" value={data?.availabilities[tab]?.duration} />
-                                <InfoDisplayComponent label="Service Modes" value={data?.availabilities[tab]?.modes.map((item: string) => item + " ")} isLast />
+                                <InfoDisplayComponent label="Day" value={data?.day} />
+                                <InfoDisplayComponent label="Start Time" value={data?.startTime} />
+                                <InfoDisplayComponent label="End Time" value={data?.endTime} />
+                                <InfoDisplayComponent label="Duration" value={data?.duration} />
+                                <InfoDisplayComponent label="Service Modes" value={data?.modes.map((item: string) => item + " ")} isLast />
                             </tbody>
                         </table>
                     </div>
 
                     <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mt-4">
-                        {data.availabilities[tab]?.slots?.length ? (
-                            data.availabilities[tab].slots.map((slot: Slot) => {
+                        {data?.slots?.length ? (
+                            data?.slots.map((slot: Slot) => {
                                 const commonClasses = `text-xs text-center border rounded-md py-2 px-4 hover:bg-[var(--mainColor)] transition-colors duration-200 ${slot.available
-                                        ? 'bg-[var(--mainColor)/20] border-[var(--mainColor)]'
-                                        : 'border-gray-300'
+                                    ? 'bg-[var(--mainColor)/20] border-[var(--mainColor)]'
+                                    : 'border-gray-300'
                                     }`;
 
                                 return isUser ? (
@@ -133,7 +132,7 @@ const ProviderServiceAvailability: React.FC<ProviderServiceAvailabilityComponent
 
             {openPayment && selectedSlotId && providerId && (
                 <UserPaymentSelection
-                    modes={data?.availabilities[tab]?.modes}
+                    modes={data?.modes}
                     setOpenPayment={setOpenPayment}
                     providerId={providerId}
                     selectedDay={day}

@@ -4,7 +4,7 @@ import { Provider } from "../providerInterface";
 import { Service } from "../appServiceInterface";
 import { Subscription } from "../subscriptionInterface";
 import { ProviderService } from "../providerServiceInterface";
-import { Availability, ServiceAvailability } from "../serviceAvailabilityInterface";
+import { Availability, AvailabilityForResponse } from "../serviceAvailabilityInterface";
 import { Payment } from "../paymentInterface";
 
 // Common Response Type
@@ -56,7 +56,7 @@ export interface ProviderFetchServiceDetailsResponseProps extends FetchServiceDe
 }
 
 // Provider service availability api response
-export type ProviderFetchServiceAvailabilityResponseProps = Pick<ServiceAvailability, "availabilities" >;
+export type ProviderFetchServiceAvailabilityResponseProps = AvailabilityForResponse;
 
 // Provider profile image updating api request
 export interface ProviderUpdateProfileImageResponseProps extends ApiCommonResponse {

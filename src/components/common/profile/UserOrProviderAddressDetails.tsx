@@ -56,9 +56,9 @@ const UserOrProviderAddressDetails: React.FC<UserOrProviderAddressDetailsCompone
     };
 
     return (
-        <div className="w-full mx-auto rounded-lg">
-            <table className="table-auto border-collapse border border-[var(--boxBorder)] w-full">
-                <tbody>
+        <div className="border-[var(--boxBorder)] border rounded-md overflow-hidden w-full mt-2">
+            <table className="table-auto w-full">
+                <tbody className="w-1/2">
                     <>
                         <InfoDisplayComponent label="Address Line" value={data?.addressLine} />
                         <InfoDisplayComponent label="Place" value={data?.place} />
@@ -73,7 +73,7 @@ const UserOrProviderAddressDetails: React.FC<UserOrProviderAddressDetailsCompone
                 </tbody>
             </table>
         </div>
-        
+
     )
 };
 

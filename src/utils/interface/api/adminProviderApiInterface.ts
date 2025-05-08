@@ -2,10 +2,10 @@ import { Plan } from "../planInterface";
 import { Address } from "../addressInterface";
 import { Payment } from "../paymentInterface";
 import { Provider } from "../providerInterface";
+import { Service } from "../appServiceInterface";
 import { Subscription } from "../subscriptionInterface";
 import { ProviderService } from "../providerServiceInterface";
-import { ServiceAvailability } from "../serviceAvailabilityInterface";
-import { Service } from "../appServiceInterface";
+import { AvailabilityForResponse } from "../serviceAvailabilityInterface";
 
 // **** Admin Provider Api Interface **** \\
 
@@ -76,7 +76,7 @@ export interface AdminFetchProviderServiceResponseProps extends FetchServiceDeta
 
 
 // **** Admin fetch provider service availability api response
-export type AdminFetchProviderAvailabilityResponseProps = Pick<ServiceAvailability, "availabilities" >;
+export type AdminFetchProviderAvailabilityResponseProps = AvailabilityForResponse;
 
 // **** Admin fetch Provider subscriptions api response props
 type SubscripionsResProps = Pick<Subscription, | "startDate" | "endDate" | "subscriptionStatus">;
