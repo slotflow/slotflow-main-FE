@@ -12,8 +12,8 @@ import { ProviderFetchServiceAvailabilityResponseProps } from "@/utils/interface
 import { AdminFetchProviderAvailabilityResponseProps } from "@/utils/interface/api/adminProviderApiInterface";
 
 type FetchApiFunction =
-  | ((date: Date) => Promise<ProviderFetchServiceAvailabilityResponseProps>)
-  | ((date: Date, providerId: string) => Promise<UserFetchProviderAvailabilityResponseProps | AdminFetchProviderAvailabilityResponseProps>);
+    | ((date: Date) => Promise<ProviderFetchServiceAvailabilityResponseProps>)
+    | ((date: Date, providerId: string) => Promise<UserFetchProviderAvailabilityResponseProps | AdminFetchProviderAvailabilityResponseProps>);
 
 interface ProviderServiceAvailabilityComponentProps {
     providerId?: string;
@@ -39,7 +39,7 @@ const ProviderServiceAvailability: React.FC<ProviderServiceAvailabilityComponent
         queryKey: [queryKey, date],
         staleTime: 1 * 60 * 1000,
         refetchOnWindowFocus: false,
-        enabled: !!date && !!providerId,
+        enabled: !!date,
     });
 
     useEffect(() => {
@@ -49,14 +49,6 @@ const ProviderServiceAvailability: React.FC<ProviderServiceAvailabilityComponent
 
     if (isError) {
         return <DataFetchingError message={error.message} />
-    }
-
-    if (isLoading) {
-        return <ProviderAvailabilityShimmer slotCount={20} />
-    }
-
-    if (!data) {
-        return <DataFetchingError message="No availability found." />;
     }
 
     const handleBookAnAppoint = (slotId: string, availability: boolean) => {
@@ -71,77 +63,85 @@ const ProviderServiceAvailability: React.FC<ProviderServiceAvailabilityComponent
     return (
         <>
             <div className="flex w-full mt-2 space-x-1">
-                <div>
+                <div className="w-[21%]">
                     <Calendar
                         mode="single"
                         selected={date}
                         onSelect={setDate}
-                        className={`rounded-md border`}
+                        className={`rounded-md border border-[var(--boxBorder)]`}
                     />
                 </div>
 
-                <div className="w-full flex flex-col">
-
-                    <div className="border-[var(--boxBorder)] border rounded-md overflow-hidden w-full">
-                        <table className="table-auto w-full">
-                            <tbody className="w-1/2">
-                                <InfoDisplayComponent label="Day" value={data?.day} />
-                                <InfoDisplayComponent label="Start Time" value={data?.startTime} />
-                                <InfoDisplayComponent label="End Time" value={data?.endTime} />
-                                <InfoDisplayComponent label="Duration" value={data?.duration} />
-                                <InfoDisplayComponent
-                                    label="Service Modes"
-                                    value={data?.modes}
-                                    isRadioGroup
-                                    selectedRadioValue={selectedMode}
-                                    onRadioChange={(val) => setSelectedMode(val)}
-                                    isLast
-                                />
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mt-4">
-                        {data?.slots?.length ? (
-                            data?.slots.map((slot: Slot) => {
-                                const commonClasses = `text-xs text-center border rounded-md py-2 px-4 hover:bg-[var(--mainColor)] transition-colors duration-200 ${slot.available
-                                    ? 'bg-[var(--mainColor)/20] border-[var(--mainColor)]'
-                                    : 'border-gray-300'
-                                    }`;
-
-                                return isUser ? (
-                                    <button
-                                        key={slot._id}
-                                        onClick={(e) => {
-                                            e.preventDefault();
-                                            e.stopPropagation();
-                                            handleBookAnAppoint(slot._id, slot.available);
-                                        }}
-                                        className={`${commonClasses} ${slot.available ? 'cursor-pointer' : ''}`}
-                                    >
-                                        {slot.time}
-                                    </button>
-                                ) : (
-                                    <div key={slot._id} className={commonClasses}>
-                                        {slot.time}
-                                    </div>
-                                );
-                            })
+                {isLoading ? (
+                    <ProviderAvailabilityShimmer slotCount={20} />
+                ) : (
+                    <div className="w-full flex flex-col">
+                        {!data ? (
+                            <DataFetchingError message="No availability found." />
                         ) : (
-                            <p className="col-span-full text-sm text-gray-500 text-center">No slots available</p>
+                            <>
+                                <div className="border-[var(--boxBorder)] border rounded-md overflow-hidden w-full">
+                                    <table className="table-auto w-full">
+                                        <tbody className="w-1/2">
+                                            <InfoDisplayComponent label="Day" value={data?.day} />
+                                            <InfoDisplayComponent label="Start Time" value={data?.startTime} />
+                                            <InfoDisplayComponent label="End Time" value={data?.endTime} />
+                                            <InfoDisplayComponent label="Duration" value={data?.duration} />
+                                            <InfoDisplayComponent
+                                                label="Service Modes"
+                                                value={data?.modes}
+                                                isRadioGroup
+                                                selectedRadioValue={selectedMode}
+                                                onRadioChange={(val) => setSelectedMode(val)}
+                                                isLast
+                                            />
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mt-4">
+                                    {data?.slots?.length ? (
+                                        data?.slots.map((slot: Slot) => {
+                                            const commonClasses = `text-xs text-center border rounded-md py-2 px-4 hover:bg-[var(--mainColor)] transition-colors duration-200 ${slot.available
+                                                ? 'bg-[var(--mainColor)/20] border-[var(--mainColor)]'
+                                                : 'border-gray-300'
+                                                }`;
+
+                                            return isUser ? (
+                                                <button
+                                                    key={slot._id}
+                                                    onClick={(e) => {
+                                                        e.preventDefault();
+                                                        e.stopPropagation();
+                                                        handleBookAnAppoint(slot._id, slot.available);
+                                                    }}
+                                                    className={`${commonClasses} ${slot.available ? 'cursor-pointer' : ''}`}
+                                                >
+                                                    {slot.time}
+                                                </button>
+                                            ) : (
+                                                <div key={slot._id} className={commonClasses}>
+                                                    {slot.time}
+                                                </div>
+                                            );
+                                        })
+                                    ) : (
+                                        <p className="col-span-full text-sm text-gray-500 text-center">No slots available</p>
+                                    )}
+                                </div>
+                            </>
                         )}
                     </div>
-
-                </div>
+                )}
             </div>
 
             {openPayment && selectedSlotId && providerId && selectedMode && (
-                <PaymentSelection 
+                <PaymentSelection
                     setOpenPayment={setOpenPayment}
                     data={{
                         providerId,
-                        slotId: selectedSlotId, 
-                        date: date || new Date(), 
+                        slotId: selectedSlotId,
+                        date: date || new Date(),
                         selectedServiceMode: selectedMode
                     }}
                     isAppointmentBooking

@@ -52,6 +52,7 @@ export const fetchProviderService = async (providerId: string): Promise<AdminFet
 }
 
 export const adminFetchProviderServiceAvailability = async (date: Date, providerId: string): Promise<AdminFetchProviderAvailabilityResponseProps> => {
+    console.log("api calling")
     const response = await axiosInstance.get(`/admin/fetchProviderServiceAvailability/${providerId}`, {
         params : {
             date : date.toISOString()

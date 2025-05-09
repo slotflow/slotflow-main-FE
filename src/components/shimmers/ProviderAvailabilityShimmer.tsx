@@ -3,9 +3,8 @@ import { ProviderAvailabilityShimmerProps } from "@/utils/interface/componentInt
 
 const ProviderAvailabilityShimmer: React.FC<ProviderAvailabilityShimmerProps> = ({ slotCount}) => {
     return (
-        <div className="w-full mx-auto md:flex justify-between flex-grow space-x-1 mt-2">
-            <div className="w-[21%] rounded-md shimmer h-72"></div>
-            <div className="w-[79%]">
+        <div className="w-full mx-auto md:flex justify-between flex-grow space-x-1">
+            <div className="w-full">
                 <ProfileDetailsShimmer row={5} />
                 <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
                     {Array.from({ length: slotCount }).map((_, index) => (

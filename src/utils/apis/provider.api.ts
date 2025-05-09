@@ -61,13 +61,11 @@ export const fetchProviderServiceDetails = async (): Promise<ProviderFetchServic
 }
 
 export const fetchProviderServiceAvailability = async (date: Date): Promise<ProviderFetchServiceAvailabilityResponseProps> => {
-    console.log("date : ",date);
     const response = await axiosInstance.get('/provider/getServiceAvailability', {
         params : {
             date : date.toISOString()
         }
     });
-    console.log("response : ",response.data);
     return response.data.availability;
 }
 
