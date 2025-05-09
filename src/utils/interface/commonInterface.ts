@@ -16,6 +16,9 @@ export interface InfoDisplayComponentRowProps {
     isBoolean?: boolean;
     isPrice? : boolean;
     isLast?: boolean;
+    isRadioGroup?: boolean;
+    selectedRadioValue?: string | null;
+    onRadioChange?: (value: string) => void;
 }
 
 

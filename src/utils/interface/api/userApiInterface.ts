@@ -68,11 +68,10 @@ export type UserFetchProviderAvailabilityResponseProps = AvailabilityForResponse
 
 //User book an appoint api request props
 export interface UserBookAnAppointmentRequestProps {
-    selectedServiceMode : string,
     providerId : string,
-    selectedDay : string,
     slotId : string,
     date : Date,
+    selectedServiceMode : string,
 }
 
 // User fetch bookings response props

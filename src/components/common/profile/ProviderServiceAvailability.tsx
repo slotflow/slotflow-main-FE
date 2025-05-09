@@ -1,20 +1,23 @@
-import { format } from "date-fns";
 import { toast } from "react-toastify";
-import { dayMap } from "@/utils/constants";
 import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Calendar } from "@/components/ui/calendar";
 import DataFetchingError from "../DataFetchingError";
+import PaymentSelection from "../CommonPaymentSelection";
 import InfoDisplayComponent from "../InfoDisplayComponent";
 import { Slot } from "@/utils/interface/serviceAvailabilityInterface";
-import UserPaymentSelection from "@/components/user/UserPaymentSelection";
 import ProviderAvailabilityShimmer from "@/components/shimmers/ProviderAvailabilityShimmer";
+import { UserFetchProviderAvailabilityResponseProps } from "@/utils/interface/api/userApiInterface";
 import { ProviderFetchServiceAvailabilityResponseProps } from "@/utils/interface/api/providerApiInterface";
+import { AdminFetchProviderAvailabilityResponseProps } from "@/utils/interface/api/adminProviderApiInterface";
 
+type FetchApiFunction =
+  | ((date: Date) => Promise<ProviderFetchServiceAvailabilityResponseProps>)
+  | ((date: Date, providerId: string) => Promise<UserFetchProviderAvailabilityResponseProps | AdminFetchProviderAvailabilityResponseProps>);
 
 interface ProviderServiceAvailabilityComponentProps {
     providerId?: string;
-    fetchApiFuntion: (date: Date, providerId?: string) => Promise<ProviderFetchServiceAvailabilityResponseProps>;
+    fetchApiFuntion: FetchApiFunction;
     queryKey: string;
     isUser?: boolean;
 }
@@ -26,27 +29,22 @@ const ProviderServiceAvailability: React.FC<ProviderServiceAvailabilityComponent
     isUser
 }) => {
 
-    const [day, setDay] = useState<string>("");
     const [date, setDate] = useState<Date | undefined>(new Date());
     const [openPayment, setOpenPayment] = useState<boolean>(false);
     const [selectedSlotId, setSelectedSlotId] = useState<string | null>(null);
+    const [selectedMode, setSelectedMode] = useState<string | null>(null);
 
     const { data, isLoading, isError, error } = useQuery({
-        queryFn: () => fetchApiFuntion(date || new Date(), providerId),
+        queryFn: () => fetchApiFuntion(date as Date, providerId as string),
         queryKey: [queryKey, date],
         staleTime: 1 * 60 * 1000,
         refetchOnWindowFocus: false,
+        enabled: !!date && !!providerId,
     });
-
-    const findDayFromCalendar = (date: Date) => {
-        const dayName = format(date, "EEE");
-        const mapDay = dayMap[dayName];
-        setDay(mapDay.day);
-    }
 
     useEffect(() => {
         if (!data || !date || date === null) return;
-        findDayFromCalendar(date)
+        setSelectedMode(data?.modes[0]);
     }, [data, date])
 
     if (isError) {
@@ -91,7 +89,14 @@ const ProviderServiceAvailability: React.FC<ProviderServiceAvailabilityComponent
                                 <InfoDisplayComponent label="Start Time" value={data?.startTime} />
                                 <InfoDisplayComponent label="End Time" value={data?.endTime} />
                                 <InfoDisplayComponent label="Duration" value={data?.duration} />
-                                <InfoDisplayComponent label="Service Modes" value={data?.modes.map((item: string) => item + " ")} isLast />
+                                <InfoDisplayComponent
+                                    label="Service Modes"
+                                    value={data?.modes}
+                                    isRadioGroup
+                                    selectedRadioValue={selectedMode}
+                                    onRadioChange={(val) => setSelectedMode(val)}
+                                    isLast
+                                />
                             </tbody>
                         </table>
                     </div>
@@ -130,14 +135,16 @@ const ProviderServiceAvailability: React.FC<ProviderServiceAvailabilityComponent
                 </div>
             </div>
 
-            {openPayment && selectedSlotId && providerId && (
-                <UserPaymentSelection
-                    modes={data?.modes}
+            {openPayment && selectedSlotId && providerId && selectedMode && (
+                <PaymentSelection 
                     setOpenPayment={setOpenPayment}
-                    providerId={providerId}
-                    selectedDay={day}
-                    slotId={selectedSlotId}
-                    date={date || new Date()}
+                    data={{
+                        providerId,
+                        slotId: selectedSlotId, 
+                        date: date || new Date(), 
+                        selectedServiceMode: selectedMode
+                    }}
+                    isAppointmentBooking
                 />
             )}
 

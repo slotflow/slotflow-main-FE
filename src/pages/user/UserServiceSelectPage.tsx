@@ -45,7 +45,7 @@ const UserServiceSelectPage = () => {
                     data.map((service: UserSelectService) => (
                         <div
                             key={service._id}
-                            className={`p-3 rounded-md border-2 cursor-pointer text-center ${selectedServices.includes(((service._id)))
+                            className={`p-3 rounded-md border cursor-pointer text-center ${selectedServices.includes(((service._id)))
                                 ? "border-[var(--mainColor)]"
                                 : "border-gray-300"
                                 }`}
