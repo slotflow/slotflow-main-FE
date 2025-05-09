@@ -44,11 +44,7 @@ const ProviderServiceDetails: React.FC<ProviderServiceDetailsComponentProps> = (
     }
 
     if (isLoading) {
-        return (
-            <div className="w-full mx-auto md:flex justify-start flex-grow bg">
-                <ProfileDetailsShimmer row={shimmerRow || 6} />
-            </div>
-        )
+        return ( <ProfileDetailsShimmer row={shimmerRow || 6} className='mt-2' /> )
     }
 
     if (!data) {

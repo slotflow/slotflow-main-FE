@@ -1,8 +1,8 @@
 import { ProfileDetailsShimmerProps } from "@/utils/interface/componentInterface/shimmerInterface"
 
-const ProfileDetailsShimmer: React.FC<ProfileDetailsShimmerProps> = ({ row }) => {
+const ProfileDetailsShimmer: React.FC<ProfileDetailsShimmerProps> = ({ row, className }) => {
     return (
-        <div className="w-full">
+        <div className={`w-full ${className}`}>
             {Array.from({ length: row }).map((_, index) => (
                 <div key={index} className="flex w-full space-x-2 items-center">
                     <label className="flex items-center mb-3 shimmer h-12 w-4/12 rounded-md"></label>

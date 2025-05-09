@@ -61,7 +61,7 @@ const ProviderServiceAvailability: React.FC<ProviderServiceAvailabilityComponent
 
     const handleBookAnAppoint = (slotId: string, availability: boolean) => {
         if (!availability) {
-            toast.error("Slot already booked.");
+            toast.info("Slot is not available.");
             return;
         }
         setSelectedSlotId(slotId);

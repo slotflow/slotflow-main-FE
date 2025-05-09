@@ -58,7 +58,7 @@ const UserOrProviderProfileDetails: React.FC<UserOrProviderProfileDetailsCompone
     }
 
     if (isLoading) {
-        return <ProfileDetailsShimmer row={shimmerRow || 7} />
+        return <ProfileDetailsShimmer row={shimmerRow || 7} className="mt-2" />
     }
 
     if (!data) {

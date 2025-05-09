@@ -48,7 +48,7 @@ const UserOrProviderAddressDetails: React.FC<UserOrProviderAddressDetailsCompone
     };
 
     if (isLoading) {
-        return <ProfileDetailsShimmer row={9} />
+        return <ProfileDetailsShimmer row={9} className='mt-2' />
     };
 
     if (!data) {

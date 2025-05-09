@@ -1,6 +1,7 @@
 // Shimmer for provider profile Details compoenent interface
 export interface ProfileDetailsShimmerProps {
     row: number;
+    className?: string;
 }
 
 // Shimmer for provider availability compoenent interface
