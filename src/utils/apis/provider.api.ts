@@ -13,6 +13,7 @@ import {
     ProviderFetchSubscriptionHistoryResponseProps,
     ProviderFetchPaymentsResponseProps,
     AddProviderAddressPayload,
+    ProviderFetchAppointmentsResponseProps,
 } from "../interface/api/providerApiInterface";
 import { CommonResponse } from "../interface/commonInterface";
 
@@ -106,4 +107,9 @@ export const subscribeToTrialPlan = async (): Promise<CommonResponse> => {
 export const fetchProviderPayments = async (): Promise<ProviderFetchPaymentsResponseProps[]> => {
     const response = await axiosInstance.get('/provider/getPayments');
     return response.data.payments;
+}
+
+export const providerFetchAppoinments = async () : Promise<Array<ProviderFetchAppointmentsResponseProps>> => {
+    const response = await axiosInstance.get('/user/getAppointments');
+    return response.data.appointments;
 }

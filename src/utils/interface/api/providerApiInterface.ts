@@ -6,6 +6,7 @@ import { Subscription } from "../subscriptionInterface";
 import { ProviderService } from "../providerServiceInterface";
 import { Availability, AvailabilityForResponse } from "../serviceAvailabilityInterface";
 import { Payment } from "../paymentInterface";
+import { Booking } from "../bookingInterface";
 
 // Common Response Type
 export interface ApiCommonResponse {
@@ -72,5 +73,8 @@ export interface ProviderFetchSubscriptionHistoryResponseProps extends Subscripi
     
 }
 
-// Provider fetch all payments response
+// provider fetch all payments response props
 export type ProviderFetchPaymentsResponseProps = Pick<Payment, "_id" | "createdAt" | "totalAmount" | "paymentFor" | "paymentMethod" | "paymentGateway" | "paymentStatus" | "discountAmount">
+
+// Provider fetch all appointmets response props
+export type ProviderFetchAppointmentsResponseProps = Pick<Booking, "_id" | "appointmentDate" | "appointmentMode" | "appointmentStatus" | "appointmentTime" | "createdAt">;

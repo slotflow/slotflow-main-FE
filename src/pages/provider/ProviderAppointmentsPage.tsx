@@ -1,15 +1,18 @@
-// import CommonTable from '@/components/common/CommonTable'
+import CommonTable from '@/components/common/CommonTable';
+import { providerFetchAppoinments } from '@/utils/apis/provider.api';
+import { ProviderAppointmentsBookingTableColumns } from '@/components/table/providerTableColumns';
+import { ProviderFetchAppointmentsResponseProps } from '@/utils/interface/api/providerApiInterface';
+import { ProviderAppointmentsBookingTableColumnProps } from '@/utils/interface/tableColumnInterface';
 
 const ProviderAppointmentsPage = () => {
   return (
-    // <CommonTable<, >
-    //   fetchApiFunction={}
-    //   queryKey='appointments'
-    //   heading='Appointments'
-    //   column={}
-    //   columnsCount={7}
-    // />
-    <h1>Appointments</h1>
+    <CommonTable<ProviderFetchAppointmentsResponseProps, ProviderAppointmentsBookingTableColumnProps>
+      fetchApiFunction={providerFetchAppoinments}
+      queryKey='appointments'
+      heading='Appointments'
+      column={ProviderAppointmentsBookingTableColumns}
+      columnsCount={6}
+    />
   )
 }
 
