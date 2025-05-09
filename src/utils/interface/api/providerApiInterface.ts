@@ -77,4 +77,4 @@ export interface ProviderFetchSubscriptionHistoryResponseProps extends Subscripi
 export type ProviderFetchPaymentsResponseProps = Pick<Payment, "_id" | "createdAt" | "totalAmount" | "paymentFor" | "paymentMethod" | "paymentGateway" | "paymentStatus" | "discountAmount">
 
 // Provider fetch all appointmets response props
-export type ProviderFetchAppointmentsResponseProps = Pick<Booking, "_id" | "appointmentDate" | "appointmentMode" | "appointmentStatus" | "appointmentTime" | "createdAt">;
+export type ProviderFetchBookingAppointmentsResponseProps = Pick<Booking, "_id" | "appointmentDate" | "appointmentMode" | "appointmentStatus" | "appointmentTime" | "createdAt">;

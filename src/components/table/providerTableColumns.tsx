@@ -4,7 +4,7 @@ import { MoreHorizontal } from "lucide-react";
 import { ColumnDef } from "@tanstack/react-table";
 import { DataTableColumnHeader } from "./DataTableColumnHeader";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
-import { ProviderAppointmentsBookingTableColumnProps, ProviderPaymentsTableColumnsProps, ProviderSubscriptionsTableColumnsProps } from "@/utils/interface/tableColumnInterface";
+import { ProviderBookingAppointmentsTableColumnProps, ProviderPaymentsTableColumnsProps, ProviderSubscriptionsTableColumnsProps } from "@/utils/interface/tableColumnInterface";
 
 export const ProviderSubscriptionsTableColumns: ColumnDef<ProviderSubscriptionsTableColumnsProps>[] = [
   {
@@ -98,7 +98,7 @@ export const ProviderPaymentsTableColumns: ColumnDef<ProviderPaymentsTableColumn
   },
 ]
 
-export const ProviderAppointmentsBookingTableColumns: ColumnDef<ProviderAppointmentsBookingTableColumnProps>[] = [
+export const ProviderAppointmentsBookingTableColumns: ColumnDef<ProviderBookingAppointmentsTableColumnProps>[] = [
   {
       accessorKey: "appointmentDate",
       header: ({ column }) => (<DataTableColumnHeader column={column} title="Date" />),
@@ -118,7 +118,7 @@ export const ProviderAppointmentsBookingTableColumns: ColumnDef<ProviderAppointm
     },
     {
       accessorKey: "appointmentTime",
-      header: ({ column }) => (<DataTableColumnHeader column={column} title="Time" />)
+      header: ({ column }) => (<DataTableColumnHeader column={column} title="Slot" />)
     },
     {
       accessorKey: "createdAt",
