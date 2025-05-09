@@ -18,10 +18,6 @@ export const userAllBookingsTableColumns: ColumnDef<UserBookingsTableColumnsProp
       }
   },
   {
-    accessorKey: "appointmentDay",
-    header: ({ column }) => (<DataTableColumnHeader column={column} title="Day" />)
-  },
-  {
     accessorKey: "appointmentMode",
     header: ({ column }) => (<DataTableColumnHeader column={column} title="Mode" />)
   },

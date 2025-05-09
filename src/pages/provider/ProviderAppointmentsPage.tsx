@@ -1,8 +1,15 @@
-import React from 'react'
+// import CommonTable from '@/components/common/CommonTable'
 
 const ProviderAppointmentsPage = () => {
   return (
-    <div>ProviderAppointments</div>
+    // <CommonTable<, >
+    //   fetchApiFunction={}
+    //   queryKey='appointments'
+    //   heading='Appointments'
+    //   column={}
+    //   columnsCount={7}
+    // />
+    <h1>Appointments</h1>
   )
 }
 

@@ -40,6 +40,9 @@ export interface ProviderSubscriptionsTableColumnsProps extends SubscriptionTabl
 // provider payments listing table columns props
 export type ProviderPaymentsTableColumnsProps = Pick<Payment, "createdAt" | "totalAmount" | "paymentFor" | "paymentMethod" | "paymentGateway" | "paymentStatus" | "discountAmount">;
 
+// provider appointments bookinng listing table column props
+// export type ProviderAppointmentsBookingTableColumnProps = Pick<>
+
 
 
 
@@ -47,7 +50,7 @@ export type ProviderPaymentsTableColumnsProps = Pick<Payment, "createdAt" | "tot
 // **** User Table **** \\
 
 // user bookings listing table column props
-export type UserBookingsTableColumnsProps = Pick<Booking, "_id" | "appointmentMode" | "appointmentStatus" | "appointmentTime" | "appointmentDate" | "appointmentDay" | "createdAt" >
+export type UserBookingsTableColumnsProps = Pick<Booking, "_id" | "appointmentMode" | "appointmentStatus" | "appointmentTime" | "appointmentDate" | "createdAt" >
 
 // user payments table column props
 export type UserPaymentsTableColumnsProps = Pick<Payment, "createdAt" | "totalAmount" | "paymentFor" | "paymentMethod" | "paymentGateway" | "paymentStatus" | "discountAmount">;
