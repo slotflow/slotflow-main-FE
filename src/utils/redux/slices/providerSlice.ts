@@ -44,19 +44,20 @@ const providerSlice = createSlice({
         state.availabilities.push(newAvailability);
       },
       setSubscriptionPlanId: (state, action) => {
+        // console.log("planId : ",action.payload);
         state.planId = action.payload;
       },
       setSubscriptionPlanDuration: (state, action) => {
+        // console.log("plan duration : ",action.payload);
         state.planDuration = action.payload;
       },
       setSubscriptionIsTrailPlan: (state, action) => {
+        // console.log("isTrailPlan : ",action.payload);
         state.isTrialPlan = action.payload;
       },
       setPaymentSelectionPage: (state, action) => {
+        // console.log("paymentPage : ",action.payload);
         state.paymentSelectionOpen = action.payload;
-      },
-      setPaymentPageOpen: (state, action) => {
-        state.paymentPageOpen = action.payload;
       }
   },
 });
@@ -67,7 +68,6 @@ export const {
   setSubscriptionPlanDuration,
   setPaymentSelectionPage,
   setSubscriptionIsTrailPlan,
-  setPaymentPageOpen,
 } = providerSlice.actions;
 
 export default providerSlice.reducer;

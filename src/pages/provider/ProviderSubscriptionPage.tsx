@@ -10,7 +10,6 @@ import ProviderSubscriptionHistory from "@/components/provider/ProviderSubscript
 const ProviderSubscriptionPage = () => {
 
     const [showPlans, setShowPlans] = useState<boolean>(false);
-    const [openPayment, setOpenPayment] = useState<boolean>(false);
 
     const { planId, planDuration, isTrialPlan, paymentSelectionOpen } = useSelector((state: RootState) => state.provider);
 
@@ -26,9 +25,8 @@ const ProviderSubscriptionPage = () => {
                 showPlans={showPlans}
             />
             <ProviderSubscriptionHistory />
-            {openPayment && planId && planDuration && (
+            {paymentSelectionOpen && planId && planDuration && (
                 <CommonPaymentSelection
-                    setOpenPayment={setOpenPayment}
                     data={{
                         planId: planId,
                         planDuration: planDuration,

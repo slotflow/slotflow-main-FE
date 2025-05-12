@@ -4,6 +4,8 @@ import { Loader, X } from 'lucide-react';
 import { loadStripe } from '@stripe/stripe-js';
 import { subscribeToPlan } from '@/utils/apis/provider.api';
 import { userBookAnAppointment } from '@/utils/apis/user.api';
+import { useDispatch } from 'react-redux';
+import { setPaymentSelectionPage } from '@/utils/redux/slices/providerSlice';
 
 interface UserBookinAppointmentDataProps {
     providerId: string;
@@ -18,19 +20,18 @@ interface ProviderSubscriptionDataProps {
 }
 
 interface PaymentSelecionComponentPropst {
-    setOpenPayment: (data: boolean) => void;
     data: UserBookinAppointmentDataProps | ProviderSubscriptionDataProps;
     isAppointmentBooking?: boolean;
     isProviderSubscription?: boolean;
 }
 
 const CommonPaymentSelection: React.FC<PaymentSelecionComponentPropst> = ({
-    setOpenPayment,
     data,
     isAppointmentBooking,
     isProviderSubscription,
 }) => {
 
+    const dispatch = useDispatch();
     const [paymentLoading, setPaymentLoading] = useState<boolean>(false);
 
     const makeStripePayment = async () => {
@@ -88,14 +89,13 @@ const CommonPaymentSelection: React.FC<PaymentSelecionComponentPropst> = ({
             }
 
             setPaymentLoading(false);
-            setOpenPayment(false);
+            dispatch(setPaymentSelectionPage(false));
             const result = await stripe.redirectToCheckout({ sessionId });
 
             if (result?.error) {
                 toast.error(result.error.message);
             }
         } catch {
-            toast.error("An error occurred during payment.");
             setPaymentLoading(false);
         }
     }
@@ -105,7 +105,9 @@ const CommonPaymentSelection: React.FC<PaymentSelecionComponentPropst> = ({
         <div className="fixed inset-0 flex justify-center items-center bg-black/70 z-50">
             {!paymentLoading ? (
                 <div className="w-3/12 rounded-lg shadow-lg border p-4 bg-[var(--background)]">
-                    <X className="cursor-pointer ml-auto" onClick={() => { setOpenPayment(false) }} />
+                    <X className="cursor-pointer ml-auto" onClick={() => { 
+                        dispatch(setPaymentSelectionPage(false));
+                    }} />
                     <div className="py-6 space-y-4">
 
                         <h2 className="text-lg font-bold mb-4 text-center">Choose Payment Gateway</h2>
