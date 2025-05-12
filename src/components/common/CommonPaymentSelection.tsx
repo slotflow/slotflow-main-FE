@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { Loader, X } from 'lucide-react';
+import { useDispatch } from 'react-redux';
 import { loadStripe } from '@stripe/stripe-js';
 import { subscribeToPlan } from '@/utils/apis/provider.api';
 import { userBookAnAppointment } from '@/utils/apis/user.api';
-import { useDispatch } from 'react-redux';
-import { setPaymentSelectionPage } from '@/utils/redux/slices/providerSlice';
+import { setPaymentSelectionPage, setSubscriptionIsTrailPlan, setSubscriptionPlanDuration, setSubscriptionPlanId } from '@/utils/redux/slices/providerSlice';
 
 interface UserBookinAppointmentDataProps {
     providerId: string;
@@ -97,6 +97,11 @@ const CommonPaymentSelection: React.FC<PaymentSelecionComponentPropst> = ({
             }
         } catch {
             setPaymentLoading(false);
+        } finally {
+            setPaymentLoading(false);
+            dispatch(setSubscriptionPlanId(null));
+            dispatch(setSubscriptionPlanDuration(null));
+            dispatch(setSubscriptionIsTrailPlan(false));
         }
     }
 
