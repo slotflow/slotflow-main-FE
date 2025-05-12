@@ -13,16 +13,18 @@ interface Availability {
 interface ProviderState {
   availabilities: Availability[];
   planId: string | null;
-  planPrice: number | null;
+  planDuration: string | null;
   paymentSelectionOpen: boolean;
+  isTrialPlan: boolean;
   paymentPageOpen: boolean;
 }
 
 const initialState: ProviderState = {
   availabilities: [],
   planId: null,
-  planPrice: null,
+  planDuration: null,
   paymentSelectionOpen: false,
+  isTrialPlan: false,
   paymentPageOpen: false,
 };
 
@@ -41,9 +43,14 @@ const providerSlice = createSlice({
         }
         state.availabilities.push(newAvailability);
       },
-      setSubscribingData: (state, action) => {
-        state.planId = action.payload.planId;
-        state.planPrice = action.payload.planPrice;
+      setSubscriptionPlanId: (state, action) => {
+        state.planId = action.payload;
+      },
+      setSubscriptionPlanDuration: (state, action) => {
+        state.planDuration = action.payload;
+      },
+      setSubscriptionIsTrailPlan: (state, action) => {
+        state.isTrialPlan = action.payload;
       },
       setPaymentSelectionPage: (state, action) => {
         state.paymentSelectionOpen = action.payload;
@@ -56,8 +63,10 @@ const providerSlice = createSlice({
 
 export const {
   addAvailability,
-  setSubscribingData,
+  setSubscriptionPlanId,
+  setSubscriptionPlanDuration,
   setPaymentSelectionPage,
+  setSubscriptionIsTrailPlan,
   setPaymentPageOpen,
 } = providerSlice.actions;
 

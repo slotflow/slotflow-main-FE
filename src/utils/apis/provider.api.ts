@@ -101,6 +101,7 @@ export const fetchProviderSubscriptions = async () : Promise<ProviderFetchSubscr
 
 export const subscribeToTrialPlan = async (): Promise<CommonResponse> => {
     const response = await axiosInstance.post('/provider/subscribeToTrialPlan');
+    console.log("response : ",response);
     return response.data;
 }
 
@@ -111,6 +112,5 @@ export const fetchProviderPayments = async (): Promise<ProviderFetchPaymentsResp
 
 export const providerFetchBookingAppoinments = async () : Promise<Array<ProviderFetchBookingAppointmentsResponseProps>> => {
     const response = await axiosInstance.get('/provider/getBookingAppointments');
-    console.log("response : ",response);
     return response.data.bookingAppointments;
 }

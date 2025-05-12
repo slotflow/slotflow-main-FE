@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { Loader, X } from 'lucide-react';
 import { loadStripe } from '@stripe/stripe-js';
+import { subscribeToPlan } from '@/utils/apis/provider.api';
 import { userBookAnAppointment } from '@/utils/apis/user.api';
-import { subscribeToPlan, subscribeToTrialPlan } from '@/utils/apis/provider.api';
 
 interface UserBookinAppointmentDataProps {
     providerId: string;
@@ -15,13 +15,11 @@ interface UserBookinAppointmentDataProps {
 interface ProviderSubscriptionDataProps {
     planId: string;
     planDuration: string;
-    isTrialPlan: boolean;
 }
 
 interface PaymentSelecionComponentPropst {
     setOpenPayment: (data: boolean) => void;
     data: UserBookinAppointmentDataProps | ProviderSubscriptionDataProps;
-    // sessionCreationFunction: (data : UserBookinAppointmentDataProps | ProviderSubscriptionDataProps) => Promise<{ success: boolean, message: string }>
     isAppointmentBooking?: boolean;
     isProviderSubscription?: boolean;
 }
@@ -49,10 +47,10 @@ const CommonPaymentSelection: React.FC<PaymentSelecionComponentPropst> = ({
 
         if (isAppointmentBooking) {
             const infoData = data as UserBookinAppointmentDataProps;
-            console.log("slotId : ",infoData.slotId);
-            console.log("providerId : ",infoData.providerId);
-            console.log("selectedServiceMode : ",infoData.selectedServiceMode);
-            console.log("date : ",infoData.date);
+            console.log("slotId : ", infoData.slotId);
+            console.log("providerId : ", infoData.providerId);
+            console.log("selectedServiceMode : ", infoData.selectedServiceMode);
+            console.log("date : ", infoData.date);
             // return;
             if (!infoData.slotId || !infoData.providerId || !infoData.selectedServiceMode || !infoData.date) {
                 toast.error("Something went wrong.");
@@ -62,11 +60,9 @@ const CommonPaymentSelection: React.FC<PaymentSelecionComponentPropst> = ({
 
         if (isProviderSubscription) {
             const infoData = data as ProviderSubscriptionDataProps;
-            if (!infoData.isTrialPlan) {
-                if (!infoData.planDuration || !infoData.planId) {
-                    toast.error("Something went wrong.");
-                    return;
-                }
+            if (!infoData.planDuration || !infoData.planId) {
+                toast.error("Something went wrong.");
+                return;
             }
         }
 
@@ -76,15 +72,11 @@ const CommonPaymentSelection: React.FC<PaymentSelecionComponentPropst> = ({
             if (isAppointmentBooking) {
                 const infoData = data as UserBookinAppointmentDataProps;
                 const sessionData = await userBookAnAppointment(infoData);
-                console.log("sessionData : ",sessionData);
+                console.log("sessionData : ", sessionData);
                 sessionId = sessionData.sessionId
-                console.log("sessionId : ",sessionId);
+                console.log("sessionId : ", sessionId);
             } else if (isProviderSubscription) {
                 const infoData = data as ProviderSubscriptionDataProps;
-                if (infoData.isTrialPlan) {
-                    const res = await subscribeToTrialPlan();
-                    toast.success(res.message)
-                }
                 const sessionData = await subscribeToPlan(infoData);
                 sessionId = sessionData.sessionId;
             }
@@ -109,13 +101,13 @@ const CommonPaymentSelection: React.FC<PaymentSelecionComponentPropst> = ({
     }
 
 
-
     return (
         <div className="fixed inset-0 flex justify-center items-center bg-black/70 z-50">
             {!paymentLoading ? (
                 <div className="w-3/12 rounded-lg shadow-lg border p-4 bg-[var(--background)]">
                     <X className="cursor-pointer ml-auto" onClick={() => { setOpenPayment(false) }} />
                     <div className="py-6 space-y-4">
+
                         <h2 className="text-lg font-bold mb-4 text-center">Choose Payment Gateway</h2>
                         <button className="w-full flex items-center justify-center space-x-4 p-3 rounded-md shadow cursor-pointer bg-[var(--menuBg)] hover:bg-[var(--menuItemHoverBg)]" onClick={makeStripePayment}>
                             <img src="/images/Stripe.jpeg" alt="Stripe" className="w-8 h-8" />
@@ -129,7 +121,6 @@ const CommonPaymentSelection: React.FC<PaymentSelecionComponentPropst> = ({
                             <img src="/images/Razorpay.png" alt="Stripe" className="w-8 h-8" />
                             <h6 className="font-bold italic text-[#072654]">Razorpay</h6>
                         </button>
-
                     </div>
                 </div>
             ) : (

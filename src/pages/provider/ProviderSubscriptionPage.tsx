@@ -1,30 +1,45 @@
-import { useRef, useState } from "react";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "@/utils/redux/appStore";
-import ProviderPlanList from "@/components/provider/ProviderPlanList";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "@/utils/redux/appStore";
 import CommonButton from "@/components/common/CommonButton";
-import PaymentSelection from "@/components/provider/PaymentSelection";
+import ProviderPlanList from "@/components/provider/ProviderPlanList";
+import CommonPaymentSelection from "@/components/common/CommonPaymentSelection";
+import ProviderFreeSubscription from "@/components/provider/ProviderFreeSubscription";
 import ProviderSubscriptionHistory from "@/components/provider/ProviderSubscriptionHistory";
-import { setPaymentSelectionPage, setSubscribingData } from "@/utils/redux/slices/providerSlice";
 
 const ProviderSubscriptionPage = () => {
 
-    const dispatch = useDispatch<AppDispatch>();
-    const paymentSelectionRef = useRef<HTMLDivElement | null>(null);
-    const plansRef = useRef<HTMLDivElement | null>(null);
     const [showPlans, setShowPlans] = useState<boolean>(false);
+    const [openPayment, setOpenPayment] = useState<boolean>(false);
 
-    const storeSubscribingData = (planId: string, planPrice: number) => {
-        dispatch(setSubscribingData({ planId, planPrice }));
-        dispatch(setPaymentSelectionPage(true));
-    };
+    const { planId, planDuration, isTrialPlan, paymentSelectionOpen } = useSelector((state: RootState) => state.provider);
+
+    console.log("Plan ID:", planId);
+    console.log("Plan Duration:", planDuration);
+    console.log("Is Trial Plan:", isTrialPlan);
+    console.log("Payment Selection Open:", paymentSelectionOpen);
 
     return (
         <>
             <CommonButton onClick={() => setShowPlans(!showPlans)} text={showPlans ? "Hide Plans" : "Show Plans"} />
-            <ProviderPlanList storeSubscribingData={storeSubscribingData} showPlans={showPlans} plansRef={plansRef as React.RefObject<HTMLDivElement>} />
+            <ProviderPlanList
+                showPlans={showPlans}
+            />
             <ProviderSubscriptionHistory />
-            <PaymentSelection paymentSelectionRef={paymentSelectionRef as React.RefObject<HTMLDivElement>} />
+            {openPayment && planId && planDuration && (
+                <CommonPaymentSelection
+                    setOpenPayment={setOpenPayment}
+                    data={{
+                        planId: planId,
+                        planDuration: planDuration,
+                    }}
+                    isProviderSubscription
+                />
+            )}
+
+            {isTrialPlan && paymentSelectionOpen && (
+                <ProviderFreeSubscription />
+            )}
         </>
     );
 };

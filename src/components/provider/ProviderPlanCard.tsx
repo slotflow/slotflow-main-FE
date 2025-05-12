@@ -1,8 +1,28 @@
+import { useState } from 'react';
 import { Button } from '../ui/button';
+import { useDispatch } from 'react-redux';
+import { planDurations } from '@/utils/constants';
+import { Plan } from '@/utils/interface/planInterface';
+import SelectFiledWithLabel from '../form/SelectFiledWithLabel';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
-import { ProviderPlanCardProps } from '@/utils/interface/providerInterface';
+import { setPaymentSelectionPage, setSubscriptionIsTrailPlan, setSubscriptionPlanDuration } from '@/utils/redux/slices/providerSlice';
 
-const ProviderPlanCard: React.FC<ProviderPlanCardProps> = ({ plan, storeSubscribingData }) => {
+type CardProps = Pick<Plan, "_id" | "planName" | "description" | "features" | "price">;
+export interface ProviderPlanCardProps {
+    plan: CardProps;
+    isTrial?: boolean
+}
+
+const ProviderPlanCard: React.FC<ProviderPlanCardProps> = ({ plan, isTrial }) => {
+
+    const dispatch = useDispatch();
+    const [selectedPlanDuration, setSelectedPlanDuration] = useState("");
+
+    const handleDayChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setSelectedPlanDuration(event.target.value);
+        setSubscriptionPlanDuration(event.target.value);
+    };
+
     return (
         <Card key={plan._id} className="p-4 border rounded-2xl shadow-sm flex flex-col h-full">
             <CardHeader>
@@ -17,8 +37,22 @@ const ProviderPlanCard: React.FC<ProviderPlanCardProps> = ({ plan, storeSubscrib
                 </ul>
                 <p className="mt-4 text-sm">{plan.description}</p>
             </CardContent>
+            {!isTrial && (
+                <SelectFiledWithLabel
+                    label="Select Plan Duration"
+                    id="planDuration"
+                    value={selectedPlanDuration}
+                    onChange={handleDayChange}
+                    options={planDurations.map(plan => plan.durationName)}
+                    required
+                />
+            )}
             <div className="mt-auto">
-                <Button className="w-full cursor-pointer" onClick={() => storeSubscribingData(plan._id, plan.price)}>Choose Plan</Button>
+                <Button className="w-full cursor-pointer" onClick={ () => {
+                    dispatch(setSubscriptionIsTrailPlan(isTrial));
+                    dispatch(setPaymentSelectionPage(true));
+                }}
+                >Choose Plan</Button>
             </div>
         </Card>
     )

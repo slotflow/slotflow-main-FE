@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Calendar } from "@/components/ui/calendar";
 import DataFetchingError from "../DataFetchingError";
-import PaymentSelection from "../CommonPaymentSelection";
+import CommonPaymentSelection from "../CommonPaymentSelection";
 import InfoDisplayComponent from "../InfoDisplayComponent";
 import { Slot } from "@/utils/interface/serviceAvailabilityInterface";
 import ProviderAvailabilityShimmer from "@/components/shimmers/ProviderAvailabilityShimmer";
@@ -136,7 +136,7 @@ const ProviderServiceAvailability: React.FC<ProviderServiceAvailabilityComponent
             </div>
 
             {openPayment && selectedSlotId && providerId && selectedMode && (
-                <PaymentSelection
+                <CommonPaymentSelection
                     setOpenPayment={setOpenPayment}
                     data={{
                         providerId,
