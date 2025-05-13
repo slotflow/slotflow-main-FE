@@ -1,3 +1,5 @@
+import { Availability } from "./entityInterface/serviceAvailabilityInterface";
+
 // **** Auth slice state **** \\
 export interface UserData {
     username?: string;
@@ -22,7 +24,7 @@ export interface AuthState {
 
 
 // **** Sign Form Interface **** \\
-export interface stateVariables {
+export interface SignUpFormStateVariables {
     signInForm: boolean;
     signUpForm: boolean;
     verifyOtpForm: boolean;
@@ -32,4 +34,32 @@ export interface stateVariables {
     otpRemainingTime: number;
     otpTimerIsRunning: boolean;
     loading: boolean;
+}
+
+
+
+// **** App state slice **** \\
+export interface appStateVariables {
+    lightTheme: boolean;
+    signinForm: boolean;
+    sidebarOpen: boolean;
+}
+
+
+
+// **** Provider slice interfaces **** \\
+export interface ProviderState {
+  availabilities: Availability[];
+  planId: string | null;
+  planDuration: string | null;
+  paymentSelectionOpen: boolean;
+  isTrialPlan: boolean;
+  paymentPageOpen: boolean;
+}
+
+
+
+// **** User slice interface **** \\
+export interface UserStateVariables {
+  selectedServices: string[];
 }

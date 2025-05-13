@@ -1,13 +1,19 @@
 import { toast } from "react-toastify";
 import { useQueryClient } from "@tanstack/react-query";
-import { UserCancelBooking } from "@/utils/apis/user.api";
+import { userCancelBooking } from "@/utils/apis/user.api";
+import { Booking } from "@/utils/interface/entityInterface/bookingInterface";
 import { UserBookingsTableColumnsProps } from "@/utils/interface/tableColumnInterface";
 
-export const useUserBookingActions = () => {
+interface UseUserBookingActionsCustomHookReturnType {
+    handleUserCancelBooking: (bookingId: Booking["_id"]) => void;
+}
+
+export const useUserBookingActions = (): UseUserBookingActionsCustomHookReturnType => {
+
     const queryClient = useQueryClient();
 
-    const handleCancelBooking = (bookingId: string) => {
-        UserCancelBooking(bookingId)
+    const handleUserCancelBooking = (bookingId: Booking["_id"]) => {
+        userCancelBooking(bookingId)
             .then((res) => {
                 queryClient.setQueryData(
                     ["bookings"],
@@ -25,5 +31,5 @@ export const useUserBookingActions = () => {
             });
     }
 
-    return { handleCancelBooking }
+    return { handleUserCancelBooking }
 }

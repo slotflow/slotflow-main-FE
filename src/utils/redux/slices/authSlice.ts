@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { updateUserProfileImage } from "@/utils/apis/user.api";
+import { userUpdateUserProfileImage } from "@/utils/apis/user.api";
 import { AuthState, UserData } from "@/utils/interface/sliceInterface";
-import { addProviderAddress, addProviderServiceAvailabilities, addProviderServiceDetails, updateProviderProfileImage } from "@/utils/apis/provider.api";
+import { providerAddProviderAddress, providerAddProviderServiceAvailabilities, providerAddProviderServiceDetails, providerUpdateProviderProfileImage } from "@/utils/apis/provider.api";
 
 const initialState: AuthState = {
     authUser: null,
@@ -24,64 +24,64 @@ const authSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(updateProviderProfileImage.pending, (state) => {
+            .addCase(providerUpdateProviderProfileImage.pending, (state) => {
                 state.profileImageUpdating = true;
             })
-            .addCase(updateProviderProfileImage.fulfilled, (state, action) => {
+            .addCase(providerUpdateProviderProfileImage.fulfilled, (state, action) => {
                 state.profileImageUpdating = false;
                 if(state.authUser){
                     state.authUser.profileImage = action.payload.profileImage;
                 }
             })
-            .addCase(updateProviderProfileImage.rejected, (state) => {
+            .addCase(providerUpdateProviderProfileImage.rejected, (state) => {
                 state.profileImageUpdating = false;
             })
-            .addCase(updateUserProfileImage.pending, (state) => {
+            .addCase(userUpdateUserProfileImage.pending, (state) => {
                 state.profileImageUpdating = true;
             })
-            .addCase(updateUserProfileImage.fulfilled, (state, action) => {
+            .addCase(userUpdateUserProfileImage.fulfilled, (state, action) => {
                 state.profileImageUpdating = false;
                 if(state.authUser){
                     state.authUser.profileImage = action.payload.profileImage;
                 }
             })
-            .addCase(updateUserProfileImage.rejected, (state) => {
+            .addCase(userUpdateUserProfileImage.rejected, (state) => {
                 state.profileImageUpdating = false;
             })
-            .addCase(addProviderAddress.pending, (state) => {
+            .addCase(providerAddProviderAddress.pending, (state) => {
                 state.dataUpdating = true;
             })
-            .addCase(addProviderAddress.fulfilled, (state, action) => {
+            .addCase(providerAddProviderAddress.fulfilled, (state, action) => {
                 state.dataUpdating = false;
                 if(state.authUser){
                     state.authUser.address = action.payload.success;
                 }
             })
-            .addCase(addProviderAddress.rejected, (state) => {
+            .addCase(providerAddProviderAddress.rejected, (state) => {
                 state.dataUpdating = false;
             })
-            .addCase(addProviderServiceDetails.pending, (state) => {
+            .addCase(providerAddProviderServiceDetails.pending, (state) => {
                 state.dataUpdating = true;
             })
-            .addCase(addProviderServiceDetails.fulfilled, (state, action) => {
+            .addCase(providerAddProviderServiceDetails.fulfilled, (state, action) => {
                 state.dataUpdating = false;
                 if(state.authUser){
                     state.authUser.serviceDetails = action.payload.success;
                 }
             })
-            .addCase(addProviderServiceDetails.rejected, (state) => {
+            .addCase(providerAddProviderServiceDetails.rejected, (state) => {
                 state.dataUpdating = false;
             })
-            .addCase(addProviderServiceAvailabilities.pending, (state) => {
+            .addCase(providerAddProviderServiceAvailabilities.pending, (state) => {
                 state.dataUpdating = true;
             })
-            .addCase(addProviderServiceAvailabilities.fulfilled, (state, action) => {
+            .addCase(providerAddProviderServiceAvailabilities.fulfilled, (state, action) => {
                 state.dataUpdating = false;
                 if(state.authUser){
                     state.authUser.serviceAvailability = action.payload.success;
                 }
             })
-            .addCase(addProviderServiceAvailabilities.rejected, (state) => {
+            .addCase(providerAddProviderServiceAvailabilities.rejected, (state) => {
                 state.dataUpdating = false;
             });
     },

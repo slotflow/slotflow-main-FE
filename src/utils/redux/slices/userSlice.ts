@@ -1,10 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { UserStateVariables } from "@/utils/interface/sliceInterface";
 
-interface stateVariables {
-  selectedServices: string[];
-}
-
-const initialState: stateVariables = {
+const initialState: UserStateVariables = {
   selectedServices: [],
 };
 

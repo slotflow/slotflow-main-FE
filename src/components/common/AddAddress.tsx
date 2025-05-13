@@ -3,7 +3,18 @@ import { RootState } from '@/utils/redux/appStore';
 import CommonButton from '@/components/common/CommonButton';
 import InputField from '@/components/form/InputFieldWithLable';
 import React, { FormEvent, useCallback, useState } from 'react';
-import { AddAddressProps, AddressFormProps } from '@/utils/interface/addressInterface';
+import { Address } from '@/utils/interface/entityInterface/addressInterface';
+
+export type AddressFormProps = Pick<Address, "addressLine" | "phone" | "place" | "city" | "district" | "pincode" | "state" | "country" | "googleMapLink">
+
+export interface AddAddressProps {
+    formClassNames: string;
+    heading: string;
+    headingSize: string;
+    buttonText: string;
+    onSubmit: (e: FormEvent<HTMLFormElement>, formData: AddressFormProps) => void;
+    setHasErrors: (hasError: boolean) => void;
+}
 
 const AddAddress: React.FC<AddAddressProps> = ({ formClassNames, heading, headingSize, buttonText, onSubmit, setHasErrors }) => {
 

@@ -1,12 +1,12 @@
 import { userFetchBookings } from "@/utils/apis/user.api";
 import CommonTable from "@/components/common/CommonTable";
-import { userAllBookingsTableColumns } from "@/components/table/userTableColumns";
 import { UserBookingsTableColumnsProps } from "@/utils/interface/tableColumnInterface";
-import { UserFetchBookingsResponseProps } from "@/utils/interface/api/userApiInterface";
+import { UserFetchBookingsApiResponse } from "@/utils/interface/api/userApiInterface";
+import { userAllBookingsTableColumns } from "@/components/table/tableColumns/userTableColumns";
 
 const UserBookingsPage = () => {
     return (
-        <CommonTable<UserFetchBookingsResponseProps, UserBookingsTableColumnsProps>
+        <CommonTable<UserFetchBookingsApiResponse, UserBookingsTableColumnsProps>
             fetchApiFunction={userFetchBookings}
             queryKey='bookings'
             heading='Booking History'

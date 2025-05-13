@@ -8,7 +8,7 @@ import { AppDispatch, RootState } from '@/utils/redux/appStore';
 import { format, addMinutes, isBefore, isEqual } from "date-fns";
 import { addAvailability } from '@/utils/redux/slices/providerSlice';
 import SelectFiledWithLabel from '@/components/form/SelectFiledWithLabel';
-import { addProviderServiceAvailabilities } from '@/utils/apis/provider.api';
+import { providerAddProviderServiceAvailabilities } from '@/utils/apis/provider.api';
 import { Checkbox } from '@/components/ui/checkbox';
 
 interface TimeSlot {
@@ -151,7 +151,7 @@ const ProviderAddServiceAvailabilityPage = () => {
       toast.info("Please select your service mode.");
       return;
     }
-    dispatch(addProviderServiceAvailabilities({ data: availabilities }))
+    dispatch(providerAddProviderServiceAvailabilities({ data: availabilities }))
       .unwrap()
       .then((res) => {
         if (res.success) {

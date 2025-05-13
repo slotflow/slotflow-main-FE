@@ -1,9 +1,9 @@
 import { format } from "date-fns";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 import { MoreHorizontal } from "lucide-react";
 import { ColumnDef } from "@tanstack/react-table";
-import { DataTableColumnHeader } from "./DataTableColumnHeader";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
+import { DataTableColumnHeader } from "../DataTableColumnHeader";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../../ui/dropdown-menu";
 import { ProviderBookingAppointmentsTableColumnProps, ProviderPaymentsTableColumnsProps, ProviderSubscriptionsTableColumnsProps } from "@/utils/interface/tableColumnInterface";
 
 export const ProviderSubscriptionsTableColumns: ColumnDef<ProviderSubscriptionsTableColumnsProps>[] = [

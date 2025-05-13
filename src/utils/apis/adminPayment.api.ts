@@ -1,7 +1,7 @@
 import axiosInstance from "@/lib/axios"
-import { AdminFetchAllPaymentsResponseProps } from "../interface/api/adminPaymentInterfac";
+import { AdminFetchAllPaymentsApiResponse } from "../interface/api/adminPaymentInterfac";
 
-export const adminFetchAllPayments = async (): Promise<Array<AdminFetchAllPaymentsResponseProps>> => {
+export const adminFetchAllPayments = async (): Promise<AdminFetchAllPaymentsApiResponse[]> => {
     const response = await axiosInstance.get('/admin/getPayments');
     return response.data.payments;
 }

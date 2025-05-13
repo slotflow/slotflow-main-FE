@@ -4,8 +4,8 @@ import CommonButton from "@/components/common/CommonButton";
 import RightSideBox from "@/components/provider/RightSideBox";
 import InputField from "@/components/form/InputFieldWithLable";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
-import { fetchAllAppServices } from "../../utils/apis/provider.api";
-import { addProviderServiceDetails } from "@/utils/apis/provider.api";
+import { providerFetchAllAppServices } from "../../utils/apis/provider.api";
+import { providerAddProviderServiceDetails } from "@/utils/apis/provider.api";
 import SelectFiledWithLabel from "@/components/form/SelectFiledWithLabel";
 import React, { ChangeEvent, FormEvent, useCallback, useEffect, useState } from "react";
 
@@ -64,7 +64,7 @@ const ProviderAddServiceDetailsPage = () => {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const res = await fetchAllAppServices();
+        const res = await providerFetchAllAppServices();
         const transformed = res.services.map((service: { _id: string; serviceName: string }) => ({
           label: service.serviceName,
           value: service._id
@@ -95,7 +95,7 @@ const ProviderAddServiceDetailsPage = () => {
       if (selectedImage) {
         formDataToSend.append('certificate', selectedImage);
       }
-      dispatch(addProviderServiceDetails({ formData: formDataToSend }))
+      dispatch(providerAddProviderServiceDetails({ formData: formDataToSend }))
         .unwrap()
         .then((res) => {
           if (res.success) {

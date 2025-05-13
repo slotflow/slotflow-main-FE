@@ -1,5 +1,5 @@
 
-//  otp form timer
+// **** Time formating function for otp page **** \\
 export const formatTime = (seconds: number): string => {
   const minutes = Math.floor(seconds / 60);
   const remainingSeconds = seconds % 60;
@@ -8,7 +8,7 @@ export const formatTime = (seconds: number): string => {
   return `${formattedMinutes}:${formattedSeconds}`;
 };
 
-// Header greetings
+// **** Greeting generation function for header **** \\
 export const greetings = (): string => {
   const date = new Date();
   const hour = date.getHours();
@@ -21,7 +21,14 @@ export const greetings = (): string => {
   }
 }
 
-//  Provider slot availability generator
+// **** Provider slot availability generator **** \\
+const format12HourTime = (time24: string): string => {
+  const [hours, minutes] = time24.split(':').map(Number);
+  const period = hours >= 12 ? 'PM' : 'AM';
+  const hour12 = hours % 12 === 0 ? 12 : hours % 12;
+  return `${hour12}:${String(minutes).padStart(2, '0')} ${period}`;
+};
+
 export const generateTimeSlots = (startTime: string, endTime: string, intervalMinutes: string): string[] => {
   const slots: string[] = [];
   let currentTime = startTime;
@@ -46,15 +53,9 @@ export const generateTimeSlots = (startTime: string, endTime: string, intervalMi
   return slots
 };
 
-// Provider availability time selector time formatter
-const format12HourTime = (time24: string): string => {
-  const [hours, minutes] = time24.split(':').map(Number);
-  const period = hours >= 12 ? 'PM' : 'AM';
-  const hour12 = hours % 12 === 0 ? 12 : hours % 12;
-  return `${hour12}:${String(minutes).padStart(2, '0')} ${period}`;
-};
 
-// Formate date for infoDisplayCompoenent
+
+// **** Formate date for infoDisplayCompoenent **** \\
 export const formatDate = (dateString: string) => {
   return new Date(dateString).toLocaleString("en-US", {
     year: "numeric",
@@ -67,19 +68,14 @@ export const formatDate = (dateString: string) => {
   });
 };
 
-// Coupy to Clipboard
+// **** Copy to clipboard function for infoDisplayCompoenent **** \\
 export const copyToClipboard = (text: string) => {
   navigator.clipboard.writeText(text);
 };
 
-// Formating the boolean value
+// **** Formating function for boolean value formatBoolean **** \\
 export const formatBoolean = (val: boolean) => (val ? "Yes" : "No");
 
-// link
-export const handleLinkClick = (url: string) => {
-  if (url) {
-    window.open(url, '_blank');
-  }
-}
+
 
 

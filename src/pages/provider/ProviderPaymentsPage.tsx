@@ -1,14 +1,14 @@
 import CommonTable from '@/components/common/CommonTable';
-import { fetchProviderPayments } from '@/utils/apis/provider.api';
-import { ProviderPaymentsTableColumns } from '@/components/table/providerTableColumns';
+import { providerFetchProviderPayments } from '@/utils/apis/provider.api';
 import { ProviderPaymentsTableColumnsProps } from '@/utils/interface/tableColumnInterface';
-import { ProviderFetchPaymentsResponseProps } from '@/utils/interface/api/providerApiInterface';
+import { ProviderFetchPaymentsApiResponse } from '@/utils/interface/api/providerApiInterface';
+import { ProviderPaymentsTableColumns } from '@/components/table/tableColumns/providerTableColumns';
 
 const ProviderPaymentsPage = () => {
 
   return (
-    <CommonTable<ProviderFetchPaymentsResponseProps, ProviderPaymentsTableColumnsProps>
-      fetchApiFunction={fetchProviderPayments}
+    <CommonTable<ProviderFetchPaymentsApiResponse, ProviderPaymentsTableColumnsProps>
+      fetchApiFunction={providerFetchProviderPayments}
       queryKey='payments'
       heading='Payments'
       column={ProviderPaymentsTableColumns}

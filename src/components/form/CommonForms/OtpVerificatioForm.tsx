@@ -21,7 +21,7 @@ const OtpVerificatioForm = () => {
     const role: string | null = authUser?.role || null;
     const verificationToken: string | undefined = authUser?.verificationToken;
 
-    const [formData, setFormData] = useState<{otp: string}>({
+    const [formData, setFormData] = useState<{ otp: string }>({
         otp: ""
     });
 
@@ -85,15 +85,15 @@ const OtpVerificatioForm = () => {
         if (verificationToken && role) {
             setResendLoading(true);
             dispatch(resendOtp({ verificationToken, role }))
-            .unwrap()
-            .then((res) => {
-                if (res.success) {
-                    setResendLoading(false);
-                    toast.success(res.message);
-                } else {
-                    toast.error(res.message);
-                }
-            })
+                .unwrap()
+                .then((res) => {
+                    if (res.success) {
+                        setResendLoading(false);
+                        toast.success(res.message);
+                    } else {
+                        toast.error(res.message);
+                    }
+                })
         }
     };
 

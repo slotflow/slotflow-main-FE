@@ -4,21 +4,9 @@ import { useQuery } from '@tanstack/react-query';
 import DataFetchingError from '../DataFetchingError';
 import InfoDisplayComponent from '../InfoDisplayComponent';
 import ProfileDetailsShimmer from '../../shimmers/ProfileDetailsShimmer';
-import { UserFetchProviderServiceResponseProps } from '@/utils/interface/api/userApiInterface';
-import { ProviderFetchServiceDetailsResponseProps } from '@/utils/interface/api/providerApiInterface';
-import { AdminFetchProviderServiceResponseProps } from '@/utils/interface/api/adminProviderApiInterface';
-
-interface ProviderServiceDetailsComponentProps {
-    providerId?: string;
-    fetchApiFunction: (providerId?: string) => Promise<
-        AdminFetchProviderServiceResponseProps |
-        ProviderFetchServiceDetailsResponseProps |
-        UserFetchProviderServiceResponseProps
-    >;
-    queryKey: string;
-    isUser?: boolean;
-    shimmerRow?: number;
-}
+import { ProviderFetchServiceDetailsApiResponse } from '@/utils/interface/api/providerApiInterface';
+import { AdminFetchProviderServiceApiResponse } from '@/utils/interface/api/adminProviderApiInterface';
+import { ProviderServiceDetailsComponentProps } from '@/utils/interface/componentInterface/commonComponentInterface';
 
 const ProviderServiceDetails: React.FC<ProviderServiceDetailsComponentProps> = ({
     providerId,
@@ -51,9 +39,9 @@ const ProviderServiceDetails: React.FC<ProviderServiceDetailsComponentProps> = (
         return <DataFetchingError message="No service found." />;
     }
 
-    let serviceData: AdminFetchProviderServiceResponseProps | ProviderFetchServiceDetailsResponseProps | null = null;
+    let serviceData: AdminFetchProviderServiceApiResponse | ProviderFetchServiceDetailsApiResponse | null = null;
     if (!isUser) {
-        serviceData = data as (AdminFetchProviderServiceResponseProps | ProviderFetchServiceDetailsResponseProps);
+        serviceData = data as (AdminFetchProviderServiceApiResponse | ProviderFetchServiceDetailsApiResponse);
     }
 
     return (

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button } from '../ui/button';
 import { useDispatch } from 'react-redux';
 import { planDurations } from '@/utils/constants';
-import { Plan } from '@/utils/interface/planInterface';
+import { Plan } from '@/utils/interface/entityInterface/planInterface';
 import SelectFiledWithLabel from '../form/SelectFiledWithLabel';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { setPaymentSelectionPage, setSubscriptionIsTrailPlan, setSubscriptionPlanDuration, setSubscriptionPlanId } from '@/utils/redux/slices/providerSlice';

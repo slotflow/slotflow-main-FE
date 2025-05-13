@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import { X, Loader, Coins } from "lucide-react";
 import { RootState } from "@/utils/redux/appStore";
 import { useDispatch, useSelector } from "react-redux";
-import { subscribeToTrialPlan } from "@/utils/apis/provider.api";
+import { providerSubscribeToTrialPlan } from "@/utils/apis/provider.api";
 import { setPaymentSelectionPage, setSubscriptionIsTrailPlan } from "@/utils/redux/slices/providerSlice";
 
 const ProviderFreeSubscription = () => {
@@ -20,7 +20,7 @@ const ProviderFreeSubscription = () => {
     const makeTrialubscription = async () => {
         setPaymentLoading(true);
         try {
-            const res = await subscribeToTrialPlan();
+            const res = await providerSubscribeToTrialPlan();
             toast.success(res.message);
             handlePaymentSelectionClose();
         } catch {

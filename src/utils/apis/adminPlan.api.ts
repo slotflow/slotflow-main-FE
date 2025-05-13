@@ -1,24 +1,24 @@
 import axiosInstance from "@/lib/axios";
 import {
-    AdminAddNewPlanRequestPayload,
-    AdminFetchAllPlansResponseProps,
-    AdminChangePlanStatusRequestPayload,
-    AdminChangePlanStatusResponseProps,
-    AdminAddNewPlanResponseProps,
+    AdminAddNewPlanApiResponse,
+    AdminFetchAllPlansApiResponse,
+    AdminAddNewPlanApiRequestPayload,
+    AdminChangePlanBlockStatusApiResponse,
+    AdminChangePlanBlockStatusApiRequestPayload,
 } from "../interface/api/adminPlanApiInterface";
 
 
-export const fetchAllPlans = async (): Promise<AdminFetchAllPlansResponseProps[]> => {
+export const adminFetchAllPlans = async (): Promise<AdminFetchAllPlansApiResponse[]> => {
     const response = await axiosInstance.get("/admin/plans");
     return response.data.plans;
 };
 
-export const addNewPlan = async (formData: AdminAddNewPlanRequestPayload): Promise<AdminAddNewPlanResponseProps> => {
+export const adminAddNewPlan = async (formData: AdminAddNewPlanApiRequestPayload): Promise<AdminAddNewPlanApiResponse> => {
     const response = await axiosInstance.post('/admin/addNewPlan', formData);
     return response.data;
 }
 
-export const changePlanBlockStatus = async (statusData: AdminChangePlanStatusRequestPayload): Promise<AdminChangePlanStatusResponseProps> => {
-    const response = await axiosInstance.put(`/admin/changePlanStatus/${statusData.planId}?status=${statusData.status}`);
+export const adminChangePlanBlockStatus = async (data: AdminChangePlanBlockStatusApiRequestPayload): Promise<AdminChangePlanBlockStatusApiResponse> => {
+    const response = await axiosInstance.put(`/admin/changePlanStatus/${data.planId}?status=${data.isBlocked}`);
     return response.data;
 }

@@ -4,9 +4,9 @@ import { toast } from "react-toastify";
 import { useSearchParams } from "react-router-dom";
 import { CheckCircle, XCircle } from "lucide-react";
 import CommonButton from "@/components/common/CommonButton";
-import { saveSubscription } from "@/utils/apis/provider.api";
-import { saveAppointmentBooking } from "@/utils/apis/user.api";
-import { PaymentConfirmPageProps } from "@/utils/interface/providerInterface";
+import { providerSaveSubscription } from "@/utils/apis/provider.api";
+import { userSaveAppointmentBooking } from "@/utils/apis/user.api";
+import { PaymentConfirmPageProps } from "@/utils/interface/entityInterface/providerInterface";
 
 const PaymentConfirmPage: React.FC<PaymentConfirmPageProps> = ({ status, userType }) => {
 
@@ -24,10 +24,10 @@ const PaymentConfirmPage: React.FC<PaymentConfirmPageProps> = ({ status, userTyp
   const save = async () => {
     if(!sessionId) return;
     if(userType === "provider") {
-      const response = await saveSubscription(sessionId);
+      const response = await providerSaveSubscription(sessionId);
       toast.success(response.message);
     } else if (userType === "user") {
-      const response = await saveAppointmentBooking(sessionId);
+      const response = await userSaveAppointmentBooking(sessionId);
       toast.success(response.message);
     }
   }

@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { stateVariables } from "@/utils/interface/sliceInterface";
+import { SignUpFormStateVariables } from "@/utils/interface/sliceInterface";
 import { resendOtp, signin, signup, verifyOtp, updatePassword } from '../../apis/auth.api'
 
-const initialState: stateVariables = {
+const initialState: SignUpFormStateVariables = {
     signInForm: true,
     signUpForm: false,
     verifyOtpForm: false,

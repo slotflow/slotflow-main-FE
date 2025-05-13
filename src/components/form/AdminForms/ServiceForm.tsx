@@ -3,14 +3,15 @@ import { useCallback, useState } from "react";
 import InputField from "../InputFieldWithLable";
 import { FormButton, FormHeading } from "../FormSplits";
 import { HandleChangeFunction } from "@/utils/interface/commonInterface";
-import { useAdminServiceActions } from "@/utils/hooks/useAdminServiceActions";
+import { Service } from "@/utils/interface/entityInterface/appServiceInterface";
+import { useAdminServiceActions } from "@/utils/hooks/adminHooks/useAdminServiceActions";
 
 const ServiceAddingForm = () => {
 
   const [loading, setLoading] = useState<boolean>(false);
   const [hasErrors, setHasErrors] = useState<boolean>(false);
-  const [formData, setFormData] = useState<{appServiceName: string}>({
-    appServiceName: "",
+  const [formData, setFormData] = useState<{serviceName : Service["serviceName"] }>({
+    serviceName: "",
   });
 
   const handleChange = useCallback<HandleChangeFunction>((e) => {
@@ -18,7 +19,7 @@ const ServiceAddingForm = () => {
     setHasErrors(false);
   }, []);
 
-  const { handleServiceAdding } = useAdminServiceActions();
+  const { handleAdminServiceAdding } = useAdminServiceActions();
 
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -28,8 +29,8 @@ const ServiceAddingForm = () => {
       setLoading(false);
       return;
     }
-    handleServiceAdding(formData.appServiceName, setLoading);
-    setFormData({ appServiceName: '' });
+    handleAdminServiceAdding(formData.serviceName, setLoading);
+    setFormData({ serviceName: '' });
   };
 
   const handleErrorChange = (hasError: boolean) => {
@@ -46,7 +47,7 @@ const ServiceAddingForm = () => {
             id="appServiceName"
             placeholder="Software Engineer"
             type="text"
-            value={formData.appServiceName}
+            value={formData.serviceName}
             onChange={handleChange}
             required={true}
             onHasError={handleErrorChange}

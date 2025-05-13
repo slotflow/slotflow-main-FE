@@ -2,10 +2,9 @@ import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { FormEvent, useState } from "react";
 import { AppDispatch } from "@/utils/redux/appStore";
-import AddAddress from "@/components/common/AddAddress";
 import RightSideBox from "@/components/provider/RightSideBox";
-import { addProviderAddress } from "@/utils/apis/provider.api";
-import { AddressFormProps } from "@/utils/interface/addressInterface";
+import { providerAddProviderAddress } from "@/utils/apis/provider.api";
+import AddAddress, { AddressFormProps } from "@/components/common/AddAddress";
 
 
 const ProviderAddAddressPage = () => {
@@ -19,7 +18,7 @@ const ProviderAddAddressPage = () => {
             toast.error("Please fix the form errors.");
             return;
         }
-        await dispatch(addProviderAddress({ formData }))
+        await dispatch(providerAddProviderAddress({ formData }))
             .unwrap()
             .then((res) => {
                 if (res.success) {

@@ -1,43 +1,35 @@
-import { User } from "../userInterface";
-import { Address } from "../addressInterface";
-import { Provider } from "../providerInterface";
 import { CommonResponse } from "../commonInterface";
-import { ProviderService } from "../providerServiceInterface";
-import { Service } from "../appServiceInterface";
-import { AvailabilityForResponse } from "../serviceAvailabilityInterface";
-import { Booking } from "../bookingInterface";
-import { Payment } from "../paymentInterface";
+import { User } from "../entityInterface/userInterface";
+import { Address } from "../entityInterface/addressInterface";
+import { Booking } from "../entityInterface/bookingInterface";
+import { Payment } from "../entityInterface/paymentInterface";
+import { Provider } from "../entityInterface/providerInterface";
+import { Service } from "../entityInterface/appServiceInterface";
+import { ProviderService } from "../entityInterface/providerServiceInterface";
+import { AvailabilityForResponse } from "../entityInterface/serviceAvailabilityInterface";
 
-// User Fetch profile details api response
-export type UserFetchUserProfileResponse = Pick<User, "username" | "email" | "isBlocked" | "isEmailVerified" | "phone" | "createdAt">;
 
-// User update profile Image api response
-export interface UpdateUserProfileImageResponse extends CommonResponse {
-    profileImage: string;
+// User Fetch profile details api response type
+export type UserFetchUserProfileApiResponse = Pick<User, "username" | "email" | "isBlocked" | "isEmailVerified" | "phone" | "createdAt">;
+
+
+// User update profile Image api response interface
+export interface UpdateUserProfileImageApiResponse extends CommonResponse, Pick<User, "profileImage"> {
 }
 
-// user address adding request payload interface used in user api
-export interface AddUserAddressPayload {
-    formData: {
-        addressLine: string;
-        phone: string;
-        place: string;
-        city: string;
-        district: string;
-        pincode: string;
-        state: string;
-        country: string;
-        googleMapLink: string;
-    };
+
+// user address adding request payload interface 
+export interface AddUserAddressApiRequestPayload {
+    formData: Pick<Address, "addressLine" | "phone" | "place" | "city" | "district" | "pincode" | "state" | "country" | "googleMapLink">
 }
+// User Fetch address api response type
+export type UserFetchUserAddressApiResponse = Pick<Address, "_id" | "addressLine" | "phone" | "place" | "city" | "district" | "pincode" | "state" | "country" | "googleMapLink">;
 
-// User Fetch address api response
-export type UserFetchUserAddressResponse = Pick<Address, "_id" | "addressLine" | "phone" | "place" | "city" | "district" | "pincode" | "state" | "country" | "googleMapLink">;
 
-// User Fetch service providers response
-export interface UserFetchServiceProvidersResponse {
+// User Fetch service providers response interface
+export interface UserFetchServiceProvidersApiResponse {
     _id: string,
-    provider: {
+     provider: {
         _id: string,
         username: string,
         profileImage: string | null,
@@ -51,36 +43,48 @@ export interface UserFetchServiceProvidersResponse {
     }
 }
 
-// User fetch service provider detials api response
-export type UserFetchProviderProfileDetailsResponse = Pick<Provider, "_id" | "username" | "email" | "phone" | "profileImage" | "trustedBySlotflow">;
 
-// User fetch service provider address api response
-export type UserFetchProviderAddressResponseProps = Pick<Address, "userId" | "addressLine" | "phone" | "place" | "city" | "district" | "pincode" | "state" | "country" | "googleMapLink">;
+// User fetch service provider detials api response type
+export type UserFetchProviderProfileDetailsApiResponse = Pick<Provider, "_id" | "username" | "email" | "phone" | "profileImage" | "trustedBySlotflow">;
 
-// User fetch provider service details api response
+
+// User fetch service provider address api response type
+export type UserFetchProviderAddressApiResponse = Pick<Address, "userId" | "addressLine" | "phone" | "place" | "city" | "district" | "pincode" | "state" | "country" | "googleMapLink">;
+
+
+// User fetch provider service details api response interface
 type FetchServiceDetailsProps = Pick<ProviderService, "serviceName" | "serviceDescription" | "servicePrice" | "providerExperience" >;
-export interface UserFetchProviderServiceResponseProps extends FetchServiceDetailsProps {
+export interface UserFetchProviderServiceApiResponse extends FetchServiceDetailsProps {
     serviceCategory: Pick<Service, "serviceName">
 }
 
-// User fetch provider service availability api response
-export type UserFetchProviderAvailabilityResponseProps = AvailabilityForResponse;
 
-//User book an appoint api request props
-export interface UserBookAnAppointmentRequestProps {
-    providerId : string,
-    slotId : string,
-    date : Date,
-    selectedServiceMode : string,
+// User fetch provider service availability api response type
+export type UserFetchProviderAvailabilityApiResponse = AvailabilityForResponse;
+
+
+// User book an appointment api request payload
+export type UserBookAnAppointmentApiRequestPayload = {
+    providerId: Provider["_id"];
+    slotId : string;
+    date : Date;
+    selectedServiceMode : string;
+}
+// User book an appointment api response interface
+export interface UserBookAppointmentApiResponse extends CommonResponse {
+    sessionId : string
 }
 
-// User fetch bookings response props
-export type UserFetchBookingsResponseProps = Pick<Booking, "_id" | "appointmentDate" | "appointmentMode" | "appointmentStatus" | "appointmentTime" | "createdAt">;
 
-// user fetch payments response props
-export type UserFetchPaymentsResponseProps = Pick<Payment, "_id" | "createdAt" | "totalAmount" | "paymentFor" | "paymentMethod" | "paymentGateway" | "paymentStatus" | "discountAmount">;
+// User fetch bookings response type
+export type UserFetchBookingsApiResponse = Pick<Booking, "_id" | "appointmentDate" | "appointmentMode" | "appointmentStatus" | "appointmentTime" | "createdAt">;
 
-// user cancel booking response props
-export interface UserCancelBookingResponseProps extends CommonResponse {
+
+// user fetch payments response type
+export type UserFetchPaymentsApiResponse = Pick<Payment, "_id" | "createdAt" | "totalAmount" | "paymentFor" | "paymentMethod" | "paymentGateway" | "paymentStatus" | "discountAmount">;
+
+
+// user cancel booking response interface
+export interface UserCancelBookingApiResponse extends CommonResponse {
     updatedBooking : Pick<Booking, "_id" | "appointmentDate" | "appointmentMode" | "appointmentStatus" | "appointmentTime" | "createdAt">;
 }

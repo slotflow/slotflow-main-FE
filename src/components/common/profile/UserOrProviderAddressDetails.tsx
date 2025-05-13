@@ -3,17 +3,17 @@ import { useQuery } from '@tanstack/react-query';
 import DataFetchingError from '../DataFetchingError';
 import InfoDisplayComponent from '../InfoDisplayComponent';
 import ProfileDetailsShimmer from '@/components/shimmers/ProfileDetailsShimmer';
-import { ProviderFetchAddressResponseProps } from '@/utils/interface/api/providerApiInterface';
-import { AdminFetchProviderAddressResponseProps } from '@/utils/interface/api/adminProviderApiInterface';
-import { UserFetchProviderAddressResponseProps, UserFetchUserAddressResponse } from '@/utils/interface/api/userApiInterface';
+import { ProviderFetchAddressApiResponseProps } from '@/utils/interface/api/providerApiInterface';
+import { AdminFetchProviderAddressApiResponse } from '@/utils/interface/api/adminProviderApiInterface';
+import { UserFetchProviderAddressApiResponse, UserFetchUserAddressApiResponse } from '@/utils/interface/api/userApiInterface';
 
 interface UserOrProviderAddressDetailsComponentProps {
     userOrProviderId?: string;
     fetchApiFunction: (userOrProviderId?: string) => Promise<
-        AdminFetchProviderAddressResponseProps |
-        ProviderFetchAddressResponseProps |
-        UserFetchUserAddressResponse |
-        UserFetchProviderAddressResponseProps
+        AdminFetchProviderAddressApiResponse |
+        ProviderFetchAddressApiResponseProps |
+        UserFetchUserAddressApiResponse |
+        UserFetchProviderAddressApiResponse
     >;
     quryKey: string;
     isUser?: boolean

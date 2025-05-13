@@ -3,12 +3,13 @@ import { Loader, X } from 'lucide-react';
 import { useDispatch } from 'react-redux';
 import { useCallback, useState } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
-import { subscribeToPlan } from '@/utils/apis/provider.api';
+import { providerSubscribeToPlan } from '@/utils/apis/provider.api';
 import { userBookAnAppointment } from '@/utils/apis/user.api';
 import { setPaymentSelectionPage, setSubscriptionIsTrailPlan, setSubscriptionPlanDuration, setSubscriptionPlanId } from '@/utils/redux/slices/providerSlice';
+import { Provider } from '@/utils/interface/entityInterface/providerInterface';
 
-interface UserBookinAppointmentDataProps {
-    providerId: string;
+type UserBookinAppointmentDataProps = {
+    providerId: Provider["_id"]
     slotId: string;
     date: Date;
     selectedServiceMode: string;
@@ -20,6 +21,7 @@ interface ProviderSubscriptionDataProps {
 }
 
 interface PaymentSelecionComponentPropst {
+    setOpenPayment?: (data: boolean) =>  void;
     data: UserBookinAppointmentDataProps | ProviderSubscriptionDataProps;
     isAppointmentBooking?: boolean;
     isProviderSubscription?: boolean;
@@ -73,7 +75,7 @@ const CommonPaymentSelection: React.FC<PaymentSelecionComponentPropst> = ({
                 sessionId = sessionData.sessionId;
             } else if (isProviderSubscription) {
                 const infoData = data as ProviderSubscriptionDataProps;
-                const sessionData = await subscribeToPlan(infoData);
+                const sessionData = await providerSubscribeToPlan(infoData);
                 sessionId = sessionData.sessionId;
             }
 
@@ -120,7 +122,7 @@ const CommonPaymentSelection: React.FC<PaymentSelecionComponentPropst> = ({
             name: "Razorpay",
             img: "/images/Razorpay.png",
             text: <h6 className="font-bold italic text-[#072654]">Razorpay</h6>,
-            onClick: makeStripePayment, // Replace later with Razorpay-specific logic
+            onClick: makeStripePayment,
         },
     ];
 

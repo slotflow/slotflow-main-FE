@@ -1,13 +1,13 @@
 import CommonTable from '@/components/common/CommonTable';
 import { adminFetchAllSubscriptions } from '@/utils/apis/adminSubscription.api';
-import { AdminProvidersSubscriptionsTableColumns } from '@/components/table/adminTableColumns';
+import { AdminFetchAllSubscriptionsApiResponse } from '@/utils/interface/api/adminSubscription.interface';
 import { AdminProvidersSubscriptionsTableColumnsProps } from '@/utils/interface/tableColumnInterface';
-import { AdminFetchAllSubscriptionsResponseProps } from '@/utils/interface/api/adminSubscription.api';
+import { AdminProvidersSubscriptionsTableColumns } from '@/components/table/tableColumns/adminTableColumns';
 
 const AdminSubscriptionsPage = () => {
 
     return (
-        <CommonTable<AdminFetchAllSubscriptionsResponseProps, AdminProvidersSubscriptionsTableColumnsProps>
+        <CommonTable<AdminFetchAllSubscriptionsApiResponse, AdminProvidersSubscriptionsTableColumnsProps>
             fetchApiFunction={adminFetchAllSubscriptions}
             queryKey="subscription"
             heading="Subscription"

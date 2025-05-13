@@ -1,3 +1,4 @@
-import { Payment } from "../paymentInterface";
+import { Payment } from "../entityInterface/paymentInterface";
 
-export type AdminFetchAllPaymentsResponseProps = Pick<Payment, "createdAt" | "totalAmount" | "paymentFor" | "paymentGateway" | "paymentStatus" | "paymentMethod">
+// Admin fetch all payments api response type
+export type AdminFetchAllPaymentsApiResponse = Pick<Payment, "createdAt" | "totalAmount" | "paymentFor" | "paymentGateway" | "paymentStatus" | "paymentMethod">

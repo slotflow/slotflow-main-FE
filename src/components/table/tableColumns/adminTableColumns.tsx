@@ -1,14 +1,14 @@
 import { format } from "date-fns";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 import { MoreHorizontal } from "lucide-react";
 import { ColumnDef } from "@tanstack/react-table";
-import { ChangeUserStatus } from "./AdminUserActions";
-import { ChangePlanBlockStatus } from "./AdminPlanActions";
-import { DataTableColumnHeader } from "./DataTableColumnHeader";
-import { ChangeServiceBlockStatus } from "./AdminSerivceActions";
-import { GetSubscriptionDetails } from "./AddminSubscriptionActions";
-import { ApproveProvider, ChangeProviderBlockStatus, ChangeProviderTrustTag, GetProviderDetailPage } from "./AdminProviderActions";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
+import { DataTableColumnHeader } from "../DataTableColumnHeader";
+import { DropDownItemChangeUserStatus } from "../adminTableOptions/AdminUserTableOptions";
+import { DropDownItemChangePlanBlockStatus } from "../adminTableOptions/AdminPlansTableOptions";
+import { DropDownItemChangeServiceBlockStatus } from "../adminTableOptions/AdminSerivceTableOptions";
+import { DropDownMenuItemGetSubscriptionDetails } from "../adminTableOptions/AddminProviderSubscriptionsTableOptions";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../../ui/dropdown-menu";
+import { DropDownItemApproveProvider, DropDownItemChangeProviderBlockStatus, DropDownItemChangeProviderTrustTag, DropDownItemGetProviderDetailPage } from "../adminTableOptions/AdminProviderTableOptions";
 import { AdminAllPaymentsTableColumnsProps, AdminAppServicesTableColumnsProps, AdminPlansTableColumnsProps, AdminProvidersSubscriptionsTableColumnsProps, AdminProvidersTableColumnsProps, AdminUsersTableColumnsProps } from "@/utils/interface/tableColumnInterface";
 
 export const AdminProvidersTableColumns: ColumnDef<AdminProvidersTableColumnsProps>[] = [
@@ -61,12 +61,12 @@ export const AdminProvidersTableColumns: ColumnDef<AdminProvidersTableColumnsPro
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <GetProviderDetailPage providerId={provider._id} />
+            <DropDownItemGetProviderDetailPage providerId={provider._id} />
             {!provider.isAdminVerified && (
-              <ApproveProvider providerId={provider._id} />
+              <DropDownItemApproveProvider providerId={provider._id} />
             )}
-            <ChangeProviderBlockStatus providerId={provider._id} status={provider.isBlocked} />
-            <ChangeProviderTrustTag providerId={provider._id} trustedBySlotflow={provider.trustedBySlotflow} />
+            <DropDownItemChangeProviderBlockStatus providerId={provider._id} isBlocked={provider.isBlocked} />
+            <DropDownItemChangeProviderTrustTag providerId={provider._id} trustedBySlotflow={provider.trustedBySlotflow} />
           </DropdownMenuContent>
         </DropdownMenu>
       )
@@ -117,7 +117,7 @@ export const AdminUsersTableColumns: ColumnDef<AdminUsersTableColumnsProps>[] = 
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem>Details</DropdownMenuItem>
-            <ChangeUserStatus userId={user._id} status={user.isBlocked} />
+            <DropDownItemChangeUserStatus userId={user._id} isBlocked={user.isBlocked} />
           </DropdownMenuContent>
         </DropdownMenu>
       )
@@ -163,7 +163,7 @@ export const AdminAppServicesTableColumns: ColumnDef<AdminAppServicesTableColumn
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <ChangeServiceBlockStatus serviceId={service._id} status={service.isBlocked} />
+            <DropDownItemChangeServiceBlockStatus serviceId={service._id} isBlocked={service.isBlocked} />
             <DropdownMenuItem>Edit</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -211,7 +211,7 @@ export const AdminPlansTableColumns: ColumnDef<AdminPlansTableColumnsProps>[] = 
             <DropdownMenuSeparator />
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem>Details</DropdownMenuItem>
-            <ChangePlanBlockStatus planId={plan._id} status={plan.isBlocked} />
+            <DropDownItemChangePlanBlockStatus planId={plan._id} isBlocked={plan.isBlocked} />
             <DropdownMenuItem>Edit</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -278,7 +278,7 @@ export const AdminProvidersSubscriptionsTableColumns: ColumnDef<AdminProvidersSu
           <DropdownMenuContent align="end">
             <DropdownMenuSeparator />
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <GetSubscriptionDetails subscriptionId={subscription._id}/>
+            <DropDownMenuItemGetSubscriptionDetails subscriptionId={subscription._id}/>
           </DropdownMenuContent>
         </DropdownMenu>
       )

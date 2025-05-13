@@ -1,13 +1,13 @@
 import CommonTable from '../common/CommonTable';
-import { fetchProviderSubscriptions } from '@/utils/apis/provider.api';
-import { ProviderSubscriptionsTableColumns } from '../table/providerTableColumns';
+import { providerFetchProviderSubscriptions } from '@/utils/apis/provider.api';
+import { ProviderSubscriptionsTableColumns } from '../table/tableColumns/providerTableColumns';
 import { ProviderSubscriptionsTableColumnsProps } from '@/utils/interface/tableColumnInterface';
-import { ProviderFetchSubscriptionHistoryResponseProps } from '@/utils/interface/api/providerApiInterface';
+import { ProviderFetchSubscriptionHistoryApiResponse } from '@/utils/interface/api/providerApiInterface';
 
 const ProviderSubscriptionHistory = () => {
     return (
-        <CommonTable<ProviderFetchSubscriptionHistoryResponseProps, ProviderSubscriptionsTableColumnsProps>
-            fetchApiFunction={fetchProviderSubscriptions}
+        <CommonTable<ProviderFetchSubscriptionHistoryApiResponse, ProviderSubscriptionsTableColumnsProps>
+            fetchApiFunction={providerFetchProviderSubscriptions}
             queryKey='subscriptions'
             heading='Subscription History'
             headingClassName="mt-5"

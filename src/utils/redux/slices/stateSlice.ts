@@ -1,12 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { appStateVariables } from "@/utils/interface/sliceInterface";
 
-interface stateVariables {
-    lightTheme: boolean;
-    signinForm: boolean;
-    sidebarOpen: boolean;
-}
-
-const initialState: stateVariables = {
+const initialState: appStateVariables = {
     lightTheme: true,
     signinForm: true,
     sidebarOpen: true,

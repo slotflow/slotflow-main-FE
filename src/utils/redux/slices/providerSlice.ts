@@ -1,23 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-interface Availability {
-  day: string;
-  duration: string;
-  startTime: string;
-  endTime: string;
-  modes: string[];
-  slots: string[];
-}
-
-
-interface ProviderState {
-  availabilities: Availability[];
-  planId: string | null;
-  planDuration: string | null;
-  paymentSelectionOpen: boolean;
-  isTrialPlan: boolean;
-  paymentPageOpen: boolean;
-}
+import { ProviderState } from "@/utils/interface/sliceInterface";
+import { Availability } from "@/utils/interface/entityInterface/serviceAvailabilityInterface";
 
 const initialState: ProviderState = {
   availabilities: [],

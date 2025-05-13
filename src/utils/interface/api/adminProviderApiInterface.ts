@@ -1,96 +1,93 @@
-import { Plan } from "../planInterface";
-import { Address } from "../addressInterface";
-import { Payment } from "../paymentInterface";
-import { Provider } from "../providerInterface";
-import { Service } from "../appServiceInterface";
-import { Subscription } from "../subscriptionInterface";
-import { ProviderService } from "../providerServiceInterface";
-import { AvailabilityForResponse } from "../serviceAvailabilityInterface";
+import { CommonResponse } from "../commonInterface";
+import { Plan } from "../entityInterface/planInterface";
+import { Address } from "../entityInterface/addressInterface";
+import { Payment } from "../entityInterface/paymentInterface";
+import { Provider } from "../entityInterface/providerInterface";
+import { Service } from "../entityInterface/appServiceInterface";
+import { Subscription } from "../entityInterface/subscriptionInterface";
+import { ProviderService } from "../entityInterface/providerServiceInterface";
+import { AvailabilityForResponse } from "../entityInterface/serviceAvailabilityInterface";
 
-// **** Admin Provider Api Interface **** \\
-
-// **** Api Common Response
-export interface ApiCommonResponse { 
-    success: boolean; 
-    message: string; 
-}
+// Admin fetch all providers api response type
+export type AdminFetchAllProvidersApiResponse = Pick<Provider, "_id" | "username" | "email" | "isBlocked" | "isAdminVerified" | "trustedBySlotflow">;
 
 
-
-// **** Fetch all Providers
-// Admin fetch all providers api response provider type, used also in the admin sevice providers data listing tables coloums props in colomns.tsx
-export type AdminFetchAllProvidersResponseProps = Pick<Provider, "_id" | "username" | "email" | "isBlocked" | "isAdminVerified" | "trustedBySlotflow">;
-
-
-
-// **** Admin approove Provider
-// Admin approve provider api request payload interface
-export interface AdminApproveProviderRequestPayload { 
-    providerId: string; 
-}
 // Admin approve aprovider api response interface
-type ApproveProviderResponseProps = Pick<Provider, "_id" | "username" | "email" | "isBlocked" | "isAdminVerified" | "trustedBySlotflow">;
-export interface AdminApproveProviderResponseProps extends ApiCommonResponse {
-    updatedProvider: ApproveProviderResponseProps
+type ApproveProviderApiResponse = Pick<Provider, "_id" | "username" | "email" | "isBlocked" | "isAdminVerified" | "trustedBySlotflow">;
+export interface AdminApproveProviderApiResponse extends CommonResponse {
+    updatedProvider: ApproveProviderApiResponse
 }
 
 
-// **** Admin change Provider block status
-// Admin Change provider block status request payload interface
-export interface AdminChangeProviderBlockStatusRequestPayload {
-    providerId: string;
-    status: boolean;
+// Admin change provider isBlocked status api request payload type
+export type AdminChangeProviderBlockStatusApiRequestPayload = {
+    providerId: Provider["_id"];
+    isBlocked: Provider["isBlocked"];
 }
-// Admin change Provider block status response interface
-type ChangeProviderBlockStatusResponse = Pick<Provider, "_id" | "username" | "email" | "isBlocked" | "isAdminVerified" | "trustedBySlotflow">;
-export interface AdminChangeProviderBlockStatusResponse extends ApiCommonResponse {
-    updatedProvider: ChangeProviderBlockStatusResponse
-}
-
-
-// **** Admin change Provider trusted tag
-// Admin Change provider trusted tag request payload interface
-export interface AdminChangeProviderTrustedTagRequestPayload {
-    providerId: string;
-    trustedBySlotflow: boolean;
-}
-
-// Admin change Provider block status response interface
-type ChangeProviderTrustedTagResponse = Pick<Provider, "_id" | "username" | "email" | "isBlocked" | "isAdminVerified" | "trustedBySlotflow">;
-export interface AdminChangeProviderTrustedTagResponse extends ApiCommonResponse {
-    updatedProvider: ChangeProviderTrustedTagResponse
+// Admin change Provider isBlock status api response interface
+type ChangeProviderBlockStatusApiResponse = Pick<Provider, "_id" | "username" | "email" | "isBlocked" | "isAdminVerified" | "trustedBySlotflow">;
+export interface AdminChangeProviderBlockStatusApiResponse extends CommonResponse {
+    updatedProvider: ChangeProviderBlockStatusApiResponse
 }
 
 
-// **** Admin fetch provider details api response interface
-export type AdminFetchProviderProfileDetailsResponseProps = Pick<Provider, "_id" | "username" | "email" | "isBlocked" | "isEmailVerified" | "isAdminVerified" | "phone" | "profileImage" | "createdAt" | "trustedBySlotflow">;
 
-// **** Admin fetch provider Address api response interface
-export type AdminFetchProviderAddressResponseProps = Pick<Address, "userId" | "addressLine" | "phone" | "place" | "city" | "district" | "pincode" | "state" | "country" | "googleMapLink">;
 
-// **** Admin fetch provider service details api response
-type FetchServiceDetailsProps = Pick<ProviderService, "serviceName" | "serviceDescription" | "servicePrice" | "providerAdhaar" | "providerExperience" | "providerCertificateUrl">;
-export interface AdminFetchProviderServiceResponseProps extends FetchServiceDetailsProps {
+// Admin Change provider trustedBySlotfloe api request payload type
+export type AdminChangeProviderTrustTagApiRequestPayload = {
+    providerId: Provider["_id"];
+    trustedBySlotflow: Provider["trustedBySlotflow"];
+}
+// Admin change ProvidertrustedBySlotflow api response interface
+type ChangeProviderTrustTagApiResponse = Pick<Provider, "_id" | "username" | "email" | "isBlocked" | "isAdminVerified" | "trustedBySlotflow">;
+export interface AdminChangeProviderTrustTagApiResponse extends CommonResponse {
+    updatedProvider: ChangeProviderTrustTagApiResponse
+}
+
+
+
+
+// Admin fetch provider details api response type
+export type AdminFetchProviderProfileDetailsApiResponse = Pick<Provider, "_id" | "username" | "email" | "isBlocked" | "isEmailVerified" | "isAdminVerified" | "phone" | "profileImage" | "createdAt" | "trustedBySlotflow">;
+
+
+
+
+// Admin fetch provider Address api response type
+export type AdminFetchProviderAddressApiResponse = Pick<Address, "userId" | "addressLine" | "phone" | "place" | "city" | "district" | "pincode" | "state" | "country" | "googleMapLink">;
+
+
+
+
+// Admin fetch provider service details api response type
+type FetchProviderServiceApiResponse = Pick<ProviderService, "serviceName" | "serviceDescription" | "servicePrice" | "providerAdhaar" | "providerExperience" | "providerCertificateUrl">;
+export interface AdminFetchProviderServiceApiResponse extends FetchProviderServiceApiResponse {
     serviceCategory: Pick<Service, "serviceName">
 }
 
 
-// **** Admin fetch provider service availability api response
-export type AdminFetchProviderAvailabilityResponseProps = AvailabilityForResponse;
 
-// **** Admin fetch Provider subscriptions api response props
-type SubscripionsResProps = Pick<Subscription, | "startDate" | "endDate" | "subscriptionStatus">;
-export interface AdminFetchProviderSubscriptionsResponseProps extends SubscripionsResProps , Partial<Pick<Plan , "_id" | "planName" >>{
-    
+
+// Admin fetch provider service availability request payload interface
+export type AdminFetchProviderAvailabilityApiRequestPayload = {
+    providerId: Provider["_id"]
+    date: Date
+}
+// Admin fetch provider service availability api response type
+export type AdminFetchProviderAvailabilityApiResponse = AvailabilityForResponse;
+
+
+
+
+// Admin fetch Provider subscriptions api response type
+type FetchProviderSubscriptionsApiResponse = Pick<Subscription, | "startDate" | "endDate" | "subscriptionStatus">;
+export interface AdminFetchProviderSubscriptionsApiResponse extends FetchProviderSubscriptionsApiResponse , Partial<Pick<Plan , "_id" | "planName" >> {
 }
 
-// **** Admin fetch Provider payments api response props
-export type AdminFetchProviderPaymentsResponseProps = Pick<Payment,  "_id" | "createdAt" | "totalAmount" | "paymentFor" | "paymentMethod" | "paymentGateway" | "paymentStatus" | "discountAmount">;
 
 
-// **** Admin Provider Custom Hook Interface **** \\
-export interface UseAdminProviderActionReturnType {
-    handleApproveProvider: (providerId: string) => void;
-    hanldeChangeProviderBlockStatus: (providerId: string, status: boolean) => void;
-    hanldeProviderTrustTag: (providerId: string, trustedBySlotflow: boolean) => void;
-}
+
+// Admin fetch Provider payments api response type
+export type AdminFetchProviderPaymentsApiResponse = Pick<Payment,  "_id" | "createdAt" | "totalAmount" | "paymentFor" | "paymentMethod" | "paymentGateway" | "paymentStatus" | "discountAmount">;
+
+

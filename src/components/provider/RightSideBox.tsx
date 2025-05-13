@@ -1,5 +1,5 @@
 import WomenLaptop from '../svgs/WomenLaptop';
-import { RightSideBoxProps } from '@/utils/interface/providerInterface';
+import { RightSideBoxProps } from '@/utils/interface/entityInterface/providerInterface';
 
 const RightSideBox: React.FC<RightSideBoxProps> = ({ props }) => {
   const { pageNumber } = props;

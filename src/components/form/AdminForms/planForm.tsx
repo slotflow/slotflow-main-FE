@@ -3,15 +3,15 @@ import { useCallback, useState } from "react";
 import InputField from "../InputFieldWithLable";
 import { FormButton, FormHeading } from "../FormSplits";
 import SelectFiledWithLabel from "../SelectFiledWithLabel";
-import { useAdminPlanActions } from "@/utils/hooks/useAdminPlanActions";
-import { AdminAddNewPlanRequestPayload } from "@/utils/interface/api/adminPlanApiInterface";
+import { useAdminPlanActions } from "@/utils/hooks/adminHooks/useAdminPlanActions";
+import { AdminAddNewPlanApiRequestPayload } from "@/utils/interface/api/adminPlanApiInterface";
 import { HandleChangeFunction, HandleFeatureChangeFunction } from "@/utils/interface/commonInterface";
 
 const PlanForm = () => {
     
     const [loading, setLoading] = useState<boolean>(false);
     const [hasErrors, setHasErrors] = useState<boolean>(false);
-    const [formData, setFormData] = useState<AdminAddNewPlanRequestPayload>({
+    const [formData, setFormData] = useState<AdminAddNewPlanApiRequestPayload>({
         planName: "",
         description: "",
         price: 0,
@@ -35,7 +35,7 @@ const PlanForm = () => {
     }, [formData.features]);
 
 
-    const { handleServiceAdding } = useAdminPlanActions();
+    const { handleAdminPlanAdding } = useAdminPlanActions();
 
     const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault();
@@ -45,7 +45,7 @@ const PlanForm = () => {
             return;
         }
 
-        handleServiceAdding(formData, setLoading);
+        handleAdminPlanAdding(formData, setLoading);
         setFormData({
             planName: "",
             description: "",

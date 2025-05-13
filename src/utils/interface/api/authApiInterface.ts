@@ -1,18 +1,14 @@
-export interface CommonResponse {
-    success: boolean;
-    message: string;
-}
+import { CommonResponse } from "../commonInterface";
 
 // Sign up api request payload interface 
-export interface SignupRequest {
+export interface SignupApiRequestPayload {
     username: string;
     email: string;
     password: string;
     role: string;
 }
-
 // Sign up  response interface
-export interface SignupResponse extends CommonResponse {
+export interface SignupApiResponse extends CommonResponse {
     authUser: {
         verificationToken: string;
         role: string;
@@ -22,7 +18,7 @@ export interface SignupResponse extends CommonResponse {
 
 
 // Otp verification api request payload interface
-export interface VerifyOtpRequestPayload {
+export interface VerifyOtpApiRequestPayload {
     otp: string;
     verificationToken: string;
     role: string
@@ -31,14 +27,13 @@ export interface VerifyOtpRequestPayload {
 
 
 // Resend Otp api request payload interface
-export interface ResendOtpRequestPayload {
+export interface ResendOtpApiRequestPayload {
     role: string;
     verificationToken?: string;
     email?: string;
 }
-
-//  Resend otp api response interface
-export interface ResendOtpResponse extends CommonResponse{
+// Resend otp api response interface
+export interface ResendOtpApiResponse extends CommonResponse{
     authUser: {
         verificationToken: string;
         role: string;
@@ -48,14 +43,13 @@ export interface ResendOtpResponse extends CommonResponse{
 
 
 // Sign in api request payload interface
-export interface SigninRequestPayload {
+export interface SigninApiRequestPayload {
     email: string;
     password: string;
     role: string;
 }
-
 // Sign in api response interface
-export interface SigninResponse extends CommonResponse{
+export interface SigninApiResponse extends CommonResponse{
     authUser: {
         username: string;
         profileImage: string;
@@ -71,7 +65,7 @@ export interface SigninResponse extends CommonResponse{
 
 
 // Update password api request payload interface
-export interface UpdatePasswordRequestPayload {
+export interface UpdatePasswordApiRequestPayload {
     role: string;
     verificationToken: string;
     password: string;

@@ -1,10 +1,10 @@
-import { User } from "./userInterface";
-import { Plan } from "./planInterface";
-import { Payment } from "./paymentInterface";
-import { Provider } from "./providerInterface";
-import { Service } from "./appServiceInterface";
-import { Subscription } from "./subscriptionInterface";
-import { Booking } from "./bookingInterface";
+import { User } from "./entityInterface/userInterface";
+import { Plan } from "./entityInterface/planInterface";
+import { Payment } from "./entityInterface/paymentInterface";
+import { Booking } from "./entityInterface/bookingInterface";
+import { Provider } from "./entityInterface/providerInterface";
+import { Service } from "./entityInterface/appServiceInterface";
+import { Subscription } from "./entityInterface/subscriptionInterface";
 
 // **** Admin Table **** \\
 

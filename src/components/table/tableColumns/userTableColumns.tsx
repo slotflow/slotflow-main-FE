@@ -1,11 +1,11 @@
 import { format } from "date-fns";
-import { ColumnDef } from "@tanstack/react-table";
-import { DataTableColumnHeader } from "./DataTableColumnHeader";
-import { UserBookingsTableColumnsProps, UserPaymentsTableColumnsProps } from "@/utils/interface/tableColumnInterface";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 import { MoreHorizontal } from "lucide-react";
-import { UserCancelBooking } from "./userOptions/UserBookingActions";
+import { ColumnDef } from "@tanstack/react-table";
+import { DataTableColumnHeader } from "../DataTableColumnHeader";
+import { DropDownMenuItemUserCancelBooking } from "../userTableOptions/UserBookingTableOptions";
+import { UserBookingsTableColumnsProps, UserPaymentsTableColumnsProps } from "@/utils/interface/tableColumnInterface";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../../ui/dropdown-menu";
 
 export const userAllBookingsTableColumns: ColumnDef<UserBookingsTableColumnsProps>[] = [
   {
@@ -56,7 +56,7 @@ export const userAllBookingsTableColumns: ColumnDef<UserBookingsTableColumnsProp
             <DropdownMenuSeparator />
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             {booking.appointmentStatus === "Booked" && (
-              <UserCancelBooking bookingId={booking._id}/>
+              <DropDownMenuItemUserCancelBooking bookingId={booking._id}/>
             )}
           </DropdownMenuContent>
         </DropdownMenu>

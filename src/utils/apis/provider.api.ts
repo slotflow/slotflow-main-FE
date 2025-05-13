@@ -1,67 +1,68 @@
 import axiosInstance from "@/lib/axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
-    FetchAllServicesResponse,
-    AddProviderServiceDetailsPayload,
-    ProviderFetchAddressResponseProps,
-    AddProviderServiceAvailabilitiesPayload,
-    ProviderUpdateProfileImageResponseProps,
-    ProviderFetchProfileDetailsResponseProps,
-    ProviderFetchServiceDetailsResponseProps,
-    ProviderFetchServiceAvailabilityResponseProps,
-    ProviderFetchPlansResponseProps,
-    ProviderFetchSubscriptionHistoryResponseProps,
-    ProviderFetchPaymentsResponseProps,
-    AddProviderAddressPayload,
-    ProviderFetchBookingAppointmentsResponseProps,
+    ProviderFetchPlansApiResponse,
+    ProviderFetchAddressApiResponseProps,
+    ProviderFetchPaymentsApiResponse,
+    ProviderSubscribeToPlanApiResponse,
+    ProviderFetchAllServicesApiResponse,
+    ProviderSubscribeToPlanApiRequestPayload,
+    ProviderUpdateProfileImageApiResponse,
+    ProviderFetchProfileDetailsApiResponse,
+    ProviderFetchServiceDetailsApiResponse,
+    ProviderAddProviderAddressApiRequestPayload,
+    ProviderFetchServiceAvailabilityApiResponse,
+    ProviderFetchSubscriptionHistoryApiResponse,
+    ProviderFetchBookingAppointmentsApiResponse,
+    AddProviderServiceAvailabilitiesApiRequestPayload,
 } from "../interface/api/providerApiInterface";
 import { CommonResponse } from "../interface/commonInterface";
 
 // Create asyn thunk for updating the authSlice with address: true
-export const addProviderAddress = createAsyncThunk<CommonResponse, AddProviderAddressPayload>("/provider/addAddress",
-    async ({ formData }: AddProviderAddressPayload) => {
+export const providerAddProviderAddress = createAsyncThunk<CommonResponse, ProviderAddProviderAddressApiRequestPayload>("/provider/addAddress",
+    async ({ formData }: ProviderAddProviderAddressApiRequestPayload) => {
         const response = await axiosInstance.post(`/provider/addAddress`, formData);
         return response.data;
     }
 )
 
-export const fetchAllAppServices = async (): Promise<FetchAllServicesResponse> => {
+export const providerFetchAllAppServices = async (): Promise<ProviderFetchAllServicesApiResponse> => {
     const response = await axiosInstance.get('/provider/fetchAllAppServices');
     return response.data;
 }
 
 // Create async thunk for upating authSlice serviceDetails: true
-export const addProviderServiceDetails = createAsyncThunk<CommonResponse, AddProviderServiceDetailsPayload>("/provider/addServiceDetails",
-    async ({ formData }: AddProviderServiceDetailsPayload) => {
+export const providerAddProviderServiceDetails = createAsyncThunk<CommonResponse, {formData : FormData }>("/provider/addServiceDetails",
+    async ( {formData} : {formData : FormData} ) => {
         const response = await axiosInstance.post(`/provider/addServiceDetails`, formData);
         return response.data;
     }
 )
 
 // Create async thunk for updating authSlice serviceAvailability: true
-export const addProviderServiceAvailabilities = createAsyncThunk<CommonResponse, AddProviderServiceAvailabilitiesPayload>("/provider/addServiceAvailability",
-    async ({ data }: AddProviderServiceAvailabilitiesPayload) => {
+export const providerAddProviderServiceAvailabilities = createAsyncThunk<CommonResponse, AddProviderServiceAvailabilitiesApiRequestPayload>("/provider/addServiceAvailability",
+    async ({ data }: AddProviderServiceAvailabilitiesApiRequestPayload) => {
         const response = await axiosInstance.post(`/provider/addProviderServiceAvailability`, data);
         return response.data;
     }
 )
 
-export const fetchProviderProfileDetails = async (): Promise<ProviderFetchProfileDetailsResponseProps> => {
+export const providerFetchProviderProfileDetails = async (): Promise<ProviderFetchProfileDetailsApiResponse> => {
     const response = await axiosInstance.get('/provider/getProfileDetails');
     return response.data.profileDetails;
 }
 
-export const fetchProviderAddress = async (): Promise<ProviderFetchAddressResponseProps> => {
+export const providerFetchProviderAddress = async (): Promise<ProviderFetchAddressApiResponseProps> => {
     const response = await axiosInstance.get('/provider/getAddress');
     return response.data.address;
 }
 
-export const fetchProviderServiceDetails = async (): Promise<ProviderFetchServiceDetailsResponseProps> => {
+export const providerFetchProviderServiceDetails = async (): Promise<ProviderFetchServiceDetailsApiResponse> => {
     const response = await axiosInstance.get('/provider/getServiceDetails');
     return response.data.service;
 }
 
-export const fetchProviderServiceAvailability = async (date: Date): Promise<ProviderFetchServiceAvailabilityResponseProps> => {
+export const providerFetchProviderServiceAvailability = async (date: Date): Promise<ProviderFetchServiceAvailabilityApiResponse> => {
     const response = await axiosInstance.get('/provider/getServiceAvailability', {
         params : {
             date : date.toISOString()
@@ -70,47 +71,46 @@ export const fetchProviderServiceAvailability = async (date: Date): Promise<Prov
     return response.data.availability;
 }
 
-export const updateProviderProfileImage = createAsyncThunk<ProviderUpdateProfileImageResponseProps, FormData>('/provider/UpdateProfileImage',
+export const providerUpdateProviderProfileImage = createAsyncThunk<ProviderUpdateProfileImageApiResponse, FormData>('/provider/UpdateProfileImage',
     async (formData: FormData) => {
         const response = await axiosInstance.post('/provider/updateProfileImage', formData);
         return response.data;
     }
 )
 
-export const fetchProviderPlans = async () : Promise<ProviderFetchPlansResponseProps[]> => {
+export const providerFetchProviderPlans = async () : Promise<ProviderFetchPlansApiResponse[]> => {
     const response = await axiosInstance.get('/provider/getPlans');
     return response.data.plans;
 }
 
 // This api will create the stripe session and return the session id 
-export const subscribeToPlan = async (data: {planId: string, planDuration: string}) : Promise<{success: boolean, message: string, sessionId: string}> => {
+export const providerSubscribeToPlan = async (data: ProviderSubscribeToPlanApiRequestPayload) : Promise<ProviderSubscribeToPlanApiResponse> => {
     const response = await axiosInstance.post('/provider/createSubscriptionCheckoutSession', data)
     return response.data;
 }
 
 // This api will send the session id to backend and validate the sessionid and retrieve the subscription details
-export const saveSubscription = async (sessionId: string): Promise<CommonResponse> => {
+export const providerSaveSubscription = async (sessionId: string): Promise<CommonResponse> => {
     const response = await axiosInstance.post('/provider/saveSubscription',{ sessionId });
     return response.data;
 }
 
-export const fetchProviderSubscriptions = async () : Promise<ProviderFetchSubscriptionHistoryResponseProps[]> => {
+export const providerFetchProviderSubscriptions = async () : Promise<ProviderFetchSubscriptionHistoryApiResponse[]> => {
     const response = await axiosInstance.get('/provider/getSubscriptions');
     return response.data.subscriptions;
 }
 
-export const subscribeToTrialPlan = async (): Promise<CommonResponse> => {
+export const providerSubscribeToTrialPlan = async (): Promise<CommonResponse> => {
     const response = await axiosInstance.post('/provider/subscribeToTrialPlan');
-    console.log("response : ",response);
     return response.data;
 }
 
-export const fetchProviderPayments = async (): Promise<ProviderFetchPaymentsResponseProps[]> => {
+export const providerFetchProviderPayments = async (): Promise<ProviderFetchPaymentsApiResponse[]> => {
     const response = await axiosInstance.get('/provider/getPayments');
     return response.data.payments;
 }
 
-export const providerFetchBookingAppoinments = async () : Promise<Array<ProviderFetchBookingAppointmentsResponseProps>> => {
+export const providerFetchBookingAppoinments = async () : Promise<ProviderFetchBookingAppointmentsApiResponse[]> => {
     const response = await axiosInstance.get('/provider/getBookingAppointments');
     return response.data.bookingAppointments;
 }

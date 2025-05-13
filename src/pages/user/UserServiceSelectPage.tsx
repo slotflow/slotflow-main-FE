@@ -3,10 +3,12 @@ import { useQuery } from "@tanstack/react-query";
 import { useDispatch, useSelector } from "react-redux";
 import { addService } from "@/utils/redux/slices/userSlice";
 import CommonButton from "@/components/common/CommonButton";
-import { fetchServices } from "@/utils/apis/adminService.api";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
-import { UserSelectService } from "@/utils/interface/userInterface";
+import { adminFetchServices } from "@/utils/apis/adminService.api";
 import DataFetchingError from "@/components/common/DataFetchingError";
+import { Service } from "@/utils/interface/entityInterface/appServiceInterface";
+
+type UserSelectService = Pick<Service, "_id" | "serviceName" | "isBlocked" >;
 
 const UserServiceSelectPage = () => {
 
@@ -15,7 +17,7 @@ const UserServiceSelectPage = () => {
     const navigate = useNavigate();
 
     const { data, isLoading, isError, error } = useQuery({
-        queryFn: fetchServices,
+        queryFn: adminFetchServices,
         queryKey: ["services"],
         staleTime: 5 * 60 * 1000,
         refetchOnWindowFocus: false,

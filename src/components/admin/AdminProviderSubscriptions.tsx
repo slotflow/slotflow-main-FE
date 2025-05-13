@@ -1,19 +1,16 @@
 import { memo } from "react";
 import CommonTable from "../common/CommonTable";
 import { adminFetchProviderSubscriptions } from "@/utils/apis/adminProvider.api";
-import { ProviderSubscriptionsTableColumns } from "../table/providerTableColumns";
+import { ProviderSubscriptionsTableColumns } from "../table/tableColumns/providerTableColumns";
 import { ProviderSubscriptionsTableColumnsProps } from "@/utils/interface/tableColumnInterface";
-import { AdminFetchProviderSubscriptionsResponseProps } from "@/utils/interface/api/adminProviderApiInterface";
+import { AdminFetchProviderSubscriptionsApiResponse } from "@/utils/interface/api/adminProviderApiInterface";
+import { AdminFetchProviderSubscriptionsComponentProps } from "@/utils/interface/componentInterface/adminComponentInterface";
 
-interface AdminFetchProviderSubscriptions {
-    providerId: string
-}
-
-const AdminProviderSubscriptions: React.FC<AdminFetchProviderSubscriptions> = memo(({ providerId }) => {
+const AdminProviderSubscriptions: React.FC<AdminFetchProviderSubscriptionsComponentProps> = memo(({ providerId }) => {
 
     return (
         <div className="p-6">
-            <CommonTable<AdminFetchProviderSubscriptionsResponseProps, ProviderSubscriptionsTableColumnsProps>
+            <CommonTable<AdminFetchProviderSubscriptionsApiResponse, ProviderSubscriptionsTableColumnsProps>
                 fetchApiFunction={() => adminFetchProviderSubscriptions(providerId)}
                 queryKey="providerSubscription"
                 column={ProviderSubscriptionsTableColumns}

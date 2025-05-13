@@ -3,24 +3,12 @@ import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Calendar } from "@/components/ui/calendar";
 import DataFetchingError from "../DataFetchingError";
-import CommonPaymentSelection from "../CommonPaymentSelection";
 import InfoDisplayComponent from "../InfoDisplayComponent";
-import { Slot } from "@/utils/interface/serviceAvailabilityInterface";
+import CommonPaymentSelection from "../CommonPaymentSelection";
+import { Slot } from "@/utils/interface/entityInterface/serviceAvailabilityInterface";
 import ProviderAvailabilityShimmer from "@/components/shimmers/ProviderAvailabilityShimmer";
-import { UserFetchProviderAvailabilityResponseProps } from "@/utils/interface/api/userApiInterface";
-import { ProviderFetchServiceAvailabilityResponseProps } from "@/utils/interface/api/providerApiInterface";
-import { AdminFetchProviderAvailabilityResponseProps } from "@/utils/interface/api/adminProviderApiInterface";
+import { ProviderApiFunctionForPSAcomponent, ProviderServiceAvailabilityComponentProps, UserOrAdminApiFunctionForPSAcomponent } from "@/utils/interface/componentInterface/commonComponentInterface";
 
-type FetchApiFunction =
-    | ((date: Date) => Promise<ProviderFetchServiceAvailabilityResponseProps>)
-    | ((date: Date, providerId: string) => Promise<UserFetchProviderAvailabilityResponseProps | AdminFetchProviderAvailabilityResponseProps>);
-
-interface ProviderServiceAvailabilityComponentProps {
-    providerId?: string;
-    fetchApiFuntion: FetchApiFunction;
-    queryKey: string;
-    isUser?: boolean;
-}
 
 const ProviderServiceAvailability: React.FC<ProviderServiceAvailabilityComponentProps> = ({
     providerId,
@@ -35,7 +23,16 @@ const ProviderServiceAvailability: React.FC<ProviderServiceAvailabilityComponent
     const [selectedMode, setSelectedMode] = useState<string | null>(null);
 
     const { data, isLoading, isError, error } = useQuery({
-        queryFn: () => fetchApiFuntion(date as Date, providerId as string),
+        queryFn: () => {
+            if (!date) throw new Error("Missing date");
+
+            if (isUser) {
+                if (!providerId) throw new Error("Missing provider _id for user/admin fetch");
+                return (fetchApiFuntion as UserOrAdminApiFunctionForPSAcomponent)({ date, providerId });
+            } else {
+                return (fetchApiFuntion as ProviderApiFunctionForPSAcomponent)(date);
+            }
+        },
         queryKey: [queryKey, date],
         staleTime: 1 * 60 * 1000,
         refetchOnWindowFocus: false,

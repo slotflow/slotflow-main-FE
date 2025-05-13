@@ -1,28 +1,19 @@
-import { User } from "../userInterface";
+import { CommonResponse } from "../commonInterface";
+import { User } from "../entityInterface/userInterface";
 
-export interface ApiCommonResponse {
-    success: boolean;
-    message: string;
+// Admin fetch all users api response type
+export type AdminfetchAllUsersApiResponse = Pick<User, "_id" | "username" | "email" | "isBlocked" | "isEmailVerified">;
+
+
+//  Admin change user block status request payload type
+export type AdminChangeUserStatusApiRequestPayload = {
+    userId: User["_id"];
+    isBlocked: User["isBlocked"];
 }
 
-
-
-
-
-
-// Admin fetch all users api response type for the user listing also used as table column props in column.tsx
-export type AdminfetchAllUsersResponseProps = Pick<User, "_id" | "username" | "email" | "isBlocked" | "isEmailVerified">;
-
-
-
-//  Admin change user block status request payload interface
-export interface AdminChangeUserStatusRequestPayload {
-    userId: string;
-    status: boolean;
-}
 
 // Admin change user block status response interface
 type ChnageUserStatusResponse = Pick<User, "_id" | "username" | "email" | "isBlocked" | "isEmailVerified">;
-export interface AdminChnageUserStatusResponse extends ApiCommonResponse {
+export interface AdminChnageUserBlockStatusApiResponse extends CommonResponse {
     updatedUser: ChnageUserStatusResponse
 }
