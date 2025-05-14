@@ -1,15 +1,15 @@
 import { useState } from 'react';
 import { Button } from '../ui/button';
+import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { planDurations } from '@/utils/constants';
-import { Plan } from '@/utils/interface/entityInterface/planInterface';
 import SelectFiledWithLabel from '../form/SelectFiledWithLabel';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
+import { Plan } from '@/utils/interface/entityInterface/planInterface';
 import { setPaymentSelectionPage, setSubscriptionIsTrailPlan, setSubscriptionPlanDuration, setSubscriptionPlanId } from '@/utils/redux/slices/providerSlice';
-import { toast } from 'react-toastify';
 
 type CardProps = Pick<Plan, "_id" | "planName" | "description" | "features" | "price">;
-export interface ProviderPlanCardProps {
+interface ProviderPlanCardProps {
     plan: CardProps;
     isTrial?: boolean
 }

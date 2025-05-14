@@ -299,8 +299,8 @@ export const AdminAllPaymentsTableColumns: ColumnDef<AdminAllPaymentsTableColumn
     accessorKey: "createdAt",
     header: ({ column }) => (<DataTableColumnHeader column={column} title="Paid On" />),
     cell: ({ row }) => {
-      const startDate = row.getValue("startDate");
-      const formattedDate = startDate ? format(new Date(startDate as Date), "dd MMM yyyy") : "N/A";
+      const createdAt = row.getValue("createdAt");
+      const formattedDate = createdAt ? format(new Date(createdAt as Date), "dd MMM yyyy") : "N/A";
       return <span>{formattedDate}</span>;
     }
 

@@ -3,12 +3,14 @@ import { Loader, Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { useQuery } from '@tanstack/react-query';
 import { RootState } from '@/utils/redux/appStore';
-import UserViewProviderCard from '@/components/user/UserViewProviderCard';
 import { userSearchServiceProviders } from '@/utils/apis/user.api';
 import DataFetchingError from '@/components/common/DataFetchingError';
+import UserViewProviderCard from '@/components/user/UserViewProviderCard';
 
 const UserDashboardPage = () => {
   const selectedServices = useSelector((store: RootState) => store.user.selectedServices);
+
+  console.log("selectedServices : ",selectedServices);
 
   const { data, isLoading, isError, error } = useQuery({
     queryFn: () => userSearchServiceProviders(selectedServices),

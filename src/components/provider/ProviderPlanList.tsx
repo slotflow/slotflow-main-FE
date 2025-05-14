@@ -13,7 +13,7 @@ export interface ProviderPlanListProps {
 
 const ProviderPlanList: React.FC<ProviderPlanListProps> = ({ showPlans }) => {
 
-    const { data: plansData, isLoading, isError, error } = useQuery({
+    const { data, isLoading, isError, error } = useQuery({
         queryFn: providerFetchProviderPlans,
         queryKey: ["plans"],
         staleTime: 5 * 60 * 1000,
@@ -28,8 +28,8 @@ const ProviderPlanList: React.FC<ProviderPlanListProps> = ({ showPlans }) => {
                 ))
             ) : isError ? (
                 <DataFetchingError message={(error as Error).message} />
-            ) : plansData ? (
-                plansData.map((plan) => {
+            ) : data ? (
+                data.map((plan) => {
                     const isTrial: boolean = plan?.price === 0
                     return (
                         <ProviderPlanCard

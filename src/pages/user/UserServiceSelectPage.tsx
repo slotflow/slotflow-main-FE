@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addService } from "@/utils/redux/slices/userSlice";
 import CommonButton from "@/components/common/CommonButton";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
-import { adminFetchServices } from "@/utils/apis/adminService.api";
+import { adminFetchAllServices } from "@/utils/apis/adminService.api";
 import DataFetchingError from "@/components/common/DataFetchingError";
 import { Service } from "@/utils/interface/entityInterface/appServiceInterface";
 
@@ -17,7 +17,7 @@ const UserServiceSelectPage = () => {
     const navigate = useNavigate();
 
     const { data, isLoading, isError, error } = useQuery({
-        queryFn: adminFetchServices,
+        queryFn: adminFetchAllServices,
         queryKey: ["services"],
         staleTime: 5 * 60 * 1000,
         refetchOnWindowFocus: false,
