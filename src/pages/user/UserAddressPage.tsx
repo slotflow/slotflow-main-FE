@@ -13,6 +13,7 @@ const UserAddressPage = () => {
   const [hasErrors, setHasErrors] = useState<boolean>(false);
   const [addAddress, setAddAddress] = useState<boolean>(false);
   const [showAddAddressBtn, setShowAddAddressBtn] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleAAddAddress = async (e: FormEvent<HTMLFormElement>, formData: AddressFormProps) => {
     e.preventDefault();
@@ -29,13 +30,13 @@ const UserAddressPage = () => {
   return (
     <div className="min-h-full border border-[var(--boxBorder)] rounded-lg p-2 flex flex-col">
       <ProfileHead updateProfileImageApiFunction={userUpdateUserProfileImage} updation={true} />
-        {showAddAddressBtn && (
+        {showAddAddressBtn && !loading && (
           <CommonButton onClick={() => setAddAddress(!addAddress)} text={!addAddress ? "Add Address" : "Close"} className="w-3/12 mt-6"/>
         )}
         {addAddress ? (
           <AddAddress onSubmit={handleAAddAddress} formClassNames={"my-4 border rounded-lg py-6"} headingSize={"xs:text-md md:text-xl"} heading={"Lets Add Address"} buttonText={"Submit"} setHasErrors={setHasErrors} />
         ) : (
-          <UserOrProviderAddressDetails fetchApiFunction={userFetchUserAddress} quryKey="userAddress" isUser setShowAddAddressBtn={setShowAddAddressBtn} />
+          <UserOrProviderAddressDetails fetchApiFunction={userFetchUserAddress} quryKey="userAddress" isUser setShowAddAddressBtn={setShowAddAddressBtn} setLoading={setLoading}/>
         )}
     </div>
   )

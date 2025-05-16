@@ -18,6 +18,7 @@ interface UserOrProviderAddressDetailsComponentProps {
     quryKey: string;
     isUser?: boolean
     setShowAddAddressBtn?: (show: boolean) => void;
+    setLoading?: (data: boolean) => void;
 }
 
 const UserOrProviderAddressDetails: React.FC<UserOrProviderAddressDetailsComponentProps> = ({
@@ -25,7 +26,8 @@ const UserOrProviderAddressDetails: React.FC<UserOrProviderAddressDetailsCompone
     fetchApiFunction,
     quryKey,
     isUser,
-    setShowAddAddressBtn
+    setShowAddAddressBtn,
+    setLoading
 }) => {
 
     const { data, isLoading, isError, error } = useQuery({
@@ -42,6 +44,16 @@ const UserOrProviderAddressDetails: React.FC<UserOrProviderAddressDetailsCompone
             setShowAddAddressBtn?.(false);
         }
     }, [data, isUser, setShowAddAddressBtn]);
+
+    useEffect(() => {
+        if(setLoading) {
+            if(isLoading) {
+                setLoading(true);
+            } else {
+                setLoading(false)
+            }
+        }
+    },[isLoading, setLoading])
 
     if (isError) {
         return <DataFetchingError message={error?.message} />
