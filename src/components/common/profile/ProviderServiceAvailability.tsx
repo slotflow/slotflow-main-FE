@@ -40,7 +40,9 @@ const ProviderServiceAvailability: React.FC<ProviderServiceAvailabilityComponent
     });
 
     useEffect(() => {
-        if (!data || !date || date === null) return;
+        if (!data || !date || date === null || !data.modes) {
+            return;
+        }
         setSelectedMode(data?.modes[0]);
     }, [data, date])
 
