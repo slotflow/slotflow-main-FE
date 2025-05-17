@@ -52,7 +52,7 @@ const ProviderServiceAvailability: React.FC<ProviderServiceAvailabilityComponent
 
     const handleBookAnAppoint = (slotId: string, availability: boolean) => {
         if (!availability) {
-            toast.info("Slot is not available.");
+            toast.info("Slot is unavailable.");
             return;
         }
         setSelectedSlotId(slotId);
@@ -98,7 +98,11 @@ const ProviderServiceAvailability: React.FC<ProviderServiceAvailabilityComponent
                                     </table>
                                 </div>
 
-                                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mt-4">
+                                <div className="p-2">
+                                    <p>Please ensure that you book the slot at least 2 hours in advance.</p>
+                                </div>
+
+                                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mt-2">
                                     {data?.slots?.length ? (
                                         data?.slots.map((slot: Slot) => {
                                             const commonClasses = `text-xs text-center border rounded-md py-2 px-4 hover:bg-[var(--mainColor)] transition-colors duration-200 ${slot.available

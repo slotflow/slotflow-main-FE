@@ -7,8 +7,9 @@ import { AppDispatch, RootState } from "@/utils/redux/appStore";
 import { adminFetchAllServices } from "@/utils/apis/adminService.api";
 import DataFetchingError from "@/components/common/DataFetchingError";
 import { Service } from "@/utils/interface/entityInterface/appServiceInterface";
+import ServiceSelectShimmer from "@/components/shimmers/ServiceSelectShimmer";
 
-type UserSelectService = Pick<Service, "_id" | "serviceName" | "isBlocked" >;
+type UserSelectService = Pick<Service, "_id" | "serviceName" | "isBlocked">;
 
 const UserServiceSelectPage = () => {
 
@@ -33,7 +34,7 @@ const UserServiceSelectPage = () => {
 
     const handleSubmitSelectedServices = async () => {
         navigate('/user/dashboard');
-    }    
+    }
 
     return (
         <div className="px-6 h-screen flex flex-col">
@@ -42,7 +43,7 @@ const UserServiceSelectPage = () => {
                 {isError ? (
                     <DataFetchingError message={error.message} />
                 ) : isLoading ? (
-                    <div>Loading</div>
+                    <ServiceSelectShimmer />
                 ) : data ? (
                     data.map((service: UserSelectService) => (
                         <div
@@ -63,9 +64,11 @@ const UserServiceSelectPage = () => {
                     <DataFetchingError message="No services found." />
                 )}
             </div>
-            <div className="flex justify-end mt-6">
-               <CommonButton text={"Next"} onClick={handleSubmitSelectedServices}/>
-            </div>
+            {!isLoading && (
+                <div className="flex justify-end mt-6">
+                    <CommonButton text={"Next"} onClick={handleSubmitSelectedServices} />
+                </div>
+            )}
         </div>
     );
 };

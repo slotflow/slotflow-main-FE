@@ -21,13 +21,14 @@ interface ProviderSubscriptionDataProps {
 }
 
 interface PaymentSelecionComponentPropst {
-    setOpenPayment?: (data: boolean) =>  void;
+    setOpenPayment?: (data: boolean) => void;
     data: UserBookinAppointmentDataProps | ProviderSubscriptionDataProps;
     isAppointmentBooking?: boolean;
     isProviderSubscription?: boolean;
 }
 
 const CommonPaymentSelection: React.FC<PaymentSelecionComponentPropst> = ({
+    setOpenPayment,
     data,
     isAppointmentBooking,
     isProviderSubscription,
@@ -134,7 +135,11 @@ const CommonPaymentSelection: React.FC<PaymentSelecionComponentPropst> = ({
                 <div className="w-full max-w-sm rounded-lg shadow-lg border p-4 bg-[var(--background)]">
                     <X
                         className="cursor-pointer ml-auto"
-                        onClick={() => dispatch(setPaymentSelectionPage(false))}
+                        onClick={() => {
+                            dispatch(setPaymentSelectionPage(false));
+                            if (setOpenPayment)
+                                setOpenPayment(false);
+                        }}
                     />
                     <div className="py-6 space-y-4">
                         <h2 className="text-lg font-bold mb-4 text-center">Choose Payment Gateway</h2>
