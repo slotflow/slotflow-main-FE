@@ -88,3 +88,10 @@ export type UserFetchPaymentsApiResponse = Pick<Payment, "_id" | "createdAt" | "
 export interface UserCancelBookingApiResponse extends CommonResponse {
     updatedBooking : Pick<Booking, "_id" | "appointmentDate" | "appointmentMode" | "appointmentStatus" | "appointmentTime" | "createdAt">;
 }
+
+
+// user update user info request payload
+export type UserUpdateUserInfoApiRequestPayload = Pick<User, "username" | "phone">;
+// user update user info response interface
+export interface UserUpdateUserInfoApiResponse extends CommonResponse, UserUpdateUserInfoApiRequestPayload {
+}

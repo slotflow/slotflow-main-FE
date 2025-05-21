@@ -16,6 +16,8 @@ import {
     UserBookAnAppointmentApiRequestPayload, 
     UserFetchProviderAvailabilityApiResponse, 
     UserFetchProviderProfileDetailsApiResponse,
+    UserUpdateUserInfoApiRequestPayload,
+    UserUpdateUserInfoApiResponse,
 } from "../interface/api/userApiInterface";
 import { Provider } from "../interface/entityInterface/providerInterface";
 import { Booking } from "../interface/entityInterface/bookingInterface";
@@ -94,5 +96,10 @@ export const userFetchPayments = async () : Promise<Array<UserFetchPaymentsApiRe
 
 export const userCancelBooking = async (bookingId: Booking["_id"]) : Promise<UserCancelBookingApiResponse> => {
     const response = await axiosInstance.put(`/user/cancelBooking/${bookingId}`);
+    return response.data;
+}
+
+export const userUpdateUserInfo = async (data: UserUpdateUserInfoApiRequestPayload) : Promise<UserUpdateUserInfoApiResponse> => {
+    const response = await axiosInstance.put(`/user/updateUserInfo`, data);
     return response.data;
 }

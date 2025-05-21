@@ -1,13 +1,15 @@
+import { Loader } from 'lucide-react';
+import { toast } from 'react-toastify';
 import CommonButton from './CommonButton';
 import InputField from '../form/InputFieldWithLable';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { userUpdateUserInfo } from '@/utils/apis/user.api';
 import { UserData } from '@/utils/interface/sliceInterface';
-import { RootState } from '@/utils/redux/appStore';
+import { AppDispatch, RootState } from '@/utils/redux/appStore';
+import { updateAuthUserName } from '@/utils/redux/slices/authSlice';
 import { FormEvent, useCallback, useEffect, useState } from 'react';
-import { HandleChangeFunction } from '@/utils/interface/commonInterface';
-import { toast } from 'react-toastify';
 import { providerUpdateProviderInfo } from '@/utils/apis/provider.api';
-import { Loader } from 'lucide-react';
+import { HandleChangeFunction } from '@/utils/interface/commonInterface';
 
 interface UserInfoAddingOrUpdatingComponentInterface {
     title: string;
@@ -21,6 +23,7 @@ const UserInfoAddingOrUpdating: React.FC<UserInfoAddingOrUpdatingComponentInterf
     setOpenUserInfoForm
 }) => {
 
+    const dispatch = useDispatch<AppDispatch>();
     const authUser: UserData | null = useSelector((store: RootState) => store.auth.authUser);
     const role: string | null = authUser?.role || null;
 
@@ -57,15 +60,33 @@ const UserInfoAddingOrUpdating: React.FC<UserInfoAddingOrUpdatingComponentInterf
         }
         setLoading(true);
 
-        if (role === "PROVIDER") {
-            const data = await providerUpdateProviderInfo({ username: formData.username, phone: formData.phone });
+        try {
+            let updateFn;
+            if (role === "PROVIDER") {
+                updateFn = providerUpdateProviderInfo;
+            } else if (role === "USER") {
+                updateFn = userUpdateUserInfo;
+            } else {
+                toast.error("Invalid user role");
+                return;
+            }
+
+            const data = await updateFn({
+                username: formData.username,
+                phone: formData.phone,
+            });
+
             if (data.success) {
-                setLoading(false);
+                dispatch(updateAuthUserName(data.username));
                 setOpenUserInfoForm(false);
                 toast.success(data.message || "Info updated successfully");
             } else {
                 toast.error("Info updation failed");
             }
+        } catch {
+            toast.error("Something went wrong");
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -77,7 +98,7 @@ const UserInfoAddingOrUpdating: React.FC<UserInfoAddingOrUpdatingComponentInterf
     return (
         <div className='p-4 border w-1/2'>
             <h1 className='my-4 text-xl font-smibold'>{title}</h1>
-            {loading ? (
+            {!loading ? (
                 <form onSubmit={handleSubmit} className='w-full'>
                     <InputField
                         label="Username"

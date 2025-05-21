@@ -83,7 +83,6 @@ export type ProviderFetchBookingAppointmentsApiResponse = Pick<Booking, "_id" | 
 // Provider update providerInfo [username and phone] request payload
 export type ProviderUpdateProviderInfoRequestPayload = Pick<Provider, "username" | "phone">
 // Provider update providerInfo [username and phone] response interface 
-export interface ProviderUpdateProviderInfoResponse extends CommonResponse {
-    username: Provider["username"];
-    phone: Provider["phone"];
+export interface ProviderUpdateProviderInfoResponse extends CommonResponse, ProviderUpdateProviderInfoRequestPayload {
+
 }

@@ -1,14 +1,17 @@
 import { useState } from "react";
 import CommonButton from "@/components/common/CommonButton";
 import ProfileHead from "@/components/common/profile/ProfileHead";
+import { Provider } from "@/utils/interface/entityInterface/providerInterface";
+import UserInfoAddingOrUpdating from "@/components/common/UserInfoAddingOrUpdating";
 import UserOrProviderProfileDetails from "@/components/common/profile/UserOrProviderProfileDetails";
 import { providerFetchProviderProfileDetails, providerUpdateProviderProfileImage } from "@/utils/apis/provider.api";
-import UserInfoAddingOrUpdating from "@/components/common/UserInfoAddingOrUpdating";
+
+type providerInfoType = Pick<Provider, "username" | "phone">;
 
 const ProviderProfilePage = () => {
   
   const [openUserInfoForm, setOpenUserInfoForm] = useState<boolean>(false);
-  const [userInfo, setUserInfo] = useState({
+  const [userInfo, setUserInfo] = useState<providerInfoType>({
     username: "",
     phone: ""
   });
