@@ -83,7 +83,7 @@ const UserOrProviderProfileDetails: React.FC<UserOrProviderProfileDetailsCompone
                             <>
                                 <InfoDisplayComponent label="Username" value={providerProfileData.username} />
                                 <InfoDisplayComponent label="Email" value={providerProfileData.email} copyToClipboard={copyToClipboard} />
-                                <InfoDisplayComponent label="Phone Number" value={providerProfileData.phone ?? 'Not yet added'} copyToClipboard={copyToClipboard} />
+                                <InfoDisplayComponent label="Phone Number" value={providerProfileData.phone ?? 'Not yet added'} />
                                 <InfoDisplayComponent label="Slotflow Trusted" value={providerProfileData.trustedBySlotflow} isBoolean={true} />
                                 <InfoDisplayComponent label="Joined On" value={providerProfileData.createdAt} formatDate={formatDate} />
                                 <InfoDisplayComponent label="Email Verified" value={providerProfileData.isEmailVerified} isBoolean={true} />
@@ -103,7 +103,7 @@ const UserOrProviderProfileDetails: React.FC<UserOrProviderProfileDetailsCompone
                             <>
                                 <InfoDisplayComponent label="Username" value={providerProfileData.username} />
                                 <InfoDisplayComponent label="Email" value={providerProfileData.email} copyToClipboard={copyToClipboard} />
-                                <InfoDisplayComponent label="Phone Number" value={providerProfileData.phone ?? 'Not yet added'} copyToClipboard={copyToClipboard} />
+                                <InfoDisplayComponent label="Phone Number" value={providerProfileData.phone ?? 'Not yet added'} />
                                 <InfoDisplayComponent label="Slotflow Trusted" value={providerProfileData.trustedBySlotflow} isBoolean={true} />
                                 <InfoDisplayComponent label="Joined On" value={providerProfileData.createdAt} formatDate={formatDate} />
                                 <InfoDisplayComponent label="Email Verified" value={providerProfileData.isEmailVerified} isBoolean={true} />
@@ -120,7 +120,7 @@ const UserOrProviderProfileDetails: React.FC<UserOrProviderProfileDetailsCompone
                             <>
                                 <InfoDisplayComponent label="Username" value={providerProfileData.username} />
                                 <InfoDisplayComponent label="Email" value={providerProfileData.email} copyToClipboard={copyToClipboard} />
-                                <InfoDisplayComponent label="Phone Number" value={providerProfileData.phone ?? 'Not yet added'} copyToClipboard={copyToClipboard} />
+                                <InfoDisplayComponent label="Phone Number" value={providerProfileData.phone ?? 'Not yet added'} />
                                 <InfoDisplayComponent label="Slotflow Trusted" value={providerProfileData.trustedBySlotflow} isBoolean={true} />
                             </>
                         );

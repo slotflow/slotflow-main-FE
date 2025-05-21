@@ -28,7 +28,7 @@ const ProviderProfilePage = () => {
         setOpenUserInfoForm(!openUserInfoForm);
       }}/>
       {(openUserInfoForm && userInfo) && (
-        <UserInfoAddingOrUpdating title="Update your username and phone" userInfo={userInfo} />
+        <UserInfoAddingOrUpdating title="Update your username and phone" userInfo={userInfo} setOpenUserInfoForm={setOpenUserInfoForm}/>
       )}
     </div>
   )

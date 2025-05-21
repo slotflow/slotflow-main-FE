@@ -7,22 +7,24 @@ import { FormEvent, useCallback, useEffect, useState } from 'react';
 import { HandleChangeFunction } from '@/utils/interface/commonInterface';
 import { toast } from 'react-toastify';
 import { providerUpdateProviderInfo } from '@/utils/apis/provider.api';
+import { Loader } from 'lucide-react';
 
 interface UserInfoAddingOrUpdatingComponentInterface {
     title: string;
     userInfo: { username: string, phone: string };
+    setOpenUserInfoForm: (data: boolean) => void;
 }
 
 const UserInfoAddingOrUpdating: React.FC<UserInfoAddingOrUpdatingComponentInterface> = ({
     title,
-    userInfo
+    userInfo,
+    setOpenUserInfoForm
 }) => {
 
     const authUser: UserData | null = useSelector((store: RootState) => store.auth.authUser);
-
     const role: string | null = authUser?.role || null;
-    // const verificationToken : string | undefined = authUser?.verificationToken;
 
+    const [loading, setLoading] = useState<boolean>(false);
     const [hasErrors, setHasErrors] = useState<boolean>(false);
     const [formData, setFormData] = useState<{ username: string, phone: string }>({
         username: "",
@@ -53,11 +55,14 @@ const UserInfoAddingOrUpdating: React.FC<UserInfoAddingOrUpdatingComponentInterf
             toast.error("Please fix the form errors.");
             return;
         }
+        setLoading(true);
 
         if (role === "PROVIDER") {
             const data = await providerUpdateProviderInfo({ username: formData.username, phone: formData.phone });
             if (data.success) {
-                toast.success("Info updated successfully");
+                setLoading(false);
+                setOpenUserInfoForm(false);
+                toast.success(data.message || "Info updated successfully");
             } else {
                 toast.error("Info updation failed");
             }
@@ -72,31 +77,35 @@ const UserInfoAddingOrUpdating: React.FC<UserInfoAddingOrUpdatingComponentInterf
     return (
         <div className='p-4 border w-1/2'>
             <h1 className='my-4 text-xl font-smibold'>{title}</h1>
-            <form onSubmit={handleSubmit} className='w-full'>
-                <InputField
-                    label="Username"
-                    id="username"
-                    placeholder="Username"
-                    type="text"
-                    value={formData.username}
-                    onChange={handleChange}
-                    required={true}
-                    isPassword={false}
-                    onHasError={handleErrorChange}
-                />
-                <InputField
-                    label="Phone"
-                    id="phone"
-                    placeholder="phone"
-                    type="text"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    required={true}
-                    isPassword={false}
-                    onHasError={handleErrorChange}
-                />
-                <CommonButton text='Update' type='submit' className='my-4' />
-            </form>
+            {loading ? (
+                <form onSubmit={handleSubmit} className='w-full'>
+                    <InputField
+                        label="Username"
+                        id="username"
+                        placeholder="Username"
+                        type="text"
+                        value={formData.username}
+                        onChange={handleChange}
+                        required={true}
+                        isPassword={false}
+                        onHasError={handleErrorChange}
+                    />
+                    <InputField
+                        label="Phone"
+                        id="phone"
+                        placeholder="phone"
+                        type="text"
+                        value={formData.phone}
+                        onChange={handleChange}
+                        required={true}
+                        isPassword={false}
+                        onHasError={handleErrorChange}
+                    />
+                    <CommonButton text='Update' type='submit' className='my-4' />
+                </form>
+            ) : (
+                <Loader className='animate-spin size-5' />
+            )}
         </div>
     )
 }
