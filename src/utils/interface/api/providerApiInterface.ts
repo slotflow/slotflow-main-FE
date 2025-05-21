@@ -51,7 +51,7 @@ export interface ProviderUpdateProfileImageApiResponse extends CommonResponse, P
 }
 
 
-// Provider fetch plans api response 
+// Provider fetch plans api response  type
 export type ProviderFetchPlansApiResponse = Pick<Plan, "_id" | "planName" | "price" | "features" | "description">;
 
 
@@ -66,15 +66,24 @@ export interface ProviderSubscribeToPlanApiResponse extends CommonResponse {
 }
 
 
-// Provider fetch subscription history api response props
+// Provider fetch subscription history api response interface
 type SubscripionsResProps = Pick<Subscription, | "startDate" | "endDate" | "subscriptionStatus">;
 export interface ProviderFetchSubscriptionHistoryApiResponse extends SubscripionsResProps , Partial<Plan>{    
 }
 
 
-// provider fetch all payments response type
+// Provider fetch all payments response type
 export type ProviderFetchPaymentsApiResponse = Pick<Payment, "_id" | "createdAt" | "totalAmount" | "paymentFor" | "paymentMethod" | "paymentGateway" | "paymentStatus" | "discountAmount">
 
 
 // Provider fetch all appointmets response type
 export type ProviderFetchBookingAppointmentsApiResponse = Pick<Booking, "_id" | "appointmentDate" | "appointmentMode" | "appointmentStatus" | "appointmentTime" | "createdAt">;
+
+
+// Provider update providerInfo [username and phone] request payload
+export type ProviderUpdateProviderInfoRequestPayload = Pick<Provider, "username" | "phone">
+// Provider update providerInfo [username and phone] response interface 
+export interface ProviderUpdateProviderInfoResponse extends CommonResponse {
+    username: Provider["username"];
+    phone: Provider["phone"];
+}

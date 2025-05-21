@@ -25,6 +25,7 @@ interface UserOrProviderProfileDetailsComponentProps {
     userLookingProvider?: boolean;
     setProfileImage?: (image: string) => void,
     shimmerRow: number;
+    setData?: ({username, phone}: { username: string, phone: string}) => void,
 }
 
 const UserOrProviderProfileDetails: React.FC<UserOrProviderProfileDetailsComponentProps> = ({
@@ -38,6 +39,7 @@ const UserOrProviderProfileDetails: React.FC<UserOrProviderProfileDetailsCompone
     userLookingProvider,
     setProfileImage,
     shimmerRow,
+    setData
 }) => {
 
     const { data, isLoading, isError, error } = useQuery({
@@ -50,6 +52,10 @@ const UserOrProviderProfileDetails: React.FC<UserOrProviderProfileDetailsCompone
     useEffect(() => {
         if (setProfileImage && data && "profileImage" in data && data?.profileImage) {
             setProfileImage(data.profileImage);
+        }
+        if(setData && data) {
+            const userData = data as (ProviderFetchProfileDetailsApiResponse);
+            setData({username : userData.username, phone: userData.phone})
         }
     }, [data, setProfileImage]);
 

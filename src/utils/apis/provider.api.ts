@@ -15,6 +15,8 @@ import {
     ProviderFetchSubscriptionHistoryApiResponse,
     ProviderFetchBookingAppointmentsApiResponse,
     AddProviderServiceAvailabilitiesApiRequestPayload,
+    ProviderUpdateProviderInfoResponse,
+    ProviderUpdateProviderInfoRequestPayload,
 } from "../interface/api/providerApiInterface";
 import { CommonResponse } from "../interface/commonInterface";
 
@@ -113,4 +115,9 @@ export const providerFetchProviderPayments = async (): Promise<ProviderFetchPaym
 export const providerFetchBookingAppoinments = async () : Promise<ProviderFetchBookingAppointmentsApiResponse[]> => {
     const response = await axiosInstance.get('/provider/getBookingAppointments');
     return response.data.bookingAppointments;
+}
+
+export const providerUpdateProviderInfo = async (data: ProviderUpdateProviderInfoRequestPayload) : Promise<ProviderUpdateProviderInfoResponse> => {
+    const response = await axiosInstance.put('/provider/updaterUserInfo', data);
+    return response.data;
 }
