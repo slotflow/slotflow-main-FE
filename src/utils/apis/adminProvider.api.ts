@@ -58,7 +58,7 @@ export const adminFetchProviderServiceAvailability = async ({date, providerId}: 
             date : date.toISOString()
         }
     });
-    return response.data.availabilities;
+    return response.data.availability;
 }
 
 export const adminFetchProviderSubscriptions = async (providerId: Provider["_id"]) : Promise<Array<AdminFetchProviderSubscriptionsApiResponse>> => {

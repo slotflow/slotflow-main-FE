@@ -14,7 +14,7 @@ const ProviderServiceAvailability: React.FC<ProviderServiceAvailabilityComponent
     providerId,
     fetchApiFuntion,
     queryKey,
-    isUser
+    role
 }) => {
 
     const [date, setDate] = useState<Date | undefined>(new Date());
@@ -25,11 +25,10 @@ const ProviderServiceAvailability: React.FC<ProviderServiceAvailabilityComponent
     const { data, isLoading, isError, error } = useQuery({
         queryFn: () => {
             if (!date) throw new Error("Missing date");
-
-            if (isUser) {
+            if (role === "User" || role === "Admin") {
                 if (!providerId) throw new Error("Missing provider _id for user/admin fetch");
                 return (fetchApiFuntion as UserOrAdminApiFunctionForPSAcomponent)({ date, providerId });
-            } else {
+            } else if(role === "Provider") {
                 return (fetchApiFuntion as ProviderApiFunctionForPSAcomponent)(date);
             }
         },
@@ -110,7 +109,7 @@ const ProviderServiceAvailability: React.FC<ProviderServiceAvailabilityComponent
                                                 : 'border-gray-300'
                                                 }`;
 
-                                            return isUser ? (
+                                            return role === "User" ? (
                                                 <button
                                                     key={slot._id}
                                                     onClick={(e) => {

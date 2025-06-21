@@ -32,7 +32,7 @@ const UserServiceProviderDetailPage = () => {
                 ) || tab === 2 && (
                     <ProviderServiceDetails providerId={providerId} fetchApiFunction={() => userFetchProviderService(providerId)} queryKey="providerService" isUser shimmerRow={5} />
                 ) || tab === 3 && (
-                    <ProviderServiceAvailability providerId={providerId} fetchApiFuntion={userFetchProviderServiceAvailability} queryKey="providerServiceAvailability" isUser />
+                    <ProviderServiceAvailability providerId={providerId} fetchApiFuntion={userFetchProviderServiceAvailability} queryKey="providerServiceAvailability" role="User" />
                 )}
             </div>
 

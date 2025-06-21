@@ -29,7 +29,7 @@ export interface ProviderServiceAvailabilityComponentProps {
     providerId?: string
     fetchApiFuntion: FetchApiFunction;
     queryKey: string;
-    isUser?: boolean;
+    role?: string;
 }
 
 

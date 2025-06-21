@@ -49,7 +49,7 @@ const ProviderServiceDetails: React.FC<ProviderServiceDetailsComponentProps> = (
             <table className="table-auto w-full">
                 <tbody className="w-1/2">
                     <>
-                        <InfoDisplayComponent label="Service Category" value={data?.serviceCategory.serviceName} />
+                        <InfoDisplayComponent label="Service Category" value={data?.serviceCategory?.serviceName} />
                         <InfoDisplayComponent label="Service Name" value={data?.serviceName} />
                         <InfoDisplayComponent label="Service Description" value={data?.serviceDescription} />
                         <InfoDisplayComponent label="Service Price" value={data?.servicePrice} isPrice={true} />

@@ -25,7 +25,6 @@ const PlanForm = () => {
         let newValue: string | boolean | number;
 
         if (type === "number") {
-            console.log("value : ", value);
             newValue = Number(value);
         } else {
             newValue = value;
@@ -52,8 +51,6 @@ const PlanForm = () => {
             toast.error("Please fix the form errors.");
             return;
         }
-
-        console.log("formData : ", formData);
 
         handleAdminPlanAdding(formData, setLoading);
         setFormData({
