@@ -72,9 +72,9 @@ const InputField: React.FC<InputFieldProps> = memo(({
             } else if(id === "servicePrice"){
                 Validator.validateServicePrice(Number(inputValue));
             } else if(id === "providerExperience") {
-                Validator.validateProviderExperience(inputValue)
+                Validator.validateProviderExperience(inputValue);
             } else if(id === "providerAdhaar") {
-                Validator.validateProviderAdhaar(inputValue);
+                Validator.validateProviderAdhaar(Number(inputValue));
             }
             setErrorMessage(null);
             onHasError?.(false);

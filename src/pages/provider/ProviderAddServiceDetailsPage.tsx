@@ -19,12 +19,19 @@ const ProviderAddServiceDetailsPage = () => {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [services, setServices] = useState<{ label: string, value: string }[] | []>([]);
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<{
+    serviceCategory: string,
+    serviceName: string,
+    serviceDescription: string,
+    servicePrice: number,
+    providerAdhaar: number,
+    providerExperience: string,
+  }>({
     serviceCategory: "",
     serviceName: "",
     serviceDescription: "",
-    servicePrice: "",
-    providerAdhaar: "",
+    servicePrice: 0,
+    providerAdhaar: 0,
     providerExperience: "",
   });
 
@@ -89,8 +96,8 @@ const ProviderAddServiceDetailsPage = () => {
       formDataToSend.append('serviceCategory', formData.serviceCategory);
       formDataToSend.append('serviceName', formData.serviceName);
       formDataToSend.append('serviceDescription', formData.serviceDescription);
-      formDataToSend.append('servicePrice', formData.servicePrice);
-      formDataToSend.append('providerAdhaar', formData.providerAdhaar);
+      formDataToSend.append('servicePrice', formData.servicePrice.toString());
+      formDataToSend.append('providerAdhaar', formData.providerAdhaar.toString());
       formDataToSend.append('providerExperience', formData.providerExperience);
       if (selectedImage) {
         formDataToSend.append('certificate', selectedImage);
@@ -104,8 +111,8 @@ const ProviderAddServiceDetailsPage = () => {
               serviceCategory: "",
               serviceName: "",
               serviceDescription: "",
-              servicePrice: "",
-              providerAdhaar: "",
+              servicePrice: 0,
+              providerAdhaar: 0,
               providerExperience: "",
             });
             setSelectedImage(null);
@@ -178,7 +185,7 @@ const ProviderAddServiceDetailsPage = () => {
                 label="Adhaar Last 6 digits"
                 id="providerAdhaar"
                 placeholder="Adhaar number"
-                type="text"
+                type="number"
                 value={formData.providerAdhaar}
                 onChange={handleChange}
                 required={true}

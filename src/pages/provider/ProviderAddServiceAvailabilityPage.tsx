@@ -1,15 +1,15 @@
 import { toast } from 'react-toastify';
+import { Checkbox } from '@/components/ui/checkbox';
 import { useDispatch, useSelector } from 'react-redux';
 import { TimePicker } from '@/components/ui/TimePicker';
-import { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import CommonButton from '@/components/common/CommonButton';
 import RightSideBox from '@/components/provider/RightSideBox';
 import { AppDispatch, RootState } from '@/utils/redux/appStore';
 import { format, addMinutes, isBefore, isEqual } from "date-fns";
+import { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import { addAvailability } from '@/utils/redux/slices/providerSlice';
 import SelectFiledWithLabel from '@/components/form/SelectFiledWithLabel';
 import { providerAddProviderServiceAvailabilities } from '@/utils/apis/provider.api';
-import { Checkbox } from '@/components/ui/checkbox';
 
 interface TimeSlot {
   startTime: Date;

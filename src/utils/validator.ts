@@ -1,4 +1,8 @@
+import dayjs from 'dayjs';
 import validator from 'validator';
+import customParseFormat from "dayjs/plugin/isSameOrBefore";
+
+dayjs.extend(customParseFormat);
 
 export class Validator {
     // **** user validations
@@ -182,10 +186,10 @@ export class Validator {
     }
 
     // Provider adhaar number
-    static validateProviderAdhaar(providerAdhaar: string): void {
+    static validateProviderAdhaar(providerAdhaar: number): void {
         if (!providerAdhaar) throw new Error("Adhaar number is required.");
-        if (!validator.isNumeric(providerAdhaar.trim())) throw new Error("Invalid adhaar number. Adhaar number should contain only numbers.");
-        if (providerAdhaar.trim().length !== 6) throw new Error("Invalid adhaar number. Please enter the last 6 digits.");
+        if (typeof providerAdhaar !== "number") throw new Error("Invalid adhaar number. Adhaar number should contain only numbers.");
+        if (providerAdhaar < 100000 || providerAdhaar > 999999 ) throw new Error("Invalid adhaar number. Please enter the last 6 digits.");
     }
 
     // Provider experience
@@ -208,27 +212,6 @@ export class Validator {
         const validDurations = ["15 minutes", "30 minutes", "1 hour"];
         if (!duration || duration.trim().length === 0) throw new Error("Duration is required.");
         if (!validDurations.includes(duration.trim().toLowerCase())) throw new Error("Invalid duration. Duration must be one of: 15 minutes, 30 minutes, 1 hour.");
-    }
-
-    static validateTime(time: string, fieldName: string): void {
-        if (!time || time.trim().length === 0) {
-            throw new Error(`${fieldName} is required.`);
-        }
-        if (!/^([01]?[0-9]|2[0-3]):[0-5][0-9]$/.test(time.trim())) throw new Error(`Invalid ${fieldName}. ${fieldName} must be in HH:MM format (24-hour).`);
-    }
-
-    static validateStartTime(startTime: string): void {
-        this.validateTime(startTime, "Start time");
-    }
-
-    static validateEndTime(endTime: string, startTime: string): void {
-        this.validateTime(endTime, "End time");
-
-        if (startTime && endTime) {
-            if (endTime <= startTime) {
-                throw new Error("End time must be after start time.");
-            }
-        }
     }
 
     static validateModes(modes: string[]): void {
