@@ -1,8 +1,8 @@
 import { toast } from "react-toastify";
 import { useQueryClient } from "@tanstack/react-query";
-import { adminAddNewService, adminChangeServiceBlockStatus } from "../../apis/adminService.api";
-import { AdminAppServicesTableColumnsProps } from "../../interface/tableColumnInterface";
 import { Service } from "@/utils/interface/entityInterface/appServiceInterface";
+import { AdminAppServicesTableColumnsProps } from "../../interface/tableColumnInterface";
+import { adminAddNewService, adminChangeServiceBlockStatus } from "../../apis/adminService.api";
 
 type HandleAdminChangeServiceStatusProps = {
     serviceId: Service["_id"];
@@ -18,11 +18,13 @@ export const useAdminServiceActions = (): UseAdminServiceActionReturnType => {
   
   const queryClient = useQueryClient();
 
-  const handleAdminServiceAdding = (serviceName: Service["serviceName"], setLoading: (loading: boolean) => void) => {
-    adminAddNewService({serviceName})
+  const handleAdminServiceAdding = (appServiceName: Service["serviceName"], setLoading: (loading: boolean) => void) => {
+
+    console.log("appServiceName : ",appServiceName);
+    adminAddNewService({appServiceName})
     .then((res) => {
       queryClient.setQueryData<AdminAppServicesTableColumnsProps[]>(
-        ["services"],
+        ["appServices"],
         (oldData = []) => {
           return [...oldData, res.service];
         }
@@ -39,7 +41,7 @@ export const useAdminServiceActions = (): UseAdminServiceActionReturnType => {
     adminChangeServiceBlockStatus({ serviceId, isBlocked })
       .then((res) => {
         queryClient.setQueryData(
-          ["services"],
+          ["appServices"],
           (oldData: AdminAppServicesTableColumnsProps[] | []) => {
             if (!oldData) return [];
             return oldData.map((service) =>

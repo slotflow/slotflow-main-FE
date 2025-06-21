@@ -1,7 +1,8 @@
+import { ChatPage } from "../common/ChatPage";
 
-const UserChatPage = () => {
+const UserChatPage: React.FC = () => {
   return (
-    <div>UserChat</div>
+   <ChatPage />
   )
 }
 

@@ -12,8 +12,8 @@ export const adminFetchAllServices = async (): Promise<AdminFetchAllServicesApiR
     return response.data.services;
 }
 
-export const adminAddNewService = async (data : {serviceName: Service["serviceName"]}): Promise<AdminAddNewServiceApiResponse> => {
-    const response = await axiosInstance.post('/admin/addNewService', { data });
+export const adminAddNewService = async (data : {appServiceName: Service["serviceName"]}): Promise<AdminAddNewServiceApiResponse> => {
+    const response = await axiosInstance.post('/admin/addNewService', data );
     return response.data;
 }
 

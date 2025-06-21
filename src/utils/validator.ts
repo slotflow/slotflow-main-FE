@@ -40,8 +40,8 @@ export class Validator {
             throw new Error("Invalid service Name, only letters allowed.");
         }
 
-        if (serviceName.length > 20 || serviceName.length < 4) {
-            throw new Error("Allowed length is 4 to 20 characters.")
+        if (serviceName.length > 40 || serviceName.length < 4) {
+            throw new Error("Allowed length is 4 to 40 characters.")
         }
     }
 

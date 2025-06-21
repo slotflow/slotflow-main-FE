@@ -13,7 +13,7 @@ const AdminServicesPage = () => {
         <div className='w-8/12'>
           <CommonTable<AdminFetchAllServicesApiResponse, AdminAppServicesTableColumnsProps>
             fetchApiFunction={adminFetchAllServices}
-            queryKey="fetchServices"
+            queryKey="appServices"
             heading="Services"
             column={AdminAppServicesTableColumns}
             columnsCount={4}

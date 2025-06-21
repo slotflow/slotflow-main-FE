@@ -8,7 +8,7 @@ import { AdminAddNewPlanApiRequestPayload } from "@/utils/interface/api/adminPla
 import { HandleChangeFunction, HandleFeatureChangeFunction } from "@/utils/interface/commonInterface";
 
 const PlanForm = () => {
-    
+
     const [loading, setLoading] = useState<boolean>(false);
     const [hasErrors, setHasErrors] = useState<boolean>(false);
     const [formData, setFormData] = useState<AdminAddNewPlanApiRequestPayload>({
@@ -22,7 +22,15 @@ const PlanForm = () => {
 
     const handleChange = useCallback<HandleChangeFunction>((e) => {
         const { id, value, type } = e.target;
-        const newValue : string | boolean = type === "checkbox" ? (e.target as HTMLInputElement).checked : value;
+        let newValue: string | boolean | number;
+
+        if (type === "number") {
+            console.log("value : ", value);
+            newValue = Number(value);
+        } else {
+            newValue = value;
+        }
+
         setFormData((prev) => ({ ...prev, [id]: newValue }));
         setHasErrors(false);
     }, []);
@@ -44,6 +52,8 @@ const PlanForm = () => {
             toast.error("Please fix the form errors.");
             return;
         }
+
+        console.log("formData : ", formData);
 
         handleAdminPlanAdding(formData, setLoading);
         setFormData({
@@ -74,7 +84,7 @@ const PlanForm = () => {
                         onChange={handleChange}
                         required={true}
                         onHasError={handleErrorChange}
-                        />
+                    />
                     <InputField
                         label="Description"
                         id="description"
@@ -84,7 +94,7 @@ const PlanForm = () => {
                         onChange={handleChange}
                         required={true}
                         onHasError={handleErrorChange}
-                        />
+                    />
                     <InputField
                         label="Price"
                         id="price"
@@ -94,7 +104,7 @@ const PlanForm = () => {
                         onChange={handleChange}
                         required={true}
                         onHasError={handleErrorChange}
-                        />
+                    />
                     {formData.features.map((feature, index) => (
                         <InputField
                             key={index}

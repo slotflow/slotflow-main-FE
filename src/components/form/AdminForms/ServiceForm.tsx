@@ -10,8 +10,8 @@ const ServiceAddingForm = () => {
 
   const [loading, setLoading] = useState<boolean>(false);
   const [hasErrors, setHasErrors] = useState<boolean>(false);
-  const [formData, setFormData] = useState<{serviceName : Service["serviceName"] }>({
-    serviceName: "",
+  const [formData, setFormData] = useState<{appServiceName : Service["serviceName"] }>({
+    appServiceName: "",
   });
 
   const handleChange = useCallback<HandleChangeFunction>((e) => {
@@ -29,8 +29,8 @@ const ServiceAddingForm = () => {
       setLoading(false);
       return;
     }
-    handleAdminServiceAdding(formData.serviceName, setLoading);
-    setFormData({ serviceName: '' });
+    handleAdminServiceAdding(formData.appServiceName, setLoading);
+    setFormData({ appServiceName: '' });
   };
 
   const handleErrorChange = (hasError: boolean) => {
@@ -47,7 +47,7 @@ const ServiceAddingForm = () => {
             id="appServiceName"
             placeholder="Software Engineer"
             type="text"
-            value={formData.serviceName}
+            value={formData.appServiceName}
             onChange={handleChange}
             required={true}
             onHasError={handleErrorChange}
