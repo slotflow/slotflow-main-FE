@@ -186,10 +186,18 @@ export class Validator {
     }
 
     // Provider adhaar number
-    static validateProviderAdhaar(providerAdhaar: number): void {
-        if (!providerAdhaar) throw new Error("Adhaar number is required.");
-        if (typeof providerAdhaar !== "number") throw new Error("Invalid adhaar number. Adhaar number should contain only numbers.");
-        if (providerAdhaar < 100000 || providerAdhaar > 999999 ) throw new Error("Invalid adhaar number. Please enter the last 6 digits.");
+    static validateProviderAdhaar(providerAdhaar: string): void {
+        if (!providerAdhaar) {
+            throw new Error("Adhaar number is required.");
+        }
+
+        if (typeof providerAdhaar !== "string") {
+            throw new Error("Invalid adhaar number. Must be a string.");
+        }
+
+        if (!/^\d{6}$/.test(providerAdhaar)) {
+            throw new Error("Invalid adhaar number. Please enter exactly 6 digits.");
+        }
     }
 
     // Provider experience

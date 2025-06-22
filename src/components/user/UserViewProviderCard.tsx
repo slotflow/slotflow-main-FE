@@ -55,7 +55,7 @@ const UserViewProviderCard: React.FC<UserViewProviderCardComponentProps> = ({
 
                 <div className="flex justify-between items-center">
                     <p>₹ {service?.servicePrice}</p>
-                    {provider.trustedBySlotflow && (
+                    {provider?.trustedBySlotflow && (
                         <span className="text-xs text-green-600 font-medium whitespace-nowrap">
                             ✅ Trusted by Slotflow
                         </span>

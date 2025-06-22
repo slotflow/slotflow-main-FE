@@ -24,14 +24,14 @@ const ProviderAddServiceDetailsPage = () => {
     serviceName: string,
     serviceDescription: string,
     servicePrice: number,
-    providerAdhaar: number,
+    providerAdhaar: string,
     providerExperience: string,
   }>({
     serviceCategory: "",
     serviceName: "",
     serviceDescription: "",
     servicePrice: 0,
-    providerAdhaar: 0,
+    providerAdhaar: "",
     providerExperience: "",
   });
 
@@ -97,7 +97,7 @@ const ProviderAddServiceDetailsPage = () => {
       formDataToSend.append('serviceName', formData.serviceName);
       formDataToSend.append('serviceDescription', formData.serviceDescription);
       formDataToSend.append('servicePrice', formData.servicePrice.toString());
-      formDataToSend.append('providerAdhaar', formData.providerAdhaar.toString());
+      formDataToSend.append('providerAdhaar', formData.providerAdhaar);
       formDataToSend.append('providerExperience', formData.providerExperience);
       if (selectedImage) {
         formDataToSend.append('certificate', selectedImage);
@@ -112,7 +112,7 @@ const ProviderAddServiceDetailsPage = () => {
               serviceName: "",
               serviceDescription: "",
               servicePrice: 0,
-              providerAdhaar: 0,
+              providerAdhaar: "",
               providerExperience: "",
             });
             setSelectedImage(null);
@@ -172,7 +172,7 @@ const ProviderAddServiceDetailsPage = () => {
                 onHasError={handleErrorChange}
               />
               <InputField
-                label="Experience In Years"
+                label="Experience description"
                 id="providerExperience"
                 placeholder="experience"
                 type="text"
@@ -185,7 +185,7 @@ const ProviderAddServiceDetailsPage = () => {
                 label="Adhaar Last 6 digits"
                 id="providerAdhaar"
                 placeholder="Adhaar number"
-                type="number"
+                type="text"
                 value={formData.providerAdhaar}
                 onChange={handleChange}
                 required={true}

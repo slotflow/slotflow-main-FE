@@ -10,8 +10,6 @@ import UserViewProviderCard from '@/components/user/UserViewProviderCard';
 const UserDashboardPage = () => {
   const selectedServices = useSelector((store: RootState) => store.user.selectedServices);
 
-  console.log("selectedServices : ",selectedServices);
-
   const { data, isLoading, isError, error } = useQuery({
     queryFn: () => userSearchServiceProviders(selectedServices),
     queryKey: ['providers'],
