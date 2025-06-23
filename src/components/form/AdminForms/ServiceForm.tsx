@@ -1,12 +1,12 @@
 import { toast } from "react-toastify";
-import { useCallback, useState } from "react";
 import InputField from "../InputFieldWithLable";
+import React, { useCallback, useState } from "react";
 import { FormButton, FormHeading } from "../FormSplits";
 import { HandleChangeFunction } from "@/utils/interface/commonInterface";
 import { Service } from "@/utils/interface/entityInterface/appServiceInterface";
 import { useAdminServiceActions } from "@/utils/hooks/adminHooks/useAdminServiceActions";
 
-const ServiceAddingForm = () => {
+const ServiceAddingForm:React.FC = () => {
 
   const [loading, setLoading] = useState<boolean>(false);
   const [hasErrors, setHasErrors] = useState<boolean>(false);

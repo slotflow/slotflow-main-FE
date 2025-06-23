@@ -1,13 +1,13 @@
 import { toast } from "react-toastify";
-import { useCallback, useState } from "react";
 import InputField from "../InputFieldWithLable";
+import React, { useCallback, useState } from "react";
 import { FormButton, FormHeading } from "../FormSplits";
 import SelectFiledWithLabel from "../SelectFiledWithLabel";
 import { useAdminPlanActions } from "@/utils/hooks/adminHooks/useAdminPlanActions";
 import { AdminAddNewPlanApiRequestPayload } from "@/utils/interface/api/adminPlanApiInterface";
 import { HandleChangeFunction, HandleFeatureChangeFunction } from "@/utils/interface/commonInterface";
 
-const PlanForm = () => {
+const PlanForm:React.FC = () => {
 
     const [loading, setLoading] = useState<boolean>(false);
     const [hasErrors, setHasErrors] = useState<boolean>(false);

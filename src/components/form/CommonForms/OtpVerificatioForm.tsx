@@ -6,11 +6,11 @@ import { FormButton, FormHeading } from "../FormSplits";
 import { UserData } from "@/utils/interface/sliceInterface";
 import { resendOtp, verifyOtp } from "@/utils/apis/auth.api";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
-import { FormEvent, useCallback, useEffect, useState } from "react";
-import { HandleChangeFunction, SignFormUseSelectorProps } from "@/utils/interface/commonInterface";
+import React, { FormEvent, useCallback, useEffect, useState } from "react";
+import { CommonResponse, HandleChangeFunction, OtpVerificationFormData, SignFormUseSelectorProps } from "@/utils/interface/commonInterface";
 import { setResetPasswordForm, setsignInForm, setSignUpForm, setVerifyEmailForm, setVerifyOtpForm, stopTimer, updateTimer } from "@/utils/redux/slices/signFormSlice";
 
-const OtpVerificatioForm = () => {
+const OtpVerificatioForm: React.FC = () => {
 
     const dispatch = useDispatch<AppDispatch>();
     const { otpRemainingTime, otpTimerIsRunning, loading, forgotPassword }: SignFormUseSelectorProps = useSelector((store: RootState) => store.signform);
@@ -21,7 +21,7 @@ const OtpVerificatioForm = () => {
     const role: string | null = authUser?.role || null;
     const verificationToken: string | undefined = authUser?.verificationToken;
 
-    const [formData, setFormData] = useState<{ otp: string }>({
+    const [formData, setFormData] = useState<OtpVerificationFormData>({
         otp: ""
     });
 
@@ -48,7 +48,7 @@ const OtpVerificatioForm = () => {
         if (verificationToken && role) {
             dispatch(verifyOtp({ otp: formData.otp, verificationToken, role }))
                 .unwrap()
-                .then((res) => {
+                .then((res: CommonResponse) => {
                     if (res.success) {
                         toast.success(res.message);
                         dispatch(stopTimer());

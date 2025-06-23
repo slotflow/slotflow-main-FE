@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { Moon, Sun } from 'lucide-react';
 import { greetings } from '@/utils/helper';
@@ -11,7 +11,7 @@ import { setAuthUser } from '@/utils/redux/slices/authSlice';
 import { toggleTheme } from '@/utils/redux/slices/stateSlice';
 import { AppDispatch, RootState } from '../../utils/redux/appStore';
 
-const Header = () => {
+const Header:React.FC = () => {
 
   const dispatch = useDispatch<AppDispatch>();
 

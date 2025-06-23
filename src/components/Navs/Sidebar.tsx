@@ -27,9 +27,10 @@ import {
     HandCoins,
 } from 'lucide-react';
 import { UserData } from '@/utils/interface/sliceInterface';
+import React from 'react';
 
 
-const Sidebar = ({ routes }: SideBarProps) => {
+const Sidebar: React.FC<SideBarProps> = ({ routes }) => {
 
     const dispatch = useDispatch<AppDispatch>();
 

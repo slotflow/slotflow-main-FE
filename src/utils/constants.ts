@@ -1,4 +1,4 @@
-import { HeaderCompoenentNavsProps, Route } from "./interface/commonInterface";
+import { gsapBigSvgYDirectionAnimationProps, HeaderCompoenentNavsProps, Route } from "./interface/commonInterface";
 
 // **** Routes for admin **** \\
 export const adminRoutes: Route[] = [
@@ -39,7 +39,7 @@ export const providerRoutes: Route[] = [
 ]
 
 // **** Gsap animation common oject **** \\
-export const gsapBigSvgYDirectionAnimation = {
+export const gsapBigSvgYDirectionAnimation: gsapBigSvgYDirectionAnimationProps = {
   y: 20,
   duration: 1,
   yoyo: true,

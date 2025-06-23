@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { FormButton, FormHeading } from "../FormSplits";
 import { FormEvent, useCallback, useState } from "react";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
-import { HandleChangeFunction, LoginFormProp } from "@/utils/interface/commonInterface";
+import { HandleChangeFunction, LoginFormData, LoginFormProp } from "@/utils/interface/commonInterface";
 import { setResetPasswordForm, setsignInForm, setSignUpForm, setVerifyEmailForm, setVerifyOtpForm } from "@/utils/redux/slices/signFormSlice";
 
 const LoginForm: React.FC<LoginFormProp> = ({ isAdmin, role, title }) => {
@@ -15,7 +15,8 @@ const LoginForm: React.FC<LoginFormProp> = ({ isAdmin, role, title }) => {
     const navigate = useNavigate();
     const loading: boolean = useSelector((store: RootState) => store.signform.loading);
     const [hasErrors, setHasErrors] = useState<boolean>(false);
-    const [formData, setFormData] = useState<{email: string, password: string}>({
+
+    const [formData, setFormData] = useState<LoginFormData>({
         email: "",
         password: "",
     });
@@ -29,7 +30,6 @@ const LoginForm: React.FC<LoginFormProp> = ({ isAdmin, role, title }) => {
         if (role === "ADMIN") navigate("/admin", {replace: true});
         else if (role === "USER") navigate("/user", {replace: true});
         else if (role === "PROVIDER")navigate("/provider", {replace: true});
-            
     };
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {

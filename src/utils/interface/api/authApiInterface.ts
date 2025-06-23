@@ -1,72 +1,81 @@
 import { CommonResponse } from "../commonInterface";
 
-// Sign up api request payload interface 
-export interface SignupApiRequestPayload {
+// ****************** Common Interface ******************
+interface CommonInterface {
     username: string;
     email: string;
     password: string;
     role: string;
+    verificationToken: string;
+    otp: string;
 }
-// Sign up  response interface
+
+
+
+
+
+// ****************** Sign Up ******************
+// Sign up API request payload interface 
+export type SignupApiRequestPayload = Pick<CommonInterface, "username" | "email" | "password" | "role">;
+
+// Sign up response interface
 export interface SignupApiResponse extends CommonResponse {
     authUser: {
         verificationToken: string;
         role: string;
-    }
+    };
 }
 
 
 
-// Otp verification api request payload interface
-export interface VerifyOtpApiRequestPayload {
-    otp: string;
-    verificationToken: string;
-    role: string
-}
+
+
+// ****************** OTP Verification ******************
+// OTP verification API request payload interface
+export type VerifyOtpApiRequestPayload = Pick<CommonInterface, "otp" | "verificationToken" | "role">;
 
 
 
-// Resend Otp api request payload interface
-export interface ResendOtpApiRequestPayload {
-    role: string;
-    verificationToken?: string;
-    email?: string;
-}
-// Resend otp api response interface
-export interface ResendOtpApiResponse extends CommonResponse{
+
+
+// ****************** Resend OTP ******************
+// Resend OTP API request payload interface
+export type ResendOtpApiRequestPayload = Pick<CommonInterface, "role"> & Partial<Pick<CommonInterface, "verificationToken" | "email">>;
+
+// Resend OTP API response interface
+export interface ResendOtpApiResponse extends CommonResponse {
     authUser: {
         verificationToken: string;
         role: string;
-    }
+    };
 }
 
 
 
-// Sign in api request payload interface
-export interface SigninApiRequestPayload {
-    email: string;
-    password: string;
-    role: string;
-}
-// Sign in api response interface
-export interface SigninApiResponse extends CommonResponse{
+
+
+// ****************** Sign In ******************
+// Sign in API request payload interface
+export type SigninApiRequestPayload = Pick<CommonInterface, "email" | "password" | "role">;
+
+// Sign in API response interface
+export interface SigninApiResponse extends CommonResponse {
     authUser: {
         username: string;
         profileImage: string;
         role: string;
         isLoggedIn: boolean;
         address?: boolean;
-        serviceDetails?: undefined,
-        serviceAvailability?: undefined,
-        approved?: undefined
-    }
+        serviceDetails?: undefined;
+        serviceAvailability?: undefined;
+        approved?: undefined;
+    };
 }
 
 
 
-// Update password api request payload interface
-export interface UpdatePasswordApiRequestPayload {
-    role: string;
-    verificationToken: string;
-    password: string;
-}
+
+
+// ****************** Update Password ******************
+// Update password API request payload interface
+export type UpdatePasswordApiRequestPayload = Pick<CommonInterface, "password" | "role" | "verificationToken">;

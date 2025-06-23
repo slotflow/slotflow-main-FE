@@ -3,14 +3,13 @@ import InputField from "../InputFieldWithLable";
 import { useDispatch, useSelector } from "react-redux";
 import { updatePassword } from "@/utils/apis/auth.api";
 import { FormButton, FormHeading } from "../FormSplits";
-import { FormEvent, useCallback, useState } from "react";
 import { UserData } from "@/utils/interface/sliceInterface";
+import React, { FormEvent, useCallback, useState } from "react";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
-import { HandleChangeFunction, PasswordResetFormDataProps } from "@/utils/interface/commonInterface";
+import { CommonResponse, HandleChangeFunction, PasswordResetFormDataProps } from "@/utils/interface/commonInterface";
 import { setForgotPassword, setResetPasswordForm, setsignInForm, setSignUpForm, setVerifyEmailForm, setVerifyOtpForm } from "@/utils/redux/slices/signFormSlice";
 
-
-const ResetPasswordForm = () => {
+const ResetPasswordForm: React.FC = () => {
 
     const dispatch = useDispatch<AppDispatch>();
 
@@ -44,7 +43,7 @@ const ResetPasswordForm = () => {
                 password: formData.password,
             }))
                 .unwrap()
-                .then((res) => {
+                .then((res: CommonResponse) => {
                     if (res.success) {
                         toast.success(res.message);
                         dispatch(setForgotPassword(false));
