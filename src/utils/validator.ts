@@ -1,11 +1,12 @@
 import dayjs from 'dayjs';
 import validator from 'validator';
 import customParseFormat from "dayjs/plugin/isSameOrBefore";
+import { validateEmail, validateOtp, validatePassword, validateUsername } from '@codebymk/validator';
 
 dayjs.extend(customParseFormat);
 
 export class Validator {
-    // **** user validations
+    // username 
     static validateUsername(username: string): void {
         if (!/^[A-Za-z ]{4,25}$/.test(username)) {
             throw new Error("Invalid username.");
@@ -108,7 +109,7 @@ export class Validator {
 
 
 
-    
+
     // **** Address Validations
     static validateAddressLine(addressLine: string): void {
         if (!/^[a-zA-Z0-9\s.,#-]+$/.test(addressLine)) throw new Error("Invalid address line, should only contain alphabets, numbers, spaces, and common address characters.");
@@ -123,21 +124,21 @@ export class Validator {
     static validatePlace(place: string): void {
         if (!place || place.trim().length < 2) throw new Error("Place is required and should have at least 2 characters.");
         if (place.trim().length > 50) throw new Error("Place should have less than 50 characters.");
-        if(!/^[a-zA-Z\s]+$/.test(place)) throw new Error("Place should only contain alphabets and spaces");
+        if (!/^[a-zA-Z\s]+$/.test(place)) throw new Error("Place should only contain alphabets and spaces");
     }
 
     // City
     static validateCity(city: string): void {
         if (!city || city.trim().length < 2) throw new Error("City is required and should have at least 2 characters.");
         if (city.trim().length > 50) throw new Error("City should have less than 50 characters.");
-        if(!/^[a-zA-Z\s]+$/.test(city)) throw new Error("City should only contain alphabets and spaces");
+        if (!/^[a-zA-Z\s]+$/.test(city)) throw new Error("City should only contain alphabets and spaces");
     }
 
     // District
     static validateDistrict(district: string): void {
         if (!district || district.trim().length < 2) throw new Error("District is required and should have at least 2 characters.");
         if (district.trim().length > 50) throw new Error("District should have less than 50 characters.");
-        if(!/^[a-zA-Z\s]+$/.test(district)) throw new Error("District should only contain alphabets and spaces");
+        if (!/^[a-zA-Z\s]+$/.test(district)) throw new Error("District should only contain alphabets and spaces");
     }
 
     // Pincode
@@ -149,20 +150,20 @@ export class Validator {
     static validateState(state: string): void {
         if (!state || state.trim().length < 2) throw new Error("State is required and should have at least 2 characters.");
         if (state.trim().length > 50) throw new Error("State should have less than 50 characters.");
-        if(!/^[a-zA-Z\s]+$/.test(state)) throw new Error("State should only contain alphabets and spaces");
+        if (!/^[a-zA-Z\s]+$/.test(state)) throw new Error("State should only contain alphabets and spaces");
     }
 
     // Country
     static validateCountry(country: string): void {
         if (!country || country.trim().length < 2) throw new Error("Country is required and should have at least 2 characters.");
         if (country.trim().length > 50) throw new Error("Country should have less than 50 characters.");
-        if(!/^[a-zA-Z\s]+$/.test(country)) throw new Error("Country should only contain alphabets and spaces");
+        if (!/^[a-zA-Z\s]+$/.test(country)) throw new Error("Country should only contain alphabets and spaces");
     }
 
     // Google Map Link
     static validateGoogleMapLink(googleMapLink: string): void {
         if (!validator.isURL(googleMapLink)) throw new Error("Invalid Google Map link.");
-        if(!googleMapLink.startsWith("https://maps.app.goo.gl/")) throw new Error("Invalid google map url.");
+        if (!googleMapLink.startsWith("https://maps.app.goo.gl/")) throw new Error("Invalid google map url.");
     }
 
 
@@ -224,11 +225,11 @@ export class Validator {
 
     static validateModes(modes: string[]): void {
         const validModes = ["online", "offline"];
-    
+
         if (!modes) {
             throw new Error("Modes is required.");
         }
-    
+
         if (Array.isArray(modes)) {
             if (modes.length === 0) {
                 throw new Error("Modes array cannot be empty.");
@@ -238,6 +239,65 @@ export class Validator {
                     throw new Error("Invalid mode. Mode must be 'online' or 'offline'.");
                 }
             }
-        } 
+        }
+    }
+}
+
+
+type ValidationResult =
+    | null
+    | { status: boolean, message?: string, point?: number };
+
+export class CustomValidator {
+    static validator(id: string, value: string | number): ValidationResult {
+        switch (id) {
+            case "username": {
+                const { status, message } = validateUsername(
+                    value as string,
+                    {
+                        minLength: 4,
+                        maxLength: 30,
+                        uppercase: true,
+                        digits: false,
+                        specialCharacters: false,
+                        allowSpace: true,
+                    }
+                );
+                return status ? null : { status, message };
+            }
+
+            case "email": {
+                const { status, message } = validateEmail(value as string);
+                return status ? null : { status, message };
+            }
+
+            case "password":
+            case "confirmPassword": {
+                const { status, message, point } = validatePassword(value as string, {
+                    returnPoint: true,
+                    minLength: 8,
+                    maxLength: 50,
+                    minDigits: 1,
+                    minLowercase: 1,
+                    minSpecialCharacter: 1,
+                    minUppercase: 1,
+                    pointsForLowercase: 25,
+                    pointsForUppercase: 25,
+                    pointsForDigits: 25,
+                    pointsForSpecialCharacter: 25,
+                });
+                return status ? { status, point } : { status, message, point };
+            }
+
+            case "otp": {
+                const { status, message } = validateOtp(value as string, {
+                    length: 6
+                });
+                return status ? null : { status, message };
+            }
+
+            default:
+                return { status: false, message: "No validation found" };
+        }
     }
 }

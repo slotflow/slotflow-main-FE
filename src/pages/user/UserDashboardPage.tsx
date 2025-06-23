@@ -29,6 +29,10 @@ const UserDashboardPage = () => {
     return <DataFetchingError message={error?.message || "Something went wrong"} />;
   }
 
+  if(data?.length === 0) {
+    return <DataFetchingError message={"There is no providers found in the databse"} />;
+  }
+
   return (
     <div className='px-6'>
       <div className="relative w-full max-w-sm">

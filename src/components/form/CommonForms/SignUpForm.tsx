@@ -8,7 +8,7 @@ import React, { FormEvent, useCallback, useState } from "react";
 import { SignUpFormDataProps, signUpProps } from "@/utils/interface/commonInterface";
 import { setResetPasswordForm, setsignInForm, setSignUpForm, setVerifyEmailForm, setVerifyOtpForm, startTimer } from "@/utils/redux/slices/signFormSlice";
 
-const SignUpForm: React.FC<signUpProps> = ({role}) => {
+const SignUpForm: React.FC<signUpProps> = ({ role }) => {
 
     const dispatch = useDispatch<AppDispatch>();
 
@@ -29,8 +29,13 @@ const SignUpForm: React.FC<signUpProps> = ({role}) => {
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if(hasErrors){
+        if (hasErrors) {
+            console.log("hasErrors : ",hasErrors);
             toast.error("Please fix the form errors.");
+            return;
+        }
+        if (formData.password !== formData.confirmPassword) {
+            toast.error("Mismatching password");
             return;
         }
         if (role) {
@@ -72,7 +77,7 @@ const SignUpForm: React.FC<signUpProps> = ({role}) => {
 
     const handleErrorChange = (hasError: boolean) => {
         setHasErrors(hasError);
-      };
+    };
 
     return (
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">

@@ -65,7 +65,7 @@ const Header = () => {
             </div>
           </div>
 
-          {!user ? (
+          {!user?.isLoggedIn ? (
             <div className="flex flex-1 items-center justify-center">
               <div className="hidden sm:ml-6 sm:block">
                 <div className="flex space-x-4">
@@ -93,7 +93,7 @@ const Header = () => {
           )}
 
 
-          {user && (
+          {user?.isLoggedIn && (
             <button className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-[var(--textOne)] hover:bg-[var(--menuItemHoverBg)] cursor-pointer" onClick={handleSignout}>
               Log out
             </button>

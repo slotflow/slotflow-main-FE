@@ -1,4 +1,5 @@
 import { ChangeEvent } from "react";
+import { User } from "./entityInterface/userInterface";
 
 // Common Response Type
 export interface CommonResponse {
@@ -67,6 +68,9 @@ export interface CommonButtonProps {
 }
 
 
+
+
+
 // **** Common sidebar compoenent props interface **** \\
 export interface Route {
     path: string;
@@ -87,12 +91,11 @@ export interface signUpProps {
 }
 
 // Sign up form FormData interface
-export interface SignUpFormDataProps {
-    username: string,
-    email: string,
-    password: string,
+export type SignUpFormDataProps = Pick<User, "username" | "email" | "password"> & {
     confirmPassword: string,
 }
+
+
 
 
 
