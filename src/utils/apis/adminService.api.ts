@@ -18,6 +18,6 @@ export const adminAddNewService = async (data : {appServiceName: Service["servic
 }
 
 export const adminChangeServiceBlockStatus = async (data: AdminChangeServiceBlockStatusApiRequestPayload): Promise<AdminChangeServiceBlockStatusApiResponse> => {
-    const response = await axiosInstance.put(`/admin/changeServiceStatus/${data.serviceId}?status=${data.isBlocked}`);
+    const response = await axiosInstance.patch(`/admin/changeServiceBlockStatus`, data);
     return response.data;
 }

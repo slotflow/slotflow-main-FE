@@ -12,7 +12,7 @@ export const adminFetchAllUsers = async (): Promise<AdminfetchAllUsersApiRespons
 }
 
 export const adminChangeUserBlockStatus = async (data: AdminChangeUserStatusApiRequestPayload): Promise<AdminChnageUserBlockStatusApiResponse> => {
-    const response = await axiosInstance.put(`/admin/changeUserStatus`, data);
+    const response = await axiosInstance.patch(`/admin/changeUserBlockStatus`, data);
     return response.data;
 }
 

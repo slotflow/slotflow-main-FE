@@ -6,31 +6,8 @@ import { validateEmail, validateOtp, validatePassword, validateUsername } from '
 dayjs.extend(customParseFormat);
 
 export class Validator {
-    // username 
-    static validateUsername(username: string): void {
-        if (!/^[A-Za-z ]{4,25}$/.test(username)) {
-            throw new Error("Invalid username.");
-        }
-    }
 
-    static validateEmail(email: string): void {
-        if (!/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.(com|net|org|edu|gov|in)$/.test(email)) {
-            throw new Error("Invalid email format.");
-        }
-    }
-
-    static validatePassword(password: string): void {
-        if (!validator.isStrongPassword(password, { minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 1, minSymbols: 1 })) {
-            throw new Error("Password must be at least 8 characters long and include uppercase, lowercase, numbers, and symbols.")
-        }
-    }
-
-    static validateOtp(otp: string): void {
-        if (!validator.isNumeric(otp, { no_symbols: true }) || otp.length !== 6) {
-            throw new Error("Invalid OTP.");
-        }
-    }
-
+    // phone
     static validatePhone(phone: string): void {
         if (!validator.isMobilePhone(phone, ["en-IN"])) {
             throw new Error("Invalid mobile number");
@@ -39,73 +16,74 @@ export class Validator {
 
 
 
-    // **** Service validations
+    // app service name
     static validateAppServiceName(serviceName: string): void {
-        if (!/^[a-zA-Z ]+$/.test(serviceName)) {
+        if (!serviceName || serviceName.trim().length === 0) throw new Error("Service name is required.");
+
+        if (!/^[A-Za-z0-9 ]{4,50}$/.test(serviceName)) {
             throw new Error("Invalid service Name, only letters allowed.");
         }
 
-        if (serviceName.length > 40 || serviceName.length < 4) {
+        if (serviceName.length > 50 || serviceName.length < 4) {
             throw new Error("Allowed length is 4 to 40 characters.")
         }
     }
 
-
-    // **** Validate admin app plans
-    static validatePlanDescription(description: string): void {
-        if (!validator.isAlpha(description, 'en-US', { ignore: ' ' })) {
-            throw new Error("Invalid description. Only alphabets and spaces are allowed.");
-        }
-
-        if (description.length > 255 || description.length < 10) {
-            throw new Error("Allowed description length is 10 to 255 characters.");
-        }
-    }
-
-    static validatePlanPrice(price: number): void {
-        if (typeof price !== 'number' || price < 0 || price > 10000000) {
-            throw new Error("Invalid price. Price must be a non-negative number.");
-        }
-    }
-
-    static validateFeatures(features: string[]): void {
-        if (!Array.isArray(features) || features.length === 0) {
-            throw new Error("Invalid features. Features must be a non-empty array.");
-        }
-
-        features.forEach((feature, index) => {
-            if (typeof feature !== 'string') {
-                throw new Error(`Invalid feature at index ${index}. Feature must be a string.`);
-            }
-
-            if (feature.length > 100) {
-                throw new Error(`Feature at index ${index} exceeds maximum length of 100 characters.`);
-            }
-
-            if (feature.length === 0) {
-                throw new Error(`Feature at index ${index} can not be empty.`)
-            }
-        });
-    }
-
-    static validateMaxBookingPerMonth(maxBookingPerMonth: number): void {
-        if (typeof maxBookingPerMonth !== 'number' || maxBookingPerMonth < 0) {
-            throw new Error("Invalid maxBookingPerMonth. Must be a non-negative number.");
-        }
-    }
-
-
-
-    // **** Admin AppSerivce namse
+    // **** Plan validator
+    // Plan Name – only uppercase/lowercase letters, 4 to 20 characters
     static validatePlanName(planName: string): void {
-        if (!validator.isAlpha(planName, 'en-US', { ignore: ' ' })) {
-            throw new Error("Invalid planName. Only alphabets and spaces are allowed.");
-        }
+        if (!planName || planName.trim().length === 0)
+            throw new Error("Plan name is required.");
+        if (!/^[a-zA-Z ]{4,20}$/.test(planName.trim()))
+            throw new Error("Invalid plan name. Only alphabets and spaces are allowed, length between 4 and 20.");
+    }
 
-        if (planName.length > 20 || planName.length < 4) {
-            throw new Error("Allowed planName length is 4 to 20 characters.");
+    // Description – allow alphabets, numbers, spaces, punctuation; 10 to 200 chars
+    static validatePlanDescription(description: string): void {
+        if (!description || description.trim().length === 0)
+            throw new Error("Description is required.");
+        if (description.length < 10 || description.length > 200)
+            throw new Error("Description must be between 10 and 200 characters.");
+        if (!/^[\w\d\s!"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]{10,200}$/.test(description.trim()))
+            throw new Error("Invalid description. Contains unsupported characters.");
+    }
+
+    // Price – number between 0 and 100000
+    static validatePlanPrice(price: number): void {
+        if (typeof price !== "number" || isNaN(price))
+            throw new Error("Price must be a number.");
+        if (price < 0 || price > 100000)
+            throw new Error("Price must be between 0 and 100000.");
+    }
+
+    // Features – non-empty array of strings
+    static validatePlanFeatures(features: string[]): void {
+        if (!Array.isArray(features) || features.length === 0)
+            throw new Error("At least one feature is required.");
+        for (const feature of features) {
+            if (typeof feature !== "string" || feature.trim().length === 0)
+                throw new Error("Each feature must be a non-empty string.");
+            if(!/^[\w\d\s!"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]{5,100}$/.test(feature.trim()))
+                throw new Error("Invalid feature.");
         }
     }
+
+    // Max Booking Per Month – number between 0 and 10000
+    static validatePlanMaxBookingPerMonth(maxBookingPerMonth: number): void {
+        if (typeof maxBookingPerMonth !== "number" || isNaN(maxBookingPerMonth))
+            throw new Error("Max booking per month must be a number.");
+        if (maxBookingPerMonth < 0 || maxBookingPerMonth > 10000)
+            throw new Error("Max booking per month must be between 0 and 10000.");
+    }
+
+
+    
+
+    
+
+
+
+   
 
 
 

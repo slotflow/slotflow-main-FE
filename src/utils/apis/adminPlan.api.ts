@@ -19,6 +19,6 @@ export const adminAddNewPlan = async (formData: AdminAddNewPlanApiRequestPayload
 }
 
 export const adminChangePlanBlockStatus = async (data: AdminChangePlanBlockStatusApiRequestPayload): Promise<AdminChangePlanBlockStatusApiResponse> => {
-    const response = await axiosInstance.put(`/admin/changePlanStatus/${data.planId}?status=${data.isBlocked}`);
+    const response = await axiosInstance.patch(`/admin/changePlanBlockStatus`,data);
     return response.data;
 }

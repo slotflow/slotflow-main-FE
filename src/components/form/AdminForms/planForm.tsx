@@ -1,4 +1,5 @@
 import { toast } from "react-toastify";
+import { Validator } from "@/utils/validator";
 import InputField from "../InputFieldWithLable";
 import React, { useCallback, useState } from "react";
 import { FormButton, FormHeading } from "../FormSplits";
@@ -51,6 +52,8 @@ const PlanForm:React.FC = () => {
             toast.error("Please fix the form errors.");
             return;
         }
+
+        Validator.validatePlanFeatures(formData.features);
 
         handleAdminPlanAdding(formData, setLoading);
         setFormData({
