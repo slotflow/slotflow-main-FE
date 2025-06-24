@@ -72,16 +72,8 @@ export class Validator {
 
     
 
-    
 
-
-
-   
-
-
-
-
-    // Address Validation
+    // **** Address Validation
     // Address Line
     static validateAddressLine(addressLine: string): void {
         if (!/^[a-zA-Z0-9 .,#-]{10,150}$/.test(addressLine)) throw new Error("Address line must be 10–150 characters long and can only include letters, numbers, spaces, and the symbols . , # -");
@@ -139,22 +131,31 @@ export class Validator {
 
 
 
-    // Provider service 
+
+
+    // **** Provider service 
     // Service name
     static validateServiceName(serviceName: string): void {
         if (!serviceName || serviceName.trim().length === 0) throw new Error("Service name is required.");
-        if (!/^[A-Za-z ]{4,25}$/.test(serviceName.trim())) throw new Error("Invalid service name. Service name should contain only alphabets and spaces and be between 4 and 25 characters.");
+        if (!/^[A-Za-z ]{4,50}$/.test(serviceName.trim())) throw new Error("Invalid service name. Service name should contain only alphabets and spaces and be between 4 and 50 characters.");
     }
 
     // Service description
     static validateServiceDescription(serviceDescription: string): void {
         if (!serviceDescription || serviceDescription.trim().length === 0) throw new Error("Service description is required.");
-        if (!/^[\w\d !"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]{4,250}$/.test(serviceDescription.trim())) throw new Error("Invalid service description. Service description should contain alphanumeric characters, spaces, and special characters, and be between 4 and 250 characters.");
+        if (!/^[\w\d !"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]{10,500}$/.test(serviceDescription.trim())) throw new Error("Invalid service description. Service description should contain alphanumeric characters, spaces, and special characters, and be between 10 and 500 characters.");
     }
 
     // Service price
     static validateServicePrice(servicePrice: number): void {
-        if (servicePrice < 1 || servicePrice > 10000000) throw new Error("Invalid service price. Service price must be between 1 and 10000000.");
+        if (!servicePrice) {
+            throw new Error("Service price is required.");
+        }
+
+        if (typeof servicePrice !== "number") {
+            throw new Error("Invalid service price Must be a number.");
+        }
+        if (servicePrice < 1 || servicePrice > 1000000) throw new Error("Invalid service price. Service price must be between 1 and 1000000.");
     }
 
     // Provider adhaar number
@@ -175,7 +176,7 @@ export class Validator {
     // Provider experience
     static validateProviderExperience(providerExperience: string): void {
         if (!providerExperience || providerExperience.trim().length === 0) throw new Error("Provider experience is required.");
-        if (!/^[\w\d !"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]{1,100}$/.test(providerExperience.trim())) throw new Error("Invalid experience. Provider experience should contain alphanumeric characters, spaces, and special characters, and be between 1 and 200 characters.");
+        if (!/^[\w\d !"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]{1,500}$/.test(providerExperience.trim())) throw new Error("Invalid experience. Provider experience should contain alphanumeric characters, spaces, and special characters, and be between 1 and 500 characters.");
     }
 
 
@@ -212,6 +213,7 @@ export class Validator {
             }
         }
     }
+    
 }
 
 

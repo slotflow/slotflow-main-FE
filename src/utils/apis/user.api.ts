@@ -94,13 +94,13 @@ export const userFetchBookings = async () : Promise<Array<UserFetchBookingsApiRe
     return response.data.bookings;
 }
 
-export const userFetchPayments = async () : Promise<Array<UserFetchPaymentsApiResponse>> => {
-    const response = await axiosInstance.get('/user/getPayments');
-    return response.data.payments;
-}
 
 export const userCancelBooking = async (bookingId: Booking["_id"]) : Promise<UserCancelBookingApiResponse> => {
     const response = await axiosInstance.put(`/user/cancelBooking/${bookingId}`);
     return response.data;
 }
 
+export const userFetchPayments = async () : Promise<Array<UserFetchPaymentsApiResponse>> => {
+    const response = await axiosInstance.get('/user/getPayments');
+    return response.data.payments;
+}
