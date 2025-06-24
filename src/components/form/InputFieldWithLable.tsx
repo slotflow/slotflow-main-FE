@@ -29,7 +29,7 @@ const InputField: React.FC<InputFieldProps> = memo(({
 
         try {
 
-            if (["username", "email", "password", "confirmPassword", "otp"].includes(id)) {
+            if (["username", "email", "password", "confirmPassword", "otp", "phone"].includes(id)) {
                 const result = CustomValidator.validator(id, inputValue);
 
                 if (result) {
@@ -46,8 +46,6 @@ const InputField: React.FC<InputFieldProps> = memo(({
 
             if (id === 'appServiceName') {
                 Validator.validateAppServiceName(inputValue);
-            } else if (id === "phone") {
-                Validator.validatePhone(inputValue);
             } else if (id === "planName") {
                 Validator.validatePlanName(inputValue);
             } else if (id === "description") {

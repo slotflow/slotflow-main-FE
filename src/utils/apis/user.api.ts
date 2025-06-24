@@ -35,14 +35,19 @@ export const userUpdateUserProfileImage = createAsyncThunk<UpdateUserProfileImag
     }
 )
 
-export const userAddUserAddress = async ({ formData }: AddUserAddressApiRequestPayload): Promise<CommonResponse> => {
-    const response = await axiosInstance.post('/user/addAddress', formData);
+export const userUpdateUserInfo = async (data: UserUpdateUserInfoApiRequestPayload) : Promise<UserUpdateUserInfoApiResponse> => {
+    const response = await axiosInstance.put(`/user/updateUserInfo`, data);
     return response.data;
 }
 
 export const userFetchUserAddress = async (): Promise<UserFetchUserAddressApiResponse> => {
     const response = await axiosInstance.get('/user/getAddress');
     return response.data.address;
+}
+
+export const userAddUserAddress = async ({ formData }: AddUserAddressApiRequestPayload): Promise<CommonResponse> => {
+    const response = await axiosInstance.post('/user/addAddress', formData);
+    return response.data;
 }
 
 export const userSearchServiceProviders = async (selectedServices: string[]): Promise<UserFetchServiceProvidersApiResponse[]> => {
@@ -99,7 +104,3 @@ export const userCancelBooking = async (bookingId: Booking["_id"]) : Promise<Use
     return response.data;
 }
 
-export const userUpdateUserInfo = async (data: UserUpdateUserInfoApiRequestPayload) : Promise<UserUpdateUserInfoApiResponse> => {
-    const response = await axiosInstance.put(`/user/updateUserInfo`, data);
-    return response.data;
-}
