@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import validator from 'validator';
 import customParseFormat from "dayjs/plugin/isSameOrBefore";
-import { validateEmail, validateOtp, validatePassword, validatePhone, validateUsername } from '@codebymk/validator';
+import { validateEmail, validateOtp, validatePassword, validateUsername } from '@codebymk/validator';
 
 dayjs.extend(customParseFormat);
 
@@ -86,6 +86,13 @@ export class Validator {
         if (!place || place.trim().length < 3) throw new Error("Place is required and should have at least 3 characters.");
         if (place.trim().length > 50) throw new Error("Place should have less than 50 characters.");
         if (!/^[a-zA-Z .-]{3,50}$/.test(place)) throw new Error("Place name must be 3–50 characters long and can only include letters, spaces, dots, and hyphens");
+    }
+
+    // Phone
+    static validatePhone(phone: string): void {
+        if (!phone || phone.trim().length < 7) throw new Error("Phone is required and should have at least 7 characters.");
+        if (phone.trim().length > 20) throw new Error("Phone should have less than 20 characters.");
+        if (!/^\+?[0-9\s\-().]{7,20}$/.test(phone)) throw new Error("Invalid phone number. Only digits, spaces, dashes (-), dots (.), parentheses (), and an optional + at the beginning are allowed. Length must be between 7 to 20 characters.");
     }
 
     // City
@@ -213,7 +220,7 @@ export class Validator {
             }
         }
     }
-    
+
 }
 
 
@@ -265,13 +272,6 @@ export class CustomValidator {
             case "otp": {
                 const { status, message } = validateOtp(value as string, {
                     length: 6
-                });
-                return status ? null : { status, message };
-            }
-
-            case "phone": {
-                const { status, message } = validatePhone(value as string,{
-                    length: 13,
                 });
                 return status ? null : { status, message };
             }

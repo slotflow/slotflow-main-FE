@@ -29,7 +29,7 @@ const InputField: React.FC<InputFieldProps> = memo(({
 
         try {
 
-            if (["username", "email", "password", "confirmPassword", "otp", "phone"].includes(id)) {
+            if (["username", "email", "password", "confirmPassword", "otp"].includes(id)) {
                 const result = CustomValidator.validator(id, inputValue);
 
                 if (result) {

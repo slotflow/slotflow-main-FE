@@ -28,18 +28,28 @@ export const providerAddProviderAddress = createAsyncThunk<CommonResponse, Provi
     }
 )
 
+export const providerFetchProviderAddress = async (): Promise<ProviderFetchAddressApiResponseProps> => {
+    const response = await axiosInstance.get('/provider/getAddress');
+    return response.data.address;
+}
+
 export const providerFetchAllAppServices = async (): Promise<ProviderFetchAllServicesApiResponse> => {
     const response = await axiosInstance.get('/provider/fetchAllAppServices');
     return response.data;
 }
 
 // Create async thunk for upating authSlice serviceDetails: true
-export const providerAddProviderServiceDetails = createAsyncThunk<CommonResponse, {formData : FormData }>("/provider/addServiceDetails",
-    async ( {formData} : {formData : FormData} ) => {
+export const providerAddProviderServiceDetails = createAsyncThunk<CommonResponse, { formData: FormData }>("/provider/addServiceDetails",
+    async ({ formData }: { formData: FormData }) => {
         const response = await axiosInstance.post(`/provider/addServiceDetails`, formData);
         return response.data;
     }
 )
+
+export const providerFetchProviderServiceDetails = async (): Promise<ProviderFetchServiceDetailsApiResponse> => {
+    const response = await axiosInstance.get('/provider/getServiceDetails');
+    return response.data.service;
+}
 
 // Create async thunk for updating authSlice serviceAvailability: true
 export const providerAddProviderServiceAvailabilities = createAsyncThunk<CommonResponse, AddProviderServiceAvailabilitiesApiRequestPayload>("/provider/addServiceAvailability",
@@ -54,20 +64,12 @@ export const providerFetchProviderProfileDetails = async (): Promise<ProviderFet
     return response.data.profileDetails;
 }
 
-export const providerFetchProviderAddress = async (): Promise<ProviderFetchAddressApiResponseProps> => {
-    const response = await axiosInstance.get('/provider/getAddress');
-    return response.data.address;
-}
 
-export const providerFetchProviderServiceDetails = async (): Promise<ProviderFetchServiceDetailsApiResponse> => {
-    const response = await axiosInstance.get('/provider/getServiceDetails');
-    return response.data.service;
-}
 
 export const providerFetchProviderServiceAvailability = async (date: Date): Promise<ProviderFetchServiceAvailabilityApiResponse> => {
     const response = await axiosInstance.get('/provider/getServiceAvailability', {
-        params : {
-            date : date.toISOString()
+        params: {
+            date: date.toISOString()
         }
     });
     return response.data.availability;
@@ -80,24 +82,24 @@ export const providerUpdateProviderProfileImage = createAsyncThunk<ProviderUpdat
     }
 )
 
-export const providerFetchProviderPlans = async () : Promise<ProviderFetchPlansApiResponse[]> => {
+export const providerFetchProviderPlans = async (): Promise<ProviderFetchPlansApiResponse[]> => {
     const response = await axiosInstance.get('/provider/getPlans');
     return response.data.plans;
 }
 
 // This api will create the stripe session and return the session id 
-export const providerSubscribeToPlan = async (data: ProviderSubscribeToPlanApiRequestPayload) : Promise<ProviderSubscribeToPlanApiResponse> => {
+export const providerSubscribeToPlan = async (data: ProviderSubscribeToPlanApiRequestPayload): Promise<ProviderSubscribeToPlanApiResponse> => {
     const response = await axiosInstance.post('/provider/createSubscriptionCheckoutSession', data)
     return response.data;
 }
 
 // This api will send the session id to backend and validate the sessionid and retrieve the subscription details
 export const providerSaveSubscription = async (sessionId: string): Promise<CommonResponse> => {
-    const response = await axiosInstance.post('/provider/saveSubscription',{ sessionId });
+    const response = await axiosInstance.post('/provider/saveSubscription', { sessionId });
     return response.data;
 }
 
-export const providerFetchProviderSubscriptions = async () : Promise<ProviderFetchSubscriptionHistoryApiResponse[]> => {
+export const providerFetchProviderSubscriptions = async (): Promise<ProviderFetchSubscriptionHistoryApiResponse[]> => {
     const response = await axiosInstance.get('/provider/getSubscriptions');
     return response.data.subscriptions;
 }
@@ -112,12 +114,12 @@ export const providerFetchProviderPayments = async (): Promise<ProviderFetchPaym
     return response.data.payments;
 }
 
-export const providerFetchBookingAppoinments = async () : Promise<ProviderFetchBookingAppointmentsApiResponse[]> => {
+export const providerFetchBookingAppoinments = async (): Promise<ProviderFetchBookingAppointmentsApiResponse[]> => {
     const response = await axiosInstance.get('/provider/getBookingAppointments');
     return response.data.bookingAppointments;
 }
 
-export const providerUpdateProviderInfo = async (data: ProviderUpdateProviderInfoRequestPayload) : Promise<ProviderUpdateProviderInfoResponse> => {
+export const providerUpdateProviderInfo = async (data: ProviderUpdateProviderInfoRequestPayload): Promise<ProviderUpdateProviderInfoResponse> => {
     const response = await axiosInstance.put('/provider/updaterUserInfo', data);
     return response.data;
 }

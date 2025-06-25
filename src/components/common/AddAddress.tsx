@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux';
+import { PhoneInput } from '../form/phone-input';
 import { RootState } from '@/utils/redux/appStore';
 import CommonButton from '@/components/common/CommonButton';
 import InputField from '@/components/form/InputFieldWithLable';
@@ -61,16 +62,23 @@ const AddAddress: React.FC<AddAddressProps> = ({ formClassNames, heading, headin
                         required={true}
                         onHasError={handleErrorChange}
                     />
-                    <InputField
-                        label="Phone"
-                        id="phone"
-                        placeholder="0000000000"
-                        type="text"
-                        value={formData.phone}
-                        onChange={handleChange}
-                        required={true}
-                        onHasError={handleErrorChange}
-                    />
+                    <div className="space-y-2">
+                        <label className="block text-xs md:text-sm/6 font-medium text-[var(--textTwo)] hover:text-[var(--textTwoHover)]">
+                            Phone
+                        </label>
+                        <PhoneInput
+                            value={formData.phone}
+                            onChange={(value) => {
+                                setFormData((prev) => ({ ...prev, phone: value || "" }));
+                                setHasErrors(false);
+                            }}
+                            defaultCountry="IN"
+                            international
+                            placeholder="Enter your phone number"
+                            className="w-full"
+                            required
+                        />
+                    </div>
                     <InputField
                         label="Place"
                         id="place"

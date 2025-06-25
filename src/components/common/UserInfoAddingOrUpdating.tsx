@@ -10,6 +10,7 @@ import { updateAuthUserName } from '@/utils/redux/slices/authSlice';
 import { FormEvent, useCallback, useEffect, useState } from 'react';
 import { providerUpdateProviderInfo } from '@/utils/apis/provider.api';
 import { HandleChangeFunction } from '@/utils/interface/commonInterface';
+import { PhoneInput } from '../form/phone-input';
 
 interface UserInfoAddingOrUpdatingComponentInterface {
     title: string;
@@ -111,7 +112,24 @@ const UserInfoAddingOrUpdating: React.FC<UserInfoAddingOrUpdatingComponentInterf
                         isPassword={false}
                         onHasError={handleErrorChange}
                     />
-                    <InputField
+                    <div className="space-y-2">
+                        <label className="block text-xs md:text-sm/6 font-medium text-[var(--textTwo)] hover:text-[var(--textTwoHover)]">
+                            Phone
+                        </label>
+                        <PhoneInput
+                            value={formData.phone}
+                            onChange={(value) => {
+                                setFormData((prev) => ({ ...prev, phone: value || "" }));
+                                setHasErrors(false);
+                            }}
+                            defaultCountry="IN"
+                            international
+                            placeholder="Enter your phone number"
+                            className="w-full"
+                            required
+                        />
+                    </div>
+                    {/* <InputField
                         label="Phone"
                         id="phone"
                         placeholder="phone"
@@ -121,7 +139,7 @@ const UserInfoAddingOrUpdating: React.FC<UserInfoAddingOrUpdatingComponentInterf
                         required={true}
                         isPassword={false}
                         onHasError={handleErrorChange}
-                    />
+                    /> */}
                     <CommonButton text='Update' type='submit' className='my-4' />
                 </form>
             ) : (
