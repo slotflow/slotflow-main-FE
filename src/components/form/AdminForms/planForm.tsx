@@ -24,12 +24,15 @@ const PlanForm:React.FC = () => {
     const handleChange = useCallback<HandleChangeFunction>((e) => {
         const { id, value, type } = e.target;
         let newValue: string | boolean | number;
+        const booleanFields = ["adVisibility"];
 
-        if (type === "number") {
-            newValue = Number(value);
-        } else {
-            newValue = value;
-        }
+    if (booleanFields.includes(id)) {
+    newValue = value === "true";
+  } else if (type === "number") {
+    newValue = Number(value);
+  } else {
+    newValue = value;
+  }
 
         setFormData((prev) => ({ ...prev, [id]: newValue }));
         setHasErrors(false);
@@ -133,7 +136,7 @@ const PlanForm:React.FC = () => {
                         id="adVisibility"
                         value={formData.adVisibility}
                         onChange={handleChange}
-                        options={["true", "false"]}
+                        options={[true, false]}
                         required={true}
                         onHasError={handleErrorChange}
                     />

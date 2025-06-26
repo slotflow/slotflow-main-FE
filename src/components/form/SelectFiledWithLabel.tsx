@@ -17,18 +17,19 @@ const SelectFiledWithLabel: React.FC<SelectFieldProps> = memo(({
 
     const handleSelect = (optionValue: string) => {
         setSelectedValue(optionValue);
-        const event = {
+
+        const syntheticEvent = {
             target: {
-                id: id,
+                id,
                 value: optionValue,
                 type: 'select-one',
             },
-        } as React.ChangeEvent<HTMLSelectElement>;
-        onChange(event);
+        } as unknown as React.ChangeEvent<HTMLSelectElement>;
+
+        onChange(syntheticEvent);
+
         setIsOpen(false);
-        if (onHasError) {
-            onHasError(!optionValue && required);
-        }
+        onHasError?.(!optionValue && required);
     };
 
     const handleClickOutside = (event: MouseEvent) => {
@@ -46,18 +47,11 @@ const SelectFiledWithLabel: React.FC<SelectFieldProps> = memo(({
 
     const getSelectedLabel = () => {
         const matchedOption = options.find((opt) => {
-            if (typeof opt === 'object' && opt !== null) {
-                return opt.value.toString() === selectedValue;
-            } else {
-                return opt.toString() === selectedValue;
-            }
+            const optionValue = typeof opt === 'object' ? opt.value : opt;
+            return optionValue.toString() === selectedValue;
         });
 
-        if (typeof matchedOption === 'object' && matchedOption !== null) {
-            return matchedOption.label.toString();
-        } else {
-            return selectedValue || 'Select';
-        }
+        return typeof matchedOption === 'object' ? matchedOption.label : selectedValue || 'Select';
     };
 
     return (
