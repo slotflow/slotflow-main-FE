@@ -1,3 +1,4 @@
+import { ColumnDef } from "@tanstack/react-table";
 import { ChangeEvent } from "react";
 
 // ****************** Common Response ******************
@@ -219,3 +220,43 @@ export type HandleFeatureChangeFunction = (e: ChangeEvent<HTMLInputElement>, ind
 // ****************** Section one interface ******************
 //  Role section Button function interface 
 export type HandleRoleSelectionFunction = (url: string) => void;
+
+
+
+
+
+// ****************** Common Table compoenent  ******************
+export interface PaginatedResponse<T> {
+  data: T[];
+  totalCount: number;
+  currentPage: number;
+  totalPages: number;
+}
+
+export interface CommonTableComponentProps<TData, TColumn> {
+  fetchApiFunction: (params?: FetchFunctionParams) => Promise<PaginatedResponse<TData>>;
+  queryKey: string;
+  heading?: string;
+  headingClassName?: string;
+  column: ColumnDef<TColumn>[];
+  columnsCount: number;
+  id?: string;
+  pageSize?: number;
+}
+
+
+
+
+
+
+
+
+
+// ****************** Api common request parameter interface ******************
+export interface FetchFunctionParams {
+  id?: string;
+  pagination?: {
+    page: number;
+    limit: number;
+  };
+}

@@ -1,7 +1,7 @@
 import axiosInstance from "@/lib/axios";
 import {
+    AdminFetchAllProviders,
     AdminApproveProviderApiResponse,
-    AdminFetchAllProvidersApiResponse,
     AdminFetchProviderAddressApiResponse,
     AdminFetchProviderServiceApiResponse,
     AdminFetchProviderPaymentsApiResponse,
@@ -14,12 +14,14 @@ import {
     AdminChangeProviderBlockStatusApiRequestPayload,
     AdminFetchProviderAvailabilityApiRequestPayload,
 } from "../interface/api/adminProviderApiInterface";
+import { buildQueryParams, parsePaginatedResponse } from "../helper";
 import { Provider } from "../interface/entityInterface/providerInterface";
+import { FetchFunctionParams, PaginatedResponse } from "../interface/commonInterface";
 
-
-export const adminFetchAllProviders = async (): Promise<Array<AdminFetchAllProvidersApiResponse>> => {
-    const response = await axiosInstance.get("/admin/providers");
-    return response.data.providers;
+export const adminFetchAllProviders = async (params?: FetchFunctionParams): Promise<PaginatedResponse<AdminFetchAllProviders>> => {
+    const query = buildQueryParams(params);
+    const response = await axiosInstance.get(`/admin/providers${query ? `?${query}` : ''}`);
+    return parsePaginatedResponse<AdminFetchAllProviders>(response.data);
 };
 
 export const adminApproveProvider = async (data : {providerId : Provider["_id"]}): Promise<AdminApproveProviderApiResponse> => {

@@ -1,55 +1,67 @@
+import { useState } from "react";
 import { DataTable } from "../table/data-table";
 import { useQuery } from "@tanstack/react-query";
-import { ColumnDef } from "@tanstack/react-table";
-import TableShimmer from "../shimmers/TableShimmer";
 import DataFetchingError from "./DataFetchingError";
-
-interface CommonTableComponentProps<TData, TColumn> {
-    fetchApiFunction: (id?: string) => Promise<TData[]>;
-    queryKey: string;
-    heading?: string;
-    headingClassName?: string;
-    column: ColumnDef<TColumn>[];
-    columnsCount: number;
-    id?: string
-}
+import TableShimmer from "../shimmers/TableShimmer";
+import { OnChangeFn, PaginationState } from "@tanstack/react-table";
+import { CommonTableComponentProps } from "@/utils/interface/commonInterface";
 
 const CommonTable = <TData extends TColumn, TColumn>({
-    fetchApiFunction,
-    queryKey,
-    heading,
-    headingClassName,
-    column,
-    columnsCount,
-    id,
+  fetchApiFunction,
+  queryKey,
+  heading,
+  headingClassName,
+  column,
+  columnsCount,
+  id,
+  pageSize = 10,
 }: CommonTableComponentProps<TData, TColumn>) => {
+  const [pagination, setPagination] = useState<PaginationState>({
+    pageIndex: 0,
+    pageSize: pageSize,
+  })
 
-    const { data, isLoading, isError, error } = useQuery({
-        queryFn: () => fetchApiFunction(id),
-        queryKey: [queryKey],
-        staleTime: 1 * 60 * 1000,
-        refetchOnWindowFocus: false,
-    });
+  const handlePaginationChange: OnChangeFn<PaginationState> = (updaterOrValue) => {
+    setPagination(updaterOrValue);
+  };
 
-    return (
-        <>
-            {heading && (
-                <h2 className={`text-2xl font-bold ${headingClassName}`}>{heading}</h2>
-            )}
-            {isLoading ? (
-                <div className="mt-2">
-                    <TableShimmer columnsCount={columnsCount} />
-                </div>
-            ) : data ? (
+  const { data, isLoading, isError, error } = useQuery({
+    queryFn: () => fetchApiFunction({ 
+      id, 
+      pagination: { 
+        page: pagination.pageIndex + 1,
+        limit: pagination.pageSize 
+      } 
+    }),
+    queryKey: [queryKey, pagination.pageIndex, pagination.pageSize, id],
+    staleTime: 1 * 60 * 1000,
+    refetchOnWindowFocus: false,
+  });
 
-                <DataTable columns={column} data={data} />
-            ) : isError ? (
-                <DataFetchingError message={error?.message} className="min-h-full" />
-            ) : (
-                <DataFetchingError message={"No service providers found"} className="min-h-full" />
-            )}
-        </>
-    )
-}
+  return (
+    <>
+      {heading && (
+        <h2 className={`text-2xl font-bold ${headingClassName}`}>{heading}</h2>
+      )}
+      {isLoading ? (
+        <div className="mt-2">
+          <TableShimmer columnsCount={columnsCount} />
+        </div>
+      ) : data?.data ? (
+        <DataTable 
+          columns={column} 
+          data={data.data}
+          pageCount={data.totalPages}
+          pagination={pagination}
+          onPaginationChange={handlePaginationChange}
+        />
+      ) : isError ? (
+        <DataFetchingError message={error?.message} className="min-h-full" />
+      ) : (
+        <DataFetchingError message={"No "+queryKey+" found in databse"} className="min-h-full" />
+      )}
+    </>
+  );
+};
 
-export default CommonTable
+export default CommonTable;

@@ -1,8 +1,8 @@
 import { toast } from "react-toastify";
 import { useQueryClient } from "@tanstack/react-query";
-import { AdminProvidersTableColumnsProps } from "../../interface/tableColumnInterface";
-import { adminApproveProvider, adminChangeProviderBlockStatus, adminChangeProviderTrustTag } from "@/utils/apis/adminProvider.api";
 import { Provider } from "@/utils/interface/entityInterface/providerInterface";
+import { AdminFetchAllProviders } from "@/utils/interface/api/adminProviderApiInterface";
+import { adminApproveProvider, adminChangeProviderBlockStatus, adminChangeProviderTrustTag } from "@/utils/apis/adminProvider.api";
 
 interface UseAdminProviderActionReturnType {
     handleAdminApproveProvider: (_id: useAdminProviderActionsFunctionsCommonProp) => void;
@@ -34,7 +34,7 @@ export const useAdminProviderActions = (): UseAdminProviderActionReturnType => {
       .then((res) => {
         queryClient.setQueryData(
           ["providers"],
-          (oldData: AdminProvidersTableColumnsProps[] | []) => {
+          (oldData: AdminFetchAllProviders[] | []) => {
             if (!oldData) return [];
             return oldData.map((provider) =>
               provider._id === res.updatedProvider._id ? res.updatedProvider : provider
@@ -53,7 +53,7 @@ export const useAdminProviderActions = (): UseAdminProviderActionReturnType => {
       .then((res) => {
         queryClient.setQueryData(
           ["providers"],
-          (oldData: AdminProvidersTableColumnsProps[] | []) => {
+          (oldData: AdminFetchAllProviders[] | []) => {
             if (!oldData) return [];
             return oldData.map((provider) =>
               provider._id === res.updatedProvider._id ? res.updatedProvider : provider
@@ -72,7 +72,7 @@ export const useAdminProviderActions = (): UseAdminProviderActionReturnType => {
       .then((res) => {
         queryClient.setQueryData(
           ["providers"],
-          (oldData: AdminProvidersTableColumnsProps[] | []) => {
+          (oldData: AdminFetchAllProviders[] | []) => {
             if (!oldData) return [];
             return oldData.map((provider) =>
               provider._id === res.updatedProvider._id ? res.updatedProvider : provider

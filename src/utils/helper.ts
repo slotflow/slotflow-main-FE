@@ -1,3 +1,4 @@
+import { FetchFunctionParams, PaginatedResponse } from "./interface/commonInterface";
 
 // **** Time formating function for otp page **** \\
 export const formatTime = (seconds: number): string => {
@@ -53,8 +54,6 @@ export const generateTimeSlots = (startTime: string, endTime: string, intervalMi
   return slots
 };
 
-
-
 // **** Formate date for infoDisplayCompoenent **** \\
 export const formatDate = (dateString: string) => {
   return new Date(dateString).toLocaleString("en-US", {
@@ -76,6 +75,31 @@ export const copyToClipboard = (text: string) => {
 // **** Formating function for boolean value formatBoolean **** \\
 export const formatBoolean = (val: boolean) => (val ? "Yes" : "No");
 
+// **** Function for query builder **** \\
+export const buildQueryParams = (params?: FetchFunctionParams): string => {
+  const query = new URLSearchParams();
+
+  if (params?.pagination) {
+    query.append("page", params.pagination.page.toString());
+    query.append("limit", params.pagination.limit.toString());
+  }
+
+  if (params?.id) {
+    query.append("id", params.id);
+  }
+
+  return query.toString();
+};
+
+// **** Function for returing data from pagination included apis **** \\
+export const parsePaginatedResponse = <T>(res: PaginatedResponse<T>): PaginatedResponse<T> => {
+  return {
+    data: res.data,
+    totalCount: res.totalCount,
+    currentPage: res.currentPage,
+    totalPages: res.totalPages,
+  };
+};
 
 
 

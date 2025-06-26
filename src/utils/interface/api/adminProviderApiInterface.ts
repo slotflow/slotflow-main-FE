@@ -9,7 +9,7 @@ import { ProviderService } from "../entityInterface/providerServiceInterface";
 import { AvailabilityForResponse } from "../entityInterface/serviceAvailabilityInterface";
 
 // Admin fetch all providers api response type
-export type AdminFetchAllProvidersApiResponse = Pick<Provider, "_id" | "username" | "email" | "isBlocked" | "isAdminVerified" | "trustedBySlotflow">;
+export type AdminFetchAllProviders = Pick<Provider, "_id" | "username" | "email" | "isBlocked" | "isAdminVerified" | "trustedBySlotflow">;
 
 
 // Admin approve aprovider api response interface

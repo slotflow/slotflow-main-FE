@@ -9,9 +9,10 @@ import { DropDownItemChangeServiceBlockStatus } from "../adminTableOptions/Admin
 import { DropDownMenuItemGetSubscriptionDetails } from "../adminTableOptions/AddminProviderSubscriptionsTableOptions";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../../ui/dropdown-menu";
 import { DropDownItemApproveProvider, DropDownItemChangeProviderBlockStatus, DropDownItemChangeProviderTrustTag, DropDownItemGetProviderDetailPage } from "../adminTableOptions/AdminProviderTableOptions";
-import { AdminAllPaymentsTableColumnsProps, AdminAppServicesTableColumnsProps, AdminPlansTableColumnsProps, AdminProvidersSubscriptionsTableColumnsProps, AdminProvidersTableColumnsProps, AdminUsersTableColumnsProps } from "@/utils/interface/tableColumnInterface";
+import { AdminAllPaymentsTableColumnsProps, AdminAppServicesTableColumnsProps, AdminPlansTableColumnsProps, AdminProvidersSubscriptionsTableColumnsProps, AdminUsersTableColumnsProps } from "@/utils/interface/tableColumnInterface";
+import { AdminFetchAllProviders } from "@/utils/interface/api/adminProviderApiInterface";
 
-export const AdminProvidersTableColumns: ColumnDef<AdminProvidersTableColumnsProps>[] = [
+export const AdminProvidersTableColumns: ColumnDef<AdminFetchAllProviders>[] = [
   {
     accessorKey: "isAdminVerified",
     header: "Admin Verication",

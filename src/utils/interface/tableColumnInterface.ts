@@ -2,14 +2,14 @@ import { User } from "./entityInterface/userInterface";
 import { Plan } from "./entityInterface/planInterface";
 import { Payment } from "./entityInterface/paymentInterface";
 import { Booking } from "./entityInterface/bookingInterface";
-import { Provider } from "./entityInterface/providerInterface";
+// import { Provider } from "./entityInterface/providerInterface";
 import { Service } from "./entityInterface/appServiceInterface";
 import { Subscription } from "./entityInterface/subscriptionInterface";
 
 // **** Admin Table **** \\
 
 // **** Admin side Providers listing table columns props
-export type AdminProvidersTableColumnsProps = Pick<Provider, "_id" | "username" | "email" | "isBlocked" | "isAdminVerified" | "trustedBySlotflow">;
+// export type AdminProvidersTableColumnsProps = Pick<Provider, "_id" | "username" | "email" | "isBlocked" | "isAdminVerified" | "trustedBySlotflow">;
 
 // **** Admin side users listing table columns props
 export type AdminUsersTableColumnsProps = Pick<User, "_id" | "username" | "email" | "isBlocked" | "isEmailVerified">;
