@@ -2,7 +2,7 @@ import { toast } from "react-toastify";
 import { useQueryClient } from "@tanstack/react-query";
 import { adminChangeUserBlockStatus } from "../../apis/adminUser.api";
 import { User } from "@/utils/interface/entityInterface/userInterface";
-import { AdminUsersTableColumnsProps } from "../../interface/tableColumnInterface";
+import { AdminfetchAllUsers } from "@/utils/interface/api/adminUserApiInterface";
 
 type HandleAdminChangeUserBlockStatusProps = {
     userId: User["_id"];
@@ -19,7 +19,7 @@ export const useAdminUserActions = (): useAdminUserActionsCustomHookReturnType =
   const handleAdminChangeUserBlockStatus = ({userId, isBlocked}: HandleAdminChangeUserBlockStatusProps) => {
     adminChangeUserBlockStatus({userId, isBlocked})
       .then((res) => {
-        queryClient.setQueryData(["users"],(oldData: AdminUsersTableColumnsProps[] | []) => {
+        queryClient.setQueryData(["users"],(oldData: AdminfetchAllUsers[] | []) => {
             if (!oldData) return [];
             return oldData.map((user) =>
               user._id === res.updatedUser._id ? res.updatedUser : user

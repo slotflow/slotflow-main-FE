@@ -9,8 +9,9 @@ import { DropDownItemChangeServiceBlockStatus } from "../adminTableOptions/Admin
 import { DropDownMenuItemGetSubscriptionDetails } from "../adminTableOptions/AddminProviderSubscriptionsTableOptions";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../../ui/dropdown-menu";
 import { DropDownItemApproveProvider, DropDownItemChangeProviderBlockStatus, DropDownItemChangeProviderTrustTag, DropDownItemGetProviderDetailPage } from "../adminTableOptions/AdminProviderTableOptions";
-import { AdminAllPaymentsTableColumnsProps, AdminAppServicesTableColumnsProps, AdminPlansTableColumnsProps, AdminProvidersSubscriptionsTableColumnsProps, AdminUsersTableColumnsProps } from "@/utils/interface/tableColumnInterface";
+import { AdminAllPaymentsTableColumnsProps, AdminAppServicesTableColumnsProps, AdminPlansTableColumnsProps, AdminProvidersSubscriptionsTableColumnsProps } from "@/utils/interface/tableColumnInterface";
 import { AdminFetchAllProviders } from "@/utils/interface/api/adminProviderApiInterface";
+import { AdminfetchAllUsers } from "@/utils/interface/api/adminUserApiInterface";
 
 export const AdminProvidersTableColumns: ColumnDef<AdminFetchAllProviders>[] = [
   {
@@ -75,7 +76,7 @@ export const AdminProvidersTableColumns: ColumnDef<AdminFetchAllProviders>[] = [
   },
 ]
 
-export const AdminUsersTableColumns: ColumnDef<AdminUsersTableColumnsProps>[] = [
+export const AdminUsersTableColumns: ColumnDef<AdminfetchAllUsers>[] = [
   {
     accessorKey: "isVerified",
     header: "Verication",

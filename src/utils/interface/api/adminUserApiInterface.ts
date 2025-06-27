@@ -2,7 +2,7 @@ import { CommonResponse } from "../commonInterface";
 import { User } from "../entityInterface/userInterface";
 
 // Admin fetch all users api response type
-export type AdminfetchAllUsersApiResponse = Pick<User, "_id" | "username" | "email" | "isBlocked" | "isEmailVerified">;
+export type AdminfetchAllUsers = Pick<User, "_id" | "username" | "email" | "isBlocked" | "isEmailVerified">;
 
 
 //  Admin change user block status request payload type
