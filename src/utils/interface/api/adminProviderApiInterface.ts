@@ -10,7 +10,7 @@ import { AvailabilityForResponse } from "../entityInterface/serviceAvailabilityI
 
 // Used as the return type for Admin Fetch All Providers API,
 // and in AdminProvidersTableColumns, AdminProvidersPage, useAdminProviderActions
-export type AdminFetchAllProviders = Pick<Provider, "_id" | "username" | "email" | "isBlocked" | "isAdminVerified" | "trustedBySlotflow">;
+export type AdminFetchAllProvidersResponse = Pick<Provider, "_id" | "username" | "email" | "isBlocked" | "isAdminVerified" | "trustedBySlotflow">;
 
 
 // Admin approve aprovider api response interface

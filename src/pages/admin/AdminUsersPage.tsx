@@ -1,12 +1,12 @@
 import CommonTable from "@/components/common/CommonTable";
 import { adminFetchAllUsers } from "@/utils/apis/adminUser.api";
 import { AdminUsersTableColumns } from "@/components/table/tableColumns/adminTableColumns";
-import { AdminfetchAllUsers } from "@/utils/interface/api/adminUserApiInterface";
+import { AdminfetchAllUsersResponse } from "@/utils/interface/api/adminUserApiInterface";
 
 const AdminUsersPage = () => {
 
   return (
-    <CommonTable<AdminfetchAllUsers, AdminfetchAllUsers>
+    <CommonTable<AdminfetchAllUsersResponse, AdminfetchAllUsersResponse>
       fetchApiFunction={adminFetchAllUsers}
       queryKey="users"
       heading="Users"

@@ -3,7 +3,7 @@ import { User } from "../entityInterface/userInterface";
 
 // Used as the return type for Admin Fetch All Users API,
 // and in AdminUsersTableColumns, AdminUsersPage, useAdminUserActions
-export type AdminfetchAllUsers = Pick<User, "_id" | "username" | "email" | "isBlocked" | "isEmailVerified">;
+export type AdminfetchAllUsersResponse = Pick<User, "_id" | "username" | "email" | "isBlocked" | "isEmailVerified">;
 
 
 //  Admin change user block status request payload type

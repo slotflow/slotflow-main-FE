@@ -1,12 +1,12 @@
 import CommonTable from '@/components/common/CommonTable';
 import { adminFetchAllPayments } from '@/utils/apis/adminPayment.api';
-import { AdminFetchAllPayments } from '@/utils/interface/api/adminPaymentInterfac';
+import { AdminFetchAllPaymentsResponse } from '@/utils/interface/api/adminPaymentInterfac';
 import { AdminAllPaymentsTableColumns } from '@/components/table/tableColumns/adminTableColumns';
 
 const AdminPaymentsPage = () => {
 
     return (
-        <CommonTable<AdminFetchAllPayments, AdminFetchAllPayments>
+        <CommonTable<AdminFetchAllPaymentsResponse, AdminFetchAllPaymentsResponse>
             fetchApiFunction={adminFetchAllPayments}
             queryKey='payments'
             heading='Payments'

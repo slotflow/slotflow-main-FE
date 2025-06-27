@@ -1,9 +1,8 @@
 import CommonTable from '@/components/common/CommonTable';
 import PlanForm from '@/components/form/AdminForms/planForm';
 import { adminFetchAllPlans } from '@/utils/apis/adminPlan.api';
-import { AdminPlansTableColumnsProps } from '@/utils/interface/tableColumnInterface';
+import { AdminFetchAllPlansResponse } from '@/utils/interface/api/adminPlanApiInterface';
 import { AdminPlansTableColumns } from '@/components/table/tableColumns/adminTableColumns';
-import { AdminFetchAllPlansApiResponse } from '@/utils/interface/api/adminPlanApiInterface';
 
 const AdminPlansPage = () => {
 
@@ -11,7 +10,7 @@ const AdminPlansPage = () => {
         <>
             <div className='flex'>
                 <div className='w-8/12'>
-                    <CommonTable<AdminFetchAllPlansApiResponse, AdminPlansTableColumnsProps>
+                    <CommonTable<AdminFetchAllPlansResponse, AdminFetchAllPlansResponse>
                         fetchApiFunction={adminFetchAllPlans}
                         queryKey='plans'
                         heading='Plans'

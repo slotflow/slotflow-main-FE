@@ -1,12 +1,12 @@
 import CommonTable from "@/components/common/CommonTable";
 import { adminFetchAllProviders } from "@/utils/apis/adminProvider.api";
-import { AdminFetchAllProviders } from "@/utils/interface/api/adminProviderApiInterface";
+import { AdminFetchAllProvidersResponse } from "@/utils/interface/api/adminProviderApiInterface";
 import { AdminProvidersTableColumns } from "@/components/table/tableColumns/adminTableColumns";
 
 const AdminServiceProvidersPage = () => {
 
   return (
-    <CommonTable<AdminFetchAllProviders, AdminFetchAllProviders>
+    <CommonTable<AdminFetchAllProvidersResponse, AdminFetchAllProvidersResponse>
       fetchApiFunction={adminFetchAllProviders} 
       queryKey="providers" 
       heading="Service Providers" 

@@ -9,12 +9,13 @@ import { DropDownItemChangeServiceBlockStatus } from "../adminTableOptions/Admin
 import { DropDownMenuItemGetSubscriptionDetails } from "../adminTableOptions/AddminProviderSubscriptionsTableOptions";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../../ui/dropdown-menu";
 import { DropDownItemApproveProvider, DropDownItemChangeProviderBlockStatus, DropDownItemChangeProviderTrustTag, DropDownItemGetProviderDetailPage } from "../adminTableOptions/AdminProviderTableOptions";
-import { AdminAppServicesTableColumnsProps, AdminPlansTableColumnsProps, AdminProvidersSubscriptionsTableColumnsProps } from "@/utils/interface/tableColumnInterface";
-import { AdminFetchAllProviders } from "@/utils/interface/api/adminProviderApiInterface";
-import { AdminfetchAllUsers } from "@/utils/interface/api/adminUserApiInterface";
-import { AdminFetchAllPayments } from "@/utils/interface/api/adminPaymentInterfac";
+import { AdminAppServicesTableColumnsProps, AdminProvidersSubscriptionsTableColumnsProps } from "@/utils/interface/tableColumnInterface";
+import { AdminFetchAllProvidersResponse } from "@/utils/interface/api/adminProviderApiInterface";
+import { AdminfetchAllUsersResponse } from "@/utils/interface/api/adminUserApiInterface";
+import { AdminFetchAllPaymentsResponse } from "@/utils/interface/api/adminPaymentInterfac";
+import { AdminFetchAllPlansResponse } from "@/utils/interface/api/adminPlanApiInterface";
 
-export const AdminProvidersTableColumns: ColumnDef<AdminFetchAllProviders>[] = [
+export const AdminProvidersTableColumns: ColumnDef<AdminFetchAllProvidersResponse>[] = [
   {
     accessorKey: "isAdminVerified",
     header: "Admin Verication",
@@ -77,7 +78,7 @@ export const AdminProvidersTableColumns: ColumnDef<AdminFetchAllProviders>[] = [
   },
 ]
 
-export const AdminUsersTableColumns: ColumnDef<AdminfetchAllUsers>[] = [
+export const AdminUsersTableColumns: ColumnDef<AdminfetchAllUsersResponse>[] = [
   {
     accessorKey: "isVerified",
     header: "Verication",
@@ -175,7 +176,7 @@ export const AdminAppServicesTableColumns: ColumnDef<AdminAppServicesTableColumn
   }
 ]
 
-export const AdminPlansTableColumns: ColumnDef<AdminPlansTableColumnsProps>[] = [
+export const AdminPlansTableColumns: ColumnDef<AdminFetchAllPlansResponse>[] = [
   {
     accessorKey: "_id",
     header: "id",
@@ -187,6 +188,18 @@ export const AdminPlansTableColumns: ColumnDef<AdminPlansTableColumnsProps>[] = 
   {
     accessorKey: "planName",
     header: ({ column }) => (<DataTableColumnHeader column={column} title="Plan" />)
+  },
+  {
+    accessorKey: "maxBookingPerMonth",
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="Max Booking" />)
+  },
+  {
+    accessorKey: "adVisibility",
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="ad Visibility" />)
+  },
+  {
+    accessorKey: "price",
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="Price" />)
   },
   {
     accessorKey: "isBlocked",
@@ -289,7 +302,7 @@ export const AdminProvidersSubscriptionsTableColumns: ColumnDef<AdminProvidersSu
   }
 ]
 
-export const AdminAllPaymentsTableColumns: ColumnDef<AdminFetchAllPayments>[] = [
+export const AdminAllPaymentsTableColumns: ColumnDef<AdminFetchAllPaymentsResponse>[] = [
   {
     accessorKey: "paymentStatus",
     header: ({ column }) => (<DataTableColumnHeader column={column} title="Status" />)
