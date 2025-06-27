@@ -1,7 +1,8 @@
 import { CommonResponse } from "../commonInterface";
 import { User } from "../entityInterface/userInterface";
 
-// Admin fetch all users api response type
+// Used as the return type for Admin Fetch All Users API,
+// and in AdminUsersTableColumns, AdminUsersPage, useAdminUserActions
 export type AdminfetchAllUsers = Pick<User, "_id" | "username" | "email" | "isBlocked" | "isEmailVerified">;
 
 

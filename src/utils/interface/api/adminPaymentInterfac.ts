@@ -1,4 +1,5 @@
 import { Payment } from "../entityInterface/paymentInterface";
 
-// Admin fetch all payments api response type
-export type AdminFetchAllPaymentsApiResponse = Pick<Payment, "createdAt" | "totalAmount" | "paymentFor" | "paymentGateway" | "paymentStatus" | "paymentMethod">
+// Used as the return type for Admin Fetch All Payments API,
+// and in AdminPaymentsTableColumns, AdminPaymentsPage
+export type AdminFetchAllPayments = Pick<Payment, "createdAt" | "totalAmount" | "paymentFor" | "paymentGateway" | "paymentStatus" | "paymentMethod">

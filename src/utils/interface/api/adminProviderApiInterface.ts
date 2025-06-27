@@ -8,7 +8,8 @@ import { Subscription } from "../entityInterface/subscriptionInterface";
 import { ProviderService } from "../entityInterface/providerServiceInterface";
 import { AvailabilityForResponse } from "../entityInterface/serviceAvailabilityInterface";
 
-// Admin fetch all providers api response type
+// Used as the return type for Admin Fetch All Providers API,
+// and in AdminProvidersTableColumns, AdminProvidersPage, useAdminProviderActions
 export type AdminFetchAllProviders = Pick<Provider, "_id" | "username" | "email" | "isBlocked" | "isAdminVerified" | "trustedBySlotflow">;
 
 

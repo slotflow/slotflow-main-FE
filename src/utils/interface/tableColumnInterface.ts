@@ -1,4 +1,4 @@
-import { User } from "./entityInterface/userInterface";
+// import { User } from "./entityInterface/userInterface";
 import { Plan } from "./entityInterface/planInterface";
 import { Payment } from "./entityInterface/paymentInterface";
 import { Booking } from "./entityInterface/bookingInterface";
@@ -12,7 +12,7 @@ import { Subscription } from "./entityInterface/subscriptionInterface";
 // export type AdminProvidersTableColumnsProps = Pick<Provider, "_id" | "username" | "email" | "isBlocked" | "isAdminVerified" | "trustedBySlotflow">;
 
 // **** Admin side users listing table columns props
-export type AdminUsersTableColumnsProps = Pick<User, "_id" | "username" | "email" | "isBlocked" | "isEmailVerified">;
+// export type AdminUsersTableColumnsProps = Pick<User, "_id" | "username" | "email" | "isBlocked" | "isEmailVerified">;
 
 // **** Admin side app services listing table columns props
 export type AdminAppServicesTableColumnsProps = Pick<Service, "_id" | "serviceName" | "isBlocked">;
@@ -25,7 +25,7 @@ type SubscriptionTableInterfacePropsForAdmin = Pick<Subscription, "_id" | "creat
 export interface AdminProvidersSubscriptionsTableColumnsProps extends SubscriptionTableInterfacePropsForAdmin , Partial<Pick<Plan, "planName" | "price">> {};
 
 // **** Admin all payments listing table columns props
-export type AdminAllPaymentsTableColumnsProps = Pick<Payment, "createdAt" | "totalAmount" | "paymentFor" | "paymentGateway" | "paymentStatus" | "paymentMethod">;
+// export type AdminAllPaymentsTableColumnsProps = Pick<Payment, "createdAt" | "totalAmount" | "paymentFor" | "paymentGateway" | "paymentStatus" | "paymentMethod">;
 
 
 

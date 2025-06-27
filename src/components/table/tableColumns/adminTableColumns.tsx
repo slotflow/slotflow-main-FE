@@ -9,9 +9,10 @@ import { DropDownItemChangeServiceBlockStatus } from "../adminTableOptions/Admin
 import { DropDownMenuItemGetSubscriptionDetails } from "../adminTableOptions/AddminProviderSubscriptionsTableOptions";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../../ui/dropdown-menu";
 import { DropDownItemApproveProvider, DropDownItemChangeProviderBlockStatus, DropDownItemChangeProviderTrustTag, DropDownItemGetProviderDetailPage } from "../adminTableOptions/AdminProviderTableOptions";
-import { AdminAllPaymentsTableColumnsProps, AdminAppServicesTableColumnsProps, AdminPlansTableColumnsProps, AdminProvidersSubscriptionsTableColumnsProps } from "@/utils/interface/tableColumnInterface";
+import { AdminAppServicesTableColumnsProps, AdminPlansTableColumnsProps, AdminProvidersSubscriptionsTableColumnsProps } from "@/utils/interface/tableColumnInterface";
 import { AdminFetchAllProviders } from "@/utils/interface/api/adminProviderApiInterface";
 import { AdminfetchAllUsers } from "@/utils/interface/api/adminUserApiInterface";
+import { AdminFetchAllPayments } from "@/utils/interface/api/adminPaymentInterfac";
 
 export const AdminProvidersTableColumns: ColumnDef<AdminFetchAllProviders>[] = [
   {
@@ -288,7 +289,7 @@ export const AdminProvidersSubscriptionsTableColumns: ColumnDef<AdminProvidersSu
   }
 ]
 
-export const AdminAllPaymentsTableColumns: ColumnDef<AdminAllPaymentsTableColumnsProps>[] = [
+export const AdminAllPaymentsTableColumns: ColumnDef<AdminFetchAllPayments>[] = [
   {
     accessorKey: "paymentStatus",
     header: ({ column }) => (<DataTableColumnHeader column={column} title="Status" />)

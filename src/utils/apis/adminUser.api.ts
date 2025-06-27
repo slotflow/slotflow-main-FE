@@ -7,7 +7,6 @@ import {
 } from "../interface/api/adminUserApiInterface";
 import { FetchFunctionParams, PaginatedResponse } from "../interface/commonInterface";
 
-
 export const adminFetchAllUsers = async (params?: FetchFunctionParams): Promise<PaginatedResponse<AdminfetchAllUsers>> => {
     const query = buildQueryParams(params);
     const response = await axiosInstance.get(`/admin/users${query ? `?${query}` : ''}`);
