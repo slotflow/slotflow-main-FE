@@ -1,60 +1,60 @@
 import axiosInstance from "@/lib/axios";
 import {
     AdminFetchAllProvidersResponse,
-    AdminApproveProviderApiResponse,
-    AdminFetchProviderAddressApiResponse,
-    AdminFetchProviderServiceApiResponse,
-    AdminFetchProviderPaymentsApiResponse,
-    AdminChangeProviderTrustTagApiResponse,
-    AdminFetchProviderAvailabilityApiResponse,
-    AdminChangeProviderBlockStatusApiResponse,
-    AdminFetchProviderProfileDetailsApiResponse,
-    AdminChangeProviderTrustTagApiRequestPayload,
-    AdminChangeProviderBlockStatusApiRequestPayload,
-    AdminFetchProviderAvailabilityApiRequestPayload,
+    AdminApproveProviderResponse,
+    AdminFetchProviderAddressResponse,
+    AdminFetchProviderServiceResponse,
+    AdminFetchProviderPaymentsResponse,
+    AdminChangeProviderTrustTagResponse,
+    AdminFetchProviderAvailabilityResponse,
+    AdminChangeProviderBlockStatusResponse,
+    AdminFetchProviderProfileDetailsResponse,
+    AdminChangeProviderTrustTagRequest,
+    AdminChangeProviderBlockStatusRequest,
+    AdminFetchProviderAvailabilityRequest,
 } from "../interface/api/adminProviderApiInterface";
-import { buildQueryParams, parsePaginatedResponse } from "../helper";
+import { buildQueryParams, parseNewCommonResponse } from "../helper";
 import { Provider } from "../interface/entityInterface/providerInterface";
-import { FetchFunctionParams, PaginatedResponse } from "../interface/commonInterface";
+import { FetchFunctionParams, NewCommonResponse } from "../interface/commonInterface";
 import { FetchProviderSubscriptionsResponse } from "../interface/api/commonApiInterface";
 
-export const adminFetchAllProviders = async (params?: FetchFunctionParams): Promise<PaginatedResponse<AdminFetchAllProvidersResponse>> => {
+export const adminFetchAllProviders = async (params?: FetchFunctionParams): Promise<NewCommonResponse<AdminFetchAllProvidersResponse>> => {
     const query = buildQueryParams(params);
     const response = await axiosInstance.get(`/admin/providers${query ? `?${query}` : ''}`);
-    return parsePaginatedResponse<AdminFetchAllProvidersResponse>(response.data);
+    return parseNewCommonResponse<AdminFetchAllProvidersResponse>(response.data);
 };
 
-export const adminApproveProvider = async (data : {providerId : Provider["_id"]}): Promise<AdminApproveProviderApiResponse> => {
+export const adminApproveProvider = async (data : {providerId : Provider["_id"]}): Promise<NewCommonResponse<AdminApproveProviderResponse>> => {
     const response = await axiosInstance.patch(`/admin/approveProvider`, {data});
     return response.data;
 }
 
-export const adminChangeProviderBlockStatus = async (data: AdminChangeProviderBlockStatusApiRequestPayload): Promise<AdminChangeProviderBlockStatusApiResponse> => {
+export const adminChangeProviderBlockStatus = async (data: AdminChangeProviderBlockStatusRequest): Promise<NewCommonResponse<AdminChangeProviderBlockStatusResponse>> => {
     const response = await axiosInstance.patch(`/admin/changeProviderBlockStatus`, data);
     return response.data;
 }
 
-export const adminChangeProviderTrustTag = async (data: AdminChangeProviderTrustTagApiRequestPayload): Promise<AdminChangeProviderTrustTagApiResponse> => {
+export const adminChangeProviderTrustTag = async (data: AdminChangeProviderTrustTagRequest): Promise<NewCommonResponse<AdminChangeProviderTrustTagResponse>> => {
     const response = await axiosInstance.patch(`/admin/changeProvidertrustedTag`, data);
     return response.data;
 }
 
-export const adminFetchProviderProfileDetails = async (providerId: Provider["_id"]): Promise<AdminFetchProviderProfileDetailsApiResponse> => {
+export const adminFetchProviderProfileDetails = async (providerId: Provider["_id"]): Promise<AdminFetchProviderProfileDetailsResponse> => {
     const response = await axiosInstance.get(`/admin/fetchProviderDetails/${providerId}`);
     return response.data.provider;
 }
 
-export const adminFetchProviderAddress = async (providerId: Provider["_id"]): Promise<AdminFetchProviderAddressApiResponse> => {
+export const adminFetchProviderAddress = async (providerId: Provider["_id"]): Promise<AdminFetchProviderAddressResponse> => {
     const response = await axiosInstance.get(`/admin/fetchProviderAddress/${providerId}`);
     return response.data.address;
 }
 
-export const adminFetchProviderService = async (providerId: Provider["_id"]): Promise<AdminFetchProviderServiceApiResponse> => {
+export const adminFetchProviderService = async (providerId: Provider["_id"]): Promise<AdminFetchProviderServiceResponse> => {
     const response = await axiosInstance.get(`/admin/fetchProviderService/${providerId}`);
     return response.data.service;
 }
 
-export const adminFetchProviderServiceAvailability = async ({date, providerId}: AdminFetchProviderAvailabilityApiRequestPayload): Promise<AdminFetchProviderAvailabilityApiResponse> => {
+export const adminFetchProviderServiceAvailability = async ({date, providerId}: AdminFetchProviderAvailabilityRequest): Promise<AdminFetchProviderAvailabilityResponse> => {
     const response = await axiosInstance.get(`/admin/fetchProviderServiceAvailability/${providerId}`, {
         params : {
             date : date.toISOString()
@@ -63,15 +63,17 @@ export const adminFetchProviderServiceAvailability = async ({date, providerId}: 
     return response.data.availability;
 }
 
-export const adminFetchProviderSubscriptions = async (params: FetchFunctionParams<Provider["_id"]>) : Promise<PaginatedResponse<FetchProviderSubscriptionsResponse>> => {
+export const adminFetchProviderSubscriptions = async (params: FetchFunctionParams<Provider["_id"]>) : Promise<NewCommonResponse<FetchProviderSubscriptionsResponse>> => {
     const { id, pagination } = params;
     const query = buildQueryParams({ pagination });
     const response = await axiosInstance.get(`/admin/fetchProviderSubscriptions/${id}${query ? `?${query}` : ''}`);
-    return parsePaginatedResponse<FetchProviderSubscriptionsResponse>(response.data);
+    return parseNewCommonResponse<FetchProviderSubscriptionsResponse>(response.data);
 }
 
-export const adminFetchProviderPayments = async (providerId: Provider["_id"]): Promise<Array<AdminFetchProviderPaymentsApiResponse>> => {
-    const response = await axiosInstance.get(`/admin/fetchProviderPayments/${providerId}`);
-    return response.data.payments;
+export const adminFetchProviderPayments = async (params: FetchFunctionParams<Provider["_id"]>): Promise<NewCommonResponse<AdminFetchProviderPaymentsResponse>> => {
+    const { id, pagination } = params;
+    const query = buildQueryParams({ pagination });
+    const response = await axiosInstance.get(`/admin/fetchProviderPayments/${id}${query ? `?${query}` : ''}`);
+    return parseNewCommonResponse<AdminFetchProviderPaymentsResponse>(response.data);
 }
 

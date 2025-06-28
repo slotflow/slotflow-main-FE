@@ -5,14 +5,14 @@ import {
     AdminChangeServiceBlockStatusApiRequestPayload,
     AdminChangeServiceBlockStatusApiResponse,
 } from "../interface/api/adminServiceApiInterface";
-import { buildQueryParams, parsePaginatedResponse } from "../helper";
+import { buildQueryParams, parseNewCommonResponse } from "../helper";
 import { Service } from "../interface/entityInterface/appServiceInterface";
-import { FetchFunctionParams, PaginatedResponse } from "../interface/commonInterface";
+import { FetchFunctionParams, NewCommonResponse } from "../interface/commonInterface";
 
-export const adminFetchAllServices = async (params?: FetchFunctionParams): Promise<PaginatedResponse<AdminFetchAllServicesApiResponse>> => {
+export const adminFetchAllServices = async (params?: FetchFunctionParams): Promise<NewCommonResponse<AdminFetchAllServicesApiResponse>> => {
     const query = buildQueryParams(params);
     const response = await axiosInstance.get(`/admin/services${query ? `?${query}` : ''}`);
-    return parsePaginatedResponse<AdminFetchAllServicesApiResponse>(response.data);
+    return parseNewCommonResponse<AdminFetchAllServicesApiResponse>(response.data);
 }
 
 export const adminAddNewService = async (data : {appServiceName: Service["serviceName"]}): Promise<AdminAddNewServiceApiResponse> => {

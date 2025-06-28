@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { UpdateUserProfileImageApiResponse, UserFetchProviderAvailabilityApiResponse, UserFetchProviderServiceApiResponse } from "../api/userApiInterface";
 import { ProviderFetchServiceAvailabilityApiResponse, ProviderFetchServiceDetailsApiResponse, ProviderUpdateProfileImageApiResponse } from "../api/providerApiInterface";
 import { Provider } from "../entityInterface/providerInterface";
-import { AdminFetchProviderAvailabilityApiResponse, AdminFetchProviderServiceApiResponse } from "../api/adminProviderApiInterface";
+import { AdminFetchProviderAvailabilityResponse, AdminFetchProviderServiceResponse } from "../api/adminProviderApiInterface";
 
 // **** Common component interfaces used in components / common folder **** \\
 
@@ -23,7 +23,7 @@ type FetchApiFunctionUserOrAdminRequestPayloadProps = {
     date: Date
 }
 export type ProviderApiFunctionForPSAcomponent = (date: Date) => Promise<ProviderFetchServiceAvailabilityApiResponse>;
-export type UserOrAdminApiFunctionForPSAcomponent = (payload: FetchApiFunctionUserOrAdminRequestPayloadProps) => Promise<UserFetchProviderAvailabilityApiResponse | AdminFetchProviderAvailabilityApiResponse>;
+export type UserOrAdminApiFunctionForPSAcomponent = (payload: FetchApiFunctionUserOrAdminRequestPayloadProps) => Promise<UserFetchProviderAvailabilityApiResponse | AdminFetchProviderAvailabilityResponse>;
 type FetchApiFunction = ProviderApiFunctionForPSAcomponent | UserOrAdminApiFunctionForPSAcomponent;
 export interface ProviderServiceAvailabilityComponentProps {
     providerId?: string
@@ -37,7 +37,7 @@ export interface ProviderServiceAvailabilityComponentProps {
 export interface ProviderServiceDetailsComponentProps {
     providerId?: Provider["_id"];
     fetchApiFunction: (providerId?: Provider["_id"]) => Promise<
-        AdminFetchProviderServiceApiResponse |
+        AdminFetchProviderServiceResponse |
         ProviderFetchServiceDetailsApiResponse |
         UserFetchProviderServiceApiResponse
     >;

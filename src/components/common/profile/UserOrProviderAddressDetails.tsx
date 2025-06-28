@@ -4,13 +4,13 @@ import DataFetchingError from '../DataFetchingError';
 import InfoDisplayComponent from '../InfoDisplayComponent';
 import ProfileDetailsShimmer from '@/components/shimmers/ProfileDetailsShimmer';
 import { ProviderFetchAddressApiResponseProps } from '@/utils/interface/api/providerApiInterface';
-import { AdminFetchProviderAddressApiResponse } from '@/utils/interface/api/adminProviderApiInterface';
+import { AdminFetchProviderAddressResponse } from '@/utils/interface/api/adminProviderApiInterface';
 import { UserFetchProviderAddressApiResponse, UserFetchUserAddressApiResponse } from '@/utils/interface/api/userApiInterface';
 
 interface UserOrProviderAddressDetailsComponentProps {
     userOrProviderId?: string;
     fetchApiFunction: (userOrProviderId?: string) => Promise<
-        AdminFetchProviderAddressApiResponse |
+        AdminFetchProviderAddressResponse |
         ProviderFetchAddressApiResponseProps |
         UserFetchUserAddressApiResponse |
         UserFetchProviderAddressApiResponse

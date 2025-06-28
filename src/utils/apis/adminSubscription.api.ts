@@ -1,14 +1,14 @@
 import axiosInstance from "@/lib/axios"
-import { buildQueryParams, parsePaginatedResponse } from "../helper";
+import { buildQueryParams, parseNewCommonResponse } from "../helper";
 import { Subscription } from "../interface/entityInterface/subscriptionInterface";
-import { FetchFunctionParams, PaginatedResponse } from "../interface/commonInterface";
+import { FetchFunctionParams, NewCommonResponse } from "../interface/commonInterface";
 import { FetchProviderSubscriptionsResponse } from "../interface/api/commonApiInterface";
 import { AdminFetchSubscriptionDetailsApiResponse } from "../interface/api/adminSubscription.interface";
 
-export const adminFetchAllSubscriptions = async (params?: FetchFunctionParams): Promise<PaginatedResponse<FetchProviderSubscriptionsResponse>> => {
+export const adminFetchAllSubscriptions = async (params?: FetchFunctionParams): Promise<NewCommonResponse<FetchProviderSubscriptionsResponse>> => {
     const query = buildQueryParams(params);
     const response = await axiosInstance.get(`/admin/getSubscriptions${query ? `?${query}` : ''}`);
-    return parsePaginatedResponse<FetchProviderSubscriptionsResponse>(response.data);
+    return parseNewCommonResponse<FetchProviderSubscriptionsResponse>(response.data);
 }
 
 export const adminFetchSubscriptionDetails = async (subscriptionId: Subscription["_id"]): Promise<AdminFetchSubscriptionDetailsApiResponse> => {

@@ -17,9 +17,9 @@ import {
     ProviderUpdateProviderInfoResponse,
     ProviderUpdateProviderInfoRequestPayload,
 } from "../interface/api/providerApiInterface";
-import { buildQueryParams, parsePaginatedResponse } from "../helper";
+import { buildQueryParams, parseNewCommonResponse } from "../helper";
 import { FetchProviderSubscriptionsResponse } from "../interface/api/commonApiInterface";
-import { CommonResponse, FetchFunctionParams, PaginatedResponse } from "../interface/commonInterface";
+import { CommonResponse, FetchFunctionParams, NewCommonResponse } from "../interface/commonInterface";
 
 // Create asyn thunk for updating the authSlice with address: true
 export const providerAddProviderAddress = createAsyncThunk<CommonResponse, ProviderAddProviderAddressApiRequestPayload>("/provider/addAddress",
@@ -100,10 +100,10 @@ export const providerSaveSubscription = async (sessionId: string): Promise<Commo
     return response.data;
 }
 
-export const providerFetchProviderSubscriptions = async (params?: FetchFunctionParams): Promise<PaginatedResponse<FetchProviderSubscriptionsResponse>> => {
+export const providerFetchProviderSubscriptions = async (params?: FetchFunctionParams): Promise<NewCommonResponse<FetchProviderSubscriptionsResponse>> => {
     const query = buildQueryParams(params);
     const response = await axiosInstance.get(`/provider/getSubscriptions${query ? `?${query}` : ''}`);
-    return parsePaginatedResponse<FetchProviderSubscriptionsResponse>(response.data);
+    return parseNewCommonResponse<FetchProviderSubscriptionsResponse>(response.data);
 }
 
 export const providerSubscribeToTrialPlan = async (): Promise<CommonResponse> => {

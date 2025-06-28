@@ -5,14 +5,14 @@ import InfoDisplayComponent from "../InfoDisplayComponent";
 import { copyToClipboard, formatDate } from "@/utils/helper";
 import ProfileDetailsShimmer from "@/components/shimmers/ProfileDetailsShimmer";
 import { ProviderFetchProfileDetailsApiResponse } from "@/utils/interface/api/providerApiInterface";
-import { AdminFetchProviderProfileDetailsApiResponse } from "@/utils/interface/api/adminProviderApiInterface";
+import { AdminFetchProviderProfileDetailsResponse } from "@/utils/interface/api/adminProviderApiInterface";
 import { UserFetchProviderProfileDetailsApiResponse, UserFetchUserProfileApiResponse } from "@/utils/interface/api/userApiInterface";
 
 
 interface UserOrProviderProfileDetailsComponentProps {
     userOrProviderId?: string;
     fetchApiFunction: (userOrProviderId?: string) => Promise<
-        AdminFetchProviderProfileDetailsApiResponse |
+        AdminFetchProviderProfileDetailsResponse |
         ProviderFetchProfileDetailsApiResponse |
         UserFetchProviderProfileDetailsApiResponse |
         UserFetchUserProfileApiResponse
@@ -78,7 +78,7 @@ const UserOrProviderProfileDetails: React.FC<UserOrProviderProfileDetailsCompone
 
                     {/* Admin looking provider profile */}
                     {adminLookingProvider && (() => {
-                        const providerProfileData = data as (AdminFetchProviderProfileDetailsApiResponse);
+                        const providerProfileData = data as (AdminFetchProviderProfileDetailsResponse);
                         return (
                             <>
                                 <InfoDisplayComponent label="Username" value={providerProfileData.username} />

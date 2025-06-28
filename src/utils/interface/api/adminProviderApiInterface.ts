@@ -1,93 +1,106 @@
-import { CommonResponse } from "../commonInterface";
-import { Plan } from "../entityInterface/planInterface";
 import { Address } from "../entityInterface/addressInterface";
 import { Payment } from "../entityInterface/paymentInterface";
 import { Provider } from "../entityInterface/providerInterface";
 import { Service } from "../entityInterface/appServiceInterface";
-import { Subscription } from "../entityInterface/subscriptionInterface";
 import { ProviderService } from "../entityInterface/providerServiceInterface";
 import { AvailabilityForResponse } from "../entityInterface/serviceAvailabilityInterface";
 
-// Used as the return type for Admin Fetch All Providers API,
-// and in AdminProvidersTableColumns, AdminProvidersPage, useAdminProviderActions
-export type AdminFetchAllProvidersResponse = Pick<Provider, "_id" | "username" | "email" | "isBlocked" | "isAdminVerified" | "trustedBySlotflow">;
+type AdminProviderBasicInfo = Pick<Provider, "_id" | "username" | "email" | "isBlocked" | "isAdminVerified" | "trustedBySlotflow">;
+
+// **** adminFetchAllProviders
+// Used as the return type for Admin Fetch All Providers
+// Used in adminProviderApi, AdminProvidersTableColumns, AdminProvidersPage, useAdminProviderActions
+export type AdminFetchAllProvidersResponse = AdminProviderBasicInfo;
 
 
-// Admin approve aprovider api response interface
-type ApproveProviderApiResponse = Pick<Provider, "_id" | "username" | "email" | "isBlocked" | "isAdminVerified" | "trustedBySlotflow">;
-export interface AdminApproveProviderApiResponse extends CommonResponse {
-    updatedProvider: ApproveProviderApiResponse
+
+
+// **** adminApproveProvider
+// Used as the return type for Admin approve a provider
+// Used in adminProviderApi
+export interface AdminApproveProviderResponse  {
+    updatedProvider: AdminProviderBasicInfo;
 }
 
 
-// Admin change provider isBlocked status api request payload type
-export type AdminChangeProviderBlockStatusApiRequestPayload = {
+
+
+// **** adminChangeProviderBlockStatus
+// Used as the request type for Admin change provider block status
+// Used in adminProviderApi
+export type AdminChangeProviderBlockStatusRequest = {
     providerId: Provider["_id"];
     isBlocked: Provider["isBlocked"];
 }
-// Admin change Provider isBlock status api response interface
-type ChangeProviderBlockStatusApiResponse = Pick<Provider, "_id" | "username" | "email" | "isBlocked" | "isAdminVerified" | "trustedBySlotflow">;
-export interface AdminChangeProviderBlockStatusApiResponse extends CommonResponse {
-    updatedProvider: ChangeProviderBlockStatusApiResponse
+// Used as the return type for Admin change provider block status
+// Used in adminProviderApi
+export interface AdminChangeProviderBlockStatusResponse {
+    updatedProvider: AdminProviderBasicInfo
 }
 
 
 
 
-// Admin Change provider trustedBySlotfloe api request payload type
-export type AdminChangeProviderTrustTagApiRequestPayload = {
+// **** adminChangeProviderTrustTagStatus
+// Used as the request type for Admin change provider trust tag status
+// Used in adminProviderApi
+export type AdminChangeProviderTrustTagRequest = {
     providerId: Provider["_id"];
     trustedBySlotflow: Provider["trustedBySlotflow"];
 }
-// Admin change ProvidertrustedBySlotflow api response interface
-type ChangeProviderTrustTagApiResponse = Pick<Provider, "_id" | "username" | "email" | "isBlocked" | "isAdminVerified" | "trustedBySlotflow">;
-export interface AdminChangeProviderTrustTagApiResponse extends CommonResponse {
-    updatedProvider: ChangeProviderTrustTagApiResponse
+// Used as the return type for Admin change provider trust tag status
+// Used in adminProviderApi
+export interface AdminChangeProviderTrustTagResponse {
+    updatedProvider: AdminProviderBasicInfo
 }
 
 
 
 
-// Admin fetch provider details api response type
-export type AdminFetchProviderProfileDetailsApiResponse = Pick<Provider, "_id" | "username" | "email" | "isBlocked" | "isEmailVerified" | "isAdminVerified" | "phone" | "profileImage" | "createdAt" | "trustedBySlotflow">;
+// **** adminFetchProviderProfileDetails
+// Used as the return type for Admin fetch provider profile details
+// Used in adminProviderApi, UserOrProviderProfileDetails
+export type AdminFetchProviderProfileDetailsResponse = Pick<Provider, "_id" | "username" | "email" | "isBlocked" | "isEmailVerified" | "isAdminVerified" | "phone" | "profileImage" | "createdAt" | "trustedBySlotflow">;
 
 
 
 
-// Admin fetch provider Address api response type
-export type AdminFetchProviderAddressApiResponse = Pick<Address, "userId" | "addressLine" | "phone" | "place" | "city" | "district" | "pincode" | "state" | "country" | "googleMapLink">;
+// **** adminFetchProviderAddressDetails
+// Used as the return type for Admin fetch provider address details
+// Used in adminProviderApi, UserOrProviderAddressDetails
+export type AdminFetchProviderAddressResponse = Pick<Address, "userId" | "addressLine" | "phone" | "place" | "city" | "district" | "pincode" | "state" | "country" | "googleMapLink">;
 
 
 
 
-// Admin fetch provider service details api response type
+// **** adminFetchProviderServiceDetails
+// Used as the return type for Admin fetch provider service details
+// Used in adminProviderApi, ProviderServiceDetails
 type FetchProviderServiceApiResponse = Pick<ProviderService, "serviceName" | "serviceDescription" | "servicePrice" | "providerAdhaar" | "providerExperience" | "providerCertificateUrl">;
-export interface AdminFetchProviderServiceApiResponse extends FetchProviderServiceApiResponse {
+export interface AdminFetchProviderServiceResponse extends FetchProviderServiceApiResponse {
     serviceCategory: Pick<Service, "serviceName">
 }
 
 
 
 
-// Admin fetch provider service availability request payload interface
-export type AdminFetchProviderAvailabilityApiRequestPayload = {
+// **** adminFetchProviderServiceAvailability
+// Used as the request type for Admin fetch provider service availability
+// Used in adminProviderApi
+export type AdminFetchProviderAvailabilityRequest = {
     providerId: Provider["_id"]
     date: Date
 }
-// Admin fetch provider service availability api response type
-export type AdminFetchProviderAvailabilityApiResponse = AvailabilityForResponse;
+// Used as the return type for Admin fetch provider service availability
+// Used in adminProviderApi
+export type AdminFetchProviderAvailabilityResponse = AvailabilityForResponse;
 
 
 
 
-// Used as the return type for Fetching a specific providers subscriptons API,
-// and in ProviderSubscriptionsTableColumns, AdminProviderApi, AdminProviderSubscriptions
-export type AdminFetchProviderSubscriptionsResponse = Pick<Subscription, "_id" | "startDate" | "endDate" | "subscriptionStatus"> & Pick<Plan, "planName" | "price">;
-
-
-
-
-// Admin fetch Provider payments api response type
-export type AdminFetchProviderPaymentsApiResponse = Pick<Payment,  "_id" | "createdAt" | "totalAmount" | "paymentFor" | "paymentMethod" | "paymentGateway" | "paymentStatus" | "discountAmount">;
+// **** adminFetchProviderServiceAvailability
+// Used as the response type for Admin fetch provider payments
+// Used in adminProviderApi, AmindProviderPayments
+export type AdminFetchProviderPaymentsResponse = Pick<Payment,  "_id" | "createdAt" | "totalAmount" | "paymentFor" | "paymentMethod" | "paymentGateway" | "paymentStatus" | "discountAmount">;
 
 

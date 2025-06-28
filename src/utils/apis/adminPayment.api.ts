@@ -1,10 +1,10 @@
 import axiosInstance from "@/lib/axios"
-import { buildQueryParams, parsePaginatedResponse } from "../helper";
+import { buildQueryParams, parseNewCommonResponse } from "../helper";
 import { AdminFetchAllPaymentsResponse } from "../interface/api/adminPaymentInterfac";
-import { FetchFunctionParams, PaginatedResponse } from "../interface/commonInterface";
+import { FetchFunctionParams, NewCommonResponse } from "../interface/commonInterface";
 
-export const adminFetchAllPayments = async (params?: FetchFunctionParams): Promise<PaginatedResponse<AdminFetchAllPaymentsResponse>> => {
+export const adminFetchAllPayments = async (params?: FetchFunctionParams): Promise<NewCommonResponse<AdminFetchAllPaymentsResponse>> => {
     const query = buildQueryParams(params);
     const response = await axiosInstance.get(`/admin/getPayments${query ? `?${query}` : ''}`);
-    return parsePaginatedResponse<AdminFetchAllPaymentsResponse>(response.data);
+    return parseNewCommonResponse<AdminFetchAllPaymentsResponse>(response.data);
 }

@@ -226,15 +226,17 @@ export type HandleRoleSelectionFunction = (url: string) => void;
 
 
 // ****************** Common Table compoenent  ******************
-export interface PaginatedResponse<T> {
-  data: T[];
-  totalCount: number;
-  currentPage: number;
-  totalPages: number;
+export interface NewCommonResponse<T> {
+  data?: T[];
+  totalCount?: number;
+  currentPage?: number;
+  totalPages?: number;
+  success?: boolean;
+  message?: string;
 }
 
 export interface CommonTableComponentProps<TData, TColumn> {
-  fetchApiFunction: (params?: FetchFunctionParams) => Promise<PaginatedResponse<TData>>;
+  fetchApiFunction: (params?: FetchFunctionParams) => Promise<NewCommonResponse<TData>>;
   queryKey: string;
   heading?: string;
   headingClassName?: string;

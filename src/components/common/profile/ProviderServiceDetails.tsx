@@ -5,7 +5,7 @@ import DataFetchingError from '../DataFetchingError';
 import InfoDisplayComponent from '../InfoDisplayComponent';
 import ProfileDetailsShimmer from '../../shimmers/ProfileDetailsShimmer';
 import { ProviderFetchServiceDetailsApiResponse } from '@/utils/interface/api/providerApiInterface';
-import { AdminFetchProviderServiceApiResponse } from '@/utils/interface/api/adminProviderApiInterface';
+import { AdminFetchProviderServiceResponse } from '@/utils/interface/api/adminProviderApiInterface';
 import { ProviderServiceDetailsComponentProps } from '@/utils/interface/componentInterface/commonComponentInterface';
 
 const ProviderServiceDetails: React.FC<ProviderServiceDetailsComponentProps> = ({
@@ -39,9 +39,9 @@ const ProviderServiceDetails: React.FC<ProviderServiceDetailsComponentProps> = (
         return <DataFetchingError message="No service found." />;
     }
 
-    let serviceData: AdminFetchProviderServiceApiResponse | ProviderFetchServiceDetailsApiResponse | null = null;
+    let serviceData: AdminFetchProviderServiceResponse | ProviderFetchServiceDetailsApiResponse | null = null;
     if (!isUser) {
-        serviceData = data as (AdminFetchProviderServiceApiResponse | ProviderFetchServiceDetailsApiResponse);
+        serviceData = data as (AdminFetchProviderServiceResponse | ProviderFetchServiceDetailsApiResponse);
     }
 
     return (
