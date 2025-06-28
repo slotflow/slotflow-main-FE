@@ -1,7 +1,6 @@
 import { toast } from "react-toastify";
 import { useQueryClient } from "@tanstack/react-query";
 import { Provider } from "@/utils/interface/entityInterface/providerInterface";
-import { AdminFetchAllProviders } from "@/utils/interface/api/adminProviderApiInterface";
 import { adminApproveProvider, adminChangeProviderBlockStatus, adminChangeProviderTrustTag } from "@/utils/apis/adminProvider.api";
 
 interface UseAdminProviderActionReturnType {
@@ -32,53 +31,29 @@ export const useAdminProviderActions = (): UseAdminProviderActionReturnType => {
   const handleAdminApproveProvider = ({providerId}: useAdminProviderActionsFunctionsCommonProp) => {
     adminApproveProvider({ providerId })
       .then((res) => {
-        queryClient.setQueryData(
-          ["providers"],
-          (oldData: AdminFetchAllProviders[] | []) => {
-            if (!oldData) return [];
-            return oldData.map((provider) =>
-              provider._id === res.updatedProvider._id ? res.updatedProvider : provider
-            );
-          }
-        );
+        queryClient.invalidateQueries({ queryKey: ["providers"] });
         toast.success(res.message);
       })
       .catch(() => {
         toast.error("Please try again");
       });
-  };
-
-  const hanldeAdminChangeProviderBlockStatus = ({providerId, isBlocked} : hanldeAdminChangeProviderBlockStatusProps) => {
-    adminChangeProviderBlockStatus({ providerId,  isBlocked})
+    };
+    
+    const hanldeAdminChangeProviderBlockStatus = ({providerId, isBlocked} : hanldeAdminChangeProviderBlockStatusProps) => {
+      adminChangeProviderBlockStatus({ providerId,  isBlocked})
       .then((res) => {
-        queryClient.setQueryData(
-          ["providers"],
-          (oldData: AdminFetchAllProviders[] | []) => {
-            if (!oldData) return [];
-            return oldData.map((provider) =>
-              provider._id === res.updatedProvider._id ? res.updatedProvider : provider
-            );
-          }
-        );
+        queryClient.invalidateQueries({ queryKey: ["providers"] });
         toast.success(res.message);
       })
       .catch(() => {
         toast.error("Please try again");
       });
-  }
-
-  const hanldeAdminChangeProviderSlotflowTrustTag = ({providerId ,trustedBySlotflow} : hanldeAdminChangeProviderSlotflowTrustTagProps) => {
-    adminChangeProviderTrustTag({ providerId, trustedBySlotflow })
+    }
+    
+    const hanldeAdminChangeProviderSlotflowTrustTag = ({providerId ,trustedBySlotflow} : hanldeAdminChangeProviderSlotflowTrustTagProps) => {
+      adminChangeProviderTrustTag({ providerId, trustedBySlotflow })
       .then((res) => {
-        queryClient.setQueryData(
-          ["providers"],
-          (oldData: AdminFetchAllProviders[] | []) => {
-            if (!oldData) return [];
-            return oldData.map((provider) =>
-              provider._id === res.updatedProvider._id ? res.updatedProvider : provider
-            );
-          }
-        );
+        queryClient.invalidateQueries({ queryKey: ["providers"] });
         toast.success(res.message);
       })
       .catch(() => {

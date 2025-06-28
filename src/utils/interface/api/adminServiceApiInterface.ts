@@ -2,16 +2,26 @@ import { CommonResponse } from "../commonInterface";
 import { Service } from "../entityInterface/appServiceInterface";
 
 
-// Admin fetch all app services api response type
-export type AdminFetchAllServicesApiResponse = Pick<Service , "_id" | "serviceName" | "isBlocked">;
+// ---------------------- Admin Fetch All App Services ----------------------
+// Used in useAdminServiceActions hook
+export type BasicAppServiceInfo = Pick<Service, "_id" | "serviceName" | "isBlocked">;
 
 
+
+// ---------------------- Admin Fetch All App Services ----------------------
+// Used as the return type for Admin Fetch All Services API,
+// and in AdminAppServicesTableColumns, AdminServicesPage
+export type AdminFetchAllServicesApiResponse = BasicAppServiceInfo;
+
+
+// ---------------------- Admin add new app service ----------------------
 // Admin add new app service api response interface
 export interface AdminAddNewServiceApiResponse extends CommonResponse {
-    service: Pick<Service , "_id" | "serviceName" | "isBlocked">;
+    service: BasicAppServiceInfo
 }
 
 
+// ---------------------- Admin add new app service ----------------------
 // Admin change app service block status api request payload type
 export type AdminChangeServiceBlockStatusApiRequestPayload = {
     serviceId: Service["_id"];
@@ -19,5 +29,5 @@ export type AdminChangeServiceBlockStatusApiRequestPayload = {
 }
 // Admin change service block status api response interface interface
 export interface AdminChangeServiceBlockStatusApiResponse extends CommonResponse {
-    updatedService: Pick<Service , "_id" | "serviceName" | "isBlocked">;
+    updatedService: BasicAppServiceInfo;
 }

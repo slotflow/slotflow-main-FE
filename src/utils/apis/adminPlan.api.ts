@@ -1,13 +1,13 @@
 import axiosInstance from "@/lib/axios";
 import {
-    AdminFetchAllPlansResponse,
-    AdminAddNewPlanResponse,
     AdminAddNewPlanRequest,
+    AdminAddNewPlanResponse,
+    AdminFetchAllPlansResponse,
     AdminChangePlanBlockStatusApiResponse,
     AdminChangePlanBlockStatusApiRequestPayload,
 } from "../interface/api/adminPlanApiInterface";
-import { FetchFunctionParams, PaginatedResponse } from "../interface/commonInterface";
 import { buildQueryParams, parsePaginatedResponse } from "../helper";
+import { FetchFunctionParams, PaginatedResponse } from "../interface/commonInterface";
 
 export const adminFetchAllPlans = async (params?: FetchFunctionParams): Promise<PaginatedResponse<AdminFetchAllPlansResponse>> => {
     const query = buildQueryParams(params);

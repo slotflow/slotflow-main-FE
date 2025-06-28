@@ -76,16 +76,12 @@ export const copyToClipboard = (text: string) => {
 export const formatBoolean = (val: boolean) => (val ? "Yes" : "No");
 
 // **** Function for query builder **** \\
-export const buildQueryParams = (params?: FetchFunctionParams): string => {
+export const buildQueryParams = (params?: Omit<FetchFunctionParams, 'id'>): string => {
   const query = new URLSearchParams();
 
   if (params?.pagination) {
     query.append("page", params.pagination.page.toString());
     query.append("limit", params.pagination.limit.toString());
-  }
-
-  if (params?.id) {
-    query.append("id", params.id);
   }
 
   return query.toString();

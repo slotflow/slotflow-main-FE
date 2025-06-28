@@ -80,10 +80,9 @@ export type AdminFetchProviderAvailabilityApiResponse = AvailabilityForResponse;
 
 
 
-// Admin fetch Provider subscriptions api response type
-type FetchProviderSubscriptionsApiResponse = Pick<Subscription, | "startDate" | "endDate" | "subscriptionStatus">;
-export interface AdminFetchProviderSubscriptionsApiResponse extends FetchProviderSubscriptionsApiResponse , Partial<Pick<Plan , "_id" | "planName" >> {
-}
+// Used as the return type for Fetching a specific providers subscriptons API,
+// and in ProviderSubscriptionsTableColumns, AdminProviderApi, AdminProviderSubscriptions
+export type AdminFetchProviderSubscriptionsResponse = Pick<Subscription, "_id" | "startDate" | "endDate" | "subscriptionStatus"> & Pick<Plan, "planName" | "price">;
 
 
 

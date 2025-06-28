@@ -5,7 +5,7 @@ import { Payment } from "../entityInterface/paymentInterface";
 import { Booking } from "../entityInterface/bookingInterface";
 import { Provider } from "../entityInterface/providerInterface";
 import { Service } from "../entityInterface/appServiceInterface";
-import { Subscription } from "../entityInterface/subscriptionInterface";
+// import { Subscription } from "../entityInterface/subscriptionInterface";
 import { ProviderService } from "../entityInterface/providerServiceInterface";
 import { Availability, AvailabilityForResponse } from "../entityInterface/serviceAvailabilityInterface";
 
@@ -16,9 +16,7 @@ export interface ProviderAddProviderAddressApiRequestPayload {
 
 
 // Provider Fetch all services api request response interface
-export interface ProviderFetchAllServicesApiResponse extends CommonResponse{
-    services: Array<Pick<Service, "_id" | "serviceName">>
-}
+export type ProviderFetchAllServicesApiResponse =  Array<Pick<Service, "_id" | "serviceName">>;
 
 
 // Provider service availability adding request payload interface
@@ -66,10 +64,7 @@ export interface ProviderSubscribeToPlanApiResponse extends CommonResponse {
 }
 
 
-// Provider fetch subscription history api response interface
-type SubscripionsResProps = Pick<Subscription, | "startDate" | "endDate" | "subscriptionStatus">;
-export interface ProviderFetchSubscriptionHistoryApiResponse extends SubscripionsResProps , Partial<Plan>{    
-}
+
 
 
 // Provider fetch all payments response type

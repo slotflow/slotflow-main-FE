@@ -2,8 +2,9 @@ import { Plan } from "../entityInterface/planInterface";
 import { Payment } from "../entityInterface/paymentInterface";
 import { Subscription } from "../entityInterface/subscriptionInterface";
 
-// Admin fetch all subscription api response type
-export type AdminFetchAllSubscriptionsApiResponse = Pick<Subscription, "_id" | "createdAt" | "providerId" | "startDate" | "endDate" | "subscriptionStatus">;
+// Used as the return type for Admin Fetch All Subscription API,
+// and in AdminProvidersSubscriptionsTableColumns, AdminSubscriptionsPage
+export type AdminFetchAllSubscriptionsResponse = Pick<Subscription, "_id" | "createdAt" | "providerId" | "startDate" | "endDate" | "subscriptionStatus">;
 
 
 // Admin fetch provider subscription details api response interface

@@ -12,13 +12,14 @@ import {
     ProviderFetchServiceDetailsApiResponse,
     ProviderAddProviderAddressApiRequestPayload,
     ProviderFetchServiceAvailabilityApiResponse,
-    ProviderFetchSubscriptionHistoryApiResponse,
     ProviderFetchBookingAppointmentsApiResponse,
     AddProviderServiceAvailabilitiesApiRequestPayload,
     ProviderUpdateProviderInfoResponse,
     ProviderUpdateProviderInfoRequestPayload,
 } from "../interface/api/providerApiInterface";
-import { CommonResponse } from "../interface/commonInterface";
+import { buildQueryParams, parsePaginatedResponse } from "../helper";
+import { FetchProviderSubscriptionsResponse } from "../interface/api/commonApiInterface";
+import { CommonResponse, FetchFunctionParams, PaginatedResponse } from "../interface/commonInterface";
 
 // Create asyn thunk for updating the authSlice with address: true
 export const providerAddProviderAddress = createAsyncThunk<CommonResponse, ProviderAddProviderAddressApiRequestPayload>("/provider/addAddress",
@@ -35,7 +36,7 @@ export const providerFetchProviderAddress = async (): Promise<ProviderFetchAddre
 
 export const providerFetchAllAppServices = async (): Promise<ProviderFetchAllServicesApiResponse> => {
     const response = await axiosInstance.get('/provider/fetchAllAppServices');
-    return response.data;
+    return response.data.data;
 }
 
 // Create async thunk for upating authSlice serviceDetails: true
@@ -99,9 +100,10 @@ export const providerSaveSubscription = async (sessionId: string): Promise<Commo
     return response.data;
 }
 
-export const providerFetchProviderSubscriptions = async (): Promise<ProviderFetchSubscriptionHistoryApiResponse[]> => {
-    const response = await axiosInstance.get('/provider/getSubscriptions');
-    return response.data.subscriptions;
+export const providerFetchProviderSubscriptions = async (params?: FetchFunctionParams): Promise<PaginatedResponse<FetchProviderSubscriptionsResponse>> => {
+    const query = buildQueryParams(params);
+    const response = await axiosInstance.get(`/provider/getSubscriptions${query ? `?${query}` : ''}`);
+    return parsePaginatedResponse<FetchProviderSubscriptionsResponse>(response.data);
 }
 
 export const providerSubscribeToTrialPlan = async (): Promise<CommonResponse> => {

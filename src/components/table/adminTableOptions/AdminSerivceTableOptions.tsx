@@ -17,7 +17,7 @@ export const DropDownItemChangeServiceBlockStatus: React.FC<DropDownItemChangeSe
 
     return(
         <DropdownMenuItem onClick={handleServiceBlockStatus}>
-            {status ? "Unblock" : "Block"}
+            {isBlocked ? "Unblock" : "Block"}
         </DropdownMenuItem>
     )
 }

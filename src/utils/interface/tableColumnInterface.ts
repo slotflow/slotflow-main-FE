@@ -1,10 +1,10 @@
 // import { User } from "./entityInterface/userInterface";
-import { Plan } from "./entityInterface/planInterface";
+// import { Plan } from "./entityInterface/planInterface";
 import { Payment } from "./entityInterface/paymentInterface";
 import { Booking } from "./entityInterface/bookingInterface";
 // import { Provider } from "./entityInterface/providerInterface";
-import { Service } from "./entityInterface/appServiceInterface";
-import { Subscription } from "./entityInterface/subscriptionInterface";
+// import { Service } from "./entityInterface/appServiceInterface";
+// import { Subscription } from "./entityInterface/subscriptionInterface";
 
 // **** Admin Table **** \\
 
@@ -15,14 +15,14 @@ import { Subscription } from "./entityInterface/subscriptionInterface";
 // export type AdminUsersTableColumnsProps = Pick<User, "_id" | "username" | "email" | "isBlocked" | "isEmailVerified">;
 
 // **** Admin side app services listing table columns props
-export type AdminAppServicesTableColumnsProps = Pick<Service, "_id" | "serviceName" | "isBlocked">;
+// export type AdminAppServicesTableColumnsProps = Pick<Service, "_id" | "serviceName" | "isBlocked">;
 
 // **** Admin side plans listing table columns props
-export type AdminPlansTableColumnsProps = Pick<Plan , "_id" | "planName" | "isBlocked">;
+// export type AdminPlansTableColumnsProps = Pick<Plan , "_id" | "planName" | "isBlocked">;
 
 // **** Admin providers subscriptions listing table columns props
-type SubscriptionTableInterfacePropsForAdmin = Pick<Subscription, "_id" | "createdAt" | "providerId" | "startDate" | "endDate" | "subscriptionStatus">;
-export interface AdminProvidersSubscriptionsTableColumnsProps extends SubscriptionTableInterfacePropsForAdmin , Partial<Pick<Plan, "planName" | "price">> {};
+// type SubscriptionTableInterfacePropsForAdmin = Pick<Subscription, "_id" | "createdAt" | "providerId" | "startDate" | "endDate" | "subscriptionStatus">;
+// export interface AdminProvidersSubscriptionsTableColumnsProps extends SubscriptionTableInterfacePropsForAdmin , Partial<Pick<Plan, "planName" | "price">> {};
 
 // **** Admin all payments listing table columns props
 // export type AdminAllPaymentsTableColumnsProps = Pick<Payment, "createdAt" | "totalAmount" | "paymentFor" | "paymentGateway" | "paymentStatus" | "paymentMethod">;
@@ -34,8 +34,8 @@ export interface AdminProvidersSubscriptionsTableColumnsProps extends Subscripti
 // **** Provider Table **** \\
 
 // provider subscriptions listing table columns props
-type SubscriptionTableInterfacePropsForProvider = Pick<Subscription, "startDate" | "endDate" | "subscriptionStatus">;
-export interface ProviderSubscriptionsTableColumnsProps extends SubscriptionTableInterfacePropsForProvider , Partial<Plan> {};
+// type SubscriptionTableInterfacePropsForProvider = Pick<Subscription, "startDate" | "endDate" | "subscriptionStatus">;
+// export interface ProviderSubscriptionsTableColumnsProps extends SubscriptionTableInterfacePropsForProvider , Partial<Plan> {};
 
 // provider payments listing table columns props
 export type ProviderPaymentsTableColumnsProps = Pick<Payment, "createdAt" | "totalAmount" | "paymentFor" | "paymentMethod" | "paymentGateway" | "paymentStatus" | "discountAmount">;

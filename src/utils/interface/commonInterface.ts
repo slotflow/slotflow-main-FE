@@ -253,8 +253,8 @@ export interface CommonTableComponentProps<TData, TColumn> {
 
 
 // ****************** Api common request parameter interface ******************
-export interface FetchFunctionParams {
-  id?: string;
+export interface FetchFunctionParams<T = string> {
+  id?: T;
   pagination?: {
     page: number;
     limit: number;

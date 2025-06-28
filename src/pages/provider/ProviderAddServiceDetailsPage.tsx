@@ -72,7 +72,7 @@ const ProviderAddServiceDetailsPage = () => {
     const fetchServices = async () => {
       try {
         const res = await providerFetchAllAppServices();
-        const transformed = res.services.map((service: { _id: string; serviceName: string }) => ({
+        const transformed = res.map((service: { _id: string; serviceName: string }) => ({
           label: service.serviceName,
           value: service._id
         }));

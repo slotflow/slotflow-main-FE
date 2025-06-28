@@ -1,4 +1,3 @@
-import { format } from "date-fns";
 import { Button } from "../../ui/button";
 import { MoreHorizontal } from "lucide-react";
 import { ColumnDef } from "@tanstack/react-table";
@@ -6,14 +5,13 @@ import { DataTableColumnHeader } from "../DataTableColumnHeader";
 import { DropDownItemChangeUserStatus } from "../adminTableOptions/AdminUserTableOptions";
 import { DropDownItemChangePlanBlockStatus } from "../adminTableOptions/AdminPlansTableOptions";
 import { DropDownItemChangeServiceBlockStatus } from "../adminTableOptions/AdminSerivceTableOptions";
-import { DropDownMenuItemGetSubscriptionDetails } from "../adminTableOptions/AddminProviderSubscriptionsTableOptions";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../../ui/dropdown-menu";
 import { DropDownItemApproveProvider, DropDownItemChangeProviderBlockStatus, DropDownItemChangeProviderTrustTag, DropDownItemGetProviderDetailPage } from "../adminTableOptions/AdminProviderTableOptions";
-import { AdminAppServicesTableColumnsProps, AdminProvidersSubscriptionsTableColumnsProps } from "@/utils/interface/tableColumnInterface";
 import { AdminFetchAllProvidersResponse } from "@/utils/interface/api/adminProviderApiInterface";
 import { AdminfetchAllUsersResponse } from "@/utils/interface/api/adminUserApiInterface";
 import { AdminFetchAllPaymentsResponse } from "@/utils/interface/api/adminPaymentInterfac";
 import { AdminFetchAllPlansResponse } from "@/utils/interface/api/adminPlanApiInterface";
+import { AdminFetchAllServicesApiResponse } from "@/utils/interface/api/adminServiceApiInterface";
 
 export const AdminProvidersTableColumns: ColumnDef<AdminFetchAllProvidersResponse>[] = [
   {
@@ -129,7 +127,7 @@ export const AdminUsersTableColumns: ColumnDef<AdminfetchAllUsersResponse>[] = [
   }
 ]
 
-export const AdminAppServicesTableColumns: ColumnDef<AdminAppServicesTableColumnsProps>[] = [
+export const AdminAppServicesTableColumns: ColumnDef<AdminFetchAllServicesApiResponse>[] = [
   {
     accessorKey: "_id",
     header: "id",
@@ -195,7 +193,11 @@ export const AdminPlansTableColumns: ColumnDef<AdminFetchAllPlansResponse>[] = [
   },
   {
     accessorKey: "adVisibility",
-    header: ({ column }) => (<DataTableColumnHeader column={column} title="ad Visibility" />)
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="ad Visibility" />),
+    cell: ({ row }) => {
+      const adVisibility = row.original.adVisibility;
+      return <span>{adVisibility ? "Yes" : "No"}</span>
+    }
   },
   {
     accessorKey: "price",
@@ -236,72 +238,6 @@ export const AdminPlansTableColumns: ColumnDef<AdminFetchAllPlansResponse>[] = [
   }
 ]
 
-export const AdminProvidersSubscriptionsTableColumns: ColumnDef<AdminProvidersSubscriptionsTableColumnsProps>[] = [
-  {
-    accessorKey: "providerId",
-    header: "Provider Id",
-    cell: ({ row }) => {
-      const id = row.original.providerId;
-      return <span>{id.toString().slice(-6)}</span>;
-    },
-  },
-  {
-    accessorKey: "subscriptionPlanId.planName",
-    header: ({ column }) => (<DataTableColumnHeader column={column} title="Plan" />)
-  },
-  {
-    accessorKey: "subscriptionPlanId.price",
-    header: ({ column }) => (<DataTableColumnHeader column={column} title="Amount" />)
-  },
-  {
-    accessorKey: "startDate",
-    header: ({ column }) => (<DataTableColumnHeader column={column} title="Start Date" />),
-    cell: ({ row }) => {
-      const startDate = row.getValue("startDate");
-      const formattedDate = startDate ? format(new Date(startDate as Date), "dd MMM yyyy") : "N/A";
-      return <span>{formattedDate}</span>;
-    }
-
-  },
-  {
-    accessorKey: "endDate",
-    header: ({ column }) => (<DataTableColumnHeader column={column} title="Expires on" />),
-    cell: ({ row }) => {
-      const endDate = row.getValue("endDate");
-      const formattedDate = endDate ? format(new Date(endDate as Date), "dd MMM yyyy") : "N/A";
-      return <span>{formattedDate}</span>;
-    }
-
-  },
-  {
-    accessorKey: "subscriptionStatus",
-    header: ({ column }) => (<DataTableColumnHeader column={column} title="Status" />)
-  },
-  {
-    accessorKey: "actions",
-    header: "Actions",
-    id: "actions",
-    cell: ({ row }) => {
-      const subscription = row.original;
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0 cursor-pointer">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuSeparator />
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropDownMenuItemGetSubscriptionDetails subscriptionId={subscription._id}/>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      )
-    },
-  }
-]
-
 export const AdminAllPaymentsTableColumns: ColumnDef<AdminFetchAllPaymentsResponse>[] = [
   {
     accessorKey: "paymentStatus",
@@ -316,7 +252,7 @@ export const AdminAllPaymentsTableColumns: ColumnDef<AdminFetchAllPaymentsRespon
     header: ({ column }) => (<DataTableColumnHeader column={column} title="Paid On" />),
     cell: ({ row }) => {
       const createdAt = row.getValue("createdAt");
-      const formattedDate = createdAt ? format(new Date(createdAt as Date), "dd MMM yyyy") : "N/A";
+      const formattedDate = createdAt ? (new Date(createdAt as Date), "dd MMM yyyy") : "N/A";
       return <span>{formattedDate}</span>;
     }
 

@@ -1,66 +1,9 @@
-import { format } from "date-fns";
 import { Button } from "../../ui/button";
 import { MoreHorizontal } from "lucide-react";
 import { ColumnDef } from "@tanstack/react-table";
 import { DataTableColumnHeader } from "../DataTableColumnHeader";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../../ui/dropdown-menu";
-import { ProviderBookingAppointmentsTableColumnProps, ProviderPaymentsTableColumnsProps, ProviderSubscriptionsTableColumnsProps } from "@/utils/interface/tableColumnInterface";
-
-export const ProviderSubscriptionsTableColumns: ColumnDef<ProviderSubscriptionsTableColumnsProps>[] = [
-  {
-    accessorKey: "subscriptionPlanId.planName",
-    header: ({ column }) => (<DataTableColumnHeader column={column} title="Plan" />)
-  },
-  {
-    accessorKey: "startDate",
-    header: ({ column }) => (<DataTableColumnHeader column={column} title="Paid on" />),
-    cell: ({ row }) => {
-      const startDate = row.getValue("startDate");
-      const formattedDate = startDate ? format(new Date(startDate as Date), "dd MMM yyyy") : "N/A";
-      return <span>{formattedDate}</span>;
-    }
-
-  },
-  {
-    accessorKey: "endDate",
-    header: ({ column }) => (<DataTableColumnHeader column={column} title="Expires on" />),
-    cell: ({ row }) => {
-      const endDate = row.getValue("endDate");
-      const formattedDate = endDate ? format(new Date(endDate as Date), "dd MMM yyyy") : "N/A";
-      return <span>{formattedDate}</span>;
-    }
-
-  },
-  {
-    accessorKey: "subscriptionStatus",
-    header: ({ column }) => (<DataTableColumnHeader column={column} title="Status" />)
-  },
-  {
-    accessorKey: "actions",
-    header: "Actions",
-    id: "actions",
-    cell: ({ row }) => {
-      const subscription = row.original;
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0 cursor-pointer">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuSeparator />
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            {subscription.subscriptionStatus === "Active" && (
-              <DropdownMenuItem>Cancel</DropdownMenuItem>
-            )}
-          </DropdownMenuContent>
-        </DropdownMenu>
-      )
-    },
-  }
-]
+import { ProviderBookingAppointmentsTableColumnProps, ProviderPaymentsTableColumnsProps } from "@/utils/interface/tableColumnInterface";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../../ui/dropdown-menu";
 
 export const ProviderPaymentsTableColumns: ColumnDef<ProviderPaymentsTableColumnsProps>[] = [
   {
@@ -68,7 +11,7 @@ export const ProviderPaymentsTableColumns: ColumnDef<ProviderPaymentsTableColumn
     header: ({ column }) => (<DataTableColumnHeader column={column} title="Paid on" />),
     cell: ({ row }) => {
       const createdAt = row.getValue("createdAt");
-      const formattedDate = createdAt ? format(new Date(createdAt as Date), "dd MMM yyyy") : "N/A";
+      const formattedDate = createdAt ? (new Date(createdAt as Date), "dd MMM yyyy") : "N/A";
       return <span>{formattedDate}</span>;
     }
   },
@@ -104,7 +47,7 @@ export const ProviderAppointmentsBookingTableColumns: ColumnDef<ProviderBookingA
       header: ({ column }) => (<DataTableColumnHeader column={column} title="Date" />),
       cell: ({ row }) => {
           const createdAt = row.getValue("appointmentDate");
-          const date = format(new Date(createdAt as Date), "dd MMM yyyy");
+          const date = (new Date(createdAt as Date), "dd MMM yyyy");
           return <span>{date}</span>;
         }
     },
@@ -125,7 +68,7 @@ export const ProviderAppointmentsBookingTableColumns: ColumnDef<ProviderBookingA
       header: ({ column }) => (<DataTableColumnHeader column={column} title="Booked On" />),
       cell: ({ row }) => {
         const createdAt = row.getValue("createdAt");
-        const date = format(new Date(createdAt as Date), "dd MMM yyyy");
+        const date = (new Date(createdAt as Date), "dd MMM yyyy");
         return <span>{date}</span>;
       }
     },
