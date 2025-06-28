@@ -41,17 +41,17 @@ export const adminChangeProviderTrustTag = async (data: AdminChangeProviderTrust
 
 export const adminFetchProviderProfileDetails = async (providerId: Provider["_id"]): Promise<AdminFetchProviderProfileDetailsResponse> => {
     const response = await axiosInstance.get(`/admin/fetchProviderDetails/${providerId}`);
-    return response.data.provider;
+    return response.data.data;
 }
 
 export const adminFetchProviderAddress = async (providerId: Provider["_id"]): Promise<AdminFetchProviderAddressResponse> => {
     const response = await axiosInstance.get(`/admin/fetchProviderAddress/${providerId}`);
-    return response.data.address;
+    return response.data.data;
 }
 
 export const adminFetchProviderService = async (providerId: Provider["_id"]): Promise<AdminFetchProviderServiceResponse> => {
     const response = await axiosInstance.get(`/admin/fetchProviderService/${providerId}`);
-    return response.data.service;
+    return response.data.data;
 }
 
 export const adminFetchProviderServiceAvailability = async ({date, providerId}: AdminFetchProviderAvailabilityRequest): Promise<AdminFetchProviderAvailabilityResponse> => {
@@ -60,7 +60,7 @@ export const adminFetchProviderServiceAvailability = async ({date, providerId}: 
             date : date.toISOString()
         }
     });
-    return response.data.availability;
+    return response.data.data;
 }
 
 export const adminFetchProviderSubscriptions = async (params: FetchFunctionParams<Provider["_id"]>) : Promise<NewCommonResponse<FetchProviderSubscriptionsResponse>> => {
