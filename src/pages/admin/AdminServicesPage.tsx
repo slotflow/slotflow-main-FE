@@ -1,7 +1,7 @@
 import CommonTable from '@/components/common/CommonTable';
 import { adminFetchAllServices } from '@/utils/apis/adminService.api';
 import ServiceAddingForm from '@/components/form/AdminForms/ServiceForm';
-import { AdminFetchAllServicesApiResponse } from '@/utils/interface/api/adminServiceApiInterface';
+import { AdminFetchAllServicesResponse } from '@/utils/interface/api/adminServiceApiInterface';
 import { AdminAppServicesTableColumns } from '@/components/table/tableColumns/adminTableColumns';
 
 const AdminServicesPage = () => {
@@ -10,7 +10,7 @@ const AdminServicesPage = () => {
     <>
       <div className='flex'>
         <div className='w-8/12'>
-          <CommonTable<AdminFetchAllServicesApiResponse, AdminFetchAllServicesApiResponse>
+          <CommonTable<AdminFetchAllServicesResponse, AdminFetchAllServicesResponse>
             fetchApiFunction={adminFetchAllServices}
             queryKey="appServices"
             heading="Services"

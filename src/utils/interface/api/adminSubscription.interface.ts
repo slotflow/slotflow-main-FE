@@ -11,7 +11,7 @@ export type AdminFetchAllSubscriptionsResponse = Pick<Subscription, "_id" | "cre
 type SubscriptionProps = Pick<Subscription, "startDate" | "endDate" | "subscriptionStatus" | "createdAt">;
 type PaymentsProps = Pick<Payment, "transactionId" | "discountAmount" | "initialAmount" | "paymentFor" | "paymentGateway" | "paymentMethod" | "paymentStatus" | "totalAmount">;
 type PlanProps = Pick<Plan, "planName" | "price" | "adVisibility" | "maxBookingPerMonth">;
-export interface AdminFetchSubscriptionDetailsApiResponse extends SubscriptionProps {
+export interface AdminFetchSubscriptionDetailsResponse extends SubscriptionProps {
     subscriptionPlanId: PlanProps,
     paymentId: PaymentsProps,
 }

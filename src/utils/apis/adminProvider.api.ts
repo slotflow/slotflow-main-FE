@@ -1,16 +1,16 @@
 import axiosInstance from "@/lib/axios";
 import {
-    AdminFetchAllProvidersResponse,
     AdminApproveProviderResponse,
+    AdminFetchAllProvidersResponse,
     AdminFetchProviderAddressResponse,
     AdminFetchProviderServiceResponse,
+    AdminChangeProviderTrustTagRequest,
     AdminChangeProviderTrustTagResponse,
+    AdminChangeProviderBlockStatusRequest,
+    AdminFetchProviderAvailabilityRequest,
     AdminFetchProviderAvailabilityResponse,
     AdminChangeProviderBlockStatusResponse,
     AdminFetchProviderProfileDetailsResponse,
-    AdminChangeProviderTrustTagRequest,
-    AdminChangeProviderBlockStatusRequest,
-    AdminFetchProviderAvailabilityRequest,
 } from "../interface/api/adminProviderApiInterface";
 import { buildQueryParams, parseNewCommonResponse } from "../helper";
 import { Provider } from "../interface/entityInterface/providerInterface";

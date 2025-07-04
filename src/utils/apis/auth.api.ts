@@ -3,10 +3,10 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { setAuthUser } from "../redux/slices/authSlice";
 import { startTimer } from "../redux/slices/signFormSlice";
 import { CommonResponse } from "../interface/commonInterface";
-import { ResendOtpApiRequestPayload, ResendOtpApiResponse, SigninApiRequestPayload, SigninApiResponse, SignupApiRequestPayload, SignupApiResponse, UpdatePasswordApiRequestPayload, VerifyOtpApiRequestPayload } from "../interface/api/authApiInterface";
+import { ResendOtpRequest, ResendOtpResponse, SigninRequest, SigninResponse, SignupRequest, SignupResponse, UpdatePasswordRequest, VerifyOtpRequest } from "../interface/api/authApiInterface";
 
-export const signup = createAsyncThunk<SignupApiResponse, SignupApiRequestPayload>('auth/signup',
-    async (userData: SignupApiRequestPayload, thunkAPI) => {
+export const signup = createAsyncThunk<SignupResponse, SignupRequest>('auth/signup',
+    async (userData: SignupRequest, thunkAPI) => {
         const response = await axiosInstance.post("/auth/signup", userData);
         if (response.data.success) {
             thunkAPI.dispatch(setAuthUser(response.data.authUser));
@@ -16,15 +16,15 @@ export const signup = createAsyncThunk<SignupApiResponse, SignupApiRequestPayloa
     }
 );
 
-export const verifyOtp = createAsyncThunk<CommonResponse,VerifyOtpApiRequestPayload>("auth/verify-otp",
-    async (authData: VerifyOtpApiRequestPayload) => {
+export const verifyOtp = createAsyncThunk<CommonResponse,VerifyOtpRequest>("auth/verify-otp",
+    async (authData: VerifyOtpRequest) => {
         const response = await axiosInstance.post('/auth/verify-otp', authData);
         return response.data;
     }
 )
 
-export const signin = createAsyncThunk<SigninApiResponse, SigninApiRequestPayload>("auth/signin",
-    async (userData: SigninApiRequestPayload, thunkAPI) => {
+export const signin = createAsyncThunk<SigninResponse, SigninRequest>("auth/signin",
+    async (userData: SigninRequest, thunkAPI) => {
         const response = await axiosInstance.post('/auth/signin', userData);
         if (response.data.success) {
             thunkAPI.dispatch(setAuthUser(response.data.authUser));
@@ -40,8 +40,8 @@ export const signout = createAsyncThunk<CommonResponse>("auth/signOut",
     }
 )
 
-export const resendOtp = createAsyncThunk<ResendOtpApiResponse,ResendOtpApiRequestPayload>("auth/resendOtp",
-    async (authData: ResendOtpApiRequestPayload, thunkAPI) => {
+export const resendOtp = createAsyncThunk<ResendOtpResponse,ResendOtpRequest>("auth/resendOtp",
+    async (authData: ResendOtpRequest, thunkAPI) => {
         const response = await axiosInstance.post("/auth/resendOtp", authData);
         if (response.data.success) {
             thunkAPI.dispatch(setAuthUser(response.data.authUser));
@@ -51,8 +51,8 @@ export const resendOtp = createAsyncThunk<ResendOtpApiResponse,ResendOtpApiReque
     }
 )
 
-export const updatePassword = createAsyncThunk<CommonResponse,UpdatePasswordApiRequestPayload>("auth/updatePassword",
-    async (authData: UpdatePasswordApiRequestPayload) => {
+export const updatePassword = createAsyncThunk<CommonResponse,UpdatePasswordRequest>("auth/updatePassword",
+    async (authData: UpdatePasswordRequest) => {
         const response = await axiosInstance.put("/auth/updatePassword", authData);
         return response.data;
     }

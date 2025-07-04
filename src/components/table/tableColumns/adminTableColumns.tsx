@@ -10,7 +10,7 @@ import { DropDownItemApproveProvider, DropDownItemChangeProviderBlockStatus, Dro
 import { AdminFetchAllProvidersResponse } from "@/utils/interface/api/adminProviderApiInterface";
 import { AdminfetchAllUsersResponse } from "@/utils/interface/api/adminUserApiInterface";
 import { AdminFetchAllPlansResponse } from "@/utils/interface/api/adminPlanApiInterface";
-import { AdminFetchAllServicesApiResponse } from "@/utils/interface/api/adminServiceApiInterface";
+import { AdminFetchAllServicesResponse } from "@/utils/interface/api/adminServiceApiInterface";
 
 export const AdminProvidersTableColumns: ColumnDef<AdminFetchAllProvidersResponse>[] = [
   {
@@ -126,7 +126,7 @@ export const AdminUsersTableColumns: ColumnDef<AdminfetchAllUsersResponse>[] = [
   }
 ]
 
-export const AdminAppServicesTableColumns: ColumnDef<AdminFetchAllServicesApiResponse>[] = [
+export const AdminAppServicesTableColumns: ColumnDef<AdminFetchAllServicesResponse>[] = [
   {
     accessorKey: "_id",
     header: "id",

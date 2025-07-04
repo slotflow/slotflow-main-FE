@@ -16,10 +16,10 @@ interface CommonInterface {
 
 // ****************** Sign Up ******************
 // Sign up API request payload interface 
-export type SignupApiRequestPayload = Pick<CommonInterface, "username" | "email" | "password" | "role">;
+export type SignupRequest = Pick<CommonInterface, "username" | "email" | "password" | "role">;
 
 // Sign up response interface
-export interface SignupApiResponse extends CommonResponse {
+export interface SignupResponse extends CommonResponse {
     authUser: {
         verificationToken: string;
         role: string;
@@ -32,7 +32,7 @@ export interface SignupApiResponse extends CommonResponse {
 
 // ****************** OTP Verification ******************
 // OTP verification API request payload interface
-export type VerifyOtpApiRequestPayload = Pick<CommonInterface, "otp" | "verificationToken" | "role">;
+export type VerifyOtpRequest = Pick<CommonInterface, "otp" | "verificationToken" | "role">;
 
 
 
@@ -40,10 +40,10 @@ export type VerifyOtpApiRequestPayload = Pick<CommonInterface, "otp" | "verifica
 
 // ****************** Resend OTP ******************
 // Resend OTP API request payload interface
-export type ResendOtpApiRequestPayload = Pick<CommonInterface, "role"> & Partial<Pick<CommonInterface, "verificationToken" | "email">>;
+export type ResendOtpRequest = Pick<CommonInterface, "role"> & Partial<Pick<CommonInterface, "verificationToken" | "email">>;
 
 // Resend OTP API response interface
-export interface ResendOtpApiResponse extends CommonResponse {
+export interface ResendOtpResponse extends CommonResponse {
     authUser: {
         verificationToken: string;
         role: string;
@@ -56,10 +56,10 @@ export interface ResendOtpApiResponse extends CommonResponse {
 
 // ****************** Sign In ******************
 // Sign in API request payload interface
-export type SigninApiRequestPayload = Pick<CommonInterface, "email" | "password" | "role">;
+export type SigninRequest = Pick<CommonInterface, "email" | "password" | "role">;
 
 // Sign in API response interface
-export interface SigninApiResponse extends CommonResponse {
+export interface SigninResponse extends CommonResponse {
     authUser: {
         username: string;
         profileImage: string;
@@ -78,4 +78,4 @@ export interface SigninApiResponse extends CommonResponse {
 
 // ****************** Update Password ******************
 // Update password API request payload interface
-export type UpdatePasswordApiRequestPayload = Pick<CommonInterface, "password" | "role" | "verificationToken">;
+export type UpdatePasswordRequest = Pick<CommonInterface, "password" | "role" | "verificationToken">;

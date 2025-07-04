@@ -2,10 +2,10 @@ import { Button } from "../../ui/button";
 import { MoreHorizontal } from "lucide-react";
 import { ColumnDef } from "@tanstack/react-table";
 import { DataTableColumnHeader } from "../DataTableColumnHeader";
-import { ProviderBookingAppointmentsTableColumnProps } from "@/utils/interface/tableColumnInterface";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../../ui/dropdown-menu";
+import { ProviderFetchBookingAppointmentsResponse } from "@/utils/interface/api/providerApiInterface";
 
-export const ProviderAppointmentsBookingTableColumns: ColumnDef<ProviderBookingAppointmentsTableColumnProps>[] = [
+export const ProviderAppointmentsBookingTableColumns: ColumnDef<ProviderFetchBookingAppointmentsResponse>[] = [
   {
       accessorKey: "appointmentDate",
       header: ({ column }) => (<DataTableColumnHeader column={column} title="Date" />),

@@ -16,12 +16,12 @@ export interface AdminAddNewPlanResponse extends CommonResponse {
 
 
 // Admin change plan isBlocked status request payload type
-export type AdminChangePlanBlockStatusApiRequestPayload = {
+export type AdminChangePlanBlockStatusRequest = {
     planId: Plan["_id"];
     isBlocked: Plan["isBlocked"];
 }
 // Admin chnage plan isBlocked status response interface
-type ChangePlanBlockStatusApiResponse = Pick<Plan, "_id" | "planName" | "isBlocked">;
-export interface AdminChangePlanBlockStatusApiResponse extends CommonResponse {
-    updatedPlan : ChangePlanBlockStatusApiResponse;
+type ChangePlanBlockStatusResponse = Pick<Plan, "_id" | "planName" | "isBlocked">;
+export interface AdminChangePlanBlockStatusResponse extends CommonResponse {
+    updatedPlan : ChangePlanBlockStatusResponse;
 }

@@ -3,8 +3,8 @@ import {
     AdminAddNewPlanRequest,
     AdminAddNewPlanResponse,
     AdminFetchAllPlansResponse,
-    AdminChangePlanBlockStatusApiResponse,
-    AdminChangePlanBlockStatusApiRequestPayload,
+    AdminChangePlanBlockStatusResponse,
+    AdminChangePlanBlockStatusRequest,
 } from "../interface/api/adminPlanApiInterface";
 import { buildQueryParams, parseNewCommonResponse } from "../helper";
 import { FetchFunctionParams, NewCommonResponse } from "../interface/commonInterface";
@@ -20,7 +20,7 @@ export const adminAddNewPlan = async (formData: AdminAddNewPlanRequest): Promise
     return response.data;
 }
 
-export const adminChangePlanBlockStatus = async (data: AdminChangePlanBlockStatusApiRequestPayload): Promise<AdminChangePlanBlockStatusApiResponse> => {
+export const adminChangePlanBlockStatus = async (data: AdminChangePlanBlockStatusRequest): Promise<AdminChangePlanBlockStatusResponse> => {
     const response = await axiosInstance.patch(`/admin/changePlanBlockStatus`,data);
     return response.data;
 }

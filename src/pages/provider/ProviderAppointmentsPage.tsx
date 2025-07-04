@@ -1,12 +1,11 @@
 import CommonTable from '@/components/common/CommonTable';
 import { providerFetchBookingAppoinments } from '@/utils/apis/provider.api';
-import { ProviderBookingAppointmentsTableColumnProps } from '@/utils/interface/tableColumnInterface';
-import { ProviderFetchBookingAppointmentsApiResponse } from '@/utils/interface/api/providerApiInterface';
+import { ProviderFetchBookingAppointmentsResponse } from '@/utils/interface/api/providerApiInterface';
 import { ProviderAppointmentsBookingTableColumns } from '@/components/table/tableColumns/providerTableColumns';
 
 const ProviderAppointmentsPage = () => {
   return (
-    <CommonTable<ProviderFetchBookingAppointmentsApiResponse, ProviderBookingAppointmentsTableColumnProps>
+    <CommonTable<ProviderFetchBookingAppointmentsResponse, ProviderFetchBookingAppointmentsResponse>
       fetchApiFunction={providerFetchBookingAppoinments}
       queryKey='appointments'
       heading='Appointments'

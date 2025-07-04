@@ -11,23 +11,23 @@ export type BasicAppServiceInfo = Pick<Service, "_id" | "serviceName" | "isBlock
 // ---------------------- Admin Fetch All App Services ----------------------
 // Used as the return type for Admin Fetch All Services API,
 // and in AdminAppServicesTableColumns, AdminServicesPage
-export type AdminFetchAllServicesApiResponse = BasicAppServiceInfo;
+export type AdminFetchAllServicesResponse = BasicAppServiceInfo;
 
 
 // ---------------------- Admin add new app service ----------------------
 // Admin add new app service api response interface
-export interface AdminAddNewServiceApiResponse extends CommonResponse {
+export interface AdminAddNewServiceResponse extends CommonResponse {
     service: BasicAppServiceInfo
 }
 
 
 // ---------------------- Admin add new app service ----------------------
 // Admin change app service block status api request payload type
-export type AdminChangeServiceBlockStatusApiRequestPayload = {
+export type AdminChangeServiceBlockStatusRequest = {
     serviceId: Service["_id"];
     isBlocked: Service["isBlocked"];
 }
 // Admin change service block status api response interface interface
-export interface AdminChangeServiceBlockStatusApiResponse extends CommonResponse {
+export interface AdminChangeServiceBlockStatusResponse extends CommonResponse {
     updatedService: BasicAppServiceInfo;
 }

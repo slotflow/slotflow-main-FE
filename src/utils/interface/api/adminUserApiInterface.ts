@@ -7,7 +7,7 @@ export type AdminfetchAllUsersResponse = Pick<User, "_id" | "username" | "email"
 
 
 //  Admin change user block status request payload type
-export type AdminChangeUserStatusApiRequestPayload = {
+export type AdminChangeUserStatusRequest = {
     userId: User["_id"];
     isBlocked: User["isBlocked"];
 }
@@ -15,6 +15,6 @@ export type AdminChangeUserStatusApiRequestPayload = {
 
 // Admin change user block status response interface
 type ChnageUserStatusResponse = Pick<User, "_id" | "username" | "email" | "isBlocked" | "isEmailVerified">;
-export interface AdminChnageUserBlockStatusApiResponse extends CommonResponse {
+export interface AdminChnageUserBlockStatusResponse extends CommonResponse {
     updatedUser: ChnageUserStatusResponse
 }
