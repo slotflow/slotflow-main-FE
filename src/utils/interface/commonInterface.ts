@@ -227,7 +227,7 @@ export type HandleRoleSelectionFunction = (url: string) => void;
 
 // ****************** Common Table compoenent  ******************
 export interface NewCommonResponse<T> {
-  data?: T[];
+  data?: T[] | T;
   totalCount?: number;
   currentPage?: number;
   totalPages?: number;

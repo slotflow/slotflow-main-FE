@@ -1,6 +1,6 @@
 // import { User } from "./entityInterface/userInterface";
 // import { Plan } from "./entityInterface/planInterface";
-import { Payment } from "./entityInterface/paymentInterface";
+// import { Payment } from "./entityInterface/paymentInterface";
 import { Booking } from "./entityInterface/bookingInterface";
 // import { Provider } from "./entityInterface/providerInterface";
 // import { Service } from "./entityInterface/appServiceInterface";
@@ -38,7 +38,7 @@ import { Booking } from "./entityInterface/bookingInterface";
 // export interface ProviderSubscriptionsTableColumnsProps extends SubscriptionTableInterfacePropsForProvider , Partial<Plan> {};
 
 // provider payments listing table columns props
-export type ProviderPaymentsTableColumnsProps = Pick<Payment, "createdAt" | "totalAmount" | "paymentFor" | "paymentMethod" | "paymentGateway" | "paymentStatus" | "discountAmount">;
+// export type ProviderPaymentsTableColumnsProps = Pick<Payment, "createdAt" | "totalAmount" | "paymentFor" | "paymentMethod" | "paymentGateway" | "paymentStatus" | "discountAmount">;
 
 // provider appointments bookinng listing table column props
 export type ProviderBookingAppointmentsTableColumnProps = Pick<Booking, "_id" | "appointmentMode" | "appointmentStatus" | "appointmentTime" | "appointmentDate" | "createdAt" >
@@ -53,4 +53,4 @@ export type ProviderBookingAppointmentsTableColumnProps = Pick<Booking, "_id" | 
 export type UserBookingsTableColumnsProps = Pick<Booking, "_id" | "appointmentMode" | "appointmentStatus" | "appointmentTime" | "appointmentDate" | "createdAt" >
 
 // user payments table column props
-export type UserPaymentsTableColumnsProps = Pick<Payment, "createdAt" | "totalAmount" | "paymentFor" | "paymentMethod" | "paymentGateway" | "paymentStatus" | "discountAmount">;
+// export type UserPaymentsTableColumnsProps = Pick<Payment, "createdAt" | "totalAmount" | "paymentFor" | "paymentMethod" | "paymentGateway" | "paymentStatus" | "discountAmount">;

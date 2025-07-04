@@ -1,18 +1,17 @@
 import CommonTable from "../common/CommonTable";
 import { adminFetchProviderPayments } from "@/utils/apis/adminProvider.api";
-import { ProviderPaymentsTableColumns } from "../table/tableColumns/providerTableColumns";
-import { ProviderPaymentsTableColumnsProps } from "@/utils/interface/tableColumnInterface";
-import { AdminFetchProviderPaymentsResponse } from "@/utils/interface/api/adminProviderApiInterface";
+import { PaymentsTableColumns } from "../table/tableColumns/commonTableColumns";
+import { FetchPaymentsResponse } from "@/utils/interface/api/commonApiInterface";
 import { AdminFetchProviderPaymentsComponentProps } from "@/utils/interface/componentInterface/adminComponentInterface";
 
-const AdminProviderPayments: React.FC<AdminFetchProviderPaymentsComponentProps> = ({providerId}) => {
+const AdminProviderPayments: React.FC<AdminFetchProviderPaymentsComponentProps> = ({ providerId }) => {
 
     return (
         <div className="p-6">
-            <CommonTable<AdminFetchProviderPaymentsResponse, ProviderPaymentsTableColumnsProps>
-                fetchApiFunction={() => adminFetchProviderPayments({id: providerId, pagination : { page: 1, limit: 10}})}
+            <CommonTable<FetchPaymentsResponse, FetchPaymentsResponse>
+                fetchApiFunction={() => adminFetchProviderPayments({ id: providerId, pagination: { page: 1, limit: 10 } })}
                 queryKey="providerPayments"
-                column={ProviderPaymentsTableColumns}
+                column={PaymentsTableColumns}
                 columnsCount={7}
                 id={providerId}
             />

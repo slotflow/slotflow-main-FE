@@ -2,10 +2,11 @@ import { Button } from "../../ui/button";
 import { MoreHorizontal } from "lucide-react";
 import { ColumnDef } from "@tanstack/react-table";
 import { DataTableColumnHeader } from "../DataTableColumnHeader";
-import { FetchProviderSubscriptionsResponse } from "@/utils/interface/api/commonApiInterface";
+import { FetchPaymentsResponse, FetchProviderSubscriptionsResponse } from "@/utils/interface/api/commonApiInterface";
 import { DropDownMenuItemGetSubscriptionDetails } from "../adminTableOptions/AddminProviderSubscriptionsTableOptions";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../../ui/dropdown-menu";
 
+// For admin side view and provider side view
 export const ProvidersSubscriptionsTableColumns: ColumnDef<FetchProviderSubscriptionsResponse>[] = [
   {
     accessorKey: "planName",
@@ -62,4 +63,42 @@ export const ProvidersSubscriptionsTableColumns: ColumnDef<FetchProviderSubscrip
       )
     },
   }
+]
+
+
+// for admin side, provider side and user side view of payments table
+export const PaymentsTableColumns: ColumnDef<FetchPaymentsResponse>[] = [
+  {
+    accessorKey: "createdAt",
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="Paid on" />),
+    cell: ({ row }) => {
+      const createdAt = row.getValue("createdAt");
+      const formattedDate = createdAt ? (new Date(createdAt as Date), "dd MMM yyyy") : "N/A";
+      return <span>{formattedDate}</span>;
+    }
+  },
+  {
+    accessorKey: "totalAmount",
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="Total" />)
+  },
+  {
+    accessorKey: "discountAmount",
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="Discont" />)
+  },
+  {
+    accessorKey: "paymentFor",
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="Category" />)
+  },
+  {
+    accessorKey: "paymentGateway",
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="Gateway" />)
+  },
+  {
+    accessorKey: "paymentMethod",
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="Method" />)
+  },
+  {
+    accessorKey: "paymentStatus",
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="Status" />)
+  },
 ]

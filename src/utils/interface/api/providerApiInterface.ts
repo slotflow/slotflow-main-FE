@@ -1,65 +1,63 @@
 import { CommonResponse } from "../commonInterface";
 import { Plan } from "../entityInterface/planInterface";
 import { Address } from "../entityInterface/addressInterface";
-import { Payment } from "../entityInterface/paymentInterface";
 import { Booking } from "../entityInterface/bookingInterface";
 import { Provider } from "../entityInterface/providerInterface";
 import { Service } from "../entityInterface/appServiceInterface";
-// import { Subscription } from "../entityInterface/subscriptionInterface";
 import { ProviderService } from "../entityInterface/providerServiceInterface";
 import { Availability, AvailabilityForResponse } from "../entityInterface/serviceAvailabilityInterface";
 
 // Provider address adding request payload interface
-export interface ProviderAddProviderAddressApiRequestPayload {
+export interface ProviderAddProviderAddressRequest {
     formData: Pick<Address, "addressLine" | "phone" | "place" | "city" | "district" | "pincode" | "state" | "country" | "googleMapLink">;
 }
 
 
 // Provider Fetch all services api request response interface
-export type ProviderFetchAllServicesApiResponse =  Array<Pick<Service, "_id" | "serviceName">>;
+export type ProviderFetchAllServicesResponse =  Array<Pick<Service, "_id" | "serviceName">>;
 
 
 // Provider service availability adding request payload interface
-export interface AddProviderServiceAvailabilitiesApiRequestPayload {
+export interface AddProviderServiceAvailabilitiesRequest {
     data: Availability[];
 }
 
 
 // Provider profile details fetching api response type
-export type ProviderFetchProfileDetailsApiResponse = Pick<Provider, "username" | "email" | "isAdminVerified" | "isBlocked" | "isEmailVerified" | "phone" | "createdAt" | "trustedBySlotflow">;
+export type ProviderFetchProfileDetailsResponse = Pick<Provider, "username" | "email" | "isAdminVerified" | "isBlocked" | "isEmailVerified" | "phone" | "createdAt" | "trustedBySlotflow">;
 
 
 // Provider details fetching api response type
-export type ProviderFetchAddressApiResponseProps = Pick<Address, "_id" | "addressLine" | "phone" | "place" | "city" | "district" | "pincode" | "state" | "country" | "googleMapLink">;
+export type ProviderFetchAddressResponse = Pick<Address, "_id" | "addressLine" | "phone" | "place" | "city" | "district" | "pincode" | "state" | "country" | "googleMapLink">;
 
 
 // Provider service details api response interface
-type FetchServiceDetailsApiResponse = Pick<ProviderService, "serviceName" | "serviceDescription" | "servicePrice" | "providerAdhaar" | "providerExperience" | "providerCertificateUrl">;
-export interface ProviderFetchServiceDetailsApiResponse extends FetchServiceDetailsApiResponse {
+type FetchServiceDetailsResponse = Pick<ProviderService, "serviceName" | "serviceDescription" | "servicePrice" | "providerAdhaar" | "providerExperience" | "providerCertificateUrl">;
+export interface ProviderFetchServiceDetailsResponse extends FetchServiceDetailsResponse {
     serviceCategory: Pick<Service, "serviceName">
 }
 
 
 // Provider service availability api response type
-export type ProviderFetchServiceAvailabilityApiResponse = AvailabilityForResponse;
+export type ProviderFetchServiceAvailabilityResponse = AvailabilityForResponse;
 
 
 // Provider profile image updating api request payload interface
-export interface ProviderUpdateProfileImageApiResponse extends CommonResponse, Pick<Provider, "profileImage"> {
+export interface ProviderUpdateProfileImageResponse extends CommonResponse, Pick<Provider, "profileImage"> {
 }
 
 
 // Provider fetch plans api response  type
-export type ProviderFetchPlansApiResponse = Pick<Plan, "_id" | "planName" | "price" | "features" | "description">;
+export type ProviderFetchPlansResponse = Pick<Plan, "_id" | "planName" | "price" | "features" | "description">;
 
 
 // Provider subscribe to a plan api request payload
-export type ProviderSubscribeToPlanApiRequestPayload = {
+export type ProviderSubscribeToPlanRequest = {
     planId: Plan["_id"];
     planDuration: string
 }
 // Provider subscribe to a plan api response interface
-export interface ProviderSubscribeToPlanApiResponse extends CommonResponse {
+export interface ProviderSubscribeToPlanResponse extends CommonResponse {
     sessionId: string
 }
 
@@ -67,17 +65,15 @@ export interface ProviderSubscribeToPlanApiResponse extends CommonResponse {
 
 
 
-// Provider fetch all payments response type
-export type ProviderFetchPaymentsApiResponse = Pick<Payment, "_id" | "createdAt" | "totalAmount" | "paymentFor" | "paymentMethod" | "paymentGateway" | "paymentStatus" | "discountAmount">
 
 
 // Provider fetch all appointmets response type
-export type ProviderFetchBookingAppointmentsApiResponse = Pick<Booking, "_id" | "appointmentDate" | "appointmentMode" | "appointmentStatus" | "appointmentTime" | "createdAt">;
+export type ProviderFetchBookingAppointmentsResponse = Pick<Booking, "_id" | "appointmentDate" | "appointmentMode" | "appointmentStatus" | "appointmentTime" | "createdAt">;
 
 
 // Provider update providerInfo [username and phone] request payload
-export type ProviderUpdateProviderInfoRequestPayload = Pick<Provider, "username" | "phone">
+export type ProviderUpdateProviderInfoRequest = Pick<Provider, "username" | "phone">
 // Provider update providerInfo [username and phone] response interface 
-export interface ProviderUpdateProviderInfoResponse extends CommonResponse, ProviderUpdateProviderInfoRequestPayload {
+export interface ProviderUpdateProviderInfoResponse extends CommonResponse, ProviderUpdateProviderInfoRequest {
 
 }

@@ -9,7 +9,6 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 import { DropDownItemApproveProvider, DropDownItemChangeProviderBlockStatus, DropDownItemChangeProviderTrustTag, DropDownItemGetProviderDetailPage } from "../adminTableOptions/AdminProviderTableOptions";
 import { AdminFetchAllProvidersResponse } from "@/utils/interface/api/adminProviderApiInterface";
 import { AdminfetchAllUsersResponse } from "@/utils/interface/api/adminUserApiInterface";
-import { AdminFetchAllPaymentsResponse } from "@/utils/interface/api/adminPaymentInterfac";
 import { AdminFetchAllPlansResponse } from "@/utils/interface/api/adminPlanApiInterface";
 import { AdminFetchAllServicesApiResponse } from "@/utils/interface/api/adminServiceApiInterface";
 
@@ -235,39 +234,6 @@ export const AdminPlansTableColumns: ColumnDef<AdminFetchAllPlansResponse>[] = [
         </DropdownMenu>
       )
     },
-  }
-]
-
-export const AdminAllPaymentsTableColumns: ColumnDef<AdminFetchAllPaymentsResponse>[] = [
-  {
-    accessorKey: "paymentStatus",
-    header: ({ column }) => (<DataTableColumnHeader column={column} title="Status" />)
-  },
-  {
-    accessorKey: "paymentFor",
-    header: ({ column }) => (<DataTableColumnHeader column={column} title="Paid For" />)
-  },
-  {
-    accessorKey: "createdAt",
-    header: ({ column }) => (<DataTableColumnHeader column={column} title="Paid On" />),
-    cell: ({ row }) => {
-      const createdAt = row.getValue("createdAt");
-      const formattedDate = createdAt ? (new Date(createdAt as Date), "dd MMM yyyy") : "N/A";
-      return <span>{formattedDate}</span>;
-    }
-
-  },
-  {
-    accessorKey: "paymentGateway",
-    header: ({ column }) => (<DataTableColumnHeader column={column} title="Gateway" />)
-  },
-  {
-    accessorKey: "paymentMethod",
-    header: ({ column }) => (<DataTableColumnHeader column={column} title="Method" />)
-  },
-  {
-    accessorKey: "totalAmount",
-    header: ({ column }) => (<DataTableColumnHeader column={column} title="Amount" />)
   }
 ]
 

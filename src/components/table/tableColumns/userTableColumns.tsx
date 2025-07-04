@@ -1,10 +1,9 @@
-import { format } from "date-fns";
 import { Button } from "../../ui/button";
 import { MoreHorizontal } from "lucide-react";
 import { ColumnDef } from "@tanstack/react-table";
 import { DataTableColumnHeader } from "../DataTableColumnHeader";
+import { UserBookingsTableColumnsProps } from "@/utils/interface/tableColumnInterface";
 import { DropDownMenuItemUserCancelBooking } from "../userTableOptions/UserBookingTableOptions";
-import { UserBookingsTableColumnsProps, UserPaymentsTableColumnsProps } from "@/utils/interface/tableColumnInterface";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../../ui/dropdown-menu";
 
 export const userAllBookingsTableColumns: ColumnDef<UserBookingsTableColumnsProps>[] = [
@@ -13,7 +12,7 @@ export const userAllBookingsTableColumns: ColumnDef<UserBookingsTableColumnsProp
     header: ({ column }) => (<DataTableColumnHeader column={column} title="Date" />),
     cell: ({ row }) => {
         const createdAt = row.getValue("appointmentDate");
-        const date = format(new Date(createdAt as Date), "dd MMM yyyy");
+        const date = (new Date(createdAt as Date), "dd MMM yyyy");
         return <span>{date}</span>;
       }
   },
@@ -34,7 +33,7 @@ export const userAllBookingsTableColumns: ColumnDef<UserBookingsTableColumnsProp
     header: ({ column }) => (<DataTableColumnHeader column={column} title="Booked On" />),
     cell: ({ row }) => {
       const createdAt = row.getValue("createdAt");
-      const date = format(new Date(createdAt as Date), "dd MMM yyyy");
+      const date = (new Date(createdAt as Date), "dd MMM yyyy");
       return <span>{date}</span>;
     }
   },
@@ -63,40 +62,4 @@ export const userAllBookingsTableColumns: ColumnDef<UserBookingsTableColumnsProp
       )
     },
   }
-]
-
-export const UserPaymentsTableColumns: ColumnDef<UserPaymentsTableColumnsProps>[] = [
-  {
-    accessorKey: "createdAt",
-    header: ({ column }) => (<DataTableColumnHeader column={column} title="Paid on" />),
-    cell: ({ row }) => {
-      const createdAt = row.getValue("createdAt");
-      const formattedDate = createdAt ? format(new Date(createdAt as Date), "dd MMM yyyy") : "N/A";
-      return <span>{formattedDate}</span>;
-    }
-  },
-  {
-    accessorKey: "totalAmount",
-    header: ({ column }) => (<DataTableColumnHeader column={column} title="Total" />)
-  },
-  {
-    accessorKey: "discountAmount",
-    header: ({ column }) => (<DataTableColumnHeader column={column} title="Discont" />)
-  },
-  {
-    accessorKey: "paymentFor",
-    header: ({ column }) => (<DataTableColumnHeader column={column} title="Category" />)
-  },
-  {
-    accessorKey: "paymentGateway",
-    header: ({ column }) => (<DataTableColumnHeader column={column} title="Gateway" />)
-  },
-  {
-    accessorKey: "paymentMethod",
-    header: ({ column }) => (<DataTableColumnHeader column={column} title="Method" />)
-  },
-  {
-    accessorKey: "paymentStatus",
-    header: ({ column }) => (<DataTableColumnHeader column={column} title="Status" />)
-  },
 ]

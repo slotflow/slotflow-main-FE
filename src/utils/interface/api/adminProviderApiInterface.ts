@@ -1,5 +1,4 @@
 import { Address } from "../entityInterface/addressInterface";
-import { Payment } from "../entityInterface/paymentInterface";
 import { Provider } from "../entityInterface/providerInterface";
 import { Service } from "../entityInterface/appServiceInterface";
 import { ProviderService } from "../entityInterface/providerServiceInterface";
@@ -98,9 +97,6 @@ export type AdminFetchProviderAvailabilityResponse = AvailabilityForResponse;
 
 
 
-// **** adminFetchProviderServiceAvailability
-// Used as the response type for Admin fetch provider payments
-// Used in adminProviderApi, AmindProviderPayments
-export type AdminFetchProviderPaymentsResponse = Pick<Payment,  "_id" | "createdAt" | "totalAmount" | "paymentFor" | "paymentMethod" | "paymentGateway" | "paymentStatus" | "discountAmount">;
+
 
 

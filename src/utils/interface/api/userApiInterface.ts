@@ -2,7 +2,6 @@ import { CommonResponse } from "../commonInterface";
 import { User } from "../entityInterface/userInterface";
 import { Address } from "../entityInterface/addressInterface";
 import { Booking } from "../entityInterface/bookingInterface";
-import { Payment } from "../entityInterface/paymentInterface";
 import { Provider } from "../entityInterface/providerInterface";
 import { Service } from "../entityInterface/appServiceInterface";
 import { ProviderService } from "../entityInterface/providerServiceInterface";
@@ -80,8 +79,6 @@ export interface UserBookAppointmentApiResponse extends CommonResponse {
 export type UserFetchBookingsApiResponse = Pick<Booking, "_id" | "appointmentDate" | "appointmentMode" | "appointmentStatus" | "appointmentTime" | "createdAt">;
 
 
-// user fetch payments response type
-export type UserFetchPaymentsApiResponse = Pick<Payment, "_id" | "createdAt" | "totalAmount" | "paymentFor" | "paymentMethod" | "paymentGateway" | "paymentStatus" | "discountAmount">;
 
 
 // user cancel booking response interface
