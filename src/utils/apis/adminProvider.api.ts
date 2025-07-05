@@ -14,26 +14,26 @@ import {
 } from "../interface/api/adminProviderApiInterface";
 import { buildQueryParams, parseNewCommonResponse } from "../helper";
 import { Provider } from "../interface/entityInterface/providerInterface";
-import { FetchFunctionParams, NewCommonResponse } from "../interface/commonInterface";
+import { FetchFunctionParams, ApiResponsePaginated } from "../interface/commonInterface";
 import { FetchPaymentsResponse, FetchProviderSubscriptionsResponse } from "../interface/api/commonApiInterface";
 
-export const adminFetchAllProviders = async (params?: FetchFunctionParams): Promise<NewCommonResponse<AdminFetchAllProvidersResponse>> => {
+export const adminFetchAllProviders = async (params?: FetchFunctionParams): Promise<ApiResponsePaginated<AdminFetchAllProvidersResponse>> => {
     const query = buildQueryParams(params);
     const response = await axiosInstance.get(`/admin/providers${query ? `?${query}` : ''}`);
     return parseNewCommonResponse<AdminFetchAllProvidersResponse>(response.data);
 };
 
-export const adminApproveProvider = async (data : {providerId : Provider["_id"]}): Promise<NewCommonResponse<AdminApproveProviderResponse>> => {
+export const adminApproveProvider = async (data : {providerId : Provider["_id"]}): Promise<ApiResponsePaginated<AdminApproveProviderResponse>> => {
     const response = await axiosInstance.patch(`/admin/approveProvider`, {data});
     return response.data;
 }
 
-export const adminChangeProviderBlockStatus = async (data: AdminChangeProviderBlockStatusRequest): Promise<NewCommonResponse<AdminChangeProviderBlockStatusResponse>> => {
+export const adminChangeProviderBlockStatus = async (data: AdminChangeProviderBlockStatusRequest): Promise<ApiResponsePaginated<AdminChangeProviderBlockStatusResponse>> => {
     const response = await axiosInstance.patch(`/admin/changeProviderBlockStatus`, data);
     return response.data;
 }
 
-export const adminChangeProviderTrustTag = async (data: AdminChangeProviderTrustTagRequest): Promise<NewCommonResponse<AdminChangeProviderTrustTagResponse>> => {
+export const adminChangeProviderTrustTag = async (data: AdminChangeProviderTrustTagRequest): Promise<ApiResponsePaginated<AdminChangeProviderTrustTagResponse>> => {
     const response = await axiosInstance.patch(`/admin/changeProvidertrustedTag`, data);
     return response.data;
 }
@@ -62,14 +62,14 @@ export const adminFetchProviderServiceAvailability = async ({date, providerId}: 
     return response.data.data;
 }
 
-export const adminFetchProviderSubscriptions = async (params: FetchFunctionParams<Provider["_id"]>) : Promise<NewCommonResponse<FetchProviderSubscriptionsResponse>> => {
+export const adminFetchProviderSubscriptions = async (params: FetchFunctionParams<Provider["_id"]>) : Promise<ApiResponsePaginated<FetchProviderSubscriptionsResponse>> => {
     const { id, pagination } = params;
     const query = buildQueryParams({ pagination });
     const response = await axiosInstance.get(`/admin/fetchProviderSubscriptions/${id}${query ? `?${query}` : ''}`);
     return parseNewCommonResponse<FetchProviderSubscriptionsResponse>(response.data);
 }
 
-export const adminFetchProviderPayments = async (params: FetchFunctionParams<Provider["_id"]>): Promise<NewCommonResponse<FetchPaymentsResponse>> => {
+export const adminFetchProviderPayments = async (params: FetchFunctionParams<Provider["_id"]>): Promise<ApiResponsePaginated<FetchPaymentsResponse>> => {
     const { id, pagination } = params;
     const query = buildQueryParams({ pagination });
     const response = await axiosInstance.get(`/admin/fetchProviderPayments/${id}${query ? `?${query}` : ''}`);

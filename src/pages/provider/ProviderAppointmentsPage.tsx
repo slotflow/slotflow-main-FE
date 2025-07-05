@@ -5,7 +5,7 @@ import { ProviderAppointmentsBookingTableColumns } from '@/components/table/tabl
 
 const ProviderAppointmentsPage = () => {
   return (
-    <CommonTable<ProviderFetchBookingAppointmentsResponse, ProviderFetchBookingAppointmentsResponse>
+    <CommonTable<ProviderFetchBookingAppointmentsResponse>
       fetchApiFunction={providerFetchBookingAppoinments}
       queryKey='appointments'
       heading='Appointments'

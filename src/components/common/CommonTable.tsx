@@ -6,7 +6,7 @@ import TableShimmer from "../shimmers/TableShimmer";
 import { OnChangeFn, PaginationState } from "@tanstack/react-table";
 import { CommonTableComponentProps } from "@/utils/interface/commonInterface";
 
-const CommonTable = <TData extends TColumn, TColumn>({
+const CommonTable = <T,>({
   fetchApiFunction,
   queryKey,
   heading,
@@ -15,7 +15,7 @@ const CommonTable = <TData extends TColumn, TColumn>({
   columnsCount,
   id,
   pageSize = 5,
-}: CommonTableComponentProps<TData, TColumn>) => {
+}: CommonTableComponentProps<T>) => {
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
     pageSize: pageSize,

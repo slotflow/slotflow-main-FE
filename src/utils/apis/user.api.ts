@@ -1,6 +1,6 @@
 import axiosInstance from "@/lib/axios"
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { CommonResponse, FetchFunctionParams, NewCommonResponse } from "../interface/commonInterface";
+import { CommonResponse, FetchFunctionParams, ApiResponsePaginated } from "../interface/commonInterface";
 import { 
     UserCancelBookingResponse, 
     UserFetchBookingsResponse, 
@@ -90,7 +90,7 @@ export const userSaveAppointmentBooking = async (sessionId: string) : Promise<Co
     return response.data;
 }
 
-export const userFetchBookings = async (params?: FetchFunctionParams) : Promise<NewCommonResponse<UserFetchBookingsResponse>> => {
+export const userFetchBookings = async (params?: FetchFunctionParams) : Promise<ApiResponsePaginated<UserFetchBookingsResponse>> => {
     const query = buildQueryParams(params);
     const response = await axiosInstance.get(`/user/getBookings${query ? `?${query}` : ''}`);
     return parseNewCommonResponse<UserFetchBookingsResponse>(response.data);
@@ -102,7 +102,7 @@ export const userCancelBooking = async (bookingId: Booking["_id"]) : Promise<Use
     return response.data;
 }
 
-export const userFetchPayments = async (params?: FetchFunctionParams) : Promise<NewCommonResponse<FetchPaymentsResponse>> => {
+export const userFetchPayments = async (params?: FetchFunctionParams) : Promise<ApiResponsePaginated<FetchPaymentsResponse>> => {
     const query = buildQueryParams(params);
     const response = await axiosInstance.get(`/user/getPayments${query ? `?${query}` : ''}`);
     return parseNewCommonResponse<FetchPaymentsResponse>(response.data);

@@ -17,7 +17,7 @@ import {
 } from "../interface/api/providerApiInterface";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { buildQueryParams, parseNewCommonResponse } from "../helper";
-import { CommonResponse, FetchFunctionParams, NewCommonResponse } from "../interface/commonInterface";
+import { CommonResponse, FetchFunctionParams, ApiResponsePaginated } from "../interface/commonInterface";
 import { FetchPaymentsResponse, FetchProviderSubscriptionsResponse } from "../interface/api/commonApiInterface";
 
 // Create asyn thunk for updating the authSlice with address: true
@@ -97,7 +97,7 @@ export const providerSaveSubscription = async (sessionId: string): Promise<Commo
     return response.data;
 }
 
-export const providerFetchProviderSubscriptions = async (params?: FetchFunctionParams): Promise<NewCommonResponse<FetchProviderSubscriptionsResponse>> => {
+export const providerFetchProviderSubscriptions = async (params?: FetchFunctionParams): Promise<ApiResponsePaginated<FetchProviderSubscriptionsResponse>> => {
     const query = buildQueryParams(params);
     const response = await axiosInstance.get(`/provider/getSubscriptions${query ? `?${query}` : ''}`);
     return parseNewCommonResponse<FetchProviderSubscriptionsResponse>(response.data);
@@ -108,13 +108,13 @@ export const providerSubscribeToTrialPlan = async (): Promise<CommonResponse> =>
     return response.data;
 }
 
-export const providerFetchProviderPayments = async (params?: FetchFunctionParams): Promise<NewCommonResponse<FetchPaymentsResponse>> => {
+export const providerFetchProviderPayments = async (params?: FetchFunctionParams): Promise<ApiResponsePaginated<FetchPaymentsResponse>> => {
     const query = buildQueryParams(params);
     const response = await axiosInstance.get(`/provider/getPayments${query ? `?${query}` : ''}`);
     return parseNewCommonResponse<FetchPaymentsResponse>(response.data);
 }
 
-export const providerFetchBookingAppoinments = async (params?: FetchFunctionParams): Promise<NewCommonResponse<ProviderFetchBookingAppointmentsResponse>> => {
+export const providerFetchBookingAppoinments = async (params?: FetchFunctionParams): Promise<ApiResponsePaginated<ProviderFetchBookingAppointmentsResponse>> => {
     const query = buildQueryParams(params);
     const response = await axiosInstance.get(`/provider/getBookingAppointments${query ? `?${query}` : ''}`);
     return parseNewCommonResponse<ProviderFetchBookingAppointmentsResponse>(response.data);

@@ -1,10 +1,10 @@
-import { ColumnDef } from "@tanstack/react-table";
 import { ChangeEvent } from "react";
+import { ColumnDef } from "@tanstack/react-table";
 
 // ****************** Common Response ******************
 export interface CommonResponse {
-  success: boolean;
-  message: string;
+  success?: boolean;
+  message?: string;
 }
 
 
@@ -226,21 +226,20 @@ export type HandleRoleSelectionFunction = (url: string) => void;
 
 
 // ****************** Common Table compoenent  ******************
-export interface NewCommonResponse<T> {
-  data?: T[] | T;
+
+export interface ApiResponsePaginated<T> extends CommonResponse {
+  data?: T[];
   totalCount?: number;
   currentPage?: number;
   totalPages?: number;
-  success?: boolean;
-  message?: string;
 }
 
-export interface CommonTableComponentProps<TData, TColumn> {
-  fetchApiFunction: (params?: FetchFunctionParams) => Promise<NewCommonResponse<TData>>;
+export interface CommonTableComponentProps<T> {
+  fetchApiFunction: (params?: FetchFunctionParams) => Promise<ApiResponsePaginated<T>>;
   queryKey: string;
   heading?: string;
   headingClassName?: string;
-  column: ColumnDef<TColumn>[];
+  column: ColumnDef<T>[];
   columnsCount: number;
   id?: string;
   pageSize?: number;

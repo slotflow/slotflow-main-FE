@@ -5,7 +5,7 @@ import { ProvidersSubscriptionsTableColumns } from '../table/tableColumns/common
 
 const ProviderSubscriptionHistory = () => {
     return (
-        <CommonTable<FetchProviderSubscriptionsResponse, FetchProviderSubscriptionsResponse>
+        <CommonTable<FetchProviderSubscriptionsResponse>
             fetchApiFunction={providerFetchProviderSubscriptions}
             queryKey='subscriptions'
             heading='Subscription History'

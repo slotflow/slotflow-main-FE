@@ -6,7 +6,7 @@ import { ProvidersSubscriptionsTableColumns } from '@/components/table/tableColu
 const AdminSubscriptionsPage = () => {
 
     return (
-        <CommonTable<FetchProviderSubscriptionsResponse, FetchProviderSubscriptionsResponse>
+        <CommonTable<FetchProviderSubscriptionsResponse>
             fetchApiFunction={adminFetchAllSubscriptions}
             queryKey="subscription"
             heading="Subscription"

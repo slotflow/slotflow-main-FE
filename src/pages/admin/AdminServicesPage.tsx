@@ -10,7 +10,7 @@ const AdminServicesPage = () => {
     <>
       <div className='flex'>
         <div className='w-8/12'>
-          <CommonTable<AdminFetchAllServicesResponse, AdminFetchAllServicesResponse>
+          <CommonTable<AdminFetchAllServicesResponse>
             fetchApiFunction={adminFetchAllServices}
             queryKey="appServices"
             heading="Services"

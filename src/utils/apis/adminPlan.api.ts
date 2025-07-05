@@ -7,9 +7,9 @@ import {
     AdminChangePlanBlockStatusRequest,
 } from "../interface/api/adminPlanApiInterface";
 import { buildQueryParams, parseNewCommonResponse } from "../helper";
-import { FetchFunctionParams, NewCommonResponse } from "../interface/commonInterface";
+import { FetchFunctionParams, ApiResponsePaginated } from "../interface/commonInterface";
 
-export const adminFetchAllPlans = async (params?: FetchFunctionParams): Promise<NewCommonResponse<AdminFetchAllPlansResponse>> => {
+export const adminFetchAllPlans = async (params?: FetchFunctionParams): Promise<ApiResponsePaginated<AdminFetchAllPlansResponse>> => {
     const query = buildQueryParams(params);
     const response = await axiosInstance.get(`/admin/plans${query ? `?${query}` : ''}`);
     return parseNewCommonResponse<AdminFetchAllPlansResponse>(response.data);

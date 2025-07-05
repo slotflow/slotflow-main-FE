@@ -8,7 +8,7 @@ const AdminProviderPayments: React.FC<AdminFetchProviderPaymentsComponentProps> 
 
     return (
         <div className="p-6">
-            <CommonTable<FetchPaymentsResponse, FetchPaymentsResponse>
+            <CommonTable<FetchPaymentsResponse>
                 fetchApiFunction={() => adminFetchProviderPayments({ id: providerId, pagination: { page: 1, limit: 10 } })}
                 queryKey="providerPayments"
                 column={PaymentsTableColumns}
