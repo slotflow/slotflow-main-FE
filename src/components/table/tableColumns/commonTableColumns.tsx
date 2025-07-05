@@ -1,3 +1,4 @@
+import { format } from "date-fns";
 import { Button } from "../../ui/button";
 import { MoreHorizontal } from "lucide-react";
 import { ColumnDef } from "@tanstack/react-table";
@@ -21,7 +22,7 @@ export const ProvidersSubscriptionsTableColumns: ColumnDef<FetchProviderSubscrip
     header: ({ column }) => (<DataTableColumnHeader column={column} title="Start Date" />),
     cell: ({ row }) => {
       const startDate = row.getValue("startDate");
-      const formattedDate = startDate ? (new Date(startDate as Date), "dd MMM yyyy") : "N/A";
+      const formattedDate = startDate ? format(new Date(startDate as Date), "dd MMM yyyy") : "N/A";
       return <span>{formattedDate}</span>;
     }
 
@@ -31,7 +32,7 @@ export const ProvidersSubscriptionsTableColumns: ColumnDef<FetchProviderSubscrip
     header: ({ column }) => (<DataTableColumnHeader column={column} title="Expires on" />),
     cell: ({ row }) => {
       const endDate = row.getValue("endDate");
-      const formattedDate = endDate ? (new Date(endDate as Date), "dd MMM yyyy") : "N/A";
+      const formattedDate = endDate ? format(new Date(endDate as Date), "dd MMM yyyy") : "N/A";
       return <span>{formattedDate}</span>;
     }
 
@@ -73,7 +74,7 @@ export const PaymentsTableColumns: ColumnDef<FetchPaymentsResponse>[] = [
     header: ({ column }) => (<DataTableColumnHeader column={column} title="Paid on" />),
     cell: ({ row }) => {
       const createdAt = row.getValue("createdAt");
-      const formattedDate = createdAt ? (new Date(createdAt as Date), "dd MMM yyyy") : "N/A";
+      const formattedDate = createdAt ? format(new Date(createdAt as Date), "dd MMM yyyy") : "N/A";
       return <span>{formattedDate}</span>;
     }
   },

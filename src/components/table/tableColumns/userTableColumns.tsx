@@ -1,3 +1,4 @@
+import { format } from "date-fns";
 import { Button } from "../../ui/button";
 import { MoreHorizontal } from "lucide-react";
 import { ColumnDef } from "@tanstack/react-table";
@@ -12,7 +13,7 @@ export const userAllBookingsTableColumns: ColumnDef<UserFetchBookingsResponse>[]
     header: ({ column }) => (<DataTableColumnHeader column={column} title="Date" />),
     cell: ({ row }) => {
         const createdAt = row.getValue("appointmentDate");
-        const date = (new Date(createdAt as Date), "dd MMM yyyy");
+        const date = format(new Date(createdAt as Date), "dd MMM yyyy");
         return <span>{date}</span>;
       }
   },
@@ -33,7 +34,7 @@ export const userAllBookingsTableColumns: ColumnDef<UserFetchBookingsResponse>[]
     header: ({ column }) => (<DataTableColumnHeader column={column} title="Booked On" />),
     cell: ({ row }) => {
       const createdAt = row.getValue("createdAt");
-      const date = (new Date(createdAt as Date), "dd MMM yyyy");
+      const date = format(new Date(createdAt as Date), "dd MMM yyyy");
       return <span>{date}</span>;
     }
   },

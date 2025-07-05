@@ -1,9 +1,10 @@
+import { format } from "date-fns";
 import { Button } from "../../ui/button";
 import { MoreHorizontal } from "lucide-react";
 import { ColumnDef } from "@tanstack/react-table";
 import { DataTableColumnHeader } from "../DataTableColumnHeader";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../../ui/dropdown-menu";
 import { ProviderFetchBookingAppointmentsResponse } from "@/utils/interface/api/providerApiInterface";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../../ui/dropdown-menu";
 
 export const ProviderAppointmentsBookingTableColumns: ColumnDef<ProviderFetchBookingAppointmentsResponse>[] = [
   {
@@ -11,7 +12,7 @@ export const ProviderAppointmentsBookingTableColumns: ColumnDef<ProviderFetchBoo
       header: ({ column }) => (<DataTableColumnHeader column={column} title="Date" />),
       cell: ({ row }) => {
           const createdAt = row.getValue("appointmentDate");
-          const date = (new Date(createdAt as Date), "dd MMM yyyy");
+          const date = format(new Date(createdAt as Date), "dd MMM yyyy");
           return <span>{date}</span>;
         }
     },
@@ -32,7 +33,7 @@ export const ProviderAppointmentsBookingTableColumns: ColumnDef<ProviderFetchBoo
       header: ({ column }) => (<DataTableColumnHeader column={column} title="Booked On" />),
       cell: ({ row }) => {
         const createdAt = row.getValue("createdAt");
-        const date = (new Date(createdAt as Date), "dd MMM yyyy");
+        const date = format(new Date(createdAt as Date), "dd MMM yyyy");
         return <span>{date}</span>;
       }
     },
