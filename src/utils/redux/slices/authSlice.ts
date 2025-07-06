@@ -22,6 +22,7 @@ const authSlice = createSlice({
             }
         },
         updateAuthUserName: (state, action: PayloadAction<string>) => {
+            console.log("action.payload :",action.payload)
             if(state.authUser) {
                 state.authUser.username = action.payload;
             }
@@ -35,7 +36,7 @@ const authSlice = createSlice({
             .addCase(providerUpdateProviderProfileImage.fulfilled, (state, action) => {
                 state.profileImageUpdating = false;
                 if(state.authUser){
-                    state.authUser.profileImage = action.payload.profileImage;
+                    state.authUser.profileImage = action.payload.data;
                 }
             })
             .addCase(providerUpdateProviderProfileImage.rejected, (state) => {
@@ -47,7 +48,7 @@ const authSlice = createSlice({
             .addCase(userUpdateUserProfileImage.fulfilled, (state, action) => {
                 state.profileImageUpdating = false;
                 if(state.authUser){
-                    state.authUser.profileImage = action.payload.profileImage;
+                    state.authUser.profileImage = action.payload.data;
                 }
             })
             .addCase(userUpdateUserProfileImage.rejected, (state) => {

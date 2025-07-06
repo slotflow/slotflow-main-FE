@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { FormButton, FormHeading } from "../FormSplits";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
 import React, { FormEvent, useCallback, useState } from "react";
-import { CommonResponse, SignUpFormDataProps, signUpProps } from "@/utils/interface/commonInterface";
+import { ApiBaseResponse, SignUpFormDataProps, signUpProps } from "@/utils/interface/commonInterface";
 import { setResetPasswordForm, setsignInForm, setSignUpForm, setVerifyEmailForm, setVerifyOtpForm, startTimer } from "@/utils/redux/slices/signFormSlice";
 
 
@@ -47,7 +47,7 @@ const SignUpForm: React.FC<signUpProps> = ({ role }) => {
                 role: role
             }))
                 .unwrap()
-                .then((res: CommonResponse) => {
+                .then((res: ApiBaseResponse) => {
                     if (res.success) {
                         toast.success(res.message);
                         dispatch(setSignUpForm(false));

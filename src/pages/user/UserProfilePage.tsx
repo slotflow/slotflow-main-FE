@@ -20,11 +20,11 @@ const UserProfilePage: React.FC = () => {
     <div className="min-h-full border border-[var(--boxBorder)] rounded-lg p-2 flex flex-col">
       <ProfileHead updateProfileImageApiFunction={userUpdateUserProfileImage} updation={true} />
       <UserOrProviderProfileDetails 
-      fetchApiFunction={userFetchUserProfileDetails} 
-      queryKey='profileDetails' 
-      userSelf 
-      shimmerRow={6} 
-      setData={setUserInfo}
+        fetchApiFunction={userFetchUserProfileDetails} 
+        queryKey='profileDetails' 
+        userSelf 
+        shimmerRow={6} 
+        setData={setUserInfo}
       />
       <CommonButton text={openUserInfoForm ? "Close" : "Update Info"} className="w-2/12 my-4" onClick={(e) => {
         e.preventDefault();

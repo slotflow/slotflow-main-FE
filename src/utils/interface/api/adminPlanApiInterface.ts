@@ -1,4 +1,4 @@
-import { CommonResponse } from "../commonInterface";
+import { ApiBaseResponse } from "../commonInterface";
 import { Plan } from "../entityInterface/planInterface";
 
 // Used as the return type for Admin Fetch All Plans API,
@@ -10,7 +10,7 @@ export type AdminFetchAllPlansResponse = Pick<Plan, "_id" | "planName" | "isBloc
 export type AdminAddNewPlanRequest = Pick<Plan,'planName' | 'description' | 'price' | 'features' | "maxBookingPerMonth" | "adVisibility">;
 // Admin add new plan api response interface
 type AddNewPlanResponseProps = Pick<Plan,"_id" | "planName" | "isBlocked" | "price" | "maxBookingPerMonth" | "adVisibility" >;
-export interface AdminAddNewPlanResponse extends CommonResponse {
+export interface AdminAddNewPlanResponse extends ApiBaseResponse {
     plan: AddNewPlanResponseProps
 }
 
@@ -22,6 +22,6 @@ export type AdminChangePlanBlockStatusRequest = {
 }
 // Admin chnage plan isBlocked status response interface
 type ChangePlanBlockStatusResponse = Pick<Plan, "_id" | "planName" | "isBlocked">;
-export interface AdminChangePlanBlockStatusResponse extends CommonResponse {
+export interface AdminChangePlanBlockStatusResponse extends ApiBaseResponse {
     updatedPlan : ChangePlanBlockStatusResponse;
 }

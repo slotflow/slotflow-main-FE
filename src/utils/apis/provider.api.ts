@@ -17,11 +17,11 @@ import {
 } from "../interface/api/providerApiInterface";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { buildQueryParams, parseNewCommonResponse } from "../helper";
-import { CommonResponse, FetchFunctionParams, ApiResponsePaginated } from "../interface/commonInterface";
+import { ApiBaseResponse, FetchFunctionParams, ApiPaginatedResponse } from "../interface/commonInterface";
 import { FetchPaymentsResponse, FetchProviderSubscriptionsResponse } from "../interface/api/commonApiInterface";
 
 // Create asyn thunk for updating the authSlice with address: true
-export const providerAddProviderAddress = createAsyncThunk<CommonResponse, ProviderAddProviderAddressRequest>("/provider/addAddress",
+export const providerAddProviderAddress = createAsyncThunk<ApiBaseResponse, ProviderAddProviderAddressRequest>("/provider/addAddress",
     async ({ formData }: ProviderAddProviderAddressRequest) => {
         const response = await axiosInstance.post(`/provider/addAddress`, formData);
         return response.data;
@@ -39,7 +39,7 @@ export const providerFetchAllAppServices = async (): Promise<ProviderFetchAllSer
 }
 
 // Create async thunk for upating authSlice serviceDetails: true
-export const providerAddProviderServiceDetails = createAsyncThunk<CommonResponse, { formData: FormData }>("/provider/addServiceDetails",
+export const providerAddProviderServiceDetails = createAsyncThunk<ApiBaseResponse, { formData: FormData }>("/provider/addServiceDetails",
     async ({ formData }: { formData: FormData }) => {
         const response = await axiosInstance.post(`/provider/addServiceDetails`, formData);
         return response.data;
@@ -52,7 +52,7 @@ export const providerFetchProviderServiceDetails = async (): Promise<ProviderFet
 }
 
 // Create async thunk for updating authSlice serviceAvailability: true
-export const providerAddProviderServiceAvailabilities = createAsyncThunk<CommonResponse, AddProviderServiceAvailabilitiesRequest>("/provider/addServiceAvailability",
+export const providerAddProviderServiceAvailabilities = createAsyncThunk<ApiBaseResponse, AddProviderServiceAvailabilitiesRequest>("/provider/addServiceAvailability",
     async ({ data }: AddProviderServiceAvailabilitiesRequest) => {
         const response = await axiosInstance.post(`/provider/addProviderServiceAvailability`, data);
         return response.data;
@@ -92,29 +92,29 @@ export const providerSubscribeToPlan = async (data: ProviderSubscribeToPlanReque
 }
 
 // This api will send the session id to backend and validate the sessionid and retrieve the subscription details
-export const providerSaveSubscription = async (sessionId: string): Promise<CommonResponse> => {
+export const providerSaveSubscription = async (sessionId: string): Promise<ApiBaseResponse> => {
     const response = await axiosInstance.post('/provider/saveSubscription', { sessionId });
     return response.data;
 }
 
-export const providerFetchProviderSubscriptions = async (params?: FetchFunctionParams): Promise<ApiResponsePaginated<FetchProviderSubscriptionsResponse>> => {
+export const providerFetchProviderSubscriptions = async (params?: FetchFunctionParams): Promise<ApiPaginatedResponse<FetchProviderSubscriptionsResponse>> => {
     const query = buildQueryParams(params);
     const response = await axiosInstance.get(`/provider/getSubscriptions${query ? `?${query}` : ''}`);
     return parseNewCommonResponse<FetchProviderSubscriptionsResponse>(response.data);
 }
 
-export const providerSubscribeToTrialPlan = async (): Promise<CommonResponse> => {
+export const providerSubscribeToTrialPlan = async (): Promise<ApiBaseResponse> => {
     const response = await axiosInstance.post('/provider/subscribeToTrialPlan');
     return response.data;
 }
 
-export const providerFetchProviderPayments = async (params?: FetchFunctionParams): Promise<ApiResponsePaginated<FetchPaymentsResponse>> => {
+export const providerFetchProviderPayments = async (params?: FetchFunctionParams): Promise<ApiPaginatedResponse<FetchPaymentsResponse>> => {
     const query = buildQueryParams(params);
     const response = await axiosInstance.get(`/provider/getPayments${query ? `?${query}` : ''}`);
     return parseNewCommonResponse<FetchPaymentsResponse>(response.data);
 }
 
-export const providerFetchBookingAppoinments = async (params?: FetchFunctionParams): Promise<ApiResponsePaginated<ProviderFetchBookingAppointmentsResponse>> => {
+export const providerFetchBookingAppoinments = async (params?: FetchFunctionParams): Promise<ApiPaginatedResponse<ProviderFetchBookingAppointmentsResponse>> => {
     const query = buildQueryParams(params);
     const response = await axiosInstance.get(`/provider/getBookingAppointments${query ? `?${query}` : ''}`);
     return parseNewCommonResponse<ProviderFetchBookingAppointmentsResponse>(response.data);

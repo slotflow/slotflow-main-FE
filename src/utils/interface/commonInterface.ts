@@ -2,9 +2,17 @@ import { ChangeEvent } from "react";
 import { ColumnDef } from "@tanstack/react-table";
 
 // ****************** Common Response ******************
-export interface CommonResponse {
+export interface ApiBaseResponse {
   success?: boolean;
   message?: string;
+}
+
+
+export interface ApiPaginatedResponse<T> extends ApiBaseResponse {
+  data?: T[];
+  totalCount?: number;
+  currentPage?: number;
+  totalPages?: number;
 }
 
 
@@ -226,16 +234,8 @@ export type HandleRoleSelectionFunction = (url: string) => void;
 
 
 // ****************** Common Table compoenent  ******************
-
-export interface ApiResponsePaginated<T> extends CommonResponse {
-  data?: T[];
-  totalCount?: number;
-  currentPage?: number;
-  totalPages?: number;
-}
-
 export interface CommonTableComponentProps<T> {
-  fetchApiFunction: (params?: FetchFunctionParams) => Promise<ApiResponsePaginated<T>>;
+  fetchApiFunction: (params?: FetchFunctionParams) => Promise<ApiPaginatedResponse<T>>;
   queryKey: string;
   heading?: string;
   headingClassName?: string;

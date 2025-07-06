@@ -1,4 +1,4 @@
-import { CommonResponse } from "../commonInterface";
+import { ApiBaseResponse } from "../commonInterface";
 import { Service } from "../entityInterface/appServiceInterface";
 
 
@@ -16,7 +16,7 @@ export type AdminFetchAllServicesResponse = BasicAppServiceInfo;
 
 // ---------------------- Admin add new app service ----------------------
 // Admin add new app service api response interface
-export interface AdminAddNewServiceResponse extends CommonResponse {
+export interface AdminAddNewServiceResponse extends ApiBaseResponse {
     service: BasicAppServiceInfo
 }
 
@@ -28,6 +28,6 @@ export type AdminChangeServiceBlockStatusRequest = {
     isBlocked: Service["isBlocked"];
 }
 // Admin change service block status api response interface interface
-export interface AdminChangeServiceBlockStatusResponse extends CommonResponse {
+export interface AdminChangeServiceBlockStatusResponse extends ApiBaseResponse {
     updatedService: BasicAppServiceInfo;
 }

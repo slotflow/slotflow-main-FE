@@ -44,13 +44,13 @@ const UserPaymentSelection: React.FC<UserPaymentSelect> = ({ modes, setOpenPayme
 
         try {
             setPaymentLoading(true);
-            const { sessionId } = await userBookAnAppointment(data);
+            const response = await userBookAnAppointment(data);
+            const sessionId = response.data
             if (!sessionId) {
                 toast.error("Failed to create checkout session.");
                 setPaymentLoading(false);
                 return;
             }
-
             setPaymentLoading(false);
             setOpenPayment(false);
             const result = await stripe.redirectToCheckout({ sessionId });

@@ -7,7 +7,7 @@ import { UserData } from "@/utils/interface/sliceInterface";
 import { resendOtp, verifyOtp } from "@/utils/apis/auth.api";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
 import React, { FormEvent, useCallback, useEffect, useState } from "react";
-import { CommonResponse, HandleChangeFunction, OtpVerificationFormData, SignFormUseSelectorProps } from "@/utils/interface/commonInterface";
+import { ApiBaseResponse, HandleChangeFunction, OtpVerificationFormData, SignFormUseSelectorProps } from "@/utils/interface/commonInterface";
 import { setResetPasswordForm, setsignInForm, setSignUpForm, setVerifyEmailForm, setVerifyOtpForm, stopTimer, updateTimer } from "@/utils/redux/slices/signFormSlice";
 
 const OtpVerificatioForm: React.FC = () => {
@@ -48,7 +48,7 @@ const OtpVerificatioForm: React.FC = () => {
         if (verificationToken && role) {
             dispatch(verifyOtp({ otp: formData.otp, verificationToken, role }))
                 .unwrap()
-                .then((res: CommonResponse) => {
+                .then((res: ApiBaseResponse) => {
                     if (res.success) {
                         toast.success(res.message);
                         dispatch(stopTimer());

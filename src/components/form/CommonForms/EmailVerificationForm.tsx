@@ -6,7 +6,7 @@ import { FormButton, FormHeading } from '../FormSplits';
 import { FormEvent, useCallback, useState } from 'react';
 import { AppDispatch, RootState } from '@/utils/redux/appStore';
 import { setResetPasswordForm, setsignInForm, setSignUpForm, setVerifyEmailForm, setVerifyOtpForm } from '@/utils/redux/slices/signFormSlice';
-import { CommonResponse, EmailVerificationFormData, EmailVerificationFormProps, HandleChangeFunction } from '@/utils/interface/commonInterface';
+import { ApiBaseResponse, EmailVerificationFormData, EmailVerificationFormProps, HandleChangeFunction } from '@/utils/interface/commonInterface';
 
 const EmailVerificationForm: React.FC<EmailVerificationFormProps> = ({role}) => {
 
@@ -32,7 +32,7 @@ const EmailVerificationForm: React.FC<EmailVerificationFormProps> = ({role}) => 
         if (role) {
             dispatch(resendOtp({ role, email: formData.email }))
                 .unwrap()
-                .then((res: CommonResponse) => {
+                .then((res: ApiBaseResponse) => {
                     if (res.success) {
                         toast.success(res.message);
                         dispatch(setVerifyOtpForm(true));

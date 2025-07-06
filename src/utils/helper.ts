@@ -1,4 +1,4 @@
-import { FetchFunctionParams, ApiResponsePaginated } from "./interface/commonInterface";
+import { FetchFunctionParams, ApiPaginatedResponse } from "./interface/commonInterface";
 
 // **** Time formating function for otp page **** \\
 export const formatTime = (seconds: number): string => {
@@ -88,7 +88,7 @@ export const buildQueryParams = (params?: Omit<FetchFunctionParams, 'id'>): stri
 };
 
 // **** Function for returing data from pagination included apis **** \\
-export const parseNewCommonResponse = <T>(res: ApiResponsePaginated<T>): ApiResponsePaginated<T> => {
+export const parseNewCommonResponse = <T>(res: ApiPaginatedResponse<T>): ApiPaginatedResponse<T> => {
   return {
     data: res.data,
     totalCount: res.totalCount,

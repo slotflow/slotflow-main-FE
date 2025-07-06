@@ -1,6 +1,7 @@
 import { Loader } from 'lucide-react';
 import { toast } from 'react-toastify';
 import CommonButton from './CommonButton';
+import { PhoneInput } from '../form/phone-input';
 import InputField from '../form/InputFieldWithLable';
 import { useDispatch, useSelector } from 'react-redux';
 import { userUpdateUserInfo } from '@/utils/apis/user.api';
@@ -10,7 +11,7 @@ import { updateAuthUserName } from '@/utils/redux/slices/authSlice';
 import { FormEvent, useCallback, useEffect, useState } from 'react';
 import { providerUpdateProviderInfo } from '@/utils/apis/provider.api';
 import { HandleChangeFunction } from '@/utils/interface/commonInterface';
-import { PhoneInput } from '../form/phone-input';
+import { UserUpdateUserInfoResponse } from '@/utils/interface/api/userApiInterface';
 
 interface UserInfoAddingOrUpdatingComponentInterface {
     title: string;
@@ -72,13 +73,13 @@ const UserInfoAddingOrUpdating: React.FC<UserInfoAddingOrUpdatingComponentInterf
                 return;
             }
 
-            const data = await updateFn({
+            const data: UserUpdateUserInfoResponse = await updateFn({
                 username: formData.username,
                 phone: formData.phone,
             });
 
             if (data.success) {
-                dispatch(updateAuthUserName(data.username));
+                dispatch(updateAuthUserName(data.data.username));
                 setOpenUserInfoForm(false);
                 toast.success(data.message || "Info updated successfully");
             } else {
@@ -129,17 +130,6 @@ const UserInfoAddingOrUpdating: React.FC<UserInfoAddingOrUpdatingComponentInterf
                             required
                         />
                     </div>
-                    {/* <InputField
-                        label="Phone"
-                        id="phone"
-                        placeholder="phone"
-                        type="text"
-                        value={formData.phone}
-                        onChange={handleChange}
-                        required={true}
-                        isPassword={false}
-                        onHasError={handleErrorChange}
-                    /> */}
                     <CommonButton text='Update' type='submit' className='my-4' />
                 </form>
             ) : (

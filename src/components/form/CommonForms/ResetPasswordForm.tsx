@@ -6,7 +6,7 @@ import { FormButton, FormHeading } from "../FormSplits";
 import { UserData } from "@/utils/interface/sliceInterface";
 import React, { FormEvent, useCallback, useState } from "react";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
-import { CommonResponse, HandleChangeFunction, PasswordResetFormDataProps } from "@/utils/interface/commonInterface";
+import { ApiBaseResponse, HandleChangeFunction, PasswordResetFormDataProps } from "@/utils/interface/commonInterface";
 import { setForgotPassword, setResetPasswordForm, setsignInForm, setSignUpForm, setVerifyEmailForm, setVerifyOtpForm } from "@/utils/redux/slices/signFormSlice";
 
 const ResetPasswordForm: React.FC = () => {
@@ -43,7 +43,7 @@ const ResetPasswordForm: React.FC = () => {
                 password: formData.password,
             }))
                 .unwrap()
-                .then((res: CommonResponse) => {
+                .then((res: ApiBaseResponse) => {
                     if (res.success) {
                         toast.success(res.message);
                         dispatch(setForgotPassword(false));

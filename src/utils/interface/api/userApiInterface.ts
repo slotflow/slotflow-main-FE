@@ -1,4 +1,4 @@
-import { CommonResponse } from "../commonInterface";
+import { ApiBaseResponse } from "../commonInterface";
 import { User } from "../entityInterface/userInterface";
 import { Address } from "../entityInterface/addressInterface";
 import { Booking } from "../entityInterface/bookingInterface";
@@ -7,28 +7,40 @@ import { Service } from "../entityInterface/appServiceInterface";
 import { ProviderService } from "../entityInterface/providerServiceInterface";
 import { AvailabilityForResponse } from "../entityInterface/serviceAvailabilityInterface";
 
-
-// User Fetch profile details api response type
+// **** 1.  Used as the response type of the user profile details fetching api
 export type UserFetchUserProfileResponse = Pick<User, "username" | "email" | "isBlocked" | "isEmailVerified" | "phone" | "createdAt">;
 
 
-// User update profile Image api response interface
-export interface UpdateUserProfileImageResponse extends CommonResponse, Pick<User, "profileImage"> {
+// **** 2.  Used as the response type of the user profile image updating api
+export interface UpdateUserProfileImageResponse extends ApiBaseResponse {
+    data: User["profileImage"]
 }
 
 
-// user address adding request payload interface 
-export interface AddUserAddressRequest {
-    formData: Pick<Address, "addressLine" | "phone" | "place" | "city" | "district" | "pincode" | "state" | "country" | "googleMapLink">
+// **** 3  Used as the request type of user update userInfo api
+export type UserUpdateUserInfoRequest = Pick<User, "username" | "phone">;
+// **** 3  Used as the response interface of user update userInfo api
+export interface UserUpdateUserInfoResponse extends ApiBaseResponse {
+    data: UserUpdateUserInfoRequest
 }
-// User Fetch address api response type
+
+
+// **** 4  Used as the request interface of the user address adding api
+export interface AddUserAddressRequest { formData: Pick<Address, "addressLine" | "phone" | "place" | "city" | "district" | "pincode" | "state" | "country" | "googleMapLink">}
+
+
+// **** 5  Used as the response type of the user fetching api
 export type UserFetchUserAddressResponse = Pick<Address, "_id" | "addressLine" | "phone" | "place" | "city" | "district" | "pincode" | "state" | "country" | "googleMapLink">;
 
 
-// User Fetch service providers response interface
+// **** 6  Used as the response type of the user fetch all services for the service selecting page fetching api
+export type UserFetchAllServicesResponse = Pick<Service, "_id" | "serviceName"> ;
+
+
+// **** 7  Used as the response interface of the user fetching service providers for the dashboard fetching api
 export interface UserFetchServiceProvidersResponse {
     _id: string,
-     provider: {
+    provider: {
         _id: string,
         username: string,
         profileImage: string | null,
@@ -43,51 +55,39 @@ export interface UserFetchServiceProvidersResponse {
 }
 
 
-// User fetch service provider detials api response type
+// **** 8  Used as the response type of the user fetching service providers details fetching api
 export type UserFetchProviderProfileDetailsResponse = Pick<Provider, "_id" | "username" | "email" | "phone" | "profileImage" | "trustedBySlotflow">;
 
 
-// User fetch service provider address api response type
+// **** 9  Used as the response type of the user fetching service providers address fetching api
 export type UserFetchProviderAddressResponse = Pick<Address, "userId" | "addressLine" | "phone" | "place" | "city" | "district" | "pincode" | "state" | "country" | "googleMapLink">;
 
 
-// User fetch provider service details api response interface
+// **** 10  Used as the response interface of the user fetching service providers service details fetching api
 type FetchServiceDetailsProps = Pick<ProviderService, "serviceName" | "serviceDescription" | "servicePrice" | "providerExperience" >;
 export interface UserFetchProviderServiceResponse extends FetchServiceDetailsProps {
     serviceCategory: Pick<Service, "serviceName">
 }
 
 
-// User fetch provider service availability api response type
+// **** 11  Used as the response type of the user fetching service providers service availability fetching api
 export type UserFetchProviderAvailabilityResponse = AvailabilityForResponse;
 
 
-// User book an appointment api request payload
+// **** 12.1  Used as the request type of the user book an appointment api
 export type UserBookAnAppointmentRequest = {
     providerId: Provider["_id"];
     slotId : string;
     date : Date;
     selectedServiceMode : string;
 }
-// User book an appointment api response interface
-export interface UserBookAppointmentResponse extends CommonResponse {
-    sessionId : string
+// **** 12.1  Used as the response interface of the user book an appointment api
+export interface UserBookAppointmentResponse extends ApiBaseResponse {
+    data : string
 }
 
 
-// User fetch bookings response type
+// **** 13  Used as the response type of user fetch all bookings api
 export type UserFetchBookingsResponse = Pick<Booking, "_id" | "appointmentDate" | "appointmentMode" | "appointmentStatus" | "appointmentTime" | "createdAt">;
 
 
-
-
-// user cancel booking response interface
-export interface UserCancelBookingResponse extends CommonResponse {
-    updatedBooking : Pick<Booking, "_id" | "appointmentDate" | "appointmentMode" | "appointmentStatus" | "appointmentTime" | "createdAt">;
-}
-
-
-// user update user info request payload
-export type UserUpdateUserInfoRequest = Pick<User, "username" | "phone">;
-// user update user info response interface
-export interface UserUpdateUserInfoResponse extends CommonResponse, UserUpdateUserInfoRequest {}

@@ -4,18 +4,18 @@ import DataFetchingError from "../DataFetchingError";
 import InfoDisplayComponent from "../InfoDisplayComponent";
 import { copyToClipboard, formatDate } from "@/utils/helper";
 import ProfileDetailsShimmer from "@/components/shimmers/ProfileDetailsShimmer";
-import { ProviderFetchProfileDetailsApiResponse } from "@/utils/interface/api/providerApiInterface";
+import { ProviderFetchProfileDetailsResponse } from "@/utils/interface/api/providerApiInterface";
 import { AdminFetchProviderProfileDetailsResponse } from "@/utils/interface/api/adminProviderApiInterface";
-import { UserFetchProviderProfileDetailsApiResponse, UserFetchUserProfileApiResponse } from "@/utils/interface/api/userApiInterface";
+import { UserFetchProviderProfileDetailsResponse, UserFetchUserProfileResponse } from "@/utils/interface/api/userApiInterface";
 
 
 interface UserOrProviderProfileDetailsComponentProps {
     userOrProviderId?: string;
     fetchApiFunction: (userOrProviderId?: string) => Promise<
         AdminFetchProviderProfileDetailsResponse |
-        ProviderFetchProfileDetailsApiResponse |
-        UserFetchProviderProfileDetailsApiResponse |
-        UserFetchUserProfileApiResponse
+        ProviderFetchProfileDetailsResponse |
+        UserFetchProviderProfileDetailsResponse |
+        UserFetchUserProfileResponse
     >;
     queryKey: string;
     adminLookingProvider?: boolean;
@@ -54,10 +54,10 @@ const UserOrProviderProfileDetails: React.FC<UserOrProviderProfileDetailsCompone
             setProfileImage(data.profileImage);
         }
         if(setData && data) {
-            const userData = data as (ProviderFetchProfileDetailsApiResponse);
+            const userData = data as (ProviderFetchProfileDetailsResponse | UserFetchUserProfileResponse);
             setData({username : userData.username, phone: userData.phone})
         }
-    }, [data, setProfileImage]);
+    }, [data, setProfileImage, setData]);
 
     if (isError) {
         return <DataFetchingError message={error?.message} />
@@ -98,7 +98,7 @@ const UserOrProviderProfileDetails: React.FC<UserOrProviderProfileDetailsCompone
 
                     {/* Provider looking self profile */}
                     {providerSelf && (() => {
-                        const providerProfileData = data as (ProviderFetchProfileDetailsApiResponse);
+                        const providerProfileData = data as (ProviderFetchProfileDetailsResponse);
                         return (
                             <>
                                 <InfoDisplayComponent label="Username" value={providerProfileData.username} />
@@ -115,7 +115,7 @@ const UserOrProviderProfileDetails: React.FC<UserOrProviderProfileDetailsCompone
 
                     {/* User looking provider profile */}
                     {userLookingProvider && (() => {
-                        const providerProfileData = data as (UserFetchProviderProfileDetailsApiResponse);
+                        const providerProfileData = data as (UserFetchProviderProfileDetailsResponse);
                         return (
                             <>
                                 <InfoDisplayComponent label="Username" value={providerProfileData.username} />
@@ -128,7 +128,7 @@ const UserOrProviderProfileDetails: React.FC<UserOrProviderProfileDetailsCompone
 
                     {/* User looking self profile */}
                     {userSelf && (() => {
-                        const userProfileData = data as (UserFetchUserProfileApiResponse);
+                        const userProfileData = data as (UserFetchUserProfileResponse);
                         return (
                             <>
                                 <InfoDisplayComponent label="Username" value={userProfileData?.username} />

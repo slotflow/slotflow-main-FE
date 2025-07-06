@@ -1,4 +1,4 @@
-import { CommonResponse } from "../commonInterface";
+import { ApiBaseResponse } from "../commonInterface";
 import { Plan } from "../entityInterface/planInterface";
 import { Address } from "../entityInterface/addressInterface";
 import { Booking } from "../entityInterface/bookingInterface";
@@ -43,7 +43,8 @@ export type ProviderFetchServiceAvailabilityResponse = AvailabilityForResponse;
 
 
 // Provider profile image updating api request payload interface
-export interface ProviderUpdateProfileImageResponse extends CommonResponse, Pick<Provider, "profileImage"> {
+export interface ProviderUpdateProfileImageResponse extends ApiBaseResponse {
+    data: Provider["profileImage"]
 }
 
 
@@ -57,7 +58,7 @@ export type ProviderSubscribeToPlanRequest = {
     planDuration: string
 }
 // Provider subscribe to a plan api response interface
-export interface ProviderSubscribeToPlanResponse extends CommonResponse {
+export interface ProviderSubscribeToPlanResponse extends ApiBaseResponse {
     sessionId: string
 }
 
@@ -74,6 +75,6 @@ export type ProviderFetchBookingAppointmentsResponse = Pick<Booking, "_id" | "ap
 // Provider update providerInfo [username and phone] request payload
 export type ProviderUpdateProviderInfoRequest = Pick<Provider, "username" | "phone">
 // Provider update providerInfo [username and phone] response interface 
-export interface ProviderUpdateProviderInfoResponse extends CommonResponse, ProviderUpdateProviderInfoRequest {
-
+export interface ProviderUpdateProviderInfoResponse extends ApiBaseResponse {
+    data: ProviderUpdateProviderInfoRequest
 }

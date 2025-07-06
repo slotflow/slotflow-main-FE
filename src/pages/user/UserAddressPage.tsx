@@ -3,6 +3,7 @@ import { FormEvent, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import CommonButton from "@/components/common/CommonButton";
 import ProfileHead from "@/components/common/profile/ProfileHead";
+import { ApiBaseResponse } from "@/utils/interface/commonInterface";
 import AddAddress, { AddressFormProps } from "@/components/common/AddAddress";
 import UserOrProviderAddressDetails from "@/components/common/profile/UserOrProviderAddressDetails";
 import { userAddUserAddress, userFetchUserAddress, userUpdateUserProfileImage } from "@/utils/apis/user.api";
@@ -21,7 +22,7 @@ const UserAddressPage = () => {
       toast.error("Please fix the form errors.");
       return;
     }
-    const res = await userAddUserAddress({ formData });
+    const res: ApiBaseResponse = await userAddUserAddress({ formData });
     toast.success(res.message);
     queryClient.invalidateQueries({ queryKey: ["UserAddress"] });
     setAddAddress(false);

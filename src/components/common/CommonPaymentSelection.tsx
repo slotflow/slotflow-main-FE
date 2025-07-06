@@ -72,12 +72,12 @@ const CommonPaymentSelection: React.FC<PaymentSelecionComponentPropst> = ({
 
             if (isAppointmentBooking) {
                 const infoData = data as UserBookinAppointmentDataProps;
-                const sessionData = await userBookAnAppointment(infoData);
-                sessionId = sessionData.sessionId;
+                const response = await userBookAnAppointment(infoData);
+                sessionId = response.data;
             } else if (isProviderSubscription) {
                 const infoData = data as ProviderSubscriptionDataProps;
-                const sessionData = await providerSubscribeToPlan(infoData);
-                sessionId = sessionData.sessionId;
+                const response = await providerSubscribeToPlan(infoData);
+                sessionId = response.data;
             }
 
             if (!sessionId?.trim()) {

@@ -4,8 +4,8 @@ import { Camera, Loader } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { AuthState } from "@/utils/interface/sliceInterface";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
-import { UpdateUserProfileImageApiResponse } from "@/utils/interface/api/userApiInterface";
-import { ProviderUpdateProfileImageApiResponse } from "@/utils/interface/api/providerApiInterface";
+import { UpdateUserProfileImageResponse } from "@/utils/interface/api/userApiInterface";
+import { ProviderUpdateProfileImageResponse } from "@/utils/interface/api/providerApiInterface";
 import { ProfileHeaderComponentProps } from "@/utils/interface/componentInterface/commonComponentInterface";
 
 const ProfileHead: React.FC<ProfileHeaderComponentProps> = ({
@@ -31,7 +31,7 @@ const ProfileHead: React.FC<ProfileHeaderComponentProps> = ({
         if (updation && updateProfileImageApiFunction) {
             await dispatch(updateProfileImageApiFunction(formData))
                 .unwrap()
-                .then((res: ProviderUpdateProfileImageApiResponse | UpdateUserProfileImageApiResponse) => {
+                .then((res: ProviderUpdateProfileImageResponse | UpdateUserProfileImageResponse) => {
                     toast.success(res.message);
                 })
                 .catch(() => {

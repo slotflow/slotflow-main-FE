@@ -7,9 +7,9 @@ import {
 } from "../interface/api/adminServiceApiInterface";
 import { buildQueryParams, parseNewCommonResponse } from "../helper";
 import { Service } from "../interface/entityInterface/appServiceInterface";
-import { FetchFunctionParams, ApiResponsePaginated } from "../interface/commonInterface";
+import { FetchFunctionParams, ApiPaginatedResponse } from "../interface/commonInterface";
 
-export const adminFetchAllServices = async (params?: FetchFunctionParams): Promise<ApiResponsePaginated<AdminFetchAllServicesResponse>> => {
+export const adminFetchAllServices = async (params?: FetchFunctionParams): Promise<ApiPaginatedResponse<AdminFetchAllServicesResponse>> => {
     const query = buildQueryParams(params);
     const response = await axiosInstance.get(`/admin/services${query ? `?${query}` : ''}`);
     return parseNewCommonResponse<AdminFetchAllServicesResponse>(response.data);

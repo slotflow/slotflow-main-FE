@@ -1,4 +1,4 @@
-import { CommonResponse } from "../commonInterface";
+import { ApiBaseResponse } from "../commonInterface";
 
 // ****************** Common Interface ******************
 interface CommonInterface {
@@ -19,7 +19,7 @@ interface CommonInterface {
 export type SignupRequest = Pick<CommonInterface, "username" | "email" | "password" | "role">;
 
 // Sign up response interface
-export interface SignupResponse extends CommonResponse {
+export interface SignupResponse extends ApiBaseResponse {
     authUser: {
         verificationToken: string;
         role: string;
@@ -43,7 +43,7 @@ export type VerifyOtpRequest = Pick<CommonInterface, "otp" | "verificationToken"
 export type ResendOtpRequest = Pick<CommonInterface, "role"> & Partial<Pick<CommonInterface, "verificationToken" | "email">>;
 
 // Resend OTP API response interface
-export interface ResendOtpResponse extends CommonResponse {
+export interface ResendOtpResponse extends ApiBaseResponse {
     authUser: {
         verificationToken: string;
         role: string;
@@ -59,7 +59,7 @@ export interface ResendOtpResponse extends CommonResponse {
 export type SigninRequest = Pick<CommonInterface, "email" | "password" | "role">;
 
 // Sign in API response interface
-export interface SigninResponse extends CommonResponse {
+export interface SigninResponse extends ApiBaseResponse {
     authUser: {
         username: string;
         profileImage: string;

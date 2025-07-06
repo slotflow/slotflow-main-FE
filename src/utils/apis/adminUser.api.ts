@@ -5,9 +5,9 @@ import {
     AdminChnageUserBlockStatusResponse,
 } from "../interface/api/adminUserApiInterface";
 import { buildQueryParams, parseNewCommonResponse } from "../helper";
-import { FetchFunctionParams, ApiResponsePaginated } from "../interface/commonInterface";
+import { FetchFunctionParams, ApiPaginatedResponse } from "../interface/commonInterface";
 
-export const adminFetchAllUsers = async (params?: FetchFunctionParams): Promise<ApiResponsePaginated<AdminfetchAllUsersResponse>> => {
+export const adminFetchAllUsers = async (params?: FetchFunctionParams): Promise<ApiPaginatedResponse<AdminfetchAllUsersResponse>> => {
     const query = buildQueryParams(params);
     const response = await axiosInstance.get(`/admin/users${query ? `?${query}` : ''}`);
     return parseNewCommonResponse<AdminfetchAllUsersResponse>(response.data);

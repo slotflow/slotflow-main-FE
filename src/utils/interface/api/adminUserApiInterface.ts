@@ -1,4 +1,4 @@
-import { CommonResponse } from "../commonInterface";
+import { ApiBaseResponse } from "../commonInterface";
 import { User } from "../entityInterface/userInterface";
 
 // Used as the return type for Admin Fetch All Users API,
@@ -15,6 +15,6 @@ export type AdminChangeUserStatusRequest = {
 
 // Admin change user block status response interface
 type ChnageUserStatusResponse = Pick<User, "_id" | "username" | "email" | "isBlocked" | "isEmailVerified">;
-export interface AdminChnageUserBlockStatusResponse extends CommonResponse {
+export interface AdminChnageUserBlockStatusResponse extends ApiBaseResponse {
     updatedUser: ChnageUserStatusResponse
 }

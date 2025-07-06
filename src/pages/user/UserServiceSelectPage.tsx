@@ -4,12 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { addService } from "@/utils/redux/slices/userSlice";
 import CommonButton from "@/components/common/CommonButton";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
-import { adminFetchAllServices } from "@/utils/apis/adminService.api";
 import DataFetchingError from "@/components/common/DataFetchingError";
-import { Service } from "@/utils/interface/entityInterface/appServiceInterface";
 import ServiceSelectShimmer from "@/components/shimmers/ServiceSelectShimmer";
+import { userFetchAllServicesForServiceSelectPage } from "@/utils/apis/user.api";
+import { UserFetchAllServicesResponse } from "@/utils/interface/api/userApiInterface";
 
-type UserSelectService = Pick<Service, "_id" | "serviceName" | "isBlocked">;
 
 const UserServiceSelectPage = () => {
 
@@ -18,7 +17,7 @@ const UserServiceSelectPage = () => {
     const navigate = useNavigate();
 
     const { data, isLoading, isError, error } = useQuery({
-        queryFn: adminFetchAllServices,
+        queryFn: userFetchAllServicesForServiceSelectPage,
         queryKey: ["services"],
         staleTime: 5 * 60 * 1000,
         refetchOnWindowFocus: false,
@@ -45,7 +44,7 @@ const UserServiceSelectPage = () => {
                 ) : isLoading ? (
                     <ServiceSelectShimmer />
                 ) : data ? (
-                    data.map((service: UserSelectService) => (
+                    data.map((service: UserFetchAllServicesResponse) => (
                         <div
                             key={service._id}
                             className={`p-3 rounded-md border cursor-pointer text-center ${selectedServices.includes(((service._id)))
