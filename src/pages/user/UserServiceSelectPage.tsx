@@ -36,34 +36,40 @@ const UserServiceSelectPage = () => {
     }
 
     return (
-        <div className="px-6 h-screen flex flex-col">
-            <h2 className="text-2xl font-semibold mb-10">What are you looking for ?</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
-                {isError ? (
-                    <DataFetchingError message={error.message} />
-                ) : isLoading ? (
-                    <ServiceSelectShimmer />
-                ) : data ? (
-                    data.map((service: UserFetchAllServicesResponse) => (
-                        <div
-                            key={service._id}
-                            className={`p-3 rounded-md border cursor-pointer text-center ${selectedServices.includes(((service._id)))
-                                ? "border-[var(--mainColor)]"
-                                : "border-gray-300"
-                                }`}
-                            onClick={(e) => {
-                                e.preventDefault();
-                                handleServiceToggle(service._id)
-                            }}
-                        >
-                            {service.serviceName}
-                        </div>
-                    ))
-                ) : (
-                    <DataFetchingError message="No services found." />
-                )}
-            </div>
-            {!isLoading && (
+        <div className="px-6 min-h-full flex flex-col">
+            {data && data.length > 0 && (
+                <h2 className="text-2xl font-semibold mb-10">What are you looking for?</h2>
+            )}
+            {isError ? (
+                <DataFetchingError message={error.message} />
+            ) : data && data?.length === 0 ? (
+                <DataFetchingError message="No services found." />
+            ) : data ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 min-h-full">
+                    {isLoading ? (
+                        <ServiceSelectShimmer />
+                    ) :
+                        data.map((service: UserFetchAllServicesResponse) => (
+                            <div
+                                key={service._id}
+                                className={`p-3 rounded-md border cursor-pointer text-center ${selectedServices.includes(((service._id)))
+                                    ? "border-[var(--mainColor)]"
+                                    : "border-gray-300"
+                                    }`}
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    handleServiceToggle(service._id)
+                                }}
+                            >
+                                {service.serviceName}
+                            </div>
+                        ))
+                    }
+                </div>
+            ) : (
+                <DataFetchingError message="No services found." />
+            )}
+            {data && data.length > 0 && (
                 <div className="flex justify-end mt-6">
                     <CommonButton text={"Next"} onClick={handleSubmitSelectedServices} />
                 </div>

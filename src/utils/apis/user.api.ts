@@ -50,7 +50,6 @@ export const userFetchUserAddress = async (): Promise<UserFetchUserAddressRespon
     return response.data.data;
 }
 
-// TODO
 export const userFetchAllServicesForServiceSelectPage = async (): Promise<Array<UserFetchAllServicesResponse>> => {
     const response = await axiosInstance.get(`/user/getAllServices`);
     return response.data.data;
