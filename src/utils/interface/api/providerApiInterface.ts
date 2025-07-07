@@ -1,7 +1,6 @@
 import { ApiBaseResponse } from "../commonInterface";
 import { Plan } from "../entityInterface/planInterface";
 import { Address } from "../entityInterface/addressInterface";
-import { Booking } from "../entityInterface/bookingInterface";
 import { Provider } from "../entityInterface/providerInterface";
 import { Service } from "../entityInterface/appServiceInterface";
 import { ProviderService } from "../entityInterface/providerServiceInterface";
@@ -78,8 +77,7 @@ export interface ProviderSubscribeToPlanResponse extends ApiBaseResponse {
 // **** 15.  Interfaces for providerFetchProviderPayments api is in common interface api file
 
 
-// **** 16. Used as the response type for Provider fetch all appointmets api
-export type ProviderFetchBookingAppointmentsResponse = Pick<Booking, "_id" | "appointmentDate" | "appointmentMode" | "appointmentStatus" | "appointmentTime" | "createdAt">;
+// **** 16.  Interfaces for providerFetchProviderBookingAppointments api is in common interface api file
 
 
 // **** 17.1 Used as the request type for Provider update providerInfo [username and phone]

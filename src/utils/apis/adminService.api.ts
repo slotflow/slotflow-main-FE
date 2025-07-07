@@ -1,13 +1,11 @@
 import axiosInstance from "@/lib/axios";
 import {
-    AdminAddNewServiceResponse,
     AdminFetchAllServicesResponse,
     AdminChangeServiceBlockStatusRequest,
-    AdminChangeServiceBlockStatusResponse,
 } from "../interface/api/adminServiceApiInterface";
 import { buildQueryParams, parseNewCommonResponse } from "../helper";
 import { Service } from "../interface/entityInterface/appServiceInterface";
-import { FetchFunctionParams, ApiPaginatedResponse } from "../interface/commonInterface";
+import { FetchFunctionParams, ApiPaginatedResponse, ApiBaseResponse } from "../interface/commonInterface";
 
 export const adminFetchAllServices = async (params?: FetchFunctionParams): Promise<ApiPaginatedResponse<AdminFetchAllServicesResponse>> => {
     const query = buildQueryParams(params);
@@ -15,12 +13,12 @@ export const adminFetchAllServices = async (params?: FetchFunctionParams): Promi
     return parseNewCommonResponse<AdminFetchAllServicesResponse>(response.data);
 }
 
-export const adminAddNewService = async (data : {appServiceName: Service["serviceName"]}): Promise<AdminAddNewServiceResponse> => {
+export const adminAddNewService = async (data : {appServiceName: Service["serviceName"]}): Promise<ApiBaseResponse> => {
     const response = await axiosInstance.post('/admin/addNewService', data );
     return response.data;
 }
 
-export const adminChangeServiceBlockStatus = async (data: AdminChangeServiceBlockStatusRequest): Promise<AdminChangeServiceBlockStatusResponse> => {
+export const adminChangeServiceBlockStatus = async (data: AdminChangeServiceBlockStatusRequest): Promise<ApiBaseResponse> => {
     const response = await axiosInstance.patch(`/admin/changeServiceBlockStatus`, data);
     return response.data;
 }

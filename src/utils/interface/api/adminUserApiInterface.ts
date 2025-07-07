@@ -1,20 +1,12 @@
-import { ApiBaseResponse } from "../commonInterface";
 import { User } from "../entityInterface/userInterface";
 
-// Used as the return type for Admin Fetch All Users API,
-// and in AdminUsersTableColumns, AdminUsersPage, useAdminUserActions
-export type AdminfetchAllUsersResponse = Pick<User, "_id" | "username" | "email" | "isBlocked" | "isEmailVerified">;
+
+// **** 1  Used as the response type of the adminFetchAllUsers api
+export type AdminfetchAllUsersResponse = Pick<User, "_id" | "username" | "email" | "isBlocked" | "isEmailVerified">;;
 
 
-//  Admin change user block status request payload type
+// **** 2  Used as the request type of the adminChangeUserBlockStatus api
 export type AdminChangeUserStatusRequest = {
     userId: User["_id"];
     isBlocked: User["isBlocked"];
-}
-
-
-// Admin change user block status response interface
-type ChnageUserStatusResponse = Pick<User, "_id" | "username" | "email" | "isBlocked" | "isEmailVerified">;
-export interface AdminChnageUserBlockStatusResponse extends ApiBaseResponse {
-    updatedUser: ChnageUserStatusResponse
 }

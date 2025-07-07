@@ -1,14 +1,13 @@
 import { ApiBaseResponse } from "../commonInterface";
 import { User } from "../entityInterface/userInterface";
 import { Address } from "../entityInterface/addressInterface";
-import { Booking } from "../entityInterface/bookingInterface";
 import { Provider } from "../entityInterface/providerInterface";
 import { Service } from "../entityInterface/appServiceInterface";
 import { ProviderService } from "../entityInterface/providerServiceInterface";
 import { AvailabilityForResponse } from "../entityInterface/serviceAvailabilityInterface";
 
 // **** 1.  Used as the response type of the user profile details fetching api
-export type UserFetchUserProfileResponse = Pick<User, "username" | "email" | "isBlocked" | "isEmailVerified" | "phone" | "createdAt">;
+export type UserFetchUserProfileDetailsResponse = Pick<User, "username" | "email" | "isBlocked" | "isEmailVerified" | "phone" | "createdAt">;
 
 
 // **** 2.  Used as the response type of the user profile image updating api
@@ -25,7 +24,7 @@ export interface UserUpdateUserInfoResponse extends ApiBaseResponse {
 }
 
 
-// **** 4  Used as the request interface of the user address adding api
+// **** 4  Used as the request interface of the user add address api
 export interface AddUserAddressRequest { formData: Pick<Address, "addressLine" | "phone" | "place" | "city" | "district" | "pincode" | "state" | "country" | "googleMapLink">}
 
 
@@ -87,7 +86,13 @@ export interface UserBookAppointmentResponse extends ApiBaseResponse {
 }
 
 
-// **** 13  Used as the response type of user fetch all bookings api
-export type UserFetchBookingsResponse = Pick<Booking, "_id" | "appointmentDate" | "appointmentMode" | "appointmentStatus" | "appointmentTime" | "createdAt">;
+// **** 13.  Inline interface used for userSaveAppointmentBooking api
 
 
+// **** 14.  Interfaces for userFetchBooking api is in common interface api file
+
+
+// **** 15.  Inline interface used for userCancelBooking api
+
+
+// **** 16.  Interfaces for userFetchPayments api is in common interface api file

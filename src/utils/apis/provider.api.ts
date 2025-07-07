@@ -13,12 +13,11 @@ import {
     ProviderFetchServiceDetailsResponse,
     AddProviderServiceAvailabilitiesRequest,
     ProviderFetchServiceAvailabilityResponse,
-    ProviderFetchBookingAppointmentsResponse,
 } from "../interface/api/providerApiInterface";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { buildQueryParams, parseNewCommonResponse } from "../helper";
 import { ApiBaseResponse, FetchFunctionParams, ApiPaginatedResponse } from "../interface/commonInterface";
-import { FetchPaymentsResponse, FetchProviderSubscriptionsResponse } from "../interface/api/commonApiInterface";
+import { FetchBookingsResponse, FetchPaymentsResponse, FetchProviderSubscriptionsResponse } from "../interface/api/commonApiInterface";
 
 // Create asyn thunk for updating the authSlice with address: true
 export const providerAddProviderAddress = createAsyncThunk<ApiBaseResponse, ProviderAddProviderAddressRequest>("/provider/addAddress",
@@ -114,10 +113,10 @@ export const providerFetchProviderPayments = async (params?: FetchFunctionParams
     return parseNewCommonResponse<FetchPaymentsResponse>(response.data);
 }
 
-export const providerFetchBookingAppoinments = async (params?: FetchFunctionParams): Promise<ApiPaginatedResponse<ProviderFetchBookingAppointmentsResponse>> => {
+export const providerFetchBookingAppoinments = async (params?: FetchFunctionParams): Promise<ApiPaginatedResponse<FetchBookingsResponse>> => {
     const query = buildQueryParams(params);
     const response = await axiosInstance.get(`/provider/getBookingAppointments${query ? `?${query}` : ''}`);
-    return parseNewCommonResponse<ProviderFetchBookingAppointmentsResponse>(response.data);
+    return parseNewCommonResponse<FetchBookingsResponse>(response.data);
 }
 
 export const providerUpdateProviderInfo = async (data: ProviderUpdateProviderInfoRequest): Promise<ProviderUpdateProviderInfoResponse> => {

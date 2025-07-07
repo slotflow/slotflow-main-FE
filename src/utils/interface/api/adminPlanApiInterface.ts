@@ -1,27 +1,17 @@
-import { ApiBaseResponse } from "../commonInterface";
 import { Plan } from "../entityInterface/planInterface";
 
-// Used as the return type for Admin Fetch All Plans API,
-// and in AdminPlansTableColumns, AdminPlansPage, useAdminPlanAction
+
+// **** 1.  Used as the response type of admin fetch all plans api
 export type AdminFetchAllPlansResponse = Pick<Plan, "_id" | "planName" | "isBlocked" | "price" | "maxBookingPerMonth" | "adVisibility">;
 
 
-// Admin adding new plan api request request payload type
+// **** 2  Used as the request type of admin add new plan api
 export type AdminAddNewPlanRequest = Pick<Plan,'planName' | 'description' | 'price' | 'features' | "maxBookingPerMonth" | "adVisibility">;
-// Admin add new plan api response interface
-type AddNewPlanResponseProps = Pick<Plan,"_id" | "planName" | "isBlocked" | "price" | "maxBookingPerMonth" | "adVisibility" >;
-export interface AdminAddNewPlanResponse extends ApiBaseResponse {
-    plan: AddNewPlanResponseProps
-}
 
 
-// Admin change plan isBlocked status request payload type
+
+// **** 2  Used as the request type of admin change plan block status api
 export type AdminChangePlanBlockStatusRequest = {
     planId: Plan["_id"];
     isBlocked: Plan["isBlocked"];
-}
-// Admin chnage plan isBlocked status response interface
-type ChangePlanBlockStatusResponse = Pick<Plan, "_id" | "planName" | "isBlocked">;
-export interface AdminChangePlanBlockStatusResponse extends ApiBaseResponse {
-    updatedPlan : ChangePlanBlockStatusResponse;
 }

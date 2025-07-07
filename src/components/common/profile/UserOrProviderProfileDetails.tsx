@@ -6,7 +6,7 @@ import { copyToClipboard, formatDate } from "@/utils/helper";
 import ProfileDetailsShimmer from "@/components/shimmers/ProfileDetailsShimmer";
 import { ProviderFetchProfileDetailsResponse } from "@/utils/interface/api/providerApiInterface";
 import { AdminFetchProviderProfileDetailsResponse } from "@/utils/interface/api/adminProviderApiInterface";
-import { UserFetchProviderProfileDetailsResponse, UserFetchUserProfileResponse } from "@/utils/interface/api/userApiInterface";
+import { UserFetchProviderProfileDetailsResponse, UserFetchUserProfileDetailsResponse } from "@/utils/interface/api/userApiInterface";
 
 
 interface UserOrProviderProfileDetailsComponentProps {
@@ -15,7 +15,7 @@ interface UserOrProviderProfileDetailsComponentProps {
         AdminFetchProviderProfileDetailsResponse |
         ProviderFetchProfileDetailsResponse |
         UserFetchProviderProfileDetailsResponse |
-        UserFetchUserProfileResponse
+        UserFetchUserProfileDetailsResponse
     >;
     queryKey: string;
     adminLookingProvider?: boolean;
@@ -54,7 +54,7 @@ const UserOrProviderProfileDetails: React.FC<UserOrProviderProfileDetailsCompone
             setProfileImage(data.profileImage);
         }
         if(setData && data) {
-            const userData = data as (ProviderFetchProfileDetailsResponse | UserFetchUserProfileResponse);
+            const userData = data as (ProviderFetchProfileDetailsResponse | UserFetchUserProfileDetailsResponse);
             setData({username : userData.username, phone: userData.phone})
         }
     }, [data, setProfileImage, setData]);
@@ -128,7 +128,7 @@ const UserOrProviderProfileDetails: React.FC<UserOrProviderProfileDetailsCompone
 
                     {/* User looking self profile */}
                     {userSelf && (() => {
-                        const userProfileData = data as (UserFetchUserProfileResponse);
+                        const userProfileData = data as (UserFetchUserProfileDetailsResponse);
                         return (
                             <>
                                 <InfoDisplayComponent label="Username" value={userProfileData?.username} />

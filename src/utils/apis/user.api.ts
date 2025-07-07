@@ -1,11 +1,9 @@
 import axiosInstance from "@/lib/axios"
 import { 
     AddUserAddressRequest, 
-    UserFetchBookingsResponse, 
     UserUpdateUserInfoRequest,
     UserUpdateUserInfoResponse,
     UserBookAppointmentResponse, 
-    UserFetchUserProfileResponse, 
     UserFetchUserAddressResponse, 
     UserBookAnAppointmentRequest, 
     UserFetchAllServicesResponse,
@@ -13,6 +11,7 @@ import {
     UserFetchProviderAddressResponse, 
     UserFetchProviderServiceResponse, 
     UserFetchServiceProvidersResponse, 
+    UserFetchUserProfileDetailsResponse, 
     UserFetchProviderAvailabilityResponse, 
     UserFetchProviderProfileDetailsResponse,
 } from "../interface/api/userApiInterface";
@@ -20,10 +19,10 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { buildQueryParams, parseNewCommonResponse } from "../helper";
 import { Booking } from "../interface/entityInterface/bookingInterface";
 import { Provider } from "../interface/entityInterface/providerInterface";
-import { FetchPaymentsResponse } from "../interface/api/commonApiInterface";
+import { FetchBookingsResponse, FetchPaymentsResponse } from "../interface/api/commonApiInterface";
 import { ApiBaseResponse, FetchFunctionParams, ApiPaginatedResponse } from "../interface/commonInterface";
 
-export const userFetchUserProfileDetails = async (): Promise<UserFetchUserProfileResponse> => {
+export const userFetchUserProfileDetails = async (): Promise<UserFetchUserProfileDetailsResponse> => {
     const response = await axiosInstance.get('/user/getProfileDetails');
     return response.data.data;
 }
@@ -94,10 +93,10 @@ export const userSaveAppointmentBooking = async (sessionId: string) : Promise<Ap
     return response.data;
 }
 
-export const userFetchBookings = async (params?: FetchFunctionParams) : Promise<ApiPaginatedResponse<UserFetchBookingsResponse>> => {
+export const userFetchBookings = async (params?: FetchFunctionParams) : Promise<ApiPaginatedResponse<FetchBookingsResponse>> => {
     const query = buildQueryParams(params);
     const response = await axiosInstance.get(`/user/getBookings${query ? `?${query}` : ''}`);
-    return parseNewCommonResponse<UserFetchBookingsResponse>(response.data);
+    return parseNewCommonResponse<FetchBookingsResponse>(response.data);
 }
 
 export const userCancelBooking = async (bookingId: Booking["_id"]) : Promise<ApiBaseResponse> => {

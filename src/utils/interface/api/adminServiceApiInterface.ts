@@ -1,33 +1,16 @@
-import { ApiBaseResponse } from "../commonInterface";
 import { Service } from "../entityInterface/appServiceInterface";
 
-
-// ---------------------- Admin Fetch All App Services ----------------------
-// Used in useAdminServiceActions hook
 export type BasicAppServiceInfo = Pick<Service, "_id" | "serviceName" | "isBlocked">;
 
-
-
-// ---------------------- Admin Fetch All App Services ----------------------
-// Used as the return type for Admin Fetch All Services API,
-// and in AdminAppServicesTableColumns, AdminServicesPage
+// **** 1.  Used as the response type for the admin fetch all app services api
 export type AdminFetchAllServicesResponse = BasicAppServiceInfo;
 
 
-// ---------------------- Admin add new app service ----------------------
-// Admin add new app service api response interface
-export interface AdminAddNewServiceResponse extends ApiBaseResponse {
-    service: BasicAppServiceInfo
-}
+// **** 2.  Inline interface used for the adminAddNewService api
 
 
-// ---------------------- Admin add new app service ----------------------
-// Admin change app service block status api request payload type
+// **** 3.  Used as the request type for the admin change app service block status api
 export type AdminChangeServiceBlockStatusRequest = {
     serviceId: Service["_id"];
     isBlocked: Service["isBlocked"];
-}
-// Admin change service block status api response interface interface
-export interface AdminChangeServiceBlockStatusResponse extends ApiBaseResponse {
-    updatedService: BasicAppServiceInfo;
 }

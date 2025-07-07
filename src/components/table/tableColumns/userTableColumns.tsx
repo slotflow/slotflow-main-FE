@@ -3,11 +3,11 @@ import { Button } from "../../ui/button";
 import { MoreHorizontal } from "lucide-react";
 import { ColumnDef } from "@tanstack/react-table";
 import { DataTableColumnHeader } from "../DataTableColumnHeader";
-import { UserFetchBookingsResponse } from "@/utils/interface/api/userApiInterface";
+import { FetchBookingsResponse } from "@/utils/interface/api/commonApiInterface";
 import { DropDownMenuItemUserCancelBooking } from "../userTableOptions/UserBookingTableOptions";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../../ui/dropdown-menu";
 
-export const userAllBookingsTableColumns: ColumnDef<UserFetchBookingsResponse>[] = [
+export const userAllBookingsTableColumns: ColumnDef<FetchBookingsResponse>[] = [
   {
     accessorKey: "appointmentDate",
     header: ({ column }) => (<DataTableColumnHeader column={column} title="Date" />),

@@ -2,10 +2,9 @@ import axiosInstance from "../../lib/axios";
 import {
     AdminfetchAllUsersResponse,
     AdminChangeUserStatusRequest,
-    AdminChnageUserBlockStatusResponse,
 } from "../interface/api/adminUserApiInterface";
 import { buildQueryParams, parseNewCommonResponse } from "../helper";
-import { FetchFunctionParams, ApiPaginatedResponse } from "../interface/commonInterface";
+import { FetchFunctionParams, ApiPaginatedResponse, ApiBaseResponse } from "../interface/commonInterface";
 
 export const adminFetchAllUsers = async (params?: FetchFunctionParams): Promise<ApiPaginatedResponse<AdminfetchAllUsersResponse>> => {
     const query = buildQueryParams(params);
@@ -13,7 +12,7 @@ export const adminFetchAllUsers = async (params?: FetchFunctionParams): Promise<
     return parseNewCommonResponse<AdminfetchAllUsersResponse>(response.data);
 }
 
-export const adminChangeUserBlockStatus = async (data: AdminChangeUserStatusRequest): Promise<AdminChnageUserBlockStatusResponse> => {
+export const adminChangeUserBlockStatus = async (data: AdminChangeUserStatusRequest): Promise<ApiBaseResponse> => {
     const response = await axiosInstance.patch(`/admin/changeUserBlockStatus`, data);
     return response.data;
 }
