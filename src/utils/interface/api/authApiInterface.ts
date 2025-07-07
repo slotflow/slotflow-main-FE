@@ -1,7 +1,8 @@
 import { ApiBaseResponse } from "../commonInterface";
 
-// ****************** Common Interface ******************
-interface CommonInterface {
+
+// ****************** UserBaseInterface ******************
+interface UserBaseInterface {
     username: string;
     email: string;
     password: string;
@@ -11,14 +12,9 @@ interface CommonInterface {
 }
 
 
-
-
-
-// ****************** Sign Up ******************
-// Sign up API request payload interface 
-export type SignupRequest = Pick<CommonInterface, "username" | "email" | "password" | "role">;
-
-// Sign up response interface
+// **** 1.1  Used as the request type of the user or provider sign up api
+export type SignupRequest = Pick<UserBaseInterface, "username" | "email" | "password" | "role">;
+// **** 1.1  Used as the response interface of the user or provider sign up api
 export interface SignupResponse extends ApiBaseResponse {
     authUser: {
         verificationToken: string;
@@ -27,22 +23,13 @@ export interface SignupResponse extends ApiBaseResponse {
 }
 
 
+// **** 2.  Used as the request type of the otp verification api
+export type VerifyOtpRequest = Pick<UserBaseInterface, "otp" | "verificationToken" | "role">;
 
 
-
-// ****************** OTP Verification ******************
-// OTP verification API request payload interface
-export type VerifyOtpRequest = Pick<CommonInterface, "otp" | "verificationToken" | "role">;
-
-
-
-
-
-// ****************** Resend OTP ******************
-// Resend OTP API request payload interface
-export type ResendOtpRequest = Pick<CommonInterface, "role"> & Partial<Pick<CommonInterface, "verificationToken" | "email">>;
-
-// Resend OTP API response interface
+// **** 3.1  Used as the request type of the resend otp api
+export type ResendOtpRequest = Pick<UserBaseInterface, "role"> & Partial<Pick<UserBaseInterface, "verificationToken" | "email">>;
+// **** 3.2  Used as the response interface of the resend otp api
 export interface ResendOtpResponse extends ApiBaseResponse {
     authUser: {
         verificationToken: string;
@@ -51,14 +38,9 @@ export interface ResendOtpResponse extends ApiBaseResponse {
 }
 
 
-
-
-
-// ****************** Sign In ******************
-// Sign in API request payload interface
-export type SigninRequest = Pick<CommonInterface, "email" | "password" | "role">;
-
-// Sign in API response interface
+// **** 4.1  Used as the request type of user or provider or admin sign in api
+export type SigninRequest = Pick<UserBaseInterface, "email" | "password" | "role">;
+// **** 4.2  Used as the response interface of user or provider or admin sign in api
 export interface SigninResponse extends ApiBaseResponse {
     authUser: {
         username: string;
@@ -73,9 +55,5 @@ export interface SigninResponse extends ApiBaseResponse {
 }
 
 
-
-
-
-// ****************** Update Password ******************
-// Update password API request payload interface
-export type UpdatePasswordRequest = Pick<CommonInterface, "password" | "role" | "verificationToken">;
+// **** 5.  Used as the Request type of update password api
+export type UpdatePasswordRequest = Pick<UserBaseInterface, "password" | "role" | "verificationToken">;

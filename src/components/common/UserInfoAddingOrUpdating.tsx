@@ -12,6 +12,7 @@ import { FormEvent, useCallback, useEffect, useState } from 'react';
 import { providerUpdateProviderInfo } from '@/utils/apis/provider.api';
 import { HandleChangeFunction } from '@/utils/interface/commonInterface';
 import { UserUpdateUserInfoResponse } from '@/utils/interface/api/userApiInterface';
+import { ProviderUpdateProviderInfoResponse } from '@/utils/interface/api/providerApiInterface';
 
 interface UserInfoAddingOrUpdatingComponentInterface {
     title: string;
@@ -73,7 +74,7 @@ const UserInfoAddingOrUpdating: React.FC<UserInfoAddingOrUpdatingComponentInterf
                 return;
             }
 
-            const data: UserUpdateUserInfoResponse = await updateFn({
+            const data: UserUpdateUserInfoResponse | ProviderUpdateProviderInfoResponse = await updateFn({
                 username: formData.username,
                 phone: formData.phone,
             });

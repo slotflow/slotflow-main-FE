@@ -30,7 +30,7 @@ export const providerAddProviderAddress = createAsyncThunk<ApiBaseResponse, Prov
 
 export const providerFetchProviderAddress = async (): Promise<ProviderFetchAddressResponse> => {
     const response = await axiosInstance.get('/provider/getAddress');
-    return response.data.address;
+    return response.data.data;
 }
 
 export const providerFetchAllAppServices = async (): Promise<ProviderFetchAllServicesResponse> => {
@@ -48,7 +48,7 @@ export const providerAddProviderServiceDetails = createAsyncThunk<ApiBaseRespons
 
 export const providerFetchProviderServiceDetails = async (): Promise<ProviderFetchServiceDetailsResponse> => {
     const response = await axiosInstance.get('/provider/getServiceDetails');
-    return response.data.service;
+    return response.data.data;
 }
 
 // Create async thunk for updating authSlice serviceAvailability: true
@@ -61,7 +61,7 @@ export const providerAddProviderServiceAvailabilities = createAsyncThunk<ApiBase
 
 export const providerFetchProviderProfileDetails = async (): Promise<ProviderFetchProfileDetailsResponse> => {
     const response = await axiosInstance.get('/provider/getProfileDetails');
-    return response.data.profileDetails;
+    return response.data.data;
 }
 
 export const providerFetchProviderServiceAvailability = async (date: Date): Promise<ProviderFetchServiceAvailabilityResponse> => {
@@ -70,7 +70,7 @@ export const providerFetchProviderServiceAvailability = async (date: Date): Prom
             date: date.toISOString()
         }
     });
-    return response.data.availability;
+    return response.data.data;
 }
 
 export const providerUpdateProviderProfileImage = createAsyncThunk<ProviderUpdateProfileImageResponse, FormData>('/provider/UpdateProfileImage',
@@ -82,7 +82,7 @@ export const providerUpdateProviderProfileImage = createAsyncThunk<ProviderUpdat
 
 export const providerFetchProviderPlans = async (): Promise<ProviderFetchPlansResponse[]> => {
     const response = await axiosInstance.get('/provider/getPlans');
-    return response.data.plans;
+    return response.data.data;
 }
 
 // This api will create the stripe session and return the session id 
