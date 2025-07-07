@@ -1,20 +1,17 @@
 import axiosInstance from "@/lib/axios";
 import {
-    AdminApproveProviderResponse,
     AdminFetchAllProvidersResponse,
     AdminFetchProviderAddressResponse,
     AdminFetchProviderServiceResponse,
     AdminChangeProviderTrustTagRequest,
-    AdminChangeProviderTrustTagResponse,
     AdminChangeProviderBlockStatusRequest,
     AdminFetchProviderAvailabilityRequest,
     AdminFetchProviderAvailabilityResponse,
-    AdminChangeProviderBlockStatusResponse,
     AdminFetchProviderProfileDetailsResponse,
 } from "../interface/api/adminProviderApiInterface";
 import { buildQueryParams, parseNewCommonResponse } from "../helper";
 import { Provider } from "../interface/entityInterface/providerInterface";
-import { FetchFunctionParams, ApiPaginatedResponse } from "../interface/commonInterface";
+import { FetchFunctionParams, ApiPaginatedResponse, ApiBaseResponse } from "../interface/commonInterface";
 import { FetchPaymentsResponse, FetchProviderSubscriptionsResponse } from "../interface/api/commonApiInterface";
 
 export const adminFetchAllProviders = async (params?: FetchFunctionParams): Promise<ApiPaginatedResponse<AdminFetchAllProvidersResponse>> => {
@@ -23,17 +20,17 @@ export const adminFetchAllProviders = async (params?: FetchFunctionParams): Prom
     return parseNewCommonResponse<AdminFetchAllProvidersResponse>(response.data);
 };
 
-export const adminApproveProvider = async (data : {providerId : Provider["_id"]}): Promise<ApiPaginatedResponse<AdminApproveProviderResponse>> => {
+export const adminApproveProvider = async (data : {providerId : Provider["_id"]}): Promise<ApiBaseResponse> => {
     const response = await axiosInstance.patch(`/admin/approveProvider`, {data});
     return response.data;
 }
 
-export const adminChangeProviderBlockStatus = async (data: AdminChangeProviderBlockStatusRequest): Promise<ApiPaginatedResponse<AdminChangeProviderBlockStatusResponse>> => {
+export const adminChangeProviderBlockStatus = async (data: AdminChangeProviderBlockStatusRequest): Promise<ApiBaseResponse> => {
     const response = await axiosInstance.patch(`/admin/changeProviderBlockStatus`, data);
     return response.data;
 }
 
-export const adminChangeProviderTrustTag = async (data: AdminChangeProviderTrustTagRequest): Promise<ApiPaginatedResponse<AdminChangeProviderTrustTagResponse>> => {
+export const adminChangeProviderTrustTag = async (data: AdminChangeProviderTrustTagRequest): Promise<ApiBaseResponse> => {
     const response = await axiosInstance.patch(`/admin/changeProvidertrustedTag`, data);
     return response.data;
 }

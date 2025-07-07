@@ -6,97 +6,55 @@ import { AvailabilityForResponse } from "../entityInterface/serviceAvailabilityI
 
 type AdminProviderBasicInfo = Pick<Provider, "_id" | "username" | "email" | "isBlocked" | "isAdminVerified" | "trustedBySlotflow">;
 
-// **** adminFetchAllProviders
-// Used as the return type for Admin Fetch All Providers
-// Used in adminProviderApi, AdminProvidersTableColumns, AdminProvidersPage, useAdminProviderActions
+// **** 1.  Used as the response type of admin fetch all providers api
 export type AdminFetchAllProvidersResponse = AdminProviderBasicInfo;
 
 
+// **** 2.  Inline interfaces used for the adminApproveProvider api
 
 
-// **** adminApproveProvider
-// Used as the return type for Admin approve a provider
-// Used in adminProviderApi
-export interface AdminApproveProviderResponse  {
-    updatedProvider: AdminProviderBasicInfo;
-}
-
-
-
-
-// **** adminChangeProviderBlockStatus
-// Used as the request type for Admin change provider block status
-// Used in adminProviderApi
+// **** 3.  Used as the request type for the admin change provider block status api
 export type AdminChangeProviderBlockStatusRequest = {
     providerId: Provider["_id"];
     isBlocked: Provider["isBlocked"];
 }
-// Used as the return type for Admin change provider block status
-// Used in adminProviderApi
-export interface AdminChangeProviderBlockStatusResponse {
-    updatedProvider: AdminProviderBasicInfo
-}
 
 
-
-
-// **** adminChangeProviderTrustTagStatus
-// Used as the request type for Admin change provider trust tag status
-// Used in adminProviderApi
+// **** 4.  Used as the request type for the admin change provider trust tag api
 export type AdminChangeProviderTrustTagRequest = {
     providerId: Provider["_id"];
     trustedBySlotflow: Provider["trustedBySlotflow"];
 }
-// Used as the return type for Admin change provider trust tag status
-// Used in adminProviderApi
-export interface AdminChangeProviderTrustTagResponse {
-    updatedProvider: AdminProviderBasicInfo
-}
 
 
-
-
-// **** adminFetchProviderProfileDetails
-// Used as the return type for Admin fetch provider profile details
-// Used in adminProviderApi, UserOrProviderProfileDetails
+// **** 5.  Used as the response type of the admin fetch provider profile profile details api
 export type AdminFetchProviderProfileDetailsResponse = Pick<Provider, "_id" | "username" | "email" | "isBlocked" | "isEmailVerified" | "isAdminVerified" | "phone" | "profileImage" | "createdAt" | "trustedBySlotflow">;
 
 
-
-
-// **** adminFetchProviderAddressDetails
-// Used as the return type for Admin fetch provider address details
-// Used in adminProviderApi, UserOrProviderAddressDetails
+// **** 6.  Used as the response type of the admin fetch provider address api
 export type AdminFetchProviderAddressResponse = Pick<Address, "userId" | "addressLine" | "phone" | "place" | "city" | "district" | "pincode" | "state" | "country" | "googleMapLink">;
 
 
-
-
-// **** adminFetchProviderServiceDetails
-// Used as the return type for Admin fetch provider service details
-// Used in adminProviderApi, ProviderServiceDetails
+// **** 7.  Used as the response type of the admin fetch provider serivde details api
 type FetchProviderServiceApiResponse = Pick<ProviderService, "serviceName" | "serviceDescription" | "servicePrice" | "providerAdhaar" | "providerExperience" | "providerCertificateUrl">;
 export interface AdminFetchProviderServiceResponse extends FetchProviderServiceApiResponse {
     serviceCategory: Pick<Service, "serviceName">
 }
 
 
-
-
-// **** adminFetchProviderServiceAvailability
-// Used as the request type for Admin fetch provider service availability
-// Used in adminProviderApi
+// **** 8.1  Used as the request type of the admin fetch provider service availability api
 export type AdminFetchProviderAvailabilityRequest = {
     providerId: Provider["_id"]
     date: Date
 }
-// Used as the return type for Admin fetch provider service availability
-// Used in adminProviderApi
+// **** 8.2  Used as the response type of the admin fetch provider service availability api
 export type AdminFetchProviderAvailabilityResponse = AvailabilityForResponse;
 
 
+// **** 9.  Interface for adminFetchProviderSubscriptions api is in common interface file
 
 
+// **** 10.  Interface for adminFetchProviderPayments api is in common interface file
 
 
 
