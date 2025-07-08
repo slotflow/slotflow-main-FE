@@ -1,19 +1,15 @@
+import { Users } from "lucide-react";
+import CardOne from "@/components/admin/CardOne";
+import BarChartUi from "@/components/admin/BarChartUi";
 
 const AdminDashboardPage = () => {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 px-4">
-      <div className="bg-[var(--menuBg)] text-[var(--textTwo)] rounded-lg shadow-md p-6 h-48 flex flex-col justify-between">
-        <div>
-          <h3 className="text-lg font-semibold ">Card 1</h3>
-          <p className="text-sm  mt-2">
-            A brief description or content for Card 1.
-          </p>
-        </div>
-        <button className="border-2 border-[var(--mainColor)] text-[var(--textTwo)] font-semibold py-2 px-4 rounded">
-          Learn More
-        </button>
+    <>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 px-4">
+        <CardOne title="Current Traffic" value={128} icon={Users} />
       </div>
-    </div>
+      <BarChartUi />
+    </>
   )
 }
 
