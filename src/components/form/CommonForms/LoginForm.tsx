@@ -6,10 +6,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { FormButton, FormHeading } from "../FormSplits";
 import { FormEvent, useCallback, useState } from "react";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
-import { HandleChangeFunction, LoginFormData, LoginFormProp } from "@/utils/interface/commonInterface";
+import { HandleChangeFunction, LoginFormData, LoginFormProps } from "@/utils/interface/commonInterface";
 import { setResetPasswordForm, setsignInForm, setSignUpForm, setVerifyEmailForm, setVerifyOtpForm } from "@/utils/redux/slices/signFormSlice";
 
-const LoginForm: React.FC<LoginFormProp> = ({ isAdmin, role, title }) => {
+const LoginForm: React.FC<LoginFormProps> = ({ isAdmin, role, title }) => {
 
     const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();

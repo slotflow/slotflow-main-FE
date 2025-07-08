@@ -1,29 +1,33 @@
+import { TimeRange } from "../commonInterface";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { UpdateUserProfileImageApiResponse, UserFetchProviderAvailabilityApiResponse, UserFetchProviderServiceApiResponse } from "../api/userApiInterface";
-import { ProviderFetchServiceAvailabilityApiResponse, ProviderFetchServiceDetailsApiResponse, ProviderUpdateProfileImageApiResponse } from "../api/providerApiInterface";
 import { Provider } from "../entityInterface/providerInterface";
 import { AdminFetchProviderAvailabilityResponse, AdminFetchProviderServiceResponse } from "../api/adminProviderApiInterface";
+import { UpdateUserProfileImageResponse, UserFetchProviderAvailabilityResponse, UserFetchProviderServiceResponse } from "../api/userApiInterface";
+import { ProviderFetchServiceAvailabilityResponse, ProviderFetchServiceDetailsResponse, ProviderUpdateProfileImageResponse } from "../api/providerApiInterface";
 
-// **** Common component interfaces used in components / common folder **** \\
 
-// profile head compoenent props interface
+// **** Common component interfaces **** \\
+// **** Used in components / common **** \\
+// **** Used in components / chart **** \\
+
+// **** 1.  profile head compoenent props interface
 export interface ProfileHeaderComponentProps {
     updation: boolean;
     updateProfileImageApiFunction?: ReturnType<typeof createAsyncThunk<
-        ProviderUpdateProfileImageApiResponse | UpdateUserProfileImageApiResponse,
+        ProviderUpdateProfileImageResponse | UpdateUserProfileImageResponse,
         FormData
     >>;
     profileImage?: string;
 }
 
 
-// Provider service availabilit component props interface
+// **** 2.  Provider service availabilit component props interface
 type FetchApiFunctionUserOrAdminRequestPayloadProps = {
     providerId: Provider["_id"]
     date: Date
 }
-export type ProviderApiFunctionForPSAcomponent = (date: Date) => Promise<ProviderFetchServiceAvailabilityApiResponse>;
-export type UserOrAdminApiFunctionForPSAcomponent = (payload: FetchApiFunctionUserOrAdminRequestPayloadProps) => Promise<UserFetchProviderAvailabilityApiResponse | AdminFetchProviderAvailabilityResponse>;
+export type ProviderApiFunctionForPSAcomponent = (date: Date) => Promise<ProviderFetchServiceAvailabilityResponse>;
+export type UserOrAdminApiFunctionForPSAcomponent = (payload: FetchApiFunctionUserOrAdminRequestPayloadProps) => Promise<UserFetchProviderAvailabilityResponse | AdminFetchProviderAvailabilityResponse>;
 type FetchApiFunction = ProviderApiFunctionForPSAcomponent | UserOrAdminApiFunctionForPSAcomponent;
 export interface ProviderServiceAvailabilityComponentProps {
     providerId?: string
@@ -33,15 +37,32 @@ export interface ProviderServiceAvailabilityComponentProps {
 }
 
 
-// Provider Service details showing component props interface
+// **** 3.  Provider Service details showing component props interface
 export interface ProviderServiceDetailsComponentProps {
     providerId?: Provider["_id"];
     fetchApiFunction: (providerId?: Provider["_id"]) => Promise<
-        AdminFetchProviderServiceResponse |
-        ProviderFetchServiceDetailsApiResponse |
-        UserFetchProviderServiceApiResponse
+    AdminFetchProviderServiceResponse |
+    ProviderFetchServiceDetailsResponse |
+    UserFetchProviderServiceResponse
     >;
     queryKey: string;
     isUser?: boolean;
     shimmerRow?: number;
+}
+
+
+
+
+
+// **** 4.1 DateSelect component interface
+export interface DateSelectInterface {
+    onValueChange: (value: TimeRange) => void;
+    value: string;
+}
+
+export interface ChartHeaderInterface {
+    title: string;
+    description?: string;
+    onValueChange: (value: TimeRange) => void;
+    value: string;
 }

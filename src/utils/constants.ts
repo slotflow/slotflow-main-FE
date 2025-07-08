@@ -1,4 +1,4 @@
-import { gsapBigSvgYDirectionAnimationProps, HeaderCompoenentNavsProps, Route } from "./interface/commonInterface";
+import { dataSelectListItem, gsapBigSvgYDirectionAnimationProps, HeaderCompoenentNavsProps, Route } from "./interface/commonInterface";
 
 // **** Routes for admin **** \\
 export const adminRoutes: Route[] = [
@@ -92,13 +92,24 @@ export const dayMap: {
 
 // **** Not chat selected shimmer constants **** \\
 export const shimmerMessages: { align: string, height: string, width: string}[] = [
-    { align: "end", height: "h-10", width: "w-64" },
-    { align: "start", height: "h-24", width: "w-60" },
-    { align: "end", height: "h-36", width: "w-72" },
-    { align: "start", height: "h-12", width: "w-44" },
-    { align: "end", height: "h-14", width: "w-56" },
-    { align: "start", height: "h-10", width: "w-60" },
-    { align: "end", height: "h-28", width: "w-64" },
-    { align: "start", height: "h-32", width: "w-72" },
-    { align: "end", height: "h-24", width: "w-56" },
-  ];
+  { align: "end", height: "h-10", width: "w-64" },
+  { align: "start", height: "h-24", width: "w-60" },
+  { align: "end", height: "h-36", width: "w-72" },
+  { align: "start", height: "h-12", width: "w-44" },
+  { align: "end", height: "h-14", width: "w-56" },
+  { align: "start", height: "h-10", width: "w-60" },
+  { align: "end", height: "h-28", width: "w-64" },
+  { align: "start", height: "h-32", width: "w-72" },
+  { align: "end", height: "h-24", width: "w-56" },
+];
+
+// **** ChartHeader date selector data **** \\
+export const dateSelectList: dataSelectListItem[] = [
+    { value: "7d", content: "Last 7 days" },
+    { value: "14d", content: "Last 14 days" },
+    { value: "30d", content: "Last month" },
+    { value: "60d", content: "Last 2 months" },
+    { value: "90d", content: "Last 3 months" },
+    { value: "180d", content: "Last 6 months" },
+    { value: "365d", content: "Last year" },
+]

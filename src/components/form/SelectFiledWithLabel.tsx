@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect, memo } from 'react';
-import { SelectFieldProps } from '@/utils/interface/commonInterface';
+import { SelectFieldWithLabelProps } from '@/utils/interface/commonInterface';
 
-const SelectFiledWithLabel: React.FC<SelectFieldProps> = memo(({
+const SelectFiledWithLabel: React.FC<SelectFieldWithLabelProps> = memo(({
     label,
     id,
     value,

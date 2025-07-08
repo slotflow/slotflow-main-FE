@@ -1,13 +1,14 @@
 import { ChangeEvent } from "react";
 import { ColumnDef } from "@tanstack/react-table";
 
-// ****************** Common Response ******************
+// **** 1.  Common Response interface
 export interface ApiBaseResponse {
   success?: boolean;
   message?: string;
 }
 
 
+// **** 2.  Paginated response api return data interface
 export interface ApiPaginatedResponse<T> extends ApiBaseResponse {
   data?: T[];
   totalCount?: number;
@@ -16,10 +17,7 @@ export interface ApiPaginatedResponse<T> extends ApiBaseResponse {
 }
 
 
-
-
-
-// ****************** Common reusable fields for forms ******************
+// **** 3.  Form data common interface
 interface CommonFormFields {
   username: string;
   email: string;
@@ -31,82 +29,55 @@ interface CommonFormFields {
 }
 
 
+// **** 4.1  Signup form props type
+export type signUpFormProps = Pick<CommonFormFields, "role">;
+// **** 4.2  Sign up form FormData type
+export type SignUpFormData = Pick<CommonFormFields, "username" | "email" | "password" | "confirmPassword">;
 
 
 
-// ****************** Signup form ******************
-// Signup form props
-export type signUpProps= Pick<CommonFormFields, "role">;
-// Sign up form FormData interface
-export type SignUpFormDataProps = Pick<CommonFormFields, "username" | "email" | "password" | "confirmPassword">;
-
-
-
-
-
-// ****************** Otp verification form ******************
-// Signform useSelector interface
-export interface SignFormUseSelectorProps {
+// **** 5.1  Otp verification form useSelector interface
+export interface OtpVerificationUseSelector {
   otpRemainingTime: number;
   otpTimerIsRunning: boolean;
   loading: boolean;
   forgotPassword: boolean;
 }
-// Otp verification form data 
+// **** 5.2  Otp verification form useSelector type
 export type OtpVerificationFormData = Pick<CommonFormFields, "otp">;
 
 
-
-
-
-// ****************** Login form ******************
-// Login form props interface
-export interface LoginFormProp extends Pick<CommonFormFields, "role"> {
+// **** 6.1  Login form props interface
+export interface LoginFormProps extends Pick<CommonFormFields, "role"> {
   isAdmin?: boolean;
   title: string;
 }
+// **** 6.2  Login form data type
 export type LoginFormData = Pick<CommonFormFields, "email" | "password">;
 
 
-
-
-
-// ****************** Reset password form ******************
-// Email verification form props
+// **** 7.1  Email verification form props type
 export type EmailVerificationFormProps = Pick<CommonFormFields, "role">;
-// Email verification form data
+// **** 7.2  Email verification form data type
 export type EmailVerificationFormData = Pick<CommonFormFields, "email">;
 
 
-
-
-
-// ****************** Reset password form ******************
-// Password reset form FormData interface
+// **** 8.  Password reset form props type
 export type PasswordResetFormDataProps = Pick<CommonFormFields, "password" | "confirmPassword">;
 
 
-
-
-
-// ****************** Auth Forms Common Interfaces ******************
-// Authentication forms heading props interface used in FormSplit compoenent
+// **** 9.1 Authtication form heading component props interface
 export interface AuthFormsHeadingProps {
   title: string;
 }
-
-// Authentication forms button props interface used in FormSplit compoenent
+// **** 9.1 Authtication form button component props interface
 export interface AuthFormsButtonProps {
   text: string;
   loading: boolean;
 }
 
 
-
-
-
-// ****************** Input field with label ******************
-// Common input field with label compoenents props interface, used in InputFieldWithLabel compoenent
+// **** 10.  InputFieldWithLabel common component props interface
 export interface InputFieldProps {
   label?: string;
   id: string;
@@ -121,12 +92,8 @@ export interface InputFieldProps {
 }
 
 
-
-
-
-// ****************** select field with label ******************
-// Common select field with label compoenent props interface, used in SelectFieldWithLabel compoenent
-export interface SelectFieldProps {
+// **** 11.  SelectFieldWithLabel common component props interface
+export interface SelectFieldWithLabelProps {
   label: string;
   id: string;
   value: string | boolean | number;
@@ -137,11 +104,7 @@ export interface SelectFieldProps {
 }
 
 
-
-
-
-// ****************** info display component ******************
-// InputDisplay components interface, this is used for showing details in profiles
+// **** 12.  InfoDisplay component props interface
 export interface InfoDisplayComponentRowProps {
   label: string;
   value: string | boolean | number | string[] | Date | undefined | null;
@@ -157,10 +120,7 @@ export interface InfoDisplayComponentRowProps {
 }
 
 
-
-
-
-// ****************** Common button props interface ******************
+// **** 13.  Common button props interface
 export interface CommonButtonProps {
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void,
   text: string,
@@ -169,36 +129,26 @@ export interface CommonButtonProps {
 }
 
 
-
-
-
-// ****************** Common role button props interface ******************
+// **** 14.  Common role button props interface
 export interface RoleButtonProps {
   onClick: () => void;
   children: React.ReactNode;
 }
 
 
-
-
-
-// ****************** nav compoenents interfaces ******************
-// Sidebar compoenent props
+// **** 15.  nav compoenents interfaces
 export interface SideBarProps {
   routes: Route[];
 }
 
 
-
-
-
-// ****************** Constant file interfaces ******************
-// Routes array props
+// **** 16.  Constant file interfaces
+// **** 16.1  Routes array interface
 export interface Route {
   path: string;
   name: string;
 }
-// gsap animation object props
+// **** 16.2  gsap animation object interface
 export interface gsapBigSvgYDirectionAnimationProps {
   y: number,
   duration: number,
@@ -206,7 +156,7 @@ export interface gsapBigSvgYDirectionAnimationProps {
   repeat: number,
   ease: string,
 }
-// Header compoenent Navs Array Interface
+// **** 16.3  Header compoenent Navs Array Interface
 export interface HeaderCompoenentNavsProps {
   name: string;
   href: string;
@@ -214,26 +164,17 @@ export interface HeaderCompoenentNavsProps {
 }
 
 
-
-
-
-// ****************** Common Forms Input handle change function type ******************
+// **** 17.  Common Forms Input handle change function type
 export type HandleChangeFunction = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
 export type HandleFeatureChangeFunction = (e: ChangeEvent<HTMLInputElement>, index: number) => void;
 
 
-
-
-
-// ****************** Section one interface ******************
-//  Role section Button function interface 
+// **** 18.  Section one interface
+// **** 18.1  Role section Button function interface 
 export type HandleRoleSelectionFunction = (url: string) => void;
 
 
-
-
-
-// ****************** Common Table compoenent  ******************
+// **** 19.  Common Table compoenent
 export interface CommonTableComponentProps<T> {
   fetchApiFunction: (params?: FetchFunctionParams) => Promise<ApiPaginatedResponse<T>>;
   queryKey: string;
@@ -246,18 +187,29 @@ export interface CommonTableComponentProps<T> {
 }
 
 
-
-
-
-
-
-
-
-// ****************** Api common request parameter interface ******************
+// **** 20.  Api common request parameter interface
 export interface FetchFunctionParams<T = string> {
   id?: T;
   pagination?: {
     page: number;
     limit: number;
   };
+}
+
+
+// **** 21.  formate date timeRage Enum
+export type TimeRange = "7d"
+| "14d"
+| "30d"
+| "45d"
+| "60d"
+| "90d"
+| "180d"
+| "365d"
+
+
+// **** 22.  dateSelect data interface
+export interface dataSelectListItem {
+    value: string;
+    content: string;
 }

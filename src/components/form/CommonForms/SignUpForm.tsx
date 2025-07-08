@@ -5,18 +5,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { FormButton, FormHeading } from "../FormSplits";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
 import React, { FormEvent, useCallback, useState } from "react";
-import { ApiBaseResponse, SignUpFormDataProps, signUpProps } from "@/utils/interface/commonInterface";
+import { ApiBaseResponse, SignUpFormData, signUpFormProps } from "@/utils/interface/commonInterface";
 import { setResetPasswordForm, setsignInForm, setSignUpForm, setVerifyEmailForm, setVerifyOtpForm, startTimer } from "@/utils/redux/slices/signFormSlice";
 
 
-const SignUpForm: React.FC<signUpProps> = ({ role }) => {
+const SignUpForm: React.FC<signUpFormProps> = ({ role }) => {
 
     const dispatch = useDispatch<AppDispatch>();
 
     const loading: boolean = useSelector((store: RootState) => store.signform.loading);
     const [hasErrors, setHasErrors] = useState<boolean>(false);
 
-    const [formData, setFormData] = useState<SignUpFormDataProps>({
+    const [formData, setFormData] = useState<SignUpFormData>({
         username: "",
         email: "",
         password: "",

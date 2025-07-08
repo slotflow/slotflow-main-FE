@@ -7,13 +7,13 @@ import { UserData } from "@/utils/interface/sliceInterface";
 import { resendOtp, verifyOtp } from "@/utils/apis/auth.api";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
 import React, { FormEvent, useCallback, useEffect, useState } from "react";
-import { ApiBaseResponse, HandleChangeFunction, OtpVerificationFormData, SignFormUseSelectorProps } from "@/utils/interface/commonInterface";
+import { ApiBaseResponse, HandleChangeFunction, OtpVerificationFormData, OtpVerificationUseSelector } from "@/utils/interface/commonInterface";
 import { setResetPasswordForm, setsignInForm, setSignUpForm, setVerifyEmailForm, setVerifyOtpForm, stopTimer, updateTimer } from "@/utils/redux/slices/signFormSlice";
 
 const OtpVerificatioForm: React.FC = () => {
 
     const dispatch = useDispatch<AppDispatch>();
-    const { otpRemainingTime, otpTimerIsRunning, loading, forgotPassword }: SignFormUseSelectorProps = useSelector((store: RootState) => store.signform);
+    const { otpRemainingTime, otpTimerIsRunning, loading, forgotPassword }: OtpVerificationUseSelector = useSelector((store: RootState) => store.signform);
     const authUser: UserData | null = useSelector((store: RootState) => store.auth.authUser);
     const [hasErrors, setHasErrors] = useState<boolean>(false);
     const [resentLoading, setResendLoading] = useState<boolean>(false);
