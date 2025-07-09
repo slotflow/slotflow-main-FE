@@ -21,7 +21,7 @@ export const adminFetchAllProviders = async (params?: FetchFunctionParams): Prom
 };
 
 export const adminApproveProvider = async (data : {providerId : Provider["_id"]}): Promise<ApiBaseResponse> => {
-    const response = await axiosInstance.patch(`/admin/approveProvider`, {data});
+    const response = await axiosInstance.patch(`/admin/approveProvider`, data);
     return response.data;
 }
 
