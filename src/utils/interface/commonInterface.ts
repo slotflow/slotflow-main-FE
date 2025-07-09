@@ -117,6 +117,7 @@ export interface InfoDisplayComponentRowProps {
   isRadioGroup?: boolean;
   selectedRadioValue?: string | null;
   onRadioChange?: (value: string) => void;
+  role?: string;
 }
 
 

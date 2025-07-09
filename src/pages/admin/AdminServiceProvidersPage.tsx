@@ -10,7 +10,6 @@ const AdminServiceProvidersPage = () => {
       fetchApiFunction={adminFetchAllProviders} 
       queryKey="providers" 
       heading="Service Providers" 
-      headingClassName="mt-4"
       column={AdminProvidersTableColumns}
       columnsCount={6} 
     />

@@ -28,7 +28,7 @@ const ProviderServiceAvailability: React.FC<ProviderServiceAvailabilityComponent
             if (role === "User" || role === "Admin") {
                 if (!providerId) throw new Error("Missing provider _id for user/admin fetch");
                 return (fetchApiFuntion as UserOrAdminApiFunctionForPSAcomponent)({ date, providerId });
-            } else if(role === "Provider") {
+            } else if (role === "Provider") {
                 return (fetchApiFuntion as ProviderApiFunctionForPSAcomponent)(date);
             }
         },
@@ -92,14 +92,13 @@ const ProviderServiceAvailability: React.FC<ProviderServiceAvailabilityComponent
                                                 selectedRadioValue={selectedMode}
                                                 onRadioChange={(val) => setSelectedMode(val)}
                                                 isLast
+                                                role={role}
                                             />
                                         </tbody>
                                     </table>
                                 </div>
 
-                                <div className="p-2">
-                                    <p>Please ensure that you book the slot at least 2 hours in advance.</p>
-                                </div>
+                                <p className="p-2">Please ensure that you book the slot at least 2 hours in advance.</p>
 
                                 <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mt-2">
                                     {data?.slots?.length ? (

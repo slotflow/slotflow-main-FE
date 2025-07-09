@@ -14,7 +14,8 @@ const InfoDisplayComponent: React.FC<InfoDisplayComponentRowProps> = ({
     isLast,
     isRadioGroup,
     selectedRadioValue,
-    onRadioChange
+    onRadioChange,
+    role
 }) => {
 
     return (
@@ -24,20 +25,30 @@ const InfoDisplayComponent: React.FC<InfoDisplayComponentRowProps> = ({
                 <td className="p-4 w-8/12">
                     {(value === null || value === undefined) && "Not Yet added"}
                     {isRadioGroup && Array.isArray(value) ? (
-                        <RadioGroup
-                            value={selectedRadioValue}
-                            onValueChange={onRadioChange}
-                            className="space-y-2"
-                        >
-                            {value.map((item) => (
-                                <div key={item} className="flex items-center space-x-2">
-                                    <RadioGroupItem value={item} id={item} />
+                        role === "Admin" ? (
+                            <div className="flex space-x-2">
+                                {value.map((item) => (
                                     <label htmlFor={item} className="text-sm font-medium leading-none">
                                         {item}
                                     </label>
-                                </div>
-                            ))}
-                        </RadioGroup>
+                                ))}
+                            </div>
+                        ) : (
+                            <RadioGroup
+                                value={selectedRadioValue}
+                                onValueChange={onRadioChange}
+                                className="flex"
+                            >
+                                {value.map((item) => (
+                                    <div key={item} className="flex items-center space-x-2">
+                                        <RadioGroupItem value={item} id={item} />
+                                        <label htmlFor={item} className="text-sm font-medium leading-none">
+                                            {item}
+                                        </label>
+                                    </div>
+                                ))}
+                            </RadioGroup>
+                        )
                     ) : isBoolean ? (
                         <span>{formatBoolean(value as boolean)}</span>
                     ) : isPrice ? (
