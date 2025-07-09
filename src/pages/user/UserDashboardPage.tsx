@@ -1,13 +1,18 @@
-import { useSelector } from 'react-redux';
-import { Loader, Search } from 'lucide-react';
+import { useEffect } from 'react';
+import { Loader } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { useQuery } from '@tanstack/react-query';
-import { RootState } from '@/utils/redux/appStore';
+import { useDispatch, useSelector } from 'react-redux';
+import CommonButton from '@/components/common/CommonButton';
+import { AppDispatch, RootState } from '@/utils/redux/appStore';
 import { userSearchServiceProviders } from '@/utils/apis/user.api';
 import DataFetchingError from '@/components/common/DataFetchingError';
+import { toggleFilterSideBar } from '@/utils/redux/slices/stateSlice';
 import UserViewProviderCard from '@/components/user/UserViewProviderCard';
 
 const UserDashboardPage = () => {
+
+  const dispatch = useDispatch<AppDispatch>();
   const selectedServices = useSelector((store: RootState) => store.user.selectedServices);
 
   const { data, isLoading, isError, error } = useQuery({
@@ -16,6 +21,10 @@ const UserDashboardPage = () => {
     staleTime: 5 * 60 * 1000,
     refetchOnWindowFocus: false,
   });
+
+  useEffect(() => {
+
+  }, [selectedServices]);
 
   if (isLoading) {
     return (
@@ -29,20 +38,25 @@ const UserDashboardPage = () => {
     return <DataFetchingError message={(error as Error).message || "Something went wrong"} />;
   }
 
-  if(data?.length === 0) {
+  if (data?.length === 0) {
     return <DataFetchingError message={"There is no providers found in the databse"} />;
   }
 
   return (
-    <div className='px-6'>
-      <div className="relative w-full max-w-sm">
-        <Search className="absolute left-2 top-2 h-5 w-5 text-gray-500" />
-        <Input type="text" placeholder="Search..." className="pl-8" />
-      </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 my-4">
-        {data?.map((provider, index) => (
-          <UserViewProviderCard key={index} {...provider} />
-        ))}
+    <div className="relative"> {/* key fix: relative + page scope */}
+      <div className='px-6'>
+        <div className='flex justify-between'>
+          <div className="relative w-full max-w-md">
+            <Input type="text" placeholder="Search..." className="pl-8" />
+          </div>
+          <CommonButton text='Filters' onClick={() => dispatch(toggleFilterSideBar())} />
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 my-4">
+          {data?.map((provider, index) => (
+            <UserViewProviderCard key={index} {...provider} />
+          ))}
+        </div>
       </div>
     </div>
   );

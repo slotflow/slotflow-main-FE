@@ -5,6 +5,7 @@ const initialState: appStateVariables = {
     lightTheme: true,
     signinForm: true,
     sidebarOpen: true,
+    filterSideBarOpen: true,
 }
 
 const stateSlice = createSlice({
@@ -16,6 +17,9 @@ const stateSlice = createSlice({
         },
         toggleSidebar: (state) => {
             state.sidebarOpen = !state.sidebarOpen;
+        },
+        toggleFilterSideBar: (state) => {
+            state.filterSideBarOpen = !state.filterSideBarOpen;
         }
     }
 });
@@ -23,6 +27,7 @@ const stateSlice = createSlice({
 export const { 
     toggleTheme, 
     toggleSidebar,
+    toggleFilterSideBar,
 } = stateSlice.actions;
 
 export default stateSlice.reducer;

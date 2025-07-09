@@ -43,6 +43,7 @@ export interface appStateVariables {
     lightTheme: boolean;
     signinForm: boolean;
     sidebarOpen: boolean;
+    filterSideBarOpen: boolean;
 }
 
 
