@@ -1,5 +1,7 @@
 import * as React from "react"
-import * as RechartsPrimitive from "recharts"
+import { LegendPayload } from "recharts";
+import * as RechartsPrimitive from "recharts";
+
 
 import { cn } from "@/lib/utils"
 
@@ -248,22 +250,24 @@ function ChartTooltipContent({
 
 const ChartLegend = RechartsPrimitive.Legend
 
+interface ChartLegendContentProps {
+  className?: string;
+  payload?: LegendPayload[];
+  verticalAlign?: "top" | "bottom" | "middle";
+  hideIcon?: boolean;
+  nameKey?: string;
+}
+
 function ChartLegendContent({
   className,
   hideIcon = false,
   payload,
   verticalAlign = "bottom",
   nameKey,
-}: React.ComponentProps<"div"> &
-  Pick<RechartsPrimitive.LegendProps, "payload" | "verticalAlign"> & {
-    hideIcon?: boolean
-    nameKey?: string
-  }) {
-  const { config } = useChart()
+}: ChartLegendContentProps) {
+  const { config } = useChart();
 
-  if (!payload?.length) {
-    return null
-  }
+  if (!payload) { return null }
 
   return (
     <div
@@ -273,8 +277,9 @@ function ChartLegendContent({
         className
       )}
     >
-      {payload.map((item) => {
+      {(payload as { dataKey: string, value: string, color: string }[]).map((item) => {
         const key = `${nameKey || item.dataKey || "value"}`
+        console.log("key : ",key)
         const itemConfig = getPayloadConfigFromPayload(config, item, key)
 
         return (
@@ -294,7 +299,7 @@ function ChartLegendContent({
                 }}
               />
             )}
-            {itemConfig?.label}
+            {itemConfig?.label || key}
           </div>
         )
       })}
