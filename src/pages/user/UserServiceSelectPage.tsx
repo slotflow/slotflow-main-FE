@@ -38,10 +38,10 @@ const UserServiceSelectPage = () => {
     return (
         <div className="px-6 min-h-full flex flex-col">
             {data && data.length > 0 && (
-                <h2 className="text-2xl font-semibold mb-10">What are you looking for?</h2>
+                <h2 className="text-2xl font-semibold mb-10">How can we help you today?</h2>
             )}
-            {isError ? (
-                <DataFetchingError message={error.message} />
+            {isError && error ? (
+                <DataFetchingError message={(error as Error).message} />
             ) : data && data?.length === 0 ? (
                 <DataFetchingError message="No services found." />
             ) : data ? (

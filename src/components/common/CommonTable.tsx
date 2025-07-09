@@ -55,8 +55,8 @@ const CommonTable = <T,>({
           pagination={pagination}
           onPaginationChange={handlePaginationChange}
         />
-      ) : isError ? (
-        <DataFetchingError message={error?.message} className="min-h-full" />
+      ) : isError && error ? (
+        <DataFetchingError message={(error as Error).message} className="min-h-full" />
       ) : (
         <DataFetchingError message={"No "+queryKey+" found in databse"} className="min-h-full" />
       )}

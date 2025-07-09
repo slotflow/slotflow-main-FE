@@ -13,7 +13,7 @@ export const setupAxiosInterceptors = () => {
             console.log("Error Checking : ",error);
             if(error.response?.status === 400) {
                 toast.error(error.response?.data?.message || "Unexpected Error");
-                return;
+                // return;
             }
             if (error.response?.status === 401) {
                 appStore.dispatch(setAuthUser(null));

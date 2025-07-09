@@ -18,8 +18,8 @@ const AdminSubcriptionDetailedViewPage = () => {
 
     return (
         <div className="w-full mx-auto mt-0 md:flex justify-start flex-grow bg">
-            {isError ? (
-                <DataFetchingError message={error.message} />
+            {isError && error ? (
+                <DataFetchingError message={(error as Error).message} />
             ) : isLoading ? (
                 <ProfileDetailsShimmer row={14} />
             ) : data ? (

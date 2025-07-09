@@ -17,8 +17,6 @@ const UserDashboardPage = () => {
     refetchOnWindowFocus: false,
   });
 
-  console.log("data : ",data);
-
   if (isLoading) {
     return (
       <div className="fixed inset-0 flex justify-center items-center bg-black/70 z-50">
@@ -27,8 +25,8 @@ const UserDashboardPage = () => {
     );
   }
 
-  if (isError) {
-    return <DataFetchingError message={error?.message || "Something went wrong"} />;
+  if (isError && error) {
+    return <DataFetchingError message={(error as Error).message || "Something went wrong"} />;
   }
 
   if(data?.length === 0) {
