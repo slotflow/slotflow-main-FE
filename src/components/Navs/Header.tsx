@@ -10,6 +10,7 @@ import { UserData } from '@/utils/interface/sliceInterface';
 import { setAuthUser } from '@/utils/redux/slices/authSlice';
 import { toggleTheme } from '@/utils/redux/slices/stateSlice';
 import { AppDispatch, RootState } from '../../utils/redux/appStore';
+import { clearSelection } from '@/utils/redux/slices/userSlice';
 
 const Header:React.FC = () => {
 
@@ -41,6 +42,7 @@ const Header:React.FC = () => {
       toast.success(res.message);
       if (role === "USER") {
         dispatch(setAuthUser(null));
+        dispatch(clearSelection());
         navigate("/user/login");
       } else if (role === "PROVIDER") {
         dispatch(setAuthUser(null));

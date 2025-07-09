@@ -11,6 +11,9 @@ const userSlice = createSlice({
   reducers: {
     addService: (state, action: PayloadAction<string[]>) => {
       state.selectedServices = action.payload;
+    },
+    clearSelection: (state) => {
+      state.selectedServices = []
     }
   },
 
@@ -18,6 +21,7 @@ const userSlice = createSlice({
 
 export const {
   addService,
+  clearSelection
 } = userSlice.actions;
 
 export default userSlice.reducer;
