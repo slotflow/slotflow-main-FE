@@ -43,20 +43,18 @@ const UserDashboardPage = () => {
   }
 
   return (
-    <div className="relative"> {/* key fix: relative + page scope */}
-      <div className='px-6'>
-        <div className='flex justify-between'>
-          <div className="relative w-full max-w-md">
-            <Input type="text" placeholder="Search..." className="pl-8" />
-          </div>
-          <CommonButton text='Filters' onClick={() => dispatch(toggleFilterSideBar())} />
+    <div className='px-6'>
+      <div className='flex justify-between'>
+        <div className="relative w-full max-w-md">
+          <Input type="text" placeholder="Search..." className="pl-8" />
         </div>
+        <CommonButton text='Filters' onClick={() => dispatch(toggleFilterSideBar())} />
+      </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 my-4">
-          {data?.map((provider, index) => (
-            <UserViewProviderCard key={index} {...provider} />
-          ))}
-        </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 my-4">
+        {data?.map((provider, index) => (
+          <UserViewProviderCard key={index} {...provider} />
+        ))}
       </div>
     </div>
   );
