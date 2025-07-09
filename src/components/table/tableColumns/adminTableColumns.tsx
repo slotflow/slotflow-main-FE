@@ -7,20 +7,12 @@ import { DropDownItemChangePlanBlockStatus } from "../adminTableOptions/AdminPla
 import { DropDownItemChangeServiceBlockStatus } from "../adminTableOptions/AdminSerivceTableOptions";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../../ui/dropdown-menu";
 import { DropDownItemApproveProvider, DropDownItemChangeProviderBlockStatus, DropDownItemChangeProviderTrustTag, DropDownItemGetProviderDetailPage } from "../adminTableOptions/AdminProviderTableOptions";
-import { AdminFetchAllProvidersResponse } from "@/utils/interface/api/adminProviderApiInterface";
 import { AdminfetchAllUsersResponse } from "@/utils/interface/api/adminUserApiInterface";
 import { AdminFetchAllPlansResponse } from "@/utils/interface/api/adminPlanApiInterface";
 import { AdminFetchAllServicesResponse } from "@/utils/interface/api/adminServiceApiInterface";
+import { AdminFetchAllProvidersResponse } from "@/utils/interface/api/adminProviderApiInterface";
 
 export const AdminProvidersTableColumns: ColumnDef<AdminFetchAllProvidersResponse>[] = [
-  {
-    accessorKey: "isAdminVerified",
-    header: "Admin Verication",
-    cell: ({ row }) => {
-      const isVerified = row.original.isAdminVerified;
-      return <span>{isVerified ? "verified" : "Pending"}</span>;
-    },
-  },
   {
     accessorKey: "username",
     header: ({ column }) => (<DataTableColumnHeader column={column} title="Username" />)
@@ -31,10 +23,26 @@ export const AdminProvidersTableColumns: ColumnDef<AdminFetchAllProvidersRespons
   },
   {
     accessorKey: "isBlocked",
-    header: ({ column }) => (<DataTableColumnHeader column={column} title="Status" />),
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="Account Status" />),
     cell: ({ row }) => {
       const isBlocked = row.original.isBlocked;
       return <span>{isBlocked ? "Blocked" : "Active"}</span>;
+    },
+  },
+  {
+    accessorKey: "isAdminVerified",
+    header: "Admin Verication",
+    cell: ({ row }) => {
+      const isVerified = row.original.isAdminVerified;
+      return <span>{isVerified ? "verified" : "Pending"}</span>;
+    },
+  },
+  {
+    accessorKey: "isEmailVerified",
+    header: "Email Verication",
+    cell: ({ row }) => {
+      const isEmailVerified = row.original.isEmailVerified;
+      return <span>{isEmailVerified ? "verified" : "Pending"}</span>;
     },
   },
   {
@@ -77,14 +85,6 @@ export const AdminProvidersTableColumns: ColumnDef<AdminFetchAllProvidersRespons
 
 export const AdminUsersTableColumns: ColumnDef<AdminfetchAllUsersResponse>[] = [
   {
-    accessorKey: "isVerified",
-    header: "Verication",
-    cell: ({ row }) => {
-      const isVerified = row.original.isEmailVerified;
-      return <span>{isVerified ? "verified" : "Pending"}</span>;
-    },
-  },
-  {
     accessorKey: "username",
     header: ({ column }) => (<DataTableColumnHeader column={column} title="Username" />)
   },
@@ -94,10 +94,18 @@ export const AdminUsersTableColumns: ColumnDef<AdminfetchAllUsersResponse>[] = [
   },
   {
     accessorKey: "isBlocked",
-    header: ({ column }) => (<DataTableColumnHeader column={column} title="Status" />),
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="Account Status" />),
     cell: ({ row }) => {
       const isBlocked = row.original.isBlocked;
       return <span>{isBlocked ? "Blocked" : "Active"}</span>;
+    },
+  },
+  {
+    accessorKey: "isVerified",
+    header: "Email Verication",
+    cell: ({ row }) => {
+      const isVerified = row.original.isEmailVerified;
+      return <span>{isVerified ? "verified" : "Pending"}</span>;
     },
   },
   {

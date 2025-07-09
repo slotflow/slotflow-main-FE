@@ -4,10 +4,8 @@ import { Service } from "../entityInterface/appServiceInterface";
 import { ProviderService } from "../entityInterface/providerServiceInterface";
 import { AvailabilityForResponse } from "../entityInterface/serviceAvailabilityInterface";
 
-type AdminProviderBasicInfo = Pick<Provider, "_id" | "username" | "email" | "isBlocked" | "isAdminVerified" | "trustedBySlotflow">;
-
 // **** 1.  Used as the response type of admin fetch all providers api
-export type AdminFetchAllProvidersResponse = AdminProviderBasicInfo;
+export type AdminFetchAllProvidersResponse = Pick<Provider, "_id" | "username" | "email" | "isBlocked" | "isAdminVerified" | "isEmailVerified" | "trustedBySlotflow">;
 
 
 // **** 2.  Inline interfaces used for the adminApproveProvider api

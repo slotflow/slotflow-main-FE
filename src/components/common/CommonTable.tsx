@@ -14,7 +14,7 @@ const CommonTable = <T,>({
   column,
   columnsCount,
   id,
-  pageSize = 5,
+  pageSize = 10,
 }: CommonTableComponentProps<T>) => {
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
