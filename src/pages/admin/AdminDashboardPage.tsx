@@ -226,7 +226,7 @@ const AdminDashboardPage = () => {
         <CardOne title="Current Traffic" value={128} icon={Users} />
       </div>
       <BarChartUi title="Users Engagement Graph" description="Users and Providers Engagement data graph" chartData={BarChartData} barOneDataKey="provider" barTwoDataKey="user" />
-      <SpreadChart title="Revenue data Graph" description="Revenue Generated from Subscriptions and bookings" chartData={SpreadChartData} areaOneDataKey="Subscription" areaTwoDataKey="Booking" />
+      <SpreadChart title="Revenue data Graph" description="Revenue Generated from Subscriptions and bookings" chartData={SpreadChartData} areaOneDataKey="subscription" areaTwoDataKey="booking" />
     </>
   )
 }
