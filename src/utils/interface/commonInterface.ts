@@ -89,6 +89,7 @@ export interface InputFieldProps {
   isPassword?: boolean;
   forgotPassword?: boolean;
   onHasError?: (hasError: boolean) => void;
+  readonly?: boolean;
 }
 
 
