@@ -21,8 +21,6 @@ const UserMainPage = () => {
     }
   }, [dispatch, location]);
 
-  console.log("location : ",location);
-
   return (
     <div className="flex h-screen pt-16 bg-[var(--background)] transition all duration-300">
       <Sidebar routes={userRoutes} />

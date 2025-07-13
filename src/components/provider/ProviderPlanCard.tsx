@@ -24,8 +24,9 @@ const ProviderPlanCard: React.FC<ProviderPlanCardProps> = ({ plan, isTrial }) =>
         dispatch(setSubscriptionPlanDuration(event.target.value));
     };
 
-    const handleGoToPayment = () => {
-        if(!selectedPlanDuration || !selectedPlanDuration.trim()) {
+    const handleGoToPayment = (e: React.MouseEvent<HTMLButtonElement>, planName: string) => {
+        e.preventDefault();
+        if (planName !== "TRIAL" && (!selectedPlanDuration || !selectedPlanDuration.trim())) {
             toast.warning("Please select an plan duration");
             return;
         }
@@ -59,8 +60,7 @@ const ProviderPlanCard: React.FC<ProviderPlanCardProps> = ({ plan, isTrial }) =>
                 />
             )}
             <div className="mt-auto">
-                <Button className="w-full cursor-pointer" onClick={handleGoToPayment}
-                >Choose Plan</Button>
+                <Button className="w-full cursor-pointer" onClick={(e) => handleGoToPayment(e, plan.planName)}>Choose Plan</Button>
             </div>
         </Card>
     )
