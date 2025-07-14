@@ -8,10 +8,11 @@ import ChatSidebarShimmer from "@/components/shimmers/ChatSidebarShimmer";
 import { Message } from "@/utils/interface/entityInterface/message.interface";
 import { ProviderFetchUsersForChatSideBar } from "@/utils/interface/api/providerApiInterface";
 import { setLastMessage, setOnlineUsers, setSelectedUser } from "@/utils/redux/slices/chatSlice";
+import { Checkbox } from "@/components/ui/checkbox";
 
 type setLatMessageProps = Pick<Message, "senderId" | "text" | "createdAt">
 
-export const formatDate = (date: string) => {
+const formatDate = (date: string) => {
     const now = new Date();
     const messageDate = new Date(date);
 
@@ -84,16 +85,15 @@ const ChatSidebar: React.FC<ChatSideBarProps> = ({
 
     return (
         <aside className={`h-full w-full md:w-4/12 bg-base-100 flex flex-col transition-all duration-200 px-2 sticky ${selectedUser ? "hidden md:block" : "block"}`}>
-            
+
             <div className="border-b border-base-300 w-full p-3 md:p-5">
                 <div className="lg:flex items-center gap-3">
                     <Users className="size-6" />
                     <label className="cursor-pointer flex items-center gap-2">
-                        <input
-                            type="checkbox"
+                        <Checkbox
                             checked={showOnlineOnly}
-                            onChange={(e) => setShowOnlineOnly(e.target.checked)}
-                            className="checkbox checkbox-xs"
+                            onCheckedChange={(checked) => setShowOnlineOnly(checked === true)}
+                            className="size-4 cursor-pointer"
                         />
                         <span className="text-sm">Show online only</span>
                     </label>
