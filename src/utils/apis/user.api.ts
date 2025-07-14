@@ -14,6 +14,7 @@ import {
     UserFetchUserProfileDetailsResponse, 
     UserFetchProviderAvailabilityResponse, 
     UserFetchProviderProfileDetailsResponse,
+    UserFetchProvidersForChatSidebarResponse,
 } from "../interface/api/userApiInterface";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { buildQueryParams, parseNewCommonResponse } from "../helper";
@@ -110,3 +111,7 @@ export const userFetchPayments = async (params?: FetchFunctionParams) : Promise<
     return parseNewCommonResponse<FetchPaymentsResponse>(response.data);
 }
 
+export const UserFetchProvidersForChatSideBar = async () : Promise<UserFetchProvidersForChatSidebarResponse> => {
+    const response = await axiosInstance.get('/user/getProvidersForChatSidebar');
+    return response.data.data;
+}

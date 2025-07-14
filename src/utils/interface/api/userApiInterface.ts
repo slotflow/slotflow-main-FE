@@ -96,3 +96,7 @@ export interface UserBookAppointmentResponse extends ApiBaseResponse {
 
 
 // **** 16.  Interfaces for userFetchPayments api is in common interface api file
+
+
+// **** 17. Used as the return type of the user fetch providers for the chat side bar
+export type UserFetchProvidersForChatSidebarResponse = Array<Pick<Provider, "_id" | "username" | "profileImage" >>;

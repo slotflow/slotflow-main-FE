@@ -1,11 +1,11 @@
 import { ApiBaseResponse } from "../commonInterface";
 import { Plan } from "../entityInterface/planInterface";
+import { User } from "../entityInterface/userInterface";
 import { Address } from "../entityInterface/addressInterface";
 import { Provider } from "../entityInterface/providerInterface";
 import { Service } from "../entityInterface/appServiceInterface";
 import { ProviderService } from "../entityInterface/providerServiceInterface";
 import { Availability, AvailabilityForResponse } from "../entityInterface/serviceAvailabilityInterface";
-import { User } from "../entityInterface/userInterface";
 
 // **** 1.  Used as the request interface for adding address api
 export interface ProviderAddProviderAddressRequest {
@@ -90,4 +90,4 @@ export interface ProviderUpdateProviderInfoResponse extends ApiBaseResponse {
 
 
 // **** 18. Used as the return type for the provider fetch users for the chat side bar
-export type ProviderFetchUsersForChatSideBar = Array<Pick<User, "_id" | "username" | "profileImage">>
+export type ProviderFetchUsersForChatSidebarResponse = Array<Pick<User, "_id" | "username" | "profileImage">>

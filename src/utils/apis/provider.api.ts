@@ -13,7 +13,7 @@ import {
     ProviderFetchServiceDetailsResponse,
     AddProviderServiceAvailabilitiesRequest,
     ProviderFetchServiceAvailabilityResponse,
-    ProviderFetchUsersForChatSideBar,
+    ProviderFetchUsersForChatSidebarResponse,
 } from "../interface/api/providerApiInterface";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { buildQueryParams, parseNewCommonResponse } from "../helper";
@@ -125,7 +125,7 @@ export const providerUpdateProviderInfo = async (data: ProviderUpdateProviderInf
     return response.data;
 }
 
-export const providerGetUsersFroChatSideBar = async () : Promise<ProviderFetchUsersForChatSideBar> => {
+export const providerFetchUsersFroChatSideBar = async () : Promise<ProviderFetchUsersForChatSidebarResponse> => {
     const response = await axiosInstance.get('/provider/getUsersForCahtSidebar');
     return response.data.data
 }
