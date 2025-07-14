@@ -1,5 +1,6 @@
 import { Users } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
+import { Checkbox } from "@/components/ui/checkbox";
 import DataFetchingError from "../DataFetchingError";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
@@ -8,7 +9,6 @@ import ChatSidebarShimmer from "@/components/shimmers/ChatSidebarShimmer";
 import { Message } from "@/utils/interface/entityInterface/message.interface";
 import { ProviderFetchUsersForChatSideBar } from "@/utils/interface/api/providerApiInterface";
 import { setLastMessage, setOnlineUsers, setSelectedUser } from "@/utils/redux/slices/chatSlice";
-import { Checkbox } from "@/components/ui/checkbox";
 
 type setLatMessageProps = Pick<Message, "senderId" | "text" | "createdAt">
 

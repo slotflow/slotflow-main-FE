@@ -127,6 +127,5 @@ export const providerUpdateProviderInfo = async (data: ProviderUpdateProviderInf
 
 export const providerGetUsersFroChatSideBar = async () : Promise<ProviderFetchUsersForChatSideBar> => {
     const response = await axiosInstance.get('/provider/getUsersForCahtSidebar');
-    console.log("response : ",response);
     return response.data.data
 }
