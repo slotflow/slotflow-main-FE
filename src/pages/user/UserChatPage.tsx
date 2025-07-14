@@ -1,8 +1,7 @@
-import { ChatPage } from "../common/ChatPage";
 
 const UserChatPage: React.FC = () => {
   return (
-   <ChatPage />
+    <h1>Chat Page</h1>
   )
 }
 

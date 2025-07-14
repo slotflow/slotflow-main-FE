@@ -5,6 +5,7 @@ import { Provider } from "../entityInterface/providerInterface";
 import { Service } from "../entityInterface/appServiceInterface";
 import { ProviderService } from "../entityInterface/providerServiceInterface";
 import { Availability, AvailabilityForResponse } from "../entityInterface/serviceAvailabilityInterface";
+import { User } from "../entityInterface/userInterface";
 
 // **** 1.  Used as the request interface for adding address api
 export interface ProviderAddProviderAddressRequest {
@@ -86,3 +87,7 @@ export type ProviderUpdateProviderInfoRequest = Pick<Provider, "username" | "pho
 export interface ProviderUpdateProviderInfoResponse extends ApiBaseResponse {
     data: ProviderUpdateProviderInfoRequest
 }
+
+
+// **** 18. Used as the return type for the provider fetch users for the chat side bar
+export type ProviderFetchUsersForChatSideBar = Array<Pick<User, "_id" | "username" | "profileImage">>

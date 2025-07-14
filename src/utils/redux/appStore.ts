@@ -1,4 +1,5 @@
 import authReducer from "./slices/authSlice";
+import chatReducer from './slices/chatSlice';
 import userReducer from './slices/userSlice';
 import stateReducer from './slices/stateSlice';
 import adminReducer from './slices/adminSlice';
@@ -21,6 +22,7 @@ const rootReducers = {
     admin: adminReducer,
     user: userReducer,
     provider: providerReducer,
+    chat: chatReducer,
 };
 
 const persistedReducer = persistReducer(persistConfig, combineReducers(rootReducers));
