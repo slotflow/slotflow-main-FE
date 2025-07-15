@@ -5,12 +5,16 @@ import DataFetchingError from "../DataFetchingError";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { User } from "@/utils/interface/entityInterface/userInterface";
 import ChatSidebarShimmer from "@/components/shimmers/ChatSidebarShimmer";
 import { Message } from "@/utils/interface/entityInterface/message.interface";
-import { ProviderFetchUsersForChatSideBar } from "@/utils/interface/api/providerApiInterface";
+import { Provider } from "@/utils/interface/entityInterface/providerInterface";
 import { setLastMessage, setOnlineUsers, setSelectedUser } from "@/utils/redux/slices/chatSlice";
+import { UserFetchProvidersForChatSidebarResponse } from "@/utils/interface/api/userApiInterface";
+import { ProviderFetchUsersForChatSidebarResponse } from "@/utils/interface/api/providerApiInterface";
 
 type setLatMessageProps = Pick<Message, "senderId" | "text" | "createdAt">
+type UserProps = Pick<User, "_id" | "username" | "profileImage"> | Pick<Provider, "_id" | "username" | "profileImage">;
 
 const formatDate = (date: string) => {
     const now = new Date();
@@ -34,7 +38,7 @@ const formatDate = (date: string) => {
 };
 
 interface ChatSideBarProps {
-    getUsers: () => Promise<ProviderFetchUsersForChatSideBar>;
+    getUsers: () => Promise<ProviderFetchUsersForChatSidebarResponse | UserFetchProvidersForChatSidebarResponse>;
 }
 
 const ChatSidebar: React.FC<ChatSideBarProps> = ({
@@ -59,7 +63,7 @@ const ChatSidebar: React.FC<ChatSideBarProps> = ({
 
     const filteredUsers = useMemo(() => {
         return showOnlineOnly
-            ? data?.filter((user) => onlineUsers?.includes(user._id))
+            ? data?.filter((user: UserProps) => onlineUsers?.includes(user._id))
             : data;
     }, [showOnlineOnly, data, onlineUsers]);
 
@@ -104,7 +108,7 @@ const ChatSidebar: React.FC<ChatSideBarProps> = ({
             </div>
 
             <div className="overflow-y-auto w-full py-1 flex-1">
-                {filteredUsers?.map((user) => (
+                {filteredUsers?.map((user: UserProps) => (
                     <button
                         key={user._id}
                         onClick={() => dispatch(setSelectedUser(user))}
