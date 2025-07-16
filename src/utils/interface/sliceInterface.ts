@@ -2,6 +2,7 @@ import { Availability } from "./entityInterface/serviceAvailabilityInterface";
 
 // **** Auth slice state **** \\
 export interface UserData {
+    uid?: string;
     username?: string;
     profileImage?: string;
     email?: string;

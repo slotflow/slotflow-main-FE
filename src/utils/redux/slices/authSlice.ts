@@ -22,7 +22,6 @@ const authSlice = createSlice({
             }
         },
         updateAuthUserName: (state, action: PayloadAction<string>) => {
-            console.log("action.payload :",action.payload)
             if(state.authUser) {
                 state.authUser.username = action.payload;
             }

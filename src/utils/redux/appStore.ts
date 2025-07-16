@@ -7,8 +7,8 @@ import signFormReducer from "./slices/signFormSlice";
 import localStorage from 'redux-persist/lib/storage';
 import providerReducer from './slices/providerSlice';
 import { persistReducer, persistStore } from 'redux-persist';
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { setupAxiosInterceptors } from "@/lib/axiosInterceptor";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
 const persistConfig = {
     key: "root",
