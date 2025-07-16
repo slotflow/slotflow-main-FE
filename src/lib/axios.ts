@@ -1,8 +1,11 @@
 import axios from 'axios';
 
-const axiosInstance = axios.create({
+export const axiosInstance = axios.create({
     baseURL: 'http://localhost:3000/api',
     withCredentials: true,
 });
 
-export default axiosInstance;
+export const realtimeAxiosInstance = axios.create({
+    baseURL: 'https://localhost:30001/api',
+    withCredentials: true,
+})

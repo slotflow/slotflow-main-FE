@@ -1,4 +1,4 @@
-import axiosInstance from "@/lib/axios"
+import { axiosInstance } from "@/lib/axios"
 import { buildQueryParams, parseNewCommonResponse } from "../helper";
 import { FetchPaymentsResponse } from "../interface/api/commonApiInterface";
 import { FetchFunctionParams, ApiPaginatedResponse } from "../interface/commonInterface";

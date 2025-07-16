@@ -1,4 +1,4 @@
-import axiosInstance from "./axios";
+import { axiosInstance } from "./axios";
 import { toast } from "react-toastify";
 import { appStore } from "@/utils/redux/appStore";
 import { setAuthUser } from "@/utils/redux/slices/authSlice";

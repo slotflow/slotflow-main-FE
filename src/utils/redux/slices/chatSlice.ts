@@ -1,12 +1,13 @@
 import { Socket } from 'socket.io-client';
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Message } from '@/utils/interface/entityInterface/message.interface';
 
 type LastMessages = Record<
-  string,
-  {
-    message: string;
-    date: string;
-  }
+    string,
+    {
+        message: string;
+        date: string;
+    }
 >;
 
 interface SelectedUser {
@@ -21,13 +22,17 @@ interface chatSliceInitalState {
     lastMessages: LastMessages,
     selectedUser: SelectedUser | null,
     chatSocket: Socket | null;
+    messages: Message[] | null;
+    isMessagesLoading: boolean;
 }
 
 const intitalState: chatSliceInitalState = {
     onlineUsers: null,
-    lastMessages : {},
+    lastMessages: {},
     selectedUser: null,
     chatSocket: null,
+    messages: null,
+    isMessagesLoading: false,
 }
 
 const chatSlice = createSlice({
@@ -35,17 +40,29 @@ const chatSlice = createSlice({
     initialState: intitalState,
     reducers: {
         setOnlineUsers: (state, action) => {
-             state.onlineUsers = action.payload;
+            state.onlineUsers = action.payload;
         },
         setLastMessage: (state, action: PayloadAction<{ userId: string; message: string; date: string }>) => {
             const { userId, message, date } = action.payload;
             state.lastMessages[userId] = { message, date };
         },
-        setSelectedUser: (state, action: PayloadAction<SelectedUser>) => {
+        setSelectedUser: (state, action: PayloadAction<SelectedUser | null>) => {
             state.selectedUser = action.payload
+        },
+        setMessages: (state, action: PayloadAction<Array<Message>>) => {
+            state.messages = action.payload;
+        },
+        addNewMessage: (state, action: PayloadAction<Message>) => {
+            state.messages?.push(action.payload);
         }
-    }
+    },
 });
 
-export const { setOnlineUsers, setLastMessage, setSelectedUser } = chatSlice.actions;
+export const { 
+    setOnlineUsers, 
+    setLastMessage, 
+    setSelectedUser, 
+    setMessages ,
+    addNewMessage
+} = chatSlice.actions;
 export default chatSlice.reducer;

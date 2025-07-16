@@ -1,4 +1,3 @@
-import axiosInstance from "@/lib/axios"
 import { 
     AddUserAddressRequest, 
     UserUpdateUserInfoRequest,
@@ -16,6 +15,7 @@ import {
     UserFetchProviderProfileDetailsResponse,
     UserFetchProvidersForChatSidebarResponse,
 } from "../interface/api/userApiInterface";
+import { axiosInstance } from "@/lib/axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { buildQueryParams, parseNewCommonResponse } from "../helper";
 import { Booking } from "../interface/entityInterface/bookingInterface";
