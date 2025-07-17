@@ -103,7 +103,7 @@ const ProviderServiceAvailability: React.FC<ProviderServiceAvailabilityComponent
                                 <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mt-2">
                                     {data?.slots?.length ? (
                                         data?.slots.map((slot: Slot) => {
-                                            const commonClasses = `text-xs text-center border rounded-md py-2 px-4 hover:bg-[var(--mainColor)] transition-colors duration-200 ${slot.available
+                                            const commonClasses = `text-xs text-center border rounded-md py-2 px-4 hover:bg-[var(--mainColor)] hover:text-white transition-colors duration-200 ${slot.available
                                                 ? 'bg-[var(--mainColor)/20] border-[var(--mainColor)]'
                                                 : 'border-gray-300'
                                                 }`;
