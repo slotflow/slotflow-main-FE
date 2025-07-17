@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
-import { Image, Send, X } from "lucide-react";
+import { Image, Send, Trash } from "lucide-react";
 import { RootState } from "@/utils/redux/appStore";
 import { sendMessage } from "@/utils/apis/message.api";
 import React, { Dispatch, SetStateAction, useRef, useState } from "react";
@@ -30,21 +30,21 @@ const MessageInput: React.FC<MessageInputProps> = ({
         const file = e.target.files?.[0];
         if (!file) return;
 
-    if (!file.type.startsWith("image/")) {
-        toast.error("Please select an image file");
-        return;
-    }
+        if (!file.type.startsWith("image/")) {
+            toast.error("Please select an image file");
+            return;
+        }
 
-    setFile(file);
+        setFile(file);
 
-    const reader = new FileReader();
-    reader.onloadend = () => {
-        setImagePreview(reader.result as string);
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            setImagePreview(reader.result as string);
+        };
+        reader.readAsDataURL(file);
     };
-    reader.readAsDataURL(file);
-    };
 
-    const removeImage = () => {
+    const removeImage = (): void => {
         setImagePreview(null);
         setFile(null);
         if (fileInputRef.current) fileInputRef.current.value = "";
@@ -101,9 +101,9 @@ const MessageInput: React.FC<MessageInputProps> = ({
     };
 
     return (
-        <div className="p-4 w-full">
+        <div className="h-16 w-full border-t p-4 relative">
             {imagePreview && (
-                <div className="mb-3 flex items-center gap-2">
+                <div className="absolute bottom-full mb-2">
                     <div className="relative">
                         <img
                             src={imagePreview}
@@ -112,22 +112,21 @@ const MessageInput: React.FC<MessageInputProps> = ({
                         />
                         <button
                             onClick={removeImage}
-                            className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-base-300
-              flex items-center justify-center"
+                            className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-base-300 flex items-center justify-center cursor-pointer hover:text-red-500"
                             type="button"
                         >
-                            <X className="size-3" />
+                            <Trash className="size-3" />
                         </button>
                     </div>
                 </div>
             )}
 
-            <form onSubmit={handleSendMessage} className="flex items-center gap-2">
+            <form onSubmit={handleSendMessage} className="flex items-center gap-2 h-full">
                 <div className="flex-1 flex gap-2">
                     <input
                         type="text"
-                        className="w-full input input-bordered rounded-lg input-md"
-                        placeholder="Type a message..."
+                        className="w-full h-10 border rounded-lg"
+                        placeholder=" Message"
                         value={text}
                         onChange={handleTyping}
                     />
@@ -141,15 +140,15 @@ const MessageInput: React.FC<MessageInputProps> = ({
                 </div>
                 <button
                     type="button"
-                    className={`flex btn btn-circle btn-sm
-                     ${imagePreview ? "text-emerald-500" : "text-zinc-400"}`}
+                    className={`flex btn btn-circle btn-sm cursor-pointer
+                     ${imagePreview ? "text-emerald-500" : "text-[var(--textTwo)]"}`}
                     onClick={() => fileInputRef.current?.click()}
                 >
                     <Image size={20} />
                 </button>
                 <button
                     type="submit"
-                    className="btn btn-sm btn-circle"
+                    className="btn btn-sm text-[var(--textTwo)] cursor-pointer"
                     disabled={!text.trim() && !imagePreview}
                 >
                     <Send size={22} />

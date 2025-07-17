@@ -84,7 +84,7 @@ const ChatSidebar: React.FC<ChatSideBarProps> = ({
         return () => { chatSocket?.off("newMessage", setNewMessage) };
     }, [chatSocket]);
 
-    console.log("data : ",data);
+    console.log("data : ", data);
 
     if (isLoading) return <ChatSidebarShimmer />;
     if (!data || (isError && error)) return <DataFetchingError message={(error as Error).message} className="min-h-full" />
@@ -109,17 +109,16 @@ const ChatSidebar: React.FC<ChatSideBarProps> = ({
                 </div>
             </div>
 
-            <div className="overflow-y-auto w-full py-1 flex-1">
+            <div className="overflow-y-auto w-full flex-1">
                 {filteredUsers?.map((user: UserProps) => (
                     <button
                         key={user._id}
                         onClick={() => dispatch(setSelectedUser(user))}
                         className={`
-              w-full p-2 flex gap-3 items-center border-b border-[var(--boxBorder)]
-              hover:bg-[var(--textTwoHover)] transition-colors
-              ${selectedUser?._id === user._id ? "" : ""}
-            `}
-                    >
+                            w-full p-2 flex gap-3 items-center border-b border-[var(--boxBorder)]
+                            hover:bg-[var(--boxBorder)] transition-colors
+                            ${selectedUser?._id === user._id ? "" : ""}
+                            `}>
                         <div className="relative w-fit">
                             <img
                                 src={user.profileImage || "/user_avatar.jpg"}

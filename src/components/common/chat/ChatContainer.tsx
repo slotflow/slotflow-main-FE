@@ -77,7 +77,7 @@ const ChatContainer: React.FC = () => {
     if(!selectedUser) return <NoChatSelectedSShimmer />;
 
     return (
-        <div className="w-full md:w-8/12 flex flex-col overflow-auto md:py-6 border-r border-[var(--boxBorder)] mt-5 md:mt-0 bg-pink-100">
+        <div className="w-full md:w-8/12 flex flex-col overflow-auto border-r border-[var(--boxBorder)] mt-5 md:mt-0">
             <ChatHeader />
             {isMessagesLoading ? (
                 <NoChatSelectedSShimmer />
