@@ -7,7 +7,7 @@ interface dataFetchingError {
 
 const DataFetchingError: React.FC<dataFetchingError> = ({ message, className }) => {
     return (
-        <div className={`flex flex-col flex-grow ${className}`}>
+        <div className={`flex flex-col flex-grow min-h-full ${className}`}>
             <div className="w-full flex flex-col justify-center items-center flex-grow">
                 <FetchError />
                 <h6>{message || "Fetching error please try again."}</h6>

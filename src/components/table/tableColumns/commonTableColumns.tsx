@@ -11,11 +11,11 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSepar
 export const ProvidersSubscriptionsTableColumns: ColumnDef<FetchProviderSubscriptionsResponse>[] = [
   {
     accessorKey: "planName",
-    header: ({ column }) => (<DataTableColumnHeader column={column} title="Plan " />)
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="Plan" />)
   },
   {
-    accessorKey: "price",
-    header: ({ column }) => (<DataTableColumnHeader column={column} title="price " />)
+    accessorKey: "totalAmount",
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="Amount paid" />)
   },
   {
     accessorKey: "startDate",
