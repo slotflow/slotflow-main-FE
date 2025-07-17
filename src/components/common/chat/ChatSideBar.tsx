@@ -90,9 +90,9 @@ const ChatSidebar: React.FC<ChatSideBarProps> = ({
     if (!data || (isError && error)) return <DataFetchingError message={(error as Error).message} className="min-h-full" />
 
     return (
-        <aside className={`h-full w-full md:w-4/12 bg-base-100 flex flex-col transition-all duration-200 px-2 sticky ${selectedUser ? "hidden md:block" : "block"}`}>
+        <aside className={`h-full w-full md:w-4/12 flex flex-col transition-all duration-200 sticky border-r border-[var(--boxBorder)] ${selectedUser ? "hidden md:block" : "block"}`}>
 
-            <div className="border-b border-base-300 w-full p-3 md:p-5">
+            <div className="w-full p-3 md:p-5 border-b border-[var(--boxBorder)]">
                 <div className="lg:flex items-center gap-3">
                     <Users className="size-6" />
                     <label className="cursor-pointer flex items-center gap-2">
@@ -115,8 +115,8 @@ const ChatSidebar: React.FC<ChatSideBarProps> = ({
                         key={user._id}
                         onClick={() => dispatch(setSelectedUser(user))}
                         className={`
-              w-full p-2 flex gap-3 items-center border-b border-base-300
-              hover:bg-base-300 transition-colors
+              w-full p-2 flex gap-3 items-center border-b border-[var(--boxBorder)]
+              hover:bg-[var(--textTwoHover)] transition-colors
               ${selectedUser?._id === user._id ? "" : ""}
             `}
                     >
@@ -145,7 +145,7 @@ const ChatSidebar: React.FC<ChatSideBarProps> = ({
                             </div>
                             <div className="flex text-sm lg:text-md text-stone-500">
                                 {getLastMessage(user._id) ? (
-                                    <p className="font-normal truncate text-base-content">
+                                    <p className="font-normal truncate">
                                         {getLastMessage(user._id)?.message}
                                     </p>
                                 ) : onlineUsers?.includes(user._id) ? (
