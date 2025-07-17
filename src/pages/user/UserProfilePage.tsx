@@ -17,7 +17,7 @@ const UserProfilePage: React.FC = () => {
   });
 
   return (
-    <div className="min-h-full border border-[var(--boxBorder)] rounded-lg p-2 flex flex-col">
+    <div className="min-h-full flex flex-col p-2">
       <ProfileHead updateProfileImageApiFunction={userUpdateUserProfileImage} updation={true} />
       <UserOrProviderProfileDetails 
         fetchApiFunction={userFetchUserProfileDetails} 

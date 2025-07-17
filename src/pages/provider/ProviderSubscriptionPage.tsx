@@ -13,11 +13,7 @@ const ProviderSubscriptionPage = () => {
     const { planId, planDuration, isTrialPlan, paymentSelectionOpen } = useSelector((state: RootState) => state.provider);
 
     return (
-        <>
-            <CommonButton onClick={() => setShowPlans(!showPlans)} text={showPlans ? "Hide Plans" : "Show Plans"} />
-            <ProviderPlanList
-                showPlans={showPlans}
-            />
+        <div className="p-2">
             <ProviderSubscriptionHistory />
             {paymentSelectionOpen && planId && planDuration && (
                 <CommonPaymentSelection
@@ -29,10 +25,15 @@ const ProviderSubscriptionPage = () => {
                 />
             )}
 
+            <CommonButton onClick={() => setShowPlans(!showPlans)} text={showPlans ? "Hide Plans" : "Show Plans"} />
+            <ProviderPlanList
+                showPlans={showPlans}
+            />
+
             {isTrialPlan && paymentSelectionOpen && (
                 <ProviderFreeSubscription />
             )}
-        </>
+        </div>
     );
 };
 

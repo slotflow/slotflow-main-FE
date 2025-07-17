@@ -130,7 +130,7 @@ const ProviderDashboardPage: React.FC = () => {
 
   return (
     <>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 p-2">
         <CardOne title="Total Appointments" value={128} icon={CalendarCheck} />
         <CardOne title="Completed Appointments" value={92} icon={CheckCircle} />
         <CardOne title="Missed Appointments" value={36} icon={XCircle} />

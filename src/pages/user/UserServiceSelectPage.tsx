@@ -36,7 +36,7 @@ const UserServiceSelectPage = () => {
     }
 
     return (
-        <div className="px-6 min-h-full flex flex-col">
+        <div className="p-2 min-h-full flex flex-col">
             {data && data.length > 0 && (
                 <h2 className="text-2xl font-semibold mb-10">How can we help you today?</h2>
             )}

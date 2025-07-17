@@ -20,7 +20,7 @@ const AdminServiceProviderDetailPage = () => {
     if (!providerId) return <DataFetchingError message={"Provider Profile fetching error"} />
 
     return (
-        <div className="min-h-full border border-[var(--boxBorder)] rounded-lg p-2 flex flex-col">
+        <div className="min-h-full p-2 flex flex-col">
 
             <ProfileHead updation={false} profileImage={"/images/avatar.png"} />
 

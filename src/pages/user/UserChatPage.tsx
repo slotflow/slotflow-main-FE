@@ -5,7 +5,7 @@ import ChatContainer from "@/components/common/chat/ChatContainer";
 
 const UserChatPage: React.FC = () => {
   return (
-    <div className="flex overflow-y-scroll no-scrollbar h-full">
+    <div className="flex overflow-y-scroll no-scrollbar h-full bg-green-200">
       <ChatSidebar getUsers={UserFetchProvidersForChatSideBar} />
       <ChatContainer />
     </div>

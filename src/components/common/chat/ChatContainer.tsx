@@ -6,6 +6,7 @@ import { AppDispatch, RootState } from "@/utils/redux/appStore";
 import { useMessage } from "@/utils/hooks/socketHooks/useMessage";
 import { Message } from "@/utils/interface/entityInterface/message.interface";
 import NoChatSelectedSShimmer from "@/components/shimmers/NoChatSelectedSShimmer";
+import MessageInput from "./MessageInput";
 
 function formatMessageTime(date: string) {
     return new Date(date).toLocaleTimeString("en-US", {
@@ -73,6 +74,8 @@ const ChatContainer: React.FC = () => {
         };
     }, [chatSocket, selectedUser]);
 
+    if(!selectedUser) return <NoChatSelectedSShimmer />;
+
     return (
         <div className="w-full md:w-8/12 flex flex-col overflow-auto md:py-6 border-r border-base-300 mt-5 md:mt-0">
             <ChatHeader />
@@ -131,12 +134,13 @@ const ChatContainer: React.FC = () => {
                 </div>
             )}
 
-            {/* <MessageInput
-        setIsTyping={setIsTyping}
-        isTyping={isTyping}
-        setMessageSenderId={setMessageSenderId}
-      /> */}
+            <MessageInput
+                setIsTyping={setIsTyping}
+                isTyping={isTyping}
+                setMessageSenderId={setMessageSenderId}
+            />
         </div>
     );
 };
+
 export default ChatContainer;

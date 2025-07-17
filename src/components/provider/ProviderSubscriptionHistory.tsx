@@ -9,7 +9,6 @@ const ProviderSubscriptionHistory = () => {
             fetchApiFunction={providerFetchProviderSubscriptions}
             queryKey='subscriptions'
             heading='Subscription History'
-            headingClassName="mt-5"
             column={ProvidersSubscriptionsTableColumns}
             columnsCount={5}
         />

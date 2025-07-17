@@ -54,6 +54,9 @@ const chatSlice = createSlice({
         },
         addNewMessage: (state, action: PayloadAction<Message>) => {
             state.messages?.push(action.payload);
+        },
+        sendNewMessage: (state, action: PayloadAction<Message>) => {
+            state.messages?.push(action.payload);
         }
     },
 });
@@ -63,6 +66,7 @@ export const {
     setLastMessage, 
     setSelectedUser, 
     setMessages ,
-    addNewMessage
+    addNewMessage,
+    sendNewMessage
 } = chatSlice.actions;
 export default chatSlice.reducer;

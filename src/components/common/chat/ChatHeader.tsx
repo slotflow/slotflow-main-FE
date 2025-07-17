@@ -10,7 +10,10 @@ const ChatHeader: React.FC = () => {
     const { authUser } = useSelector((store: RootState) => store.auth);
 
     const handleCloseChat = () => {
+        console.log("authUser : ",authUser);
+        console.log("messages : ",messages);
         if(!authUser || !messages ) return;
+        console.log("closing")
         const lastMessage = messages[messages.length - 1];
         const checkUserId = (userOneId: string, userTwoId: string) => {
             const currentUserId = authUser.uid;
@@ -24,6 +27,8 @@ const ChatHeader: React.FC = () => {
         if (userId) setLastMessage({userId, message : lastMessage?.text, date :lastMessage?.createdAt});
         setSelectedUser(null);
     }
+    
+    console.log("selectedUser : ",selectedUser);
 
     return (
         <div className="p-2 md:p-2.5 border-b border-base-300 shadow-md">

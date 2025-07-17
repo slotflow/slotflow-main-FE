@@ -43,7 +43,7 @@ const UserDashboardPage = () => {
   }
 
   return (
-    <div className='px-6'>
+    <div className='p-2'>
       <div className='flex justify-between'>
         <div className="relative w-full max-w-md">
           <Input type="text" placeholder="Search..." className="pl-8" />

@@ -39,7 +39,7 @@ const CommonTable = <T,>({
   });
 
   return (
-    <>
+    <div className="p-2">
       {heading && (
         <h2 className={`text-2xl font-bold ${headingClassName}`}>{heading}</h2>
       )}
@@ -60,7 +60,7 @@ const CommonTable = <T,>({
       ) : (
         <DataFetchingError message={"No "+queryKey+" found in databse"} className="min-h-full" />
       )}
-    </>
+    </div>
   );
 };
 
