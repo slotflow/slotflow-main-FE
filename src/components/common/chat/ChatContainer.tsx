@@ -1,4 +1,5 @@
 import ChatHeader from "./ChatHeader";
+import { Ellipsis } from "lucide-react";
 import MessageInput from "./MessageInput";
 import { useDispatch, useSelector } from "react-redux";
 import { getMessages } from "@/utils/apis/message.api";
@@ -6,23 +7,14 @@ import React, { useEffect, useRef, useState } from "react";
 import ChatBubbleProfileImage from "./ChatBubbleProfileImage";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
 import { useMessage } from "@/utils/hooks/socketHooks/useMessage";
+import { formatMessageTime } from "@/utils/helper/chatTimeFormatter";
 import { Message } from "@/utils/interface/entityInterface/message.interface";
 import NoChatSelectedSShimmer from "@/components/shimmers/NoChatSelectedSShimmer";
-import { Ellipsis } from "lucide-react";
-
-function formatMessageTime(date: string) {
-    return new Date(date).toLocaleTimeString("en-US", {
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: false,
-    });
-}
 
 interface SocketDataInterface {
     fromUserId: Message["senderId"];
     toUserId: Message["receiverId"];
 }
-
 
 const ChatContainer: React.FC = () => {
 
@@ -36,9 +28,6 @@ const ChatContainer: React.FC = () => {
 
     useEffect(() => {
         if (!selectedUser || !authUser) return;
-
-        console.log("selectedUser : ", selectedUser);
-        console.log("authUser : ", authUser);
 
         dispatch(getMessages({ selectedUserId: selectedUser._id }));
         subscribeToMessages();
