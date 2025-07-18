@@ -87,10 +87,8 @@ const ChatContainer: React.FC = () => {
             ) : (
                 <div className="flex-1 overflow-y-auto p-4 space-y-4">
                     {messages?.map((message, index) => (
-                        <div
-                            key={index}
-                            className={`chat ${message.senderId === authUser?.uid ? "chat-end" : "chat-start"
-                                }`}
+                        <div key={index}
+                            className={`chat bg-gray-700 ${message.senderId === authUser?.uid ? "chat-end" : "chat-start"}`}
                             ref={messageEndRef}
                         >
                             <div className="chat-image avatar">
@@ -121,6 +119,7 @@ const ChatContainer: React.FC = () => {
                                     {formatMessageTime(message.createdAt)}
                                 </time>
                             </div>
+                            
                         </div>
                     ))}
                 </div>

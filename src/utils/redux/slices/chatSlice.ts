@@ -47,6 +47,7 @@ const chatSlice = createSlice({
             state.lastMessages[userId] = { message, date };
         },
         setSelectedUser: (state, action: PayloadAction<SelectedUser | null>) => {
+            console.log("action.payload : ",action.payload);
             state.selectedUser = action.payload
         },
         setMessages: (state, action: PayloadAction<Array<Message>>) => {

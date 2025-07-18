@@ -6,6 +6,7 @@ import { Message } from "../interface/entityInterface/message.interface";
 
 export const getMessages = createAsyncThunk<Array<Message>, { selectedUserId: string }>('message/getMessages',
     async ({ selectedUserId }, thunkAPI) => {
+        console.log("selectedUserId : ",selectedUserId);
         const response = await chatAxiosInstance.get(`/message/${selectedUserId}`);
         if (response.data.success) {
             const messages: Message[] = response.data.data;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { X } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
@@ -27,6 +27,10 @@ const ChatHeader: React.FC = () => {
         }
         dispatch(setSelectedUser(null));
     }
+    
+    useEffect(() => {
+        console.log("selectedUser : ",selectedUser);
+    },[selectedUser]);
 
     
     return (
