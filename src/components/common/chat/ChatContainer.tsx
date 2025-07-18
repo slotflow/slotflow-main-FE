@@ -35,7 +35,7 @@ const ChatContainer: React.FC = () => {
     useEffect(() => {
         if (!selectedUser || !authUser) return;
 
-        dispatch(getMessages({ chatUserId: selectedUser._id }));
+        dispatch(getMessages({ selectedUserId: selectedUser._id }));
         subscribeToMessages();
 
         return () => {

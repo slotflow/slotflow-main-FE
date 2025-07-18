@@ -1,7 +1,7 @@
 import { toast } from "react-toastify";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Image, Send, Trash } from "lucide-react";
-import { RootState } from "@/utils/redux/appStore";
+import { AppDispatch, RootState } from "@/utils/redux/appStore";
 import { sendMessage } from "@/utils/apis/message.api";
 import React, { Dispatch, SetStateAction, useRef, useState } from "react";
 
@@ -17,6 +17,7 @@ const MessageInput: React.FC<MessageInputProps> = ({
     setMessageSenderId
 }) => {
 
+    const dispatch = useDispatch<AppDispatch>();
     const [text, setText] = useState<string>("");
     const [imagePreview, setImagePreview] = useState<string | null>(null);
     const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -62,7 +63,7 @@ const MessageInput: React.FC<MessageInputProps> = ({
 
         try {
             if (!selectedUser) return;
-            await sendMessage({ selectedUserId: selectedUser?._id, messageData: formData });
+            dispatch(sendMessage({ selectedUserId: selectedUser?._id, messageData: formData }));
             setText("");
             setImagePreview(null);
             setFile(null);

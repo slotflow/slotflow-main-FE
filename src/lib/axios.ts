@@ -5,7 +5,7 @@ export const axiosInstance = axios.create({
     withCredentials: true,
 });
 
-export const realtimeAxiosInstance = axios.create({
-    baseURL: 'https://localhost:30001/api',
+export const chatAxiosInstance = axios.create({
+    baseURL: 'http://localhost:4000/api',
     withCredentials: true,
 })
