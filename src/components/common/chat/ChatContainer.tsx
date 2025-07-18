@@ -35,6 +35,9 @@ const ChatContainer: React.FC = () => {
     useEffect(() => {
         if (!selectedUser || !authUser) return;
 
+        console.log("selectedUser : ",selectedUser);
+        console.log("authUser : ",authUser);
+
         dispatch(getMessages({ selectedUserId: selectedUser._id }));
         subscribeToMessages();
 
@@ -74,13 +77,13 @@ const ChatContainer: React.FC = () => {
         };
     }, [chatSocket, selectedUser]);
 
-    if(!selectedUser) return <NoChatSelectedSShimmer />;
+    if(!selectedUser) return <NoChatSelectedSShimmer className="w-9/12" />;
 
     return (
         <div className="w-full md:w-8/12 flex flex-col overflow-auto border-r border-[var(--boxBorder)] mt-5 md:mt-0">
             <ChatHeader />
             {isMessagesLoading ? (
-                <NoChatSelectedSShimmer />
+                <NoChatSelectedSShimmer className="w-full"/>
             ) : (
                 <div className="flex-1 overflow-y-auto p-4 space-y-4">
                     {messages?.map((message, index) => (
