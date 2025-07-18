@@ -1,12 +1,14 @@
 import ChatHeader from "./ChatHeader";
+import MessageInput from "./MessageInput";
 import { useDispatch, useSelector } from "react-redux";
 import { getMessages } from "@/utils/apis/message.api";
 import React, { useEffect, useRef, useState } from "react";
+import ChatBubbleProfileImage from "./ChatBubbleProfileImage";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
 import { useMessage } from "@/utils/hooks/socketHooks/useMessage";
 import { Message } from "@/utils/interface/entityInterface/message.interface";
 import NoChatSelectedSShimmer from "@/components/shimmers/NoChatSelectedSShimmer";
-import MessageInput from "./MessageInput";
+import { Ellipsis } from "lucide-react";
 
 function formatMessageTime(date: string) {
     return new Date(date).toLocaleTimeString("en-US", {
@@ -35,8 +37,8 @@ const ChatContainer: React.FC = () => {
     useEffect(() => {
         if (!selectedUser || !authUser) return;
 
-        console.log("selectedUser : ",selectedUser);
-        console.log("authUser : ",authUser);
+        console.log("selectedUser : ", selectedUser);
+        console.log("authUser : ", authUser);
 
         dispatch(getMessages({ selectedUserId: selectedUser._id }));
         subscribeToMessages();
@@ -77,34 +79,25 @@ const ChatContainer: React.FC = () => {
         };
     }, [chatSocket, selectedUser]);
 
-    if(!selectedUser) return <NoChatSelectedSShimmer className="w-9/12" />;
+    if (!selectedUser) return <NoChatSelectedSShimmer className="w-9/12" />;
 
     return (
         <div className="w-full md:w-8/12 flex flex-col overflow-auto border-r border-[var(--boxBorder)] mt-5 md:mt-0">
             <ChatHeader />
             {isMessagesLoading ? (
-                <NoChatSelectedSShimmer className="w-full"/>
+                <NoChatSelectedSShimmer className="w-full" />
             ) : (
                 <div className="flex-1 overflow-y-auto p-4 space-y-4">
                     {messages?.map((message, index) => (
                         <div key={index}
-                            className={`chat bg-gray-700 ${message.senderId === authUser?.uid ? "chat-end" : "chat-start"}`}
+                            className={`flex ${message.senderId === authUser?.uid ? "justify-end" : "justify-start"}`}
                             ref={messageEndRef}
                         >
-                            <div className="chat-image avatar">
-                                <div className="size-6 md:size-8 rounded-full border">
-                                    <img
-                                        src={
-                                            message.senderId === authUser?.uid
-                                                ? authUser.profileImage || "/user_avatar.jpg"
-                                                : selectedUser?.profileImage || "/user_avatar.jpg"
-                                        }
-                                        alt="profile pic"
-                                    />
-                                </div>
-                            </div>
+                            {message.senderId !== authUser?.uid && (
+                                <ChatBubbleProfileImage profileImage={selectedUser.profileImage || "/user_avatar.jpg"} />
+                            )}
 
-                            <div className="chat-bubble flex flex-col rounded-md">
+                            <div className={`flex flex-col rounded-md bg-[var(--menuItemHoverBg)] px-4 py-2 max-w-8/12 ${message.senderId !== authUser?.uid ? "ml-3" : "mr-3"}`}>
                                 {message.image && (
                                     <img
                                         src={message.image}
@@ -119,18 +112,22 @@ const ChatContainer: React.FC = () => {
                                     {formatMessageTime(message.createdAt)}
                                 </time>
                             </div>
-                            
+
+                            {message.senderId === authUser?.uid && (
+                                <ChatBubbleProfileImage profileImage={authUser?.profileImage || "/user_avatar.jpg"} />
+                            )}
+
                         </div>
                     ))}
                 </div>
             )}
 
             {isTyping && authUser?.uid !== messageSenderId && (
-                <div className="px-4 pb-1">
-                    <div className="chat chat-start">
+                <div className="px-4 pb-2 flex">
+                    <div className="justify-start rounded-md bg-[var(--menuItemHoverBg)] px-4 py-2">
                         <div className="chat-bubble flex rounded-md justify-center items-center">
                             <p className="text-[13px] md:text-[15px]">Typing</p>
-                            <span className="loading loading-dots loading-sm ml-2 mt-2"></span>
+                            <Ellipsis className="animate-ping" />
                         </div>
                     </div>
                 </div>
