@@ -5,7 +5,7 @@ import { providerFetchProviderAddress, providerUpdateProviderProfileImage } from
 const ProviderAddressPage = () => {
 
   return (
-    <div className="min-h-full border border-[var(--boxBorder)] rounded-lg p-2 flex flex-col">
+    <div className="min-h-full p-2 flex flex-col">
       <ProfileHead updateProfileImageApiFunction={providerUpdateProviderProfileImage} updation={true} />
       <UserOrProviderAddressDetails fetchApiFunction={providerFetchProviderAddress} quryKey="userAddress" />
     </div>

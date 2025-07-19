@@ -9,6 +9,7 @@ import { AppDispatch, RootState } from "@/utils/redux/appStore";
 import ProviderApprovalPendingPage from "./ProviderApprovalPendingPage";
 import ProviderAddServiceDetailsPage from "./ProviderAddServiceDetailsPage";
 import ProviderAddServiceAvailabilityPage from "./ProviderAddServiceAvailabilityPage";
+import InfoHeader from "@/components/Navs/InfoHeader";
 
 const ProviderMainPage = () => {
 
@@ -19,20 +20,20 @@ const ProviderMainPage = () => {
 
   useEffect(() => {
     if (user?.isLoggedIn) {
-        dispatch(checkUserStatus());
+      dispatch(checkUserStatus());
     }
   }, [dispatch, location]);
 
-  if(!user?.approved){
-    if(!user?.address){
+  if (!user?.approved) {
+    if (!user?.address) {
       return (
         <ProviderAddAddressPage />
       );
-    } else if(!user?.serviceDetails){
+    } else if (!user?.serviceDetails) {
       return (
         <ProviderAddServiceDetailsPage />
       );
-    } else if(!user?.serviceAvailability){
+    } else if (!user?.serviceAvailability) {
       return (
         <ProviderAddServiceAvailabilityPage />
       )
@@ -46,9 +47,10 @@ const ProviderMainPage = () => {
 
   return user?.approved && (
     <div className="flex h-screen bg-[var(--background)] transition-all duration-300">
-        <Sidebar routes={providerRoutes} />
+      <Sidebar routes={providerRoutes} />
       <div className={`flex-1 flex flex-col ${sidebarOpen ? 'w-[85%]' : 'w-[95%]'} transition-all duration-300`}>
         <div className="flex-1 overflow-y-auto overscroll-y-contain">
+          <InfoHeader profileImage={user.profileImage ?? "/images/avatar.png"} username={user.username ?? ""}/>
           <Outlet />
         </div>
       </div>
