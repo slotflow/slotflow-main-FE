@@ -47,7 +47,7 @@ const ProviderMainPage = () => {
   return user?.approved && (
     <div className="flex h-screen bg-[var(--background)] transition-all duration-300">
         <Sidebar routes={providerRoutes} />
-      <div className={`flex-1 flex flex-col ${sidebarOpen ? 'w-[84%]' : 'w-[95%]'} transition-all duration-300`}>
+      <div className={`flex-1 flex flex-col ${sidebarOpen ? 'w-[85%]' : 'w-[95%]'} transition-all duration-300`}>
         <div className="flex-1 overflow-y-auto overscroll-y-contain">
           <Outlet />
         </div>
