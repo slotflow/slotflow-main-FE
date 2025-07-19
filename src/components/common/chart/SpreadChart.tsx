@@ -12,9 +12,9 @@ import {
 } from "@/components/ui/chart";
 import * as React from "react";
 import ChartHeader from "./ChartHeader";
-import { filterChartData } from "@/utils/helper/dateFilter";
 import { TimeRange } from "@/utils/interface/commonInterface";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
+import { filterChartDataHelper } from "@/utils/helper/dateFilter";
 
 export const description = "An interactive area chart"
 
@@ -45,8 +45,8 @@ const SpreadChart = <T extends { date: string },>({
   areaTwoDataKey,
 }: SpreadChartInterface<T>) => {
 
-  const [timeRange, setTimeRange] = React.useState<TimeRange>("7d")
-  const filteredData = filterChartData(chartData, timeRange)
+  const [timeRange, setTimeRange] = React.useState<TimeRange>("7d");
+  const filteredData = filterChartDataHelper(chartData, timeRange);
 
   return (
     <Card className="pt-0 mt-4">

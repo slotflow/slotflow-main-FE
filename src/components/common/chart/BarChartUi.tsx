@@ -7,9 +7,9 @@ import {
 } from "@/components/ui/chart";
 import { Card } from '../../ui/card';
 import ChartHeader from './ChartHeader';
-import { filterChartData } from '@/utils/helper/dateFilter';
 import { TimeRange } from '@/utils/interface/commonInterface';
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
+import { filterChartDataHelper } from '@/utils/helper/dateFilter';
 import { ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 
 const chartConfig = {
@@ -40,7 +40,7 @@ const BarChartUi = <T extends { date: string },>({
 }: BarChartUiInterface<T>) => {
 
   const [timeRange, setTimeRange] = React.useState<TimeRange>("7d");
-  const filteredData = filterChartData(chartData, timeRange);
+  const filteredData = filterChartDataHelper(chartData, timeRange);
 
   return (
     <Card className="pt-0 mt-4">

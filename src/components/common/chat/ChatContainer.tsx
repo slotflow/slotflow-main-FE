@@ -5,9 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { getMessages } from "@/utils/apis/message.api";
 import React, { useEffect, useRef, useState } from "react";
 import ChatBubbleProfileImage from "./ChatBubbleProfileImage";
+import { formatTo24HourTime } from "@/utils/helper/formatter";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
 import { useMessage } from "@/utils/hooks/socketHooks/useMessage";
-import { formatMessageTime } from "@/utils/helper/chatTimeFormatter";
 import { Message } from "@/utils/interface/entityInterface/message.interface";
 import NoChatSelectedSShimmer from "@/components/shimmers/NoChatSelectedSShimmer";
 
@@ -98,7 +98,7 @@ const ChatContainer: React.FC = () => {
                                     <p className="text-[13px] md:text-[15px]">{message.text}</p>
                                 )}
                                 <time className="text-[10px] md:text-xs opacity-50 ml-auto">
-                                    {formatMessageTime(message.createdAt)}
+                                    {formatTo24HourTime(message.createdAt)}
                                 </time>
                             </div>
 

@@ -1,7 +1,7 @@
 import { format, subDays } from "date-fns";
 import { TimeRange } from "../interface/commonInterface";
 
-export function filterChartData<T extends { date: string }>(
+export function filterChartDataHelper<T extends { date: string }>(
   data: T[],
   timeRange: TimeRange
 ): T[] {

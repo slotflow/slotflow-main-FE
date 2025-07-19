@@ -1,7 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { useNavigate } from "react-router-dom";
 import { CardTitle } from "@/components/ui/card";
-import { formatPrice } from "@/utils/helper/priceFormatter";
+import { formatNumberToPrice } from "@/utils/helper/formatter";
 
 export interface UserViewProviderCardComponentProps {
     _id: string,
@@ -55,7 +55,7 @@ const UserViewProviderCard: React.FC<UserViewProviderCardComponentProps> = ({
                 <p className="font-medium">{service?.serviceName}</p>
 
                 <div className="flex justify-between items-center">
-                    <p>{formatPrice(service?.servicePrice)}</p>
+                    <p>{formatNumberToPrice(service?.servicePrice)}</p>
                     {provider?.trustedBySlotflow && (
                         <span className="text-xs text-green-600 font-medium whitespace-nowrap">
                             ✅ Trusted by Slotflow
