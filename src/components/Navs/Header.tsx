@@ -25,7 +25,7 @@ const Header: React.FC = () => {
   }, [themeMode]);
 
   return (
-    <nav className={`w-full bg-[var(--background)] fixed transition-colors duration-300 ease-in-out`}>
+    <nav className={`w-full bg-[var(--background)] fixed transition-colors duration-300 ease-in-out z-50`}>
       <div className={`max-w-7xl mx-auto flex h-16 items-center justify-between`}>
 
         <div className='w-3/12'>
