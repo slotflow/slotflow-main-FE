@@ -17,13 +17,15 @@ import {
     CalendarDays,
     Handshake,
     HandCoins,
+    Sun,
+    Moon,
 } from 'lucide-react';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { UserData } from '@/utils/interface/sliceInterface';
 import { handleSignoutHelper } from '@/utils/helper/signout';
-import { toggleSidebar } from '@/utils/redux/slices/stateSlice';
+import { toggleSidebar, toggleTheme } from '@/utils/redux/slices/stateSlice';
 import { AppDispatch, RootState } from '@/utils/redux/appStore';
 import { SideBarProps } from '@/utils/interface/commonInterface';
 import { useResetRedux } from '@/utils/hooks/systemHooks/useResetRedux';
@@ -37,10 +39,15 @@ const Sidebar: React.FC<SideBarProps> = ({ routes }) => {
 
     const sidebarOpen: boolean = useSelector((store: RootState) => store.state.sidebarOpen);
     const user: UserData | null = useSelector((store: RootState) => store.auth?.authUser);
+    const themeMode: boolean = useSelector((store: RootState) => store.state.lightTheme);
 
     const handleSidebar = (): void => {
         dispatch(toggleSidebar());
     }
+
+    const changeTheme = (): void => {
+        dispatch(toggleTheme());
+      }
 
     const normalizeRouteName = (name: string): string => {
         return name.toLowerCase().replace(/ /g, "-");
@@ -73,6 +80,14 @@ const Sidebar: React.FC<SideBarProps> = ({ routes }) => {
         return iconMap[normalizedName];
     }
 
+    useEffect(() => {
+        if (themeMode) {
+          document.documentElement.classList.remove('dark');
+        } else {
+          document.documentElement.classList.add('dark');
+        }
+      }, [themeMode]);
+
     return (
         <div className={` ${sidebarOpen ? 'w-[15%]' : 'w-[6%]'} overflow-y-scroll no-scrollbar border-r-2 transition-all duration-300 flex flex-col`}>
             <div className="p-4 flex-1">
@@ -90,7 +105,7 @@ const Sidebar: React.FC<SideBarProps> = ({ routes }) => {
 
                     {routes.map((route) => (
                         <NavLink key={route.path} to={route.path}>
-                            <li title={route.name} 
+                            <li title={route.name}
                                 className={`relative group p-3 text-[var(--textTwo)] hover:text-[var(--textTwoHover)] font-semibold hover:bg-[var(--menuItemHoverBg)] cursor-pointer rounded-md ${!sidebarOpen && 'flex justify-center'}`}
                             >
                                 {sidebarOpen ? route.name : getIcon(route.name) || route.name}
@@ -109,12 +124,29 @@ const Sidebar: React.FC<SideBarProps> = ({ routes }) => {
 
             {(user?.isLoggedIn && user.role) && (
                 <ul className='p-4'>
-                <li className={`p-3 text-[var(--textTwo)] hover:text-[var(--textTwoHover)] font-semibold hover:bg-[var(--menuItemHoverBg)] cursor-pointer rounded-md mt-auto ${!sidebarOpen && 'flex justify-center'}`} onClick={() => {
-                    handleSignoutHelper({ role: user?.role, dispatch, resetRedux, navigate})
-                }}>
-                    {sidebarOpen ? "Logout" : <LogOut />}
-                </li>
-            </ul>
+
+                    <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                        <div className="relative ml-3">
+                            <div className='flex'>
+                                {themeMode ?
+                                    <div className="relative flex rounded-full cursor-pointer mx-3" onClick={changeTheme}>
+                                        <Sun />
+                                    </div>
+                                    :
+                                    <div className="relative flex rounded-full cursor-pointer mx-3" onClick={changeTheme}>
+                                        <Moon />
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <li className={`p-3 text-[var(--textTwo)] hover:text-[var(--textTwoHover)] font-semibold hover:bg-[var(--menuItemHoverBg)] cursor-pointer rounded-md mt-auto ${!sidebarOpen && 'flex justify-center'}`} onClick={() => {
+                        handleSignoutHelper({ role: user?.role, dispatch, resetRedux, navigate })
+                    }}>
+                        {sidebarOpen ? "Logout" : <LogOut />}
+                    </li>
+                </ul>
             )}
         </div>
     );

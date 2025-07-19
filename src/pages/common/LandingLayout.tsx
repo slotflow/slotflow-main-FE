@@ -20,7 +20,7 @@ const LandingLayout = () => {
         theme={themeMode ? "light" : "dark"}
         transition={Bounce}
       />
-      <Header />
+      {!shouldHideFooter && <Header />}
       <Outlet />
       {!shouldHideFooter && <Footer />}
     </>
