@@ -215,3 +215,7 @@ export interface dataSelectListItem {
     value: string;
     content: string;
 }
+
+
+// **** 23. role type
+export type Role = "USER" | "PROVIDER" | "ADMIN";

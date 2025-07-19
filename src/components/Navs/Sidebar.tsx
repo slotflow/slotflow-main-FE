@@ -1,11 +1,3 @@
-import { toast } from 'react-toastify';
-import { signout } from '@/utils/apis/auth.api';
-import { useDispatch, useSelector } from 'react-redux';
-import { NavLink, useNavigate } from 'react-router-dom';
-import { setAuthUser } from '@/utils/redux/slices/authSlice';
-import { toggleSidebar } from '@/utils/redux/slices/stateSlice';
-import { AppDispatch, RootState } from '@/utils/redux/appStore';
-import { SideBarProps } from '@/utils/interface/commonInterface';
 import {
     MessageSquare,
     Users,
@@ -26,38 +18,25 @@ import {
     Handshake,
     HandCoins,
 } from 'lucide-react';
-import { UserData } from '@/utils/interface/sliceInterface';
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { UserData } from '@/utils/interface/sliceInterface';
+import { handleSignoutHelper } from '@/utils/helper/signout';
+import { toggleSidebar } from '@/utils/redux/slices/stateSlice';
+import { AppDispatch, RootState } from '@/utils/redux/appStore';
+import { SideBarProps } from '@/utils/interface/commonInterface';
+import { useResetRedux } from '@/utils/hooks/systemHooks/useResetRedux';
 
 
 const Sidebar: React.FC<SideBarProps> = ({ routes }) => {
 
     const dispatch = useDispatch<AppDispatch>();
+    const navigate = useNavigate();
+    const resetRedux = useResetRedux();
 
     const sidebarOpen: boolean = useSelector((store: RootState) => store.state.sidebarOpen);
     const user: UserData | null = useSelector((store: RootState) => store.auth?.authUser);
-
-    const role: string | undefined = user?.role;
-
-    const navigate = useNavigate();
-
-    const handleSignout = (): void => {
-        dispatch(signout()).unwrap().then((res) => {
-            toast.success(res.message);
-            if (role === "USER") {
-                dispatch(setAuthUser(null));
-                navigate("/user/login");
-            } else if (role === "PROVIDER") {
-                dispatch(setAuthUser(null));
-                navigate("/provider/login");
-            } else if (role === "ADMIN") {
-                dispatch(setAuthUser(null));
-                navigate("/admin/login");
-            }
-        }).catch((error) => {
-            toast.error(error.message);
-        })
-    }
 
     const handleSidebar = (): void => {
         dispatch(toggleSidebar());
@@ -128,11 +107,15 @@ const Sidebar: React.FC<SideBarProps> = ({ routes }) => {
                 </ul>
             </div>
 
-            <ul className='p-4'>
-                <li className={`p-3 text-[var(--textTwo)] hover:text-[var(--textTwoHover)] font-semibold hover:bg-[var(--menuItemHoverBg)] cursor-pointer rounded-md mt-auto ${!sidebarOpen && 'flex justify-center'}`} onClick={handleSignout}>
+            {(user?.isLoggedIn && user.role) && (
+                <ul className='p-4'>
+                <li className={`p-3 text-[var(--textTwo)] hover:text-[var(--textTwoHover)] font-semibold hover:bg-[var(--menuItemHoverBg)] cursor-pointer rounded-md mt-auto ${!sidebarOpen && 'flex justify-center'}`} onClick={() => {
+                    handleSignoutHelper({ role: user?.role, dispatch, resetRedux, navigate})
+                }}>
                     {sidebarOpen ? "Logout" : <LogOut />}
                 </li>
             </ul>
+            )}
         </div>
     );
 };

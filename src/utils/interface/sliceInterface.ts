@@ -1,3 +1,4 @@
+import { Role } from "./commonInterface";
 import { Availability } from "./entityInterface/serviceAvailabilityInterface";
 
 // **** Auth slice state **** \\
@@ -7,7 +8,7 @@ export interface UserData {
     profileImage?: string;
     email?: string;
     verificationToken?: string;
-    role?: string;
+    role: Role;
     isBlocked?: boolean;
     isLoggedIn: boolean;
     address?: boolean;
@@ -51,7 +52,7 @@ export interface appStateVariables {
 
 // **** Provider slice interfaces **** \\
 export interface ProviderState {
-  availabilities: Availability[];
+  availabilities: Availability[] | null;
   planId: string | null;
   planDuration: string | null;
   paymentSelectionOpen: boolean;
@@ -63,5 +64,5 @@ export interface ProviderState {
 
 // **** User slice interface **** \\
 export interface UserStateVariables {
-  selectedServices: string[];
+  selectedServices: string[] | null;
 }

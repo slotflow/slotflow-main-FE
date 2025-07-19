@@ -1,28 +1,25 @@
 import React, { useEffect } from 'react';
-import { toast } from 'react-toastify';
 import { Moon, Sun } from 'lucide-react';
 import { greetings } from '@/utils/helper';
 import { navigation } from '@/utils/constants';
-import { signout } from '@/utils/apis/auth.api';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { UserData } from '@/utils/interface/sliceInterface';
-import { setAuthUser } from '@/utils/redux/slices/authSlice';
+import { handleSignoutHelper } from '@/utils/helper/signout';
 import { toggleTheme } from '@/utils/redux/slices/stateSlice';
 import { AppDispatch, RootState } from '../../utils/redux/appStore';
-import { clearSelection } from '@/utils/redux/slices/userSlice';
+import { useResetRedux } from '@/utils/hooks/systemHooks/useResetRedux';
 
 const Header:React.FC = () => {
 
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
+  const resetRedux = useResetRedux();
 
   const themeMode: boolean = useSelector((store: RootState) => store.state.lightTheme);
   const user: UserData | null = useSelector((store: RootState) => store.auth?.authUser);
+  const greetingString: string = greetings();
 
-  const navigate = useNavigate();
-
-  const role: string | undefined = user?.role;
-  
   const changeTheme = (): void => {
     dispatch(toggleTheme());
   }
@@ -34,27 +31,6 @@ const Header:React.FC = () => {
       document.documentElement.classList.add('dark');
     }
   }, [themeMode]);
-
-  const greetingString: string = greetings();
-
-  const handleSignout = (): void => {
-    dispatch(signout()).unwrap().then((res) => {
-      toast.success(res.message);
-      if (role === "USER") {
-        dispatch(setAuthUser(null));
-        dispatch(clearSelection());
-        navigate("/user/login");
-      } else if (role === "PROVIDER") {
-        dispatch(setAuthUser(null));
-        navigate("/provider/login");
-      } else if (role === "ADMIN") {
-        dispatch(setAuthUser(null));
-        navigate("/admin/login");
-      }
-    }).catch((error) => {
-      toast.error(error.message);
-    })
-  }
 
   return (
     <nav className={`w-full bg-[var(--background)] border-b-2 border-[var(--boxBorder)]} fixed`}>
@@ -95,8 +71,10 @@ const Header:React.FC = () => {
           )}
 
 
-          {user?.isLoggedIn && (
-            <button className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-[var(--textOne)] hover:bg-[var(--menuItemHoverBg)] cursor-pointer" onClick={handleSignout}>
+          {(user?.isLoggedIn && user?.role) && (
+            <button className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-[var(--textOne)] hover:bg-[var(--menuItemHoverBg)] cursor-pointer" onClick={() => {
+              handleSignoutHelper({ role: user.role, dispatch, resetRedux, navigate })
+            }}>
               Log out
             </button>
           )}

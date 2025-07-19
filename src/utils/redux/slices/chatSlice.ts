@@ -39,7 +39,7 @@ const chatSlice = createSlice({
     name: "chatSlice",
     initialState: intitalState,
     reducers: {
-        setOnlineUsers: (state, action) => {
+        setOnlineUsers: (state, action: PayloadAction<Array<string> | null>) => {
             state.onlineUsers = action.payload;
         },
         setLastMessage: (state, action: PayloadAction<{ userId: string; message: string; date: string }>) => {
@@ -50,7 +50,7 @@ const chatSlice = createSlice({
             console.log("action.payload : ",action.payload);
             state.selectedUser = action.payload
         },
-        setMessages: (state, action: PayloadAction<Array<Message>>) => {
+        setMessages: (state, action: PayloadAction<Array<Message> | null>) => {
             state.messages = action.payload;
         },
         addNewMessage: (state, action: PayloadAction<Message>) => {

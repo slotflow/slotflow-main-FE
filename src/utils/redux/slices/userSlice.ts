@@ -2,18 +2,15 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { UserStateVariables } from "@/utils/interface/sliceInterface";
 
 const initialState: UserStateVariables = {
-  selectedServices: [],
+  selectedServices: null,
 };
 
 const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    addService: (state, action: PayloadAction<string[]>) => {
+    addService: (state, action: PayloadAction<Array<string> | null>) => {
       state.selectedServices = action.payload;
-    },
-    clearSelection: (state) => {
-      state.selectedServices = []
     }
   },
 
@@ -21,7 +18,6 @@ const userSlice = createSlice({
 
 export const {
   addService,
-  clearSelection
 } = userSlice.actions;
 
 export default userSlice.reducer;

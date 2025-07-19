@@ -143,7 +143,7 @@ const ProviderAddServiceAvailabilityPage = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (availabilities.length === 0) {
+    if (!availabilities || availabilities.length === 0) {
       toast.info("You didnt added any availability.");
       return;
     }

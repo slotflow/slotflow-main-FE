@@ -24,10 +24,11 @@ const UserServiceSelectPage = () => {
     });
 
     const handleServiceToggle = (serviceId: string) => {
-        if (selectedServices.includes(serviceId)) {
-            dispatch(addService(selectedServices.filter((id) => id !== serviceId)));
+        const currentServices = selectedServices ?? [];
+        if (currentServices.includes(serviceId)) {
+            dispatch(addService(currentServices.filter((id) => id !== serviceId)));
         } else {
-            dispatch(addService([...selectedServices, serviceId]));
+            dispatch(addService([...currentServices, serviceId]));
         }
     };
 
@@ -52,7 +53,7 @@ const UserServiceSelectPage = () => {
                         data.map((service: UserFetchAllServicesResponse) => (
                             <div
                                 key={service._id}
-                                className={`p-3 rounded-md border cursor-pointer text-center ${selectedServices.includes(((service._id)))
+                                className={`p-3 rounded-md border cursor-pointer text-center ${selectedServices?.includes(((service._id)))
                                     ? "border-[var(--mainColor)]"
                                     : "border-gray-300"
                                     }`}
