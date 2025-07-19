@@ -90,13 +90,15 @@ const Sidebar: React.FC<SideBarProps> = ({ routes }) => {
     }, [themeMode]);
 
     return (
-        <div className={` ${sidebarOpen ? 'w-[15%]' : 'w-[5%]'} overflow-y-scroll no-scrollbar border-r-2 transition-all duration-300 flex flex-col`} onClick={handleSidebar}>
+        <div className={` ${sidebarOpen ? 'w-[15%]' : 'w-[5%]'} overflow-y-scroll no-scrollbar border-r-2 transition-all duration-300 flex flex-col`} >
             <div className="p-4 flex-1">
-                <ul className="space-y-4">
+                <ul>
+                    
+                    <li className='px-3 pb-4'>
+                        <span className='text-[var(--mainColor)] text-3xl font-bold italic hover:bg-[var(--mainColor)] hover:text-white px-2 rounded-lg cursor-pointer'>{sidebarOpen ? "SlotFlow" : "S"}</span>
+                    </li>
 
-                    {user && (
-                        <SingleTab icon={<PanelLeft />} text="" onClick={handleSidebar} sidebarOpen={sidebarOpen} />
-                    )}
+                    <SingleTab icon={<PanelLeft />} text="" onClick={handleSidebar} sidebarOpen={sidebarOpen} />
 
                     {routes.map((route) => (
                         <NavLink key={route.path} to={route.path}>
@@ -107,6 +109,7 @@ const Sidebar: React.FC<SideBarProps> = ({ routes }) => {
                             />
                         </NavLink>
                     ))}
+
                 </ul>
             </div>
 
@@ -127,6 +130,7 @@ const Sidebar: React.FC<SideBarProps> = ({ routes }) => {
                     />
                 </ul>
             )}
+
         </div>
     );
 };
