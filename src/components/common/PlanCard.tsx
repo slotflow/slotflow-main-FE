@@ -41,7 +41,7 @@ const PlanCard: React.FC<ProviderPlanCardProps> = ({ plan, isTrial, dummy, popul
     }
 
     return (
-        <Card key={plan._id} className={`p-4 rounded-2xl shadow-sm flex flex-col ${popular && "border-primary"}`}>
+        <Card key={plan._id} className={`p-4 rounded-2xl lg:w-96 shadow-sm flex flex-col ${popular && "border-primary"}`}>
             <CardHeader>
                 {popular && (
                     <Badge className="uppercase w-max self-center mb-3">
