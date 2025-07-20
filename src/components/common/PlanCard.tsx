@@ -41,7 +41,7 @@ const PlanCard: React.FC<ProviderPlanCardProps> = ({ plan, isTrial, dummy, popul
     }
 
     return (
-        <Card key={plan._id} className={`p-4 rounded-2xl lg:w-96 shadow-sm flex flex-col ${popular && "border-primary"}`}>
+        <Card key={plan._id} className={`p-4 rounded-2xl lg:w-96 shadow-sm flex flex-col hover:border-[var(--mainColor)] ${popular && "border-primary"}`}>
             <CardHeader>
                 {popular && (
                     <Badge className="uppercase w-max self-center mb-3">
@@ -81,7 +81,7 @@ const PlanCard: React.FC<ProviderPlanCardProps> = ({ plan, isTrial, dummy, popul
                 </div>
             ) : (
                 <CardFooter>
-                    <Button className="w-full cursor-pointer" variant={"outline"}>
+                    <Button className="w-full cursor-pointer hover:bg-[var(--mainColor)]" variant={"outline"}>
                         Sign up
                     </Button>
                 </CardFooter>

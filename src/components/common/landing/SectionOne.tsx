@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { AppDispatch } from '@/utils/redux/appStore';
 import { HandleRoleSelectionFunction } from '@/utils/interface/commonInterface';
 import { setsignInForm, setSignUpForm } from '@/utils/redux/slices/signFormSlice';
+import { WomenWithCalendar } from '@/components/svgs/WomenWithCalendar';
 
 
 const SectionOne = () => {
@@ -22,7 +23,13 @@ const SectionOne = () => {
     );
 
     return (
-        <div className="h-screen flex justify-center items-center bg-[var(--background)] space-x-2">
+        <div className="h-screen flex justify-center items-center bg-[var(--background)] space-x-2 transition-colors duration-300 ease-in-out">
+            {/* <img 
+                src={'/svgs/undraw_calendar_8r6s.svg'}
+                className=''
+            /> */}
+
+            <WomenWithCalendar />
             <RoleButton onClick={() => handleRoleSelection("/user/login")}>
                 Book Appointment
             </RoleButton>
