@@ -1,7 +1,11 @@
+import React from "react";
+import DevOrBugFixSvg from "@/components/svgs/DevOrBugFixSvg";
 
-const UserNotificationsPage = () => {
+const UserNotificationsPage:React.FC = () => {
   return (
-    <div>UserNotifications</div>
+    <div className="h-screen flex justify-center items-center">
+      <DevOrBugFixSvg isUnderDev={true} />
+    </div>
   )
 }
 

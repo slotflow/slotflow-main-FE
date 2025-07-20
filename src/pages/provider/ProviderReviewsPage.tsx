@@ -1,8 +1,11 @@
-import React from 'react'
+import DevOrBugFixSvg from '@/components/svgs/DevOrBugFixSvg';
+import React from 'react';
 
-const ProviderReviewsPage = () => {
+const ProviderReviewsPage:React.FC = () => {
   return (
-    <div>ProviderReviews</div>
+    <div className="h-screen flex justify-center items-center">
+      <DevOrBugFixSvg isUnderDev={true} />
+    </div>
   )
 }
 

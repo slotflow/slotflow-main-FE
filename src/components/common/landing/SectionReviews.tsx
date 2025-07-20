@@ -1,12 +1,12 @@
 import React from 'react';
 import DevOrBugFixSvg from '@/components/svgs/DevOrBugFixSvg';
 
-const ProviderNotificationsPage:React.FC = () => {
+const SectionReviews:React.FC = () => {
   return (
     <div className="h-screen flex justify-center items-center">
-      <DevOrBugFixSvg isUnderDev={true} />
+        <DevOrBugFixSvg isUnderDev={true} />
     </div>
   )
 }
 
-export default ProviderNotificationsPage
+export default SectionReviews
