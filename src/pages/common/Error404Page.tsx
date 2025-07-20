@@ -11,7 +11,7 @@ const Error404Page: React.FC = () => {
   },[]);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-full">
+    <div className="flex flex-col items-center justify-center h-full">
       <Error404 ref={errorRef}/>
     </div>
   );
