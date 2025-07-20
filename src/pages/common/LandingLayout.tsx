@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../utils/redux/appStore";
 import { Bounce, ToastContainer } from "react-toastify";
 import Header from "@/components/Navs/Header";
-import Footer from "@/components/Navs/Footer";
+import FooterBar from "@/components/Navs/FooterBar";
 
 const LandingLayout = () => {
   const themeMode = useSelector((store: RootState) => store.state?.lightTheme);
@@ -22,7 +22,7 @@ const LandingLayout = () => {
       />
       {!shouldHideFooter && <Header />}
       <Outlet />
-      {!shouldHideFooter && <Footer />}
+      {!shouldHideFooter && <FooterBar />}
     </>
   )
 }

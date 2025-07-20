@@ -113,3 +113,50 @@ export const dateSelectList: dataSelectListItem[] = [
     { value: "180d", content: "Last 6 months" },
     { value: "365d", content: "Last year" },
 ]
+
+
+// **** FooterBar Data
+interface FooterLink {
+  text: string;
+  href: string;
+}
+
+interface FooterColumnProps {
+  title: string;
+  links: FooterLink[];
+}
+
+export const columns: FooterColumnProps[] = [
+    {
+      title: "Plans For your service",
+      links: [
+        { text: "Free", href: "" },
+        { text: "Standard", href: "" },
+        { text: "Enterprise", href: "" },
+      ],
+    },
+    {
+      title: "Company",
+      links: [
+        { text: "About", href: "" },
+        { text: "Careers", href: "" },
+        { text: "Blog", href: "" },
+      ],
+    },
+    {
+      title: "Connect",
+      links: [
+        { text: "Email", href: "mailto:slotflow.booking@gmail.com" },
+        { text: "Facebook", href: "https://github.com/slotflow" },
+        { text: "Instagram", href: "https://github.com/slotflow" },
+        { text: "LinkedIn", href: "https://www.linkedin.com/in/midhunkpaniker" },
+        { text: "Github", href: "https://github.com/slotflow" },
+      ],
+    },
+  ]
+export const copyright: string = " slotflow All rights reserved"
+export const  policies: FooterLink[] = [
+    { text: "Privacy Policy", href: "" },
+    { text: "Terms of Service", href: "" },
+  ]
+export const about: string = "Simplifying appointment scheduling for individuals and professionals. Stay organized, save time, and make every slot count.";
