@@ -46,7 +46,7 @@ export default function SectionPricing() {
               <TableRow className="bg-muted hover:bg-muted">
                 <TableHead className="w-3/12 text-primary">Plans</TableHead>
                 {PlanList.map(plan => (
-                  <TableHead className="w-2/12 text-primary text-lg font-medium text-center">
+                  <TableHead key={plan.planName} className="w-2/12 text-primary text-lg font-medium text-center">
                     {plan.planName}
                   </TableHead>
                 ))}
