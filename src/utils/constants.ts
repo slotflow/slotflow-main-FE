@@ -299,3 +299,18 @@ export const policies: FooterLink[] = [
   { text: "Terms of Service", href: "" },
 ]
 export const about: string = "Simplifying appointment scheduling for individuals and professionals. Stay organized, save time, and make every slot count.";
+
+
+// **** Approval Pending Page data
+interface ApprovalMessage {
+  heading: string;
+  message1: string;
+  message2: string;
+  footerNote: string;
+}
+export const approvalMessages: ApprovalMessage = {
+  heading: "Approval in Progress",
+  message1: "Thank you for your patience. Your request is currently being reviewed. We will notify you as soon as the process is complete.",
+  message2: "We will notify you via email.",
+  footerNote: "If you have any queries, please contact us.",
+};

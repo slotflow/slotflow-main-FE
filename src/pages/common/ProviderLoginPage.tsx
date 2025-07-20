@@ -8,6 +8,7 @@ import SignUpForm from "@/components/form/CommonForms/SignUpForm";
 import ResetPasswordForm from "@/components/form/CommonForms/ResetPasswordForm";
 import OtpVerificatioForm from "@/components/form/CommonForms/OtpVerificatioForm";
 import EmailVerificationForm from "@/components/form/CommonForms/EmailVerificationForm";
+import { FormSvgs } from "@/components/svgs/FormSvgs";
 
 const ProviderLoginPage = () => {
 
@@ -30,7 +31,7 @@ const ProviderLoginPage = () => {
   return (
     <div className='h-[100vh] flex bg-[var(--background)] justify-center items-center'>
      
-      <LeftSideBox animateSvg />
+      <LeftSideBox svg={<FormSvgs />} animateSvg />
 
       <div className="w-full md:w-6/12 flex justify-center items-center">
         {signInForm && <LoginForm role={"PROVIDER"} title={"Continue to your Service Account"}/>}

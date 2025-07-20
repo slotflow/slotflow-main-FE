@@ -1,18 +1,19 @@
 import gsap from 'gsap';
-import { FormSvgs } from '../svgs/FormSvgs';
-import React, { useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import React, { ReactElement, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ArrowLeftCircle, Moon, Sun } from 'lucide-react';
 import { toggleTheme } from '@/utils/redux/slices/stateSlice';
 import { AppDispatch, RootState } from '@/utils/redux/appStore';
 import { gsapBigSvgYDirectionAnimation } from '@/utils/constants';
-import { useNavigate } from 'react-router-dom';
 
 interface LeftSideBoxProps {
+    svg?: ReactElement;
     animateSvg?: boolean;
 }
 
 const LeftSideBox: React.FC<LeftSideBoxProps> = ({
+    svg,
     animateSvg = false,
 }) => {
 
@@ -67,7 +68,7 @@ const LeftSideBox: React.FC<LeftSideBoxProps> = ({
             </div>
 
             <div className="flex items-center justify-center flex-grow" ref={svgRef} >
-                <FormSvgs />
+                {svg}
             </div>
 
             <div className='p-4'>

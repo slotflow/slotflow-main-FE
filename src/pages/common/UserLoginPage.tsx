@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "@/utils/redux/appStore";
+import { FormSvgs } from "@/components/svgs/FormSvgs";
 import LeftSideBox from '@/components/common/LeftSideBox';
 import LoginForm from "@/components/form/CommonForms/LoginForm";
 import SignUpForm from "@/components/form/CommonForms/SignUpForm";
@@ -31,7 +32,7 @@ const UserLoginPage = () => {
   return (
     <div className='h-[100vh] flex bg-[var(--background)] justify-center items-center'>
 
-      <LeftSideBox animateSvg />
+      <LeftSideBox svg={<FormSvgs />} animateSvg />
 
       <div className="w-full md:w-1/2 flex justify-center items-center">
         {signInForm && <LoginForm role={"USER"} title={"Continue to Book an Appointment"}/>}

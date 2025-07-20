@@ -1,6 +1,6 @@
 import gsap from 'gsap';
 import React, { useEffect, useRef } from 'react';
-import { Error404 } from '@/components/svgs/Error404';
+import Error404 from '@/components/svgs/Error404';
 import { gsapBigSvgYDirectionAnimation } from '@/utils/constants';
 
 const Error404Page: React.FC = () => {

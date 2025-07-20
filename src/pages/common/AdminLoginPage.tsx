@@ -6,6 +6,7 @@ import { RootState } from "@/utils/redux/appStore";
 import LeftSideBox from '@/components/common/LeftSideBox';
 import LoginForm from "@/components/form/CommonForms/LoginForm";
 import { gsapBigSvgYDirectionAnimation } from '@/utils/constants';
+import { FormSvgs } from '@/components/svgs/FormSvgs';
 
 const AdminLoginPage = () => {
 
@@ -31,7 +32,7 @@ const AdminLoginPage = () => {
 
   return (
     <div className='h-[100vh] flex bg-[var(--background)] justify-center items-center'>
-      <LeftSideBox animateSvg />
+      <LeftSideBox svg={<FormSvgs />} animateSvg />
       <div className="w-full md:w-6/12 flex justify-center items-center">
         <LoginForm isAdmin={true} role={"ADMIN"} title={"Admin Sign In"}/>
       </div>

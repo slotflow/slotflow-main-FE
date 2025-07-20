@@ -1,8 +1,6 @@
-import { RootState } from '@/utils/redux/appStore';
-import { forwardRef } from 'react'
+import { forwardRef } from 'react';
 import { useSelector } from 'react-redux';
-
-
+import { RootState } from '@/utils/redux/appStore';
 
 export const WomenWithCalendar = forwardRef<SVGSVGElement>(() => {
 

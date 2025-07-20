@@ -1,7 +1,8 @@
 import gsap from 'gsap';
 import { useEffect, useRef } from "react";
+import { FormSvgs } from '@/components/svgs/FormSvgs';
+import LeftSideBox from '@/components/common/LeftSideBox';
 import { gsapBigSvgYDirectionAnimation } from '@/utils/constants';
-import { ChangePassword } from "@/components/svgs/ChangePassword";
 import ForgotPasswordForm from "@/components/form/CommonForms/ResetPasswordForm";
 
 const PasswordResetPage = () => {
@@ -14,9 +15,7 @@ const PasswordResetPage = () => {
 
   return (
     <div className='h-[100vh] flex bg-[var(--background)] justify-center items-center'>
-      <div className="md:w-6/12 hidden md:flex items-center justify-center">
-        <ChangePassword ref={changePasswordRef}/>
-      </div>
+      <LeftSideBox svg={<FormSvgs />} animateSvg/>
       <div className="w-full md:w-6/12 flex justify-center items-center">
         <ForgotPasswordForm />
       </div>
