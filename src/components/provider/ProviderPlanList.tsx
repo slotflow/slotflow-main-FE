@@ -1,6 +1,6 @@
 import React from 'react';
+import PlanCard from '../common/PlanCard';
 import { useQuery } from '@tanstack/react-query';
-import ProviderPlanCard from './ProviderPlanCard';
 import DataFetchingError from '../common/DataFetchingError';
 import { providerFetchProviderPlans } from '@/utils/apis/provider.api';
 import ProviderPlanCardShimmer from '../shimmers/ProviderPlanCardShimmer';
@@ -32,10 +32,11 @@ const ProviderPlanList: React.FC<ProviderPlanListProps> = ({ showPlans }) => {
                 data.map((plan) => {
                     const isTrial: boolean = plan?.price === 0
                     return (
-                        <ProviderPlanCard
+                        <PlanCard
                             key={plan._id}
                             plan={plan}
                             isTrial={isTrial}
+                            dummy={false}
                         />
                     )
                 })

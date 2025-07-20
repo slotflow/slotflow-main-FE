@@ -1,4 +1,5 @@
 import { dataSelectListItem, gsapBigSvgYDirectionAnimationProps, HeaderCompoenentNavsProps, Route } from "./interface/commonInterface";
+import { Plan } from "./interface/entityInterface/planInterface";
 
 // **** Routes for admin **** \\
 export const adminRoutes: Route[] = [
@@ -91,7 +92,7 @@ export const dayMap: {
 }
 
 // **** Not chat selected shimmer constants **** \\
-export const shimmerMessages: { align: string, height: string, width: string}[] = [
+export const shimmerMessages: { align: string, height: string, width: string }[] = [
   { align: "end", height: "h-10", width: "w-64" },
   { align: "start", height: "h-24", width: "w-60" },
   { align: "end", height: "h-36", width: "w-72" },
@@ -105,14 +106,152 @@ export const shimmerMessages: { align: string, height: string, width: string}[] 
 
 // **** ChartHeader date selector data **** \\
 export const dateSelectList: dataSelectListItem[] = [
-    { value: "7d", content: "Last 7 days" },
-    { value: "14d", content: "Last 14 days" },
-    { value: "30d", content: "Last month" },
-    { value: "60d", content: "Last 2 months" },
-    { value: "90d", content: "Last 3 months" },
-    { value: "180d", content: "Last 6 months" },
-    { value: "365d", content: "Last year" },
+  { value: "7d", content: "Last 7 days" },
+  { value: "14d", content: "Last 14 days" },
+  { value: "30d", content: "Last month" },
+  { value: "60d", content: "Last 2 months" },
+  { value: "90d", content: "Last 3 months" },
+  { value: "180d", content: "Last 6 months" },
+  { value: "365d", content: "Last year" },
 ]
+
+
+// **** Pricing Setion Data
+interface PlanFeature {
+  type: string;
+  features: {
+    name: string;
+    free: boolean;
+    standard: boolean;
+    enterprise: boolean;
+  }[];
+}
+
+type PlanList = Array<Pick<Plan, "_id" | "planName" | "description" | "features" | "price">>
+
+export const PlanList: PlanList = [
+  {
+    _id: "0",
+    planName: "Free",
+    description: "A free trial plan with limited features for new users",
+    features: [
+      "Use this for testing your service",
+      "No Priority support",
+      "Booking limit 7",
+      "No Ad visibility",
+      "Recommended for testing purpose"
+    ],
+    price: 0
+  },
+  {
+    _id: "1",
+    planName: "Standard",
+    description: "A balanced plan for mid sized business with essential features",
+    features: [
+      "Priority support",
+      "Booking limit - 600",
+      "Cancel anytime",
+      "Ad visibility",
+      "Recommended for mid tange services"
+    ],
+    price: 10000
+  },
+  {
+    _id: "2",
+    planName: "Enterprise",
+    description: "A high end plan for large scale service providers with maximum exposue",
+    features: [
+      "Priority support",
+      "No booking limit",
+      "Cancel anytime",
+      "Ad visibility",
+      "Recommended for Highend services"
+    ],
+    price: 20000
+  },
+]
+
+export const planFeatures: PlanFeature[] = [
+  {
+    type: "Support",
+    features: [
+      {
+        name: "Priority support",
+        free: false,
+        standard: true,
+        enterprise: true,
+      },
+    ],
+  },
+  {
+    type: "Booking",
+    features: [
+      {
+        name: "Booking limit 7",
+        free: true,
+        standard: false,
+        enterprise: false,
+      },
+      {
+        name: "Booking limit - 600",
+        free: false,
+        standard: true,
+        enterprise: false,
+      },
+      {
+        name: "No booking limit",
+        free: false,
+        standard: false,
+        enterprise: true,
+      },
+    ],
+  },
+  {
+    type: "Advertisement",
+    features: [
+      {
+        name: "Visibility",
+        free: false,
+        standard: true,
+        enterprise: true,
+      },
+    ],
+  },
+  {
+    type: "Plan Control",
+    features: [
+      {
+        name: "Cancel anytime",
+        free: false,
+        standard: true,
+        enterprise: true,
+      },
+    ],
+  },
+  {
+    type: "Purpose",
+    features: [
+      {
+        name: "Recommended for testing purpose",
+        free: true,
+        standard: false,
+        enterprise: false,
+      },
+      {
+        name: "Recommended for mid range services",
+        free: false,
+        standard: true,
+        enterprise: false,
+      },
+      {
+        name: "Recommended for Highend services",
+        free: false,
+        standard: false,
+        enterprise: true,
+      },
+    ],
+  },
+];
 
 
 // **** FooterBar Data
@@ -127,36 +266,36 @@ interface FooterColumnProps {
 }
 
 export const columns: FooterColumnProps[] = [
-    {
-      title: "Plans For your service",
-      links: [
-        { text: "Free", href: "" },
-        { text: "Standard", href: "" },
-        { text: "Enterprise", href: "" },
-      ],
-    },
-    {
-      title: "Company",
-      links: [
-        { text: "About", href: "" },
-        { text: "Careers", href: "" },
-        { text: "Blog", href: "" },
-      ],
-    },
-    {
-      title: "Connect",
-      links: [
-        { text: "Email", href: "mailto:slotflow.booking@gmail.com" },
-        { text: "Facebook", href: "https://github.com/slotflow" },
-        { text: "Instagram", href: "https://github.com/slotflow" },
-        { text: "LinkedIn", href: "https://www.linkedin.com/in/midhunkpaniker" },
-        { text: "Github", href: "https://github.com/slotflow" },
-      ],
-    },
-  ]
+  {
+    title: "Plans For your service",
+    links: [
+      { text: "Free", href: "" },
+      { text: "Standard", href: "" },
+      { text: "Enterprise", href: "" },
+    ],
+  },
+  {
+    title: "Company",
+    links: [
+      { text: "About", href: "" },
+      { text: "Careers", href: "" },
+      { text: "Blog", href: "" },
+    ],
+  },
+  {
+    title: "Connect",
+    links: [
+      { text: "Email", href: "mailto:slotflow.booking@gmail.com" },
+      { text: "Facebook", href: "https://github.com/slotflow" },
+      { text: "Instagram", href: "https://github.com/slotflow" },
+      { text: "LinkedIn", href: "https://www.linkedin.com/in/midhunkpaniker" },
+      { text: "Github", href: "https://github.com/slotflow" },
+    ],
+  },
+]
 export const copyright: string = " slotflow All rights reserved"
-export const  policies: FooterLink[] = [
-    { text: "Privacy Policy", href: "" },
-    { text: "Terms of Service", href: "" },
-  ]
+export const policies: FooterLink[] = [
+  { text: "Privacy Policy", href: "" },
+  { text: "Terms of Service", href: "" },
+]
 export const about: string = "Simplifying appointment scheduling for individuals and professionals. Stay organized, save time, and make every slot count.";

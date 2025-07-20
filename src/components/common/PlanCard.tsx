@@ -1,20 +1,25 @@
 import { useState } from 'react';
+import { Badge } from '../ui/badge';
 import { Button } from '../ui/button';
 import { toast } from 'react-toastify';
+import { CheckIcon } from 'lucide-react';
 import { useDispatch } from 'react-redux';
 import { planDurations } from '@/utils/constants';
 import SelectFiledWithLabel from '../form/SelectFiledWithLabel';
-import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../ui/card';
 import { Plan } from '@/utils/interface/entityInterface/planInterface';
 import { setPaymentSelectionPage, setSubscriptionIsTrailPlan, setSubscriptionPlanDuration, setSubscriptionPlanId } from '@/utils/redux/slices/providerSlice';
+import { formatNumberToPrice } from '@/utils/helper/formatter';
 
 type CardProps = Pick<Plan, "_id" | "planName" | "description" | "features" | "price">;
 interface ProviderPlanCardProps {
     plan: CardProps;
-    isTrial?: boolean
+    isTrial?: boolean;
+    dummy?: boolean;
+    popular?: boolean;
 }
 
-const ProviderPlanCard: React.FC<ProviderPlanCardProps> = ({ plan, isTrial }) => {
+const PlanCard: React.FC<ProviderPlanCardProps> = ({ plan, isTrial, dummy, popular }) => {
 
     const dispatch = useDispatch();
     const [selectedPlanDuration, setSelectedPlanDuration] = useState<string>("");
@@ -30,24 +35,34 @@ const ProviderPlanCard: React.FC<ProviderPlanCardProps> = ({ plan, isTrial }) =>
             toast.warning("Please select an plan duration");
             return;
         }
-        dispatch(setSubscriptionIsTrailPlan(isTrial));
+        dispatch(setSubscriptionIsTrailPlan(isTrial as boolean));
         dispatch(setSubscriptionPlanId(plan?._id));
         dispatch(setPaymentSelectionPage(true));
     }
 
     return (
-        <Card key={plan._id} className="p-4 border rounded-2xl shadow-sm flex flex-col h-full">
+        <Card key={plan._id} className={`p-4 rounded-2xl shadow-sm flex flex-col ${popular && "border-primary"}`}>
             <CardHeader>
-                <CardTitle className="text-2xl font-bold">{plan.planName}</CardTitle>
-                <p className="text-xl font-medium">{plan.price === 0 ? "FREE" : "₹ " + plan.price}</p>
+                {popular && (
+                    <Badge className="uppercase w-max self-center mb-3">
+                        Most popular
+                    </Badge>
+                )}
+                <CardTitle className="mb-7">{plan.planName}</CardTitle>
+                <span className="font-bold text-5xl">{plan.price === 0 ? "FREE" : formatNumberToPrice(plan.price)}</span>
             </CardHeader>
-            <CardContent className="flex-grow">
-                <ul className="space-y-2 text-md">
+            <CardDescription className="text-center">
+                {plan.description}
+            </CardDescription>
+            <CardContent className="flex-1">
+                <ul className="mt-7 space-y-2.5 text-sm">
                     {plan.features.map((feature, i: number) => (
-                        <li key={i}>&#8226; {feature}</li>
+                        <li key={i} className="flex space-x-2">
+                            <CheckIcon className="flex-shrink-0 mt-0.5 h-4 w-4" />
+                            <span className="text-muted-foreground">{feature}</span>
+                        </li>
                     ))}
                 </ul>
-                <p className="mt-4 text-sm">{plan.description}</p>
             </CardContent>
             {!isTrial && (
                 <SelectFiledWithLabel
@@ -59,11 +74,20 @@ const ProviderPlanCard: React.FC<ProviderPlanCardProps> = ({ plan, isTrial }) =>
                     required
                 />
             )}
-            <div className="mt-auto">
-                <Button className="w-full cursor-pointer" onClick={(e) => handleGoToPayment(e, plan.planName)}>Choose Plan</Button>
-            </div>
+            {!dummy ? (
+
+                <div className="mt-auto">
+                    <Button className="w-full cursor-pointer" onClick={(e) => handleGoToPayment(e, plan.planName)}>Choose Plan</Button>
+                </div>
+            ) : (
+                <CardFooter>
+                    <Button className="w-full cursor-pointer" variant={"outline"}>
+                        Sign up
+                    </Button>
+                </CardFooter>
+            )}
         </Card>
     )
 }
 
-export default ProviderPlanCard
+export default PlanCard
