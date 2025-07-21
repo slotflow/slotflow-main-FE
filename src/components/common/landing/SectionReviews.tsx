@@ -1,5 +1,6 @@
 import React from 'react';
 import { InfiniteMovingCards } from '@/components/ui/infinite-moving-cards';
+import Heading from './Heading';
 
 const testimonials = [
     {
@@ -36,23 +37,49 @@ const testimonials = [
 
 const SectionReviews: React.FC = () => {
     return (
-        <div className="h-screen flex flex-col justify-center items-center">
-            <InfiniteMovingCards
-                items={testimonials}
-                direction="right"
-                speed="fast"
-            />
-            <InfiniteMovingCards
-                items={testimonials}
-                direction="left"
-                speed="fast"
-            />
-            <InfiniteMovingCards
-                items={testimonials}
-                direction="right"
-                speed="fast"
-            />
-        </div>
+        <>
+            <Heading heading='Reviews' headingDescription='See what our customers are saying about us.' />
+            <div className="w-full overflow-hidden leading-[0] bg-[var(--menuItemHoverBg)]">
+                <svg
+                    className="relative block rotate-y-180"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 1200 120"
+                    preserveAspectRatio="none"
+                >
+                    <path d="M1200 120L0 16.48 0 0 1200 0 1200 120z" className="fill-[var(--mainColor)]"></path>
+                    <path d="M1250 120L0 12.48 0 0 1200 0 1200 120z" className="fill-[var(--background)]"></path>
+                </svg>
+            </div>
+            <div className="flex flex-col justify-center items-center bg-[var(--menuItemHoverBg)]">
+                <InfiniteMovingCards
+                    items={testimonials}
+                    direction="right"
+                    speed="fast"
+                />
+                <InfiniteMovingCards
+                    items={testimonials}
+                    direction="left"
+                    speed="fast"
+                />
+                <InfiniteMovingCards
+                    items={testimonials}
+                    direction="right"
+                    speed="fast"
+                />
+            </div>
+            <div className="w-full overflow-hidden leading-[0] rotate-180 bg-[var(--menuItemHoverBg)]">
+                <svg
+                    className="relative block"
+                    style={{ transform: 'rotateY(180deg)' }}
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 1200 120"
+                    preserveAspectRatio="none"
+                >
+                    <path d="M1200 120L0 16.48 0 0 1200 0 1200 120z" className="fill-[var(--mainColor)]"></path>
+                    <path d="M1250 120L0 13.48 0 0 1200 0 1200 120z" className="fill-[var(--background)]"></path>
+                </svg>
+            </div>
+        </>
     )
 }
 

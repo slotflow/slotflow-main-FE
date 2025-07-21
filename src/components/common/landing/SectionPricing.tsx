@@ -7,6 +7,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import Heading from "./Heading";
 import PlanCard from "../PlanCard";
 import { CheckIcon, MinusIcon } from "lucide-react";
 import { planFeatures, PlanList } from "@/utils/constants";
@@ -15,31 +16,21 @@ export default function SectionPricing() {
   return (
     <div className="w-full bg-[var(--background)]">
       <div className="mx-auto px-4 lg:px-0 max-w-7xl py-24 lg:py-32 transition-colors duration-300 ease-in-out">
-        <div className="max-w-2xl mx-auto text-center mb-10 lg:mb-14">
-          <h2 className="text-black dark:text-white scroll-m-20 border-b pb-2 text-3xl font-semibold first:mt-0">
-            Pricing
-          </h2>
-          <p className="mt-1 text-muted-foreground">
-            Whatever your status, our offers evolve according to your needs.
-          </p>
-        </div>
-
+        <Heading heading='Pricing' headingDescription='Whatever your status, our offers evolve according to your needs.' />
         <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:items-center">
           {PlanList.map(plan => (
             <PlanCard
-              key={plan._id}
-              isTrial={true}
-              plan={plan}
-              dummy={true}
-              popular={plan._id === "1" ? true : false}
+            key={plan._id}
+            isTrial={true}
+            plan={plan}
+            dummy={true}
+            popular={plan._id === "1" ? true : false}
             />
           ))}
         </div>
 
         <div className="mt-20 lg:mt-32">
-          <div className="text-center mb-10 lg:mb-20">
-            <h3 className="text-2xl font-semibold text-black dark:text-white">Compare plans</h3>
-          </div>
+          <Heading heading='Compare Plans' headingDescription='Pick the best plan for your service.' />
 
           <Table className="table">
             <TableHeader>
