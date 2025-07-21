@@ -14,7 +14,7 @@ import { planFeatures, PlanList } from "@/utils/constants";
 
 export default function SectionPricing() {
   return (
-    <div className="w-full bg-[var(--background)]">
+    <section id="pricing" className="w-full bg-[var(--background)]">
       <div className="mx-auto px-4 lg:px-0 max-w-7xl py-24 lg:py-32 transition-colors duration-300 ease-in-out">
         <Heading heading='Pricing' headingDescription='Whatever your status, our offers evolve according to your needs.' />
         <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:items-center">
@@ -68,7 +68,7 @@ export default function SectionPricing() {
 
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 

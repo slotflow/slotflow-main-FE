@@ -3,9 +3,9 @@ import DevOrBugFixSvg from '@/components/svgs/DevOrBugFixSvg';
 
 const SectionFeatures:React.FC = () => {
   return (
-    <div className='h-screen flex justify-center items-cneter'>
+    <section id="features" className='h-screen flex justify-center items-cneter'>
         <DevOrBugFixSvg isUnderDev={true} />
-    </div>
+    </section>
   )
 }
 

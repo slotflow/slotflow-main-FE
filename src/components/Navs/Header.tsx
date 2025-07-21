@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import React, { useEffect } from 'react';
 import { Moon, Sun } from 'lucide-react';
 import { navigation } from '@/utils/constants';
@@ -37,14 +36,14 @@ const Header: React.FC = () => {
             <div className="hidden sm:ml-6 sm:block">
               <div className="flex space-x-4">
                 {navigation.map((item) => (
-                  <Link
+                  <a
                     key={item.name}
-                    to={item.href}
+                    href={item.href}
                     aria-current={item.current ? 'page' : undefined}
                     className="rounded-md px-3 py-2 text-sm font-medium text-[var(--textOne)] hover:text-[var(--textOneHover)]"
                   >
                     {item.name}
-                  </Link>
+                  </a>
                 ))}
               </div>
             </div>
@@ -79,7 +78,7 @@ const Header: React.FC = () => {
           ))}
         </div>
       </div> */}
-      
+
     </nav>
   )
 }

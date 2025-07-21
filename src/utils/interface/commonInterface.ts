@@ -132,10 +132,7 @@ export interface CommonButtonProps {
 
 
 // **** 14.  Common role button props interface
-export interface RoleButtonProps {
-  onClick: () => void;
-  children: React.ReactNode;
-}
+
 
 
 // **** 15.  nav compoenents interfaces

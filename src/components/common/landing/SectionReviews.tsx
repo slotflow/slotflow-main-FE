@@ -37,7 +37,7 @@ const testimonials = [
 
 const SectionReviews: React.FC = () => {
     return (
-        <>
+        <section id="reviews" className="bg-[var(--background)]">
             <Heading heading='Reviews' headingDescription='See what our customers are saying about us.' />
             <div className="w-full overflow-hidden leading-[0] bg-[var(--menuItemHoverBg)]">
                 <svg
@@ -79,7 +79,7 @@ const SectionReviews: React.FC = () => {
                     <path d="M1250 120L0 13.48 0 0 1200 0 1200 120z" className="fill-[var(--background)]"></path>
                 </svg>
             </div>
-        </>
+        </section>
     )
 }
 

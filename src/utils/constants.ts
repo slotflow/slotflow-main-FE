@@ -50,10 +50,12 @@ export const gsapBigSvgYDirectionAnimation: gsapBigSvgYDirectionAnimationProps =
 
 // **** Header Navigation Array ***** \\
 export const navigation: HeaderCompoenentNavsProps[] = [
-  { name: 'Home', href: '/', current: true },
-  { name: 'Plans', href: '#', current: false },
-  { name: 'Services', href: '#', current: false },
+  { name: 'Home', href: '#home', current: true },
+  { name: 'Features', href: '#features', current: false },
+  { name: 'Pricing', href: '#pricing', current: false },
+  { name: 'Reviews', href: '#reviews', current: false },
   { name: 'About', href: '#', current: false },
+  { name: 'Help', href: '#', current: false },
   { name: 'Contact', href: '#', current: false },
 ]
 

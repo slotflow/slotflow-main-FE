@@ -16,7 +16,7 @@ const UserDashboardPage = () => {
   const selectedServices = useSelector((store: RootState) => store.user.selectedServices);
 
   const { data, isLoading, isError, error } = useQuery({
-    queryFn: () => userSearchServiceProviders(selectedServices),
+    queryFn: () => userSearchServiceProviders(selectedServices ?? []),
     queryKey: ['providers'],
     staleTime: 5 * 60 * 1000,
     refetchOnWindowFocus: false,
