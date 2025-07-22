@@ -124,7 +124,8 @@ interface PlanFeature {
   features: {
     name: string;
     free: boolean;
-    standard: boolean;
+    starter: boolean;
+    professional: boolean;
     enterprise: boolean;
   }[];
 }
@@ -135,89 +136,166 @@ export const PlanList: PlanList = [
   {
     _id: "0",
     planName: "Free",
-    description: "A free trial plan with limited features for new users",
+    description: "Perfect for individuals or freelancers getting started with appointment scheduling.",
     features: [
-      "Use this for testing your service",
-      "No Priority support",
-      "Booking limit 7",
-      "No Ad visibility",
-      "Recommended for testing purpose"
+      "Basic slot creation & booking",
+      "Email notifications for bookings",
+      "Day view calendar",
+      "Up to 10 bookings",
+      "7 days validity"
     ],
     price: 0
   },
   {
     _id: "1",
-    planName: "Standard",
-    description: "A balanced plan for mid sized business with essential features",
+    planName: "Starter",
+    description: "Ideal for solo professionals looking for a branded experience and better control.",
     features: [
-      "Priority support",
-      "Booking limit - 600",
-      "Cancel anytime",
-      "Ad visibility",
-      "Recommended for mid tange services"
+      "Everything in Free Plan",
+      "Up to 100 bookings per month",
+      "Week & month calendar views",
+      "Custom branding (logo & theme)",
+      "Priority email support"
     ],
-    price: 10000
+    price: 499
   },
   {
     _id: "2",
-    planName: "Enterprise",
-    description: "A high end plan for large scale service providers with maximum exposue",
+    planName: "Professional",
+    description: "Designed for growing teams or businesses that require advanced scheduling and integrations.",
     features: [
-      "Priority support",
-      "No booking limit",
-      "Cancel anytime",
-      "Ad visibility",
-      "Recommended for Highend services"
+      "Everything in Starter Plan",
+      "Up to 500 bookings per month",
+      "Video call service",
+      "Google Calendar sync",
+      "Email & chat support"
     ],
-    price: 20000
+    price: 1499
   },
+  {
+    _id: "3",
+    planName: "Enterprise",
+    description: "Best suited for organizations that need scalable, secure, and fully customizable scheduling solutions.",
+    features: [
+      "Everything in Professional Plan",
+      "Unlimited bookings",
+      "Advanced analytics dashboard",
+      "Advertisement visibility",
+      "24/7 premium support"
+    ],
+    price: 4999
+  }
 ]
 
 export const planFeatures: PlanFeature[] = [
-  {
+{
     type: "Support",
     features: [
       {
         name: "Priority support",
         free: false,
-        standard: true,
-        enterprise: true,
+        starter: true,
+        professional: true,
+        enterprise: true
       },
-    ],
+      {
+        name: "Email & chat support",
+        free: false,
+        starter: false,
+        professional: true,
+        enterprise: true
+      }
+    ]
   },
   {
     type: "Booking",
     features: [
       {
-        name: "Booking limit 7",
+        name: "Booking limit 10",
         free: true,
-        standard: false,
-        enterprise: false,
+        starter: false,
+        professional: false,
+        enterprise: false
       },
       {
-        name: "Booking limit - 600",
+        name: "Booking limit 100",
         free: false,
-        standard: true,
-        enterprise: false,
+        starter: true,
+        professional: false,
+        enterprise: false
       },
       {
-        name: "No booking limit",
+        name: "Booking limit 500",
         free: false,
-        standard: false,
-        enterprise: true,
+        starter: false,
+        professional: true,
+        enterprise: false
       },
-    ],
+      {
+        name: "Unlimited bookings",
+        free: false,
+        starter: false,
+        professional: false,
+        enterprise: true
+      }
+    ]
   },
   {
     type: "Advertisement",
     features: [
       {
-        name: "Visibility",
+        name: "Ad visibility",
         free: false,
-        standard: true,
-        enterprise: true,
+        starter: false,
+        professional: true,
+        enterprise: false // from your DB it's false
+      }
+    ]
+  },
+  {
+    type: "Integrations",
+    features: [
+      {
+        name: "chat",
+        free: false,
+        starter: true,
+        professional: true,
+        enterprise: true
       },
-    ],
+      {
+        name: "Google Calendar sync",
+        free: false,
+        starter: false,
+        professional: true,
+        enterprise: true
+      },
+      {
+        name: "Video call service",
+        free: false,
+        starter: false,
+        professional: true,
+        enterprise: true
+      }
+    ]
+  },
+  {
+    type: "Analytics & Branding",
+    features: [
+      {
+        name: "Custom branding (logo & theme)",
+        free: false,
+        starter: true,
+        professional: true,
+        enterprise: true
+      },
+      {
+        name: "Advanced analytics dashboard",
+        free: false,
+        starter: false,
+        professional: false,
+        enterprise: true
+      }
+    ]
   },
   {
     type: "Plan Control",
@@ -225,10 +303,11 @@ export const planFeatures: PlanFeature[] = [
       {
         name: "Cancel anytime",
         free: false,
-        standard: true,
-        enterprise: true,
-      },
-    ],
+        starter: true,
+        professional: true,
+        enterprise: true
+      }
+    ]
   },
   {
     type: "Purpose",
@@ -236,23 +315,33 @@ export const planFeatures: PlanFeature[] = [
       {
         name: "Recommended for testing purpose",
         free: true,
-        standard: false,
-        enterprise: false,
+        starter: false,
+        professional: false,
+        enterprise: false
       },
       {
-        name: "Recommended for mid range services",
+        name: "Recommended for growing teams",
         free: false,
-        standard: true,
-        enterprise: false,
+        starter: true,
+        professional: false,
+        enterprise: false
       },
       {
-        name: "Recommended for Highend services",
+        name: "Recommended for scaling businesses",
         free: false,
-        standard: false,
-        enterprise: true,
+        starter: false,
+        professional: true,
+        enterprise: false
       },
-    ],
-  },
+      {
+        name: "Recommended for enterprises",
+        free: false,
+        starter: false,
+        professional: false,
+        enterprise: true
+      }
+    ]
+  }
 ];
 
 

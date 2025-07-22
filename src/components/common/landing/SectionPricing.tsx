@@ -17,14 +17,14 @@ export default function SectionPricing() {
     <section id="pricing" className="w-full bg-[var(--background)]">
       <div className="mx-auto px-4 lg:px-0 max-w-7xl py-24 lg:py-32 transition-colors duration-300 ease-in-out">
         <Heading heading='Pricing' headingDescription='Whatever your status, our offers evolve according to your needs.' />
-        <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:items-center">
+        <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:items-center">
           {PlanList.map(plan => (
             <PlanCard
             key={plan._id}
             isTrial={true}
             plan={plan}
             dummy={true}
-            popular={plan._id === "1" ? true : false}
+            popular={plan._id === "2" ? true : false}
             />
           ))}
         </div>
@@ -78,4 +78,4 @@ const PlanCheck: React.FC<{ available: boolean }> = ({ available }) => (
   </div>
 );
 
-const PLAN_TIERS = ["free", "standard", "enterprise"] as const;
+const PLAN_TIERS = ["free", "starter", "professional", "enterprise"] as const;
