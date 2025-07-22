@@ -116,7 +116,7 @@ const Sidebar: React.FC<SideBarProps> = ({ routes }) => {
             {(user?.isLoggedIn && user.role) && (
                 <ul className='p-4'>
                     <SingleTab
-                        icon={themeMode ? <Sun /> : <Moon />}
+                        icon={!themeMode ? <Sun /> : <Moon />}
                         text={themeMode ? 'Light' : 'Dark'}
                         onClick={changeTheme}
                         sidebarOpen={sidebarOpen}

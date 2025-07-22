@@ -54,12 +54,12 @@ const LeftSideBox: React.FC<LeftSideBoxProps> = ({
                         <h4 className="text-[var(--mainColor)] text-3xl font-bold italic hover:bg-[var(--mainColor)] hover:text-white px-2 rounded-lg cursor-pointer">Slotflow</h4>
                     </div>
                     <div className='w-3/12 flex justify-end'>
-                        {themeMode ?
-                            <div className="relative flex rounded-full cursor-pointer mx-3" onClick={changeTheme}>
+                        {!themeMode ?
+                            <div className="relative flex rounded-full cursor-pointer mx-3 text-white" onClick={changeTheme}>
                                 <Sun />
                             </div>
                             :
-                            <div className="relative flex rounded-full cursor-pointer mx-3" onClick={changeTheme}>
+                            <div className="relative flex rounded-full cursor-pointer mx-3 text-white" onClick={changeTheme}>
                                 <Moon />
                             </div>
                         }
@@ -72,7 +72,7 @@ const LeftSideBox: React.FC<LeftSideBoxProps> = ({
             </div>
 
             <div className='p-4'>
-                <ArrowLeftCircle className='cursor-pointer' onClick={handleGotoBack}/>
+                <ArrowLeftCircle className='cursor-pointer text-white' onClick={handleGotoBack}/>
             </div>
         </div>
     );

@@ -4,6 +4,7 @@ import { FormEvent, useCallback, useState } from "react";
 import CommonButton from '@/components/common/CommonButton';
 import InputField from '@/components/form/InputFieldWithLable';
 import { approvalMessages } from '@/utils/constants';
+import LeftSideBox from '@/components/common/LeftSideBox';
 
 const ProviderApprovalPendingPage = () => {
 
@@ -30,10 +31,8 @@ const ProviderApprovalPendingPage = () => {
     }
 
     return (
-        <div className="min-h-screen pt-16 flex flex-col md:flex-row justify-center items-center w-full bg-[var(--background)] text-[var(--textOne)]">
-            <div className="md:w-1/2 flex justify-center items-center md:p-20">
-                <WomenLaptop />
-            </div>
+        <div className="h-screen flex flex-col md:flex-row justify-center items-center w-full bg-[var(--background)] text-[var(--textOne)]">
+            <LeftSideBox svg={<WomenLaptop />}  />
             <div className="md:w-1/2 flex justify-center items-center">
                 <div className="p-8 rounded-lg text-center max-w-md">
                     <h1 className="text-2xl font-bold mb-4 text-[var(--mainColor)]">{approvalMessages.heading}</h1>
