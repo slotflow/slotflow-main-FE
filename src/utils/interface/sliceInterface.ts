@@ -1,4 +1,5 @@
 import { Role } from "./commonInterface";
+import { Plan } from "./entityInterface/planInterface";
 import { Availability } from "./entityInterface/serviceAvailabilityInterface";
 
 // **** Auth slice state **** \\
@@ -15,6 +16,7 @@ export interface UserData {
     isServiceDetailsAdded?: boolean;
     isServiceAvailabilityAdded?: boolean;
     isAdminApproved?: boolean;
+    providerSubscription?: Plan["planName"] | boolean;
 }
 
 export interface AuthState {
