@@ -13,7 +13,7 @@ import { UserFetchAllServicesResponse } from "@/utils/interface/api/userApiInter
 const UserServiceSelectPage = () => {
 
     const dispatch = useDispatch<AppDispatch>();
-    const selectedServices = useSelector((state: RootState) => state.user.selectedServices);
+    const selectedServices = useSelector((store: RootState) => store.user.selectedServices);
     const navigate = useNavigate();
 
     const { data, isLoading, isError, error } = useQuery({

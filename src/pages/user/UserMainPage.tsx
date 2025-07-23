@@ -13,7 +13,7 @@ const UserMainPage = () => {
 
   const location = useLocation();
   const dispatch = useDispatch<AppDispatch>();
-  const user = useSelector((state: RootState) => state.auth.authUser);
+  const user = useSelector((store: RootState) => store.auth.authUser);
   const { sidebarOpen } = useSelector((store: RootState) => store.state);
 
   useEffect(() => {

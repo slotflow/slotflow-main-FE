@@ -10,7 +10,7 @@ import ProviderSubscriptionHistory from "@/components/provider/ProviderSubscript
 const ProviderSubscriptionPage = () => {
 
     const [showPlans, setShowPlans] = useState<boolean>(false);
-    const { planId, planDuration, isTrialPlan, paymentSelectionOpen } = useSelector((state: RootState) => state.provider);
+    const { planId, planDuration, isTrialPlan, paymentSelectionOpen } = useSelector((store: RootState) => store.provider);
 
     return (
         <div className="p-2">

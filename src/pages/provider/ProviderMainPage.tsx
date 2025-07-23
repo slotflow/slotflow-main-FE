@@ -14,7 +14,7 @@ import InfoHeader from "@/components/Navs/InfoHeader";
 const ProviderMainPage = () => {
 
   const sidebarOpen = useSelector((store: RootState) => store.state.sidebarOpen);
-  const user = useSelector((state: RootState) => state.auth.authUser);
+  const user = useSelector((store: RootState) => store.auth.authUser);
   const dispatch = useDispatch<AppDispatch>();
   const location = useLocation();
 

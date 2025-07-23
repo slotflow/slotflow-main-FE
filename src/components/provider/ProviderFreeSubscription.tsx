@@ -9,7 +9,7 @@ import { setPaymentSelectionPage, setSubscriptionIsTrailPlan } from "@/utils/red
 const ProviderFreeSubscription = () => {
 
     const dispatch = useDispatch();
-    const { paymentSelectionOpen } = useSelector((state: RootState) => state.provider);
+    const { paymentSelectionOpen } = useSelector((store: RootState) => store.provider);
     const [paymentLoading, setPaymentLoading] = useState(false);
 
     const handlePaymentSelectionClose = () => {
