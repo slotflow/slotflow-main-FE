@@ -1,15 +1,15 @@
 import { useEffect } from "react";
 import Sidebar from "@/components/Navs/Sidebar";
 import { providerRoutes } from "@/utils/constants";
-import { Outlet, useLocation } from "react-router-dom";
+import InfoHeader from "@/components/Navs/InfoHeader";
 import { useDispatch, useSelector } from "react-redux";
+import { Outlet, useLocation } from "react-router-dom";
 import { checkUserStatus } from "@/utils/apis/auth.api";
 import ProviderAddAddressPage from "./ProviderAddAddressPage";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
 import ProviderApprovalPendingPage from "./ProviderApprovalPendingPage";
 import ProviderAddServiceDetailsPage from "./ProviderAddServiceDetailsPage";
 import ProviderAddServiceAvailabilityPage from "./ProviderAddServiceAvailabilityPage";
-import InfoHeader from "@/components/Navs/InfoHeader";
 
 const ProviderMainPage = () => {
 
@@ -24,16 +24,16 @@ const ProviderMainPage = () => {
     }
   }, [dispatch, location]);
 
-  if (!user?.approved) {
-    if (!user?.address) {
+  if (!user?.isAdminApproved) {
+    if (!user?.isAddressAdded) {
       return (
         <ProviderAddAddressPage />
       );
-    } else if (!user?.serviceDetails) {
+    } else if (!user?.isServiceDetailsAdded) {
       return (
         <ProviderAddServiceDetailsPage />
       );
-    } else if (!user?.serviceAvailability) {
+    } else if (!user?.isServiceAvailabilityAdded) {
       return (
         <ProviderAddServiceAvailabilityPage />
       )
@@ -45,7 +45,7 @@ const ProviderMainPage = () => {
   }
 
 
-  return user?.approved && (
+  return user?.isAdminApproved && (
     <div className="flex h-screen bg-[var(--background)] transition-all duration-300">
       <Sidebar routes={providerRoutes} />
       <div className={`flex-1 flex flex-col  ${sidebarOpen ? 'w-[85%]' : 'w-[95%]'} transition-all duration-300`}>

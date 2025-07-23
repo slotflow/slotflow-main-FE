@@ -59,7 +59,7 @@ const authSlice = createSlice({
             .addCase(providerAddProviderAddress.fulfilled, (state, action) => {
                 state.dataUpdating = false;
                 if(state.authUser){
-                    state.authUser.address = action.payload.success;
+                    state.authUser.isAddressAdded = action.payload.success;
                 }
             })
             .addCase(providerAddProviderAddress.rejected, (state) => {
@@ -71,7 +71,7 @@ const authSlice = createSlice({
             .addCase(providerAddProviderServiceDetails.fulfilled, (state, action) => {
                 state.dataUpdating = false;
                 if(state.authUser){
-                    state.authUser.serviceDetails = action.payload.success;
+                    state.authUser.isServiceDetailsAdded = action.payload.success;
                 }
             })
             .addCase(providerAddProviderServiceDetails.rejected, (state) => {
@@ -83,7 +83,7 @@ const authSlice = createSlice({
             .addCase(providerAddProviderServiceAvailabilities.fulfilled, (state, action) => {
                 state.dataUpdating = false;
                 if(state.authUser){
-                    state.authUser.serviceAvailability = action.payload.success;
+                    state.authUser.isServiceAvailabilityAdded = action.payload.success;
                 }
             })
             .addCase(providerAddProviderServiceAvailabilities.rejected, (state) => {

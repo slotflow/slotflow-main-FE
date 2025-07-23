@@ -11,10 +11,10 @@ export interface UserData {
     role: Role;
     isBlocked?: boolean;
     isLoggedIn: boolean;
-    address?: boolean;
-    serviceDetails?: boolean;
-    serviceAvailability?: boolean;
-    approved?: boolean;
+    isAddressAdded?: boolean;
+    isServiceDetailsAdded?: boolean;
+    isServiceAvailabilityAdded?: boolean;
+    isAdminApproved?: boolean;
 }
 
 export interface AuthState {

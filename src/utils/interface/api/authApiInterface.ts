@@ -36,10 +36,10 @@ export interface SigninResponse extends ApiBaseResponse {
         profileImage: string;
         role: string;
         isLoggedIn: boolean;
-        address?: boolean;
-        serviceDetails?: undefined;
-        serviceAvailability?: undefined;
-        approved?: undefined;
+        isAddressAdded?: boolean,
+        isServiceDetailsAdded?: boolean,
+        isServiceAvailabilityAdded?: boolean,
+        isAdminApproved?: boolean
     };
 }
 
