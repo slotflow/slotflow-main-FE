@@ -126,7 +126,7 @@ const ProviderAddServiceDetailsPage = () => {
   };
 
   return (
-    <div className="min-h-screen pt-16 flex justify-center w-full bg-[var(--background)]">
+    <div className="min-h-screen flex justify-center w-full bg-[var(--background)]">
       <div className="w-8/12 px-10">
         <form onSubmit={handleSubmit} className="mt-10 p-12">
           <h4 className="text-2xl font-semibold mb-6 text-start">Lets Fill Your Service Details</h4>

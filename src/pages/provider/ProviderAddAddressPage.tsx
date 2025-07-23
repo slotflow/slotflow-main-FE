@@ -34,7 +34,7 @@ const ProviderAddAddressPage = () => {
 
     return (
 
-        <div className="min-h-screen pt-16 flex justify-center w-full bg-[var(--background)]">
+        <div className="min-h-screen flex justify-center w-full bg-[var(--background)]">
             <div className="w-8/12 px-10">
                 <AddAddress onSubmit={handleSubmit} formClassNames={"mt-10 px-12"} headingSize={"xs:text-md md:text-xl md:text-2xl"} heading={"Lets Add Your Address"} buttonText={"Next"} setHasErrors={setHasErrors} />
             </div>

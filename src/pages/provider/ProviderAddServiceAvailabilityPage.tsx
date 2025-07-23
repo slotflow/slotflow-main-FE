@@ -175,7 +175,7 @@ const ProviderAddServiceAvailabilityPage = () => {
   }
 
   return (
-    <div className="h-screen pt-16 flex justify-center w-full bg-[var(--background)]">
+    <div className="h-screen flex justify-center w-full bg-[var(--background)]">
 
       <div className="w-8/12 px-10 overflow-y-scroll no-scrollbar">
         <form className="mt-10 p-12" onSubmit={handleSubmit}>
