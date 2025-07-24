@@ -1,3 +1,4 @@
+import PlanGuard from "./planGuard.tsx";
 import { createBrowserRouter } from "react-router-dom";
 import { ProtectedRoute } from "./protectedRoutes.tsx";
 import UserChatPage from "@/pages/user/UserChatPage.tsx";
@@ -32,7 +33,6 @@ import UserServiceSelectPage from "@/pages/user/UserServiceSelectPage.tsx";
 import ProviderPaymentsPage from "@/pages/provider/ProviderPaymentsPage.tsx";
 import AdminSubscriptionsPage from "@/pages/admin/AdminSubscriptionsPage.tsx";
 import ProviderDashboardPage from "@/pages/provider/ProviderDashboardPage.tsx";
-import ProviderAddAddressPage from "@/pages/provider/ProviderAddAddressPage.tsx";
 import AdminServiceProvidersPage from "../pages/admin/AdminServiceProvidersPage.tsx";
 import ProviderAppointmentsPage from "@/pages/provider/ProviderAppointmentsPage.tsx";
 import ProviderAvailabilityPage from "@/pages/provider/ProviderAvailabilityPage.tsx";
@@ -40,7 +40,6 @@ import ProviderSubscriptionPage from "@/pages/provider/ProviderSubscriptionPage.
 import ProviderNotificationsPage from "@/pages/provider/ProviderNotificationsPage.tsx";
 import UserServiceProviderDetailPage from "@/pages/user/UserServiceProviderDetailPage.tsx";
 import AdminServiceProviderDetailPage from "@/pages/admin/AdminServiceProviderDetailPage.tsx";
-import ProviderAddServiceDetailsPage from "@/pages/provider/ProviderAddServiceDetailsPage.tsx";
 import AdminSubcriptionDetailedViewPage from "@/pages/admin/AdminSubcriptionDetailedViewPage.tsx";
 
 export const appRouter = createBrowserRouter([
@@ -109,14 +108,62 @@ export const appRouter = createBrowserRouter([
                     { path: "address", element: <ProviderAddressPage /> },
                     { path: "service", element: <ProviderServicePage /> },
                     { path: "availability", element: <ProviderAvailabilityPage /> },
-                    { path: "reviews", element: <ProviderReviewsPage /> },
-                    { path: "appointments", element: <ProviderAppointmentsPage /> },
-                    { path: "subscription", element: <ProviderSubscriptionPage /> },
-                    { path: "payments", element: <ProviderPaymentsPage /> },
-                    { path: "chat", element: <ProviderChatPage /> },
-                    { path: "notifications", element: <ProviderNotificationsPage /> },
-                    { path: "addAddress", element: <ProviderAddAddressPage /> },
-                    { path: "addServiceDetails", element: <ProviderAddServiceDetailsPage /> },
+                    {
+                        path: "reviews",
+                        element: (
+                            <PlanGuard routeName="Reviews">
+                                <ProviderReviewsPage />
+                            </PlanGuard>
+                        )
+                    },
+                    {
+                        path: "appointments",
+                        element: (
+                            <PlanGuard routeName="Appointments">
+                                <ProviderAppointmentsPage />
+                            </PlanGuard>
+                        )
+                    },
+                    {
+                        path: "subscriptions",
+                        element: (
+                            <PlanGuard routeName="Subscriptions">
+                                <ProviderSubscriptionPage />
+                            </PlanGuard>
+                        )
+                    },
+                    {
+                        path: "payments",
+                        element: (
+                            <PlanGuard routeName="Subscriptions">
+                                <ProviderPaymentsPage />
+                            </PlanGuard>
+                        )
+                    },
+                    {
+                        path: "chat",
+                        element: (
+                            <PlanGuard routeName="Chat">
+                                <ProviderChatPage />
+                            </PlanGuard>
+                        )
+                    },
+                    {
+                        path: "video",
+                        element: (
+                            <PlanGuard routeName="Videocall">
+                                <ProviderChatPage />
+                            </PlanGuard>
+                        )
+                    },
+                    {
+                        path: "notifications",
+                        element: (
+                            <PlanGuard routeName="Notifications">
+                                <ProviderNotificationsPage />
+                            </PlanGuard>
+                        )
+                    },
                     { path: "payment-success", element: <PaymentConfirmPage status={true} userType={"provider"} /> },
                     { path: "payment-failed", element: <PaymentConfirmPage status={false} userType={"provider"} /> },
                     { path: "*", element: <Error404Page /> },

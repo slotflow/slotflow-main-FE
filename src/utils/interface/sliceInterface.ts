@@ -16,7 +16,7 @@ export interface UserData {
     isServiceDetailsAdded?: boolean;
     isServiceAvailabilityAdded?: boolean;
     isAdminApproved?: boolean;
-    providerSubscription?: Plan["planName"] | boolean;
+    providerSubscription?: Plan["planName"];
 }
 
 export interface AuthState {

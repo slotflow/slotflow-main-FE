@@ -19,6 +19,7 @@ import {
     Sun,
     Moon,
     PanelLeft,
+    Video,
 } from 'lucide-react';
 import { SingleTab } from './SingleTab';
 import React, { useEffect } from 'react';
@@ -30,6 +31,7 @@ import { AppDispatch, RootState } from '@/utils/redux/appStore';
 import { SideBarProps } from '@/utils/interface/commonInterface';
 import { useResetRedux } from '@/utils/hooks/systemHooks/useResetRedux';
 import { toggleSidebar, toggleTheme } from '@/utils/redux/slices/stateSlice';
+import { planAccessMap, providerRoutes } from '@/utils/constants';
 
 
 const Sidebar: React.FC<SideBarProps> = ({ routes }) => {
@@ -41,6 +43,10 @@ const Sidebar: React.FC<SideBarProps> = ({ routes }) => {
     const sidebarOpen: boolean = useSelector((store: RootState) => store.state.sidebarOpen);
     const user: UserData | null = useSelector((store: RootState) => store.auth?.authUser);
     const themeMode: boolean = useSelector((store: RootState) => store.state.lightTheme);
+
+    const planName = user?.providerSubscription;
+    const allowedRouteNames = planName ? planAccessMap[planName] : planAccessMap["NoSubscription"];
+    const filteredRoutes = providerRoutes.filter(route => allowedRouteNames.includes(route.name));
 
     const handleSidebar = (): void => {
         dispatch(toggleSidebar());
@@ -61,6 +67,7 @@ const Sidebar: React.FC<SideBarProps> = ({ routes }) => {
         'profile': <User />,
         'address': <MapPinHouse />,
         'chat': <MessageSquare />,
+        'videocall': <Video />,
         'plans': <LayoutGrid />,
         'payments': <HandCoins />,
         'reviews': <Star />,
@@ -93,22 +100,33 @@ const Sidebar: React.FC<SideBarProps> = ({ routes }) => {
         <div className={` ${sidebarOpen ? 'w-[15%]' : 'w-[5%]'} overflow-y-scroll no-scrollbar border-r-2 transition-all duration-300 flex flex-col`} >
             <div className="p-4 flex-1">
                 <ul>
-                    
+
                     <li className='px-3 pb-4'>
                         <span className='text-[var(--mainColor)] text-3xl font-bold italic hover:bg-[var(--mainColor)] hover:text-white px-2 rounded-lg cursor-pointer'>{sidebarOpen ? "SlotFlow" : "S"}</span>
                     </li>
 
                     <SingleTab icon={<PanelLeft />} text="" onClick={handleSidebar} sidebarOpen={sidebarOpen} />
 
-                    {routes.map((route) => (
-                        <NavLink key={route.path} to={route.path}>
+                    {routes.map((route) => {
+                        const locked = !filteredRoutes.some(froute => froute.name === route.name);
+                        return !locked ? (
+                            <NavLink key={route.path} to={route.path}>
+                                <SingleTab
+                                    icon={getIcon(route.name)}
+                                    text={route.name}
+                                    sidebarOpen={sidebarOpen}
+                                />
+                            </NavLink>
+                        ) : (
                             <SingleTab
+                                key={route.path}
                                 icon={getIcon(route.name)}
                                 text={route.name}
                                 sidebarOpen={sidebarOpen}
+                                locked={locked}
                             />
-                        </NavLink>
-                    ))}
+                        )
+                    })}
 
                 </ul>
             </div>
@@ -117,7 +135,7 @@ const Sidebar: React.FC<SideBarProps> = ({ routes }) => {
                 <ul className='p-4'>
                     <SingleTab
                         icon={!themeMode ? <Sun /> : <Moon />}
-                        text={themeMode ? 'Light' : 'Dark'}
+                        text={!themeMode ? 'Light' : 'Dark'}
                         onClick={changeTheme}
                         sidebarOpen={sidebarOpen}
                     />

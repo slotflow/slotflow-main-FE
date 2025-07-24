@@ -44,7 +44,6 @@ const ProviderMainPage = () => {
     }
   }
 
-
   return user?.isAdminApproved && (
     <div className="flex h-screen bg-[var(--background)] transition-all duration-300">
       <Sidebar routes={providerRoutes} />

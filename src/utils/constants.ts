@@ -32,12 +32,72 @@ export const providerRoutes: Route[] = [
   { path: "service", name: "Service" },
   { path: "availability", name: "Availability" },
   { path: "appointments", name: "Appointments" },
-  { path: "subscription", name: "Subscription" },
+  { path: "subscriptions", name: "Subscriptions" },
   { path: "payments", name: "Payments" },
   { path: "chat", name: "Chat" },
+  { path: "video", name: "Videocall"},
   { path: "reviews", name: "Reviews" },
   { path: "notifications", name: "Notifications" },
 ]
+
+// Access Control For Provider
+export const planAccessMap: Record<string, string[]> = {
+  NoSubscription: [
+    "Dashboard",
+    "Profile",
+    "Address",
+    "Service",
+    "Availability",
+  ],
+  Free: [
+    "Dashboard",
+    "Profile",
+    "Address",
+    "Service",
+    "Availability",
+    "Appointments",
+    "Subscriptions",
+  ],
+  Starter: [
+    "Dashboard",
+    "Profile",
+    "Address",
+    "Service",
+    "Availability",
+    "Appointments",
+    "Subscriptions",
+    "Payments",
+    "Notifications",
+  ],
+  Professional: [
+    "Dashboard",
+    "Profile",
+    "Address",
+    "Service",
+    "Availability",
+    "Appointments",
+    "Subscriptions",
+    "Payments",
+    "Notifications",
+    "Chat",
+    "Reviews",
+  ],
+  Enterprise: [
+    "Dashboard",
+    "Profile",
+    "Address",
+    "Service",
+    "Availability",
+    "Appointments",
+    "Subscriptions",
+    "Payments",
+    "Notifications",
+    "Chat",
+    "Videocall",
+    "Reviews",
+  ],
+};
+
 
 // **** Gsap animation common oject **** \\
 export const gsapBigSvgYDirectionAnimation: gsapBigSvgYDirectionAnimationProps = {
@@ -140,8 +200,8 @@ export const PlanList: PlanList = [
     features: [
       "Basic slot creation & booking",
       "Email notifications for bookings",
-      "Day view calendar",
-      "Up to 10 bookings",
+      "Cancel anytime",
+      "Up to 7 bookings",
       "7 days validity"
     ],
     price: 0
@@ -153,9 +213,9 @@ export const PlanList: PlanList = [
     features: [
       "Everything in Free Plan",
       "Up to 100 bookings per month",
-      "Week & month calendar views",
-      "Custom branding (logo & theme)",
-      "Priority email support"
+      "Starter dashboard",
+      "Custom branding theme",
+      "Email Support"
     ],
     price: 499
   },
@@ -166,9 +226,11 @@ export const PlanList: PlanList = [
     features: [
       "Everything in Starter Plan",
       "Up to 500 bookings per month",
-      "Video call service",
+      "Medium analytics dashborad",
+      "Custom branding logo",
+      "Chat service",
       "Google Calendar sync",
-      "Email & chat support"
+      "Chat support"
     ],
     price: 1499
   },
@@ -179,6 +241,7 @@ export const PlanList: PlanList = [
     features: [
       "Everything in Professional Plan",
       "Unlimited bookings",
+      "Video call service",
       "Advanced analytics dashboard",
       "Advertisement visibility",
       "24/7 premium support"
@@ -192,17 +255,24 @@ export const planFeatures: PlanFeature[] = [
     type: "Support",
     features: [
       {
-        name: "Priority support",
+        name: "Email support",
         free: false,
         starter: true,
         professional: true,
         enterprise: true
       },
       {
-        name: "Email & chat support",
+        name: "Chat support",
         free: false,
         starter: false,
         professional: true,
+        enterprise: true
+      },
+      {
+        name: "24/7 premium support",
+        free: false,
+        starter: false,
+        professional: false,
         enterprise: true
       }
     ]
@@ -211,21 +281,21 @@ export const planFeatures: PlanFeature[] = [
     type: "Booking",
     features: [
       {
-        name: "Booking limit 10",
+        name: "Booking limit: 7",
         free: true,
         starter: false,
         professional: false,
         enterprise: false
       },
       {
-        name: "Booking limit 100",
+        name: "Booking limit: 100/month",
         free: false,
         starter: true,
         professional: false,
         enterprise: false
       },
       {
-        name: "Booking limit 500",
+        name: "Booking limit: 500/month",
         free: false,
         starter: false,
         professional: true,
@@ -241,24 +311,12 @@ export const planFeatures: PlanFeature[] = [
     ]
   },
   {
-    type: "Advertisement",
-    features: [
-      {
-        name: "Ad visibility",
-        free: false,
-        starter: false,
-        professional: true,
-        enterprise: false // from your DB it's false
-      }
-    ]
-  },
-  {
     type: "Integrations",
     features: [
       {
-        name: "chat",
+        name: "Chat service",
         free: false,
-        starter: true,
+        starter: false,
         professional: true,
         enterprise: true
       },
@@ -273,7 +331,7 @@ export const planFeatures: PlanFeature[] = [
         name: "Video call service",
         free: false,
         starter: false,
-        professional: true,
+        professional: false,
         enterprise: true
       }
     ]
@@ -282,17 +340,50 @@ export const planFeatures: PlanFeature[] = [
     type: "Analytics & Branding",
     features: [
       {
-        name: "Custom branding (logo & theme)",
+        name: "Starter dashboard",
         free: false,
         starter: true,
+        professional: false,
+        enterprise: false
+      },
+      {
+        name: "Medium analytics dashboard",
+        free: false,
+        starter: false,
         professional: true,
-        enterprise: true
+        enterprise: false
       },
       {
         name: "Advanced analytics dashboard",
         free: false,
         starter: false,
         professional: false,
+        enterprise: true
+      },
+      {
+        name: "Custom branding theme",
+        free: false,
+        starter: true,
+        professional: true,
+        enterprise: true
+      },
+      {
+        name: "Custom branding logo",
+        free: false,
+        starter: false,
+        professional: true,
+        enterprise: true
+      }
+    ]
+  },
+  {
+    type: "Advertisement",
+    features: [
+      {
+        name: "Advertisement visibility",
+        free: false,
+        starter: false,
+        professional: true,
         enterprise: true
       }
     ]
@@ -302,10 +393,17 @@ export const planFeatures: PlanFeature[] = [
     features: [
       {
         name: "Cancel anytime",
-        free: false,
+        free: true,
         starter: true,
         professional: true,
         enterprise: true
+      },
+      {
+        name: "7 days validity",
+        free: true,
+        starter: false,
+        professional: false,
+        enterprise: false
       }
     ]
   },
@@ -320,14 +418,14 @@ export const planFeatures: PlanFeature[] = [
         enterprise: false
       },
       {
-        name: "Recommended for growing teams",
+        name: "Recommended for solo professionals",
         free: false,
         starter: true,
         professional: false,
         enterprise: false
       },
       {
-        name: "Recommended for scaling businesses",
+        name: "Recommended for growing teams",
         free: false,
         starter: false,
         professional: true,
