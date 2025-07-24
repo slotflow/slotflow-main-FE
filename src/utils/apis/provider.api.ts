@@ -135,7 +135,7 @@ export const providerFetchUsersFroChatSideBar = async () : Promise<ProviderFetch
 export const providerFetchDashboardStatsData = async ():Promise<ProviderFetchDashboardStatsDataResponse> => {
     const response = await axiosInstance.get('/provider/getDashboardStats');
     console.log("response : ",response);
-    return response.data;
+    return response.data.data;
 }
 
 export const providerFetchDashboardGraphData = async ():Promise<ProviderDashboardGraphResponse> => {

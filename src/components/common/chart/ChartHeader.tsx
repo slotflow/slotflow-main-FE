@@ -16,7 +16,7 @@ const ChartHeader: React.FC<ChartHeaderInterface> = ({
 }) => {
 
     return (
-        <CardHeader className="flex items-center gap-2 space-y-0 border-b py-5 sm:flex-row">
+        <CardHeader className="flex items-center gap-2 space-y-0 border-b py-5 sm:flex-row h-auto">
             <div className="grid flex-1 gap-1">
                 <CardTitle>{title}</CardTitle>
                 {description && (
@@ -25,7 +25,9 @@ const ChartHeader: React.FC<ChartHeaderInterface> = ({
                     </CardDescription>
                 )}
             </div>
-            <DateSelect value={value} onValueChange={onValueChange}  />
+            {value && onValueChange && (
+                <DateSelect value={value} onValueChange={onValueChange}  />
+            )}
         </CardHeader>
     )
 }

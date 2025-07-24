@@ -113,6 +113,44 @@ export interface ProviderFetchDashboardStatsDataResponse {
 }
 
 export interface ProviderDashboardGraphResponse {
-  barChart: Array<{ date: string; success: number; fail: number }>;
-  spreadChart: Array<{ date: string; online: number; offline: number }>;
+  appointmentsOvertime: Array<{
+    date: string; // e.g., "2025-07-24"
+    completed: number;
+    missed: number;
+    cancelled: number;
+  }>;
+
+  earningsOverTime: Array<{
+    date: string;
+    stripe: number;
+    razorpay: number;
+    paypal: number;
+  }>;
+
+  peakBookingHours: Array<{
+    hour: string; // e.g., "10:00", "14:00"
+    count: number;
+  }>;
+
+  appointmentMode: Array<{
+    date: string;
+    online: number;
+    offline: number;
+  }>;
+
+  completionBreakdown: Array<{
+    status: 'completed' | 'missed' | 'cancelled' | 'rejected';
+    count: number;
+  }>;
+
+  newVsReturningUsers: Array<{
+    date: string;
+    newUsers: number;
+    returningUsers: number;
+  }>;
+
+  topBookingDays: Array<{
+    day: string; // e.g., "Monday"
+    count: number;
+  }>;
 }

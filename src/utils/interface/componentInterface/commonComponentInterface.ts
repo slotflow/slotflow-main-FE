@@ -63,6 +63,6 @@ export interface DateSelectInterface {
 export interface ChartHeaderInterface {
     title: string;
     description?: string;
-    onValueChange: (value: TimeRange) => void;
-    value: string;
+    onValueChange?: (value: TimeRange) => void;
+    value?: string;
 }

@@ -16,72 +16,54 @@ import { TimeRange } from "@/utils/interface/commonInterface";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
 import { filterChartDataHelper } from "@/utils/helper/dateFilter";
 
-export const description = "An interactive area chart"
-
-const chartConfig = {
-  desktop: {
-    label: "Desktop",
-    color: "var(--mainColor)",
-  },
-  mobile: {
-    label: "Mobile",
-    color: "var(--mainColorHover)",
-  },
-} satisfies ChartConfig
-
 interface SpreadChartInterface<T extends { date: string }> {
   title: string;
   description: string;
   chartData: T[];
   areaOneDataKey: string;
-  areaTwoDataKey: string
+  areaTwoDataKey: string;
+  areaThreeDataKey: string;
+  chartConfig: ChartConfig;
 }
 
-const SpreadChart = <T extends { date: string },>({
+const AreaGroupedChart = <T extends { date: string },>({
   title,
   description,
   chartData,
   areaOneDataKey,
   areaTwoDataKey,
+  areaThreeDataKey,
+  chartConfig
 }: SpreadChartInterface<T>) => {
 
   const [timeRange, setTimeRange] = React.useState<TimeRange>("7d");
   const filteredData = filterChartDataHelper(chartData, timeRange);
 
   return (
-    <Card className="pt-0 mt-4">
+    <Card>
       <ChartHeader title={title} description={description} onValueChange={setTimeRange} value={timeRange} />
       <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
-        <ChartContainer
-          config={chartConfig}
-          className="aspect-auto h-[250px] w-full"
-        >
+        <ChartContainer config={chartConfig} className="min-h-[200px]" >
           <AreaChart data={filteredData}>
             <defs>
-              <linearGradient id="fillDesktop" x1="0" y1="0" x2="0" y2="1">
-                <stop
-                  offset="5%"
-                  stopColor="var(--color-desktop)"
-                  stopOpacity={0.8}
-                />
-                <stop
-                  offset="95%"
-                  stopColor="var(--color-desktop)"
-                  stopOpacity={0.1}
-                />
-              </linearGradient>
-              <linearGradient id="fillMobile" x1="0" y1="0" x2="0" y2="1">
-                <stop
-                  offset="5%"
-                  stopColor="var(--color-mobile)"
-                  stopOpacity={0.8}
-                />
-                <stop
-                  offset="95%"
-                  stopColor="var(--color-mobile)"
-                  stopOpacity={0.1}
-                />
-              </linearGradient>
+              {[
+                { key: areaOneDataKey, id: "fillOne" },
+                { key: areaTwoDataKey, id: "fillTwo" },
+                { key: areaThreeDataKey, id: "fillThree" },
+              ].map(({ key, id }) => (
+                <linearGradient key={id} id={id} x1="0" y1="0" x2="0" y2="1">
+                  <stop
+                    offset="5%"
+                    stopColor={chartConfig[key]?.color}
+                    stopOpacity={0.8}
+                  />
+                  <stop
+                    offset="95%"
+                    stopColor={chartConfig[key]?.color}
+                    stopOpacity={0.1}
+                  />
+                </linearGradient>
+              ))}
             </defs>
             <CartesianGrid vertical={false} />
             <XAxis
@@ -115,15 +97,22 @@ const SpreadChart = <T extends { date: string },>({
             <Area
               dataKey={areaOneDataKey}
               type="natural"
-              fill="url(#fillMobile)"
-              stroke="var(--color-mobile)"
+              fill="url(#fillOne)"
+              stroke={chartConfig[areaOneDataKey]?.color}
               stackId="a"
             />
             <Area
               dataKey={areaTwoDataKey}
               type="natural"
-              fill="url(#fillDesktop)"
-              stroke="var(--color-desktop)"
+              fill="url(#fillTwo)"
+              stroke={chartConfig[areaTwoDataKey]?.color}
+              stackId="a"
+            />
+            <Area
+              dataKey={areaThreeDataKey}
+              type="natural"
+              fill="url(#fillThree)"
+              stroke={chartConfig[areaThreeDataKey]?.color}
               stackId="a"
             />
             <ChartLegend content={<ChartLegendContent />} />
@@ -134,4 +123,4 @@ const SpreadChart = <T extends { date: string },>({
   )
 }
 
-export default SpreadChart;
+export default AreaGroupedChart;
