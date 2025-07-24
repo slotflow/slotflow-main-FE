@@ -22,7 +22,7 @@ export const SingleTab: React.FC<SingleTabProps> = ({
         <li
             title={!locked ? text : text+" locked"}
             onClick={onClick}
-            className={`p-3 font-semibold hover:bg-[var(--menuItemHoverBg)] cursor-pointer rounded-md ${!sidebarOpen && 'flex justify-center'} ${className} ${!locked ? "text-[var(--textOne)] hover:text-[var(--textOneHover)] " : "text-muted"}`}
+            className={`p-3 font-semibold hover:bg-[var(--menuItemHoverBg)] cursor-pointer rounded-md ${!sidebarOpen && 'flex justify-center'} ${className} text-[var(--textOne)] hover:text-[var(--textOneHover)]`}
         >
             {sidebarOpen ? (
                 <div className='flex cursor-pointer'>

@@ -35,7 +35,7 @@ export const providerRoutes: Route[] = [
   { path: "subscriptions", name: "Subscriptions" },
   { path: "payments", name: "Payments" },
   { path: "chat", name: "Chat" },
-  { path: "video", name: "Videocall"},
+  { path: "video-call", name: "Video call"},
   { path: "reviews", name: "Reviews" },
   { path: "notifications", name: "Notifications" },
 ]
@@ -93,7 +93,7 @@ export const planAccessMap: Record<string, string[]> = {
     "Payments",
     "Notifications",
     "Chat",
-    "Videocall",
+    "Video call",
     "Reviews",
   ],
 };
@@ -230,7 +230,7 @@ export const PlanList: PlanList = [
       "Custom branding logo",
       "Chat service",
       "Google Calendar sync",
-      "Chat support"
+      "24/7 Chat support"
     ],
     price: 1499
   },

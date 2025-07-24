@@ -67,7 +67,7 @@ const Sidebar: React.FC<SideBarProps> = ({ routes }) => {
         'profile': <User />,
         'address': <MapPinHouse />,
         'chat': <MessageSquare />,
-        'videocall': <Video />,
+        'video-call': <Video />,
         'plans': <LayoutGrid />,
         'payments': <HandCoins />,
         'reviews': <Star />,

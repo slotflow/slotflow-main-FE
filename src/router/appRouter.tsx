@@ -151,7 +151,7 @@ export const appRouter = createBrowserRouter([
                     {
                         path: "video",
                         element: (
-                            <PlanGuard routeName="Videocall">
+                            <PlanGuard routeName="Video call">
                                 <ProviderChatPage />
                             </PlanGuard>
                         )
