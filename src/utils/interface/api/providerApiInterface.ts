@@ -18,7 +18,7 @@ export type ProviderFetchAddressResponse = Pick<Address, "_id" | "addressLine" |
 
 
 // **** 3.  Used as the response type of fetch all services api
-export type ProviderFetchAllServicesResponse =  Array<Pick<Service, "_id" | "serviceName">>;
+export type ProviderFetchAllServicesResponse = Array<Pick<Service, "_id" | "serviceName">>;
 
 
 // **** 4.  Inline interface used for providerAddProviderServiceDetails api
@@ -91,3 +91,28 @@ export interface ProviderUpdateProviderInfoResponse extends ApiBaseResponse {
 
 // **** 18. Used as the return type for the provider fetch users for the chat side bar
 export type ProviderFetchUsersForChatSidebarResponse = Array<Pick<User, "_id" | "username" | "profileImage">>
+
+
+// **** 18. Used as the return interface for the provider fetch dashboard data
+export interface ProviderFetchDashboardStatsDataResponse {
+    totalAppointments: number;
+    completedAppointments: number;
+    missedAppointments: number;
+    cancelledAppointmentsByUser: number;
+    rejectedAppointmentsByProvider: number;
+    todaysAppointments: number;
+
+    totalSubscriptionPaidAmount: number;
+    totalEarnings: number;
+    totalEarningsThroughStripe: number;
+    totalEarningsThroughRazorpay: number;
+    totalEarningsThroughPaypal: number;
+    todaysEarnings: number;
+    totalPayoutsMade: number;
+    pendingPayout: number;
+}
+
+export interface ProviderDashboardGraphResponse {
+  barChart: Array<{ date: string; success: number; fail: number }>;
+  spreadChart: Array<{ date: string; online: number; offline: number }>;
+}

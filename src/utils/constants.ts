@@ -1,5 +1,23 @@
 import { Plan } from "./interface/entityInterface/planInterface";
 import { dataSelectListItem, gsapBigSvgYDirectionAnimationProps, HeaderCompoenentNavsProps, Route } from "./interface/commonInterface";
+import {
+  Banknote,
+  CalendarCheck,
+  CheckCircle,
+  Clock,
+  Hourglass,
+  Receipt,
+  TrendingUp,
+  Wallet,
+  XCircle,
+  Ban,
+  ThumbsDown,
+  CreditCard,
+  IndianRupee,
+  DollarSign,
+  LucideIcon,
+} from "lucide-react";
+import { ProviderFetchDashboardStatsDataResponse } from "./interface/api/providerApiInterface";
 
 // **** Routes for admin **** \\
 export const adminRoutes: Route[] = [
@@ -531,5 +549,93 @@ export const featureContent: featureContent[] = [
     title: "Running out of content",
     description: "Experience real-time updates and never stress about version control again. Our platform ensures that you're always working on the most recent version of your project, eliminating the need for constant manual updates. Stay in the loop, keep your team aligned, and maintain the flow of your work without any interruptions.",
     href: ""
+  },
+];
+
+
+// **** Provider Dashboard Stats Cards Data
+export const statsMap: {
+  title: string;
+  key: keyof ProviderFetchDashboardStatsDataResponse;
+  icon: LucideIcon;
+  price?: boolean;
+}[] = [
+  {
+    title: "Total Appointments",
+    key: "totalAppointments",
+    icon: CalendarCheck,
+  },
+  {
+    title: "Completed Appointments",
+    key: "completedAppointments",
+    icon: CheckCircle,
+  },
+  {
+    title: "Missed Appointments",
+    key: "missedAppointments",
+    icon: XCircle,
+  },
+  {
+    title: "Cancelled by User",
+    key: "cancelledAppointmentsByUser",
+    icon: Ban,
+  },
+  {
+    title: "Rejected by Provider",
+    key: "rejectedAppointmentsByProvider",
+    icon: ThumbsDown,
+  },
+  {
+    title: "Today’s Appointments",
+    key: "todaysAppointments",
+    icon: Clock,
+  },
+  {
+    title: "Subscription Payments",
+    key: "totalSubscriptionPaidAmount",
+    icon: Receipt,
+    price: true,
+  },
+  {
+    title: "Total Earnings",
+    key: "totalEarnings",
+    icon: Banknote,
+    price: true,
+  },
+  {
+    title: "Earnings via Stripe",
+    key: "totalEarningsThroughStripe",
+    icon: CreditCard,
+    price: true,
+  },
+  {
+    title: "Earnings via Razorpay",
+    key: "totalEarningsThroughRazorpay",
+    icon: IndianRupee,
+    price: true,
+  },
+  {
+    title: "Earnings via PayPal",
+    key: "totalEarningsThroughPaypal",
+    icon: DollarSign,
+    price: true,
+  },
+  {
+    title: "Today’s Earnings",
+    key: "todaysEarnings",
+    icon: TrendingUp,
+    price: true,
+  },
+  {
+    title: "Total Payouts Made",
+    key: "totalPayoutsMade",
+    icon: Wallet,
+    price: true,
+  },
+  {
+    title: "Pending Payout",
+    key: "pendingPayout",
+    icon: Hourglass,
+    price: true,
   },
 ];

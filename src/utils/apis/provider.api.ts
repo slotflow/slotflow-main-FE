@@ -14,6 +14,8 @@ import {
     AddProviderServiceAvailabilitiesRequest,
     ProviderFetchServiceAvailabilityResponse,
     ProviderFetchUsersForChatSidebarResponse,
+    ProviderFetchDashboardStatsDataResponse,
+    ProviderDashboardGraphResponse,
 } from "../interface/api/providerApiInterface";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { buildQueryParams, parseNewCommonResponse } from "../helper";
@@ -128,4 +130,15 @@ export const providerUpdateProviderInfo = async (data: ProviderUpdateProviderInf
 export const providerFetchUsersFroChatSideBar = async () : Promise<ProviderFetchUsersForChatSidebarResponse> => {
     const response = await axiosInstance.get('/provider/getUsersForCahtSidebar');
     return response.data.data
+}
+
+export const providerFetchDashboardStatsData = async ():Promise<ProviderFetchDashboardStatsDataResponse> => {
+    const response = await axiosInstance.get('/provider/getDashboardStats');
+    console.log("response : ",response);
+    return response.data;
+}
+
+export const providerFetchDashboardGraphData = async ():Promise<ProviderDashboardGraphResponse> => {
+    const response = await axiosInstance.get('/provider/getDashboardGraphData');
+    return response.data;
 }
