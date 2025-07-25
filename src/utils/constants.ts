@@ -53,7 +53,7 @@ export const providerRoutes: Route[] = [
   { path: "subscriptions", name: "Subscriptions" },
   { path: "payments", name: "Payments" },
   { path: "chat", name: "Chat" },
-  { path: "video-call", name: "Video call"},
+  { path: "video-call", name: "Video call" },
   { path: "reviews", name: "Reviews" },
   { path: "notifications", name: "Notifications" },
 ]
@@ -270,7 +270,7 @@ export const PlanList: PlanList = [
 ]
 
 export const planFeatures: PlanFeature[] = [
-{
+  {
     type: "Support",
     features: [
       {
@@ -554,92 +554,122 @@ export const featureContent: featureContent[] = [
 ];
 
 
-// **** Provider Dashboard Stats Cards Data
+// **** Dashboard Stats Cards Data
 export const statsMap: {
   title: string;
   key: keyof ProviderFetchDashboardStatsDataResponse;
   icon: LucideIcon;
   price?: boolean;
+  plans: ("Starter" | "Professional" | "Enterprise" | "NoSubscription")[];
+  roles: ("PROVIDER" | "ADMIN" | null)[];
 }[] = [
-  {
-    title: "Total Appointments",
-    key: "totalAppointments",
-    icon: CalendarCheck,
-  },
-  {
-    title: "Completed Appointments",
-    key: "completedAppointments",
-    icon: CheckCircle,
-  },
-  {
-    title: "Missed Appointments",
-    key: "missedAppointments",
-    icon: XCircle,
-  },
-  {
-    title: "Cancelled by User",
-    key: "cancelledAppointmentsByUser",
-    icon: Ban,
-  },
-  {
-    title: "Rejected by Provider",
-    key: "rejectedAppointmentsByProvider",
-    icon: ThumbsDown,
-  },
-  {
-    title: "Today’s Appointments",
-    key: "todaysAppointments",
-    icon: Clock,
-  },
-  {
-    title: "Subscription Payments",
-    key: "totalSubscriptionPaidAmount",
-    icon: Receipt,
-    price: true,
-  },
-  {
-    title: "Total Earnings",
-    key: "totalEarnings",
-    icon: Banknote,
-    price: true,
-  },
-  {
-    title: "Earnings via Stripe",
-    key: "totalEarningsThroughStripe",
-    icon: CreditCard,
-    price: true,
-  },
-  {
-    title: "Earnings via Razorpay",
-    key: "totalEarningsThroughRazorpay",
-    icon: IndianRupee,
-    price: true,
-  },
-  {
-    title: "Earnings via PayPal",
-    key: "totalEarningsThroughPaypal",
-    icon: DollarSign,
-    price: true,
-  },
-  {
-    title: "Today’s Earnings",
-    key: "todaysEarnings",
-    icon: TrendingUp,
-    price: true,
-  },
-  {
-    title: "Total Payouts Made",
-    key: "totalPayoutsMade",
-    icon: Wallet,
-    price: true,
-  },
-  {
-    title: "Pending Payout",
-    key: "pendingPayout",
-    icon: Hourglass,
-    price: true,
-  },
-];
+    {
+      title: "Total Appointments",
+      key: "totalAppointments",
+      icon: CalendarCheck,
+      plans: ["Starter", "Professional", "Enterprise"],
+      roles: ["PROVIDER", "ADMIN"],
+    },
+    {
+      title: "Today’s Appointments",
+      key: "todaysAppointments",
+      icon: Clock,
+      plans: ["Starter", "Professional", "Enterprise"],
+      roles: ["PROVIDER", "ADMIN"],
+    },
+    {
+      title: "Subscription Payments",
+      key: "totalSubscriptionPaidAmount",
+      icon: Receipt,
+      price: true,
+      plans: ["Starter", "Professional", "Enterprise"],
+      roles: ["PROVIDER", "ADMIN"],
+    },
+    {
+      title: "Total Earnings",
+      key: "totalEarnings",
+      icon: Banknote,
+      price: true,
+      plans: ["Starter", "Professional", "Enterprise"],
+      roles: ["PROVIDER", "ADMIN"],
+    },
+    {
+      title: "Total Payouts Made",
+      key: "totalPayoutsMade",
+      icon: Wallet,
+      price: true,
+      plans: ["Starter", "Professional", "Enterprise"],
+      roles: ["PROVIDER", "ADMIN"],
+    },
+    {
+      title: "Completed Appointments",
+      key: "completedAppointments",
+      icon: CheckCircle,
+      plans: ["Professional", "Enterprise"],
+      roles: ["PROVIDER", "ADMIN"],
+    },
+    {
+      title: "Missed Appointments",
+      key: "missedAppointments",
+      icon: XCircle,
+      plans: ["Professional", "Enterprise"],
+      roles: ["PROVIDER", "ADMIN"],
+    },
+    {
+      title: "Cancelled by User",
+      key: "cancelledAppointmentsByUser",
+      icon: Ban,
+      plans: ["Enterprise"],
+      roles: ["PROVIDER", "ADMIN"],
+    },
+    {
+      title: "Rejected by Provider",
+      key: "rejectedAppointmentsByProvider",
+      icon: ThumbsDown,
+      plans: ["Enterprise"],
+      roles: ["PROVIDER", "ADMIN"],
+    },
+    {
+      title: "Earnings via Stripe",
+      key: "totalEarningsThroughStripe",
+      icon: CreditCard,
+      price: true,
+      plans: [],
+      roles: ["ADMIN"],
+    },
+    {
+      title: "Earnings via Razorpay",
+      key: "totalEarningsThroughRazorpay",
+      icon: IndianRupee,
+      price: true,
+      plans: [],
+      roles: ["ADMIN"],
+    },
+    {
+      title: "Earnings via PayPal",
+      key: "totalEarningsThroughPaypal",
+      icon: DollarSign,
+      price: true,
+      plans: [],
+      roles: ["ADMIN"],
+    },
+    {
+      title: "Today’s Earnings",
+      key: "todaysEarnings",
+      icon: TrendingUp,
+      price: true,
+      plans: ["Professional", "Enterprise"],
+      roles: ["PROVIDER", "ADMIN"],
+    },
+    {
+      title: "Pending Payout",
+      key: "pendingPayout",
+      icon: Hourglass,
+      price: true,
+      plans: ["Professional", "Enterprise"],
+      roles: ["PROVIDER", "ADMIN"],
+    },
+  ];
 
 
 // **** Provider Dashboard Graphs map according to plan
@@ -665,6 +695,8 @@ export const planChartAccess: Record<string, string[]> = {
   ],
 };
 
+
+// **** Provider Dashboard Graphs configs
 export const appointmentsOverTimeChartConfig = {
   completed: {
     label: "Completed",
@@ -679,18 +711,12 @@ export const appointmentsOverTimeChartConfig = {
     color: "#ef4444",
   },
 }
-
-
-
 export const peakBookingHoursChartConfig = {
   bookings: {
     label: "Bookings",
     color: "#22c55e",
   },
 }
-
-
-
 export const appointmentModeChartConfig = {
   online: {
     label: "Online",
@@ -701,11 +727,6 @@ export const appointmentModeChartConfig = {
     color: "#10b981",
   },
 };
-
-
-
-
-
 export const completionBreakdownChartConfig = {
   Completed: {
     label: "Completed",
@@ -720,11 +741,6 @@ export const completionBreakdownChartConfig = {
     color: "#ef4444",
   },
 };
-
-
-
-
-
 export const newVsReturningUsersChartConfig = {
   newUsers: {
     label: "New Users",
@@ -735,8 +751,6 @@ export const newVsReturningUsersChartConfig = {
     color: "#10b981",
   },
 }
-
-
 export const topBookingDaysChartConfig = {
   Monday: {
     label: "Monday",
