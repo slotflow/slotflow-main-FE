@@ -13,7 +13,7 @@ interface DashboardCardOneInterface {
   isAccess?: boolean; // controlling visibility using plan
 }
 
-const CardOne: React.FC<DashboardCardOneInterface> = ({ title, value, icon: Icon, price, isShow, isAccess }) => {
+const StatsCard: React.FC<DashboardCardOneInterface> = ({ title, value, icon: Icon, price, isShow, isAccess }) => {
 
   const themeMode = useSelector((store: RootState) => store.state.lightTheme);
 
@@ -41,4 +41,4 @@ const CardOne: React.FC<DashboardCardOneInterface> = ({ title, value, icon: Icon
   ) : null
 }
 
-export default CardOne
+export default StatsCard;

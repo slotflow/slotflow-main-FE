@@ -215,8 +215,10 @@ export interface dataSelectListItem {
 }
 
 
-// **** 23. role type
+// **** 23. role type and plan types
 export type Role = "USER" | "PROVIDER" | "ADMIN";
+export type LimitedRoles = "ADMIN" | "PROVIDER";
+export type limitedPlans = "Starter" | "Professional" | "Enterprise" | "NoSubscription";
 
 
 // **** 24. AppointmentOverTimeInterface

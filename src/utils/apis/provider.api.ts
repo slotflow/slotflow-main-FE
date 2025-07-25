@@ -132,12 +132,12 @@ export const providerFetchUsersFroChatSideBar = async () : Promise<ProviderFetch
     return response.data.data
 }
 
-export const providerFetchDashboardStatsData = async ():Promise<ProviderFetchDashboardStatsDataResponse> => {
+export const providerFetchDashboardStatsData = async () : Promise<ProviderFetchDashboardStatsDataResponse> => {
     const response = await axiosInstance.get('/provider/getDashboardStats');
     return response.data.data;
 }
 
-export const providerFetchDashboardGraphData = async ():Promise<ProviderDashboardGraphResponse> => {
+export const providerFetchDashboardGraphData = async () : Promise<ProviderDashboardGraphResponse> => {
     const response = await axiosInstance.get('/provider/getDashboardGraphData');
     console.log("response : ",response);
     return response.data.data;

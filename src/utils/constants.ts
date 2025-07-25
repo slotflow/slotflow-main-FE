@@ -781,3 +781,8 @@ export const topBookingDaysChartConfig = {
     color: "#EC4899",
   },
 };
+
+
+// **** Valid plans and roles for the provider and admin side compoenents
+export const validPlans = ["Starter", "Professional", "Enterprise", "NoSubscription"] as const;
+export const validRoles = ["PROVIDER", "ADMIN"] as const;
