@@ -1,287 +1,27 @@
-import React, { useEffect, useState } from 'react';
-import { statsMap } from '@/utils/constants';
+import { useSelector } from 'react-redux';
 import CardOne from '@/components/admin/CardOne';
 import { useQuery } from '@tanstack/react-query';
+import React, { useEffect, useState } from 'react';
+import { RootState } from '@/utils/redux/appStore';
+import { GraphView } from '@/utils/helper/GraphView';
+import RadialChart from '@/components/common/chart/RadialChart';
 import AreaGroupedChart from '@/components/common/chart/AreaGroupedChart';
-import { providerFetchDashboardGraphData, providerFetchDashboardStatsData } from '@/utils/apis/provider.api';
+import BarChartVertical from '@/components/common/chart/BarChartVertical';
+import ChartLineMultiple from '@/components/common/chart/ChatLineMultiple';
 import BarChartHorizontal from '@/components/common/chart/BarChartHorizontal';
 import LineChartHorizontal from '@/components/common/chart/LineChartHorizontal';
 import PieChartCompletionBreakdown from '@/components/common/chart/PieChartCompletionBreakdown';
-import ChartLineMultiple from '@/components/common/chart/ChatLineMultiple';
-import RadialChart from '@/components/common/chart/RadialChart';
-import BarChartVertical from '@/components/common/chart/BarChartVertical';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/utils/redux/appStore';
-import { GraphView } from '@/utils/helper/GraphView';
-
-
-
-export const appointmentsOverTime = [
-  { date: "2025-07-15", completed: 10, missed: 1, cancelled: 2 },
-  { date: "2025-07-16", completed: 12, missed: 2, cancelled: 1 },
-  { date: "2025-07-17", completed: 14, missed: 0, cancelled: 3 },
-  { date: "2025-07-18", completed: 9, missed: 3, cancelled: 1 },
-  { date: "2025-07-19", completed: 13, missed: 1, cancelled: 0 },
-  { date: "2025-07-20", completed: 15, missed: 1, cancelled: 2 },
-  { date: "2025-07-21", completed: 16, missed: 2, cancelled: 0 },
-  { date: "2025-07-22", completed: 11, missed: 3, cancelled: 1 },
-  { date: "2025-07-23", completed: 13, missed: 2, cancelled: 2 },
-  { date: "2025-07-24", completed: 14, missed: 1, cancelled: 1 },
-];
-
-const appointmentsOverTimeChartConfig = {
-  completed: {
-    label: "Completed",
-    color: "#22c55e",
-  },
-  missed: {
-    label: "Missed",
-    color: "#f97316",
-  },
-  cancelled: {
-    label: "Cancelled",
-    color: "#ef4444",
-  },
-}
-
-export const peakBookingHours = [
-  { date: "2025-07-15", hour: "08:00 AM", bookings: 3 },
-  { date: "2025-07-15", hour: "10:00 AM", bookings: 6 },
-  { date: "2025-07-15", hour: "12:00 PM", bookings: 4 },
-  { date: "2025-07-15", hour: "02:00 PM", bookings: 5 },
-  { date: "2025-07-15", hour: "04:00 PM", bookings: 8 },
-  { date: "2025-07-15", hour: "06:00 PM", bookings: 7 },
-  { date: "2025-07-15", hour: "08:00 PM", bookings: 3 },
-
-  { date: "2025-07-16", hour: "08:00 AM", bookings: 4 },
-  { date: "2025-07-16", hour: "10:00 AM", bookings: 7 },
-  { date: "2025-07-16", hour: "12:00 PM", bookings: 6 },
-  { date: "2025-07-16", hour: "02:00 PM", bookings: 6 },
-  { date: "2025-07-16", hour: "04:00 PM", bookings: 10 },
-  { date: "2025-07-16", hour: "06:00 PM", bookings: 5 },
-  { date: "2025-07-16", hour: "08:00 PM", bookings: 2 },
-
-  { date: "2025-07-17", hour: "08:00 AM", bookings: 2 },
-  { date: "2025-07-17", hour: "10:00 AM", bookings: 5 },
-  { date: "2025-07-17", hour: "12:00 PM", bookings: 3 },
-  { date: "2025-07-17", hour: "02:00 PM", bookings: 6 },
-  { date: "2025-07-17", hour: "04:00 PM", bookings: 9 },
-  { date: "2025-07-17", hour: "06:00 PM", bookings: 6 },
-  { date: "2025-07-17", hour: "08:00 PM", bookings: 3 },
-
-  { date: "2025-07-18", hour: "08:00 AM", bookings: 4 },
-  { date: "2025-07-18", hour: "10:00 AM", bookings: 8 },
-  { date: "2025-07-18", hour: "12:00 PM", bookings: 5 },
-  { date: "2025-07-18", hour: "02:00 PM", bookings: 7 },
-  { date: "2025-07-18", hour: "04:00 PM", bookings: 12 },
-  { date: "2025-07-18", hour: "06:00 PM", bookings: 8 },
-  { date: "2025-07-18", hour: "08:00 PM", bookings: 4 },
-
-  { date: "2025-07-19", hour: "08:00 AM", bookings: 5 },
-  { date: "2025-07-19", hour: "10:00 AM", bookings: 9 },
-  { date: "2025-07-19", hour: "12:00 PM", bookings: 6 },
-  { date: "2025-07-19", hour: "02:00 PM", bookings: 8 },
-  { date: "2025-07-19", hour: "04:00 PM", bookings: 11 },
-  { date: "2025-07-19", hour: "06:00 PM", bookings: 9 },
-  { date: "2025-07-19", hour: "08:00 PM", bookings: 5 },
-
-  { date: "2025-07-20", hour: "08:00 AM", bookings: 2 },
-  { date: "2025-07-20", hour: "10:00 AM", bookings: 4 },
-  { date: "2025-07-20", hour: "12:00 PM", bookings: 3 },
-  { date: "2025-07-20", hour: "02:00 PM", bookings: 4 },
-  { date: "2025-07-20", hour: "04:00 PM", bookings: 7 },
-  { date: "2025-07-20", hour: "06:00 PM", bookings: 5 },
-  { date: "2025-07-20", hour: "08:00 PM", bookings: 2 },
-
-  { date: "2025-07-21", hour: "08:00 AM", bookings: 3 },
-  { date: "2025-07-21", hour: "10:00 AM", bookings: 6 },
-  { date: "2025-07-21", hour: "12:00 PM", bookings: 4 },
-  { date: "2025-07-21", hour: "02:00 PM", bookings: 5 },
-  { date: "2025-07-21", hour: "04:00 PM", bookings: 9 },
-  { date: "2025-07-21", hour: "06:00 PM", bookings: 7 },
-  { date: "2025-07-21", hour: "08:00 PM", bookings: 3 },
-
-  { date: "2025-07-22", hour: "08:00 AM", bookings: 4 },
-  { date: "2025-07-22", hour: "10:00 AM", bookings: 7 },
-  { date: "2025-07-22", hour: "12:00 PM", bookings: 5 },
-  { date: "2025-07-22", hour: "02:00 PM", bookings: 6 },
-  { date: "2025-07-22", hour: "04:00 PM", bookings: 10 },
-  { date: "2025-07-22", hour: "06:00 PM", bookings: 6 },
-  { date: "2025-07-22", hour: "08:00 PM", bookings: 4 },
-
-  { date: "2025-07-23", hour: "08:00 AM", bookings: 3 },
-  { date: "2025-07-23", hour: "10:00 AM", bookings: 5 },
-  { date: "2025-07-23", hour: "12:00 PM", bookings: 4 },
-  { date: "2025-07-23", hour: "02:00 PM", bookings: 5 },
-  { date: "2025-07-23", hour: "04:00 PM", bookings: 8 },
-  { date: "2025-07-23", hour: "06:00 PM", bookings: 5 },
-  { date: "2025-07-23", hour: "08:00 PM", bookings: 3 },
-
-  { date: "2025-07-24", hour: "08:00 AM", bookings: 5 },
-  { date: "2025-07-24", hour: "10:00 AM", bookings: 9 },
-  { date: "2025-07-24", hour: "12:00 PM", bookings: 6 },
-  { date: "2025-07-24", hour: "02:00 PM", bookings: 7 },
-  { date: "2025-07-24", hour: "04:00 PM", bookings: 11 },
-  { date: "2025-07-24", hour: "06:00 PM", bookings: 8 },
-  { date: "2025-07-24", hour: "08:00 PM", bookings: 5 },
-];
-
-const peakBookingHoursChartConfig = {
-  bookings: {
-    label: "Bookings",
-    color: "#22c55e",
-  },
-}
-
-export const appointmentModeChartData = [
-  { date: "2025-07-15", online: 8, offline: 10 },
-  { date: "2025-07-16", online: 9, offline: 5 },
-  { date: "2025-07-17", online: 10, offline: 4 },
-  { date: "2025-07-18", online: 6, offline: 6 },
-  { date: "2025-07-19", online: 11, offline: 3 },
-  { date: "2025-07-20", online: 13, offline: 2 },
-  { date: "2025-07-21", online: 12, offline: 4 },
-  { date: "2025-07-22", online: 10, offline: 3 },
-  { date: "2025-07-23", online: 11, offline: 4 },
-  { date: "2025-07-24", online: 12, offline: 2 },
-];
-
-export const appointmentModeChartConfig = {
-  online: {
-    label: "Online",
-    color: "#3b82f6",
-  },
-  offline: {
-    label: "Offline",
-    color: "#10b981",
-  },
-};
-
-
-
-export const completionBreakdown = [
-  { status: "Completed", value: 125 },
-  { status: "Missed", value: 20 },
-  { status: "Cancelled", value: 15 },
-];
-
-export const completionBreakdownChartConfig = {
-  Completed: {
-    label: "Completed",
-    color: "#22c55e",
-  },
-  Missed: {
-    label: "Missed",
-    color: "#f97316",
-  },
-  Cancelled: {
-    label: "Cancelled",
-    color: "#ef4444",
-  },
-};
-
-
-
-export const newVsReturningUsers = [
-  { date: "2025-07-15", newUsers: 6, returningUsers: 3 },
-  { date: "2025-07-16", newUsers: 7, returningUsers: 5 },
-  { date: "2025-07-17", newUsers: 8, returningUsers: 4 },
-  { date: "2025-07-18", newUsers: 5, returningUsers: 6 },
-  { date: "2025-07-19", newUsers: 9, returningUsers: 3 },
-  { date: "2025-07-20", newUsers: 10, returningUsers: 2 },
-  { date: "2025-07-21", newUsers: 11, returningUsers: 4 },
-  { date: "2025-07-22", newUsers: 9, returningUsers: 5 },
-  { date: "2025-07-23", newUsers: 8, returningUsers: 6 },
-  { date: "2025-07-24", newUsers: 10, returningUsers: 3 },
-];
-
-export const newVsReturningUsersChartConfig = {
-  newUsers: {
-    label: "New Users",
-    color: "#3b82f6",
-  },
-  returningUsers: {
-    label: "Returning Users",
-    color: "#10b981",
-  },
-}
-
-
-export const topBookingDays = [
-  { day: "Monday", bookings: 30 },
-  { day: "Tuesday", bookings: 28 },
-  { day: "Wednesday", bookings: 35 },
-  { day: "Thursday", bookings: 25 },
-  { day: "Friday", bookings: 40 },
-  { day: "Saturday", bookings: 45 },
-  { day: "Sunday", bookings: 20 },
-];
-
-export const topBookingDaysChartConfig = {
-  Monday: {
-    label: "Monday",
-    color: "#6366F1",
-  },
-  Tuesday: {
-    label: "Tuesday",
-    color: "#10B981",
-  },
-  Wednesday: {
-    label: "Wednesday",
-    color: "#F59E0B",
-  },
-  Thursday: {
-    label: "Thursday",
-    color: "#EF4444",
-  },
-  Friday: {
-    label: "Friday",
-    color: "#3B82F6",
-  },
-  Saturday: {
-    label: "Saturday",
-    color: "#8B5CF6",
-  },
-  Sunday: {
-    label: "Sunday",
-    color: "#EC4899",
-  },
-};
-
-
-export const appointmentDistributionData = [
-  { date: "2025-07-15", online: 25, offline: 40 },
-  { date: "2025-07-16", online: 30, offline: 35 },
-  { date: "2025-07-17", online: 20, offline: 45 },
-  { date: "2025-07-18", online: 28, offline: 38 },
-  { date: "2025-07-19", online: 32, offline: 30 },
-  { date: "2025-07-20", online: 35, offline: 27 },
-  { date: "2025-07-21", online: 40, offline: 20 },
-];
-
-export const appointmentDistributionChartConfig = {
-  online: {
-    label: "Online",
-    color: "#3B82F6", // Tailwind blue-500
-  },
-  offline: {
-    label: "Offline",
-    color: "#10B981", // Tailwind green-500
-  },
-};
-
-
-
-
+import { providerFetchDashboardGraphData, providerFetchDashboardStatsData } from '@/utils/apis/provider.api';
+import { appointmentModeChartConfig, appointmentsOverTimeChartConfig, completionBreakdownChartConfig, newVsReturningUsersChartConfig, peakBookingHoursChartConfig, statsMap, topBookingDaysChartConfig } from '@/utils/constants';
 
 const ProviderDashboardPage: React.FC = () => {
 
   const [plan, setPlan] = useState<string>("NoSubscription");
   const user = useSelector((store: RootState) => store.auth.authUser);
-
+  
   useEffect(() => {
     if (!user || !user.providerSubscription) return;
-    setPlan(user?.providerSubscription)
+    setPlan(user?.providerSubscription);
   }, [user]);
 
   const {
@@ -326,7 +66,6 @@ const ProviderDashboardPage: React.FC = () => {
         )}
       </div>
 
-      {/* 📊 Charts */}
       <div className="p-2">
         {isGraphLoading ? (
           <p>Loading chart data...</p>
@@ -337,7 +76,7 @@ const ProviderDashboardPage: React.FC = () => {
               <AreaGroupedChart
                 title="Appointments Over Time"
                 description="Completed, Missed, and Cancelled Appointments"
-                chartData={appointmentsOverTime}
+                chartData={dashboardGraphData.appointmentsOvertimeChartData}
                 dataKeyOne="completed"
                 dataKeyTwo="missed"
                 dataKeyThree="cancelled"
@@ -347,8 +86,8 @@ const ProviderDashboardPage: React.FC = () => {
               <RadialChart
                 title="Top Booking Days"
                 description="Distribution of bookings throughout the week"
-                chartData={topBookingDays}
-                dataKeyOne="bookings"
+                chartData={dashboardGraphData.topBookingDaysChartData}
+                dataKeyOne="count"
                 dataKeyTwo="day"
                 chartConfig={topBookingDaysChartConfig}
                 isLocked={!GraphView(plan,"TopBookingDays")}
@@ -356,16 +95,16 @@ const ProviderDashboardPage: React.FC = () => {
               <BarChartVertical
                 title="Appointment Distribution"
                 description="Online vs Offline appointments over the last 7 days"
-                chartData={appointmentDistributionData}
+                chartData={dashboardGraphData.appointmentModeChartData}
                 dataKeyOne="online"
                 dataKeyTwo="offline"
-                chartConfig={appointmentDistributionChartConfig}
+                chartConfig={appointmentModeChartConfig}
                 isLocked={!GraphView(plan,"AppointmentDistribution")}
               />
               <BarChartHorizontal
                 title="Peak Booking Hours"
                 description="Hourly booking trends for the past 10 days"
-                chartData={peakBookingHours}
+                chartData={dashboardGraphData.peakBookingHoursChartData}
                 dataKeyOne="hour"
                 dataKeyTwo="bookings"
                 dataKeyThree="bookings"
@@ -375,7 +114,7 @@ const ProviderDashboardPage: React.FC = () => {
               <LineChartHorizontal
                 title="Appointment Mode Trend"
                 description="Online vs Offline Appointments over Time"
-                chartData={appointmentModeChartData}
+                chartData={dashboardGraphData.appointmentModeChartData}
                 dataKeyOne="online"
                 dataKeyTwo="offline"
                 chartConfig={appointmentModeChartConfig}
@@ -384,7 +123,7 @@ const ProviderDashboardPage: React.FC = () => {
               <ChartLineMultiple
                 title="New vs Returning Users"
                 description="User engagement trends over the last 10 days"
-                chartData={newVsReturningUsers}
+                chartData={dashboardGraphData.newVsReturningUsersChartData}
                 chartConfig={newVsReturningUsersChartConfig}
                 dataKeyOne="newUsers"
                 dataKeyTwo="returningUsers"
@@ -393,7 +132,7 @@ const ProviderDashboardPage: React.FC = () => {
               <PieChartCompletionBreakdown
                 title="Appointment Completion Breakdown"
                 description="Completed, Missed, and Cancelled Appointments"
-                chartData={completionBreakdown}
+                chartData={dashboardGraphData.completionBreakdownChartData}
                 dataKey="value"
                 chartConfig={completionBreakdownChartConfig}
                 nameKey={"status"}

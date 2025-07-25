@@ -5,6 +5,8 @@ export function filterChartDataHelper<T extends { date: string }>(
   data: T[],
   timeRange: TimeRange
 ): T[] {
+  if (!Array.isArray(data)) return [];
+  
   const today = new Date()
   const formattedToday = format(today, "yyyy-MM-dd")
   const referenceDate = new Date(formattedToday)

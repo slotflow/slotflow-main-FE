@@ -664,3 +664,106 @@ export const planChartAccess: Record<string, string[]> = {
     "NewVsReturningUsers",
   ],
 };
+
+export const appointmentsOverTimeChartConfig = {
+  completed: {
+    label: "Completed",
+    color: "#22c55e",
+  },
+  missed: {
+    label: "Missed",
+    color: "#f97316",
+  },
+  cancelled: {
+    label: "Cancelled",
+    color: "#ef4444",
+  },
+}
+
+
+
+export const peakBookingHoursChartConfig = {
+  bookings: {
+    label: "Bookings",
+    color: "#22c55e",
+  },
+}
+
+
+
+export const appointmentModeChartConfig = {
+  online: {
+    label: "Online",
+    color: "#3b82f6",
+  },
+  offline: {
+    label: "Offline",
+    color: "#10b981",
+  },
+};
+
+
+
+
+
+export const completionBreakdownChartConfig = {
+  Completed: {
+    label: "Completed",
+    color: "#22c55e",
+  },
+  Missed: {
+    label: "Missed",
+    color: "#f97316",
+  },
+  Cancelled: {
+    label: "Cancelled",
+    color: "#ef4444",
+  },
+};
+
+
+
+
+
+export const newVsReturningUsersChartConfig = {
+  newUsers: {
+    label: "New Users",
+    color: "#3b82f6",
+  },
+  returningUsers: {
+    label: "Returning Users",
+    color: "#10b981",
+  },
+}
+
+
+export const topBookingDaysChartConfig = {
+  Monday: {
+    label: "Monday",
+    color: "#6366F1",
+  },
+  Tuesday: {
+    label: "Tuesday",
+    color: "#10B981",
+  },
+  Wednesday: {
+    label: "Wednesday",
+    color: "#F59E0B",
+  },
+  Thursday: {
+    label: "Thursday",
+    color: "#EF4444",
+  },
+  Friday: {
+    label: "Friday",
+    color: "#3B82F6",
+  },
+  Saturday: {
+    label: "Saturday",
+    color: "#8B5CF6",
+  },
+  Sunday: {
+    label: "Sunday",
+    color: "#EC4899",
+  },
+};

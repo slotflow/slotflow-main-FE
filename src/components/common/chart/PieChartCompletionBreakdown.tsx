@@ -11,8 +11,9 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import ChartHeader from "./ChartHeader";
-import { Pie, PieChart, Cell } from "recharts";
 import ChartOverlay from "./ChartOverlay";
+import { Pie, PieChart, Cell } from "recharts";
+import ChartDataNotAvailable from "./ChartDataNotAvailable";
 
 interface CompletionBreakdownData {
   status: string;
@@ -44,24 +45,28 @@ const PieChartCompletionBreakdown = ({
       <ChartHeader title={title} description={description} />
       <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
         <ChartContainer config={chartConfig} className="min-h-[200px]" >
-          <PieChart>
-            <ChartTooltip content={<ChartTooltipContent hideLabel />} />
-            <Pie
-              data={chartData}
-              dataKey={dataKey}
-              nameKey={nameKey}
-              label
-              outerRadius="80%"
-            >
-              {chartData.map((entry) => (
-                <Cell
-                  key={entry.status}
-                  fill={chartConfig[entry.status]?.color || "#8884d8"}
-                />
-              ))}
-            </Pie>
-            <ChartLegend content={<ChartLegendContent />} />
-          </PieChart>
+          {chartData.length === 0 ? (
+            <ChartDataNotAvailable />
+          ) : (
+            <PieChart>
+              <ChartTooltip content={<ChartTooltipContent hideLabel />} />
+              <Pie
+                data={chartData}
+                dataKey={dataKey}
+                nameKey={nameKey}
+                label
+                outerRadius="80%"
+              >
+                {chartData.map((entry) => (
+                  <Cell
+                    key={entry.status}
+                    fill={chartConfig[entry.status]?.color || "#8884d8"}
+                  />
+                ))}
+              </Pie>
+              <ChartLegend content={<ChartLegendContent />} />
+            </PieChart>
+          )}
         </ChartContainer>
       </CardContent>
     </Card>

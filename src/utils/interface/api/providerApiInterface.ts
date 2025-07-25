@@ -9,7 +9,7 @@ import { Availability, AvailabilityForResponse } from "../entityInterface/servic
 
 // **** 1.  Used as the request interface for adding address api
 export interface ProviderAddProviderAddressRequest {
-    formData: Pick<Address, "addressLine" | "phone" | "place" | "city" | "district" | "pincode" | "state" | "country" | "googleMapLink">;
+  formData: Pick<Address, "addressLine" | "phone" | "place" | "city" | "district" | "pincode" | "state" | "country" | "googleMapLink">;
 }
 
 
@@ -27,13 +27,13 @@ export type ProviderFetchAllServicesResponse = Array<Pick<Service, "_id" | "serv
 // **** 5.  Used as the response type for provider fetch self service details
 type FetchServiceDetailsResponse = Pick<ProviderService, "serviceName" | "serviceDescription" | "servicePrice" | "providerAdhaar" | "providerExperience" | "providerCertificateUrl">;
 export interface ProviderFetchServiceDetailsResponse extends FetchServiceDetailsResponse {
-    serviceCategory: Pick<Service, "serviceName">
+  serviceCategory: Pick<Service, "serviceName">
 }
 
 
 // **** 6.  Used as the request interface for provider service availability adding api
 export interface AddProviderServiceAvailabilitiesRequest {
-    data: Availability[];
+  data: Availability[];
 }
 
 
@@ -47,7 +47,7 @@ export type ProviderFetchServiceAvailabilityResponse = AvailabilityForResponse;
 
 // **** 9.  Used as the response type for Provider profile image updating api
 export interface ProviderUpdateProfileImageResponse extends ApiBaseResponse {
-    data: Provider["profileImage"]
+  data: Provider["profileImage"]
 }
 
 
@@ -57,12 +57,12 @@ export type ProviderFetchPlansResponse = Pick<Plan, "_id" | "planName" | "price"
 
 // **** 11.1  Used as the request type for Provider subscribe to a plan api
 export type ProviderSubscribeToPlanRequest = {
-    planId: Plan["_id"];
-    planDuration: string
+  planId: Plan["_id"];
+  planDuration: string
 }
 // **** 11.2  Used as the response interface for Provider subscribe to a plan api
 export interface ProviderSubscribeToPlanResponse extends ApiBaseResponse {
-    data: string
+  data: string
 }
 
 
@@ -85,7 +85,7 @@ export interface ProviderSubscribeToPlanResponse extends ApiBaseResponse {
 export type ProviderUpdateProviderInfoRequest = Pick<Provider, "username" | "phone">
 // **** 17.2 Used as the response interface for Provider update providerInfo [username and phone]
 export interface ProviderUpdateProviderInfoResponse extends ApiBaseResponse {
-    data: ProviderUpdateProviderInfoRequest
+  data: ProviderUpdateProviderInfoRequest
 }
 
 
@@ -93,64 +93,61 @@ export interface ProviderUpdateProviderInfoResponse extends ApiBaseResponse {
 export type ProviderFetchUsersForChatSidebarResponse = Array<Pick<User, "_id" | "username" | "profileImage">>
 
 
-// **** 18. Used as the return interface for the provider fetch dashboard data
+// **** 19. Used as the return interface for the provider fetch dashboard data
 export interface ProviderFetchDashboardStatsDataResponse {
-    totalAppointments: number;
-    completedAppointments: number;
-    missedAppointments: number;
-    cancelledAppointmentsByUser: number;
-    rejectedAppointmentsByProvider: number;
-    todaysAppointments: number;
-
-    totalSubscriptionPaidAmount: number;
-    totalEarnings: number;
-    totalEarningsThroughStripe: number;
-    totalEarningsThroughRazorpay: number;
-    totalEarningsThroughPaypal: number;
-    todaysEarnings: number;
-    totalPayoutsMade: number;
-    pendingPayout: number;
+  totalAppointments: number;
+  completedAppointments: number;
+  missedAppointments: number;
+  cancelledAppointmentsByUser: number;
+  rejectedAppointmentsByProvider: number;
+  todaysAppointments: number;
+  
+  totalSubscriptionPaidAmount: number;
+  totalEarnings: number;
+  totalEarningsThroughStripe: number;
+  totalEarningsThroughRazorpay: number;
+  totalEarningsThroughPaypal: number;
+  todaysEarnings: number;
+  totalPayoutsMade: number;
+  pendingPayout: number;
 }
 
+
+// **** 20. Used as the return interface for the provider fetch dashboard graph data
 export interface ProviderDashboardGraphResponse {
-  appointmentsOvertime: Array<{
-    date: string; // e.g., "2025-07-24"
+  appointmentsOvertimeChartData: Array<{
+    date: string;
     completed: number;
     missed: number;
     cancelled: number;
   }>;
 
-  earningsOverTime: Array<{
+  peakBookingHoursChartData: Array<{
     date: string;
-    stripe: number;
-    razorpay: number;
-    paypal: number;
+    hour: string;
+    bookings: number;
   }>;
 
-  peakBookingHours: Array<{
-    hour: string; // e.g., "10:00", "14:00"
-    count: number;
-  }>;
-
-  appointmentMode: Array<{
+  appointmentModeChartData: Array<{
     date: string;
     online: number;
     offline: number;
   }>;
 
-  completionBreakdown: Array<{
+  completionBreakdownChartData: Array<{
     status: 'completed' | 'missed' | 'cancelled' | 'rejected';
-    count: number;
+    value: number;
   }>;
 
-  newVsReturningUsers: Array<{
+  newVsReturningUsersChartData: Array<{
     date: string;
     newUsers: number;
     returningUsers: number;
   }>;
 
-  topBookingDays: Array<{
-    day: string; // e.g., "Monday"
+  topBookingDaysChartData: Array<{
+    day: string;
     count: number;
   }>;
+
 }
