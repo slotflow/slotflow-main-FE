@@ -1,5 +1,6 @@
 import { ChangeEvent } from "react";
 import { ColumnDef } from "@tanstack/react-table";
+import { ChartConfig } from "@/components/ui/chart";
 
 // **** 1.  Common Response interface
 export interface ApiBaseResponse {
@@ -216,3 +217,31 @@ export interface dataSelectListItem {
 
 // **** 23. role type
 export type Role = "USER" | "PROVIDER" | "ADMIN";
+
+
+// **** 24. AppointmentOverTimeInterface
+export interface AppointmentOverTimeInterface {
+  completed: number,
+  missed: number,
+  cancelled: number
+}
+
+//  **** 25. Chart Common Interface
+export interface ChatComponentProps<T extends { date: string }> {
+  title: string;
+  description: string;
+  chartData: T[];
+  dataKeyOne: string;
+  dataKeyTwo: string;
+  dataKeyThree: string;
+  nameKey: string;
+  chartConfig: ChartConfig;
+  isLocked: boolean;
+}
+
+
+// **** 26. Chat Common Interface Base Type
+export type BaseChartData = {
+  date: string;
+  [key: string]: number | string | undefined;
+};

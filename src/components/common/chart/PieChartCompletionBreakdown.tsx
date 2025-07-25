@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/chart";
 import ChartHeader from "./ChartHeader";
 import { Pie, PieChart, Cell } from "recharts";
+import ChartOverlay from "./ChartOverlay";
 
 interface CompletionBreakdownData {
   status: string;
@@ -25,6 +26,7 @@ interface CompletionChartProps {
   dataKey: string;
   chartConfig: ChartConfig;
   nameKey: string;
+  isLocked: boolean;
 }
 
 const PieChartCompletionBreakdown = ({
@@ -33,10 +35,12 @@ const PieChartCompletionBreakdown = ({
   chartData,
   dataKey,
   chartConfig,
-  nameKey
+  nameKey,
+  isLocked
 }: CompletionChartProps) => {
   return (
-    <Card className="flex flex-col">
+    <Card className="relative overflow-hidden">
+      {isLocked && (<ChartOverlay stringOne="Starter" />)}
       <ChartHeader title={title} description={description} />
       <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
         <ChartContainer config={chartConfig} className="min-h-[200px]" >

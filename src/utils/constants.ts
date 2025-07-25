@@ -220,7 +220,7 @@ export const PlanList: PlanList = [
       "Email notifications for bookings",
       "Cancel anytime",
       "Up to 7 bookings",
-      "7 days validity"
+      "7 days validity",
     ],
     price: 0
   },
@@ -233,7 +233,8 @@ export const PlanList: PlanList = [
       "Up to 100 bookings per month",
       "Starter dashboard",
       "Custom branding theme",
-      "Email Support"
+      "Email Support",
+      "Basic Dashboard"
     ],
     price: 499
   },
@@ -244,11 +245,11 @@ export const PlanList: PlanList = [
     features: [
       "Everything in Starter Plan",
       "Up to 500 bookings per month",
-      "Medium analytics dashborad",
       "Custom branding logo",
       "Chat service",
       "Google Calendar sync",
-      "24/7 Chat support"
+      "24/7 Chat support",
+      "Medium analytics dashborad",
     ],
     price: 1499
   },
@@ -260,9 +261,9 @@ export const PlanList: PlanList = [
       "Everything in Professional Plan",
       "Unlimited bookings",
       "Video call service",
-      "Advanced analytics dashboard",
       "Advertisement visibility",
-      "24/7 premium support"
+      "24/7 premium support",
+      "Advanced analytics dashboard",
     ],
     price: 4999
   }
@@ -639,3 +640,27 @@ export const statsMap: {
     price: true,
   },
 ];
+
+
+// **** Provider Dashboard Graphs map according to plan
+export const planChartAccess: Record<string, string[]> = {
+  Starter: [
+    "AppointmentsOverTime",
+    "TopBookingDays",
+  ],
+  Professional: [
+    "AppointmentsOverTime",
+    "TopBookingDays",
+    "AppointmentModeTrend",
+    "NewVsReturningUsers",
+  ],
+  Enterprise: [
+    "AppointmentsOverTime",
+    "TopBookingDays",
+    "AppointmentDistribution",
+    "PeakBookingHours",
+    "AppointmentModeTrend",
+    "AppointmentCompletionBreakdown",
+    "NewVsReturningUsers",
+  ],
+};

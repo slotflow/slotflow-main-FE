@@ -3,38 +3,27 @@ import {
   CardContent,
 } from "@/components/ui/card";
 import {
-  ChartConfig,
   ChartContainer,
-  ChartLegend,
-  ChartLegendContent,
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import ChartHeader from './ChartHeader';
+import ChartOverlay from "./ChartOverlay";
 import { LabelList, RadialBar, RadialBarChart } from "recharts";
-
-type ChartDataItem = Record<string, string | number>;
-
-interface RadialChartInterface<T extends ChartDataItem> {
-  title: string;
-  description: string;
-  chartData: T[];
-  dataKey: keyof T;
-  nameKey: keyof T;
-  chartConfig: ChartConfig;
-}
+import { ChartDataItem, RadialChartInterface } from "@/utils/interface/componentInterface/commonComponentInterface";
 
 const RadialChart = <T extends ChartDataItem>({
   title,
   description,
   chartData,
-  dataKey,
-  nameKey,
-  chartConfig
+  dataKeyOne,
+  dataKeyTwo,
+  chartConfig,
+  isLocked,
 }: RadialChartInterface<T>) => {
 
   const coloredChartData = chartData.map((item) => {
-    const key = item[nameKey];
+    const key = item[dataKeyTwo];
     const keyString = String(key);
     const fill = chartConfig[keyString]?.color || "#8884d8";
     return {
@@ -44,7 +33,8 @@ const RadialChart = <T extends ChartDataItem>({
   });
 
   return (
-    <Card>
+    <Card className="relative overflow-hidden">
+      {isLocked && (<ChartOverlay stringOne="Starter" />)}
       <ChartHeader title={title} description={description} />
       <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
         <ChartContainer config={chartConfig} className="min-h-[200px]">
@@ -57,16 +47,16 @@ const RadialChart = <T extends ChartDataItem>({
           >
             <ChartTooltip
               cursor={false}
-              content={<ChartTooltipContent hideLabel nameKey={String(nameKey)} />}
+              content={<ChartTooltipContent hideLabel nameKey={String(dataKeyTwo)} />}
             />
             <RadialBar
-              dataKey={String(dataKey)}
+              dataKey={String(dataKeyOne)}
               background
               isAnimationActive
               label
             >
               <LabelList
-                dataKey={String(nameKey)}
+                dataKey={String(dataKeyTwo)}
                 position="insideStart"
                 className="fill-white capitalize mix-blend-luminosity"
                 fontSize={11}

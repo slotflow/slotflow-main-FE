@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { statsMap } from '@/utils/constants';
 import CardOne from '@/components/admin/CardOne';
 import { useQuery } from '@tanstack/react-query';
@@ -9,8 +9,12 @@ import LineChartHorizontal from '@/components/common/chart/LineChartHorizontal';
 import PieChartCompletionBreakdown from '@/components/common/chart/PieChartCompletionBreakdown';
 import ChartLineMultiple from '@/components/common/chart/ChatLineMultiple';
 import RadialChart from '@/components/common/chart/RadialChart';
-import BarChartStacked from '@/components/common/chart/BarChartStacked';
 import BarChartVertical from '@/components/common/chart/BarChartVertical';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/utils/redux/appStore';
+import { GraphView } from '@/utils/helper/GraphView';
+
+
 
 export const appointmentsOverTime = [
   { date: "2025-07-15", completed: 10, missed: 1, cancelled: 2 },
@@ -28,43 +32,14 @@ export const appointmentsOverTime = [
 const appointmentsOverTimeChartConfig = {
   completed: {
     label: "Completed",
-    color: "#22c55e", // Tailwind green-500
+    color: "#22c55e",
   },
   missed: {
     label: "Missed",
-    color: "#f97316", // Tailwind orange-500
+    color: "#f97316",
   },
   cancelled: {
     label: "Cancelled",
-    color: "#ef4444", // Tailwind red-500
-  },
-}
-
-
-export const earningsOverTime = [
-  { date: "2025-07-15", stripe: 1500, razorpay: 700, paypal: 300 },
-  { date: "2025-07-16", stripe: 1600, razorpay: 600, paypal: 500 },
-  { date: "2025-07-17", stripe: 1400, razorpay: 800, paypal: 400 },
-  { date: "2025-07-18", stripe: 1700, razorpay: 750, paypal: 300 },
-  { date: "2025-07-19", stripe: 1550, razorpay: 850, paypal: 250 },
-  { date: "2025-07-20", stripe: 1600, razorpay: 900, paypal: 400 },
-  { date: "2025-07-21", stripe: 1800, razorpay: 950, paypal: 350 },
-  { date: "2025-07-22", stripe: 1650, razorpay: 870, paypal: 300 },
-  { date: "2025-07-23", stripe: 1750, razorpay: 820, paypal: 380 },
-  { date: "2025-07-24", stripe: 1900, razorpay: 920, paypal: 450 },
-];
-
-const earningsOverTimeChartConfig = {
-  stripe: {
-    label: "Stripe",
-    color: "#22c55e",
-  },
-  razorpay: {
-    label: "Razorpay",
-    color: "#f97316",
-  },
-  paypal: {
-    label: "Paypal",
     color: "#ef4444",
   },
 }
@@ -298,7 +273,16 @@ export const appointmentDistributionChartConfig = {
 
 
 
+
 const ProviderDashboardPage: React.FC = () => {
+
+  const [plan, setPlan] = useState<string>("NoSubscription");
+  const user = useSelector((store: RootState) => store.auth.authUser);
+
+  useEffect(() => {
+    if (!user || !user.providerSubscription) return;
+    setPlan(user?.providerSubscription)
+  }, [user]);
 
   const {
     data: dashboardStats,
@@ -350,73 +334,71 @@ const ProviderDashboardPage: React.FC = () => {
           <p className="text-red-500">Failed to load graphs: {String(graphError)}</p>
         ) : dashboardGraphData ? (
           <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-            <AreaGroupedChart
-              title="Appointments Over Time"
-              description="Completed, Missed, and Cancelled Appointments"
-              chartData={appointmentsOverTime}
-              areaOneDataKey="completed"
-              areaTwoDataKey="missed"
-              areaThreeDataKey="cancelled"
-              chartConfig={appointmentsOverTimeChartConfig}
-            />
-            <BarChartStacked
-              title="Earnings by Payment Gateway"
-              description="Stripe, Razorpay, and Paypal Payments per day."
-              chartData={earningsOverTime}
-              dataKeyOne='stripe'
-              dataKeyTwo='razorpay'
-              dataKeyThree='paypal'
-              chartConfig={earningsOverTimeChartConfig}
-            />
-            <BarChartHorizontal
-              title="Peak Booking Hours"
-              description="Hourly booking trends for the past 10 days"
-              chartData={peakBookingHours}
-              yAxisDataKey="hour"
-              xAxisDataKey="bookings"
-              barDataKey="bookings"
-              chartConfig={peakBookingHoursChartConfig}
-            />
-            <LineChartHorizontal
-              title="Appointment Mode Trend"
-              description="Online vs Offline Appointments over Time"
-              chartData={appointmentModeChartData}
-              dataKeyOne="online"
-              dataKeyTwo="offline"
-              chartConfig={appointmentModeChartConfig}
-            />
-            <ChartLineMultiple
-              title="New vs Returning Users"
-              description="User engagement trends over the last 10 days"
-              chartData={newVsReturningUsers}
-              chartConfig={newVsReturningUsersChartConfig}
-              dataKeyOne="newUsers"
-              dataKeyTwo="returningUsers"
-            />
-            <PieChartCompletionBreakdown
-              title="Appointment Completion Breakdown"
-              description="Completed, Missed, and Cancelled Appointments"
-              chartData={completionBreakdown}
-              dataKey="value"
-              chartConfig={completionBreakdownChartConfig}
-              nameKey={"status"}
-            />
-            <RadialChart
-              title="Top Booking Days"
-              description="Distribution of bookings throughout the week"
-              chartData={topBookingDays}
-              dataKey="bookings"
-              nameKey="day"
-              chartConfig={topBookingDaysChartConfig}
-            />
-            <BarChartVertical
-              title="Appointment Distribution"
-              description="Online vs Offline appointments over the last 7 days"
-              chartData={appointmentDistributionData}
-              barOneDataKey="online"
-              barTwoDataKey="offline"
-              chartConfig={appointmentDistributionChartConfig}
-            />
+              <AreaGroupedChart
+                title="Appointments Over Time"
+                description="Completed, Missed, and Cancelled Appointments"
+                chartData={appointmentsOverTime}
+                dataKeyOne="completed"
+                dataKeyTwo="missed"
+                dataKeyThree="cancelled"
+                chartConfig={appointmentsOverTimeChartConfig}
+                isLocked={!GraphView(plan,"AppointmentsOverTime")}
+              />
+              <RadialChart
+                title="Top Booking Days"
+                description="Distribution of bookings throughout the week"
+                chartData={topBookingDays}
+                dataKeyOne="bookings"
+                dataKeyTwo="day"
+                chartConfig={topBookingDaysChartConfig}
+                isLocked={!GraphView(plan,"TopBookingDays")}
+              />
+              <BarChartVertical
+                title="Appointment Distribution"
+                description="Online vs Offline appointments over the last 7 days"
+                chartData={appointmentDistributionData}
+                dataKeyOne="online"
+                dataKeyTwo="offline"
+                chartConfig={appointmentDistributionChartConfig}
+                isLocked={!GraphView(plan,"AppointmentDistribution")}
+              />
+              <BarChartHorizontal
+                title="Peak Booking Hours"
+                description="Hourly booking trends for the past 10 days"
+                chartData={peakBookingHours}
+                dataKeyOne="hour"
+                dataKeyTwo="bookings"
+                dataKeyThree="bookings"
+                chartConfig={peakBookingHoursChartConfig}
+                isLocked={!GraphView(plan,"PeakBookingHours")}
+              />
+              <LineChartHorizontal
+                title="Appointment Mode Trend"
+                description="Online vs Offline Appointments over Time"
+                chartData={appointmentModeChartData}
+                dataKeyOne="online"
+                dataKeyTwo="offline"
+                chartConfig={appointmentModeChartConfig}
+                isLocked={!GraphView(plan,"AppointmentModeTrend")}
+              />
+              <ChartLineMultiple
+                title="New vs Returning Users"
+                description="User engagement trends over the last 10 days"
+                chartData={newVsReturningUsers}
+                chartConfig={newVsReturningUsersChartConfig}
+                dataKeyOne="newUsers"
+                dataKeyTwo="returningUsers"
+                isLocked={!GraphView(plan,"NewVsReturningUsers")}
+              />
+              <PieChartCompletionBreakdown
+                title="Appointment Completion Breakdown"
+                description="Completed, Missed, and Cancelled Appointments"
+                chartData={completionBreakdown}
+                dataKey="value"
+                chartConfig={completionBreakdownChartConfig}
+                nameKey={"status"}
+                isLocked={!GraphView(plan,"AppointmentCompletionBreakdown")}
+              />
           </div>
         ) : null}
       </div>
@@ -424,4 +406,4 @@ const ProviderDashboardPage: React.FC = () => {
   )
 }
 
-export default ProviderDashboardPage
+export default ProviderDashboardPage;

@@ -3,7 +3,6 @@ import {
   CardContent,
 } from "@/components/ui/card";
 import {
-  ChartConfig,
   ChartLegend,
   ChartTooltip,
   ChartContainer,
@@ -12,44 +11,38 @@ import {
 } from "@/components/ui/chart";
 import * as React from "react";
 import ChartHeader from "./ChartHeader";
+import ChartOverlay from "./ChartOverlay";
 import { TimeRange } from "@/utils/interface/commonInterface";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
 import { filterChartDataHelper } from "@/utils/helper/dateFilter";
+import { AreaGroupChartProps } from "@/utils/interface/componentInterface/commonComponentInterface";
 
-interface SpreadChartInterface<T extends { date: string }> {
-  title: string;
-  description: string;
-  chartData: T[];
-  areaOneDataKey: string;
-  areaTwoDataKey: string;
-  areaThreeDataKey: string;
-  chartConfig: ChartConfig;
-}
-
-const AreaGroupedChart = <T extends { date: string },>({
+const AreaGroupedChart:React.FC<AreaGroupChartProps> = ({
   title,
   description,
   chartData,
-  areaOneDataKey,
-  areaTwoDataKey,
-  areaThreeDataKey,
-  chartConfig
-}: SpreadChartInterface<T>) => {
+  dataKeyOne,
+  dataKeyTwo,
+  dataKeyThree,
+  chartConfig,
+  isLocked
+}) => {
 
   const [timeRange, setTimeRange] = React.useState<TimeRange>("7d");
   const filteredData = filterChartDataHelper(chartData, timeRange);
 
   return (
-    <Card>
+    <Card className="relative overflow-hidden">
+      {isLocked && (<ChartOverlay stringOne="Starter" />)}
       <ChartHeader title={title} description={description} onValueChange={setTimeRange} value={timeRange} />
       <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
         <ChartContainer config={chartConfig} className="min-h-[200px]" >
           <AreaChart data={filteredData}>
             <defs>
               {[
-                { key: areaOneDataKey, id: "fillOne" },
-                { key: areaTwoDataKey, id: "fillTwo" },
-                { key: areaThreeDataKey, id: "fillThree" },
+                { key: dataKeyOne, id: "fillOne" },
+                { key: dataKeyTwo, id: "fillTwo" },
+                { key: dataKeyThree, id: "fillThree" },
               ].map(({ key, id }) => (
                 <linearGradient key={id} id={id} x1="0" y1="0" x2="0" y2="1">
                   <stop
@@ -95,24 +88,24 @@ const AreaGroupedChart = <T extends { date: string },>({
               }
             />
             <Area
-              dataKey={areaOneDataKey}
+              dataKey={dataKeyOne}
               type="natural"
               fill="url(#fillOne)"
-              stroke={chartConfig[areaOneDataKey]?.color}
+              stroke={chartConfig[dataKeyOne]?.color}
               stackId="a"
             />
             <Area
-              dataKey={areaTwoDataKey}
+              dataKey={dataKeyTwo}
               type="natural"
               fill="url(#fillTwo)"
-              stroke={chartConfig[areaTwoDataKey]?.color}
+              stroke={chartConfig[dataKeyTwo]?.color}
               stackId="a"
             />
             <Area
-              dataKey={areaThreeDataKey}
+              dataKey={dataKeyThree}
               type="natural"
               fill="url(#fillThree)"
-              stroke={chartConfig[areaThreeDataKey]?.color}
+              stroke={chartConfig[dataKeyThree]?.color}
               stackId="a"
             />
             <ChartLegend content={<ChartLegendContent />} />

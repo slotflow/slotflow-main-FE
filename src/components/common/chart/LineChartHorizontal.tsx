@@ -4,7 +4,6 @@ import {
   CardContent,
 } from "@/components/ui/card";
 import {
-  ChartConfig,
   ChartContainer,
   ChartLegend,
   ChartLegendContent,
@@ -12,36 +11,28 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import ChartHeader from './ChartHeader';
+import ChartOverlay from './ChartOverlay';
 import { TimeRange } from '@/utils/interface/commonInterface';
 import { CartesianGrid, Line, LineChart, XAxis } from "recharts";
 import { filterChartDataHelper } from '@/utils/helper/dateFilter';
+import { LineChartHorizontalProps } from '@/utils/interface/componentInterface/commonComponentInterface';
 
-export const description = "A linear line chart"
-
-
-interface LineChartHorizontalInterface<T extends { date: string }> {
-  title: string;
-  description: string;
-  chartData: T[];
-  dataKeyOne: string;
-  dataKeyTwo: string;
-  chartConfig: ChartConfig;
-}
-
-const LineChartHorizontal = <T extends { date: string },>({
+const LineChartHorizontal:React.FC<LineChartHorizontalProps> = ({
   title,
   description,
   chartData,
   dataKeyOne,
   dataKeyTwo,
-  chartConfig
-}: LineChartHorizontalInterface<T>) => {
+  chartConfig,
+  isLocked
+}) => {
 
   const [timeRange, setTimeRange] = React.useState<TimeRange>("7d");
   const filteredData = filterChartDataHelper(chartData, timeRange);
 
   return (
-    <Card>
+    <Card className="relative overflow-hidden">
+      {isLocked && (<ChartOverlay stringOne="Starter" />)}
       <ChartHeader title={title} description={description} onValueChange={setTimeRange} value={timeRange} />
       <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
         <ChartContainer config={chartConfig} className="min-h-[200px]" >

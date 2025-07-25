@@ -1,9 +1,10 @@
-import { TimeRange } from "../commonInterface";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { Provider } from "../entityInterface/providerInterface";
+import { BaseChartData, ChatComponentProps, TimeRange } from "../commonInterface";
 import { AdminFetchProviderAvailabilityResponse, AdminFetchProviderServiceResponse } from "../api/adminProviderApiInterface";
 import { UpdateUserProfileImageResponse, UserFetchProviderAvailabilityResponse, UserFetchProviderServiceResponse } from "../api/userApiInterface";
 import { ProviderFetchServiceAvailabilityResponse, ProviderFetchServiceDetailsResponse, ProviderUpdateProfileImageResponse } from "../api/providerApiInterface";
+import { ChartConfig } from "@/components/ui/chart";
 
 
 // **** Common component interfaces **** \\
@@ -51,18 +52,67 @@ export interface ProviderServiceDetailsComponentProps {
 }
 
 
-
-
-
-// **** 4.1 DateSelect component interface
+// **** 4. DateSelect component interface
 export interface DateSelectInterface {
     onValueChange: (value: TimeRange) => void;
     value: string;
 }
 
+// **** 5. Chart Header component interface
 export interface ChartHeaderInterface {
     title: string;
     description?: string;
     onValueChange?: (value: TimeRange) => void;
     value?: string;
+}
+
+
+// **** 6. AreaGroupChart compoenent props type
+export type AreaGroupChartProps = Pick<ChatComponentProps<BaseChartData>, "title" | "description" | "chartData" | "dataKeyOne" | "dataKeyTwo" | "dataKeyThree" | "chartConfig" | "isLocked">;
+
+
+// **** 7. BarChartHorizontal compoenent props type
+export type BarChartHorizontalProps = Pick<ChatComponentProps<BaseChartData>, "title" | "description" | "chartData" | "dataKeyOne" | "dataKeyTwo" | "dataKeyThree" | "chartConfig" | "isLocked">; 
+
+
+// **** 8. BarChartStacked compoenent props type
+export type BarChartStackedProps = Pick<ChatComponentProps<BaseChartData>, "title" | "description" | "chartData" | "dataKeyOne" | "dataKeyTwo" | "dataKeyThree" | "chartConfig" | "isLocked">;
+
+
+// **** 9. BarChartVertical compoenent props type
+export type BarChartVerticalProps = Pick<ChatComponentProps<BaseChartData>, "title" | "description" | "chartData" | "dataKeyOne" | "dataKeyTwo" | "chartConfig" | "isLocked"> ;
+
+
+// **** 10. ChartLineMultiple compoenent props type
+export type ChartLineMultipleProps = Pick<ChatComponentProps<BaseChartData>, "title" | "description" | "chartData" | "dataKeyOne" | "dataKeyTwo" | "chartConfig" | "isLocked"> ;
+
+
+// **** 11. LineChartHorizontal compoenent props type
+export type LineChartHorizontalProps = Pick<ChatComponentProps<BaseChartData>, "title" | "description" | "chartData" | "dataKeyOne" | "dataKeyTwo" | "chartConfig" | "isLocked"> ;
+
+
+// **** 12. PieChartCompletionBreakdown compoenent props type
+interface CompletionBreakdownData {
+  status: string;
+  value: number;
+}
+export interface CompletionChartProps {
+  title: string;
+  description: string;
+  chartData: CompletionBreakdownData[];
+  dataKey: string;
+  chartConfig: ChartConfig;
+  nameKey: string;
+  isLocked: boolean;
+}
+// **** 13. RadialChart compoenent props type
+export type ChartDataItem = Record<string, string | number>;
+export interface RadialChartInterface<T extends ChartDataItem> {
+  title: string;
+  description: string;
+  chartData: T[];
+  dataKeyOne: keyof T;
+  dataKeyTwo: keyof T;
+  chartConfig: ChartConfig;
+  isLocked: boolean;
 }
