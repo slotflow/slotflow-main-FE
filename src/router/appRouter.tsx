@@ -135,7 +135,7 @@ export const appRouter = createBrowserRouter([
                     {
                         path: "payments",
                         element: (
-                            <PlanGuard routeName="Subscriptions">
+                            <PlanGuard routeName="Payments">
                                 <ProviderPaymentsPage />
                             </PlanGuard>
                         )

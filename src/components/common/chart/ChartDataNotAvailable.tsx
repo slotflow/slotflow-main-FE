@@ -7,7 +7,7 @@ const ChartDataNotAvailable: React.FC = () => {
             <AlertCircle className="w-8 h-8 mb-3 text-gray-400" />
             <h2 className="text-lg font-semibold">No Data Available</h2>
             <p className="text-sm max-w-xs">
-                We couldn’t find any appointment data to display. Once appointments are made, this chart will update.
+                We couldn’t find any data to display. Once your account is active with operations, this chart will update.
             </p>
         </div>
     )

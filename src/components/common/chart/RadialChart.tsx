@@ -35,7 +35,7 @@ const RadialChart = <T extends ChartDataItem>({
 
   return (
     <Card className="relative overflow-hidden">
-      {isLocked && (<ChartOverlay stringOne="Starter" />)}
+      {isLocked && (<ChartOverlay stringOne="Starter" chartTitle={title} />)}
       <ChartHeader title={title} description={description} />
       <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
         <ChartContainer config={chartConfig} className="min-h-[200px]">
