@@ -139,6 +139,5 @@ export const providerFetchDashboardStatsData = async () : Promise<ProviderFetchD
 
 export const providerFetchDashboardGraphData = async () : Promise<ProviderDashboardGraphResponse> => {
     const response = await axiosInstance.get('/provider/getDashboardGraphData');
-    console.log("response : ",response);
     return response.data.data;
 }

@@ -139,6 +139,7 @@ export interface CommonButtonProps {
 // **** 15.  nav compoenents interfaces
 export interface SideBarProps {
   routes: Route[];
+  filteredRoutes?: Route[];
 }
 
 

@@ -31,10 +31,11 @@ import { AppDispatch, RootState } from '@/utils/redux/appStore';
 import { SideBarProps } from '@/utils/interface/commonInterface';
 import { useResetRedux } from '@/utils/hooks/systemHooks/useResetRedux';
 import { toggleSidebar, toggleTheme } from '@/utils/redux/slices/stateSlice';
-import { planAccessMap, providerRoutes } from '@/utils/constants';
 
-
-const Sidebar: React.FC<SideBarProps> = ({ routes }) => {
+const Sidebar: React.FC<SideBarProps> = ({
+    routes,
+    filteredRoutes
+}) => {
 
     const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
@@ -43,10 +44,6 @@ const Sidebar: React.FC<SideBarProps> = ({ routes }) => {
     const sidebarOpen: boolean = useSelector((store: RootState) => store.state.sidebarOpen);
     const user: UserData | null = useSelector((store: RootState) => store.auth?.authUser);
     const themeMode: boolean = useSelector((store: RootState) => store.state.lightTheme);
-
-    const planName = user?.providerSubscription;
-    const allowedRouteNames = planName ? planAccessMap[planName] : planAccessMap["NoSubscription"];
-    const filteredRoutes = providerRoutes.filter(route => allowedRouteNames.includes(route.name));
 
     const handleSidebar = (): void => {
         dispatch(toggleSidebar());
@@ -108,24 +105,28 @@ const Sidebar: React.FC<SideBarProps> = ({ routes }) => {
                     <SingleTab icon={<PanelLeft />} text="" onClick={handleSidebar} sidebarOpen={sidebarOpen} />
 
                     {routes.map((route) => {
-                        const locked = !filteredRoutes.some(froute => froute.name === route.name);
-                        return !locked ? (
-                            <NavLink key={route.path} to={route.path}>
-                                <SingleTab
-                                    icon={getIcon(route.name)}
-                                    text={route.name}
-                                    sidebarOpen={sidebarOpen}
-                                />
-                            </NavLink>
-                        ) : (
+                        const isProvider = user?.role === "PROVIDER";
+                        const isLocked = isProvider && filteredRoutes
+                            ? !filteredRoutes.some(froute => froute.name === route.name)
+                            : false;
+
+                        const tab = (
                             <SingleTab
                                 key={route.path}
                                 icon={getIcon(route.name)}
                                 text={route.name}
                                 sidebarOpen={sidebarOpen}
-                                locked={locked}
+                                locked={isLocked}
                             />
-                        )
+                        );
+
+                        return !isLocked ? (
+                            <NavLink key={route.path} to={route.path}>
+                                {tab}
+                            </NavLink>
+                        ) : (
+                            tab
+                        );
                     })}
 
                 </ul>

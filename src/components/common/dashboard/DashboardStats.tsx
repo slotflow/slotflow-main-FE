@@ -1,5 +1,5 @@
 import StatsCard from '@/components/common/dashboard/StatsCard';
-import { statsMap, validPlans, validRoles } from '@/utils/constants';
+import { statsMapForProvider, validPlans, validRoles } from '@/utils/constants';
 import { ProviderFetchDashboardStatsDataResponse } from '@/utils/interface/api/providerApiInterface';
 import { limitedPlans, LimitedRoles } from '@/utils/interface/commonInterface';
 import { RootState } from '@/utils/redux/appStore';
@@ -51,8 +51,8 @@ const DashboardStats: React.FC<DashboardStatsProps> = ({
                 <p>Loading statistics...</p>
             ) : isNumericDataError ? (
                 <p className="text-red-500">Failed to load dashboard stats: {String(numericDataError)}</p>
-            ) : statsMap.length > 0 ? (
-                statsMap.map(({ title, key, icon, price, plans, roles }) => (
+            ) : statsMapForProvider.length > 0 ? (
+                statsMapForProvider.map(({ title, key, icon, price, plans }) => (
                     <StatsCard
                         key={key}
                         title={title}
@@ -60,7 +60,6 @@ const DashboardStats: React.FC<DashboardStatsProps> = ({
                         icon={icon}
                         price={price}
                         isShow={plans.includes(plan)}
-                        isAccess={roles.includes(role)}
                     />
                 ))
             ) : role === "PROVIDER" ? (

@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import AreaGroupedChart from '../chart/AreaGroupedChart';
-import RadialChart from '../chart/RadialChart';
-import BarChartVertical from '../chart/BarChartVertical';
-import LineChartHorizontal from '../chart/LineChartHorizontal';
-import ChartLineMultiple from '../chart/ChatLineMultiple';
-import PieChartCompletionBreakdown from '../chart/PieChartCompletionBreakdown';
-import { GraphView } from '@/utils/helper/GraphView';
-import { ProviderDashboardGraphResponse } from '@/utils/interface/api/providerApiInterface';
-import { useQuery } from '@tanstack/react-query';
-import { appointmentModeChartConfig, appointmentsOverTimeChartConfig, completionBreakdownChartConfig, newVsReturningUsersChartConfig, peakBookingHoursChartConfig, topBookingDaysChartConfig, validPlans } from '@/utils/constants';
-import BarChartHorizontal from '../chart/BarChartHorizontal';
-import { limitedPlans } from '@/utils/interface/commonInterface';
 import { useSelector } from 'react-redux';
+import RadialChart from '../chart/RadialChart';
+import { useQuery } from '@tanstack/react-query';
+import React, { useEffect, useState } from 'react';
 import { RootState } from '@/utils/redux/appStore';
+import { GraphView } from '@/utils/helper/GraphView';
+import BarChartVertical from '../chart/BarChartVertical';
+import AreaGroupedChart from '../chart/AreaGroupedChart';
+import ChartLineMultiple from '../chart/ChatLineMultiple';
+import BarChartHorizontal from '../chart/BarChartHorizontal';
+import LineChartHorizontal from '../chart/LineChartHorizontal';
+import { limitedPlans } from '@/utils/interface/commonInterface';
+import PieChartCompletionBreakdown from '../chart/PieChartCompletionBreakdown';
+import { ProviderDashboardGraphResponse } from '@/utils/interface/api/providerApiInterface';
+import { appointmentModeChartConfig, appointmentsOverTimeChartConfig, completionBreakdownChartConfig, newVsReturningUsersChartConfig, peakBookingHoursChartConfig, topBookingDaysChartConfig, validPlans } from '@/utils/constants';
 
 interface DashboardGraphsProps {
     queryFunction(): Promise<ProviderDashboardGraphResponse>;

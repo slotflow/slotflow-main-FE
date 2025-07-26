@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import Sidebar from "@/components/Navs/Sidebar";
-import { providerRoutes } from "@/utils/constants";
+import { planAccessMap, providerRoutes } from "@/utils/constants";
 import InfoHeader from "@/components/Navs/InfoHeader";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useLocation } from "react-router-dom";
@@ -17,6 +17,10 @@ const ProviderMainPage = () => {
   const user = useSelector((store: RootState) => store.auth.authUser);
   const dispatch = useDispatch<AppDispatch>();
   const location = useLocation();
+
+  const planName = user?.providerSubscription;
+  const allowedRouteNames = planName ? planAccessMap[planName] : planAccessMap["NoSubscription"];
+  const filteredRoutes = providerRoutes.filter(route => allowedRouteNames.includes(route.name));
 
   useEffect(() => {
     if (user?.isLoggedIn) {
@@ -46,10 +50,10 @@ const ProviderMainPage = () => {
 
   return user?.isAdminApproved && (
     <div className="flex h-screen bg-[var(--background)] transition-all duration-300">
-      <Sidebar routes={providerRoutes} />
+      <Sidebar routes={providerRoutes} filteredRoutes={filteredRoutes} />
       <div className={`flex-1 flex flex-col  ${sidebarOpen ? 'w-[85%]' : 'w-[95%]'} transition-all duration-300`}>
         <div className="flex-1 overflow-y-auto overscroll-y-contain no-scrollbar px-2">
-          <InfoHeader profileImage={user.profileImage ?? "/images/avatar.png"} username={user.username ?? ""}/>
+          <InfoHeader profileImage={user.profileImage ?? "/images/avatar.png"} username={user.username ?? ""} />
           <Outlet />
         </div>
       </div>

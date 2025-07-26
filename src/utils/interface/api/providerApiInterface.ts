@@ -104,9 +104,6 @@ export interface ProviderFetchDashboardStatsDataResponse {
   
   totalSubscriptionPaidAmount: number;
   totalEarnings: number;
-  totalEarningsThroughStripe: number;
-  totalEarningsThroughRazorpay: number;
-  totalEarningsThroughPaypal: number;
   todaysEarnings: number;
   totalPayoutsMade: number;
   pendingPayout: number;

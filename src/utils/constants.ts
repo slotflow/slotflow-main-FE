@@ -12,9 +12,6 @@ import {
   XCircle,
   Ban,
   ThumbsDown,
-  CreditCard,
-  IndianRupee,
-  DollarSign,
   LucideIcon,
 } from "lucide-react";
 import { ProviderFetchDashboardStatsDataResponse } from "./interface/api/providerApiInterface";
@@ -555,27 +552,24 @@ export const featureContent: featureContent[] = [
 
 
 // **** Dashboard Stats Cards Data
-export const statsMap: {
+export const statsMapForProvider: {
   title: string;
   key: keyof ProviderFetchDashboardStatsDataResponse;
   icon: LucideIcon;
   price?: boolean;
   plans: ("Starter" | "Professional" | "Enterprise" | "NoSubscription")[];
-  roles: ("PROVIDER" | "ADMIN" | null)[];
 }[] = [
     {
       title: "Total Appointments",
       key: "totalAppointments",
       icon: CalendarCheck,
       plans: ["Starter", "Professional", "Enterprise"],
-      roles: ["PROVIDER", "ADMIN"],
     },
     {
       title: "Today’s Appointments",
       key: "todaysAppointments",
       icon: Clock,
       plans: ["Starter", "Professional", "Enterprise"],
-      roles: ["PROVIDER", "ADMIN"],
     },
     {
       title: "Subscription Payments",
@@ -583,7 +577,6 @@ export const statsMap: {
       icon: Receipt,
       price: true,
       plans: ["Starter", "Professional", "Enterprise"],
-      roles: ["PROVIDER", "ADMIN"],
     },
     {
       title: "Total Earnings",
@@ -591,7 +584,6 @@ export const statsMap: {
       icon: Banknote,
       price: true,
       plans: ["Starter", "Professional", "Enterprise"],
-      roles: ["PROVIDER", "ADMIN"],
     },
     {
       title: "Total Payouts Made",
@@ -599,59 +591,30 @@ export const statsMap: {
       icon: Wallet,
       price: true,
       plans: ["Starter", "Professional", "Enterprise"],
-      roles: ["PROVIDER", "ADMIN"],
     },
     {
       title: "Completed Appointments",
       key: "completedAppointments",
       icon: CheckCircle,
       plans: ["Professional", "Enterprise"],
-      roles: ["PROVIDER", "ADMIN"],
     },
     {
       title: "Missed Appointments",
       key: "missedAppointments",
       icon: XCircle,
       plans: ["Professional", "Enterprise"],
-      roles: ["PROVIDER", "ADMIN"],
     },
     {
       title: "Cancelled by User",
       key: "cancelledAppointmentsByUser",
       icon: Ban,
       plans: ["Enterprise"],
-      roles: ["PROVIDER", "ADMIN"],
     },
     {
       title: "Rejected by Provider",
       key: "rejectedAppointmentsByProvider",
       icon: ThumbsDown,
       plans: ["Enterprise"],
-      roles: ["PROVIDER", "ADMIN"],
-    },
-    {
-      title: "Earnings via Stripe",
-      key: "totalEarningsThroughStripe",
-      icon: CreditCard,
-      price: true,
-      plans: [],
-      roles: ["ADMIN"],
-    },
-    {
-      title: "Earnings via Razorpay",
-      key: "totalEarningsThroughRazorpay",
-      icon: IndianRupee,
-      price: true,
-      plans: [],
-      roles: ["ADMIN"],
-    },
-    {
-      title: "Earnings via PayPal",
-      key: "totalEarningsThroughPaypal",
-      icon: DollarSign,
-      price: true,
-      plans: [],
-      roles: ["ADMIN"],
     },
     {
       title: "Today’s Earnings",
@@ -659,7 +622,6 @@ export const statsMap: {
       icon: TrendingUp,
       price: true,
       plans: ["Professional", "Enterprise"],
-      roles: ["PROVIDER", "ADMIN"],
     },
     {
       title: "Pending Payout",
@@ -667,7 +629,6 @@ export const statsMap: {
       icon: Hourglass,
       price: true,
       plans: ["Professional", "Enterprise"],
-      roles: ["PROVIDER", "ADMIN"],
     },
   ];
 
@@ -696,7 +657,7 @@ export const planChartAccess: Record<string, string[]> = {
 };
 
 
-// **** Provider Dashboard Graphs configs
+// **** Provider and Admin Dashboard Graphs configs
 export const appointmentsOverTimeChartConfig = {
   completed: {
     label: "Completed",
@@ -781,6 +742,20 @@ export const topBookingDaysChartConfig = {
     color: "#EC4899",
   },
 };
+export const earningsOverTimeChartConfig = {
+  stripe: {
+    label: "Stripe",
+    color: "#22c55e",
+  },
+  razorpay: {
+    label: "Razorpay",
+    color: "#f97316",
+  },
+  paypal: {
+    label: "Paypal",
+    color: "#ef4444",
+  },
+}
 
 
 // **** Valid plans and roles for the provider and admin side compoenents
