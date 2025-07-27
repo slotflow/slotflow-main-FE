@@ -1,18 +1,17 @@
-// import DashboardStats from "@/components/common/dashboard/DashboardStats";
-// import { adminFetchDashboardUserStatsData } from "@/utils/apis/adminDashboard.api";
-// import DashboardGraphs from "@/components/common/dashboard/DashboardGraphs";
+import DashboardStats from "@/components/common/dashboard/DashboardStats"
+import { adminFetchDashboardUserStatsData } from "@/utils/apis/adminDashboard.api"
+import { userStatsMapForAdmin } from "@/utils/constants"
+import { AdminFetchDashboardUserStatsDataResponse } from "@/utils/interface/api/adminDashboardApiInterface"
 
 const AdminDashboardPage = () => {
   return (
     <div className="pb-4">
-      {/* <DashboardStats
+      <DashboardStats<AdminFetchDashboardUserStatsDataResponse>
         queryFunction={adminFetchDashboardUserStatsData}
-        queryKey=""
-        statsMap={s}
-      /> */}
-      {/* <DashboardGraphs
-        queryFunction={providerFetchDashboardGraphData}
-      /> */}
+        queryKey="dashboardUserStats"
+        statsMap={userStatsMapForAdmin}
+        shimmerCount={3}
+      />
     </div>
   )
 }

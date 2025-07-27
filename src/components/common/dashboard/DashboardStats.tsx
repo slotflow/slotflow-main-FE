@@ -1,13 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
-import { statsMapIntrface } from '@/utils/constants';
+import DataFetchingError from '../DataFetchingError';
 import StatsCard from '@/components/common/dashboard/StatsCard';
-
+import { statsMapIntrface } from '@/utils/interface/commonInterface';
+import DashboardStatsShimmer from '@/components/shimmers/DashboardStatsShimmer';
 
 interface DashboardStatsProps<T extends Record<string, number>> {
-  queryFunction(): Promise<T>;
-  queryKey: string;
-  statsMap: Array<statsMapIntrface<T>>;
-  plan: string;
+    queryFunction(): Promise<T>;
+    queryKey: string;
+    statsMap: Array<statsMapIntrface<T>>;
+    plan?: string;
+    shimmerCount: number;
 }
 
 const DashboardStats = <T extends Record<string, number>>({
@@ -15,6 +17,7 @@ const DashboardStats = <T extends Record<string, number>>({
     queryKey,
     statsMap,
     plan,
+    shimmerCount
 }: DashboardStatsProps<T>) => {
 
     const {
@@ -28,13 +31,13 @@ const DashboardStats = <T extends Record<string, number>>({
         refetchOnWindowFocus: false,
     });
 
+    if (isNumericDataLoading) return <DashboardStatsShimmer count={shimmerCount} />
+
+    if (isNumericDataError && numericDataError) return <DataFetchingError message={"Data fetching failed"} />
+
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-2">
-            {isNumericDataLoading ? (
-                <p>Loading statistics...</p>
-            ) : isNumericDataError ? (
-                <p className="text-red-500">Failed to load dashboard stats: {String(numericDataError)}</p>
-            ) : statsMap.length > 0 ? (
+            {statsMap.length > 0 ? (
                 statsMap.map(({ title, key, icon, price, plans }) => (
                     <StatsCard
                         key={key as string}
@@ -42,7 +45,7 @@ const DashboardStats = <T extends Record<string, number>>({
                         value={dashboardStats?.[key] ?? 0}
                         icon={icon}
                         price={price}
-                        isShow={plans?.includes(plan)}
+                        isShow={!!plan && plans?.includes(plan)}
                     />
                 ))
             ) : null}

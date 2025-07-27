@@ -1,11 +1,11 @@
 import React from 'react';
-import DashboardStats from '@/components/common/dashboard/DashboardStats';
-import DashboardGraphs from '@/components/common/dashboard/DashboardGraphs';
-import { providerFetchDashboardGraphData, providerFetchDashboardStatsData } from '@/utils/apis/provider.api';
-import { statsMapForProvider } from '@/utils/constants';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/utils/redux/appStore';
+import { statsMapForProvider } from '@/utils/constants';
+import DashboardStats from '@/components/common/dashboard/DashboardStats';
+import DashboardGraphs from '@/components/provider/DashboardGraphsForProvider';
 import { ProviderFetchDashboardStatsDataResponse } from '@/utils/interface/api/providerApiInterface';
+import { providerFetchDashboardGraphData, providerFetchDashboardStatsData } from '@/utils/apis/provider.api';
 
 const ProviderDashboardPage: React.FC = () => {
 
@@ -18,9 +18,11 @@ const ProviderDashboardPage: React.FC = () => {
         queryKey='dashboardStats'
         statsMap={statsMapForProvider}
         plan={user?.providerSubscription ?? "NoSubscription"}
+        shimmerCount={14}
       />
       <DashboardGraphs
         queryFunction={providerFetchDashboardGraphData}
+        plan={user?.providerSubscription ?? "NoSubscription"}
       />
     </div>
   )

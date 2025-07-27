@@ -1,6 +1,8 @@
 import { ChangeEvent } from "react";
 import { ColumnDef } from "@tanstack/react-table";
 import { ChartConfig } from "@/components/ui/chart";
+import { Plan } from "./entityInterface/planInterface";
+import { LucideIcon } from "lucide-react";
 
 // **** 1.  Common Response interface
 export interface ApiBaseResponse {
@@ -149,7 +151,7 @@ export interface Route {
   name: string;
 }
 // **** 16.2  gsap animation object interface
-export interface gsapBigSvgYDirectionAnimationProps {
+export interface gsapBigSvgYDirectionAnimationInterface {
   y: number,
   duration: number,
   yoyo: boolean,
@@ -199,19 +201,19 @@ export interface FetchFunctionParams<T = string> {
 
 // **** 21.  formate date timeRage Enum
 export type TimeRange = "7d"
-| "14d"
-| "30d"
-| "45d"
-| "60d"
-| "90d"
-| "180d"
-| "365d"
+  | "14d"
+  | "30d"
+  | "45d"
+  | "60d"
+  | "90d"
+  | "180d"
+  | "365d"
 
 
 // **** 22.  dateSelect data interface
-export interface dataSelectListItem {
-    value: string;
-    content: string;
+export interface dataSelectListItemInterface {
+  value: string;
+  content: string;
 }
 
 
@@ -247,3 +249,79 @@ export type BaseChartData = {
   date: string;
   [key: string]: number | string | undefined;
 };
+
+
+//// **** 27. Provider service availability component day map interface
+export interface DayMapInterface {
+  [key: string]: {
+    day: string,
+    tab: number
+  }
+}
+
+
+//// **** 28. 
+export interface PlanFeatureInterface {
+  type: string;
+  features: {
+    name: string;
+    free: boolean;
+    starter: boolean;
+    professional: boolean;
+    enterprise: boolean;
+  }[];
+}
+
+
+//// **** 29. 
+export type PlanListType = Array<Pick<Plan, "_id" | "planName" | "description" | "features" | "price">>
+
+
+//// **** 30. 
+export interface FooterLinkInterface {
+  text: string;
+  href: string;
+}
+
+
+//// **** 31. 
+export interface FooterColumnDataInterface {
+  title: string;
+  links: FooterLinkInterface[];
+}
+
+
+//// **** 32.
+export interface ProviderApprovalMessageInterface {
+  heading: string;
+  message1: string;
+  message2: string;
+  footerNote: string;
+}
+
+
+//// **** 33. Feature Content interface
+export interface FeatureContentInterface {
+  title: string;
+  description: string;
+  href: string;
+}
+
+
+//// **** 34. 
+export interface statsMapIntrface<T> {
+  title: string;
+  key: keyof T;
+  icon: LucideIcon;
+  price?: boolean;
+  plans?: string[];
+}
+
+
+//// **** 35. 
+export interface StatsMapForAdminInterface {
+  title: string;
+  key: string;
+  icon: LucideIcon;
+  price?: boolean;
+}

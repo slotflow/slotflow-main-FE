@@ -1,5 +1,3 @@
-import { Plan } from "./interface/entityInterface/planInterface";
-import { dataSelectListItem, gsapBigSvgYDirectionAnimationProps, HeaderCompoenentNavsProps, Route } from "./interface/commonInterface";
 import {
   Banknote,
   CalendarCheck,
@@ -12,7 +10,6 @@ import {
   XCircle,
   Ban,
   ThumbsDown,
-  LucideIcon,
   UserPlus,
   Users,
   UserCheck,
@@ -32,6 +29,7 @@ import {
   DollarSign,
 } from "lucide-react";
 import { ProviderFetchDashboardStatsDataResponse } from "./interface/api/providerApiInterface";
+import { dataSelectListItemInterface, DayMapInterface, FeatureContentInterface, FooterColumnDataInterface, FooterLinkInterface, gsapBigSvgYDirectionAnimationInterface, HeaderCompoenentNavsProps, PlanFeatureInterface, PlanListType, ProviderApprovalMessageInterface, Route, StatsMapForAdminInterface, statsMapIntrface } from "./interface/commonInterface";
 
 // **** Routes for admin **** \\
 export const adminRoutes: Route[] = [
@@ -132,7 +130,7 @@ export const planAccessMap: Record<string, string[]> = {
 
 
 // **** Gsap animation common oject **** \\
-export const gsapBigSvgYDirectionAnimation: gsapBigSvgYDirectionAnimationProps = {
+export const gsapBigSvgYDirectionAnimation: gsapBigSvgYDirectionAnimationInterface = {
   y: 20,
   duration: 1,
   yoyo: true,
@@ -170,12 +168,7 @@ export const providerTabs: { tabName: string, admin: boolean, user: boolean }[] 
 ];
 
 // **** Provider service availability component day map **** \\
-export const dayMap: {
-  [key: string]: {
-    day: string,
-    tab: number
-  }
-} = {
+export const dayMap: DayMapInterface = {
   "Sun": { day: "Sunday", tab: 0 },
   "Mon": { day: "Monday", tab: 1 },
   "Tue": { day: "Tuesday", tab: 2 },
@@ -199,7 +192,7 @@ export const shimmerMessages: { align: string, height: string, width: string }[]
 ];
 
 // **** ChartHeader date selector data **** \\
-export const dateSelectList: dataSelectListItem[] = [
+export const dateSelectList: dataSelectListItemInterface[] = [
   { value: "7d", content: "Last 7 days" },
   { value: "14d", content: "Last 14 days" },
   { value: "30d", content: "Last month" },
@@ -211,20 +204,7 @@ export const dateSelectList: dataSelectListItem[] = [
 
 
 // **** Pricing Setion Data
-interface PlanFeature {
-  type: string;
-  features: {
-    name: string;
-    free: boolean;
-    starter: boolean;
-    professional: boolean;
-    enterprise: boolean;
-  }[];
-}
-
-type PlanList = Array<Pick<Plan, "_id" | "planName" | "description" | "features" | "price">>
-
-export const PlanList: PlanList = [
+export const PlanList: PlanListType = [
   {
     _id: "0",
     planName: "Free",
@@ -283,7 +263,9 @@ export const PlanList: PlanList = [
   }
 ]
 
-export const planFeatures: PlanFeature[] = [
+
+//// **** Plan feature comparison table
+export const planFeatures: PlanFeatureInterface[] = [
   {
     type: "Support",
     features: [
@@ -477,17 +459,7 @@ export const planFeatures: PlanFeature[] = [
 
 
 // **** FooterBar Data
-interface FooterLink {
-  text: string;
-  href: string;
-}
-
-interface FooterColumnProps {
-  title: string;
-  links: FooterLink[];
-}
-
-export const columns: FooterColumnProps[] = [
+export const footerColumnData: FooterColumnDataInterface[] = [
   {
     title: "Plans For your service",
     links: [
@@ -516,7 +488,7 @@ export const columns: FooterColumnProps[] = [
   },
 ]
 export const copyright: string = " slotflow All rights reserved"
-export const policies: FooterLink[] = [
+export const policies: FooterLinkInterface[] = [
   { text: "Privacy Policy", href: "" },
   { text: "Terms of Service", href: "" },
 ]
@@ -524,13 +496,7 @@ export const about: string = "Simplifying appointment scheduling for individuals
 
 
 // **** Approval Pending Page data
-interface ApprovalMessage {
-  heading: string;
-  message1: string;
-  message2: string;
-  footerNote: string;
-}
-export const approvalMessages: ApprovalMessage = {
+export const approvalMessages: ProviderApprovalMessageInterface = {
   heading: "Approval in Progress",
   message1: "Thank you for your patience. Your request is currently being reviewed. We will notify you as soon as the process is complete.",
   message2: "We will notify you via email.",
@@ -538,13 +504,8 @@ export const approvalMessages: ApprovalMessage = {
 };
 
 
-// **** Features Section Data
-interface featureContent {
-  title: string;
-  description: string;
-  href: string;
-}
-export const featureContent: featureContent[] = [
+// **** Features Section Content
+export const featureContent: FeatureContentInterface[] = [
   {
     title: "Collaborative Editing",
     description: "Work together in real time with your team, clients, and stakeholders. Collaborate on documents, share ideas, and make decisions quickly. With our platform, you can streamline your workflow and increase productivity.",
@@ -569,13 +530,6 @@ export const featureContent: featureContent[] = [
 
 
 // **** Provider Dashboard Stats Cards Data
-export interface statsMapIntrface<T> {
-    title: string;
-    key: keyof T;
-    icon: LucideIcon;
-    price?: boolean;
-    plans?: string[];
-  }
 export const statsMapForProvider: Array<statsMapIntrface<ProviderFetchDashboardStatsDataResponse>> = [
   {
     title: "Total Appointments",
@@ -776,18 +730,26 @@ export const earningsOverTimeChartConfig = {
 }
 
 
-// **** Valid plans and roles for the provider and admin side compoenents
-export const validPlans = ["Starter", "Professional", "Enterprise", "NoSubscription"] as const;
-export const validRoles = ["PROVIDER", "ADMIN"] as const;
-
-
 // **** Admin Dashboard Stats Cards Data
-export const statsMapForAdmin: {
-  title: string;
-  key: string;
-  icon: LucideIcon;
-  price?: boolean;
-}[] = [
+export const userStatsMapForAdmin: StatsMapForAdminInterface[] = [
+  {
+      title: "Total Users",
+      key: "totalUsers",
+      icon: Users,
+    },
+    {
+      title: "Email Verified Users",
+      key: "emailVerifiedUsers",
+      icon: UserCheck,
+    },
+    {
+      title: "Blocked Users",
+      key: "blockedUsers",
+      icon: UserX,
+    },
+]
+
+export const statsMapForAdmin: StatsMapForAdminInterface[] = [
     // AdminDashboardDateRangeStatsData
     {
       title: "New Users",
@@ -822,21 +784,6 @@ export const statsMapForAdmin: {
       icon: Ban,
     },
     // AdminUserStats
-    {
-      title: "Total Users",
-      key: "totalUsers",
-      icon: Users,
-    },
-    {
-      title: "Email Verified Users",
-      key: "emailVerifiedUsers",
-      icon: UserCheck,
-    },
-    {
-      title: "Blocked Users",
-      key: "blockedUsers",
-      icon: UserX,
-    },
     // ---- PROVIDER STATS ----
     {
       title: "Total Providers",

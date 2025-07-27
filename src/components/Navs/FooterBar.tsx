@@ -5,7 +5,7 @@ import {
   FooterContent,
 } from "@/components/ui/footer";
 import { cn } from "@/lib/utils";
-import { about, columns, copyright, policies } from "@/utils/constants";
+import { about, footerColumnData, copyright, policies } from "@/utils/constants";
 
 interface FooterProps {
   className?: string;
@@ -25,7 +25,7 @@ const FooterBar = ({
                 <h4 className="text-[var(--mainColor)] text-2xl font-bold italic hover:bg-[var(--mainColor)] hover:text-white rounded-lg cursor-pointer">Slotflow</h4>
               </div>
             </FooterColumn>
-            {columns.map((column, index) => (
+            {footerColumnData.map((column, index) => (
               <FooterColumn key={index}>
                 <h3 className="text-md pt-1 font-semibold">{column.title}</h3>
                 {column.links.map((link, linkIndex) => (

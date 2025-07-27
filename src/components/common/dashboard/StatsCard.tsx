@@ -5,7 +5,7 @@ import { Activity, LockIcon, LucideIcon } from 'lucide-react';
 import { formatNumberToPrice } from '@/utils/helper/formatter';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
-interface DashboardCardOneInterface {
+interface DashboardCardOneProps {
   title: string;
   value: number;
   icon: LucideIcon;
@@ -13,7 +13,7 @@ interface DashboardCardOneInterface {
   isShow?: boolean;
 }
 
-const StatsCard: React.FC<DashboardCardOneInterface> = ({ title, value, icon: Icon, price, isShow }) => {
+const StatsCard: React.FC<DashboardCardOneProps> = ({ title, value, icon: Icon, price, isShow }) => {
 
   const themeMode = useSelector((store: RootState) => store.state.lightTheme);
 

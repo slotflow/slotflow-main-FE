@@ -1,42 +1,26 @@
-import { useSelector } from 'react-redux';
-import RadialChart from '../chart/RadialChart';
+import React from 'react';
+import RadialChart from '../common/chart/RadialChart';
 import { useQuery } from '@tanstack/react-query';
-import React, { useEffect, useState } from 'react';
-import { RootState } from '@/utils/redux/appStore';
 import { GraphView } from '@/utils/helper/GraphView';
-import BarChartVertical from '../chart/BarChartVertical';
-import AreaGroupedChart from '../chart/AreaGroupedChart';
-import ChartLineMultiple from '../chart/ChatLineMultiple';
-import BarChartHorizontal from '../chart/BarChartHorizontal';
-import LineChartHorizontal from '../chart/LineChartHorizontal';
-import { limitedPlans } from '@/utils/interface/commonInterface';
-import PieChartCompletionBreakdown from '../chart/PieChartCompletionBreakdown';
+import BarChartVertical from '../common/chart/BarChartVertical';
+import AreaGroupedChart from '../common/chart/AreaGroupedChart';
+import ChartLineMultiple from '../common/chart/ChatLineMultiple';
+import BarChartHorizontal from '../common/chart/BarChartHorizontal';
+import LineChartHorizontal from '../common/chart/LineChartHorizontal';
+import PieChartCompletionBreakdown from '../common/chart/PieChartCompletionBreakdown';
 import { ProviderDashboardGraphResponse } from '@/utils/interface/api/providerApiInterface';
-import { appointmentModeChartConfig, appointmentsOverTimeChartConfig, completionBreakdownChartConfig, newVsReturningUsersChartConfig, peakBookingHoursChartConfig, topBookingDaysChartConfig, validPlans } from '@/utils/constants';
+import { appointmentModeChartConfig, appointmentsOverTimeChartConfig, completionBreakdownChartConfig, newVsReturningUsersChartConfig, peakBookingHoursChartConfig, topBookingDaysChartConfig } from '@/utils/constants';
 
-interface DashboardGraphsProps {
+interface DashboardGraphsForProviderProps {
     queryFunction(): Promise<ProviderDashboardGraphResponse>;
+    plan: string;
 }
 
-const DashboardGraphs: React.FC<DashboardGraphsProps> = ({
-    queryFunction
+const DashboardGraphsForProvider: React.FC<DashboardGraphsForProviderProps> = ({
+    queryFunction,
+    plan
 }) => {
-
-    const [plan, setPlan] = useState<limitedPlans>("NoSubscription");
-    const user = useSelector((store: RootState) => store.auth.authUser);
-
-
-    useEffect(() => {
-        if (!user || !user.providerSubscription) return;
-
-        if (validPlans.includes(user.providerSubscription as limitedPlans)) {
-            setPlan(user.providerSubscription as limitedPlans);
-        } else {
-            setPlan("NoSubscription");
-        }
-
-    }, [user]);
-
+    
     const {
         data: dashboardGraphData,
         isLoading: isGraphLoading,
@@ -127,4 +111,4 @@ const DashboardGraphs: React.FC<DashboardGraphsProps> = ({
     )
 }
 
-export default DashboardGraphs
+export default DashboardGraphsForProvider;
