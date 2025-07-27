@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@/utils/redux/appStore';
 import { statsMapForProvider } from '@/utils/constants';
 import DashboardStats from '@/components/common/dashboard/DashboardStats';
-import DashboardGraphs from '@/components/provider/DashboardGraphsForProvider';
+import ProviderDashboardGraphs from '@/components/provider/ProviderDashboardGraphs';
 import { ProviderFetchDashboardStatsDataResponse } from '@/utils/interface/api/providerApiInterface';
 import { providerFetchDashboardGraphData, providerFetchDashboardStatsData } from '@/utils/apis/provider.api';
 
@@ -19,8 +19,9 @@ const ProviderDashboardPage: React.FC = () => {
         statsMap={statsMapForProvider}
         plan={user?.providerSubscription ?? "NoSubscription"}
         shimmerCount={14}
+        role='PROVIDER'
       />
-      <DashboardGraphs
+      <ProviderDashboardGraphs
         queryFunction={providerFetchDashboardGraphData}
         plan={user?.providerSubscription ?? "NoSubscription"}
       />

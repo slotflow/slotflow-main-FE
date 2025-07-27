@@ -42,11 +42,9 @@ export interface AdminFetchDashboardRevenueStatsDataResponse extends Record<stri
 export interface AdminFetchDashboardPaymentStatsDataResponse extends Record<string, number> {
     totalRefundsIssued: number;
     totalFailedPayments: number;
-    
     revenueByStripe: number;
     revenueByRazorpay: number;
     revenueByPaypal: number;
-    
     totalPayoutsToProviders: number;
 }
 

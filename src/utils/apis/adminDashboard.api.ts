@@ -11,13 +11,13 @@ export const adminFetchDashboardProviderStatsData = async () : Promise<AdminFetc
     return response.data.data;
 }
 
-export const adminFetchDashboardRevenueStatsData = async () : Promise<AdminFetchDashboardRevenueStatsDataResponse> => {
-    const response = await axiosInstance.get('/admin/getDashboardRevenueStats');
+export const adminFetchDashboardSubscriptionStatsData = async () : Promise<AdminFetchDashboardSubscriptionStatsDataResponse> => {
+    const response = await axiosInstance.get('/admin/getDashboardSubscriptionStats');
     return response.data.data;
 }
 
-export const adminFetchDashboardSubscriptionStatsData = async () : Promise<AdminFetchDashboardSubscriptionStatsDataResponse> => {
-    const response = await axiosInstance.get('/admin/getDashboardSubscriptionStats');
+export const adminFetchDashboardRevenueStatsData = async () : Promise<AdminFetchDashboardRevenueStatsDataResponse> => {
+    const response = await axiosInstance.get('/admin/getDashboardRevenueStats');
     return response.data.data;
 }
 

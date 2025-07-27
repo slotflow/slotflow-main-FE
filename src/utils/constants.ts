@@ -749,43 +749,8 @@ export const userStatsMapForAdmin: StatsMapForAdminInterface[] = [
     },
 ]
 
-export const statsMapForAdmin: StatsMapForAdminInterface[] = [
-    // AdminDashboardDateRangeStatsData
-    {
-      title: "New Users",
-      key: "newUsers",
-      icon: UserPlus,
-    },
-    {
-      title: "New Providers",
-      key: "newProviders",
-      icon: UserCheck,
-    },
-    {
-      title: "Today’s Revenue",
-      key: "todaysTotalRevenue",
-      icon: TrendingUp,
-      price: true,
-    },
-    {
-      title: "Today’s Payouts",
-      key: "todaysTotalPayouts",
-      icon: Wallet,
-      price: true,
-    },
-    {
-      title: "Today’s Appointments",
-      key: "todaysAppointments",
-      icon: CalendarCheck,
-    },
-    {
-      title: "Today’s Cancellations",
-      key: "todaysCancelledAppointments",
-      icon: Ban,
-    },
-    // AdminUserStats
-    // ---- PROVIDER STATS ----
-    {
+export const providerStatsMapForAdmin: StatsMapForAdminInterface[] = [
+  {
       title: "Total Providers",
       key: "totalProviders",
       icon: Users,
@@ -820,8 +785,45 @@ export const statsMapForAdmin: StatsMapForAdminInterface[] = [
       key: "availabilityAddedProviders",
       icon: CalendarClock,
     },
-    // ---- SUBSCRIPTION STATS ----
+]
+
+export const todayStatsMapForAdmin: StatsMapForAdminInterface[] = [
+      {
+      title: "New Users",
+      key: "newUsers",
+      icon: UserPlus,
+    },
     {
+      title: "New Providers",
+      key: "newProviders",
+      icon: UserCheck,
+    },
+    {
+      title: "Today’s Revenue",
+      key: "todaysTotalRevenue",
+      icon: TrendingUp,
+      price: true,
+    },
+    {
+      title: "Today’s Payouts",
+      key: "todaysTotalPayouts",
+      icon: Wallet,
+      price: true,
+    },
+    {
+      title: "Today’s Appointments",
+      key: "todaysAppointments",
+      icon: CalendarCheck,
+    },
+    {
+      title: "Today’s Cancellations",
+      key: "todaysCancelledAppointments",
+      icon: Ban,
+    },
+]
+
+export const subscriptionStatsMapForAdmin: StatsMapForAdminInterface[] = [
+      {
       title: "Active Subscriptions",
       key: "activeSubscriptions",
       icon: BadgeCheck,
@@ -856,8 +858,10 @@ export const statsMapForAdmin: StatsMapForAdminInterface[] = [
       key: "subscriptionsByEnterprisePlan",
       icon: Gem,
     },
-    // --- REVENUE ---
-    {
+]
+
+export const revenueStatsMapForAdmin: StatsMapForAdminInterface[] = [
+      {
       title: "Total Revenue",
       key: "totalRevenue",
       icon: Banknote,
@@ -893,8 +897,10 @@ export const statsMapForAdmin: StatsMapForAdminInterface[] = [
       icon: CreditCard,
       price: true,
     },
-    // --- PAYMENTS & REFUNDS ---
-    {
+]
+
+export const paymentsStatsMapForAdmin: StatsMapForAdminInterface[] = [
+      {
       title: "Total Refunds Issued",
       key: "totalRefundsIssued",
       icon: RotateCcw,
@@ -930,7 +936,8 @@ export const statsMapForAdmin: StatsMapForAdminInterface[] = [
       icon: Wallet,
       price: true,
     },
-    // --- TOTAL APPOINTMENTS STATS ---
+]
+export const AppointmentsStatsMapForAdmin: StatsMapForAdminInterface[] = [
     {
       title: "Total Appointments",
       key: "totalAppointments",

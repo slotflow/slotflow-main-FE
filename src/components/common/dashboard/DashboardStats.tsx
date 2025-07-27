@@ -10,6 +10,8 @@ interface DashboardStatsProps<T extends Record<string, number>> {
     statsMap: Array<statsMapIntrface<T>>;
     plan?: string;
     shimmerCount: number;
+    heading?: string;
+    role: string;
 }
 
 const DashboardStats = <T extends Record<string, number>>({
@@ -17,7 +19,9 @@ const DashboardStats = <T extends Record<string, number>>({
     queryKey,
     statsMap,
     plan,
-    shimmerCount
+    shimmerCount,
+    heading,
+    role,
 }: DashboardStatsProps<T>) => {
 
     const {
@@ -28,6 +32,7 @@ const DashboardStats = <T extends Record<string, number>>({
     } = useQuery({
         queryKey: [queryKey],
         queryFn: queryFunction,
+        staleTime: 1 * 60 * 1000,
         refetchOnWindowFocus: false,
     });
 
@@ -36,20 +41,23 @@ const DashboardStats = <T extends Record<string, number>>({
     if (isNumericDataError && numericDataError) return <DataFetchingError message={"Data fetching failed"} />
 
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-2">
-            {statsMap.length > 0 ? (
-                statsMap.map(({ title, key, icon, price, plans }) => (
-                    <StatsCard
-                        key={key as string}
-                        title={title}
-                        value={dashboardStats?.[key] ?? 0}
-                        icon={icon}
-                        price={price}
-                        isShow={!!plan && plans?.includes(plan)}
-                    />
-                ))
-            ) : null}
-        </div>
+        <>
+        <h4 className='p-2 text-lg font-bold'>{heading}</h4>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-2">
+                {statsMap.length > 0 ? (
+                    statsMap.map(({ title, key, icon, price, plans }) => (
+                        <StatsCard
+                            key={key as string}
+                            title={title}
+                            value={dashboardStats?.[key] ?? 0}
+                            icon={icon}
+                            price={price}
+                            isShow={role === "PROVIDER" ? plans?.includes(plan!) : true}
+                        />
+                    ))
+                ) : null}
+            </div>
+        </>
     )
 }
 

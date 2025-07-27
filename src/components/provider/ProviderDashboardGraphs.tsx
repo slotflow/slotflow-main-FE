@@ -16,7 +16,7 @@ interface DashboardGraphsForProviderProps {
     plan: string;
 }
 
-const DashboardGraphsForProvider: React.FC<DashboardGraphsForProviderProps> = ({
+const ProviderDashboardGraphs: React.FC<DashboardGraphsForProviderProps> = ({
     queryFunction,
     plan
 }) => {
@@ -111,4 +111,4 @@ const DashboardGraphsForProvider: React.FC<DashboardGraphsForProviderProps> = ({
     )
 }
 
-export default DashboardGraphsForProvider;
+export default ProviderDashboardGraphs;
