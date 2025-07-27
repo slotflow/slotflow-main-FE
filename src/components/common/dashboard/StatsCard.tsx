@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 interface DashboardCardOneInterface {
   title: string;
-  value: number | string;
+  value: number;
   icon: LucideIcon;
   price?: boolean;
   isShow?: boolean;

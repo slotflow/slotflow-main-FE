@@ -94,14 +94,13 @@ export type ProviderFetchUsersForChatSidebarResponse = Array<Pick<User, "_id" | 
 
 
 // **** 19. Used as the return interface for the provider fetch dashboard data
-export interface ProviderFetchDashboardStatsDataResponse {
+export interface ProviderFetchDashboardStatsDataResponse extends Record<string, number> {
   totalAppointments: number;
   completedAppointments: number;
   missedAppointments: number;
   cancelledAppointmentsByUser: number;
   rejectedAppointmentsByProvider: number;
   todaysAppointments: number;
-  
   totalSubscriptionPaidAmount: number;
   totalEarnings: number;
   todaysEarnings: number;

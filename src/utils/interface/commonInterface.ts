@@ -135,7 +135,6 @@ export interface CommonButtonProps {
 // **** 14.  Common role button props interface
 
 
-
 // **** 15.  nav compoenents interfaces
 export interface SideBarProps {
   routes: Route[];

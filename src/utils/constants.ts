@@ -13,6 +13,23 @@ import {
   Ban,
   ThumbsDown,
   LucideIcon,
+  UserPlus,
+  Users,
+  UserCheck,
+  UserX,
+  ShieldCheck,
+  MapPin,
+  Briefcase,
+  CalendarClock,
+  BadgeCheck,
+  LayoutGrid,
+  Layers,
+  Rocket,
+  Gem,
+  CreditCard,
+  RotateCcw,
+  IndianRupee,
+  DollarSign,
 } from "lucide-react";
 import { ProviderFetchDashboardStatsDataResponse } from "./interface/api/providerApiInterface";
 
@@ -551,86 +568,87 @@ export const featureContent: featureContent[] = [
 ];
 
 
-// **** Dashboard Stats Cards Data
-export const statsMapForProvider: {
-  title: string;
-  key: keyof ProviderFetchDashboardStatsDataResponse;
-  icon: LucideIcon;
-  price?: boolean;
-  plans: ("Starter" | "Professional" | "Enterprise" | "NoSubscription")[];
-}[] = [
-    {
-      title: "Total Appointments",
-      key: "totalAppointments",
-      icon: CalendarCheck,
-      plans: ["Starter", "Professional", "Enterprise"],
-    },
-    {
-      title: "Today’s Appointments",
-      key: "todaysAppointments",
-      icon: Clock,
-      plans: ["Starter", "Professional", "Enterprise"],
-    },
-    {
-      title: "Subscription Payments",
-      key: "totalSubscriptionPaidAmount",
-      icon: Receipt,
-      price: true,
-      plans: ["Starter", "Professional", "Enterprise"],
-    },
-    {
-      title: "Total Earnings",
-      key: "totalEarnings",
-      icon: Banknote,
-      price: true,
-      plans: ["Starter", "Professional", "Enterprise"],
-    },
-    {
-      title: "Total Payouts Made",
-      key: "totalPayoutsMade",
-      icon: Wallet,
-      price: true,
-      plans: ["Starter", "Professional", "Enterprise"],
-    },
-    {
-      title: "Completed Appointments",
-      key: "completedAppointments",
-      icon: CheckCircle,
-      plans: ["Professional", "Enterprise"],
-    },
-    {
-      title: "Missed Appointments",
-      key: "missedAppointments",
-      icon: XCircle,
-      plans: ["Professional", "Enterprise"],
-    },
-    {
-      title: "Cancelled by User",
-      key: "cancelledAppointmentsByUser",
-      icon: Ban,
-      plans: ["Enterprise"],
-    },
-    {
-      title: "Rejected by Provider",
-      key: "rejectedAppointmentsByProvider",
-      icon: ThumbsDown,
-      plans: ["Enterprise"],
-    },
-    {
-      title: "Today’s Earnings",
-      key: "todaysEarnings",
-      icon: TrendingUp,
-      price: true,
-      plans: ["Professional", "Enterprise"],
-    },
-    {
-      title: "Pending Payout",
-      key: "pendingPayout",
-      icon: Hourglass,
-      price: true,
-      plans: ["Professional", "Enterprise"],
-    },
-  ];
+// **** Provider Dashboard Stats Cards Data
+export interface statsMapIntrface<T> {
+    title: string;
+    key: keyof T;
+    icon: LucideIcon;
+    price?: boolean;
+    plans?: string[];
+  }
+export const statsMapForProvider: Array<statsMapIntrface<ProviderFetchDashboardStatsDataResponse>> = [
+  {
+    title: "Total Appointments",
+    key: "totalAppointments",
+    icon: CalendarCheck,
+    plans: ["Starter", "Professional", "Enterprise"],
+  },
+  {
+    title: "Today’s Appointments",
+    key: "todaysAppointments",
+    icon: Clock,
+    plans: ["Starter", "Professional", "Enterprise"],
+  },
+  {
+    title: "Subscription Payments",
+    key: "totalSubscriptionPaidAmount",
+    icon: Receipt,
+    price: true,
+    plans: ["Starter", "Professional", "Enterprise"],
+  },
+  {
+    title: "Total Earnings",
+    key: "totalEarnings",
+    icon: Banknote,
+    price: true,
+    plans: ["Starter", "Professional", "Enterprise"],
+  },
+  {
+    title: "Total Payouts Made",
+    key: "totalPayoutsMade",
+    icon: Wallet,
+    price: true,
+    plans: ["Starter", "Professional", "Enterprise"],
+  },
+  {
+    title: "Completed Appointments",
+    key: "completedAppointments",
+    icon: CheckCircle,
+    plans: ["Professional", "Enterprise"],
+  },
+  {
+    title: "Missed Appointments",
+    key: "missedAppointments",
+    icon: XCircle,
+    plans: ["Professional", "Enterprise"],
+  },
+  {
+    title: "Cancelled by User",
+    key: "cancelledAppointmentsByUser",
+    icon: Ban,
+    plans: ["Enterprise"],
+  },
+  {
+    title: "Rejected by Provider",
+    key: "rejectedAppointmentsByProvider",
+    icon: ThumbsDown,
+    plans: ["Enterprise"],
+  },
+  {
+    title: "Today’s Earnings",
+    key: "todaysEarnings",
+    icon: TrendingUp,
+    price: true,
+    plans: ["Professional", "Enterprise"],
+  },
+  {
+    title: "Pending Payout",
+    key: "pendingPayout",
+    icon: Hourglass,
+    price: true,
+    plans: ["Professional", "Enterprise"],
+  },
+];
 
 
 // **** Provider Dashboard Graphs map according to plan
@@ -761,3 +779,234 @@ export const earningsOverTimeChartConfig = {
 // **** Valid plans and roles for the provider and admin side compoenents
 export const validPlans = ["Starter", "Professional", "Enterprise", "NoSubscription"] as const;
 export const validRoles = ["PROVIDER", "ADMIN"] as const;
+
+
+// **** Admin Dashboard Stats Cards Data
+export const statsMapForAdmin: {
+  title: string;
+  key: string;
+  icon: LucideIcon;
+  price?: boolean;
+}[] = [
+    // AdminDashboardDateRangeStatsData
+    {
+      title: "New Users",
+      key: "newUsers",
+      icon: UserPlus,
+    },
+    {
+      title: "New Providers",
+      key: "newProviders",
+      icon: UserCheck,
+    },
+    {
+      title: "Today’s Revenue",
+      key: "todaysTotalRevenue",
+      icon: TrendingUp,
+      price: true,
+    },
+    {
+      title: "Today’s Payouts",
+      key: "todaysTotalPayouts",
+      icon: Wallet,
+      price: true,
+    },
+    {
+      title: "Today’s Appointments",
+      key: "todaysAppointments",
+      icon: CalendarCheck,
+    },
+    {
+      title: "Today’s Cancellations",
+      key: "todaysCancelledAppointments",
+      icon: Ban,
+    },
+    // AdminUserStats
+    {
+      title: "Total Users",
+      key: "totalUsers",
+      icon: Users,
+    },
+    {
+      title: "Email Verified Users",
+      key: "emailVerifiedUsers",
+      icon: UserCheck,
+    },
+    {
+      title: "Blocked Users",
+      key: "blockedUsers",
+      icon: UserX,
+    },
+    // ---- PROVIDER STATS ----
+    {
+      title: "Total Providers",
+      key: "totalProviders",
+      icon: Users,
+    },
+    {
+      title: "Email Verified Providers",
+      key: "emailVerifiedProviders",
+      icon: UserCheck,
+    },
+    {
+      title: "Admin Verified Providers",
+      key: "adminVerifiedProviders",
+      icon: ShieldCheck,
+    },
+    {
+      title: "Blocked Providers",
+      key: "blockedProviders",
+      icon: UserX,
+    },
+    {
+      title: "Address Added Providers",
+      key: "addressAddedProviders",
+      icon: MapPin,
+    },
+    {
+      title: "Service Added Providers",
+      key: "serviceAddedProviders",
+      icon: Briefcase,
+    },
+    {
+      title: "Availability Added Providers",
+      key: "availabilityAddedProviders",
+      icon: CalendarClock,
+    },
+    // ---- SUBSCRIPTION STATS ----
+    {
+      title: "Active Subscriptions",
+      key: "activeSubscriptions",
+      icon: BadgeCheck,
+    },
+    {
+      title: "Expired Subscriptions",
+      key: "expiredSubscriptions",
+      icon: Ban,
+    },
+    {
+      title: "Not Subscribed Providers",
+      key: "notSubscribedProviders",
+      icon: UserX,
+    },
+    {
+      title: "Free Plan Subscriptions",
+      key: "subscriptionsByFreePlan",
+      icon: LayoutGrid,
+    },
+    {
+      title: "Starter Plan Subscriptions",
+      key: "subscriptionsByStarterPlan",
+      icon: Layers,
+    },
+    {
+      title: "Professional Plan Subscriptions",
+      key: "subscriptionsByProfessionalPlan",
+      icon: Rocket,
+    },
+    {
+      title: "Enterprise Plan Subscriptions",
+      key: "subscriptionsByEnterprisePlan",
+      icon: Gem,
+    },
+    // --- REVENUE ---
+    {
+      title: "Total Revenue",
+      key: "totalRevenue",
+      icon: Banknote,
+      price: true,
+    },
+    {
+      title: "Revenue via Subscriptions",
+      key: "totalRevenueViaSubscriptions",
+      icon: Receipt,
+      price: true,
+    },
+    {
+      title: "Revenue from Starter Plan",
+      key: "revenueByStarterPlan",
+      icon: LayoutGrid,
+      price: true,
+    },
+    {
+      title: "Revenue from Professional Plan",
+      key: "revenueByProfessionalPlan",
+      icon: Rocket,
+      price: true,
+    },
+    {
+      title: "Revenue from Enterprise Plan",
+      key: "revenueByEnterprisePlan",
+      icon: Gem,
+      price: true,
+    },
+    {
+      title: "Revenue via Appointments",
+      key: "totalRevenueViaAppointments",
+      icon: CreditCard,
+      price: true,
+    },
+    // --- PAYMENTS & REFUNDS ---
+    {
+      title: "Total Refunds Issued",
+      key: "totalRefundsIssued",
+      icon: RotateCcw,
+      price: true,
+    },
+    {
+      title: "Failed Payments",
+      key: "totalFailedPayments",
+      icon: XCircle,
+      price: true,
+    },
+    {
+      title: "Revenue via Stripe",
+      key: "revenueByStripe",
+      icon: CreditCard,
+      price: true,
+    },
+    {
+      title: "Revenue via Razorpay",
+      key: "revenueByRazorpay",
+      icon: IndianRupee,
+      price: true,
+    },
+    {
+      title: "Revenue via PayPal",
+      key: "revenueByPaypal",
+      icon: DollarSign,
+      price: true,
+    },
+    {
+      title: "Total Payouts to Providers",
+      key: "totalPayoutsToProviders",
+      icon: Wallet,
+      price: true,
+    },
+    // --- TOTAL APPOINTMENTS STATS ---
+    {
+      title: "Total Appointments",
+      key: "totalAppointments",
+      icon: CalendarCheck,
+    },
+    {
+      title: "Completed Appointments",
+      key: "completedAppointments",
+      icon: CheckCircle,
+    },
+    {
+      title: "Cancelled Appointments",
+      key: "cancelledAppointments",
+      icon: XCircle,
+    },
+    {
+      title: "Missed Appointments",
+      key: "missedAppointments",
+      icon: Ban,
+    },
+    {
+      title: "Rejected Appointments",
+      key: "rejectedAppointments",
+      icon: ThumbsDown,
+    },
+  ];
