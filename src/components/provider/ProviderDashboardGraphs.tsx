@@ -59,6 +59,24 @@ const ProviderDashboardGraphs: React.FC<DashboardGraphsForProviderProps> = ({
                         chartConfig={topBookingDaysChartConfig}
                         isLocked={!GraphView(plan, "TopBookingDays")}
                     />
+                    <LineChartHorizontal
+                        title="Appointment Mode Trend"
+                        description="Online vs Offline Appointments over Time"
+                        chartData={dashboardGraphData.appointmentModeChartData}
+                        dataKeyOne="online"
+                        dataKeyTwo="offline"
+                        chartConfig={appointmentModeChartConfig}
+                        isLocked={!GraphView(plan, "AppointmentModeTrend")}
+                    />
+                     <ChartLineMultiple
+                        title="New vs Returning Users"
+                        description="User engagement trends over the last 10 days"
+                        chartData={dashboardGraphData.newVsReturningUsersChartData}
+                        chartConfig={newVsReturningUsersChartConfig}
+                        dataKeyOne="newUsers"
+                        dataKeyTwo="returningUsers"
+                        isLocked={!GraphView(plan, "NewVsReturningUsers")}
+                    />
                     <BarChartVertical
                         title="Appointment Distribution"
                         description="Online vs Offline appointments over the last 7 days"
@@ -77,24 +95,6 @@ const ProviderDashboardGraphs: React.FC<DashboardGraphsForProviderProps> = ({
                         dataKeyThree="bookings"
                         chartConfig={peakBookingHoursChartConfig}
                         isLocked={!GraphView(plan, "PeakBookingHours")}
-                    />
-                    <LineChartHorizontal
-                        title="Appointment Mode Trend"
-                        description="Online vs Offline Appointments over Time"
-                        chartData={dashboardGraphData.appointmentModeChartData}
-                        dataKeyOne="online"
-                        dataKeyTwo="offline"
-                        chartConfig={appointmentModeChartConfig}
-                        isLocked={!GraphView(plan, "AppointmentModeTrend")}
-                    />
-                    <ChartLineMultiple
-                        title="New vs Returning Users"
-                        description="User engagement trends over the last 10 days"
-                        chartData={dashboardGraphData.newVsReturningUsersChartData}
-                        chartConfig={newVsReturningUsersChartConfig}
-                        dataKeyOne="newUsers"
-                        dataKeyTwo="returningUsers"
-                        isLocked={!GraphView(plan, "NewVsReturningUsers")}
                     />
                     <PieChartCompletionBreakdown
                         title="Appointment Completion Breakdown"

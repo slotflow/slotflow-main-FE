@@ -1,11 +1,20 @@
+import React, { useState } from "react";
 import AdminDashboardStats from "@/components/admin/AdminDashboardStats"
 
-const AdminDashboardPage = () => {
+const AdminDashboardPage: React.FC = () => {
+
+  const [tab, setTab] = useState<number>(0);
+
   return (
-    <div className="pb-4">
-      <AdminDashboardStats />
+    <div className="p-2">
+      <div className='w-full space-x-4'>
+        <button className="bg-gray-400 rounded-lg px-3 py-1 cursor-pointer " onClick={() => setTab(0)}>Stats</button>
+        <button className="bg-gray-400 rounded-lg px-3 py-1 cursor-pointer " onClick={() => setTab(1)}>Graphs</button>
+      </div>
+      {tab === 0 && <AdminDashboardStats />}
+
     </div>
   )
 }
 
-export default AdminDashboardPage
+export default AdminDashboardPage;
