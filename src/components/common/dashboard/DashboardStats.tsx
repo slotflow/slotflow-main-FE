@@ -37,26 +37,31 @@ const DashboardStats = <T extends Record<string, number>>({
     });
 
     if (isNumericDataLoading) return <DashboardStatsShimmer count={shimmerCount} />
-
+    
     if (isNumericDataError && numericDataError) return <DataFetchingError message={"Data fetching failed"} />
-
+    
     return (
         <>
         <h4 className='p-2 text-lg font-bold'>{heading}</h4>
+        {isNumericDataLoading ? (
+            <DashboardStatsShimmer count={shimmerCount} />
+        ) : (
+
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-2">
                 {statsMap.length > 0 ? (
                     statsMap.map(({ title, key, icon, price, plans }) => (
                         <StatsCard
-                            key={key as string}
-                            title={title}
-                            value={dashboardStats?.[key] ?? 0}
-                            icon={icon}
-                            price={price}
-                            isShow={role === "PROVIDER" ? plans?.includes(plan!) : true}
+                        key={key as string}
+                        title={title}
+                        value={dashboardStats?.[key] ?? 0}
+                        icon={icon}
+                        price={price}
+                        isShow={role === "PROVIDER" ? plans?.includes(plan!) : true}
                         />
                     ))
                 ) : null}
             </div>
+            )}
         </>
     )
 }
