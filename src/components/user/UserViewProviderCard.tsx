@@ -43,7 +43,7 @@ const UserViewProviderCard: React.FC<UserViewProviderCardComponentProps> = ({
                 </div>
 
                 <img
-                    src={provider?.profileImage || "/images/imagePlaceholder.png"}
+                    src={provider?.profileImage || "/images/avatar.png"}
                     alt={provider?.username}
                     className="w-20 h-20 object-cover rounded-xl border"
                 />
