@@ -18,7 +18,7 @@ const ProviderDashboardPage: React.FC = () => {
         queryKey='dashboardStats'
         statsMap={statsMapForProvider}
         plan={user?.providerSubscription ?? "NoSubscription"}
-        shimmerCount={14}
+        shimmerCount={11}
         role='PROVIDER'
       />
       <ProviderDashboardGraphs

@@ -70,18 +70,6 @@ export interface AdminFetchDashboardTodayStatsDataResponse extends Record<string
 }
 
 
-// export interface AdminDashboardCombinedStatsResponse {
-//   users: AdminFetchDashboardUserStatsData;
-//   providers: AdminProviderStats;
-//   subscriptions: AdminSubscriptionStats;
-//   revenue: AdminRevenueStats;
-//   payments: AdminPaymentStats;
-//   appointments: AdminAppointmentStats;
-//   dateRangeStats: AdminDashboardDateRangeStats;
-// }
-
-
-
 // **** Used as the return interface for the admin fetch dashboard graph data
 export interface AdminDashboardGraphResponse {
     appointmentsOvertimeChartData: Array<{

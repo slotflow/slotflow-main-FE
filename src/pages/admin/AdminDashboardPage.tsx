@@ -12,7 +12,6 @@ const AdminDashboardPage: React.FC = () => {
         <button className="bg-gray-400 rounded-lg px-3 py-1 cursor-pointer " onClick={() => setTab(1)}>Graphs</button>
       </div>
       {tab === 0 && <AdminDashboardStats />}
-
     </div>
   )
 }

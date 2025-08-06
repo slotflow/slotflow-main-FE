@@ -23,7 +23,7 @@ const StatsCard: React.FC<DashboardCardOneProps> = ({ title, value, icon: Icon, 
         <CardTitle className='text-lg font-medium'>
           {title}
         </CardTitle>
-        {Icon ? <Icon size={24} className="text-white" /> : <Activity size={24} />}
+        {Icon ? <Icon size={24} /> : <Activity size={24} />}
       </CardHeader>
       <CardContent>
         <div className='text-2xl font-bold'>{price ? formatNumberToPrice(value as number) : value}</div>
