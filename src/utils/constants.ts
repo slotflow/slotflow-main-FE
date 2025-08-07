@@ -834,11 +834,6 @@ export const subscriptionStatsMapForAdmin: StatsMapForAdminInterface[] = [
       icon: Ban,
     },
     {
-      title: "Not Subscribed Providers",
-      key: "notSubscribedProviders",
-      icon: UserX,
-    },
-    {
       title: "Free Plan Subscriptions",
       key: "subscriptionsByFreePlan",
       icon: LayoutGrid,

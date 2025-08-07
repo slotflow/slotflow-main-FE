@@ -35,7 +35,7 @@ const AdminDashboardStats: React.FC = () => {
                 queryFunction={adminFetchDashboardSubscriptionStatsData}
                 queryKey="dashboardSubscriptionStats"
                 statsMap={subscriptionStatsMapForAdmin}
-                shimmerCount={7}
+                shimmerCount={6}
                 heading='Subscriptions Stats'
                 role='ADMIN'
             />
