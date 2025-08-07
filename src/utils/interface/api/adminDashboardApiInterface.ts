@@ -42,9 +42,9 @@ export interface AdminFetchDashboardSubscriptionStatsDataResponse extends Record
 export interface AdminFetchDashboardRevenueStatsDataResponse extends Record<string, number> {
     totalRevenue: number;
     totalRevenueViaSubscriptions: number;
-    revenueByStarterPlan: number;
-    revenueByProfessionalPlan: number;
-    revenueByEnterprisePlan: number;
+    revenueByStripe: number;
+    revenueByRazorpay: number;
+    revenueByPaypal: number;
     totalRevenueViaAppointments: number;
 }
 

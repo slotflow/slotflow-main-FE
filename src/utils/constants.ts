@@ -27,6 +27,9 @@ import {
   RotateCcw,
   IndianRupee,
   DollarSign,
+  Wallet2Icon,
+  WalletCards,
+  WalletMinimal,
 } from "lucide-react";
 import { ProviderFetchDashboardStatsDataResponse } from "./interface/api/providerApiInterface";
 import { dataSelectListItemInterface, DayMapInterface, FeatureContentInterface, FooterColumnDataInterface, FooterLinkInterface, gsapBigSvgYDirectionAnimationInterface, HeaderCompoenentNavsProps, PlanFeatureInterface, PlanListType, ProviderApprovalMessageInterface, Route, StatsMapForAdminInterface, statsMapIntrface } from "./interface/commonInterface";
@@ -869,21 +872,21 @@ export const revenueStatsMapForAdmin: StatsMapForAdminInterface[] = [
       price: true,
     },
     {
-      title: "Revenue from Starter Plan",
-      key: "revenueByStarterPlan",
-      icon: LayoutGrid,
+      title: "Revenue via stripe",
+      key: "revenueByStripe",
+      icon: Wallet2Icon,
       price: true,
     },
     {
-      title: "Revenue from Professional Plan",
-      key: "revenueByProfessionalPlan",
-      icon: Rocket,
+      title: "Revenue via razorpay",
+      key: "revenueByRazorpay",
+      icon: WalletCards,
       price: true,
     },
     {
-      title: "Revenue from Enterprise Plan",
-      key: "revenueByEnterprisePlan",
-      icon: Gem,
+      title: "Revenue via paypal",
+      key: "revenueByPaypal",
+      icon: WalletMinimal,
       price: true,
     },
     {
