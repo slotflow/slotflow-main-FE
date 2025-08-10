@@ -1,8 +1,14 @@
 import React from 'react';
 import DashboardStats from '../common/dashboard/DashboardStats';
-import { AppointmentsStatsMapForAdmin, paymentsStatsMapForAdmin, providerStatsMapForAdmin, revenueStatsMapForAdmin, subscriptionStatsMapForAdmin, todayStatsMapForAdmin, userStatsMapForAdmin } from '@/utils/constants';
-import { adminFetchDashboardAppointmentStatsData, adminFetchDashboardPaymentStatsData, adminFetchDashboardProviderStatsData, adminFetchDashboardRevenueStatsData, adminFetchDashboardSubscriptionStatsData, adminFetchDashboardTodayStatsData, adminFetchDashboardUserStatsData } from '@/utils/apis/adminDashboard.api';
-import { AdminFetchDashboardAppointmentStatsDataResponse, AdminFetchDashboardPaymentStatsDataResponse, AdminFetchDashboardProviderStatsDataResponse, AdminFetchDashboardRevenueStatsDataResponse, AdminFetchDashboardSubscriptionStatsDataResponse, AdminFetchDashboardTodayStatsDataResponse, AdminFetchDashboardUserStatsDataResponse } from "@/utils/interface/api/adminDashboardApiInterface"
+import { AppointmentsStatsMapForAdmin, 
+    // paymentsStatsMapForAdmin, 
+    providerStatsMapForAdmin, revenueStatsMapForAdmin, subscriptionStatsMapForAdmin, todayStatsMapForAdmin, userStatsMapForAdmin } from '@/utils/constants';
+import { adminFetchDashboardAppointmentStatsData, 
+    // adminFetchDashboardPaymentStatsData, 
+    adminFetchDashboardProviderStatsData, adminFetchDashboardRevenueStatsData, adminFetchDashboardSubscriptionStatsData, adminFetchDashboardTodayStatsData, adminFetchDashboardUserStatsData } from '@/utils/apis/adminDashboard.api';
+import { AdminFetchDashboardAppointmentStatsDataResponse, 
+    // AdminFetchDashboardPaymentStatsDataResponse, 
+    AdminFetchDashboardProviderStatsDataResponse, AdminFetchDashboardRevenueStatsDataResponse, AdminFetchDashboardSubscriptionStatsDataResponse, AdminFetchDashboardTodayStatsDataResponse, AdminFetchDashboardUserStatsDataResponse } from "@/utils/interface/api/adminDashboardApiInterface"
 
 const AdminDashboardStats: React.FC = () => {
     return (
@@ -43,18 +49,18 @@ const AdminDashboardStats: React.FC = () => {
                 queryFunction={adminFetchDashboardRevenueStatsData}
                 queryKey="dashboardRevenueStats"
                 statsMap={revenueStatsMapForAdmin}
-                shimmerCount={6}
+                shimmerCount={9}
                 heading='Revenue Stats'
                 role='ADMIN'
             />
-            <DashboardStats<AdminFetchDashboardPaymentStatsDataResponse>
+            {/* <DashboardStats<AdminFetchDashboardPaymentStatsDataResponse>
                 queryFunction={adminFetchDashboardPaymentStatsData}
                 queryKey="dashboardPaymentStats"
                 statsMap={paymentsStatsMapForAdmin}
                 shimmerCount={6}
                 heading='Payment Stats'
                 role='ADMIN'
-            />
+            /> */}
             <DashboardStats<AdminFetchDashboardAppointmentStatsDataResponse>
                 queryFunction={adminFetchDashboardAppointmentStatsData}
                 queryKey="dashboardAppointmentsStats"

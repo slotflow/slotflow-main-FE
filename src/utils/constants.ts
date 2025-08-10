@@ -895,6 +895,25 @@ export const revenueStatsMapForAdmin: StatsMapForAdminInterface[] = [
       icon: CreditCard,
       price: true,
     },
+    // Edit
+          {
+      title: "Total Refunds Issued",
+      key: "totalRefundsIssued",
+      icon: RotateCcw,
+      price: true,
+    },
+    {
+      title: "Failed Payments",
+      key: "totalFailedPayments",
+      icon: XCircle,
+      price: true,
+    },
+    {
+      title: "Total Payouts to Providers",
+      key: "totalPayoutsToProviders",
+      icon: Wallet,
+      price: true,
+    },
 ]
 
 export const paymentsStatsMapForAdmin: StatsMapForAdminInterface[] = [

@@ -1,5 +1,7 @@
 import { axiosInstance } from "@/lib/axios";
-import { AdminDashboardGraphResponse, AdminFetchDashboardAppointmentStatsDataResponse, AdminFetchDashboardPaymentStatsDataResponse, AdminFetchDashboardProviderStatsDataResponse, AdminFetchDashboardRevenueStatsDataResponse, AdminFetchDashboardSubscriptionStatsDataResponse, AdminFetchDashboardTodayStatsDataResponse, AdminFetchDashboardUserStatsDataResponse } from "../interface/api/adminDashboardApiInterface";
+import { AdminDashboardGraphResponse, AdminFetchDashboardAppointmentStatsDataResponse, 
+    // AdminFetchDashboardPaymentStatsDataResponse, 
+    AdminFetchDashboardProviderStatsDataResponse, AdminFetchDashboardRevenueStatsDataResponse, AdminFetchDashboardSubscriptionStatsDataResponse, AdminFetchDashboardTodayStatsDataResponse, AdminFetchDashboardUserStatsDataResponse } from "../interface/api/adminDashboardApiInterface";
 
 export const adminFetchDashboardTodayStatsData = async () : Promise<AdminFetchDashboardTodayStatsDataResponse> => {
     const response = await axiosInstance.get('/admin/getDashboardTodayStats');
@@ -26,10 +28,10 @@ export const adminFetchDashboardRevenueStatsData = async () : Promise<AdminFetch
     return response.data.data;
 }
 
-export const adminFetchDashboardPaymentStatsData = async () : Promise<AdminFetchDashboardPaymentStatsDataResponse> => {
-    const response = await axiosInstance.get('/admin/getDashboardPaymentStats');
-    return response.data.data;
-}
+// export const adminFetchDashboardPaymentStatsData = async () : Promise<AdminFetchDashboardPaymentStatsDataResponse> => {
+//     const response = await axiosInstance.get('/admin/getDashboardPaymentStats');
+//     return response.data.data;
+// }
 
 export const adminFetchDashboardAppointmentStatsData = async () : Promise<AdminFetchDashboardAppointmentStatsDataResponse> => {
     const response = await axiosInstance.get('/admin/getDashboardAppointmentStats');

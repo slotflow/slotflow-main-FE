@@ -46,17 +46,17 @@ export interface AdminFetchDashboardRevenueStatsDataResponse extends Record<stri
     revenueByRazorpay: number;
     revenueByPaypal: number;
     totalRevenueViaAppointments: number;
+    totalRefundsIssued: number;
+    totalFailedPayments: number;
+    totalPayoutsToProviders: number;
 }
 
 // **** 6. used as the response type of the admin fetch dashboard payment stats data
-export interface AdminFetchDashboardPaymentStatsDataResponse extends Record<string, number> {
-    totalRefundsIssued: number;
-    totalFailedPayments: number;
-    revenueByStripe: number;
-    revenueByRazorpay: number;
-    revenueByPaypal: number;
-    totalPayoutsToProviders: number;
-}
+// export interface AdminFetchDashboardPaymentStatsDataResponse extends Record<string, number> {
+//     revenueByStripe: number;
+//     revenueByRazorpay: number;
+//     revenueByPaypal: number;
+// }
 
 // **** 7. used as the response type of the admin fetch dashboard appointments stats data
 export interface AdminFetchDashboardAppointmentStatsDataResponse extends Record<string, number> {
