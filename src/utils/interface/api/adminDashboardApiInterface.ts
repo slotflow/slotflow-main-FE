@@ -39,7 +39,7 @@ export interface AdminFetchDashboardSubscriptionStatsDataResponse extends Record
 }
 
 // **** 5. used as the response type of the admin fetch dashboard revenue stats data
-export interface AdminFetchDashboardRevenueStatsDataResponse extends Record<string, number> {
+export interface AdminFetchDashboardRevenueAndPaymentsStatsDataResponse extends Record<string, number> {
     totalRevenue: number;
     totalRevenueViaSubscriptions: number;
     revenueByStripe: number;

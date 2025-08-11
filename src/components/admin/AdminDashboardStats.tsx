@@ -2,13 +2,13 @@ import React from 'react';
 import DashboardStats from '../common/dashboard/DashboardStats';
 import { AppointmentsStatsMapForAdmin, 
     // paymentsStatsMapForAdmin, 
-    providerStatsMapForAdmin, revenueStatsMapForAdmin, subscriptionStatsMapForAdmin, todayStatsMapForAdmin, userStatsMapForAdmin } from '@/utils/constants';
+    providerStatsMapForAdmin, revenueAnAndPaymentsStatsMapForAdmin, subscriptionStatsMapForAdmin, todayStatsMapForAdmin, userStatsMapForAdmin } from '@/utils/constants';
 import { adminFetchDashboardAppointmentStatsData, 
     // adminFetchDashboardPaymentStatsData, 
     adminFetchDashboardProviderStatsData, adminFetchDashboardRevenueStatsData, adminFetchDashboardSubscriptionStatsData, adminFetchDashboardTodayStatsData, adminFetchDashboardUserStatsData } from '@/utils/apis/adminDashboard.api';
 import { AdminFetchDashboardAppointmentStatsDataResponse, 
     // AdminFetchDashboardPaymentStatsDataResponse, 
-    AdminFetchDashboardProviderStatsDataResponse, AdminFetchDashboardRevenueStatsDataResponse, AdminFetchDashboardSubscriptionStatsDataResponse, AdminFetchDashboardTodayStatsDataResponse, AdminFetchDashboardUserStatsDataResponse } from "@/utils/interface/api/adminDashboardApiInterface"
+    AdminFetchDashboardProviderStatsDataResponse, AdminFetchDashboardRevenueAndPaymentsStatsDataResponse, AdminFetchDashboardSubscriptionStatsDataResponse, AdminFetchDashboardTodayStatsDataResponse, AdminFetchDashboardUserStatsDataResponse } from "@/utils/interface/api/adminDashboardApiInterface"
 
 const AdminDashboardStats: React.FC = () => {
     return (
@@ -45,12 +45,12 @@ const AdminDashboardStats: React.FC = () => {
                 heading='Subscriptions Stats'
                 role='ADMIN'
             />
-            <DashboardStats<AdminFetchDashboardRevenueStatsDataResponse>
+            <DashboardStats<AdminFetchDashboardRevenueAndPaymentsStatsDataResponse>
                 queryFunction={adminFetchDashboardRevenueStatsData}
                 queryKey="dashboardRevenueStats"
-                statsMap={revenueStatsMapForAdmin}
+                statsMap={revenueAnAndPaymentsStatsMapForAdmin}
                 shimmerCount={9}
-                heading='Revenue Stats'
+                heading='Revenue & Payments Stats'
                 role='ADMIN'
             />
             {/* <DashboardStats<AdminFetchDashboardPaymentStatsDataResponse>

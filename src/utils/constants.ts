@@ -858,7 +858,7 @@ export const subscriptionStatsMapForAdmin: StatsMapForAdminInterface[] = [
     },
 ]
 
-export const revenueStatsMapForAdmin: StatsMapForAdminInterface[] = [
+export const revenueAnAndPaymentsStatsMapForAdmin: StatsMapForAdminInterface[] = [
       {
       title: "Total Revenue",
       key: "totalRevenue",
@@ -906,7 +906,7 @@ export const revenueStatsMapForAdmin: StatsMapForAdminInterface[] = [
       title: "Failed Payments",
       key: "totalFailedPayments",
       icon: XCircle,
-      price: true,
+      price: false,
     },
     {
       title: "Total Payouts to Providers",
