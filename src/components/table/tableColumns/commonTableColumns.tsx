@@ -14,10 +14,6 @@ export const ProvidersSubscriptionsTableColumns: ColumnDef<FetchProviderSubscrip
     header: ({ column }) => (<DataTableColumnHeader column={column} title="Plan" />)
   },
   {
-    accessorKey: "totalAmount",
-    header: ({ column }) => (<DataTableColumnHeader column={column} title="Amount paid" />)
-  },
-  {
     accessorKey: "startDate",
     header: ({ column }) => (<DataTableColumnHeader column={column} title="Start Date" />),
     cell: ({ row }) => {

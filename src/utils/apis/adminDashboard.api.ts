@@ -28,11 +28,6 @@ export const adminFetchDashboardRevenueStatsData = async () : Promise<AdminFetch
     return response.data.data;
 }
 
-// export const adminFetchDashboardPaymentStatsData = async () : Promise<AdminFetchDashboardPaymentStatsDataResponse> => {
-//     const response = await axiosInstance.get('/admin/getDashboardPaymentStats');
-//     return response.data.data;
-// }
-
 export const adminFetchDashboardAppointmentStatsData = async () : Promise<AdminFetchDashboardAppointmentStatsDataResponse> => {
     const response = await axiosInstance.get('/admin/getDashboardAppointmentStats');
     return response.data.data;

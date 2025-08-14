@@ -1,14 +1,8 @@
 import React from 'react';
 import DashboardStats from '../common/dashboard/DashboardStats';
-import { AppointmentsStatsMapForAdmin, 
-    // paymentsStatsMapForAdmin, 
-    providerStatsMapForAdmin, revenueAnAndPaymentsStatsMapForAdmin, subscriptionStatsMapForAdmin, todayStatsMapForAdmin, userStatsMapForAdmin } from '@/utils/constants';
-import { adminFetchDashboardAppointmentStatsData, 
-    // adminFetchDashboardPaymentStatsData, 
-    adminFetchDashboardProviderStatsData, adminFetchDashboardRevenueStatsData, adminFetchDashboardSubscriptionStatsData, adminFetchDashboardTodayStatsData, adminFetchDashboardUserStatsData } from '@/utils/apis/adminDashboard.api';
-import { AdminFetchDashboardAppointmentStatsDataResponse, 
-    // AdminFetchDashboardPaymentStatsDataResponse, 
-    AdminFetchDashboardProviderStatsDataResponse, AdminFetchDashboardRevenueAndPaymentsStatsDataResponse, AdminFetchDashboardSubscriptionStatsDataResponse, AdminFetchDashboardTodayStatsDataResponse, AdminFetchDashboardUserStatsDataResponse } from "@/utils/interface/api/adminDashboardApiInterface"
+import { AppointmentsStatsMapForAdmin, providerStatsMapForAdmin, revenueAnAndPaymentsStatsMapForAdmin, subscriptionStatsMapForAdmin, todayStatsMapForAdmin, userStatsMapForAdmin } from '@/utils/constants';
+import { adminFetchDashboardAppointmentStatsData, adminFetchDashboardProviderStatsData, adminFetchDashboardRevenueStatsData, adminFetchDashboardSubscriptionStatsData, adminFetchDashboardTodayStatsData, adminFetchDashboardUserStatsData } from '@/utils/apis/adminDashboard.api';
+import { AdminFetchDashboardAppointmentStatsDataResponse, AdminFetchDashboardProviderStatsDataResponse, AdminFetchDashboardRevenueAndPaymentsStatsDataResponse, AdminFetchDashboardSubscriptionStatsDataResponse, AdminFetchDashboardTodayStatsDataResponse, AdminFetchDashboardUserStatsDataResponse } from "@/utils/interface/api/adminDashboardApiInterface"
 
 const AdminDashboardStats: React.FC = () => {
     return (
@@ -53,14 +47,6 @@ const AdminDashboardStats: React.FC = () => {
                 heading='Revenue & Payments Stats'
                 role='ADMIN'
             />
-            {/* <DashboardStats<AdminFetchDashboardPaymentStatsDataResponse>
-                queryFunction={adminFetchDashboardPaymentStatsData}
-                queryKey="dashboardPaymentStats"
-                statsMap={paymentsStatsMapForAdmin}
-                shimmerCount={6}
-                heading='Payment Stats'
-                role='ADMIN'
-            /> */}
             <DashboardStats<AdminFetchDashboardAppointmentStatsDataResponse>
                 queryFunction={adminFetchDashboardAppointmentStatsData}
                 queryKey="dashboardAppointmentsStats"

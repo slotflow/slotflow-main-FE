@@ -8,6 +8,7 @@ import { AdminFetchSubscriptionDetailsResponse } from "../interface/api/adminSub
 export const adminFetchAllSubscriptions = async (params?: FetchFunctionParams): Promise<ApiPaginatedResponse<FetchProviderSubscriptionsResponse>> => {
     const query = buildQueryParams(params);
     const response = await axiosInstance.get(`/admin/getSubscriptions${query ? `?${query}` : ''}`);
+    console.log("response : ",response);
     return parseNewCommonResponse<FetchProviderSubscriptionsResponse>(response.data);
 }
 

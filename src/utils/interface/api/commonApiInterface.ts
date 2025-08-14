@@ -4,7 +4,7 @@ import { Booking } from "../entityInterface/bookingInterface";
 import { Subscription } from "../entityInterface/subscriptionInterface";
 
 // **** 1.  Used as the response type of fetch provider subscriptions for admin side and provider side
-export type FetchProviderSubscriptionsResponse = Pick<Subscription, "_id" | "startDate" | "endDate" | "subscriptionStatus"> & Pick<Plan, "planName"> & Pick<Payment, "totalAmount">;
+export type FetchProviderSubscriptionsResponse = Pick<Subscription, "_id" | "startDate" | "endDate" | "subscriptionStatus"> & Pick<Plan, "planName">;
 
 
 // **** 2.  Used as the return type of fetch payments for admin side, provider side

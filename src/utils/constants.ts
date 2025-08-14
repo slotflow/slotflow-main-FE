@@ -25,8 +25,6 @@ import {
   Gem,
   CreditCard,
   RotateCcw,
-  IndianRupee,
-  DollarSign,
   Wallet2Icon,
   WalletCards,
   WalletMinimal,
@@ -916,44 +914,6 @@ export const revenueAnAndPaymentsStatsMapForAdmin: StatsMapForAdminInterface[] =
     },
 ]
 
-export const paymentsStatsMapForAdmin: StatsMapForAdminInterface[] = [
-      {
-      title: "Total Refunds Issued",
-      key: "totalRefundsIssued",
-      icon: RotateCcw,
-      price: true,
-    },
-    {
-      title: "Failed Payments",
-      key: "totalFailedPayments",
-      icon: XCircle,
-      price: true,
-    },
-    {
-      title: "Revenue via Stripe",
-      key: "revenueByStripe",
-      icon: CreditCard,
-      price: true,
-    },
-    {
-      title: "Revenue via Razorpay",
-      key: "revenueByRazorpay",
-      icon: IndianRupee,
-      price: true,
-    },
-    {
-      title: "Revenue via PayPal",
-      key: "revenueByPaypal",
-      icon: DollarSign,
-      price: true,
-    },
-    {
-      title: "Total Payouts to Providers",
-      key: "totalPayoutsToProviders",
-      icon: Wallet,
-      price: true,
-    },
-]
 export const AppointmentsStatsMapForAdmin: StatsMapForAdminInterface[] = [
     {
       title: "Total Appointments",

@@ -8,8 +8,8 @@ const AdminDashboardPage: React.FC = () => {
   return (
     <div className="p-2">
       <div className='w-full space-x-4'>
-        <button className="bg-gray-400 rounded-lg px-3 py-1 cursor-pointer " onClick={() => setTab(0)}>Stats</button>
-        <button className="bg-gray-400 rounded-lg px-3 py-1 cursor-pointer " onClick={() => setTab(1)}>Graphs</button>
+        <button className="bg-[var(--menuItemHoverBg)] rounded-lg px-3 py-1 cursor-pointer " onClick={() => setTab(0)}>Stats</button>
+        <button className="bg-[var(--menuItemHoverBg)] rounded-lg px-3 py-1 cursor-pointer " onClick={() => setTab(1)}>Graphs</button>
       </div>
       {tab === 0 && <AdminDashboardStats />}
     </div>
