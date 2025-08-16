@@ -16,8 +16,26 @@ const AdminSubcriptionDetailedViewPage = () => {
         refetchOnWindowFocus: false,
     });
 
+    const dataMap = [
+        { label: "Subscription Status", value: data?.subscriptionStatus },
+        { label: "Subscribed on", value: data?.createdAt, formatDate },
+        { label: "Subscription started on", value: data?.startDate, formatDate },
+        { label: "Subscription expires on", value: data?.endDate, formatDate },
+        { label: "Subscribed Plan Name", value: data?.subscriptionPlanId?.planName },
+        { label: "Subscription Max Bookings", value: data?.subscriptionPlanId?.maxBookingPerMonth },
+        { label: "Subscription Ad Visibility", value: data?.subscriptionPlanId?.adVisibility, isBoolean: true },
+        { label: "Payment Gateway", value: data?.paymentId?.paymentGateway },
+        { label: "Payment Transaction Id", value: data?.paymentId?.transactionId },
+        { label: "Payment For", value: data?.paymentId?.paymentFor },
+        { label: "Payment Status", value: data?.paymentId?.paymentStatus },
+        { label: "Payment Method", value: data?.paymentId?.paymentMethod },
+        { label: "Payment Base Amount", value: data?.paymentId?.initialAmount, isPrice: true },
+        { label: "Payment Discount Amount", value: data?.paymentId?.discountAmount, isPrice: true },
+        { label: "Payment Total Amount", value: data?.paymentId?.totalAmount, isPrice: true },
+    ];
+
     return (
-        <div className="w-full mx-auto mt-0 md:flex justify-start flex-grow bg">
+        <div className="w-full p-2 mx-auto mt-0 md:flex justify-start flex-grow bg">
             {isError && error ? (
                 <DataFetchingError message={(error as Error).message} />
             ) : isLoading ? (
@@ -27,22 +45,9 @@ const AdminSubcriptionDetailedViewPage = () => {
                     <h2 className="text-2xl font-bold mb-4">Subscription Details</h2>
                     <table className="table-auto border-collapse border border-[var(--boxBorder)] w-full">
                         <tbody>
-                            <InfoDisplayComponent label="Subscription Status" value={data?.subscriptionStatus} />
-                            <InfoDisplayComponent label="Subscribed on" value={data?.createdAt} formatDate={formatDate} />
-                            <InfoDisplayComponent label="Subscription started on" value={data?.startDate} formatDate={formatDate} />
-                            <InfoDisplayComponent label="Subscription expires on" value={data?.endDate} formatDate={formatDate} />
-                            <InfoDisplayComponent label="Subscribed Plan Name" value={data?.subscriptionPlanId?.planName} />
-                            <InfoDisplayComponent label="Subscribed Plan Price" value={data?.subscriptionPlanId?.price} isPrice={true} />
-                            <InfoDisplayComponent label="Subscription Max Bookings" value={data?.subscriptionPlanId?.maxBookingPerMonth} />
-                            <InfoDisplayComponent label="Subscription Ad Visibility" value={data?.subscriptionPlanId?.adVisibility} isBoolean={true} />
-                            <InfoDisplayComponent label="Payment Gateway" value={data?.paymentId?.paymentGateway} />
-                            <InfoDisplayComponent label="Payment Transaction Id" value={data?.paymentId?.transactionId} />
-                            <InfoDisplayComponent label="Payment For" value={data?.paymentId?.paymentFor} />
-                            <InfoDisplayComponent label="Payment Status" value={data?.paymentId?.paymentStatus} />
-                            <InfoDisplayComponent label="Payment Method" value={data?.paymentId?.paymentMethod} />
-                            <InfoDisplayComponent label="Payment Base Amount" value={data?.paymentId?.initialAmount} isPrice={true} />
-                            <InfoDisplayComponent label="Payment Discount Amount" value={data?.paymentId?.discountAmount} isPrice={true} />
-                            <InfoDisplayComponent label="Payment Total Amount" value={data?.paymentId?.totalAmount} isPrice={true} />
+                            {dataMap.map((item) => (
+                                <InfoDisplayComponent key={item.label} {...item} />
+                            ))}
                         </tbody>
                     </table>
                 </div>

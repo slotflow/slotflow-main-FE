@@ -8,8 +8,8 @@ const AdminSubscriptionsPage = () => {
     return (
         <CommonTable<FetchProviderSubscriptionsResponse>
             fetchApiFunction={adminFetchAllSubscriptions}
-            queryKey="subscription"
-            heading="Subscription"
+            queryKey="subscriptions"
+            heading="Subscriptions"
             column={ProvidersSubscriptionsTableColumns}
             columnsCount={6}
         />

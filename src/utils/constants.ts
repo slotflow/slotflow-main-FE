@@ -893,8 +893,7 @@ export const revenueAnAndPaymentsStatsMapForAdmin: StatsMapForAdminInterface[] =
       icon: CreditCard,
       price: true,
     },
-    // Edit
-          {
+    {
       title: "Total Refunds Issued",
       key: "totalRefundsIssued",
       icon: RotateCcw,
