@@ -9,6 +9,7 @@ import { AppDispatch, RootState } from "@/utils/redux/appStore";
 import { HandleChangeFunction, LoginFormData, LoginFormProps } from "@/utils/interface/commonInterface";
 import { setResetPasswordForm, setsignInForm, setSignUpForm, setVerifyEmailForm, setVerifyOtpForm } from "@/utils/redux/slices/signFormSlice";
 
+
 const LoginForm: React.FC<LoginFormProps> = ({ isAdmin, role, title }) => {
 
     const dispatch = useDispatch<AppDispatch>();
@@ -27,14 +28,14 @@ const LoginForm: React.FC<LoginFormProps> = ({ isAdmin, role, title }) => {
     }, []);
 
     const handleNavigation = (role: string) => {
-        if (role === "ADMIN") navigate("/admin", {replace: true});
-        else if (role === "USER") navigate("/user", {replace: true});
-        else if (role === "PROVIDER")navigate("/provider", {replace: true});
+        if (role === "ADMIN") navigate("/admin", { replace: true });
+        else if (role === "USER") navigate("/user", { replace: true });
+        else if (role === "PROVIDER") navigate("/provider", { replace: true });
     };
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        if(hasErrors){
+        if (hasErrors) {
             toast.error("Please fix the form errors.");
             return;
         }
@@ -70,12 +71,12 @@ const LoginForm: React.FC<LoginFormProps> = ({ isAdmin, role, title }) => {
 
     const handleErrorChange = (hasError: boolean) => {
         setHasErrors(hasError);
-      };
+    };
 
     return (
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-            
-           <FormHeading title={title} />
+
+            <FormHeading title={title} />
 
             <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                 <form onSubmit={handleSubmit} className="space-y-6">
@@ -104,6 +105,13 @@ const LoginForm: React.FC<LoginFormProps> = ({ isAdmin, role, title }) => {
                     />
 
                     <FormButton text={"Sign In"} loading={loading} />
+
+                    <div>
+                        <h1>OAuth with Google</h1>
+
+                        {/* redirect to backend OAuth route */}
+                        <a href="http://localhost:3000/api/auth/google?role=USER">Login with Google</a>
+                    </div>
                 </form>
 
                 {!isAdmin && (

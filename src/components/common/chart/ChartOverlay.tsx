@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { RootState } from '@/utils/redux/appStore';
 import { useNavigate } from 'react-router-dom';
+import { RootState } from '@/utils/redux/appStore';
 
 interface ChartOverlay {
     stringOne: string;

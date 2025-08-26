@@ -7,12 +7,18 @@ import { ResendOtpRequest, ResendOtpResponse, SigninRequest, SigninResponse, Sig
 
 export const signup = createAsyncThunk<SignupResponse, SignupRequest>('auth/signup',
     async (userData: SignupRequest, thunkAPI) => {
-        const response = await axiosInstance.post("/auth/signup", userData);
-        if (response.data.success) {
-            thunkAPI.dispatch(setAuthUser(response.data.authUser));
-            thunkAPI.dispatch(startTimer(300));
-        }
-        return response.data;
+        // try {
+            const response = await axiosInstance.post("/auth/signup", userData);
+            if (response.data.success) {
+                thunkAPI.dispatch(setAuthUser(response.data.authUser));
+                thunkAPI.dispatch(startTimer(300));
+            }
+            return response.data;
+    //     } catch (error) {
+    //         return thunkAPI.rejectWithValue(
+    //     error.response?.data || { success: false, message: "Something went wrong" }
+    //   );
+    //     }
     }
 );
 
@@ -64,7 +70,6 @@ export const checkUserStatus = createAsyncThunk("auth/checkUserStatus",
     }
 );
 
-
-
-
-
+// export const handleGoogleLogin = async () : Promise<any> => {
+//     const response = axiosInstance.get()
+// }

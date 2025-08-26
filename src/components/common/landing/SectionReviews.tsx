@@ -1,6 +1,6 @@
 import React from 'react';
-import { InfiniteMovingCards } from '@/components/ui/infinite-moving-cards';
 import Heading from './Heading';
+import { InfiniteMovingCards } from '@/components/ui/infinite-moving-cards';
 
 const testimonials = [
     {
@@ -59,11 +59,6 @@ const SectionReviews: React.FC = () => {
                 <InfiniteMovingCards
                     items={testimonials}
                     direction="left"
-                    speed="fast"
-                />
-                <InfiniteMovingCards
-                    items={testimonials}
-                    direction="right"
                     speed="fast"
                 />
             </div>

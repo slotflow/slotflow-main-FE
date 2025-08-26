@@ -1,5 +1,5 @@
-import { axiosInstance } from "./axios";
 import { toast } from "react-toastify";
+import { axiosInstance } from "./axios";
 import { appStore } from "@/utils/redux/appStore";
 import { setAuthUser } from "@/utils/redux/slices/authSlice";
 
@@ -13,7 +13,6 @@ export const setupAxiosInterceptors = () => {
             console.log("Error Checking : ",error);
             if(error.response?.status === 400) {
                 toast.error(error.response?.data?.message || "Unexpected Error");
-                // return;
             }
             if (error.response?.status === 401) {
                 appStore.dispatch(setAuthUser(null));
