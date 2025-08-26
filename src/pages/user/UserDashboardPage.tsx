@@ -26,36 +26,35 @@ const UserDashboardPage = () => {
 
   }, [selectedServices]);
 
-  if (isLoading) {
-    return (
-      <div className="fixed inset-0 flex justify-center items-center bg-black/70 z-50">
-        <Loader className="w-10 h-10 animate-spin text-white" />
-      </div>
-    );
-  }
-
-  if (isError && error) {
-    return <DataFetchingError message={(error as Error).message || "Something went wrong"} />;
-  }
-
-  if (data?.length === 0) {
-    return <DataFetchingError message={"There is no providers found in the databse"} />;
-  }
-
   return (
-    <div className='p-2'>
-      <div className='flex justify-between'>
-        <div className="relative w-full max-w-md">
-          <Input type="text" placeholder="Search..." className="pl-8" />
+    <div className="p-2 min-h-full flex flex-col">
+      {isLoading ? (
+        <div className="flex-1 flex justify-center items-center z-50">
+          <Loader className="w-10 h-10 animate-spin text-white" />
         </div>
-        <CommonButton text='Filters' onClick={() => dispatch(toggleFilterSideBar())} />
-      </div>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 my-4">
-        {data?.map((provider, index) => (
-          <UserViewProviderCard key={index} {...provider} />
-        ))}
-      </div>
+      ) : isError && error ? (
+        <div className="flex-1 flex justify-center items-center">
+          <DataFetchingError message={(error as Error).message || "Something went wrong"} />
+        </div>
+      ) : data && data.length > 0 ? (
+        <>
+          <div className="flex justify-between">
+            <div className="relative w-full max-w-md">
+              <Input type="text" placeholder="Search..." className="pl-8" />
+            </div>
+            <CommonButton text="Filters" onClick={() => dispatch(toggleFilterSideBar())} />
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 my-4">
+            {data.map((provider, index) => (
+              <UserViewProviderCard key={index} {...provider} />
+            ))}
+          </div>
+        </>
+      ) : (
+        <div className="flex-1 flex justify-center items-center">
+          <DataFetchingError message="No providers found in the database" />
+        </div>
+      )}
     </div>
   );
 };

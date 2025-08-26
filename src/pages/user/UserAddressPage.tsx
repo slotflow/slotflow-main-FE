@@ -31,14 +31,14 @@ const UserAddressPage = () => {
   return (
     <div className="min-h-full p-2 flex flex-col">
       <ProfileHead updateProfileImageApiFunction={userUpdateUserProfileImage} updation={true} />
-        {showAddAddressBtn && !loading && (
-          <CommonButton onClick={() => setAddAddress(!addAddress)} text={!addAddress ? "Add Address" : "Close"} className="w-3/12 mt-6"/>
-        )}
-        {addAddress ? (
-          <AddAddress onSubmit={handleAAddAddress} formClassNames={"my-4 border rounded-lg py-6"} headingSize={"xs:text-md md:text-xl"} heading={"Lets Add Address"} buttonText={"Submit"} setHasErrors={setHasErrors} />
-        ) : (
-          <UserOrProviderAddressDetails fetchApiFunction={userFetchUserAddress} quryKey="userAddress" isUser setShowAddAddressBtn={setShowAddAddressBtn} setLoading={setLoading}/>
-        )}
+      {showAddAddressBtn && !loading && (
+        <CommonButton onClick={() => setAddAddress(!addAddress)} text={!addAddress ? "Add Address" : "Close"} className="w-3/12 mt-6" />
+      )}
+      {addAddress ? (
+        <AddAddress onSubmit={handleAAddAddress} formClassNames={"my-4 border rounded-lg py-6"} headingSize={"xs:text-md md:text-xl"} heading={"Lets Add Address"} buttonText={"Submit"} setHasErrors={setHasErrors} />
+      ) : (
+        <UserOrProviderAddressDetails fetchApiFunction={userFetchUserAddress} quryKey="userAddress" isUser setShowAddAddressBtn={setShowAddAddressBtn} setLoading={setLoading} />
+      )}
     </div>
   )
 

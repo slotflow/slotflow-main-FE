@@ -1,46 +1,52 @@
+// router.tsx
+import { lazy } from "react";
 import PlanGuard from "./planGuard.tsx";
 import { createBrowserRouter } from "react-router-dom";
 import { ProtectedRoute } from "./protectedRoutes.tsx";
-import UserChatPage from "@/pages/user/UserChatPage.tsx";
-import UserMainPage from "@/pages/user/UserMainPage.tsx";
-import LandingPage from "../pages/common/LandingPage.tsx";
-import Error404Page from "@/pages/common/Error404Page.tsx";
-import UserLoginPage from "@/pages/common/UserLoginPage.tsx";
-import AdminMainPage from "../pages/admin/AdminMainPage.tsx";
-import AdminPlansPage from "@/pages/admin/AdminPlansPage.tsx";
-import LandingLayout from "../pages/common/LandingLayout.tsx";
-import AdminLoginPage from "@/pages/common/AdminLoginPage.tsx";
-import AdminUsersPage from "../pages/admin/AdminUsersPage.tsx";
-import UserProfilePage from "@/pages/user/UserProfilePage.tsx";
-import UserAddressPage from "@/pages/user/UserAddressPage.tsx";
-import UserPaymentsPage from "@/pages/user/UserPaymentsPage.tsx";
-import UserBookingsPage from "@/pages/user/UserBookingsPage.tsx";
-import UserDashboardPage from "@/pages/user/UserDashboardPage.tsx";
-import AdminPaymentsPage from "@/pages/admin/AdminPaymentsPage.tsx";
-import AdminServicesPage from "@/pages/admin/AdminServicesPage.tsx";
-import PasswordResetPage from "@/pages/common/PasswordResetPage.tsx";
-import ProviderLoginPage from "@/pages/common/ProviderLoginPage.tsx";
-import ProviderChatPage from "@/pages/provider/ProviderChatPage.tsx";
-import ProviderMainPage from "@/pages/provider/ProviderMainPage.tsx";
-import AdminDashboardPage from "../pages/admin/AdminDashboardPage.tsx";
-import PaymentConfirmPage from "@/pages/common/PaymentConfirmPage.tsx";
-import ProviderProfilePage from "@/pages/provider/ProviderProfilePage.tsx";
-import ProviderServicePage from "@/pages/provider/ProviderServicePage.tsx";
-import ProviderReviewsPage from "@/pages/provider/ProviderReviewsPage.tsx";
-import ProviderAddressPage from "@/pages/provider/ProviderAddressPage.tsx";
-import UserNotificationsPage from "@/pages/user/UserNotificationsPage.tsx";
-import UserServiceSelectPage from "@/pages/user/UserServiceSelectPage.tsx";
-import ProviderPaymentsPage from "@/pages/provider/ProviderPaymentsPage.tsx";
-import AdminSubscriptionsPage from "@/pages/admin/AdminSubscriptionsPage.tsx";
-import ProviderDashboardPage from "@/pages/provider/ProviderDashboardPage.tsx";
-import AdminServiceProvidersPage from "../pages/admin/AdminServiceProvidersPage.tsx";
-import ProviderAppointmentsPage from "@/pages/provider/ProviderAppointmentsPage.tsx";
-import ProviderAvailabilityPage from "@/pages/provider/ProviderAvailabilityPage.tsx";
-import ProviderSubscriptionPage from "@/pages/provider/ProviderSubscriptionPage.tsx";
-import ProviderNotificationsPage from "@/pages/provider/ProviderNotificationsPage.tsx";
-import UserServiceProviderDetailPage from "@/pages/user/UserServiceProviderDetailPage.tsx";
-import AdminServiceProviderDetailPage from "@/pages/admin/AdminServiceProviderDetailPage.tsx";
-import AdminSubcriptionDetailedViewPage from "@/pages/admin/AdminSubcriptionDetailedViewPage.tsx";
+
+const LandingPage = lazy(() => import("../pages/common/LandingPage.tsx"));
+const Error404Page = lazy(() => import("@/pages/common/Error404Page.tsx"));
+const UserLoginPage = lazy(() => import("@/pages/common/UserLoginPage.tsx"));
+const AdminLoginPage = lazy(() => import("@/pages/common/AdminLoginPage.tsx"));
+const ProviderLoginPage = lazy(() => import("@/pages/common/ProviderLoginPage.tsx"));
+const PasswordResetPage = lazy(() => import("@/pages/common/PasswordResetPage.tsx"));
+const PaymentConfirmPage = lazy(() => import("@/pages/common/PaymentConfirmPage.tsx"));
+const LandingLayout = lazy(() => import("../pages/common/LandingLayout.tsx"));
+
+const UserMainPage = lazy(() => import("@/pages/user/UserMainPage.tsx"));
+const UserChatPage = lazy(() => import("@/pages/user/UserChatPage.tsx"));
+const UserProfilePage = lazy(() => import("@/pages/user/UserProfilePage.tsx"));
+const UserAddressPage = lazy(() => import("@/pages/user/UserAddressPage.tsx"));
+const UserPaymentsPage = lazy(() => import("@/pages/user/UserPaymentsPage.tsx"));
+const UserBookingsPage = lazy(() => import("@/pages/user/UserBookingsPage.tsx"));
+const UserDashboardPage = lazy(() => import("@/pages/user/UserDashboardPage.tsx"));
+const UserNotificationsPage = lazy(() => import("@/pages/user/UserNotificationsPage.tsx"));
+const UserServiceSelectPage = lazy(() => import("@/pages/user/UserServiceSelectPage.tsx"));
+const UserServiceProviderDetailPage = lazy(() => import("@/pages/user/UserServiceProviderDetailPage.tsx"));
+
+const ProviderMainPage = lazy(() => import("@/pages/provider/ProviderMainPage.tsx"));
+const ProviderChatPage = lazy(() => import("@/pages/provider/ProviderChatPage.tsx"));
+const ProviderProfilePage = lazy(() => import("@/pages/provider/ProviderProfilePage.tsx"));
+const ProviderServicePage = lazy(() => import("@/pages/provider/ProviderServicePage.tsx"));
+const ProviderReviewsPage = lazy(() => import("@/pages/provider/ProviderReviewsPage.tsx"));
+const ProviderAddressPage = lazy(() => import("@/pages/provider/ProviderAddressPage.tsx"));
+const ProviderPaymentsPage = lazy(() => import("@/pages/provider/ProviderPaymentsPage.tsx"));
+const ProviderDashboardPage = lazy(() => import("@/pages/provider/ProviderDashboardPage.tsx"));
+const ProviderAppointmentsPage = lazy(() => import("@/pages/provider/ProviderAppointmentsPage.tsx"));
+const ProviderAvailabilityPage = lazy(() => import("@/pages/provider/ProviderAvailabilityPage.tsx"));
+const ProviderSubscriptionPage = lazy(() => import("@/pages/provider/ProviderSubscriptionPage.tsx"));
+const ProviderNotificationsPage = lazy(() => import("@/pages/provider/ProviderNotificationsPage.tsx"));
+
+const AdminMainPage = lazy(() => import("../pages/admin/AdminMainPage.tsx"));
+const AdminPlansPage = lazy(() => import("@/pages/admin/AdminPlansPage.tsx"));
+const AdminUsersPage = lazy(() => import("@/pages/admin/AdminUsersPage.tsx"));
+const AdminPaymentsPage = lazy(() => import("@/pages/admin/AdminPaymentsPage.tsx"));
+const AdminServicesPage = lazy(() => import("@/pages/admin/AdminServicesPage.tsx"));
+const AdminDashboardPage = lazy(() => import("../pages/admin/AdminDashboardPage.tsx"));
+const AdminSubscriptionsPage = lazy(() => import("@/pages/admin/AdminSubscriptionsPage.tsx"));
+const AdminServiceProvidersPage = lazy(() => import("../pages/admin/AdminServiceProvidersPage.tsx"));
+const AdminServiceProviderDetailPage = lazy(() => import("@/pages/admin/AdminServiceProviderDetailPage.tsx"));
+const AdminSubcriptionDetailedViewPage = lazy(() => import("@/pages/admin/AdminSubcriptionDetailedViewPage.tsx"));
 
 export const appRouter = createBrowserRouter([
     {

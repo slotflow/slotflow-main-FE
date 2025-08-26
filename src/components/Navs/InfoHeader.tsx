@@ -26,7 +26,7 @@ const InfoHeader: React.FC<InfoHeaderProps> = ({
     }, [])
 
     return (
-        <nav className={`bg-[var(--menuItemHoverBg)] mx-2 my-4 p-2 rounded-md flex justify-between`}>
+        <nav className={`bg-[var(--menuItemHoverBg)] m-4 p-2 rounded-md mt-4 flex justify-between`}>
             <div className='flex'>
                 <img
                     src={profileImage || "/images//avatar.png"}

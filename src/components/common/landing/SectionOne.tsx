@@ -40,9 +40,9 @@ const SectionOne = () => {
                 <div className='w-5/12'>
                     <h1 className="text-5xl font-semibold tracking-tight text-balance sm:text-7xl">Your Time, Your Flow Appointments Made Easy.</h1>
                     <p className="mt-8 text-lg font-medium text-pretty sm:text-xl/8">Whether you're a coach, doctor, or stylist, SlotFlow simplifies how your clients book you </p>
-                    <div className="mt-10 flex items-center justify-center gap-x-6">
+                    <div className="mt-10 flex gap-x-6">
                         {heroSectionButtons.map(button => (
-                            <CommonButton className='bg-[var(--mainColor)] text-white hover:bg-indigo-400' text={button.text} onClick={() => handleRoleSelection(button.href)} />
+                            <CommonButton key={button.text} className='bg-[var(--mainColor)] text-white hover:bg-indigo-400' text={button.text} onClick={() => handleRoleSelection(button.href)} />
                         ))}
                     </div>
                 </div>

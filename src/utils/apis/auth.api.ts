@@ -33,6 +33,7 @@ export const signin = createAsyncThunk<SigninResponse, SigninRequest>("auth/sign
     async (userData: SigninRequest, thunkAPI) => {
         const response = await axiosInstance.post('/auth/signin', userData);
         if (response.data.success) {
+            console.log("response.data : ",response.data);
             thunkAPI.dispatch(setAuthUser(response.data.authUser));
         }
         return response.data;

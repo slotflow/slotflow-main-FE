@@ -39,7 +39,8 @@ export interface SigninResponse extends ApiBaseResponse {
         isAddressAdded?: boolean,
         isServiceDetailsAdded?: boolean,
         isServiceAvailabilityAdded?: boolean,
-        isAdminApproved?: boolean
+        isAdminApproved?: boolean,
+        providerSubscription?: string;
     };
 }
 
