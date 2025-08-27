@@ -79,6 +79,7 @@ export const planAccessMap: Record<string, string[]> = {
     "Address",
     "Service",
     "Availability",
+    "Subscriptions",
   ],
   Free: [
     "Dashboard",

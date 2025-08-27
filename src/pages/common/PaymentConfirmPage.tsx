@@ -7,9 +7,12 @@ import CommonButton from "@/components/common/CommonButton";
 import { providerSaveSubscription } from "@/utils/apis/provider.api";
 import { userSaveAppointmentBooking } from "@/utils/apis/user.api";
 import { PaymentConfirmPageProps } from "@/utils/interface/entityInterface/providerInterface";
+import { useDispatch } from "react-redux";
+import { updateProviderSubscription } from "@/utils/redux/slices/authSlice";
 
 const PaymentConfirmPage: React.FC<PaymentConfirmPageProps> = ({ status, userType }) => {
 
+  const dispatch = useDispatch();
   const [searchParams] = useSearchParams();
   const sessionId = searchParams.get("session_id");
 
@@ -22,19 +25,28 @@ const PaymentConfirmPage: React.FC<PaymentConfirmPageProps> = ({ status, userTyp
   }, []);
 
   const save = async () => {
-    if(!sessionId) return;
-    if(userType === "provider") {
-      const response = await providerSaveSubscription(sessionId);
-      toast.success(response.message);
-    } else if (userType === "user") {
-      const response = await userSaveAppointmentBooking(sessionId);
-      toast.success(response.message);
+    if (!sessionId) return;
+    try {
+      if (userType === "provider") {
+        const response = await providerSaveSubscription(sessionId);
+        if (response.success) {
+          toast.success(response.message);
+          dispatch(updateProviderSubscription(response.planName))
+        }
+      } else if (userType === "user") {
+        const response = await userSaveAppointmentBooking(sessionId);
+        if (response.success) {
+          toast.success(response.message);
+        }
+      }
+    } catch {
+      toast.error("Subscription failed");
     }
   }
 
   useEffect(() => {
     save();
-  },[])
+  }, [])
 
   return (
     <div className="flex flex-col items-center justify-center h-full p-4">

@@ -25,6 +25,11 @@ const authSlice = createSlice({
             if(state.authUser) {
                 state.authUser.username = action.payload;
             }
+        },
+        updateProviderSubscription: (state, action: PayloadAction<string>) => {
+            if(state.authUser) {
+                state.authUser.providerSubscription = action.payload;
+            }
         }
     },
     extraReducers: (builder) => {
@@ -96,6 +101,7 @@ export const {
     setAuthUser, 
     setProfileImage,
     updateAuthUserName,
+    updateProviderSubscription,
 } = authSlice.actions;
 
 export default authSlice.reducer;
