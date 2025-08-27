@@ -25,6 +25,7 @@ import { SingleTab } from './SingleTab';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
+import logo from '../../assets/logos/logo-transparent.png';
 import { UserData } from '@/utils/interface/sliceInterface';
 import { handleSignoutHelper } from '@/utils/helper/signout';
 import { AppDispatch, RootState } from '@/utils/redux/appStore';
@@ -102,8 +103,13 @@ const Sidebar: React.FC<SideBarProps> = ({
             <div className="p-4 flex-1">
                 <ul>
 
-                    <li className='px-3 pb-4'>
-                        <span className='text-[var(--mainColor)] text-3xl font-bold italic hover:bg-[var(--mainColor)] hover:text-white px-2 rounded-lg cursor-pointer'>{sidebarOpen ? "SlotFlow" : "S"}</span>
+                    <li className='px-3 pb-4 flex'>
+                        <div>
+                            <img src={logo} className='size-8' />
+                        </div>
+                        {sidebarOpen && (
+                            <span className='text-[var(--mainColor)] text-3xl font-bold italic hover:text-white px-2 rounded-lg cursor-pointer'>SlotFlow</span>
+                        )}
                     </li>
 
                     <SingleTab icon={<PanelLeft />} text="" onClick={handleSidebar} sidebarOpen={sidebarOpen} />
@@ -116,7 +122,7 @@ const Sidebar: React.FC<SideBarProps> = ({
                         const fullPath = `${basePath}/${route.path}`;
 
                         return !isLocked ? (
-                             <NavLink
+                            <NavLink
                                 key={fullPath}
                                 to={fullPath}
                                 className="block"

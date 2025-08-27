@@ -5,6 +5,7 @@ import {
   FooterContent,
 } from "@/components/ui/footer";
 import { cn } from "@/lib/utils";
+import logo from '../../assets/logos/logo.png';
 import { about, footerColumnData, copyright, policies } from "@/utils/constants";
 
 interface FooterProps {
@@ -21,8 +22,11 @@ const FooterBar = ({
         <Footer>
           <FooterContent>
             <FooterColumn className="col-span-2 sm:col-span-3 md:col-span-1">
-              <div className="flex items-center gap-2">
-                <h4 className="text-[var(--mainColor)] text-2xl font-bold italic hover:bg-[var(--mainColor)] hover:text-white rounded-lg cursor-pointer">Slotflow</h4>
+              <div className="flex flex-col items-center justify-center p-2">
+                <div>
+                  <img src={logo} className='size-36' />
+                </div>
+                {/* <h4 className="text-[var(--mainColor)] text-2xl font-bold italic hover:text-white rounded-lg cursor-pointer">Slotflow</h4> */}
               </div>
             </FooterColumn>
             {footerColumnData.map((column, index) => (

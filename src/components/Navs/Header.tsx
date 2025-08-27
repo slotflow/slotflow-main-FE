@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Moon, Sun } from 'lucide-react';
 import { navigation } from '@/utils/constants';
 import { useDispatch, useSelector } from 'react-redux';
+import logo from '../../assets/logos/logo-transparent.png';
 import { toggleTheme } from '@/utils/redux/slices/stateSlice';
 import { AppDispatch, RootState } from '../../utils/redux/appStore';
 
@@ -27,8 +28,11 @@ const Header: React.FC = () => {
     <nav className={`w-full bg-[var(--background)] fixed transition-colors duration-300 ease-in-out z-50`}>
       <div className={`max-w-7xl mx-auto flex h-16 items-center justify-between`}>
 
-        <div className='w-3/12'>
-          <h4 className="text-[var(--mainColor)] text-3xl font-bold italic hover:bg-[var(--mainColor)] hover:text-white px-2 rounded-lg cursor-pointer">Slotflow</h4>
+        <div className='w-3/12 flex justify-center items-center'>
+        <div className='flex items-center justify-center'>
+                <img src={logo} className='size-8' />
+            </div>
+          <h4 className="ml-2 text-[var(--mainColor)] text-3xl font-bold italic hover:text-white px-2 rounded-lg cursor-pointer">Slotflow</h4>
         </div>
 
         <div className='w-6/12'>
