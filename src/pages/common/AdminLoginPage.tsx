@@ -14,14 +14,26 @@ const AdminLoginPage = () => {
   const authUser = useSelector((store: RootState) => store.auth.authUser);
   const formFilling = useRef(null);
   
+  // useEffect(() => {
+  //   if(authUser && authUser.isLoggedIn){
+  //     if(authUser.role === "ADMIN"){
+  //       navigate("/admin");
+  //     } else if(authUser.role === "USER"){
+  //       navigate('/user');
+  //     }else if(authUser.role === "PROVIDER"){
+  //       navigate('/provider')
+  //     }
+  //   }
+  // }, [authUser, navigate]);
+
   useEffect(() => {
     if(authUser && authUser.isLoggedIn){
       if(authUser.role === "ADMIN"){
-        navigate("/admin");
+        navigate("/admin/dashboard");
       } else if(authUser.role === "USER"){
-        navigate('/user');
+        navigate('/user/dashboard');
       }else if(authUser.role === "PROVIDER"){
-        navigate('/provider')
+        navigate('/provider/dashboard')
       }
     }
   }, [authUser, navigate]);

@@ -59,6 +59,8 @@ const Sidebar: React.FC<SideBarProps> = ({
 
     const iconMap: Record<string, React.ReactNode> = {
         'dashboard': <Gauge />,
+        '/provider': <Gauge />,
+        '/admin': <Gauge />,
         'users': <Users />,
         'providers': <Handshake />,
         'profile': <User />,
@@ -85,6 +87,8 @@ const Sidebar: React.FC<SideBarProps> = ({
         return iconMap[normalizedName];
     }
 
+    const basePath = user?.role === "ADMIN" ? "/admin" : user?.role === "PROVIDER" ? "/provider" : "/user";
+
     useEffect(() => {
         if (themeMode) {
             document.documentElement.classList.remove('dark');
@@ -109,8 +113,25 @@ const Sidebar: React.FC<SideBarProps> = ({
                         const isLocked = isProvider && filteredRoutes
                             ? !filteredRoutes.some(froute => froute.name === route.name)
                             : false;
+                        const fullPath = `${basePath}/${route.path}`;
 
-                        const tab = (
+                        return !isLocked ? (
+                             <NavLink
+                                key={fullPath}
+                                to={fullPath}
+                                className="block"
+                            >
+                                {({ isActive }) => (
+                                    <SingleTab
+                                        icon={getIcon(route.name)}
+                                        text={route.name}
+                                        sidebarOpen={sidebarOpen}
+                                        locked={isLocked}
+                                        active={isActive}
+                                    />
+                                )}
+                            </NavLink>
+                        ) : (
                             <SingleTab
                                 key={route.path}
                                 icon={getIcon(route.name)}
@@ -118,14 +139,6 @@ const Sidebar: React.FC<SideBarProps> = ({
                                 sidebarOpen={sidebarOpen}
                                 locked={isLocked}
                             />
-                        );
-
-                        return !isLocked ? (
-                            <NavLink key={route.path} to={route.path}>
-                                {tab}
-                            </NavLink>
-                        ) : (
-                            tab
                         );
                     })}
 

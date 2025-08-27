@@ -34,7 +34,7 @@ import { dataSelectListItemInterface, DayMapInterface, FeatureContentInterface, 
 
 // **** Routes for admin **** \\
 export const adminRoutes: Route[] = [
-  { path: "/admin", name: "Dashboard" },
+  { path: "dashboard", name: "Dashboard" },
   { path: "service-providers", name: "Service Providers" },
   { path: "users", name: "Users" },
   { path: "services", name: "Services" },
@@ -57,7 +57,7 @@ export const userRoutes: Route[] = [
 
 // **** Routes for provider **** \\
 export const providerRoutes: Route[] = [
-  { path: "/provider", name: "Dashboard" },
+  { path: "dashboard", name: "Dashboard" },
   { path: "profile", name: "Profile" },
   { path: "address", name: "Address" },
   { path: "service", name: "Service" },

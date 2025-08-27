@@ -67,7 +67,7 @@ export const appRouter = createBrowserRouter([
                     </ProtectedRoute>
                 ),
                 children: [
-                    { index: true, element: <AdminDashboardPage /> },
+                    { path: "dashboard", element: <AdminDashboardPage /> },
                     { path: "service-providers", element: <AdminServiceProvidersPage /> },
                     { path: "service-provider/:providerId", element: <AdminServiceProviderDetailPage /> },
                     { path: "users", element: <AdminUsersPage /> },
@@ -109,7 +109,7 @@ export const appRouter = createBrowserRouter([
                     </ProtectedRoute>
                 ),
                 children: [
-                    { index: true, element: <ProviderDashboardPage /> },
+                    { path: "dashboard", element: <ProviderDashboardPage /> },
                     { path: "profile", element: <ProviderProfilePage /> },
                     { path: "address", element: <ProviderAddressPage /> },
                     { path: "service", element: <ProviderServicePage /> },
