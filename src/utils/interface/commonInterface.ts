@@ -53,7 +53,6 @@ export type OtpVerificationFormData = Pick<CommonFormFields, "otp">;
 // **** 6.1  Login form props interface
 export interface LoginFormProps extends Pick<CommonFormFields, "role"> {
   isAdmin?: boolean;
-  title: string;
 }
 // **** 6.2  Login form data type
 export type LoginFormData = Pick<CommonFormFields, "email" | "password">;
@@ -72,6 +71,7 @@ export type PasswordResetFormDataProps = Pick<CommonFormFields, "password" | "co
 // **** 9.1 Authtication form heading component props interface
 export interface AuthFormsHeadingProps {
   title: string;
+  description?: string;
 }
 // **** 9.1 Authtication form button component props interface
 export interface AuthFormsButtonProps {

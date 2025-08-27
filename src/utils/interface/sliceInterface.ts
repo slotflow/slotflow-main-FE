@@ -17,6 +17,7 @@ export interface UserData {
     isServiceAvailabilityAdded?: boolean;
     isAdminApproved?: boolean;
     providerSubscription?: Plan["planName"];
+    googleId?: string;
 }
 
 export interface AuthState {

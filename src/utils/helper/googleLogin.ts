@@ -1,0 +1,14 @@
+import { toast } from "react-toastify";
+
+export const handleGoogleLogin = ({e, role}:{e: React.MouseEvent<HTMLButtonElement, MouseEvent>,role : string}) => {
+    try {
+        e.preventDefault();
+        const apiUrl = import.meta.env.VITE_ENVIRONMENT === "development"
+            ? import.meta.env.VITE_APP_API_BASE_URL
+            : import.meta.env.VITE_BACKEND_PRODUCTION_URL;
+        window.location.href = `${apiUrl}/auth/google?role=${role}`;
+    } catch (error) {
+        toast.error("Failed to initiate Google login");
+        console.error("Google login error:", error);
+    }
+}

@@ -1,16 +1,18 @@
 import { toast } from "react-toastify";
+import GoogleButton from "../GoogleButton";
 import { signin } from "@/utils/apis/auth.api";
 import { useNavigate } from "react-router-dom";
 import InputField from "../InputFieldWithLable";
 import { useDispatch, useSelector } from "react-redux";
 import { FormButton, FormHeading } from "../FormSplits";
 import { FormEvent, useCallback, useState } from "react";
+import { handleGoogleLogin } from "@/utils/helper/googleLogin";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
 import { HandleChangeFunction, LoginFormData, LoginFormProps } from "@/utils/interface/commonInterface";
 import { setResetPasswordForm, setsignInForm, setSignUpForm, setVerifyEmailForm, setVerifyOtpForm } from "@/utils/redux/slices/signFormSlice";
 
 
-const LoginForm: React.FC<LoginFormProps> = ({ isAdmin, role, title }) => {
+const LoginForm: React.FC<LoginFormProps> = ({ isAdmin, role }) => {
 
     const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
@@ -75,54 +77,49 @@ const LoginForm: React.FC<LoginFormProps> = ({ isAdmin, role, title }) => {
 
     return (
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+            <div className="sm:mx-auto sm:w-full sm:max-w-md">
+                <div className="border-2 shadow-lg rounded-xl p-8">
+                    <FormHeading title="Sign In" description="Sign In with your credentials" />
+                    <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+                        <form onSubmit={handleSubmit} className="space-y-3">
+                            <InputField
+                                label="Email address"
+                                id="email"
+                                placeholder="midhun@gmail.com"
+                                type="email"
+                                value={formData.email}
+                                onChange={handleChange}
+                                required={true}
+                                onHasError={handleErrorChange}
+                            />
 
-            <FormHeading title={title} />
+                            <InputField
+                                label="Password"
+                                id="password"
+                                placeholder="Enter your password"
+                                type="password"
+                                value={formData.password}
+                                onChange={handleChange}
+                                required={true}
+                                isPassword={true}
+                                forgotPassword={true}
+                                onHasError={handleErrorChange}
+                            />
 
-            <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                <form onSubmit={handleSubmit} className="space-y-6">
-                    <InputField
-                        label="Email address"
-                        id="email"
-                        placeholder="midhun@gmail.com"
-                        type="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required={true}
-                        onHasError={handleErrorChange}
-                    />
+                            <FormButton text={"Sign In"} loading={loading} />
+                        </form>
+                        <GoogleButton onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => handleGoogleLogin({ e, role })} text={"Sign up with Google"} />
+                        {!isAdmin && (
+                            <p className="mt-10 text-center text-sm/6 text-[var(--textOne)] hover:text-[var(--textOneHover)]">
+                                New to Slotflow?
+                                <span className="font-semibold text-[var(--mainColor)] hover:text-[var(--mainColorHover)] cursor-pointer" onClick={changeToSingUpForm}>
+                                    {" "}Sign Up
+                                </span>
+                            </p>
+                        )}
 
-                    <InputField
-                        label="Password"
-                        id="password"
-                        placeholder="Enter your password"
-                        type="password"
-                        value={formData.password}
-                        onChange={handleChange}
-                        required={true}
-                        isPassword={true}
-                        forgotPassword={true}
-                        onHasError={handleErrorChange}
-                    />
-
-                    <FormButton text={"Sign In"} loading={loading} />
-
-                    <div>
-                        <h1>OAuth with Google</h1>
-
-                        {/* redirect to backend OAuth route */}
-                        <a href="http://localhost:3000/api/auth/google?role=USER">Login with Google</a>
                     </div>
-                </form>
-
-                {!isAdmin && (
-                    <p className="mt-10 text-center text-sm/6 text-[var(--textOne)] hover:text-[var(--textOneHover)]">
-                        New to Slotflow?
-                        <span className="font-semibold text-[var(--mainColor)] hover:text-[var(--mainColorHover)] cursor-pointer" onClick={changeToSingUpForm}>
-                            {" "}Sign Up
-                        </span>
-                    </p>
-                )}
-
+                </div>
             </div>
         </div>
     )

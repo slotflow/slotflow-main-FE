@@ -16,9 +16,9 @@ const ResetPasswordForm: React.FC = () => {
     const loading: boolean = useSelector((store: RootState) => store.signform.loading);
     const authUser: UserData | null = useSelector((store: RootState) => store.auth.authUser);
 
-    const role : string | null = authUser?.role || null;
-    const verificationToken : string | undefined = authUser?.verificationToken;
-    
+    const role: string | null = authUser?.role || null;
+    const verificationToken: string | undefined = authUser?.verificationToken;
+
     const [hasErrors, setHasErrors] = useState<boolean>(false);
     const [formData, setFormData] = useState<PasswordResetFormDataProps>({
         password: "",
@@ -32,7 +32,7 @@ const ResetPasswordForm: React.FC = () => {
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        if(hasErrors){
+        if (hasErrors) {
             toast.error("Please fix the form errors.");
             return;
         }
@@ -72,47 +72,50 @@ const ResetPasswordForm: React.FC = () => {
 
     const handleErrorChange = (hasError: boolean) => {
         setHasErrors(hasError);
-      };
+    };
 
     return (
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-            <FormHeading title={"Reset Password"} />
+            <div className="sm:mx-auto sm:w-full sm:max-w-md">
+                <div className="border-2 shadow-lg rounded-xl p-8">
+                    <FormHeading title={"Reset Password"} description="Enter new credentials carefully" />
 
-            <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                <form onSubmit={handleSubmit} className="space-y-6">
-
-
-                    <InputField
-                        label="Password"
-                        id="password"
-                        placeholder="Enter your password"
-                        type="password"
-                        value={formData.password}
-                        onChange={handleChange}
-                        required={true}
-                        isPassword={true}
-                        onHasError={handleErrorChange}
-                    />
-                    <InputField
-                        label="Confirm Password"
-                        id="confirmPassword"
-                        placeholder="Confirm your password"
-                        type="password"
-                        value={formData.confirmPassword}
-                        onChange={handleChange}
-                        required={true}
-                        isPassword={true}
-                        onHasError={handleErrorChange}
-                    />
-
-                    <FormButton text={"Update"} loading={loading} />
-                </form>
-
-                <p className="mt-6 flex justify-between text-xs md:text-sm/6 text-[var(--textTwo)] px-2">
-                    <span className="font-semibold text-[var(--mainColor)] hover:text-[var(--mainColorHover)] cursor-pointer" onClick={handleCancel}>Cencel</span>
-                </p>
+                    <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+                        <form onSubmit={handleSubmit} className="space-y-3">
 
 
+                            <InputField
+                                label="Password"
+                                id="password"
+                                placeholder="Enter your password"
+                                type="password"
+                                value={formData.password}
+                                onChange={handleChange}
+                                required={true}
+                                isPassword={true}
+                                onHasError={handleErrorChange}
+                            />
+                            <InputField
+                                label="Confirm Password"
+                                id="confirmPassword"
+                                placeholder="Confirm your password"
+                                type="password"
+                                value={formData.confirmPassword}
+                                onChange={handleChange}
+                                required={true}
+                                isPassword={true}
+                                onHasError={handleErrorChange}
+                            />
+
+                            <FormButton text={"Update"} loading={loading} />
+                        </form>
+
+                        <p className="mt-6 flex justify-between text-xs md:text-sm/6 text-[var(--textTwo)] px-2">
+                            <span className="font-semibold text-[var(--mainColor)] hover:text-[var(--mainColorHover)] cursor-pointer" onClick={handleCancel}>Cencel</span>
+                        </p>
+
+                    </div>
+                </div>
             </div>
         </div >
     )

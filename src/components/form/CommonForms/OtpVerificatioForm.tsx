@@ -103,37 +103,41 @@ const OtpVerificatioForm: React.FC = () => {
 
     return (
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-            <FormHeading title={"Verify OTP"} />
+            <div className="sm:mx-auto sm:w-full sm:max-w-md">
+                <div className="border-2 shadow-lg rounded-xl p-8">
+                    <FormHeading title={"Verify OTP"} description="Enter the otp you have recieved" />
 
-            <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                <form onSubmit={handleSubmit} className="space-y-6">
+                    <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+                        <form onSubmit={handleSubmit} className="space-y-3">
 
-                    <InputField
-                        label="Enter OTP"
-                        id="otp"
-                        placeholder="000000"
-                        type="text"
-                        value={formData.otp}
-                        onChange={handleChange}
-                        required={true}
-                        onHasError={handleErrorChange}
-                    />
-                    <FormButton text={"Verify"} loading={loading} />
+                            <InputField
+                                label="Enter OTP"
+                                id="otp"
+                                placeholder="000000"
+                                type="text"
+                                value={formData.otp}
+                                onChange={handleChange}
+                                required={true}
+                                onHasError={handleErrorChange}
+                            />
+                            <FormButton text={"Verify"} loading={loading} />
 
-                </form>
+                        </form>
 
-                <p className="mt-6 flex justify-between text-xs md:text-sm/6 text-[var(--textTwo)] px-2">
-                    <span className="font-semibold text-[var(--mainColor)] hover:text-[var(--mainColorHover)] cursor-pointer" onClick={handleCancel}>Cencel</span>
-                    {resentLoading ?
-                        <span className="font-semibold text-[var(--mainColor)] hover:text-[var(--mainColorHover)] cursor-pointer">Sending</span>
-                        :
-                        otpTimerIsRunning ?
-                            <span className="text-center text-xs md:text-sm/6 text-[var(--textTwo)]">{formatTime(otpRemainingTime)}</span>
-                            :
-                            <span className="font-semibold text-[var(--mainColor)] hover:text-[var(--mainColorHover)] cursor-pointer" onClick={handleResendOtp}>Resend OTP</span>
-                    }
-                </p>
+                        <p className="mt-6 flex justify-between text-xs md:text-sm/6 text-[var(--textTwo)] px-2">
+                            <span className="font-semibold text-[var(--mainColor)] hover:text-[var(--mainColorHover)] cursor-pointer" onClick={handleCancel}>Cencel</span>
+                            {resentLoading ?
+                                <span className="font-semibold text-[var(--mainColor)] hover:text-[var(--mainColorHover)] cursor-pointer">Sending</span>
+                                :
+                                otpTimerIsRunning ?
+                                    <span className="text-center text-xs md:text-sm/6 text-[var(--textTwo)]">{formatTime(otpRemainingTime)}</span>
+                                    :
+                                    <span className="font-semibold text-[var(--mainColor)] hover:text-[var(--mainColorHover)] cursor-pointer" onClick={handleResendOtp}>Resend OTP</span>
+                            }
+                        </p>
 
+                    </div>
+                </div>
             </div>
         </div >
     )

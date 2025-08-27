@@ -1,10 +1,9 @@
-import { Suspense, useEffect } from "react";
+import { Suspense } from "react";
 import { userRoutes } from "@/utils/constants";
 import Sidebar from "@/components/Navs/Sidebar";
 import InfoHeader from "@/components/Navs/InfoHeader";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useLocation } from "react-router-dom";
-import { checkUserStatus } from "@/utils/apis/auth.api";
 import LoadingFallback from "../common/LoadingFallback";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
 import FilterRightSideBar from "@/components/Navs/FilterRightSideBar";
@@ -16,12 +15,6 @@ const UserMainPage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const user = useSelector((store: RootState) => store.auth.authUser);
   const { sidebarOpen } = useSelector((store: RootState) => store.state);
-
-  useEffect(() => {
-    if (user?.isLoggedIn) {
-      dispatch(checkUserStatus());
-    }
-  }, [dispatch, location]);
 
   return (
     <div className="flex h-screen bg-[var(--background)] transition all duration-300">

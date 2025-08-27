@@ -1,8 +1,10 @@
 import { toast } from "react-toastify";
+import GoogleButton from "../GoogleButton";
 import InputField from "../InputFieldWithLable";
 import { signup, } from "@/utils/apis/auth.api";
 import { useDispatch, useSelector } from "react-redux";
 import { FormButton, FormHeading } from "../FormSplits";
+import { handleGoogleLogin } from "@/utils/helper/googleLogin";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
 import React, { FormEvent, useCallback, useState } from "react";
 import { ApiBaseResponse, SignUpFormData, signUpFormProps } from "@/utils/interface/commonInterface";
@@ -31,7 +33,7 @@ const SignUpForm: React.FC<signUpFormProps> = ({ role }) => {
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (hasErrors) {
-            console.log("hasErrors : ",hasErrors);
+            console.log("hasErrors : ", hasErrors);
             toast.error("Please fix the form errors.");
             return;
         }
@@ -82,59 +84,64 @@ const SignUpForm: React.FC<signUpFormProps> = ({ role }) => {
 
     return (
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-            <FormHeading title={"Sign Up"} />
-            <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                <form onSubmit={handleSubmit} className="space-y-6">
-                    <InputField
-                        label="Username"
-                        id="username"
-                        placeholder="Midhun K Paniker"
-                        type="text"
-                        value={formData.username}
-                        onChange={handleChange}
-                        required={true}
-                        onHasError={handleErrorChange}
-                    />
-                    <InputField
-                        label="Email address"
-                        id="email"
-                        placeholder="midhun@gmail.com"
-                        type="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required={true}
-                        onHasError={handleErrorChange}
-                    />
-                    <InputField
-                        label="Password"
-                        id="password"
-                        placeholder="Enter your password"
-                        type="password"
-                        value={formData.password}
-                        onChange={handleChange}
-                        required={true}
-                        isPassword={true}
-                        onHasError={handleErrorChange}
-                    />
-                    <InputField
-                        label="Confirm Password"
-                        id="confirmPassword"
-                        placeholder="Confirm your password"
-                        type="password"
-                        value={formData.confirmPassword}
-                        onChange={handleChange}
-                        required={true}
-                        isPassword={true}
-                        onHasError={handleErrorChange}
-                    />
-                    <FormButton text={"Sign Up"} loading={loading} />
-                </form>
-                <p className="mt-10 text-center text-sm/6 text-[var(--textOne)] hover:text-[var(--textOneHover)]">
-                    Already a Slotflow member?
-                    <span className="font-semibold text-[var(--mainColor)] hover:text-[var(--mainColorHover)] cursor-pointer" onClick={changeToSignIn}>
-                        {" "}Sign In
-                    </span>
-                </p>
+            <div className="sm:mx-auto sm:w-full sm:max-w-md">
+                <div className="border-2 shadow-lg rounded-xl p-8">
+                    <FormHeading title={"Sign Up"} description="Sign Up with your credentials" />
+                    <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+                        <form onSubmit={handleSubmit} className="space-y-3">
+                            <InputField
+                                label="Username"
+                                id="username"
+                                placeholder="Midhun K Paniker"
+                                type="text"
+                                value={formData.username}
+                                onChange={handleChange}
+                                required={true}
+                                onHasError={handleErrorChange}
+                            />
+                            <InputField
+                                label="Email address"
+                                id="email"
+                                placeholder="midhun@gmail.com"
+                                type="email"
+                                value={formData.email}
+                                onChange={handleChange}
+                                required={true}
+                                onHasError={handleErrorChange}
+                            />
+                            <InputField
+                                label="Password"
+                                id="password"
+                                placeholder="Enter your password"
+                                type="password"
+                                value={formData.password}
+                                onChange={handleChange}
+                                required={true}
+                                isPassword={true}
+                                onHasError={handleErrorChange}
+                            />
+                            <InputField
+                                label="Confirm Password"
+                                id="confirmPassword"
+                                placeholder="Confirm your password"
+                                type="password"
+                                value={formData.confirmPassword}
+                                onChange={handleChange}
+                                required={true}
+                                isPassword={true}
+                                onHasError={handleErrorChange}
+                            />
+                            <FormButton text={"Sign Up"} loading={loading} />
+                        </form>
+                        <GoogleButton onClick={(e) => handleGoogleLogin({ e, role })} text={"Sign in with Google"} />
+                        <p className="mt-10 text-center text-sm/6 text-[var(--textOne)] hover:text-[var(--textOneHover)]">
+                            Already a Slotflow member?
+                            <span className="font-semibold text-[var(--mainColor)] hover:text-[var(--mainColorHover)] cursor-pointer" onClick={changeToSignIn}>
+                                {" "}Sign In
+                            </span>
+                        </p>
+                    </div>
+                </div>
             </div>
         </div >
     )

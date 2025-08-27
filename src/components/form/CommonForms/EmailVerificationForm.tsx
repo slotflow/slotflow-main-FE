@@ -8,7 +8,7 @@ import { AppDispatch, RootState } from '@/utils/redux/appStore';
 import { setResetPasswordForm, setsignInForm, setSignUpForm, setVerifyEmailForm, setVerifyOtpForm } from '@/utils/redux/slices/signFormSlice';
 import { ApiBaseResponse, EmailVerificationFormData, EmailVerificationFormProps, HandleChangeFunction } from '@/utils/interface/commonInterface';
 
-const EmailVerificationForm: React.FC<EmailVerificationFormProps> = ({role}) => {
+const EmailVerificationForm: React.FC<EmailVerificationFormProps> = ({ role }) => {
 
     const dispatch = useDispatch<AppDispatch>();
     const loading: boolean = useSelector((store: RootState) => store.signform.loading);
@@ -25,7 +25,7 @@ const EmailVerificationForm: React.FC<EmailVerificationFormProps> = ({role}) => 
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        if(hasErrors){
+        if (hasErrors) {
             toast.error("Please fix the form errors.");
             return;
         }
@@ -62,32 +62,34 @@ const EmailVerificationForm: React.FC<EmailVerificationFormProps> = ({role}) => 
 
     const handleErrorChange = (hasError: boolean) => {
         setHasErrors(hasError);
-      };
+    };
 
     return (
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-            <FormHeading title={"Email Verification"} />
+            <div className="sm:mx-auto sm:w-full sm:max-w-md">
+                <div className="border-2 shadow-lg rounded-xl p-8">            <FormHeading title={"Verify Email"} description='An Otp will send to this email id' />
 
-            <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                <form onSubmit={handleSubmit} className="space-y-6">
+                    <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+                        <form onSubmit={handleSubmit} className="space-y-3">
+                            <InputField
+                                label="Email address"
+                                id="email"
+                                placeholder="midhun@gmail.com"
+                                type="email"
+                                value={formData.email}
+                                onChange={handleChange}
+                                required={true}
+                                onHasError={handleErrorChange}
+                            />
 
-                    <InputField
-                        label="Email address"
-                        id="email"
-                        placeholder="midhun@gmail.com"
-                        type="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required={true}
-                        onHasError={handleErrorChange}
-                    />
+                            <FormButton text={"Submit"} loading={loading} />
+                        </form>
 
-                    <FormButton text={"Submit"} loading={loading} />
-                </form>
-
-                <p className="mt-6 flex justify-between text-xs md:text-sm/6 text-[var(--textTwo)] px-2">
-                    <span className="font-semibold text-[var(--mainColor)] hover:text-[var(--mainColorHover)] cursor-pointer" onClick={handleCancel}>Cencel</span>
-                </p>
+                        <p className="mt-6 flex justify-between text-xs md:text-sm/6 text-[var(--textTwo)] px-2">
+                            <span className="font-semibold text-[var(--mainColor)] hover:text-[var(--mainColorHover)] cursor-pointer" onClick={handleCancel}>Cencel</span>
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     )
