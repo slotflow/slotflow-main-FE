@@ -17,6 +17,7 @@ import {
     ProviderFetchDashboardStatsDataResponse,
     ProviderDashboardGraphResponse,
     ProviderSaveSubscriptionResponse,
+    ProviderChangeAppointmentStatusRequest,
 } from "../interface/api/providerApiInterface";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { buildQueryParams, parseNewCommonResponse } from "../helper";
@@ -141,4 +142,9 @@ export const providerFetchDashboardStatsData = async () : Promise<ProviderFetchD
 export const providerFetchDashboardGraphData = async () : Promise<ProviderDashboardGraphResponse> => {
     const response = await axiosInstance.get('/provider/getDashboardGraphData');
     return response.data.data;
+}
+
+export const providerChangeAppointmentStatus = async (data: ProviderChangeAppointmentStatusRequest) : Promise<ApiBaseResponse> => {
+    const response = await axiosInstance.patch('/provider/changeAppointmentStatus',data);
+    return response.data;
 }

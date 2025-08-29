@@ -6,6 +6,7 @@ import { Provider } from "../entityInterface/providerInterface";
 import { Service } from "../entityInterface/appServiceInterface";
 import { ProviderService } from "../entityInterface/providerServiceInterface";
 import { Availability, AvailabilityForResponse } from "../entityInterface/serviceAvailabilityInterface";
+import { Booking } from "../entityInterface/bookingInterface";
 
 // **** 1.  Used as the request interface for adding address api
 export interface ProviderAddProviderAddressRequest {
@@ -149,3 +150,11 @@ export interface ProviderDashboardGraphResponse {
   }>;
 
 }
+
+
+// **** 20. Used as the request interface for the provider change booking appointment status
+export interface ProviderChangeAppointmentStatusRequest {
+  appointmentId: Booking["_id"];
+  appointmentStatus: Booking["appointmentStatus"];
+}
+
