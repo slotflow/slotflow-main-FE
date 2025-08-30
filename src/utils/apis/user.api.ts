@@ -35,10 +35,17 @@ export const userUpdateUserProfileImage = createAsyncThunk<UpdateUserProfileImag
     }
 )
 
-export const userUpdateUserInfo = async (data: UserUpdateUserInfoRequest) : Promise<UserUpdateUserInfoResponse> => {
-    const response = await axiosInstance.put(`/user/updateUserInfo`, data);
-    return response.data;
-}
+export const userUpdateUserInfo = createAsyncThunk<UserUpdateUserInfoResponse, UserUpdateUserInfoRequest>('/user/updaterUserInfo',
+    async (data: UserUpdateUserInfoRequest) => {
+        const response = await axiosInstance.patch('/user/updateUserInfo', data);
+        return response.data;
+    }
+)
+
+// export const userUpdateUserInfo = async (data: UserUpdateUserInfoRequest) : Promise<UserUpdateUserInfoResponse> => {
+//     const response = await axiosInstance.put(`/user/updateUserInfo`, data);
+//     return response.data;
+// }
 
 export const userAddUserAddress = async ({ formData }: AddUserAddressRequest): Promise<ApiBaseResponse> => {
     const response = await axiosInstance.post('/user/addAddress', formData);

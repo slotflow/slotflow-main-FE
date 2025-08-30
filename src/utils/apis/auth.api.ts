@@ -30,12 +30,8 @@ export const verifyOtp = createAsyncThunk<ApiBaseResponse,VerifyOtpRequest>("aut
 )
 
 export const signin = createAsyncThunk<SigninResponse, SigninRequest>("auth/signin",
-    async (userData: SigninRequest, thunkAPI) => {
+    async (userData: SigninRequest) => {
         const response = await axiosInstance.post('/auth/signin', userData);
-        if (response.data.success) {
-            console.log("response.data : ",response.data);
-            thunkAPI.dispatch(setAuthUser(response.data.authUser));
-        }
         return response.data;
     }
 )

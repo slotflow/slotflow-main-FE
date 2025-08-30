@@ -7,7 +7,7 @@ import { ProviderService } from "../entityInterface/providerServiceInterface";
 import { AvailabilityForResponse } from "../entityInterface/serviceAvailabilityInterface";
 
 // **** 1.  Used as the response type of the user profile details fetching api
-export type UserFetchUserProfileDetailsResponse = Pick<User, "username" | "email" | "isBlocked" | "isEmailVerified" | "phone" | "createdAt">;
+export type UserFetchUserProfileDetailsResponse = Pick<User, "username" | "email" | "isBlocked" | "isEmailVerified" | "phone" | "createdAt" | "updatedAt">;
 
 
 // **** 2.  Used as the response type of the user profile image updating api

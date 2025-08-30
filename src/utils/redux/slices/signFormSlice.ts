@@ -55,8 +55,8 @@ const signFormSlice = createSlice({
             state.otpTimerIsRunning = false;
         }
     },
-        extraReducers: (signLoader) => {
-            signLoader
+        extraReducers: (builder) => {
+            builder
                 .addCase(signup.pending, (state: SignUpFormStateVariables) => {
                     state.loading = true;
                 })
@@ -65,7 +65,9 @@ const signFormSlice = createSlice({
                 })
                 .addCase(signup.rejected, (state: SignUpFormStateVariables) => {
                     state.loading = false;
-                })
+                });
+
+            builder
                 .addCase(signin.pending, (state: SignUpFormStateVariables) => {
                     state.loading = true;
                 })
@@ -74,7 +76,9 @@ const signFormSlice = createSlice({
                 })
                 .addCase(signin.rejected, (state: SignUpFormStateVariables) => {
                     state.loading = false;
-                })
+                });
+            
+            builder
                 .addCase(verifyOtp.pending, (state: SignUpFormStateVariables) => {
                     state.loading = true;
                 })
@@ -83,7 +87,9 @@ const signFormSlice = createSlice({
                 })
                 .addCase(verifyOtp.rejected, (state: SignUpFormStateVariables) => {
                     state.loading = false;
-                })
+                });
+            
+            builder
                 .addCase(resendOtp.pending, (state: SignUpFormStateVariables) => {
                     state.loading = true;
                 })
@@ -92,7 +98,9 @@ const signFormSlice = createSlice({
                 })
                 .addCase(resendOtp.rejected, (state: SignUpFormStateVariables) => {
                     state.loading = false;
-                })
+                });
+            
+            builder
                 .addCase(updatePassword.pending, (state: SignUpFormStateVariables) => {
                     state.loading = true;
                 })

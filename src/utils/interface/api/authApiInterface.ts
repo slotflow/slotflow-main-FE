@@ -1,4 +1,4 @@
-import { ApiBaseResponse } from "../commonInterface";
+import { ApiBaseResponse, Role } from "../commonInterface";
 
 
 // ****************** UserBaseInterface ******************
@@ -34,13 +34,16 @@ export interface SigninResponse extends ApiBaseResponse {
     authUser: {
         username: string;
         profileImage: string;
-        role: string;
+        phone: string;
+        role: Role;
+        isBlocked: boolean;
         isLoggedIn: boolean;
         isAddressAdded?: boolean,
         isServiceDetailsAdded?: boolean,
         isServiceAvailabilityAdded?: boolean,
         isAdminApproved?: boolean,
         providerSubscription?: string;
+        updatedAt: string;
     };
 }
 

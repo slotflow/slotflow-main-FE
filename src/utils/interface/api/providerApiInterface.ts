@@ -39,7 +39,7 @@ export interface AddProviderServiceAvailabilitiesRequest {
 
 
 // **** 7.  Used as the response type for provider fetch self profile details api
-export type ProviderFetchProfileDetailsResponse = Pick<Provider, "username" | "email" | "isAdminVerified" | "isBlocked" | "isEmailVerified" | "phone" | "createdAt" | "trustedBySlotflow">;
+export type ProviderFetchProfileDetailsResponse = Pick<Provider, "username" | "email" | "isAdminVerified" | "isBlocked" | "isEmailVerified" | "phone" | "createdAt" | "trustedBySlotflow" | "updatedAt">;
 
 
 // **** 8.  Used as the response type for provider fetch self service availability

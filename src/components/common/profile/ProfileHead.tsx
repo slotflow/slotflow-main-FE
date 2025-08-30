@@ -46,7 +46,7 @@ const ProfileHead: React.FC<ProfileHeaderComponentProps> = ({
 
                 {updation ? (
                     <img
-                    className={`h-32 w-32 rounded-lg transition-opacity ${profileImageUpdating ? "opacity-50" : "opacity-100"}`}
+                    className={`h-32 w-32 object-cover rounded-lg transition-opacity ${profileImageUpdating ? "opacity-50" : "opacity-100"}`}
                     src={authUser?.profileImage ? authUser.profileImage : selectedImage ? selectedImage : "/images/avatar.png"}
                     alt="Profile"
                 />

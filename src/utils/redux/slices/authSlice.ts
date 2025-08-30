@@ -1,7 +1,11 @@
+import { signin } from "@/utils/apis/auth.api";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { userUpdateUserProfileImage } from "@/utils/apis/user.api";
 import { AuthState, UserData } from "@/utils/interface/sliceInterface";
-import { providerAddProviderAddress, providerAddProviderServiceAvailabilities, providerAddProviderServiceDetails, providerUpdateProviderProfileImage } from "@/utils/apis/provider.api";
+import { SigninResponse } from "@/utils/interface/api/authApiInterface";
+import { UserUpdateUserInfoResponse } from "@/utils/interface/api/userApiInterface";
+import { userUpdateUserInfo, userUpdateUserProfileImage } from "@/utils/apis/user.api";
+import { ProviderUpdateProviderInfoResponse } from "@/utils/interface/api/providerApiInterface";
+import { providerAddProviderAddress, providerAddProviderServiceAvailabilities, providerAddProviderServiceDetails, providerUpdateProviderInfo, providerUpdateProviderProfileImage } from "@/utils/apis/provider.api";
 
 const initialState: AuthState = {
     authUser: null,
@@ -34,6 +38,13 @@ const authSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
+            .addCase(signin.pending, () => {})
+            .addCase(signin.fulfilled, (state, action: PayloadAction<SigninResponse>) => {
+                state.authUser = action.payload.authUser;
+            })
+            .addCase(signin.rejected, () => {});
+
+        builder
             .addCase(providerUpdateProviderProfileImage.pending, (state) => {
                 state.profileImageUpdating = true;
             })
@@ -45,7 +56,9 @@ const authSlice = createSlice({
             })
             .addCase(providerUpdateProviderProfileImage.rejected, (state) => {
                 state.profileImageUpdating = false;
-            })
+            });
+
+        builder
             .addCase(userUpdateUserProfileImage.pending, (state) => {
                 state.profileImageUpdating = true;
             })
@@ -57,7 +70,9 @@ const authSlice = createSlice({
             })
             .addCase(userUpdateUserProfileImage.rejected, (state) => {
                 state.profileImageUpdating = false;
-            })
+            });
+
+        builder
             .addCase(providerAddProviderAddress.pending, (state) => {
                 state.dataUpdating = true;
             })
@@ -69,7 +84,9 @@ const authSlice = createSlice({
             })
             .addCase(providerAddProviderAddress.rejected, (state) => {
                 state.dataUpdating = false;
-            })
+            });
+
+        builder
             .addCase(providerAddProviderServiceDetails.pending, (state) => {
                 state.dataUpdating = true;
             })
@@ -81,7 +98,9 @@ const authSlice = createSlice({
             })
             .addCase(providerAddProviderServiceDetails.rejected, (state) => {
                 state.dataUpdating = false;
-            })
+            });
+
+        builder
             .addCase(providerAddProviderServiceAvailabilities.pending, (state) => {
                 state.dataUpdating = true;
             })
@@ -92,6 +111,36 @@ const authSlice = createSlice({
                 }
             })
             .addCase(providerAddProviderServiceAvailabilities.rejected, (state) => {
+                state.dataUpdating = false;
+            });
+
+        builder
+            .addCase(providerUpdateProviderInfo.pending, (state) => {
+                state.dataUpdating = true;
+            })
+            .addCase(providerUpdateProviderInfo.fulfilled, (state, action: PayloadAction<ProviderUpdateProviderInfoResponse>) => {
+                state.dataUpdating = false;
+                if(state.authUser) {
+                    state.authUser.username = action.payload.data.username;
+                    state.authUser.phone = action.payload.data.phone;
+                }
+            })
+            .addCase(providerUpdateProviderInfo.rejected, (state) => {
+                state.dataUpdating = false;
+            });
+
+        builder
+            .addCase(userUpdateUserInfo.pending, (state) => {
+                state.dataUpdating = true;
+            })
+            .addCase(userUpdateUserInfo.fulfilled, (state, action: PayloadAction<UserUpdateUserInfoResponse>) => {
+                state.dataUpdating = false;
+                if(state.authUser) {
+                    state.authUser.username = action.payload.data.username;
+                    state.authUser.phone = action.payload.data.phone;
+                }
+            })
+            .addCase(userUpdateUserInfo.rejected, (state) => {
                 state.dataUpdating = false;
             });
     },

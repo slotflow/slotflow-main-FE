@@ -4,18 +4,18 @@ import PlanGuard from "./planGuard.tsx";
 import { createBrowserRouter } from "react-router-dom";
 import { ProtectedRoute } from "./protectedRoutes.tsx";
 
+const ProfilePage = lazy(() => import("@/pages/common/ProfilePage.tsx"));
 const LandingPage = lazy(() => import("../pages/common/LandingPage.tsx"));
 const Error404Page = lazy(() => import("@/pages/common/Error404Page.tsx"));
 const UserLoginPage = lazy(() => import("@/pages/common/UserLoginPage.tsx"));
+const LandingLayout = lazy(() => import("../pages/common/LandingLayout.tsx"));
 const AdminLoginPage = lazy(() => import("@/pages/common/AdminLoginPage.tsx"));
 const ProviderLoginPage = lazy(() => import("@/pages/common/ProviderLoginPage.tsx"));
 const PasswordResetPage = lazy(() => import("@/pages/common/PasswordResetPage.tsx"));
 const PaymentConfirmPage = lazy(() => import("@/pages/common/PaymentConfirmPage.tsx"));
-const LandingLayout = lazy(() => import("../pages/common/LandingLayout.tsx"));
 
 const UserMainPage = lazy(() => import("@/pages/user/UserMainPage.tsx"));
 const UserChatPage = lazy(() => import("@/pages/user/UserChatPage.tsx"));
-const UserProfilePage = lazy(() => import("@/pages/user/UserProfilePage.tsx"));
 const UserAddressPage = lazy(() => import("@/pages/user/UserAddressPage.tsx"));
 const UserPaymentsPage = lazy(() => import("@/pages/user/UserPaymentsPage.tsx"));
 const UserBookingsPage = lazy(() => import("@/pages/user/UserBookingsPage.tsx"));
@@ -26,7 +26,6 @@ const UserServiceProviderDetailPage = lazy(() => import("@/pages/user/UserServic
 
 const ProviderMainPage = lazy(() => import("@/pages/provider/ProviderMainPage.tsx"));
 const ProviderChatPage = lazy(() => import("@/pages/provider/ProviderChatPage.tsx"));
-const ProviderProfilePage = lazy(() => import("@/pages/provider/ProviderProfilePage.tsx"));
 const ProviderServicePage = lazy(() => import("@/pages/provider/ProviderServicePage.tsx"));
 const ProviderReviewsPage = lazy(() => import("@/pages/provider/ProviderReviewsPage.tsx"));
 const ProviderAddressPage = lazy(() => import("@/pages/provider/ProviderAddressPage.tsx"));
@@ -90,7 +89,7 @@ export const appRouter = createBrowserRouter([
                     { index: true, element: <UserServiceSelectPage /> },
                     { path: "dashboard", element: <UserDashboardPage /> },
                     { path: "providerProfile/:providerId", element: <UserServiceProviderDetailPage /> },
-                    { path: "profile", element: <UserProfilePage /> },
+                    { path: "profile", element: <ProfilePage /> },
                     { path: "address", element: <UserAddressPage /> },
                     { path: "bookings", element: <UserBookingsPage /> },
                     { path: "payments", element: <UserPaymentsPage /> },
@@ -110,7 +109,7 @@ export const appRouter = createBrowserRouter([
                 ),
                 children: [
                     { path: "dashboard", element: <ProviderDashboardPage /> },
-                    { path: "profile", element: <ProviderProfilePage /> },
+                    { path: "profile", element: <ProfilePage /> },
                     { path: "address", element: <ProviderAddressPage /> },
                     { path: "service", element: <ProviderServicePage /> },
                     { path: "availability", element: <ProviderAvailabilityPage /> },

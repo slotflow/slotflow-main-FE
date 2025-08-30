@@ -33,6 +33,7 @@ const LandingLayout = () => {
         role: rawUser.role as "USER" | "PROVIDER",
         isLoggedIn: true,
         googleId: rawUser.googleId,
+        updatedAt: rawUser.updatedAt,
       };
       dispatch(setAuthUser(authUser));
       window.history.replaceState({}, document.title, window.location.pathname);

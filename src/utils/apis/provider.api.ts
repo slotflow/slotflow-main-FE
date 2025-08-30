@@ -124,10 +124,17 @@ export const providerFetchBookingAppoinments = async (params?: FetchFunctionPara
     return parseNewCommonResponse<FetchBookingsResponse>(response.data);
 }
 
-export const providerUpdateProviderInfo = async (data: ProviderUpdateProviderInfoRequest): Promise<ProviderUpdateProviderInfoResponse> => {
-    const response = await axiosInstance.put('/provider/updaterUserInfo', data);
-    return response.data;
-}
+export const providerUpdateProviderInfo = createAsyncThunk<ProviderUpdateProviderInfoResponse, ProviderUpdateProviderInfoRequest>('/provider/updaterUserInfo',
+    async (data: ProviderUpdateProviderInfoRequest) => {
+        const response = await axiosInstance.patch('/provider/updaterUserInfo', data);
+        return response.data;
+    }
+)
+
+// export const providerUpdateProviderInfo = async (data: ProviderUpdateProviderInfoRequest): Promise<ProviderUpdateProviderInfoResponse> => {
+//     const response = await axiosInstance.put('/provider/updaterUserInfo', data);
+//     return response.data;
+// }
 
 export const providerFetchUsersFroChatSideBar = async () : Promise<ProviderFetchUsersForChatSidebarResponse> => {
     const response = await axiosInstance.get('/provider/getUsersForCahtSidebar');

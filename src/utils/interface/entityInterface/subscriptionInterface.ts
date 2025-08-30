@@ -8,8 +8,8 @@ export interface Subscription {
     endDate: Date,
     subscriptionStatus: string,
     paymentId: string,
-    createdAt: Date,
-    updatedAt: Date,
+    createdAt: string,
+    updatedAt: string,
 }
 
 

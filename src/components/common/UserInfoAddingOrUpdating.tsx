@@ -7,23 +7,22 @@ import { useDispatch, useSelector } from 'react-redux';
 import { userUpdateUserInfo } from '@/utils/apis/user.api';
 import { UserData } from '@/utils/interface/sliceInterface';
 import { AppDispatch, RootState } from '@/utils/redux/appStore';
-import { updateAuthUserName } from '@/utils/redux/slices/authSlice';
-import { FormEvent, useCallback, useEffect, useState } from 'react';
+import { FormEvent, useCallback, 
+    // useEffect, 
+    useState } from 'react';
 import { providerUpdateProviderInfo } from '@/utils/apis/provider.api';
 import { HandleChangeFunction } from '@/utils/interface/commonInterface';
-import { UserUpdateUserInfoResponse } from '@/utils/interface/api/userApiInterface';
-import { ProviderUpdateProviderInfoResponse } from '@/utils/interface/api/providerApiInterface';
 
 interface UserInfoAddingOrUpdatingComponentInterface {
     title: string;
-    userInfo: { username: string, phone: string };
+    // userInfo: { username: string, phone: string };
     setOpenUserInfoForm: (data: boolean) => void;
 }
 
 const UserInfoAddingOrUpdating: React.FC<UserInfoAddingOrUpdatingComponentInterface> = ({
     title,
-    userInfo,
-    setOpenUserInfoForm
+    // userInfo,
+    setOpenUserInfoForm,
 }) => {
 
     const dispatch = useDispatch<AppDispatch>();
@@ -37,14 +36,14 @@ const UserInfoAddingOrUpdating: React.FC<UserInfoAddingOrUpdatingComponentInterf
         phone: "",
     });
 
-    useEffect(() => {
-        if (userInfo) {
-            setFormData({
-                username: userInfo.username,
-                phone: userInfo.phone
-            });
-        }
-    }, [userInfo])
+    // useEffect(() => {
+    //     if (userInfo) {
+    //         setFormData({
+    //             username: userInfo.username,
+    //             phone: userInfo.phone
+    //         });
+    //     }
+    // }, [userInfo])
 
     const handleChange = useCallback<HandleChangeFunction>((e) => {
         setFormData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
@@ -74,18 +73,21 @@ const UserInfoAddingOrUpdating: React.FC<UserInfoAddingOrUpdatingComponentInterf
                 return;
             }
 
-            const data: UserUpdateUserInfoResponse | ProviderUpdateProviderInfoResponse = await updateFn({
-                username: formData.username,
-                phone: formData.phone,
-            });
+            await dispatch(
+                updateFn({
+                    username: formData.username,
+                    phone: formData.phone,
+                })
+            ).unwrap().then((res) => {
+                if (res.success) {
+                    setOpenUserInfoForm(false);
+                    toast.success(res.message || "Info updated successfully");
+                }
+            })
+                .catch((error) => {
+                    toast.success(error.message || "Info updated successfully");
+                })
 
-            if (data.success) {
-                dispatch(updateAuthUserName(data.data.username));
-                setOpenUserInfoForm(false);
-                toast.success(data.message || "Info updated successfully");
-            } else {
-                toast.error("Info updation failed");
-            }
         } catch {
             toast.error("Something went wrong");
         } finally {
@@ -108,7 +110,8 @@ const UserInfoAddingOrUpdating: React.FC<UserInfoAddingOrUpdatingComponentInterf
                         id="username"
                         placeholder="Username"
                         type="text"
-                        value={formData.username}
+                        // value={formData.username}
+                        value={authUser?.username || ""}
                         onChange={handleChange}
                         required={true}
                         isPassword={false}
@@ -119,7 +122,8 @@ const UserInfoAddingOrUpdating: React.FC<UserInfoAddingOrUpdatingComponentInterf
                             Phone
                         </label>
                         <PhoneInput
-                            value={formData.phone}
+                            // value={formData.phone}
+                            value={authUser?.phone || ""}
                             onChange={(value) => {
                                 setFormData((prev) => ({ ...prev, phone: value || "" }));
                                 setHasErrors(false);

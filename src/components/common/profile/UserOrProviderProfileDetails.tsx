@@ -1,5 +1,7 @@
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { useQuery } from "@tanstack/react-query";
+import { RootState } from "@/utils/redux/appStore";
 import DataFetchingError from "../DataFetchingError";
 import InfoDisplayComponent from "../InfoDisplayComponent";
 import { copyToClipboard, formatDate } from "@/utils/helper";
@@ -23,9 +25,8 @@ interface UserOrProviderProfileDetailsComponentProps {
     providerSelf?: boolean;
     userSelf?: boolean;
     userLookingProvider?: boolean;
-    setProfileImage?: (image: string) => void,
+    setProfileImage?: (image: string) => void;
     shimmerRow: number;
-    setData?: ({username, phone}: { username: string, phone: string}) => void,
 }
 
 const UserOrProviderProfileDetails: React.FC<UserOrProviderProfileDetailsComponentProps> = ({
@@ -39,9 +40,9 @@ const UserOrProviderProfileDetails: React.FC<UserOrProviderProfileDetailsCompone
     userLookingProvider,
     setProfileImage,
     shimmerRow,
-    setData
 }) => {
 
+    const { authUser } = useSelector((state: RootState) => state.auth);
     const { data, isLoading, isError, error } = useQuery({
         queryFn: () => fetchApiFunction(userOrProviderId),
         queryKey: [queryKey],
@@ -53,11 +54,7 @@ const UserOrProviderProfileDetails: React.FC<UserOrProviderProfileDetailsCompone
         if (setProfileImage && data && "profileImage" in data && data?.profileImage) {
             setProfileImage(data.profileImage);
         }
-        if(setData && data) {
-            const userData = data as (ProviderFetchProfileDetailsResponse | UserFetchUserProfileDetailsResponse);
-            setData({username : userData.username, phone: userData.phone})
-        }
-    }, [data, setProfileImage, setData]);
+    }, [data, setProfileImage]);
 
     if (isError) {
         return <DataFetchingError message={error?.message} />
@@ -101,9 +98,9 @@ const UserOrProviderProfileDetails: React.FC<UserOrProviderProfileDetailsCompone
                         const providerProfileData = data as (ProviderFetchProfileDetailsResponse);
                         return (
                             <>
-                                <InfoDisplayComponent label="Username" value={providerProfileData.username} />
-                                <InfoDisplayComponent label="Email" value={providerProfileData.email} copyToClipboard={copyToClipboard} />
-                                <InfoDisplayComponent label="Phone Number" value={providerProfileData.phone ?? 'Not yet added'} />
+                                <InfoDisplayComponent label="Username" value={authUser?.username || providerProfileData.username} />
+                                <InfoDisplayComponent label="Email" value={authUser?.email || providerProfileData.email} />
+                                <InfoDisplayComponent label="Phone Number" value={authUser?.phone || providerProfileData.phone || 'Not yet added'} />
                                 <InfoDisplayComponent label="Slotflow Trusted" value={providerProfileData.trustedBySlotflow} isBoolean={true} />
                                 <InfoDisplayComponent label="Joined On" value={providerProfileData.createdAt} formatDate={formatDate} />
                                 <InfoDisplayComponent label="Email Verified" value={providerProfileData.isEmailVerified} isBoolean={true} />
@@ -131,9 +128,9 @@ const UserOrProviderProfileDetails: React.FC<UserOrProviderProfileDetailsCompone
                         const userProfileData = data as (UserFetchUserProfileDetailsResponse);
                         return (
                             <>
-                                <InfoDisplayComponent label="Username" value={userProfileData?.username} />
-                                <InfoDisplayComponent label="Email" value={userProfileData?.email} />
-                                <InfoDisplayComponent label="Phone Number" value={userProfileData?.phone} />
+                                <InfoDisplayComponent label="Username" value={authUser?.username || userProfileData?.username} />
+                                <InfoDisplayComponent label="Email" value={authUser?.email || userProfileData?.email} />
+                                <InfoDisplayComponent label="Phone Number" value={authUser?.phone || userProfileData?.phone} />
                                 <InfoDisplayComponent label="Joined On" value={userProfileData?.createdAt} formatDate={formatDate} />
                                 <InfoDisplayComponent label="Email Verified" value={userProfileData?.isEmailVerified} isBoolean={true} />
                                 <InfoDisplayComponent label="Account Blocked" value={userProfileData?.isBlocked} isBoolean={true} />

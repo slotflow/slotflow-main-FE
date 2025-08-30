@@ -30,6 +30,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ isAdmin, role }) => {
     }, []);
 
     const handleNavigation = (role: string) => {
+        console.log("navigating");
         if (role === "ADMIN") navigate("/admin/dashboard", { replace: true });
         else if (role === "USER") navigate("/user", { replace: true });
         else if (role === "PROVIDER") navigate("/provider/dashboard", { replace: true });
@@ -49,7 +50,12 @@ const LoginForm: React.FC<LoginFormProps> = ({ isAdmin, role }) => {
             }))
                 .unwrap()
                 .then((res) => {
+                    console.log("response : ",res);
                     if (res.success) {
+                        if(res.authUser.isBlocked) {
+                            toast.error("Your account is blocked, please contact us");
+                            return;
+                        }
                         toast.success(res.message);
                         handleNavigation(res.authUser.role);
                     } else {

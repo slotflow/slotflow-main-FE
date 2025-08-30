@@ -16,8 +16,8 @@ export interface Provider {
     subscription: [string];
     verificationToken: string;
     trustedBySlotflow: boolean;
-    createdAt: Date;
-    updatedAt: Date;
+    createdAt: string;
+    updatedAt: string;
 }
 
 
