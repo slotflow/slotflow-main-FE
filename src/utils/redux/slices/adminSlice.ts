@@ -4,11 +4,13 @@ const adminSlice = createSlice({
     name: "admin",
     initialState: null,
     reducers: {
+        clearAdminSlice: () => {
 
+        }
     },
 });
 
 
-// export const {} = adminSlice.actions;
+export const { clearAdminSlice } = adminSlice.actions;
 
 export default adminSlice.reducer;

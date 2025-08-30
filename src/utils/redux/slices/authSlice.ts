@@ -1,4 +1,4 @@
-import { signin } from "@/utils/apis/auth.api";
+import { signin, signout } from "@/utils/apis/auth.api";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AuthState, UserData } from "@/utils/interface/sliceInterface";
 import { SigninResponse } from "@/utils/interface/api/authApiInterface";
@@ -143,6 +143,15 @@ const authSlice = createSlice({
             .addCase(userUpdateUserInfo.rejected, (state) => {
                 state.dataUpdating = false;
             });
+
+        builder
+            .addCase(signout.pending, () => {})
+            .addCase(signout.fulfilled, (state) => {
+                state.authUser = null;
+                state.dataUpdating = false;
+                state.profileImageUpdating = false;
+            })
+            .addCase(signout.rejected, () => {})
     },
 });
 

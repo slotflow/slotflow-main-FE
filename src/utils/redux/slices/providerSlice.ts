@@ -48,6 +48,14 @@ const providerSlice = createSlice({
     },
     setPaymentSelectionPage: (state, action: PayloadAction<boolean>) => {
       state.paymentSelectionOpen = action.payload;
+    },
+    clearProviderSlice: (state) => {
+      state.availabilities = [];
+      state.planId = null;
+      state.planDuration = null;
+      state.paymentSelectionOpen = false;
+      state.isTrialPlan = false;
+      state.paymentPageOpen = false;
     }
   },
 });
@@ -58,6 +66,7 @@ export const {
   setSubscriptionPlanDuration,
   setPaymentSelectionPage,
   setSubscriptionIsTrailPlan,
+  clearProviderSlice,
 } = providerSlice.actions;
 
 export default providerSlice.reducer;

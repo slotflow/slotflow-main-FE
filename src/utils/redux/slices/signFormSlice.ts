@@ -53,77 +53,89 @@ const signFormSlice = createSlice({
         },
         stopTimer: (state: SignUpFormStateVariables) => {
             state.otpTimerIsRunning = false;
+        },
+        clearSignFormSlice: (state) => {
+            state.signInForm = true;
+            state.signUpForm = false;
+            state.verifyOtpForm = false;
+            state.verifyEmailForm = false;
+            state.resetPasswordForm = false;
+            state.forgotPassword = false;
+            state.otpRemainingTime = 0;
+            state.otpTimerIsRunning = false;
+            state.loading = false;
         }
     },
-        extraReducers: (builder) => {
-            builder
-                .addCase(signup.pending, (state: SignUpFormStateVariables) => {
-                    state.loading = true;
-                })
-                .addCase(signup.fulfilled, (state: SignUpFormStateVariables) => {
-                    state.loading = false;
-                })
-                .addCase(signup.rejected, (state: SignUpFormStateVariables) => {
-                    state.loading = false;
-                });
+    extraReducers: (builder) => {
+        builder
+            .addCase(signup.pending, (state: SignUpFormStateVariables) => {
+                state.loading = true;
+            })
+            .addCase(signup.fulfilled, (state: SignUpFormStateVariables) => {
+                state.loading = false;
+            })
+            .addCase(signup.rejected, (state: SignUpFormStateVariables) => {
+                state.loading = false;
+            });
 
-            builder
-                .addCase(signin.pending, (state: SignUpFormStateVariables) => {
-                    state.loading = true;
-                })
-                .addCase(signin.fulfilled, (state: SignUpFormStateVariables) => {
-                    state.loading = false;
-                })
-                .addCase(signin.rejected, (state: SignUpFormStateVariables) => {
-                    state.loading = false;
-                });
-            
-            builder
-                .addCase(verifyOtp.pending, (state: SignUpFormStateVariables) => {
-                    state.loading = true;
-                })
-                .addCase(verifyOtp.fulfilled, (state: SignUpFormStateVariables) => {
-                    state.loading = false;
-                })
-                .addCase(verifyOtp.rejected, (state: SignUpFormStateVariables) => {
-                    state.loading = false;
-                });
-            
-            builder
-                .addCase(resendOtp.pending, (state: SignUpFormStateVariables) => {
-                    state.loading = true;
-                })
-                .addCase(resendOtp.fulfilled, (state: SignUpFormStateVariables) => {
-                    state.loading = false;
-                })
-                .addCase(resendOtp.rejected, (state: SignUpFormStateVariables) => {
-                    state.loading = false;
-                });
-            
-            builder
-                .addCase(updatePassword.pending, (state: SignUpFormStateVariables) => {
-                    state.loading = true;
-                })
-                .addCase(updatePassword.fulfilled, (state: SignUpFormStateVariables) => {
-                    state.loading = false;
-                })
-                .addCase(updatePassword.rejected, (state: SignUpFormStateVariables) => {
-                    state.loading = false;
-                })
-        },
+        builder
+            .addCase(signin.pending, (state: SignUpFormStateVariables) => {
+                state.loading = true;
+            })
+            .addCase(signin.fulfilled, (state: SignUpFormStateVariables) => {
+                state.loading = false;
+            })
+            .addCase(signin.rejected, (state: SignUpFormStateVariables) => {
+                state.loading = false;
+            });
+
+        builder
+            .addCase(verifyOtp.pending, (state: SignUpFormStateVariables) => {
+                state.loading = true;
+            })
+            .addCase(verifyOtp.fulfilled, (state: SignUpFormStateVariables) => {
+                state.loading = false;
+            })
+            .addCase(verifyOtp.rejected, (state: SignUpFormStateVariables) => {
+                state.loading = false;
+            });
+
+        builder
+            .addCase(resendOtp.pending, (state: SignUpFormStateVariables) => {
+                state.loading = true;
+            })
+            .addCase(resendOtp.fulfilled, (state: SignUpFormStateVariables) => {
+                state.loading = false;
+            })
+            .addCase(resendOtp.rejected, (state: SignUpFormStateVariables) => {
+                state.loading = false;
+            });
+
+        builder
+            .addCase(updatePassword.pending, (state: SignUpFormStateVariables) => {
+                state.loading = true;
+            })
+            .addCase(updatePassword.fulfilled, (state: SignUpFormStateVariables) => {
+                state.loading = false;
+            })
+            .addCase(updatePassword.rejected, (state: SignUpFormStateVariables) => {
+                state.loading = false;
+            })
+    },
 });
 
-export const {  
-    stopTimer, 
-    startTimer, 
+export const {
+    stopTimer,
+    startTimer,
     toggleForm,
-    updateTimer, 
+    updateTimer,
     setSignUpForm,
     setsignInForm,
     setVerifyOtpForm,
     setForgotPassword,
     setVerifyEmailForm,
     setResetPasswordForm,
+    clearSignFormSlice,
 } = signFormSlice.actions;
 
 export default signFormSlice.reducer;

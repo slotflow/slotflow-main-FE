@@ -11,6 +11,9 @@ const userSlice = createSlice({
   reducers: {
     addService: (state, action: PayloadAction<Array<string> | null>) => {
       state.selectedServices = action.payload;
+    },
+    clearUserSlice: (state) => {
+      state.selectedServices = null;
     }
   },
 
@@ -18,6 +21,7 @@ const userSlice = createSlice({
 
 export const {
   addService,
+  clearUserSlice
 } = userSlice.actions;
 
 export default userSlice.reducer;

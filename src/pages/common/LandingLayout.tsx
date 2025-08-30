@@ -32,6 +32,10 @@ const LandingLayout = () => {
         isBlocked: rawUser.isBlocked,
         role: rawUser.role as "USER" | "PROVIDER",
         isLoggedIn: true,
+        isAddressAdded: rawUser.addressId ? true : false,
+        isServiceDetailsAdded: rawUser.serviceId ? true : false,
+        isServiceAvailabilityAdded: rawUser.serviceAvailabilityId ? true : false,
+        isAdminApproved: rawUser.isAdminVerified,
         googleId: rawUser.googleId,
         updatedAt: rawUser.updatedAt,
       };
