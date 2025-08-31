@@ -3,14 +3,12 @@ import PlanGuard from "./planGuard.tsx";
 import { createBrowserRouter } from "react-router-dom";
 import { ProtectedRoute } from "./protectedRoutes.tsx";
 
+const AuthPage = lazy(() => import("@/pages/common/AuthPage.tsx"));
 const ProfilePage = lazy(() => import("@/pages/common/ProfilePage.tsx"));
 const AddressPage = lazy(() => import("@/pages/common/AddressPage.tsx"));
 const LandingPage = lazy(() => import("../pages/common/LandingPage.tsx"));
 const Error404Page = lazy(() => import("@/pages/common/Error404Page.tsx"));
-const UserLoginPage = lazy(() => import("@/pages/common/UserLoginPage.tsx"));
 const LandingLayout = lazy(() => import("../pages/common/LandingLayout.tsx"));
-const AdminLoginPage = lazy(() => import("@/pages/common/AdminLoginPage.tsx"));
-const ProviderLoginPage = lazy(() => import("@/pages/common/ProviderLoginPage.tsx"));
 const PasswordResetPage = lazy(() => import("@/pages/common/PasswordResetPage.tsx"));
 const PaymentConfirmPage = lazy(() => import("@/pages/common/PaymentConfirmPage.tsx"));
 
@@ -52,9 +50,9 @@ export const appRouter = createBrowserRouter([
         children: [
             { path: "/", element: <LandingPage /> },
             { path: "/forgotPassword", element: <PasswordResetPage /> },
-            { path: "/admin/login", element: <AdminLoginPage /> },
-            { path: "/user/login", element: <UserLoginPage /> },
-            { path: "/provider/login", element: <ProviderLoginPage /> },
+            { path: "/admin/login", element: <AuthPage role={"ADMIN"} /> },
+            { path: "/user/login", element: <AuthPage role={"USER"} /> },
+            { path: "/provider/login", element: <AuthPage role={"PROVIDER"} /> },
             { path: "*", element: <Error404Page /> },
             {
                 path: "/admin",
