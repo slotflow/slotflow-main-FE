@@ -30,7 +30,7 @@ const AdminServiceProviderDetailPage = () => {
                 {tab === 0 && (
                     <UserOrProviderProfileDetails fetchApiFunction={() => adminFetchProviderProfileDetails(providerId)} queryKey="providerProfile" userOrProviderId={providerId} adminLookingProvider shimmerRow={8} />
                 ) || tab === 1 && (
-                    <UserOrProviderAddressDetails userOrProviderId={providerId} fetchApiFunction={() => adminFetchProviderAddress(providerId)} quryKey="providerAddress" />
+                    <UserOrProviderAddressDetails userOrProviderId={providerId} fetchApiFunction={() => adminFetchProviderAddress(providerId)} queryKey="providerAddress" />
                 ) || tab === 2 && (
                     <ProviderServiceDetails providerId={providerId} fetchApiFunction={() => adminFetchProviderService(providerId)} queryKey="providerService" />
                 ) || tab === 3 && (

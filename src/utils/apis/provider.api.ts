@@ -22,12 +22,12 @@ import {
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { buildQueryParams, parseNewCommonResponse } from "../helper";
 import { ApiBaseResponse, FetchFunctionParams, ApiPaginatedResponse } from "../interface/commonInterface";
-import { FetchBookingsResponse, FetchPaymentsResponse, FetchProviderSubscriptionsResponse } from "../interface/api/commonApiInterface";
+import { FetchBookingsResponse, FetchPaymentsResponse, FetchProviderSubscriptionsResponse, UpdateAddressRequest, UpdateAddressResponse } from "../interface/api/commonApiInterface";
 
 // Create asyn thunk for updating the authSlice with address: true
 export const providerAddProviderAddress = createAsyncThunk<ApiBaseResponse, ProviderAddProviderAddressRequest>("/provider/addAddress",
-    async ({ formData }: ProviderAddProviderAddressRequest) => {
-        const response = await axiosInstance.post(`/provider/addAddress`, formData);
+    async (data: ProviderAddProviderAddressRequest) => {
+        const response = await axiosInstance.post(`/provider/addAddress`, data);
         return response.data;
     }
 )
@@ -131,11 +131,6 @@ export const providerUpdateProviderInfo = createAsyncThunk<ProviderUpdateProvide
     }
 )
 
-// export const providerUpdateProviderInfo = async (data: ProviderUpdateProviderInfoRequest): Promise<ProviderUpdateProviderInfoResponse> => {
-//     const response = await axiosInstance.put('/provider/updaterUserInfo', data);
-//     return response.data;
-// }
-
 export const providerFetchUsersFroChatSideBar = async () : Promise<ProviderFetchUsersForChatSidebarResponse> => {
     const response = await axiosInstance.get('/provider/getUsersForCahtSidebar');
     return response.data.data
@@ -153,5 +148,10 @@ export const providerFetchDashboardGraphData = async () : Promise<ProviderDashbo
 
 export const providerChangeAppointmentStatus = async (data: ProviderChangeAppointmentStatusRequest) : Promise<ApiBaseResponse> => {
     const response = await axiosInstance.patch('/provider/changeAppointmentStatus',data);
+    return response.data;
+}
+
+export const providerUpdateProviderAddress = async (data: UpdateAddressRequest): Promise<UpdateAddressResponse> => {
+    const response = await axiosInstance.patch(`/provider/updateAddress/${data._id}`, data);
     return response.data;
 }

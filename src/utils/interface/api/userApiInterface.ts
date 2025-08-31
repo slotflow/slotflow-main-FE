@@ -25,7 +25,11 @@ export interface UserUpdateUserInfoResponse extends ApiBaseResponse {
 
 
 // **** 4  Used as the request interface of the user add address api
-export interface AddUserAddressRequest { formData: Pick<Address, "addressLine" | "phone" | "place" | "city" | "district" | "pincode" | "state" | "country" | "googleMapLink">}
+export type AddUserAddressRequest = Pick<Address, "addressLine" | "phone" | "place" | "city" | "district" | "pincode" | "state" | "country" | "googleMapLink">;
+export interface UserAddUserAddressResponse extends ApiBaseResponse {
+  data: Pick<Address, "_id" | "addressLine" | "phone" | "place" | "city" | "district" | "pincode" | "state" | "country" | "googleMapLink" | "updatedAt">;
+}
+
 
 
 // **** 5  Used as the response type of the user fetching api
@@ -100,3 +104,7 @@ export interface UserBookAppointmentResponse extends ApiBaseResponse {
 
 // **** 17. Used as the return type of the user fetch providers for the chat side bar
 export type UserFetchProvidersForChatSidebarResponse = Array<Pick<Provider, "_id" | "username" | "profileImage" >>;
+
+
+// **** 18. Address updating interfaces are in common interface file
+

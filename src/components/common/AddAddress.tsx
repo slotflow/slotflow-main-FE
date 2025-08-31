@@ -3,10 +3,11 @@ import { PhoneInput } from '../form/phone-input';
 import { RootState } from '@/utils/redux/appStore';
 import CommonButton from '@/components/common/CommonButton';
 import InputField from '@/components/form/InputFieldWithLable';
-import React, { FormEvent, useCallback, useState } from 'react';
+import React, { FormEvent, useCallback, useEffect, useState } from 'react';
 import { Address } from '@/utils/interface/entityInterface/addressInterface';
+import { useQueryClient } from '@tanstack/react-query';
 
-export type AddressFormProps = Pick<Address, "addressLine" | "phone" | "place" | "city" | "district" | "pincode" | "state" | "country" | "googleMapLink">
+export type AddressFormProps = Pick<Address, "_id" | "addressLine" | "phone" | "place" | "city" | "district" | "pincode" | "state" | "country" | "googleMapLink">
 
 export interface AddAddressProps {
     formClassNames: string;
@@ -19,8 +20,11 @@ export interface AddAddressProps {
 
 const AddAddress: React.FC<AddAddressProps> = ({ formClassNames, heading, headingSize, buttonText, onSubmit, setHasErrors }) => {
 
-    const { dataUpdating } = useSelector((store: RootState) => store.auth)
+    const queryClient = useQueryClient();
+    // const [addressData, setAddressData] = useState<AddressFormProps>(null);
+    const { dataUpdating } = useSelector((store: RootState) => store.auth);
     const [formData, setFormData] = useState<AddressFormProps>({
+        _id: "",
         addressLine: "",
         phone: "",
         place: "",
@@ -31,6 +35,12 @@ const AddAddress: React.FC<AddAddressProps> = ({ formClassNames, heading, headin
         country: "",
         googleMapLink: "",
     });
+
+    useEffect(() => {
+    const cachedData = queryClient.getQueryData<AddressFormProps>(["userAddress"]);
+    if(!cachedData) return;
+    setFormData(cachedData);
+  }, [queryClient]);
 
     const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
@@ -45,7 +55,6 @@ const AddAddress: React.FC<AddAddressProps> = ({ formClassNames, heading, headin
         e.preventDefault();
         onSubmit(e, formData);
     };
-
 
     return (
         <form onSubmit={handleSubmit} className={`${formClassNames}`}>
@@ -109,6 +118,8 @@ const AddAddress: React.FC<AddAddressProps> = ({ formClassNames, heading, headin
                         required={true}
                         onHasError={handleErrorChange}
                     />
+                </div>
+                <div className="w-full md:w-1/2 p-6 space-y-6">
                     <InputField
                         label="Pincode"
                         id="pincode"
@@ -119,8 +130,6 @@ const AddAddress: React.FC<AddAddressProps> = ({ formClassNames, heading, headin
                         required={true}
                         onHasError={handleErrorChange}
                     />
-                </div>
-                <div className="w-full md:w-1/2 p-6 space-y-6">
                     <InputField
                         label="State"
                         id="state"

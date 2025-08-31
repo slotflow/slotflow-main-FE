@@ -14,13 +14,14 @@ import {
     UserFetchProviderAvailabilityResponse, 
     UserFetchProviderProfileDetailsResponse,
     UserFetchProvidersForChatSidebarResponse,
+    UserAddUserAddressResponse,
 } from "../interface/api/userApiInterface";
 import { axiosInstance } from "@/lib/axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { buildQueryParams, parseNewCommonResponse } from "../helper";
 import { Booking } from "../interface/entityInterface/bookingInterface";
 import { Provider } from "../interface/entityInterface/providerInterface";
-import { FetchBookingsResponse, FetchPaymentsResponse } from "../interface/api/commonApiInterface";
+import { FetchBookingsResponse, FetchPaymentsResponse, UpdateAddressRequest, UpdateAddressResponse } from "../interface/api/commonApiInterface";
 import { ApiBaseResponse, FetchFunctionParams, ApiPaginatedResponse } from "../interface/commonInterface";
 
 export const userFetchUserProfileDetails = async (): Promise<UserFetchUserProfileDetailsResponse> => {
@@ -42,13 +43,13 @@ export const userUpdateUserInfo = createAsyncThunk<UserUpdateUserInfoResponse, U
     }
 )
 
-// export const userUpdateUserInfo = async (data: UserUpdateUserInfoRequest) : Promise<UserUpdateUserInfoResponse> => {
-//     const response = await axiosInstance.put(`/user/updateUserInfo`, data);
-//     return response.data;
-// }
+export const userAddUserAddress = async (data: AddUserAddressRequest): Promise<UserAddUserAddressResponse> => {
+    const response = await axiosInstance.post('/user/addAddress', data);
+    return response.data;
+}
 
-export const userAddUserAddress = async ({ formData }: AddUserAddressRequest): Promise<ApiBaseResponse> => {
-    const response = await axiosInstance.post('/user/addAddress', formData);
+export const userUpdateUserAddress = async (data: UpdateAddressRequest): Promise<UpdateAddressResponse> => {
+    const response = await axiosInstance.patch(`/user/updateAddress/${data._id}`, data);
     return response.data;
 }
 

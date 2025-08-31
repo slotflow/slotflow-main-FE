@@ -9,13 +9,10 @@ import { Availability, AvailabilityForResponse } from "../entityInterface/servic
 import { Booking } from "../entityInterface/bookingInterface";
 
 // **** 1.  Used as the request interface for adding address api
-export interface ProviderAddProviderAddressRequest {
-  formData: Pick<Address, "addressLine" | "phone" | "place" | "city" | "district" | "pincode" | "state" | "country" | "googleMapLink">;
-}
-
+export type ProviderAddProviderAddressRequest = Pick<Address, "addressLine" | "phone" | "place" | "city" | "district" | "pincode" | "state" | "country" | "googleMapLink">;
 
 // **** 2.  Used as the response type of provider fetch address api
-export type ProviderFetchAddressResponse = Pick<Address, "_id" | "addressLine" | "phone" | "place" | "city" | "district" | "pincode" | "state" | "country" | "googleMapLink">;
+export type ProviderFetchAddressResponse = Pick<Address, "_id" | "addressLine" | "phone" | "place" | "city" | "district" | "pincode" | "state" | "country" | "googleMapLink" | "updatedAt">;
 
 
 // **** 3.  Used as the response type of fetch all services api
@@ -158,3 +155,5 @@ export interface ProviderChangeAppointmentStatusRequest {
   appointmentStatus: Booking["appointmentStatus"];
 }
 
+
+// **** 21. Address updating interfaces are in common interface file

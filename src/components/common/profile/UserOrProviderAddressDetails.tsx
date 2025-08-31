@@ -15,35 +15,26 @@ interface UserOrProviderAddressDetailsComponentProps {
         UserFetchUserAddressResponse |
         UserFetchProviderAddressResponse
     >;
-    quryKey: string;
-    isUser?: boolean
-    setShowAddAddressBtn?: (show: boolean) => void;
+    queryKey: string;
     setLoading?: (data: boolean) => void;
+    setIsUpdating: (data: boolean) => void;
 }
 
 const UserOrProviderAddressDetails: React.FC<UserOrProviderAddressDetailsComponentProps> = ({
     userOrProviderId,
     fetchApiFunction,
-    quryKey,
-    isUser,
-    setShowAddAddressBtn,
-    setLoading
+    queryKey,
+    setLoading,
+    setIsUpdating
 }) => {
 
     const { data, isLoading, isError, error } = useQuery({
         queryFn: () => fetchApiFunction(userOrProviderId),
-        queryKey: [quryKey],
-        staleTime: 1 * 60 * 1000,
+        queryKey: [queryKey],
         refetchOnWindowFocus: false,
+        staleTime: 1000 * 60 * 60,
+        gcTime: 1000 * 60 * 60,
     });
-
-    useEffect(() => {
-        if (isUser && !data) {
-            setShowAddAddressBtn?.(true);
-        } else {
-            setShowAddAddressBtn?.(false);
-        }
-    }, [data, isUser, setShowAddAddressBtn]);
 
     useEffect(() => {
         if(setLoading) {
@@ -54,6 +45,16 @@ const UserOrProviderAddressDetails: React.FC<UserOrProviderAddressDetailsCompone
             }
         }
     },[isLoading, setLoading])
+
+    useEffect(() => {
+        if(setIsUpdating) {
+            if(data) {
+                setIsUpdating(true);
+            } else {
+                setIsUpdating(false)
+            }
+        }
+    },[data, setIsUpdating])
 
     if (isError) {
         return <DataFetchingError message={error?.message} />

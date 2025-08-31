@@ -2,6 +2,8 @@ import { Plan } from "../entityInterface/planInterface";
 import { Payment } from "../entityInterface/paymentInterface";
 import { Booking } from "../entityInterface/bookingInterface";
 import { Subscription } from "../entityInterface/subscriptionInterface";
+import { Address } from "../entityInterface/addressInterface";
+import { ApiBaseResponse } from "../commonInterface";
 
 // **** 1.  Used as the response type of fetch provider subscriptions for admin side and provider side
 export type FetchProviderSubscriptionsResponse = Pick<Subscription, "_id" | "startDate" | "endDate" | "subscriptionStatus"> & Pick<Plan, "planName">;
@@ -19,3 +21,12 @@ export type FetchPaymentsResponse = Pick<Payment, "_id" | "createdAt" | "totalAm
 // used as the providerFetchBookingAppoinments api response type
 // used as the userFetchBookings api response type
 export type FetchBookingsResponse = Pick<Booking, "_id" | "appointmentDate" | "appointmentMode" | "appointmentStatus" | "appointmentTime" | "createdAt">;
+
+
+// **** 4. AddressUpdating request type and response interface used by user and provider
+export type UpdateAddressRequest = Pick<Address, "_id" | "addressLine" | "phone" | "place" | "city" | "district" | "pincode" | "state" | "country" | "googleMapLink">;
+export interface UpdateAddressResponse extends ApiBaseResponse {
+  data: Pick<Address, "_id" | "addressLine" | "phone" | "place" | "city" | "district" | "pincode" | "state" | "country" | "googleMapLink" | "updatedAt">;
+} 
+
+
