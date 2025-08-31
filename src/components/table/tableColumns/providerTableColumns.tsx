@@ -32,6 +32,8 @@ export const ProviderAppointmentsBookingTableColumns: ColumnDef<FetchBookingsRes
       switch (status) {
         case "Booked":
           return <span className="text-yellow-500 font-semibold">Pending Confirmation</span>;
+        case "Cancelled":
+          return <span className="text-red-500 font-semibold">Cancelled</span>;
         case "Confirmed":
           return <span className="text-green-500 font-semibold">Confirmed</span>;
         case "RejectedByProvider":

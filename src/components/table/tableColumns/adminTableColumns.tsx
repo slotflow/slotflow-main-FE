@@ -1,5 +1,5 @@
 import { Button } from "../../ui/button";
-import { MoreHorizontal } from "lucide-react";
+import { Check, MoreHorizontal, X } from "lucide-react";
 import { ColumnDef } from "@tanstack/react-table";
 import { DataTableColumnHeader } from "../DataTableColumnHeader";
 import { DropDownItemChangeUserStatus } from "../adminTableOptions/AdminUserTableOptions";
@@ -11,6 +11,7 @@ import { AdminfetchAllUsersResponse } from "@/utils/interface/api/adminUserApiIn
 import { AdminFetchAllPlansResponse } from "@/utils/interface/api/adminPlanApiInterface";
 import { AdminFetchAllServicesResponse } from "@/utils/interface/api/adminServiceApiInterface";
 import { AdminFetchAllProvidersResponse } from "@/utils/interface/api/adminProviderApiInterface";
+import { formatNumberToPrice } from "@/utils/helper/formatter";
 
 export const AdminProvidersTableColumns: ColumnDef<AdminFetchAllProvidersResponse>[] = [
   {
@@ -26,7 +27,11 @@ export const AdminProvidersTableColumns: ColumnDef<AdminFetchAllProvidersRespons
     header: ({ column }) => (<DataTableColumnHeader column={column} title="Account Status" />),
     cell: ({ row }) => {
       const isBlocked = row.original.isBlocked;
-      return <span>{isBlocked ? "Blocked" : "Active"}</span>;
+      if(isBlocked) {
+        return <span className="text-red-500 font-semibold">Blocked</span>
+      } else {
+        return <span className="text-green-500 font-semibold">Active</span>
+      }
     },
   },
   {
@@ -34,7 +39,11 @@ export const AdminProvidersTableColumns: ColumnDef<AdminFetchAllProvidersRespons
     header: "Admin Verication",
     cell: ({ row }) => {
       const isVerified = row.original.isAdminVerified;
-      return <span>{isVerified ? "verified" : "Pending"}</span>;
+        if(isVerified) {
+          return <span className="text-green-500 font-semibold">Verified</span>
+        } else {
+        return <span className="text-red-500 font-semibold">Pending</span>
+      }
     },
   },
   {
@@ -42,7 +51,11 @@ export const AdminProvidersTableColumns: ColumnDef<AdminFetchAllProvidersRespons
     header: "Email Verication",
     cell: ({ row }) => {
       const isEmailVerified = row.original.isEmailVerified;
-      return <span>{isEmailVerified ? "verified" : "Pending"}</span>;
+      if(isEmailVerified) {
+          return <span className="text-green-500 font-semibold">Verified</span>
+        } else {
+        return <span className="text-red-500 font-semibold">Pending</span>
+      }
     },
   },
   {
@@ -50,7 +63,11 @@ export const AdminProvidersTableColumns: ColumnDef<AdminFetchAllProvidersRespons
     header: ({ column }) => (<DataTableColumnHeader column={column} title="Slotflow Trusted" />),
     cell: ({ row }) => {
       const isTrusted = row.original.trustedBySlotflow;
-      return <span>{isTrusted ? "Trusted" : "Pending"}</span>;
+      if(isTrusted) {
+          return <span className="text-green-500 font-semibold">Verified</span>
+        } else {
+        return <span className="text-red-500 font-semibold">Pending</span>
+      }
     },
   },
   {
@@ -97,7 +114,11 @@ export const AdminUsersTableColumns: ColumnDef<AdminfetchAllUsersResponse>[] = [
     header: ({ column }) => (<DataTableColumnHeader column={column} title="Account Status" />),
     cell: ({ row }) => {
       const isBlocked = row.original.isBlocked;
-      return <span>{isBlocked ? "Blocked" : "Active"}</span>;
+      if(isBlocked) {
+        return <span className="text-red-500 font-semibold">Blocked</span>
+      } else {
+        return <span className="text-green-500 font-semibold">Active</span>
+      }
     },
   },
   {
@@ -105,8 +126,12 @@ export const AdminUsersTableColumns: ColumnDef<AdminfetchAllUsersResponse>[] = [
     header: "Email Verication",
     cell: ({ row }) => {
       const isVerified = row.original.isEmailVerified;
-      return <span>{isVerified ? "verified" : "Pending"}</span>;
-    },
+        if(isVerified) {
+          return <span className="text-green-500 font-semibold">Verified</span>
+        } else {
+        return <span className="text-red-500 font-semibold">Pending</span>
+      }
+    }
   },
   {
     accessorKey: "actions",
@@ -152,8 +177,12 @@ export const AdminAppServicesTableColumns: ColumnDef<AdminFetchAllServicesRespon
     header: ({ column }) => (<DataTableColumnHeader column={column} title="Status" />),
     cell: ({ row }) => {
       const isBlocked = row.original.isBlocked;
-      return <span>{isBlocked ? "Blocked" : "Active"}</span>;
-    },
+        if(!isBlocked) {
+          return <span className="text-green-500 font-semibold">Active</span>
+        } else {
+        return <span className="text-red-500 font-semibold">Blocked</span>
+      }
+    }
   },
   {
     accessorKey: "actions",
@@ -203,20 +232,32 @@ export const AdminPlansTableColumns: ColumnDef<AdminFetchAllPlansResponse>[] = [
     header: ({ column }) => (<DataTableColumnHeader column={column} title="ad Visibility" />),
     cell: ({ row }) => {
       const adVisibility = row.original.adVisibility;
-      return <span>{adVisibility ? "Yes" : "No"}</span>
+        if(adVisibility) {
+          return <span className="text-green-500 font-semibold"><Check /></span>
+        } else {
+        return <span className="text-red-500 font-semibold"><X /></span>
+      }
     }
   },
   {
     accessorKey: "price",
-    header: ({ column }) => (<DataTableColumnHeader column={column} title="Price" />)
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="Price" />),
+    cell: ({ row }) => {
+      const amount = row.original.price;
+          return <span className="">{formatNumberToPrice(amount) || amount}</span>
+    }
   },
   {
     accessorKey: "isBlocked",
     header: ({ column }) => (<DataTableColumnHeader column={column} title="Status" />),
     cell: ({ row }) => {
       const isBlocked = row.original.isBlocked;
-      return <span>{isBlocked ? "Blocked" : "Active"}</span>;
-    },
+        if(!isBlocked) {
+          return <span className="text-green-500 font-semibold">Active</span>
+        } else {
+        return <span className="text-red-500 font-semibold">Blocked</span>
+      }
+    }
   },
   {
     accessorKey: "actions",

@@ -14,3 +14,15 @@ export interface Payment {
     providerId?: string,
 }
 
+export enum PaymentFor {
+    ProviderSubscription = "ProviderSubscription",
+    AppointmentBooking = "AppointmentBooking",
+    ProviderPayout = "ProviderPayout",
+    CancelBooking = "CancelBooking"
+}
+
+export enum PaymentGateway {
+    Stripe = "Stripe",
+    Razorpay = "Razorpay",
+    Paypal = "Paypal",
+}

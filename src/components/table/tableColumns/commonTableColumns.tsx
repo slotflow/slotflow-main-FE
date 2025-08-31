@@ -6,6 +6,7 @@ import { DataTableColumnHeader } from "../DataTableColumnHeader";
 import { FetchPaymentsResponse, FetchProviderSubscriptionsResponse } from "@/utils/interface/api/commonApiInterface";
 import { DropDownMenuItemGetSubscriptionDetails } from "../adminTableOptions/AddminProviderSubscriptionsTableOptions";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../../ui/dropdown-menu";
+import { formatNumberToPrice } from "@/utils/helper/formatter";
 
 // For admin side view and provider side view
 export const ProvidersSubscriptionsTableColumns: ColumnDef<FetchProviderSubscriptionsResponse>[] = [
@@ -35,7 +36,16 @@ export const ProvidersSubscriptionsTableColumns: ColumnDef<FetchProviderSubscrip
   },
   {
     accessorKey: "subscriptionStatus",
-    header: ({ column }) => (<DataTableColumnHeader column={column} title="Status" />)
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="Status" />),
+    cell: ({ row }) => {
+      const subscriptionStatus = row.original.subscriptionStatus;
+      console.log("subscriptionStatus : ",subscriptionStatus)
+        if(subscriptionStatus == "Expired") {
+          return <span className="text-red-500 font-semibold">Expired</span>
+        } else {
+        return <span className="text-green-500 font-semibold">Active</span>
+      }
+    }
   },
   {
     accessorKey: "actions",
@@ -76,19 +86,59 @@ export const PaymentsTableColumns: ColumnDef<FetchPaymentsResponse>[] = [
   },
   {
     accessorKey: "totalAmount",
-    header: ({ column }) => (<DataTableColumnHeader column={column} title="Total" />)
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="Total" />),
+    cell: ({ row }) => {
+      const amount = row.original.totalAmount;
+          return <span>{formatNumberToPrice(amount) || amount}</span>;
+    }
   },
   {
     accessorKey: "discountAmount",
-    header: ({ column }) => (<DataTableColumnHeader column={column} title="Discont" />)
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="Discont" />),
+    cell: ({ row }) => {
+      const disAmount = row.original.discountAmount;
+          return <span>{formatNumberToPrice(disAmount) || disAmount}</span>;
+    }
   },
   {
     accessorKey: "paymentFor",
-    header: ({ column }) => (<DataTableColumnHeader column={column} title="Category" />)
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Category" />
+    ),
+    cell: ({ row }) => {
+      const paymentFor = row.original.paymentFor;
+      switch (paymentFor) {
+        case "ProviderSubscription":
+          return <span className="text-yellow-500 font-semibold">Provider Subscription</span>;
+        case "AppointmentBooking":
+          return <span className="text-green-500 font-semibold">Appointment Booking</span>;
+        case "ProviderPayout":
+          return <span className="text-red-500 font-semibold">Provider Payout</span>;
+        case "CancelBooking":
+          return <span className="text-orange-500 font-semibold">Cancel Booking</span>;
+        default:
+          return <span>{paymentFor}</span>;
+      }
+    }
   },
   {
     accessorKey: "paymentGateway",
-    header: ({ column }) => (<DataTableColumnHeader column={column} title="Gateway" />)
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Gateway" />
+    ),
+    cell: ({ row }) => {
+      const paymentGateway = row.original.paymentGateway;
+      switch (paymentGateway) {
+        case "Stripe":
+          return <span className="text-indigo-500 font-semibold">Stripe</span>;
+        case "Razorpay":
+          return <span className="text-blue-800 font-semibold">Razorpay</span>;
+        case "Paypal":
+          return <span className="text-blue-400 font-semibold">Paypal</span>;
+        default:
+          return <span>{paymentGateway}</span>;
+      }
+    }
   },
   {
     accessorKey: "paymentMethod",

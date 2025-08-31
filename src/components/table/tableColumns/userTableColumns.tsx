@@ -23,7 +23,26 @@ export const userAllBookingsTableColumns: ColumnDef<FetchBookingsResponse>[] = [
   },
   {
     accessorKey: "appointmentStatus",
-    header: ({ column }) => (<DataTableColumnHeader column={column} title="Status" />)
+    header: ({ column }) => (<DataTableColumnHeader column={column} title="Status" />),
+    cell: ({ row }) => {
+      const status = row.original.appointmentStatus;
+      switch (status) {
+        case "Booked":
+          return <span className="text-yellow-500 font-semibold">Pending Confirmation</span>;
+        case "Cancelled":
+          return <span className="text-red-500 font-semibold">Cancelled</span>;
+        case "Confirmed":
+          return <span className="text-green-500 font-semibold">Confirmed</span>;
+        case "RejectedByProvider":
+          return <span className="text-red-500 font-semibold">Rejected By Provider</span>;
+        case "NotAttended":
+          return <span className="text-orange-500 font-semibold">Not Attended</span>;
+        case "Completed":
+          return <span className="text-purple-500 font-semibold">Completed 🎉</span>;
+        default:
+          return <span>{status}</span>;
+      }
+    }
   },
   {
     accessorKey: "appointmentTime",
