@@ -146,9 +146,8 @@ export const navigation: HeaderCompoenentNavsProps[] = [
   { name: 'Features', href: '#features', current: false },
   { name: 'Pricing', href: '#pricing', current: false },
   { name: 'Reviews', href: '#reviews', current: false },
-  { name: 'About', href: '#', current: false },
-  { name: 'Help', href: '#', current: false },
-  { name: 'Contact', href: '#', current: false },
+  { name: 'About', href: '#about', current: false },
+  { name: 'Contact', href: '#contact', current: false },
 ]
 
 // **** Provider plan subscription duration array **** \\
