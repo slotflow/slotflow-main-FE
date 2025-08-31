@@ -1,11 +1,10 @@
-// router.tsx
 import { lazy } from "react";
 import PlanGuard from "./planGuard.tsx";
 import { createBrowserRouter } from "react-router-dom";
 import { ProtectedRoute } from "./protectedRoutes.tsx";
-import AddressPage from "@/pages/common/AddressPage.tsx";
 
 const ProfilePage = lazy(() => import("@/pages/common/ProfilePage.tsx"));
+const AddressPage = lazy(() => import("@/pages/common/AddressPage.tsx"));
 const LandingPage = lazy(() => import("../pages/common/LandingPage.tsx"));
 const Error404Page = lazy(() => import("@/pages/common/Error404Page.tsx"));
 const UserLoginPage = lazy(() => import("@/pages/common/UserLoginPage.tsx"));
@@ -17,7 +16,6 @@ const PaymentConfirmPage = lazy(() => import("@/pages/common/PaymentConfirmPage.
 
 const UserMainPage = lazy(() => import("@/pages/user/UserMainPage.tsx"));
 const UserChatPage = lazy(() => import("@/pages/user/UserChatPage.tsx"));
-// const UserAddressPage = lazy(() => import("@/pages/user/UserAddressPage.tsx"));
 const UserPaymentsPage = lazy(() => import("@/pages/user/UserPaymentsPage.tsx"));
 const UserBookingsPage = lazy(() => import("@/pages/user/UserBookingsPage.tsx"));
 const UserDashboardPage = lazy(() => import("@/pages/user/UserDashboardPage.tsx"));
@@ -29,7 +27,6 @@ const ProviderMainPage = lazy(() => import("@/pages/provider/ProviderMainPage.ts
 const ProviderChatPage = lazy(() => import("@/pages/provider/ProviderChatPage.tsx"));
 const ProviderServicePage = lazy(() => import("@/pages/provider/ProviderServicePage.tsx"));
 const ProviderReviewsPage = lazy(() => import("@/pages/provider/ProviderReviewsPage.tsx"));
-// const ProviderAddressPage = lazy(() => import("@/pages/provider/ProviderAddressPage.tsx"));
 const ProviderPaymentsPage = lazy(() => import("@/pages/provider/ProviderPaymentsPage.tsx"));
 const ProviderDashboardPage = lazy(() => import("@/pages/provider/ProviderDashboardPage.tsx"));
 const ProviderAppointmentsPage = lazy(() => import("@/pages/provider/ProviderAppointmentsPage.tsx"));
@@ -91,7 +88,6 @@ export const appRouter = createBrowserRouter([
                     { path: "dashboard", element: <UserDashboardPage /> },
                     { path: "providerProfile/:providerId", element: <UserServiceProviderDetailPage /> },
                     { path: "profile", element: <ProfilePage /> },
-                    // { path: "address", element: <UserAddressPage /> },
                     { path: "address", element: <AddressPage /> },
                     { path: "bookings", element: <UserBookingsPage /> },
                     { path: "payments", element: <UserPaymentsPage /> },
@@ -112,7 +108,6 @@ export const appRouter = createBrowserRouter([
                 children: [
                     { path: "dashboard", element: <ProviderDashboardPage /> },
                     { path: "profile", element: <ProfilePage /> },
-                    // { path: "address", element: <ProviderAddressPage /> },
                     { path: "address", element: <AddressPage /> },
                     { path: "service", element: <ProviderServicePage /> },
                     { path: "availability", element: <ProviderAvailabilityPage /> },
