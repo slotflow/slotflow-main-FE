@@ -63,7 +63,7 @@ const ProviderServiceDetails: React.FC<ProviderServiceDetailsComponentProps> = (
             {!isUser && (
                 <div className='my-6 space-y-2'>
                     <div className='flex justify-start'>
-                        <label className='text-[var(--infoDisplayLabel)]'>Provider Certificate</label>
+                        <label className='text-[var(--infoDataLabel)] px-4'>Provider Certificate</label>
                         <button className='mx-2 cursor-pointer' onClick={() => setLargeImg(!largeImg)}><ImageUpscale /></button>
                     </div>
                     <div className='my-2'>
