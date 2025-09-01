@@ -1,6 +1,6 @@
+import { sendMessage } from "@/utils/apis/message.api";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Message } from '@/utils/interface/entityInterface/message.interface';
-import { sendMessage } from "@/utils/apis/message.api";
 
 type LastMessages = Record<
     string,
@@ -21,8 +21,7 @@ interface chatSliceInitalState {
     onlineUsers: string[] | null;
     lastMessages: LastMessages,
     selectedUser: SelectedUser | null,
-    // chatSocket: Socket | null;
-    socketId: string | null;   // ✅ store only id
+    socketId: string | null;
     isConnected: boolean;
     messages: Message[] | null;
     isMessagesLoading: boolean;
@@ -32,7 +31,6 @@ const intitalState: chatSliceInitalState = {
     onlineUsers: null,
     lastMessages: {},
     selectedUser: null,
-    // chatSocket: null,
     socketId: null,
     isConnected: false,
     messages: null,
@@ -94,7 +92,6 @@ export const {
     setSelectedUser,
     setMessages,
     addNewMessage,
-    // sendNewMessage,
     clearChatSlice,
     setSocketConnected,
     setSocketDisconnected

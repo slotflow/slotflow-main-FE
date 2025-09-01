@@ -1,12 +1,9 @@
 import { RootState } from "../redux/appStore";
 import { chatAxiosInstance } from "@/lib/axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-// import { ApiBaseResponse } from "../interface/commonInterface";
 import { connectSocket, disconnectSocket } from "@/lib/socketService";
 import { Message } from "../interface/entityInterface/message.interface";
-import { addNewMessage, 
-  // sendNewMessage, 
-  setMessages, setSocketConnected, setSocketDisconnected } from "../redux/slices/chatSlice";
+import { addNewMessage, setMessages, setSocketConnected, setSocketDisconnected } from "../redux/slices/chatSlice";
 
 const BASE_URL = import.meta.env.VITE_CHATMODULE_BACKEND_DEV_URL || "http://localhost:4000";
 
@@ -14,6 +11,7 @@ export const getMessages = createAsyncThunk<Array<Message>, { selectedUserId: st
     async ({ selectedUserId }, thunkAPI) => {
         const response = await chatAxiosInstance.get(`/message/${selectedUserId}`);
         if (response.data.success) {
+          console.log("messages : ",response.data.data);
             const messages: Message[] = response.data.data;
             thunkAPI.dispatch(setMessages(messages));
         }
@@ -26,6 +24,7 @@ export const sendMessage = createAsyncThunk<Message,{ selectedUserId: string, me
         const response = await chatAxiosInstance.post(`/message/send/${selectedUserId}`, messageData);
         if (response.status === 200) {
             const message: Message = response.data.data;
+            console.log("message : ",message);
             return message;
         }
         return thunkAPI.rejectWithValue("Failed to send message");
