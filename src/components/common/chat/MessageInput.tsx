@@ -1,9 +1,10 @@
 import { toast } from "react-toastify";
-import { useDispatch, useSelector } from "react-redux";
 import { Image, Send, Trash } from "lucide-react";
-import { AppDispatch, RootState } from "@/utils/redux/appStore";
+import { useDispatch, useSelector } from "react-redux";
 import { sendMessage } from "@/utils/apis/message.api";
+import { AppDispatch, RootState } from "@/utils/redux/appStore";
 import React, { Dispatch, SetStateAction, useRef, useState } from "react";
+import { socket } from "@/lib/socketService";
 
 interface MessageInputProps {
     setIsTyping(data: boolean): void;
@@ -21,7 +22,7 @@ const MessageInput: React.FC<MessageInputProps> = ({
     const [text, setText] = useState<string>("");
     const [imagePreview, setImagePreview] = useState<string | null>(null);
     const fileInputRef = useRef<HTMLInputElement | null>(null);
-    const { selectedUser, chatSocket } = useSelector((store: RootState) => store.chat);
+    const { selectedUser } = useSelector((store: RootState) => store.chat);
     const { authUser } = useSelector((store: RootState) => store.auth);
 
     const [file, setFile] = useState<File | null>(null);
@@ -78,9 +79,9 @@ const MessageInput: React.FC<MessageInputProps> = ({
 
         if (!isTyping) {
             setIsTyping(true);
-            if (chatSocket) {
+            if (socket) {
                 setMessageSenderId(authUser.uid ?? null);
-                chatSocket.emit("typing", {
+                socket.emit("typing", {
                     fromUserId: authUser.uid,
                     toUserId: selectedUser?._id,
                 });
@@ -91,9 +92,9 @@ const MessageInput: React.FC<MessageInputProps> = ({
 
         typingTimeoutRef.current = setTimeout(() => {
             setIsTyping(false);
-            if (chatSocket) {
+            if (socket) {
                 setMessageSenderId(authUser.uid ?? null);
-                chatSocket.emit("stopTyping", {
+                socket.emit("stopTyping", {
                     fromUserId: authUser.uid,
                     toUserId: selectedUser._id,
                 });

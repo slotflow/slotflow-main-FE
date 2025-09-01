@@ -1,8 +1,14 @@
+import { RootState } from "../redux/appStore";
 import { chatAxiosInstance } from "@/lib/axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { ApiBaseResponse } from "../interface/commonInterface";
-import { sendNewMessage, setMessages } from "../redux/slices/chatSlice";
+// import { ApiBaseResponse } from "../interface/commonInterface";
+import { connectSocket, disconnectSocket } from "@/lib/socketService";
 import { Message } from "../interface/entityInterface/message.interface";
+import { addNewMessage, 
+  // sendNewMessage, 
+  setMessages, setSocketConnected, setSocketDisconnected } from "../redux/slices/chatSlice";
+
+const BASE_URL = import.meta.env.VITE_CHATMODULE_BACKEND_DEV_URL || "http://localhost:4000";
 
 export const getMessages = createAsyncThunk<Array<Message>, { selectedUserId: string }>('message/getMessages',
     async ({ selectedUserId }, thunkAPI) => {
@@ -15,13 +21,39 @@ export const getMessages = createAsyncThunk<Array<Message>, { selectedUserId: st
     }
 );
 
-export const sendMessage = createAsyncThunk<ApiBaseResponse,{ selectedUserId: string, messageData: FormData}>('messages/sendMessage',
+export const sendMessage = createAsyncThunk<Message,{ selectedUserId: string, messageData: FormData}>('messages/sendMessage',
     async ({ selectedUserId, messageData }, thunkAPI) => {
         const response = await chatAxiosInstance.post(`/message/send/${selectedUserId}`, messageData);
-        if (response.data.success) {
-            const messages: Message = response.data.data;
-            thunkAPI.dispatch(sendNewMessage(messages));
+        if (response.status === 200) {
+            const message: Message = response.data.data;
+            return message;
         }
         return thunkAPI.rejectWithValue("Failed to send message");
     }
 )
+
+
+export const connectChatSocket = createAsyncThunk<void, void, { state: RootState }>("chat/connectSocket",
+  async (_, { getState, dispatch }) => {
+    const authUser = getState().auth.authUser;
+    if (!authUser) return;
+
+    const socket = connectSocket(authUser.uid as string, BASE_URL);
+    
+    socket.on("connect", () => {
+      dispatch(setSocketConnected({ socketId: socket.id as string }));
+    });
+
+    socket.on("newMessage", (newMessage: Message) => {
+        dispatch(addNewMessage(newMessage));
+    });
+
+  }
+);
+
+export const disconnectChatSocket = createAsyncThunk<void>("chat/disconnectSocket",
+  async (_, { dispatch }) => {
+    disconnectSocket();
+    dispatch(setSocketDisconnected());
+  }
+);

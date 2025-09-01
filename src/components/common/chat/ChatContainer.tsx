@@ -1,13 +1,14 @@
 import ChatHeader from "./ChatHeader";
 import { Ellipsis } from "lucide-react";
 import MessageInput from "./MessageInput";
+import { socket } from "@/lib/socketService";
 import { useDispatch, useSelector } from "react-redux";
-import { getMessages } from "@/utils/apis/message.api";
+import { connectChatSocket, disconnectChatSocket, getMessages } from "@/utils/apis/message.api";
 import React, { useEffect, useRef, useState } from "react";
 import ChatBubbleProfileImage from "./ChatBubbleProfileImage";
 import { formatTo24HourTime } from "@/utils/helper/formatter";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
-import { useMessage } from "@/utils/hooks/socketHooks/useMessage";
+// import { useMessage } from "@/utils/hooks/socketHooks/useMessage";
 import { Message } from "@/utils/interface/entityInterface/message.interface";
 import NoChatSelectedSShimmer from "@/components/shimmers/NoChatSelectedSShimmer";
 
@@ -22,18 +23,17 @@ const ChatContainer: React.FC = () => {
     const [isTyping, setIsTyping] = useState<boolean>(false);
     const [messageSenderId, setMessageSenderId] = useState<string | null>(null);
     const messageEndRef = useRef<HTMLDivElement | null>(null);
-    const { selectedUser, chatSocket, messages, isMessagesLoading } = useSelector((store: RootState) => store.chat);
+    const { selectedUser, messages, isMessagesLoading } = useSelector((store: RootState) => store.chat);
     const { authUser } = useSelector((store: RootState) => store.auth);
-    const { subscribeToMessages, unsubscribeFromMessages } = useMessage();
 
     useEffect(() => {
         if (!selectedUser || !authUser) return;
-
+        
         dispatch(getMessages({ selectedUserId: selectedUser._id }));
-        subscribeToMessages();
+        dispatch(connectChatSocket());
 
         return () => {
-            unsubscribeFromMessages();
+            dispatch(disconnectChatSocket());
         };
     }, [dispatch, selectedUser, authUser]);
 
@@ -44,9 +44,9 @@ const ChatContainer: React.FC = () => {
     }, [messages, isTyping]);
 
     useEffect(() => {
-        if (!chatSocket || !authUser) return;
+        if (!socket || !authUser) return;
 
-        chatSocket.on("typing", (socketData: SocketDataInterface) => {
+        socket.on("typing", (socketData: SocketDataInterface) => {
             const { fromUserId, toUserId } = socketData;
             if (fromUserId === selectedUser?._id && toUserId === authUser.uid) {
                 setMessageSenderId(fromUserId);
@@ -54,7 +54,7 @@ const ChatContainer: React.FC = () => {
             }
         });
 
-        chatSocket.on("stopTyping", (socketData: SocketDataInterface) => {
+        socket.on("stopTyping", (socketData: SocketDataInterface) => {
             const { fromUserId, toUserId } = socketData;
             if (fromUserId === selectedUser?._id && toUserId === authUser.uid) {
                 setIsTyping(false);
@@ -63,10 +63,10 @@ const ChatContainer: React.FC = () => {
         });
 
         return () => {
-            chatSocket.off("typing");
-            chatSocket.off("stopTyping");
+            socket?.off("typing");
+            socket?.off("stopTyping");
         };
-    }, [chatSocket, selectedUser]);
+    }, [socket, selectedUser]);
 
     if (!selectedUser) return <NoChatSelectedSShimmer className="w-9/12" />;
 
@@ -82,29 +82,30 @@ const ChatContainer: React.FC = () => {
                             className={`flex ${message.senderId === authUser?.uid ? "justify-end" : "justify-start"}`}
                             ref={messageEndRef}
                         >
+                           
                             {message.senderId !== authUser?.uid && (
-                                <ChatBubbleProfileImage profileImage={selectedUser.profileImage || "/user_avatar.jpg"} />
-                            )}
+                               <ChatBubbleProfileImage profileImage={selectedUser.profileImage || "/user_avatar.jpg"} />
+                           )}
 
-                            <div className={`flex flex-col rounded-md bg-[var(--menuItemHoverBg)] px-4 py-2 max-w-8/12 ${message.senderId !== authUser?.uid ? "ml-3" : "mr-3"}`}>
+                            <div className={`flex flex-col rounded-md bg-[var(--menuItemHoverBg)] px-4 py-1 max-w-8/12 ${message.senderId !== authUser?.uid ? "ml-3" : "mr-3"}`}>
                                 {message.image && (
                                     <img
-                                        src={message.image}
-                                        alt="Attachment"
-                                        className="sm:max-w-[200px] rounded-md mb-2"
+                                    src={message.image}
+                                    alt="Attachment"
+                                    className="sm:max-w-[200px] rounded-md mb-2"
                                     />
                                 )}
                                 {message.text && (
                                     <p className="text-[13px] md:text-[15px]">{message.text}</p>
                                 )}
-                                <time className="text-[10px] md:text-xs opacity-50 ml-auto">
+                                <time className="text-[10px] opacity-50 ml-auto">
                                     {formatTo24HourTime(message.createdAt)}
                                 </time>
                             </div>
 
-                            {message.senderId === authUser?.uid && (
-                                <ChatBubbleProfileImage profileImage={authUser?.profileImage || "/user_avatar.jpg"} />
-                            )}
+                                {message.senderId === authUser?.uid && (
+                                    <ChatBubbleProfileImage profileImage={authUser?.profileImage || "/user_avatar.jpg"} />
+                                )}
 
                         </div>
                     ))}

@@ -12,6 +12,7 @@ import { Provider } from "@/utils/interface/entityInterface/providerInterface";
 import { setLastMessage, setOnlineUsers, setSelectedUser } from "@/utils/redux/slices/chatSlice";
 import { UserFetchProvidersForChatSidebarResponse } from "@/utils/interface/api/userApiInterface";
 import { ProviderFetchUsersForChatSidebarResponse } from "@/utils/interface/api/providerApiInterface";
+import { socket } from "@/lib/socketService";
 
 type setLatMessageProps = Pick<Message, "senderId" | "text" | "createdAt">
 type UserProps = Pick<User, "_id" | "username" | "profileImage"> | Pick<Provider, "_id" | "username" | "profileImage">;
@@ -46,7 +47,7 @@ const ChatSidebar: React.FC<ChatSideBarProps> = ({
 }) => {
 
     const dispatch = useDispatch<AppDispatch>();
-    const { selectedUser, lastMessages, onlineUsers, chatSocket } = useSelector((store: RootState) => store.chat);
+    const { selectedUser, lastMessages, onlineUsers } = useSelector((store: RootState) => store.chat);
     const getLastMessage = (userId: string): { message: string; date: string } | null => {
         return lastMessages?.[userId] || null;
     };
@@ -72,19 +73,19 @@ const ChatSidebar: React.FC<ChatSideBarProps> = ({
     }, [dispatch]);
 
     useEffect(() => {
-        chatSocket?.on("getOnlineUsers", handleOnlineUsers);
-        return () => { chatSocket?.off("getOnlineUsers", handleOnlineUsers) };
-    }, [chatSocket, handleOnlineUsers]);
+        socket?.on("getOnlineUsers", handleOnlineUsers);
+        return () => { socket?.off("getOnlineUsers", handleOnlineUsers) };
+    }, [socket, handleOnlineUsers]);
 
     useEffect(() => {
         const setNewMessage = (message: setLatMessageProps) => {
             setLastMessage({ userId: message.senderId, message: message.text ? message.text : "Image", date: message.createdAt });
         };
-        chatSocket?.on("newMessage", setNewMessage);
-        return () => { chatSocket?.off("newMessage", setNewMessage) };
-    }, [chatSocket]);
+        socket?.on("newMessage", setNewMessage);
+        return () => { socket?.off("newMessage", setNewMessage) };
+    }, [socket]);
 
-    console.log("data : ", data);
+    // console.log("data : ", data);
 
     if (isLoading) return <ChatSidebarShimmer />;
     if (!data || (isError && error)) return <DataFetchingError message={(error as Error).message} className="min-h-full" />
