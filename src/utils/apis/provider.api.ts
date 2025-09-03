@@ -3,38 +3,43 @@ import {
     ProviderFetchPlansResponse,
     ProviderFetchAddressResponse,
     ProviderSubscribeToPlanRequest,
+    ProviderDashboardGraphResponse,
     ProviderSubscribeToPlanResponse,
     ProviderFetchAllServicesResponse,
+    ProviderSaveSubscriptionResponse,
     ProviderAddProviderAddressRequest,
     ProviderUpdateProviderInfoRequest,
     ProviderUpdateProviderInfoResponse,
     ProviderUpdateProfileImageResponse,
     ProviderFetchProfileDetailsResponse,
     ProviderFetchServiceDetailsResponse,
-    AddProviderServiceAvailabilitiesRequest,
-    ProviderFetchServiceAvailabilityResponse,
-    ProviderFetchUsersForChatSidebarResponse,
-    ProviderFetchDashboardStatsDataResponse,
-    ProviderDashboardGraphResponse,
-    ProviderSaveSubscriptionResponse,
     ProviderChangeAppointmentStatusRequest,
+    AddProviderServiceAvailabilitiesRequest,
+    ProviderFetchDashboardStatsDataResponse,
+    ProviderFetchUsersForChatSidebarResponse,
+    ProviderFetchServiceAvailabilityResponse,
 } from "../interface/api/providerApiInterface";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { buildQueryParams, parseNewCommonResponse } from "../helper";
 import { ApiBaseResponse, FetchFunctionParams, ApiPaginatedResponse } from "../interface/commonInterface";
-import { FetchBookingsResponse, FetchPaymentsResponse, FetchProviderSubscriptionsResponse, UpdateAddressRequest, UpdateAddressResponse } from "../interface/api/commonApiInterface";
+import { FetchBookingsResponse, FetchPaymentsResponse, FetchProviderSubscriptionsResponse, UpdateAddressRequest, UpdateAddressResponse, ValidateRoomId } from "../interface/api/commonApiInterface";
 
-// Create asyn thunk for updating the authSlice with address: true
+// **** Address apis
 export const providerAddProviderAddress = createAsyncThunk<ApiBaseResponse, ProviderAddProviderAddressRequest>("/provider/addAddress",
     async (data: ProviderAddProviderAddressRequest) => {
-        const response = await axiosInstance.post(`/provider/addAddress`, data);
+        const response = await axiosInstance.post(`/provider/addresses`, data);
         return response.data;
     }
 )
 
 export const providerFetchProviderAddress = async (): Promise<ProviderFetchAddressResponse> => {
-    const response = await axiosInstance.get('/provider/getAddress');
+    const response = await axiosInstance.get('/provider/addresses');
     return response.data.data;
+}
+
+export const providerUpdateProviderAddress = async (data: UpdateAddressRequest): Promise<UpdateAddressResponse> => {
+    const response = await axiosInstance.patch(`/provider/addresses/${data._id}`, data);
+    return response.data;
 }
 
 export const providerFetchAllAppServices = async (): Promise<ProviderFetchAllServicesResponse> => {
@@ -118,11 +123,6 @@ export const providerFetchProviderPayments = async (params?: FetchFunctionParams
     return parseNewCommonResponse<FetchPaymentsResponse>(response.data);
 }
 
-export const providerFetchBookingAppoinments = async (params?: FetchFunctionParams): Promise<ApiPaginatedResponse<FetchBookingsResponse>> => {
-    const query = buildQueryParams(params);
-    const response = await axiosInstance.get(`/provider/getBookingAppointments${query ? `?${query}` : ''}`);
-    return parseNewCommonResponse<FetchBookingsResponse>(response.data);
-}
 
 export const providerUpdateProviderInfo = createAsyncThunk<ProviderUpdateProviderInfoResponse, ProviderUpdateProviderInfoRequest>('/provider/updaterUserInfo',
     async (data: ProviderUpdateProviderInfoRequest) => {
@@ -146,12 +146,19 @@ export const providerFetchDashboardGraphData = async () : Promise<ProviderDashbo
     return response.data.data;
 }
 
+// **** Booking apis
+export const providerFetchBookingAppoinments = async (params?: FetchFunctionParams): Promise<ApiPaginatedResponse<FetchBookingsResponse>> => {
+    const query = buildQueryParams(params);
+    const response = await axiosInstance.get(`/provider/bookings/${query ? `?${query}` : ''}`);
+    return parseNewCommonResponse<FetchBookingsResponse>(response.data);
+}
+
 export const providerChangeAppointmentStatus = async (data: ProviderChangeAppointmentStatusRequest) : Promise<ApiBaseResponse> => {
-    const response = await axiosInstance.patch('/provider/changeAppointmentStatus',data);
+    const response = await axiosInstance.patch(`/provider/bookings/${data.appointmentId}`,data);
     return response.data;
 }
 
-export const providerUpdateProviderAddress = async (data: UpdateAddressRequest): Promise<UpdateAddressResponse> => {
-    const response = await axiosInstance.patch(`/provider/updateAddress/${data._id}`, data);
+export const providerValidateRoomId = async (data: ValidateRoomId): Promise<ApiBaseResponse> => {
+    const response = await axiosInstance.get(`/provider/bookings/${data._id}/can-join?roomId=${data.videoCallRoomId}`);
     return response.data;
-}
+} 

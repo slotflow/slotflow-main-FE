@@ -17,6 +17,7 @@ export interface Booking {
     appointmentStatus: AppointmentStatus;
     slotId: string;
     paymentId: string;
+    videoCallRoomId: string;
     createdAt: string;
     updatedAt: string;
 }

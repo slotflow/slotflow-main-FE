@@ -20,7 +20,7 @@ export type FetchPaymentsResponse = Pick<Payment, "_id" | "createdAt" | "totalAm
 // used in the UserBookingsPage CommonTable type
 // used as the providerFetchBookingAppoinments api response type
 // used as the userFetchBookings api response type
-export type FetchBookingsResponse = Pick<Booking, "_id" | "appointmentDate" | "appointmentMode" | "appointmentStatus" | "appointmentTime" | "createdAt">;
+export type FetchBookingsResponse = Pick<Booking, "_id" | "appointmentDate" | "appointmentMode" | "appointmentStatus" | "appointmentTime" | "videoCallRoomId" | "createdAt">;
 
 
 // **** 4. AddressUpdating request type and response interface used by user and provider
@@ -29,4 +29,7 @@ export interface UpdateAddressResponse extends ApiBaseResponse {
   data: Pick<Address, "_id" | "addressLine" | "phone" | "place" | "city" | "district" | "pincode" | "state" | "country" | "googleMapLink" | "updatedAt">;
 } 
 
+
+// **** 4. Validate booking video call room id request interface used by the provider and the user
+export type ValidateRoomId = Pick<Booking, "_id" | "videoCallRoomId">;
 

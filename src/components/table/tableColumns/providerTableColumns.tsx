@@ -4,9 +4,10 @@ import { MoreHorizontal } from "lucide-react";
 import { ColumnDef } from "@tanstack/react-table";
 import { DataTableColumnHeader } from "../DataTableColumnHeader";
 import { FetchBookingsResponse } from "@/utils/interface/api/commonApiInterface";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../../ui/dropdown-menu";
-import { DropDownMenuItemUpdateAppointmentStatus } from "../providerTableOptions/providerAppointmentsTableOptions";
 import { AppointmentStatus } from "@/utils/interface/entityInterface/bookingInterface";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../../ui/dropdown-menu";
+import { DropDownMenuItemDetails, DropDownMenuItemJoinCall, DropDownMenuItemUpdateAppointmentStatus } from "../providerTableOptions/providerAppointmentsTableOptions";
+
 
 export const ProviderAppointmentsBookingTableColumns: ColumnDef<FetchBookingsResponse>[] = [
   {
@@ -68,7 +69,7 @@ export const ProviderAppointmentsBookingTableColumns: ColumnDef<FetchBookingsRes
       { row }
     ) => {
       const appointment = row.original;
-      return appointment.appointmentStatus === AppointmentStatus.Booked && (
+      return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="h-8 w-8 p-0 cursor-pointer">
@@ -77,10 +78,18 @@ export const ProviderAppointmentsBookingTableColumns: ColumnDef<FetchBookingsRes
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuSeparator />
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            {appointment.appointmentStatus === AppointmentStatus.Booked && (
+              <>
                 <DropDownMenuItemUpdateAppointmentStatus appointmentId={appointment._id} appointmentStatus={AppointmentStatus.Rejected} text="Reject" />
                 <DropDownMenuItemUpdateAppointmentStatus appointmentId={appointment._id} appointmentStatus={AppointmentStatus.Confirmed} text="Confirm" />
+              </>
+            )}
+            {appointment.appointmentStatus === AppointmentStatus.Confirmed && (
+              <DropDownMenuItemJoinCall text="Join" roomId={appointment.videoCallRoomId} />
+            )}
+            <DropDownMenuItemDetails text="Details" />
           </DropdownMenuContent>
         </DropdownMenu>
       )

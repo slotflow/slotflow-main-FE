@@ -62,8 +62,8 @@ export const ProvidersSubscriptionsTableColumns: ColumnDef<FetchProviderSubscrip
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuSeparator />
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            <DropdownMenuSeparator />
             <DropDownMenuItemGetSubscriptionDetails subscriptionId={subscription._id}/>
           </DropdownMenuContent>
         </DropdownMenu>

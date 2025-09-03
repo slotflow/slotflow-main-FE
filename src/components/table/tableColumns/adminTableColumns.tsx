@@ -1,17 +1,17 @@
 import { Button } from "../../ui/button";
-import { Check, MoreHorizontal, X } from "lucide-react";
 import { ColumnDef } from "@tanstack/react-table";
+import { Check, MoreHorizontal, X } from "lucide-react";
+import { formatNumberToPrice } from "@/utils/helper/formatter";
 import { DataTableColumnHeader } from "../DataTableColumnHeader";
+import { AdminFetchAllPlansResponse } from "@/utils/interface/api/adminPlanApiInterface";
+import { AdminfetchAllUsersResponse } from "@/utils/interface/api/adminUserApiInterface";
 import { DropDownItemChangeUserStatus } from "../adminTableOptions/AdminUserTableOptions";
+import { AdminFetchAllServicesResponse } from "@/utils/interface/api/adminServiceApiInterface";
 import { DropDownItemChangePlanBlockStatus } from "../adminTableOptions/AdminPlansTableOptions";
+import { AdminFetchAllProvidersResponse } from "@/utils/interface/api/adminProviderApiInterface";
 import { DropDownItemChangeServiceBlockStatus } from "../adminTableOptions/AdminSerivceTableOptions";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../../ui/dropdown-menu";
 import { DropDownItemApproveProvider, DropDownItemChangeProviderBlockStatus, DropDownItemChangeProviderTrustTag, DropDownItemGetProviderDetailPage } from "../adminTableOptions/AdminProviderTableOptions";
-import { AdminfetchAllUsersResponse } from "@/utils/interface/api/adminUserApiInterface";
-import { AdminFetchAllPlansResponse } from "@/utils/interface/api/adminPlanApiInterface";
-import { AdminFetchAllServicesResponse } from "@/utils/interface/api/adminServiceApiInterface";
-import { AdminFetchAllProvidersResponse } from "@/utils/interface/api/adminProviderApiInterface";
-import { formatNumberToPrice } from "@/utils/helper/formatter";
 
 export const AdminProvidersTableColumns: ColumnDef<AdminFetchAllProvidersResponse>[] = [
   {
@@ -274,8 +274,8 @@ export const AdminPlansTableColumns: ColumnDef<AdminFetchAllPlansResponse>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuSeparator />
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            <DropdownMenuSeparator />
             <DropdownMenuItem>Details</DropdownMenuItem>
             <DropDownItemChangePlanBlockStatus planId={plan._id} isBlocked={plan.isBlocked} />
             <DropdownMenuItem>Edit</DropdownMenuItem>

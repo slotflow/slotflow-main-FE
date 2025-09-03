@@ -9,13 +9,9 @@ export type DropDownMenuItemUserCancelBookingComponentProps = {
 export const DropDownMenuItemUserCancelBooking: React.FC<DropDownMenuItemUserCancelBookingComponentProps> = ({ bookingId }) => {
 
     const { handleUserCancelBooking } = useUserBookingActions();
-    
-    const userHandleCancelBooking = () => {
-        handleUserCancelBooking(bookingId);
-    }
-    
+
     return (
-        <DropdownMenuItem onClick={userHandleCancelBooking}>
+        <DropdownMenuItem onClick={() => {handleUserCancelBooking(bookingId);}}>
             Cancel
         </DropdownMenuItem>
     );

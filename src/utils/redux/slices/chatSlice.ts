@@ -80,7 +80,6 @@ const chatSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(sendMessage.fulfilled,(state, action) => {
-            console.log("action.payload : ",action.payload);
             state.messages?.push(action.payload);
         })
     }
