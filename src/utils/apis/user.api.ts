@@ -70,28 +70,31 @@ export const userFetchAllServicesForServiceSelectPage = async (): Promise<Array<
 
 
 // **** user service providers apis
+// const response = await axiosInstance.get(`/user/providers/${selectedServices.join(",")}`);
 export const userSearchServiceProviders = async (selectedServices: string[]): Promise<UserFetchServiceProvidersResponse[]> => {
-    const response = await axiosInstance.get(`/user/providers/${selectedServices.join(",")}`);
+    const response = await axiosInstance.get(`/user/providers`,{
+        params : {selectedServices}
+    });
     return response.data.data;
 };
 
 export const userFetchProviderDetails = async (providerId : Provider["_id"]) : Promise<UserFetchProviderProfileDetailsResponse> => {
-    const response = await axiosInstance.get(`/user/getServiceProviderProfileDetails/${providerId}`);
+    const response = await axiosInstance.get(`/user/providers/${providerId}`);
     return response.data.data;
 }
 
 export const userFetchProviderAddress = async (providerId : Provider["_id"]) : Promise<UserFetchProviderAddressResponse> => {
-    const response = await axiosInstance.get(`/user/getServiceProviderAddress/${providerId}`);
+    const response = await axiosInstance.get(`/user/providers/${providerId}/address`);
     return response.data.data;
 }
 
 export const userFetchProviderService = async (providerId : Provider["_id"]) : Promise<UserFetchProviderServiceResponse> => {
-    const response = await axiosInstance.get(`/user/getServiceProviderServiceDetails/${providerId}`);
+    const response = await axiosInstance.get(`/user/providers/${providerId}/service`);
     return response.data.data;
 }
 
 export const userFetchProviderServiceAvailability = async (data : {providerId : Provider["_id"], date : Date}) : Promise<UserFetchProviderAvailabilityResponse> => {
-    const response = await axiosInstance.get(`/user/getServiceProviderServiceAvailability/${data.providerId}`, {
+    const response = await axiosInstance.get(`/user/providers/${data.providerId}/availability`, {
         params : {
             date : data.date.toISOString()
         }
@@ -99,34 +102,40 @@ export const userFetchProviderServiceAvailability = async (data : {providerId : 
     return response.data.data;
 }
 
+
+// user booking apis
 export const userBookAnAppointment = async (data : UserBookAnAppointmentRequest) : Promise<UserBookAppointmentResponse>  => {
-    const response = await axiosInstance.post('/user/createBookingCheckoutSession', data);
+    const response = await axiosInstance.post('/user/bookings/checkout-session', data);
     return response.data;
 }
 
 export const userSaveAppointmentBooking = async (sessionId: string) : Promise<ApiBaseResponse> => {
-    const response = await axiosInstance.post('/user/saveAppointmentBooking', { sessionId });
+    const response = await axiosInstance.post('/user/bookings', { sessionId });
     return response.data;
 }
 
 export const userFetchBookings = async (params?: FetchFunctionParams) : Promise<ApiPaginatedResponse<FetchBookingsResponse>> => {
     const query = buildQueryParams(params);
-    const response = await axiosInstance.get(`/user/getBookings${query ? `?${query}` : ''}`);
+    const response = await axiosInstance.get(`/user/bookings${query ? `?${query}` : ''}`);
     return parseNewCommonResponse<FetchBookingsResponse>(response.data);
 }
 
 export const userCancelBooking = async (bookingId: Booking["_id"]) : Promise<ApiBaseResponse> => {
-    const response = await axiosInstance.put(`/user/cancelBooking/${bookingId}`);
+    const response = await axiosInstance.patch(`/user/bookings/${bookingId}`);
     return response.data;
 }
 
+
+// user payment apis
 export const userFetchPayments = async (params?: FetchFunctionParams) : Promise<ApiPaginatedResponse<FetchPaymentsResponse>> => {
     const query = buildQueryParams(params);
-    const response = await axiosInstance.get(`/user/getPayments${query ? `?${query}` : ''}`);
+    const response = await axiosInstance.get(`/user/payments${query ? `?${query}` : ''}`);
     return parseNewCommonResponse<FetchPaymentsResponse>(response.data);
 }
 
+
+// user chat apis
 export const UserFetchProvidersForChatSideBar = async () : Promise<UserFetchProvidersForChatSidebarResponse> => {
-    const response = await axiosInstance.get('/user/getProvidersForChatSidebar');
+    const response = await axiosInstance.get('/user/chat/providers');
     return response.data.data;
 }
