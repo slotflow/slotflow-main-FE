@@ -14,11 +14,11 @@ export const adminFetchAllPlans = async (params?: FetchFunctionParams): Promise<
 };
 
 export const adminAddNewPlan = async (formData: AdminAddNewPlanRequest): Promise<ApiBaseResponse> => {
-    const response = await axiosInstance.post('/admin/addNewPlan', formData);
+    const response = await axiosInstance.post('/admin/plans', formData);
     return response.data;
 }
 
 export const adminChangePlanBlockStatus = async (data: AdminChangePlanBlockStatusRequest): Promise<ApiBaseResponse> => {
-    const response = await axiosInstance.patch(`/admin/changePlanBlockStatus`,data);
+    const response = await axiosInstance.patch(`/admin/plans/${data.planId}`,{ blockStatus: data.isBlocked });
     return response.data;
 }

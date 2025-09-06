@@ -17,7 +17,7 @@ interface UserOrProviderAddressDetailsComponentProps {
     >;
     queryKey: string;
     setLoading?: (data: boolean) => void;
-    setIsUpdating: (data: boolean) => void;
+    setIsUpdating?: (data: boolean) => void;
 }
 
 const UserOrProviderAddressDetails: React.FC<UserOrProviderAddressDetailsComponentProps> = ({

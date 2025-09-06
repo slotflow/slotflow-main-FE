@@ -5,6 +5,6 @@ import { FetchFunctionParams, ApiPaginatedResponse } from "../interface/commonIn
 
 export const adminFetchAllPayments = async (params?: FetchFunctionParams): Promise<ApiPaginatedResponse<FetchPaymentsResponse>> => {
     const query = buildQueryParams(params);
-    const response = await axiosInstance.get(`/admin/getPayments${query ? `?${query}` : ''}`);
+    const response = await axiosInstance.get(`/admin/payments${query ? `?${query}` : ''}`);
     return parseNewCommonResponse<FetchPaymentsResponse>(response.data);
 }

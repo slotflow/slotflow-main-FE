@@ -1,39 +1,46 @@
 import { axiosInstance } from "@/lib/axios";
-import { AdminDashboardGraphResponse, AdminFetchDashboardAppointmentStatsDataResponse, 
+import { 
+    AdminDashboardGraphResponse, 
+    AdminFetchDashboardUserStatsDataResponse,
+    AdminFetchDashboardTodayStatsDataResponse,
+    AdminFetchDashboardProviderStatsDataResponse,
     // AdminFetchDashboardPaymentStatsDataResponse, 
-    AdminFetchDashboardProviderStatsDataResponse, AdminFetchDashboardRevenueAndPaymentsStatsDataResponse, AdminFetchDashboardSubscriptionStatsDataResponse, AdminFetchDashboardTodayStatsDataResponse, AdminFetchDashboardUserStatsDataResponse } from "../interface/api/adminDashboardApiInterface";
+    AdminFetchDashboardAppointmentStatsDataResponse, 
+    AdminFetchDashboardSubscriptionStatsDataResponse,
+    AdminFetchDashboardRevenueAndPaymentsStatsDataResponse,
+} from "../interface/api/adminDashboardApiInterface";
 
 export const adminFetchDashboardTodayStatsData = async () : Promise<AdminFetchDashboardTodayStatsDataResponse> => {
-    const response = await axiosInstance.get('/admin/getDashboardTodayStats');
+    const response = await axiosInstance.get('/admin/dashboard/today');
     return response.data.data;
 }
 
 export const adminFetchDashboardUserStatsData = async () : Promise<AdminFetchDashboardUserStatsDataResponse> => {
-    const response = await axiosInstance.get('/admin/getDashboardUserStats');
+    const response = await axiosInstance.get('/admin/dashboard/users');
     return response.data.data;
 }
 
 export const adminFetchDashboardProviderStatsData = async () : Promise<AdminFetchDashboardProviderStatsDataResponse> => {
-    const response = await axiosInstance.get('/admin/getDashboardProviderStats');
+    const response = await axiosInstance.get('/admin/dashboard/providers');
     return response.data.data;
 }
 
 export const adminFetchDashboardSubscriptionStatsData = async () : Promise<AdminFetchDashboardSubscriptionStatsDataResponse> => {
-    const response = await axiosInstance.get('/admin/getDashboardSubscriptionStats');
+    const response = await axiosInstance.get('/admin/dashboard/subscriptions');
     return response.data.data;
 }
 
 export const adminFetchDashboardRevenueStatsData = async () : Promise<AdminFetchDashboardRevenueAndPaymentsStatsDataResponse> => {
-    const response = await axiosInstance.get('/admin/getDashboardRevenueStats');
+    const response = await axiosInstance.get('/admin/dashboard/revenue');
     return response.data.data;
 }
 
 export const adminFetchDashboardAppointmentStatsData = async () : Promise<AdminFetchDashboardAppointmentStatsDataResponse> => {
-    const response = await axiosInstance.get('/admin/getDashboardAppointmentStats');
+    const response = await axiosInstance.get('/admin/dashboard/appointments');
     return response.data.data;
 }
 
 export const adminFetchDashboardGraphData = async () : Promise<AdminDashboardGraphResponse> => {
-    const response = await axiosInstance.get('/admin/getDashboardGraphData');
+    const response = await axiosInstance.get('/admin/dashboard/graph');
     return response.data.data;
 }

@@ -97,8 +97,9 @@ const ProviderServiceAvailability: React.FC<ProviderServiceAvailabilityComponent
                                         </tbody>
                                     </table>
                                 </div>
-
-                                <p className="p-2">Please ensure that you book the slot at least 2 hours in advance.</p>
+                                {data.slots.length > 0 && (
+                                    <p className="p-2">Please ensure that you book the slot at least 2 hours in advance.</p>
+                                )}
 
                                 <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mt-2">
                                     {data?.slots?.length ? (

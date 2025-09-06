@@ -13,7 +13,7 @@ export const adminFetchAllUsers = async (params?: FetchFunctionParams): Promise<
 }
 
 export const adminChangeUserBlockStatus = async (data: AdminChangeUserStatusRequest): Promise<ApiBaseResponse> => {
-    const response = await axiosInstance.patch(`/admin/changeUserBlockStatus`, data);
+    const response = await axiosInstance.patch(`/admin/users/${data.userId}`, { blockStatus: data.isBlocked });
     return response.data;
 }
 

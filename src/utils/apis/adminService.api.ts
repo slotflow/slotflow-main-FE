@@ -14,11 +14,11 @@ export const adminFetchAllServices = async (params?: FetchFunctionParams): Promi
 }
 
 export const adminAddNewService = async (data : {appServiceName: Service["serviceName"]}): Promise<ApiBaseResponse> => {
-    const response = await axiosInstance.post('/admin/addNewService', data );
+    const response = await axiosInstance.post('/admin/services', data );
     return response.data;
 }
 
 export const adminChangeServiceBlockStatus = async (data: AdminChangeServiceBlockStatusRequest): Promise<ApiBaseResponse> => {
-    const response = await axiosInstance.patch(`/admin/changeServiceBlockStatus`, data);
+    const response = await axiosInstance.patch(`/admin/services/${data.serviceId}`, { blockStatus: data.isBlocked });
     return response.data;
 }
