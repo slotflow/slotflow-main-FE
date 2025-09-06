@@ -21,50 +21,57 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { buildQueryParams, parseNewCommonResponse } from "../helper";
 import { Booking } from "../interface/entityInterface/bookingInterface";
 import { Provider } from "../interface/entityInterface/providerInterface";
-import { FetchBookingsResponse, FetchPaymentsResponse, UpdateAddressRequest, UpdateAddressResponse } from "../interface/api/commonApiInterface";
 import { ApiBaseResponse, FetchFunctionParams, ApiPaginatedResponse } from "../interface/commonInterface";
+import { FetchBookingsResponse, FetchPaymentsResponse, UpdateAddressRequest, UpdateAddressResponse } from "../interface/api/commonApiInterface";
 
+// **** User profile apis
 export const userFetchUserProfileDetails = async (): Promise<UserFetchUserProfileDetailsResponse> => {
-    const response = await axiosInstance.get('/user/getProfileDetails');
+    const response = await axiosInstance.get('/user/profile');
     return response.data.data;
 }
 
 export const userUpdateUserProfileImage = createAsyncThunk<UpdateUserProfileImageResponse, FormData>("/user/updateProfileImage",
     async (payload: FormData) => {
-        const response = await axiosInstance.post('/user/updateProfileImage', payload);
+        const response = await axiosInstance.post('/user/profile/image', payload);
         return response.data;
     }
 )
 
 export const userUpdateUserInfo = createAsyncThunk<UserUpdateUserInfoResponse, UserUpdateUserInfoRequest>('/user/updaterUserInfo',
     async (data: UserUpdateUserInfoRequest) => {
-        const response = await axiosInstance.patch('/user/updateUserInfo', data);
+        const response = await axiosInstance.patch('/user/profile', data);
         return response.data;
     }
 )
 
-export const userAddUserAddress = async (data: AddUserAddressRequest): Promise<UserAddUserAddressResponse> => {
-    const response = await axiosInstance.post('/user/addAddress', data);
-    return response.data;
-}
 
-export const userUpdateUserAddress = async (data: UpdateAddressRequest): Promise<UpdateAddressResponse> => {
-    const response = await axiosInstance.patch(`/user/updateAddress/${data._id}`, data);
+// **** user address apis
+export const userAddUserAddress = async (data: AddUserAddressRequest): Promise<UserAddUserAddressResponse> => {
+    const response = await axiosInstance.post('/user/addresses', data);
     return response.data;
 }
 
 export const userFetchUserAddress = async (): Promise<UserFetchUserAddressResponse> => {
-    const response = await axiosInstance.get('/user/getAddress');
+    const response = await axiosInstance.get('/user/address');
     return response.data.data;
 }
 
+export const userUpdateUserAddress = async (data: UpdateAddressRequest): Promise<UpdateAddressResponse> => {
+    const response = await axiosInstance.patch(`/user/addresses/${data._id}`, data);
+    return response.data;
+}
+
+
+// **** user app services apis
 export const userFetchAllServicesForServiceSelectPage = async (): Promise<Array<UserFetchAllServicesResponse>> => {
-    const response = await axiosInstance.get(`/user/getAllServices`);
+    const response = await axiosInstance.get(`/user/appservices`);
     return response.data.data;
 }
 
+
+// **** user service providers apis
 export const userSearchServiceProviders = async (selectedServices: string[]): Promise<UserFetchServiceProvidersResponse[]> => {
-    const response = await axiosInstance.get(`/user/getServiceProviders/${selectedServices.join(",")}`);
+    const response = await axiosInstance.get(`/user/providers/${selectedServices.join(",")}`);
     return response.data.data;
 };
 

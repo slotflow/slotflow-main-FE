@@ -56,14 +56,14 @@ export const resendOtp = createAsyncThunk<ResendOtpResponse,ResendOtpRequest>("a
 
 export const updatePassword = createAsyncThunk<ApiBaseResponse,UpdatePasswordRequest>("auth/updatePassword",
     async (authData: UpdatePasswordRequest) => {
-        const response = await axiosInstance.put("/auth/updatePassword", authData);
+        const response = await axiosInstance.patch("/auth/password", authData);
         return response.data;
     }
 )
 
 export const checkUserStatus = createAsyncThunk("auth/checkUserStatus",
     async () => {
-        await axiosInstance.post("/auth/checkUserStatus");
+        await axiosInstance.post("/auth/status");
     }
 );
 
