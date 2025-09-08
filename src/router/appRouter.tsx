@@ -2,6 +2,7 @@ import { lazy } from "react";
 import PlanGuard from "./planGuard.tsx";
 import { createBrowserRouter } from "react-router-dom";
 import { ProtectedRoute } from "./protectedRoutes.tsx";
+import ProviderSubscriptionDetailViewPage from "@/pages/provider/ProviderSubscriptionDetailViewPage.tsx";
 
 const AuthPage = lazy(() => import("@/pages/common/AuthPage.tsx"));
 const ProfilePage = lazy(() => import("@/pages/common/ProfilePage.tsx"));
@@ -133,6 +134,7 @@ export const appRouter = createBrowserRouter([
                             </PlanGuard>
                         )
                     },
+                    { path: "subscription/:subscriptionId", element: <ProviderSubscriptionDetailViewPage /> },
                     {
                         path: "payments",
                         element: (

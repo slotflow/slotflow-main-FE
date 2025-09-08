@@ -22,7 +22,8 @@ import {
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { buildQueryParams, parseNewCommonResponse } from "../helper";
 import { ApiBaseResponse, FetchFunctionParams, ApiPaginatedResponse } from "../interface/commonInterface";
-import { FetchBookingsResponse, FetchPaymentsResponse, FetchProviderSubscriptionsResponse, UpdateAddressRequest, UpdateAddressResponse, ValidateRoomId } from "../interface/api/commonApiInterface";
+import { FetchBookingsResponse, FetchPaymentsResponse, FetchProviderSubscriptionsResponse, FetchSubscriptionDetailsResponse, UpdateAddressRequest, UpdateAddressResponse, ValidateRoomId } from "../interface/api/commonApiInterface";
+import { Subscription } from "../interface/entityInterface/subscriptionInterface";
 
 
 // **** Address apis
@@ -148,6 +149,11 @@ export const providerFetchProviderSubscriptions = async (params?: FetchFunctionP
 export const providerSubscribeToTrialPlan = async (): Promise<ApiBaseResponse> => {
     const response = await axiosInstance.post('/provider/subscriptions/trial');
     return response.data;
+}
+
+export const providerFetchSubscriptionDetails = async (subscriptionId: Subscription["_id"]): Promise<FetchSubscriptionDetailsResponse> => {
+    const response = await axiosInstance.get(`/provider/subscriptions/${subscriptionId}`);
+    return response.data.subscriptionDetails;
 }
 
 
