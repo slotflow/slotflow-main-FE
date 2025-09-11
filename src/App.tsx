@@ -7,6 +7,7 @@ import { QueryClientProvider } from '@tanstack/react-query';
 import LoadingFallback from './pages/common/LoadingFallback';
 import { PersistGate } from "redux-persist/integration/react";
 import { appStore, persistAppStore } from './utils/redux/appStore';
+import { SocketProvider } from './components/context/socketProvider';
 
 function App() {
 
@@ -15,7 +16,9 @@ function App() {
       <PersistGate loading={null} persistor={persistAppStore}>
         <QueryClientProvider client={queryClient}>
           <Suspense fallback={<LoadingFallback />}>
-            <RouterProvider router={appRouter} />
+            <SocketProvider>
+              <RouterProvider router={appRouter} />
+            </SocketProvider>
           </Suspense>
         </QueryClientProvider>
       </PersistGate>

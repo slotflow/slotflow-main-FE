@@ -3,6 +3,8 @@ import PlanGuard from "./planGuard.tsx";
 import { createBrowserRouter } from "react-router-dom";
 import { ProtectedRoute } from "./protectedRoutes.tsx";
 import ProviderSubscriptionDetailViewPage from "@/pages/provider/ProviderSubscriptionDetailViewPage.tsx";
+import VideoCallPage from "@/pages/common/VideoCallPage.tsx";
+import VideoCallLoby from "@/pages/common/VideoCallLoby.tsx";
 
 const AuthPage = lazy(() => import("@/pages/common/AuthPage.tsx"));
 const ProfilePage = lazy(() => import("@/pages/common/ProfilePage.tsx"));
@@ -91,6 +93,7 @@ export const appRouter = createBrowserRouter([
                     { path: "bookings", element: <UserBookingsPage /> },
                     { path: "payments", element: <UserPaymentsPage /> },
                     { path: "chat", element: <UserChatPage /> },
+                    { path: "video-call", element: <VideoCallPage /> },
                     { path: "notifications", element: <UserNotificationsPage /> },
                     { path: "payment-success", element: <PaymentConfirmPage status={true} userType={"user"} /> },
                     { path: "payment-failed", element: <PaymentConfirmPage status={false} userType={"user"} /> },
@@ -148,6 +151,14 @@ export const appRouter = createBrowserRouter([
                         element: (
                             <PlanGuard routeName="Chat">
                                 <ProviderChatPage />
+                            </PlanGuard>
+                        )
+                    },
+                    {
+                        path: "video-call",
+                        element: (
+                            <PlanGuard routeName="Video call">
+                                <VideoCallLoby />
                             </PlanGuard>
                         )
                     },

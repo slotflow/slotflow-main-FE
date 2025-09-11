@@ -1,6 +1,8 @@
 import { memo } from "react";
+import { toast } from "react-toastify";
 import { Check, ReceiptText, VideoIcon, X } from "lucide-react";
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
+import { providerValidateRoomId } from "@/utils/apis/provider.api";
 import { ProviderChangeAppointmentStatusRequest } from "@/utils/interface/api/providerApiInterface";
 import { useProviderAppointmentActions } from "@/utils/hooks/providerHooks/useProviderAppointmentActions";
 
@@ -10,6 +12,7 @@ interface DropDownMenuItemUpdateAppointmentStatusProps extends ProviderChangeApp
 
 interface DropDownMenuItemJoinCallProps {
     text: string;
+    bookingId: string;
     roomId: string;
 }
 
@@ -32,21 +35,29 @@ export const DropDownMenuItemUpdateAppointmentStatus: React.FC<DropDownMenuItemU
     )
 });
 
-export const DropDownMenuItemJoinCall: React.FC<DropDownMenuItemJoinCallProps> = memo(({ text, roomId }) => {
+export const DropDownMenuItemJoinCall: React.FC<DropDownMenuItemJoinCallProps> = memo(({ text, bookingId, roomId }) => {
 
-    const handleJoinCall = (roomId: string) => {
-        window.open(`/video-call/${roomId}`, "_blank");
+    const handleJoinCall = async (bookingId: string,roomId: string) => {
+        await providerValidateRoomId({_id: bookingId, videoCallRoomId: roomId})
+        .then((res) => {
+            if(res.success) {
+                window.open(`/video-call/${roomId}`, "_blank");
+            }
+        })
+        .catch(() => {
+            toast.error("Invalid Request, please try again after sometimes.");
+        })
     };
 
     return (
         <DropdownMenuItem
-            onClick={() => handleJoinCall(roomId)}
+            onClick={() => handleJoinCall(bookingId,roomId)}
             className="flex items-center gap-2"
         >
             <VideoIcon />{text}
         </DropdownMenuItem>
     )
-})
+});
 
 export const DropDownMenuItemDetails: React.FC<DropDownMenuItemDetailsProps> = memo(({ text }) => {
 
@@ -59,6 +70,6 @@ export const DropDownMenuItemDetails: React.FC<DropDownMenuItemDetailsProps> = m
             <ReceiptText />{text}
         </DropdownMenuItem>
     )
-})
+});
 
 

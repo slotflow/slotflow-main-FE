@@ -52,6 +52,7 @@ export const userRoutes: Route[] = [
   { path: "bookings", name: "Bookings" },
   { path: "payments", name: "Payments" },
   { path: "chat", name: "Chat" },
+  { path: "video-call", name: "Video call" },
   { path: "notifications", name: "Notifications" },
 ]
 

@@ -87,7 +87,7 @@ export const ProviderAppointmentsBookingTableColumns: ColumnDef<FetchBookingsRes
               </>
             )}
             {appointment.appointmentStatus === AppointmentStatus.Confirmed && (
-              <DropDownMenuItemJoinCall text="Join" roomId={appointment.videoCallRoomId} />
+              <DropDownMenuItemJoinCall text="Join" bookingId={appointment._id} roomId={appointment.videoCallRoomId} />
             )}
             <DropDownMenuItemDetails text="Details" />
           </DropdownMenuContent>
