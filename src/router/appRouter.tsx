@@ -2,7 +2,7 @@ import { lazy } from "react";
 import PlanGuard from "./planGuard.tsx";
 import { createBrowserRouter } from "react-router-dom";
 import { ProtectedRoute } from "./protectedRoutes.tsx";
-import ProviderSubscriptionDetailViewPage from "@/pages/provider/ProviderSubscriptionDetailViewPage.tsx";
+
 // import VideoCallPage from "@/pages/common/VideoCallPage.tsx";
 import VideoCallLoby from "@/pages/common/VideoCallLoby.tsx";
 import VideoCallSample from "@/pages/common/VideoCallSample.tsx";
@@ -36,6 +36,7 @@ const ProviderAppointmentsPage = lazy(() => import("@/pages/provider/ProviderApp
 const ProviderAvailabilityPage = lazy(() => import("@/pages/provider/ProviderAvailabilityPage.tsx"));
 const ProviderSubscriptionPage = lazy(() => import("@/pages/provider/ProviderSubscriptionPage.tsx"));
 const ProviderNotificationsPage = lazy(() => import("@/pages/provider/ProviderNotificationsPage.tsx"));
+const ProviderSubscriptionDetailViewPage = lazy(() => import("@/pages/provider/ProviderSubscriptionDetailViewPage.tsx"));
 
 const AdminMainPage = lazy(() => import("../pages/admin/AdminMainPage.tsx"));
 const AdminPlansPage = lazy(() => import("@/pages/admin/AdminPlansPage.tsx"));
