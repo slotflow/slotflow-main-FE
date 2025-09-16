@@ -65,9 +65,9 @@ export interface ProviderSubscribeToPlanResponse extends ApiBaseResponse {
 
 
 // **** 12.  Inline interfaces used for the providerSaveSubscription api
-export interface ProviderSaveSubscriptionResponse extends ApiBaseResponse{
+export interface ProviderSaveSubscriptionResponse extends ApiBaseResponse {
   planName: Plan["planName"]
-}; 
+};
 
 // **** 13.  Interfaces for providerFetchProviderSubscriptions api is in common interface api file
 
@@ -157,4 +157,3 @@ export interface ProviderChangeAppointmentStatusRequest {
 
 
 // **** 21. Address updating interfaces are in common interface file
-

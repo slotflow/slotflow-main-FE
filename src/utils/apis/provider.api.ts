@@ -24,6 +24,7 @@ import { buildQueryParams, parseNewCommonResponse } from "../helper";
 import { ApiBaseResponse, FetchFunctionParams, ApiPaginatedResponse } from "../interface/commonInterface";
 import { FetchBookingsResponse, FetchPaymentsResponse, FetchProviderSubscriptionsResponse, FetchSubscriptionDetailsResponse, UpdateAddressRequest, UpdateAddressResponse, ValidateRoomId } from "../interface/api/commonApiInterface";
 import { Subscription } from "../interface/entityInterface/subscriptionInterface";
+import { Booking } from "../interface/entityInterface/bookingInterface";
 
 
 // **** Address apis
@@ -65,9 +66,14 @@ export const providerChangeAppointmentStatus = async (data: ProviderChangeAppoin
 }
 
 export const providerValidateRoomId = async (data: ValidateRoomId): Promise<ApiBaseResponse> => {
-    const response = await axiosInstance.get(`/provider/bookings/${data._id}/can-join?roomId=${data.videoCallRoomId}`);
+    const response = await axiosInstance.get(`/provider/bookings/${data.appointmentId}/can-join?roomId=${data.roomId}`);
     return response.data;
 } 
+
+export const providerFetchBookingDetails = async (appointmentId: Booking['_id']) : Promise<ApiBaseResponse> => {
+    const response = await axiosInstance.get(`/provider/bookings${appointmentId}`);
+    return response.data;
+}
 
 
 // **** Provider services apis

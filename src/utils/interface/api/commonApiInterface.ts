@@ -31,7 +31,11 @@ export interface UpdateAddressResponse extends ApiBaseResponse {
 
 
 // **** 4. Validate booking video call room id request interface used by the provider and the user
-export type ValidateRoomId = Pick<Booking, "_id" | "videoCallRoomId">;
+export interface ValidateRoomId {
+  appointmentId: Booking["_id"];
+  roomId: Booking["videoCallRoomId"];
+}
+
 
 
 // **** 5. Used as the response interface for the adminFetchSubscriptionDetails api  
