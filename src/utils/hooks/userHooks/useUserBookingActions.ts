@@ -17,8 +17,10 @@ export const useUserBookingActions = (): UseUserBookingActionsCustomHookReturnTy
     const handleUserCancelBooking = (bookingId: Booking["_id"]) => {
         userCancelBooking(bookingId)
             .then((res) => {
-                queryClient.invalidateQueries({ queryKey: ["bookings"] });
-                toast.success(res.message);
+                if(res.success) {
+                    queryClient.invalidateQueries({ queryKey: ["bookings"] });
+                    toast.success(res.message);
+                }
             })
             .catch(() => {
                 toast.error("Please try again");

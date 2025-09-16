@@ -1,15 +1,18 @@
 import CommonTable from "@/components/common/CommonTable";
 import { userFetchPayments } from "@/utils/apis/user.api";
 import { FetchPaymentsResponse } from "@/utils/interface/api/commonApiInterface";
-import { PaymentsTableColumns } from "@/components/table/tableColumns/commonTableColumns";
+import { PaymentsTableColumn } from "@/components/table/tableColumns/PaymentsTableColumn";
 
 const UserPaymentsPage = () => {
+
+  const column = PaymentsTableColumn();
+
   return (
     <CommonTable<FetchPaymentsResponse>
       fetchApiFunction={userFetchPayments}
       queryKey='payments'
       heading='Payment History'
-      column={PaymentsTableColumns}
+      column={column}
       columnsCount={6}
     />
   )

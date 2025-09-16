@@ -26,12 +26,12 @@ export const adminApproveProvider = async (providerId : Provider["_id"]): Promis
 }
 
 export const adminChangeProviderBlockStatus = async (data: AdminChangeProviderBlockStatusRequest): Promise<ApiBaseResponse> => {
-    const response = await axiosInstance.patch(`/admin/providers/${data.providerId}`, { blockStatus: data.isBlocked });
+    const response = await axiosInstance.patch(`/admin/providers/${data.providerId}/block`, { blockStatus: data.isBlocked });
     return response.data;
 }
 
 export const adminChangeProviderTrustTag = async (data: AdminChangeProviderTrustTagRequest): Promise<ApiBaseResponse> => {
-    const response = await axiosInstance.patch(`/admin/providers/${data.providerId}`, { trustTag: data.trustedBySlotflow });
+    const response = await axiosInstance.patch(`/admin/providers/${data.providerId}/trust-tag`, { trustTag: data.trustedBySlotflow });
     return response.data;
 }
 

@@ -18,8 +18,10 @@ export const useProviderAppointmentActions = () => {
     const handleChangeAppointmentStatus = ({ appointmentId, appointmentStatus }: ProviderChangeAppointmentStatusRequest) => {
         providerChangeAppointmentStatus({ appointmentId, appointmentStatus })
             .then((res) => {
-                queryClient.invalidateQueries({ queryKey: ["appointments"] });
-                toast.success(res.message);
+                if(res.success) {
+                    queryClient.invalidateQueries({ queryKey: ["appointments"] });
+                    toast.success(res.message);
+                }
             })
             .catch(() => {
                 toast.error("Please try again");

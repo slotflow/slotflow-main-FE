@@ -1,42 +1,38 @@
 import { toast } from "react-toastify";
 import { useQueryClient } from "@tanstack/react-query";
-import { Plan } from "@/utils/interface/entityInterface/planInterface";
 import { adminAddNewPlan, adminChangePlanBlockStatus } from "../../apis/adminPlan.api";
-
-type handleAdminChangePlanStatusProps = {
-    planId: Plan["_id"];
-    isBlocked: Plan["isBlocked"];
-}
+import { AdminAddNewPlanRequest, AdminChangePlanBlockStatusRequest } from "@/utils/interface/api/adminPlanApiInterface";
 
 interface UseAdminPlanActionsReturnType {
-    handleAdminPlanAdding: (formData: handleAdminPlanAddingProps, setLoading: (loading: boolean) => void) => void;
-    handleAdminChangePlanStatus: (data: handleAdminChangePlanStatusProps) => void;
+    handleAdminPlanAdding: (formData: AdminAddNewPlanRequest, setLoading: (loading: boolean) => void) => void;
+    handleAdminChangePlanStatus: (data: AdminChangePlanBlockStatusRequest) => void;
 }
-
-type handleAdminPlanAddingProps = Pick<Plan,'planName' | 'description' | 'price' | 'features' | "maxBookingPerMonth" | "adVisibility">;
-
 
 export const useAdminPlanActions = (): UseAdminPlanActionsReturnType => {
 
   const queryClient = useQueryClient();
 
-  const handleAdminPlanAdding = (formData: handleAdminPlanAddingProps, setLoading: (loading: boolean) => void) => {
+  const handleAdminPlanAdding = (formData: AdminAddNewPlanRequest, setLoading: (loading: boolean) => void) => {
       adminAddNewPlan(formData)
       .then((res) => {
+        if(res.success) {
           queryClient.invalidateQueries({ queryKey: ["plans"] });
           setLoading(false);
           toast.success(res.message);
+        }
       })
       .catch(() => {
         setLoading(false);
       });
     };
 
-  const handleAdminChangePlanStatus = ({planId, isBlocked} : handleAdminChangePlanStatusProps) => {
+  const handleAdminChangePlanStatus = ({planId, isBlocked} : AdminChangePlanBlockStatusRequest) => {
     adminChangePlanBlockStatus({planId, isBlocked })
       .then((res) => {
-        queryClient.invalidateQueries({ queryKey: ["plans"] });
-        toast.success(res.message);
+        if(res.success) {
+          queryClient.invalidateQueries({ queryKey: ["plans"] });
+          toast.success(res.message);
+        }
       })
       .catch(() => {
         toast.error("Please try again");

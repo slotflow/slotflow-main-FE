@@ -1,10 +1,19 @@
 import CommonTable from '@/components/common/CommonTable';
 import PlanForm from '@/components/form/AdminForms/planForm';
 import { adminFetchAllPlans } from '@/utils/apis/adminPlan.api';
+import { useAdminPlanActions } from '@/utils/hooks/adminHooks/useAdminPlanActions';
 import { AdminFetchAllPlansResponse } from '@/utils/interface/api/adminPlanApiInterface';
-import { AdminPlansTableColumns } from '@/components/table/tableColumns/adminTableColumns';
+import { AdminPlansTableColumns } from '@/components/table/tableColumns/AdminPlansTableColumn';
 
 const AdminPlansPage = () => {
+
+    const {
+        handleAdminChangePlanStatus
+    } = useAdminPlanActions();
+
+    const column = AdminPlansTableColumns(
+        handleAdminChangePlanStatus
+    );
 
     return (
         <>
@@ -14,7 +23,7 @@ const AdminPlansPage = () => {
                         fetchApiFunction={adminFetchAllPlans}
                         queryKey='plans'
                         heading='Plans'
-                        column={AdminPlansTableColumns}
+                        column={column}
                         columnsCount={4}
                     />
                 </div>

@@ -1,10 +1,19 @@
 import CommonTable from '@/components/common/CommonTable';
 import { adminFetchAllServices } from '@/utils/apis/adminService.api';
 import ServiceAddingForm from '@/components/form/AdminForms/ServiceForm';
+import { useAdminServiceActions } from '@/utils/hooks/adminHooks/useAdminServiceActions';
 import { AdminFetchAllServicesResponse } from '@/utils/interface/api/adminServiceApiInterface';
-import { AdminAppServicesTableColumns } from '@/components/table/tableColumns/adminTableColumns';
+import { AdminAppServicesTableColumns } from '@/components/table/tableColumns/AdminAppServicesTableColumn';
 
 const AdminServicesPage = () => {
+
+  const {
+    handleAdminChangeServiceStatus
+  } = useAdminServiceActions();
+
+  const column = AdminAppServicesTableColumns(
+    handleAdminChangeServiceStatus
+  )
 
   return (
     <>
@@ -14,7 +23,7 @@ const AdminServicesPage = () => {
             fetchApiFunction={adminFetchAllServices}
             queryKey="appServices"
             heading="Services"
-            column={AdminAppServicesTableColumns}
+            column={column}
             columnsCount={4}
           />
         </div>

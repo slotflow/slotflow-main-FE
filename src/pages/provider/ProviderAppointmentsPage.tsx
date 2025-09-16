@@ -2,7 +2,7 @@ import CommonTable from '@/components/common/CommonTable';
 import { providerFetchBookingAppoinments } from '@/utils/apis/provider.api';
 import { FetchBookingsResponse } from '@/utils/interface/api/commonApiInterface';
 import { useProviderAppointmentActions } from '@/utils/hooks/providerHooks/useProviderAppointmentActions';
-import { ProviderAppointmentsBookingTableColumns } from '@/components/table/tableColumns/providerAppointmentsTableColumns';
+import { ProviderAppointmentsBookingTableColumns } from '@/components/table/tableColumns/ProviderAppointmentsTableColumn';
 
 const ProviderAppointmentsPage = () => {
 
