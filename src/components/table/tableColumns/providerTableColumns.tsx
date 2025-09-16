@@ -8,7 +8,6 @@ import { AppointmentStatus } from "@/utils/interface/entityInterface/bookingInte
 import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../../ui/dropdown-menu";
 import { DropDownMenuItemDetails, DropDownMenuItemJoinCall, DropDownMenuItemUpdateAppointmentStatus } from "../providerTableOptions/providerAppointmentsTableOptions";
 
-
 export const ProviderAppointmentsBookingTableColumns: ColumnDef<FetchBookingsResponse>[] = [
   {
     accessorKey: "appointmentDate",

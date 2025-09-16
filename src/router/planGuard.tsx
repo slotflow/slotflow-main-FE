@@ -9,6 +9,7 @@ interface PlanGuardProps {
 }
 
 const PlanGuard = ({ routeName, children }: PlanGuardProps) => {
+  
   const user = useSelector((store: RootState) => store.auth.authUser);
   const planName = user?.providerSubscription || "NoSubscription";
   const allowedRoutes = planAccessMap[planName] || [];

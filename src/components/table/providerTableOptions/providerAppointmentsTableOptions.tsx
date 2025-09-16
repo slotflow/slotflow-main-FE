@@ -5,6 +5,10 @@ import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { providerValidateRoomId } from "@/utils/apis/provider.api";
 import { ProviderChangeAppointmentStatusRequest } from "@/utils/interface/api/providerApiInterface";
 import { useProviderAppointmentActions } from "@/utils/hooks/providerHooks/useProviderAppointmentActions";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/utils/redux/appStore";
+import { connectVideoSocket } from "@/utils/apis/video.api";
+import { useNavigate } from "react-router-dom";
 
 interface DropDownMenuItemUpdateAppointmentStatusProps extends ProviderChangeAppointmentStatusRequest {
     text: string;
@@ -37,11 +41,14 @@ export const DropDownMenuItemUpdateAppointmentStatus: React.FC<DropDownMenuItemU
 
 export const DropDownMenuItemJoinCall: React.FC<DropDownMenuItemJoinCallProps> = memo(({ text, bookingId, roomId }) => {
 
+    const dispatch = useDispatch<AppDispatch>();
+    const navigate = useNavigate();
     const handleJoinCall = async (bookingId: string,roomId: string) => {
         await providerValidateRoomId({_id: bookingId, videoCallRoomId: roomId})
         .then((res) => {
             if(res.success) {
-                window.open(`/video-call/${roomId}`, "_blank");
+                navigate(`/provider/video-call-lobby/${roomId}`);
+                dispatch(connectVideoSocket());
             }
         })
         .catch(() => {

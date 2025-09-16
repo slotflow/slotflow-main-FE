@@ -5,7 +5,7 @@ import { connectSocket, disconnectSocket } from "@/lib/socketService";
 import { Message } from "../interface/entityInterface/message.interface";
 import { addNewMessage, setMessages, setSocketConnected, setSocketDisconnected } from "../redux/slices/chatSlice";
 
-const BASE_URL = import.meta.env.VITE_CHATMODULE_BACKEND_DEV_URL || "http://localhost:4000";
+const BASE_URL =  import.meta.env.MODE === "development" ? import.meta.env.VITE_REALTIME_BACKEND_DEV_URL : import.meta.env.VITE_REALTIME_BACKEND_DEV_URL;
 
 export const getMessages = createAsyncThunk<Array<Message>, { selectedUserId: string }>('message/getMessages',
     async ({ selectedUserId }, thunkAPI) => {
@@ -34,10 +34,11 @@ export const sendMessage = createAsyncThunk<Message,{ selectedUserId: string, me
 
 export const connectChatSocket = createAsyncThunk<void, void, { state: RootState }>("chat/connectSocket",
   async (_, { getState, dispatch }) => {
+
     const authUser = getState().auth.authUser;
     if (!authUser) return;
 
-    const socket = connectSocket(authUser.uid as string, BASE_URL);
+    const socket = connectSocket(authUser.uid as string, BASE_URL+"/chat");
     
     socket.on("connect", () => {
       dispatch(setSocketConnected({ socketId: socket.id as string }));

@@ -3,8 +3,9 @@ import PlanGuard from "./planGuard.tsx";
 import { createBrowserRouter } from "react-router-dom";
 import { ProtectedRoute } from "./protectedRoutes.tsx";
 import ProviderSubscriptionDetailViewPage from "@/pages/provider/ProviderSubscriptionDetailViewPage.tsx";
-import VideoCallPage from "@/pages/common/VideoCallPage.tsx";
+// import VideoCallPage from "@/pages/common/VideoCallPage.tsx";
 import VideoCallLoby from "@/pages/common/VideoCallLoby.tsx";
+import VideoCallSample from "@/pages/common/VideoCallSample.tsx";
 
 const AuthPage = lazy(() => import("@/pages/common/AuthPage.tsx"));
 const ProfilePage = lazy(() => import("@/pages/common/ProfilePage.tsx"));
@@ -93,7 +94,15 @@ export const appRouter = createBrowserRouter([
                     { path: "bookings", element: <UserBookingsPage /> },
                     { path: "payments", element: <UserPaymentsPage /> },
                     { path: "chat", element: <UserChatPage /> },
-                    { path: "video-call", element: <VideoCallPage /> },
+                    // { path: "video-call", element: <VideoCallPage /> },
+                    {
+                        path: "video-call-lobby/:roomId",
+                        element: <VideoCallLoby />
+                    },
+                    {
+                        path: "video-call-room/:roomId",
+                        element: <VideoCallSample />
+                    },
                     { path: "notifications", element: <UserNotificationsPage /> },
                     { path: "payment-success", element: <PaymentConfirmPage status={true} userType={"user"} /> },
                     { path: "payment-failed", element: <PaymentConfirmPage status={false} userType={"user"} /> },
@@ -137,7 +146,10 @@ export const appRouter = createBrowserRouter([
                             </PlanGuard>
                         )
                     },
-                    { path: "subscription/:subscriptionId", element: <ProviderSubscriptionDetailViewPage /> },
+                    { 
+                        path: "subscription/:subscriptionId", 
+                        element: <ProviderSubscriptionDetailViewPage /> 
+                    },
                     {
                         path: "payments",
                         element: (
@@ -155,18 +167,18 @@ export const appRouter = createBrowserRouter([
                         )
                     },
                     {
-                        path: "video-call",
+                        path: "video-call-lobby/:roomId",
                         element: (
                             <PlanGuard routeName="Video call">
                                 <VideoCallLoby />
                             </PlanGuard>
-                        )
+                        ),
                     },
                     {
-                        path: "video",
+                        path: "video-call-room/:roomId",
                         element: (
                             <PlanGuard routeName="Video call">
-                                <ProviderChatPage />
+                                <VideoCallSample />
                             </PlanGuard>
                         )
                     },
