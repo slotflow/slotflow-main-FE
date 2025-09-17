@@ -34,6 +34,11 @@ const authSlice = createSlice({
             if(state.authUser) {
                 state.authUser.providerSubscription = action.payload;
             }
+        },
+        updateGoogleConnect: (state) => {
+            if(state.authUser) {
+                state.authUser.googleConnected = true;
+            }
         }
     },
     extraReducers: (builder) => {
@@ -151,7 +156,7 @@ const authSlice = createSlice({
                 state.dataUpdating = false;
                 state.profileImageUpdating = false;
             })
-            .addCase(signout.rejected, () => {})
+            .addCase(signout.rejected, () => {});
     },
 });
 
@@ -160,6 +165,7 @@ export const {
     setProfileImage,
     updateAuthUserName,
     updateProviderSubscription,
+    updateGoogleConnect
 } = authSlice.actions;
 
 export default authSlice.reducer;

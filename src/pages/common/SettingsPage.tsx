@@ -1,23 +1,30 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import React, { useEffect } from 'react';
 import { formatDate } from '@/utils/helper';
-import { Check, UserRoundPen, X } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
-import { RootState } from '@/utils/redux/appStore';
+import { Check, UserRoundPen, X } from 'lucide-react';
+import { useDispatch, useSelector } from 'react-redux';
 import { } from '@/utils/interface/api/userApiInterface';
 import GoogleButton from '@/components/form/GoogleButton';
+import { AppDispatch, RootState } from '@/utils/redux/appStore';
 import ProfileHead from '@/components/common/profile/ProfileHead';
+import { updateGoogleConnect } from '@/utils/redux/slices/authSlice';
 import DataFetchingError from '@/components/common/DataFetchingError';
 import { userFetchUserProfileDetails, userUpdateUserProfileImage } from '@/utils/apis/user.api';
 import { providerFetchProviderProfileDetails, providerUpdateProviderProfileImage } from '@/utils/apis/provider.api';
 
 const SettingsPage: React.FC = () => {
 
+    const dispatch = useDispatch<AppDispatch>();
     const { authUser } = useSelector((state: RootState) => state.auth);
 
 
-    const handleConnectGoogle = () => {
-
+    const handleConnectGoogle = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        const apiUrl = import.meta.env.MODE === "development"
+            ? import.meta.env.VITE_BACKEND_DEV_URL
+            : import.meta.env.VITE_BACKEND_PRODUCTION_URL;
+        window.location.href = `${apiUrl}/google/connect`;
     }
 
     const isProvider = authUser?.role === "PROVIDER";
@@ -36,6 +43,28 @@ const SettingsPage: React.FC = () => {
     const updateProfileImageApiFunction = isProvider
         ? providerUpdateProviderProfileImage
         : userUpdateUserProfileImage;
+
+    useEffect(() => {
+        const params = new URLSearchParams(window.location.search);
+        const data = params.get("response");
+        if (!data) return;
+        try {
+            const response = JSON.parse(decodeURIComponent(data));
+            if (!response.success) {
+                toast.error("Google connection failed, please try again");
+            } else {
+                dispatch(updateGoogleConnect());
+                toast.success("Google successfully connected!");
+            }
+        } catch (err) {
+            toast.error("Invalid response from Google connect");
+            console.error("Google connect parse error:", err);
+        } finally {
+            const url = new URL(window.location.href);
+            url.searchParams.delete("response");
+            window.history.replaceState({}, "", url.toString());
+        }
+    }, [dispatch]);
 
     if (!authUser) return <DataFetchingError message='User not found' />
 
@@ -104,7 +133,7 @@ const SettingsPage: React.FC = () => {
                         )}
                         <tr className={`${"border-b border-[var(--boxBorder)]"}`}>
                             <td className="p-4 font-medium text-[var(--infoDataLabel)] w-4/12">Google Connected</td>
-                            <td className="p-4 w-8/12">{authUser.googleConnected ? "Yes" : <GoogleButton text='Connect Google' onClick={handleConnectGoogle} className="w-full md:w-4/12" />}</td>
+                            <td className="p-4 w-8/12">{authUser.googleConnected ? <Check className="text-green-500" /> : <GoogleButton text='Connect Google' onClick={handleConnectGoogle} className="w-full md:w-4/12" />}</td>
                         </tr>
                         <tr className={`${"border-b border-[var(--boxBorder)]"}`}>
                             <td className="p-4 font-medium text-[var(--infoDataLabel)] w-4/12">Info updated on</td>
