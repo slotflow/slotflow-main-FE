@@ -3,11 +3,11 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/utils/redux/appStore";
 import CommonButton from "@/components/common/CommonButton";
 import ProfileHead from "@/components/common/profile/ProfileHead";
+import { userFetchUserProfileDetails } from "@/utils/apis/user.api";
 import { handleUpdatedAtCheck } from "@/utils/helper/checkUpdatedAtDate";
+import { providerFetchProviderProfileDetails } from "@/utils/apis/provider.api";
 import UserInfoAddingOrUpdating from "@/components/common/UserInfoAddingOrUpdating";
-import { userFetchUserProfileDetails, userUpdateUserProfileImage } from "@/utils/apis/user.api";
 import UserOrProviderProfileDetails from "@/components/common/profile/UserOrProviderProfileDetails";
-import { providerFetchProviderProfileDetails, providerUpdateProviderProfileImage } from "@/utils/apis/provider.api";
 
 const ProfilePage: React.FC = () => {
 
@@ -19,17 +19,13 @@ const ProfilePage: React.FC = () => {
     ? providerFetchProviderProfileDetails
     : userFetchUserProfileDetails;
 
-  const updateProfileImageApiFunction = isProvider
-    ? providerUpdateProviderProfileImage
-    : userUpdateUserProfileImage;
-
   const shimmerRow = isProvider ? 8 : 6;
 
   if(!authUser) return null;
 
   return (
     <div className="min-h-full flex flex-col p-2">
-      <ProfileHead updateProfileImageApiFunction={updateProfileImageApiFunction} updation={true} />
+      <ProfileHead updation={false} showDetails />
       <UserOrProviderProfileDetails
         fetchApiFunction={fetchApiFunction}
         queryKey="profileDetails"

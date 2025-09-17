@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { Camera, Loader } from "lucide-react";
+import { Loader, Pen } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { AuthState } from "@/utils/interface/sliceInterface";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
@@ -11,7 +11,7 @@ import { ProfileHeaderComponentProps } from "@/utils/interface/componentInterfac
 const ProfileHead: React.FC<ProfileHeaderComponentProps> = ({
     updateProfileImageApiFunction,
     updation,
-    profileImage
+    showDetails
 }) => {
 
     const dispatch = useDispatch<AppDispatch>();
@@ -41,21 +41,21 @@ const ProfileHead: React.FC<ProfileHeaderComponentProps> = ({
     };
 
     return (
-        <div className="w-full h-50 flex justify-center items-center bg-[var(--menuItemHoverBg)] rounded-[6px]">
+        <div className={`w-full h-50 flex justify-center items-center bg-[var(--menuItemHoverBg)] rounded-[6px]`}>
             <div className="relative">
 
                 {updation ? (
                     <img
-                    className={`h-32 w-32 object-cover rounded-lg transition-opacity ${profileImageUpdating ? "opacity-50" : "opacity-100"}`}
-                    src={authUser?.profileImage ? authUser.profileImage : selectedImage ? selectedImage : "/images/avatar.png"}
-                    alt="Profile"
-                />
+                        className={`h-32 w-32 object-cover rounded-lg transition-opacity ${profileImageUpdating ? "opacity-50" : "opacity-100"}`}
+                        src={authUser?.profileImage ? authUser.profileImage : selectedImage ? selectedImage : "/images/avatar.png"}
+                        alt="Profile"
+                    />
                 ) : (
                     <img
-                    className={`h-32 w-32 object-cover rounded-lg transition-opacity ${profileImageUpdating ? "opacity-50" : "opacity-100"}`}
-                    src={profileImage || "/images/avatar.png"}
-                    alt="Profile"
-                />
+                        className={`h-32 w-32 object-cover rounded-lg transition-opacity ${profileImageUpdating ? "opacity-50" : "opacity-100"}`}
+                        src={authUser?.profileImage || "/images/avatar.png"}
+                        alt="Profile"
+                    />
                 )}
 
 
@@ -70,7 +70,7 @@ const ProfileHead: React.FC<ProfileHeaderComponentProps> = ({
                         htmlFor="avatar-upload"
                         className={`absolute bottom-0 right-0 bg-black opacity-40 bg-base-content hover:scale-105 p-2 cursor-pointer transition-all duration-200 ${profileImageUpdating ? "cursor-not-allowed opacity-30" : "opacity-100"}`}
                     >
-                        <Camera className="w-5 h-5 text-white" />
+                        <Pen className="w-5 h-5 text-white" />
                         <input
                             type="file"
                             id="avatar-upload"
@@ -83,6 +83,14 @@ const ProfileHead: React.FC<ProfileHeaderComponentProps> = ({
                 )}
 
             </div>
+            {showDetails && (
+                <div className="flex flex-col justify-center ml-6">
+                    <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold">
+                        {authUser?.username || "No Name"}
+                    </h1>
+                    <p>{authUser?.serviceDescription ?? "Empowering the world with seamless services through Slotflow"}</p>
+                </div>
+            )}
         </div>
     )
 }

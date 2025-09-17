@@ -12,8 +12,8 @@ import AddAddress, { AddressFormProps } from "@/components/common/AddAddress";
 import { UpdateAddressResponse } from '@/utils/interface/api/commonApiInterface';
 import { UserAddUserAddressResponse } from '@/utils/interface/api/userApiInterface';
 import UserOrProviderAddressDetails from "@/components/common/profile/UserOrProviderAddressDetails";
-import { userAddUserAddress, userFetchUserAddress, userUpdateUserAddress, userUpdateUserProfileImage } from "@/utils/apis/user.api";
-import { providerFetchProviderAddress, providerUpdateProviderAddress, providerUpdateProviderProfileImage } from "@/utils/apis/provider.api";
+import { userAddUserAddress, userFetchUserAddress, userUpdateUserAddress } from "@/utils/apis/user.api";
+import { providerFetchProviderAddress, providerUpdateProviderAddress } from "@/utils/apis/provider.api";
 
 const AddressPage: React.FC = () => {
 
@@ -70,11 +70,9 @@ const AddressPage: React.FC = () => {
     <div className="min-h-full p-2 flex flex-col">
 
       <ProfileHead
-        updateProfileImageApiFunction={
-          authUser?.role === "USER" ? userUpdateUserProfileImage
-            : providerUpdateProviderProfileImage
-        }
-        updation={true} />
+        updation={false} 
+        showDetails
+        />
 
       {addAddress ? (
         <AddAddress

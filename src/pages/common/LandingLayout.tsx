@@ -37,6 +37,7 @@ const LandingLayout = () => {
         isServiceAvailabilityAdded: rawUser.serviceAvailabilityId ? true : false,
         isAdminApproved: rawUser.isAdminVerified,
         googleId: rawUser.googleId,
+        googleConnected: rawUser.googleConnected,
         updatedAt: rawUser.updatedAt,
       };
       dispatch(setAuthUser(authUser));

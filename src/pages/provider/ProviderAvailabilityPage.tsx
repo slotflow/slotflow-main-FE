@@ -1,12 +1,12 @@
 import ProfileHead from "@/components/common/profile/ProfileHead";
+import { providerFetchProviderServiceAvailability } from "@/utils/apis/provider.api";
 import ProviderServiceAvailability from "@/components/common/profile/ProviderServiceAvailability";
-import { providerFetchProviderServiceAvailability, providerUpdateProviderProfileImage } from "@/utils/apis/provider.api";
 
 const ProviderAvailabilityPage = () => {
 
     return (
         <div className="min-h-full p-2 flex flex-col">
-            <ProfileHead updateProfileImageApiFunction={providerUpdateProviderProfileImage} updation={true} />
+            <ProfileHead updation={false} showDetails />
             <ProviderServiceAvailability fetchApiFuntion={providerFetchProviderServiceAvailability} queryKey="serviceAvailability" role="Provider" />
         </div>
     )

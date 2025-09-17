@@ -54,6 +54,7 @@ export const userRoutes: Route[] = [
   { path: "chat", name: "Chat" },
   { path: "video-call", name: "Video call" },
   { path: "notifications", name: "Notifications" },
+  { path: "settings", name: "Settings" },
 ]
 
 // **** Routes for provider **** \\
@@ -70,6 +71,7 @@ export const providerRoutes: Route[] = [
   { path: "video-call", name: "Video call" },
   { path: "reviews", name: "Reviews" },
   { path: "notifications", name: "Notifications" },
+  { path: "settings", name: "Settings" },
 ]
 
 // Access Control For Provider
@@ -81,6 +83,7 @@ export const planAccessMap: Record<string, string[]> = {
     "Service",
     "Availability",
     "Subscriptions",
+    "Settings",
   ],
   Free: [
     "Dashboard",
@@ -90,6 +93,7 @@ export const planAccessMap: Record<string, string[]> = {
     "Availability",
     "Appointments",
     "Subscriptions",
+    "Settings",
   ],
   Starter: [
     "Dashboard",
@@ -101,6 +105,7 @@ export const planAccessMap: Record<string, string[]> = {
     "Subscriptions",
     "Payments",
     "Notifications",
+    "Settings",
   ],
   Professional: [
     "Dashboard",
@@ -114,6 +119,7 @@ export const planAccessMap: Record<string, string[]> = {
     "Notifications",
     "Chat",
     "Reviews",
+    "Settings",
   ],
   Enterprise: [
     "Dashboard",
@@ -128,6 +134,7 @@ export const planAccessMap: Record<string, string[]> = {
     "Chat",
     "Video call",
     "Reviews",
+    "Settings",
   ],
 };
 

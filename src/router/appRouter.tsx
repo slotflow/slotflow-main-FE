@@ -3,17 +3,18 @@ import PlanGuard from "./planGuard.tsx";
 import { createBrowserRouter } from "react-router-dom";
 import { ProtectedRoute } from "./protectedRoutes.tsx";
 
-// import VideoCallPage from "@/pages/common/VideoCallPage.tsx";
-import VideoCallLoby from "@/pages/common/VideoCallLoby.tsx";
-import VideoCallSample from "@/pages/common/VideoCallSample.tsx";
-import BookingDetailPage from "@/pages/common/BookingDetailPage.tsx";
 
 const AuthPage = lazy(() => import("@/pages/common/AuthPage.tsx"));
 const ProfilePage = lazy(() => import("@/pages/common/ProfilePage.tsx"));
 const AddressPage = lazy(() => import("@/pages/common/AddressPage.tsx"));
 const LandingPage = lazy(() => import("../pages/common/LandingPage.tsx"));
 const Error404Page = lazy(() => import("@/pages/common/Error404Page.tsx"));
+const SettingsPage = lazy(() => import("@/pages/common/SettingsPage.tsx"));
+const VideoCallLoby = lazy(() => import("@/pages/common/VideoCallLoby.tsx"));
+const VideoCallRoom = lazy(() => import("@/pages/common/VideoCallRoom.tsx"));
+const VideoCallPage = lazy(() => import("@/pages/common/VideoCallPage.tsx"));
 const LandingLayout = lazy(() => import("../pages/common/LandingLayout.tsx"));
+const BookingDetailPage = lazy(() => import("@/pages/common/BookingDetailPage.tsx"));
 const PasswordResetPage = lazy(() => import("@/pages/common/PasswordResetPage.tsx"));
 const PaymentConfirmPage = lazy(() => import("@/pages/common/PaymentConfirmPage.tsx"));
 
@@ -97,16 +98,17 @@ export const appRouter = createBrowserRouter([
                     { path: "bookings/:bookingId", element: <BookingDetailPage /> },
                     { path: "payments", element: <UserPaymentsPage /> },
                     { path: "chat", element: <UserChatPage /> },
-                    // { path: "video-call", element: <VideoCallPage /> },
+                    { path: "video-call", element: <VideoCallPage /> },
                     {
                         path: "video-call-lobby/:roomId",
                         element: <VideoCallLoby />
                     },
                     {
                         path: "video-call-room/:roomId",
-                        element: <VideoCallSample />
+                        element: <VideoCallRoom />
                     },
                     { path: "notifications", element: <UserNotificationsPage /> },
+                    { path: "settings", element: <SettingsPage /> },
                     { path: "payment-success", element: <PaymentConfirmPage status={true} userType={"user"} /> },
                     { path: "payment-failed", element: <PaymentConfirmPage status={false} userType={"user"} /> },
                     { path: "*", element: <Error404Page /> },
@@ -178,6 +180,14 @@ export const appRouter = createBrowserRouter([
                         )
                     },
                     {
+                        path: "video-call",
+                        element: (
+                            <PlanGuard routeName="Video call">
+                                <VideoCallPage />
+                            </PlanGuard>
+                        ),
+                    },
+                    {
                         path: "video-call-lobby/:roomId",
                         element: (
                             <PlanGuard routeName="Video call">
@@ -189,7 +199,7 @@ export const appRouter = createBrowserRouter([
                         path: "video-call-room/:roomId",
                         element: (
                             <PlanGuard routeName="Video call">
-                                <VideoCallSample />
+                                <VideoCallRoom />
                             </PlanGuard>
                         )
                     },
@@ -198,6 +208,14 @@ export const appRouter = createBrowserRouter([
                         element: (
                             <PlanGuard routeName="Notifications">
                                 <ProviderNotificationsPage />
+                            </PlanGuard>
+                        )
+                    },
+                    {
+                        path: "settings",
+                        element: (
+                            <PlanGuard routeName="Settings">
+                                <SettingsPage />
                             </PlanGuard>
                         )
                     },

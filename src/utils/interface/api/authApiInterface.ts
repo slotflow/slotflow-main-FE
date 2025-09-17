@@ -44,6 +44,7 @@ export interface SigninResponse extends ApiBaseResponse {
         isAdminApproved?: boolean,
         providerSubscription?: string;
         updatedAt: string;
+        googleConnected: boolean;
     };
 }
 

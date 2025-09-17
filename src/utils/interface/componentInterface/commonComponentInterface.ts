@@ -18,7 +18,7 @@ export interface ProfileHeaderComponentProps {
         ProviderUpdateProfileImageResponse | UpdateUserProfileImageResponse,
         FormData
     >>;
-    profileImage?: string;
+    showDetails?: boolean;
 }
 
 
@@ -115,4 +115,19 @@ export interface RadialChartInterface<T extends ChartDataItem> {
   dataKeyTwo: keyof T;
   chartConfig: ChartConfig;
   isLocked: boolean;
+}
+
+
+export interface CalendarEvent {
+  id: string;
+  title: string;
+  start: Date;
+  end: Date;
+}
+
+export interface GoogleCalendarEvent {
+  id: string;
+  summary: string;
+  start: { dateTime: string };
+  end: { dateTime: string };
 }

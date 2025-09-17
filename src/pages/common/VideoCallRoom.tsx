@@ -6,7 +6,7 @@ import { socket, videoSocket } from '@/lib/socketService';
 import { disconnectVideoSocket } from '@/utils/apis/video.api';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
-const VideoCallSample: React.FC = () => {
+const VideoCallRoom: React.FC = () => {
 
     const dispatch = useDispatch<AppDispatch>();
     const [remoteSocketId, setRemoteSocketId] = useState<string | null>(null);
@@ -168,4 +168,4 @@ const VideoCallSample: React.FC = () => {
     )
 }
 
-export default VideoCallSample
+export default VideoCallRoom;

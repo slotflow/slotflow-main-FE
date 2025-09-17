@@ -1,5 +1,6 @@
 import { Role } from "./commonInterface";
 import { Plan } from "./entityInterface/planInterface";
+import { ProviderService } from "./entityInterface/providerServiceInterface";
 import { Availability } from "./entityInterface/serviceAvailabilityInterface";
 
 // **** Auth slice state **** \\
@@ -18,7 +19,9 @@ export interface UserData {
     isServiceAvailabilityAdded?: boolean;
     isAdminApproved?: boolean;
     providerSubscription?: Plan["planName"];
+    serviceDescription?: ProviderService["serviceDescription"];
     googleId?: string;
+    googleConnected: boolean;
     updatedAt: string
 }
 

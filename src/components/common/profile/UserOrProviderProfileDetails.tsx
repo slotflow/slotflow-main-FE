@@ -46,7 +46,7 @@ const UserOrProviderProfileDetails: React.FC<UserOrProviderProfileDetailsCompone
     const { data, isLoading, isError, error } = useQuery({
         queryFn: () => fetchApiFunction(userOrProviderId),
         queryKey: [queryKey],
-        staleTime: 5 * 60 * 1000,
+        staleTime: 60 * 60 * 1000,
         refetchOnWindowFocus: false,
     })
 
