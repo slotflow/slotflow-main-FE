@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useDispatch, useSelector } from "react-redux";
 import GoogleButton from "@/components/form/GoogleButton";
 import CommonTable from "@/components/common/CommonTable";
+import { userFetchBookings } from "@/utils/apis/user.api";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import React, { useEffect, useState, useMemo } from "react";
 import { fetchCalendarEvents } from "@/utils/apis/google.api";
@@ -12,10 +13,11 @@ import { Calendar, momentLocalizer } from "react-big-calendar";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
 import { handleConnectGoogle } from "@/utils/helper/googleConnect";
 import { Calendar1, CreditCard, Table, Unplug } from "lucide-react";
-import { FetchOnlineBookingsResponse } from "@/utils/interface/api/commonApiInterface";
-import { OnlineBookingTableColumn } from "@/components/table/tableColumns/OnlineBookingTableColumn";
-import { useProviderAppointmentActions } from "@/utils/hooks/providerHooks/useProviderAppointmentActions";
 import { providerFetchBookingAppoinments } from "@/utils/apis/provider.api";
+import { useProviderAppointmentActions } from "@/utils/hooks/providerHooks/useProviderAppointmentActions";
+import { UserOnlineBookingTableColumn } from "@/components/table/tableColumns/UserOnlineBookingsTableColumn";
+import { ProviderOnlineBookingTableColumn } from "@/components/table/tableColumns/ProviderOnlineBookingsTableColumn";
+import { FetchOnlineBookingsForProviderResponse, FetchOnlineBookingsForUserResponse } from "@/utils/interface/api/commonApiInterface";
 
 const localizer = momentLocalizer(moment);
 
@@ -35,14 +37,16 @@ const VideoCallPage: React.FC = () => {
     handleNavigateToAppointmentDetailPage
   } = useProviderAppointmentActions();
 
-  const columns = OnlineBookingTableColumn(
+  const providerColumns = ProviderOnlineBookingTableColumn(
     handleProviderJoinCall,
     handleNavigateToAppointmentDetailPage
   );
 
-  useEffect(() => {
-    dispatch(fetchCalendarEvents());
-  }, [dispatch]);
+  const userColumns = UserOnlineBookingTableColumn(
+    handleProviderJoinCall,
+    handleNavigateToAppointmentDetailPage
+  );
+
 
   const canUseCalendar = useMemo(() => {
     if (!authUser) return false;
@@ -52,8 +56,23 @@ const VideoCallPage: React.FC = () => {
     return true;
   }, [authUser]);
 
-  if (loading) return <p>Loading events...</p>;
-  if (error) return <p className="text-red-500">{error}</p>;
+  useEffect(() => {
+    if (
+      tab === 1 &&
+      authUser &&
+      (
+        authUser.role !== "PROVIDER" ||
+        ["Professional", "Enterprise"].includes(authUser.providerSubscription ?? "")
+      )
+    ) {
+      dispatch(fetchCalendarEvents());
+    }
+  }, [tab, dispatch, authUser]);
+
+  if (tab === 1) {
+    if (loading) return <p>Loading events...</p>;
+    if (error) return <p className="text-red-500">{error}</p>;
+  }
 
   return (
     <div className="p-4 h-full">
@@ -76,15 +95,25 @@ const VideoCallPage: React.FC = () => {
         </Button>
       </div>
 
-      {tab === 0 && (
-        <CommonTable<FetchOnlineBookingsResponse>
+      {tab === 0 && authUser?.role === "PROVIDER" ? (
+        <CommonTable<FetchOnlineBookingsForProviderResponse>
           fetchApiFunction={(params) =>
             providerFetchBookingAppoinments({ ...params, online: true })
           }
           columnsCount={6}
-          column={columns}
+          column={providerColumns}
           queryKey="onlineBookings"
         />
+      ) : (
+        <CommonTable<FetchOnlineBookingsForUserResponse>
+          fetchApiFunction={(params) =>
+            userFetchBookings({ ...params, online: true })
+          }
+          columnsCount={6}
+          column={userColumns}
+          queryKey="onlineBookings"
+        />
+
       )}
 
       {tab === 1 && (

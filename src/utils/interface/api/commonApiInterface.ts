@@ -1,10 +1,11 @@
+import { User } from "../entityInterface/userInterface";
 import { Plan } from "../entityInterface/planInterface";
 import { Payment } from "../entityInterface/paymentInterface";
 import { Booking } from "../entityInterface/bookingInterface";
-import { Subscription } from "../entityInterface/subscriptionInterface";
 import { Address } from "../entityInterface/addressInterface";
+import { Provider } from "../entityInterface/providerInterface";
+import { Subscription } from "../entityInterface/subscriptionInterface";
 import { ApiBaseResponse, FetchFunctionParams } from "../commonInterface";
-import { User } from "../entityInterface/userInterface";
 
 // **** 1.  Used as the response type of fetch provider subscriptions for admin side and provider side
 export type FetchProviderSubscriptionsResponse = Pick<Subscription, "_id" | "startDate" | "endDate" | "subscriptionStatus"> & Pick<Plan, "planName">;
@@ -25,7 +26,8 @@ export type FetchBookingsResponse = Pick<Booking, "_id" | "appointmentDate" | "a
 
 // **** 3.  Used as the request and response type and interface fetch all online bookings for provider side and user side
 export type FetchOnlineBookingParams = FetchFunctionParams & { online?: boolean, raw?: boolean };
-export type FetchOnlineBookingsResponse = Pick<Booking, "_id" | "appointmentDate" | "appointmentStatus" | "appointmentTime" | "videoCallRoomId" | "createdAt"> & Pick<User, "username">;
+export type FetchOnlineBookingsForProviderResponse = Pick<Booking, "_id" | "appointmentDate" | "appointmentStatus" | "appointmentTime" | "videoCallRoomId" | "createdAt"> & Pick<User, "username">;
+export type FetchOnlineBookingsForUserResponse = Pick<Booking, "_id" | "appointmentDate" | "appointmentStatus" | "appointmentTime" | "videoCallRoomId" | "createdAt"> & Pick<Provider, "username">;
 
 
 // **** 4. AddressUpdating request type and response interface used by user and provider

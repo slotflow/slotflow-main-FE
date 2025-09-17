@@ -22,7 +22,7 @@ import {
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { buildQueryParams, parseNewCommonResponse } from "../helper";
 import { ApiBaseResponse, FetchFunctionParams, ApiPaginatedResponse } from "../interface/commonInterface";
-import { FetchBookingsResponse, FetchOnlineBookingParams, FetchOnlineBookingsResponse, FetchPaymentsResponse, FetchProviderSubscriptionsResponse, FetchSubscriptionDetailsResponse, UpdateAddressRequest, UpdateAddressResponse, ValidateRoomId } from "../interface/api/commonApiInterface";
+import { FetchBookingsResponse, FetchOnlineBookingParams, FetchOnlineBookingsForProviderResponse, FetchPaymentsResponse, FetchProviderSubscriptionsResponse, FetchSubscriptionDetailsResponse, UpdateAddressRequest, UpdateAddressResponse, ValidateRoomId } from "../interface/api/commonApiInterface";
 import { Subscription } from "../interface/entityInterface/subscriptionInterface";
 import { Booking } from "../interface/entityInterface/bookingInterface";
 
@@ -54,7 +54,7 @@ export const providerFetchAllAppServices = async (): Promise<ProviderFetchAllSer
 
 
 // **** Booking apis
-export const providerFetchBookingAppoinments = async <T extends FetchBookingsResponse | FetchOnlineBookingsResponse>(params?: FetchOnlineBookingParams): Promise<ApiPaginatedResponse<T>> => {
+export const providerFetchBookingAppoinments = async <T extends FetchBookingsResponse | FetchOnlineBookingsForProviderResponse>(params?: FetchOnlineBookingParams): Promise<ApiPaginatedResponse<T>> => {
     const query = buildQueryParams<FetchOnlineBookingParams>(params);
     const response = await axiosInstance.get(`/provider/bookings/${query ? `?${query}` : ''}`);
     return parseNewCommonResponse<T>(response.data);

@@ -4,13 +4,13 @@ import { ColumnDef } from "@tanstack/react-table";
 import { DataTableColumnHeader } from "../DataTableColumnHeader";
 import { MoreHorizontal, ReceiptText, VideoIcon } from "lucide-react";
 import { AppointmentStatus, Booking } from "@/utils/interface/entityInterface/bookingInterface";
-import { FetchOnlineBookingsResponse, ValidateRoomId } from "@/utils/interface/api/commonApiInterface";
+import { FetchOnlineBookingsForUserResponse, ValidateRoomId } from "@/utils/interface/api/commonApiInterface";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
-export const OnlineBookingTableColumn = (
+export const UserOnlineBookingTableColumn = (
     handleProviderJoinCall: (data: ValidateRoomId) => void,
     handleNavigateToAppointmentDetailPage: (appointmentId: Booking["_id"]) => void,
-): ColumnDef<FetchOnlineBookingsResponse>[] => [
+): ColumnDef<FetchOnlineBookingsForUserResponse>[] => [
         {
             accessorKey: "appointmentDate",
             header: ({ column }) => (<DataTableColumnHeader column={column} title="Date" />),
@@ -27,30 +27,29 @@ export const OnlineBookingTableColumn = (
             ),
             cell: ({ row }) => {
                 const status = row.original.appointmentStatus;
-                switch (status) {
-                    case "Booked":
-                        return <span className="text-yellow-500 font-semibold">Pending Confirmation</span>;
-                    case "Cancelled":
-                        return <span className="text-red-500 font-semibold">Cancelled</span>;
-                    case "Confirmed":
-                        return <span className="text-green-500 font-semibold">Confirmed</span>;
-                    case "RejectedByProvider":
-                        return <span className="text-red-500 font-semibold">Rejected By Provider</span>;
-                    case "NotAttended":
-                        return <span className="text-orange-500 font-semibold">Not Attended</span>;
-                    case "Completed":
-                        return <span className="text-purple-500 font-semibold">Completed 🎉</span>;
-                    default:
-                        return <span>{status}</span>;
-                }
-            }
+                const statusStyles: Record<AppointmentStatus, string> = {
+                    Booked: "text-yellow-500 font-semibold",
+                    Cancelled: "text-red-500 font-semibold",
+                    Confirmed: "text-green-500 font-semibold",
+                    RejectedByProvider: "text-red-500 font-semibold",
+                    NotAttended: "text-orange-500 font-semibold",
+                    Completed: "text-purple-500 font-semibold",
+                };
+
+                return <span className={statusStyles[status] || ""}>
+                    {status === "Booked" ? "Pending Confirmation" :
+                        status === "RejectedByProvider" ? "Rejected by Provider" :
+                            status === "Completed" ? "Completed 🎉" :
+                                status}
+                </span>;
+            },
         },
         {
             accessorKey: "appointmentTime",
             header: ({ column }) => (<DataTableColumnHeader column={column} title="Slot" />)
         },
         {
-            accessorKey: "userId.username",
+            accessorKey: "serviceProviderId.username",
             header: ({ column }) => (<DataTableColumnHeader column={column} title="Customer" />)
         },
         {

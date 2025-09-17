@@ -22,7 +22,7 @@ import { buildQueryParams, parseNewCommonResponse } from "../helper";
 import { Booking } from "../interface/entityInterface/bookingInterface";
 import { Provider } from "../interface/entityInterface/providerInterface";
 import { ApiBaseResponse, FetchFunctionParams, ApiPaginatedResponse } from "../interface/commonInterface";
-import { FetchBookingsResponse, FetchPaymentsResponse, UpdateAddressRequest, UpdateAddressResponse } from "../interface/api/commonApiInterface";
+import { FetchBookingsResponse, FetchOnlineBookingParams, FetchOnlineBookingsForUserResponse, FetchPaymentsResponse, UpdateAddressRequest, UpdateAddressResponse } from "../interface/api/commonApiInterface";
 
 // **** User profile apis
 export const userFetchUserProfileDetails = async (): Promise<UserFetchUserProfileDetailsResponse> => {
@@ -114,10 +114,10 @@ export const userSaveAppointmentBooking = async (sessionId: string) : Promise<Ap
     return response.data;
 }
 
-export const userFetchBookings = async (params?: FetchFunctionParams) : Promise<ApiPaginatedResponse<FetchBookingsResponse>> => {
-    const query = buildQueryParams(params);
+export const userFetchBookings = async <T extends FetchBookingsResponse | FetchOnlineBookingsForUserResponse> (params?: FetchOnlineBookingParams) : Promise<ApiPaginatedResponse<T>> => {
+    const query = buildQueryParams<FetchOnlineBookingParams>(params);
     const response = await axiosInstance.get(`/user/bookings${query ? `?${query}` : ''}`);
-    return parseNewCommonResponse<FetchBookingsResponse>(response.data);
+    return parseNewCommonResponse<T>(response.data);
 }
 
 export const userCancelBooking = async (bookingId: Booking["_id"]) : Promise<ApiBaseResponse> => {
