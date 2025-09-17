@@ -1,3 +1,4 @@
+import { FetchOnlineBookingParams } from "./interface/api/commonApiInterface";
 import { FetchFunctionParams, ApiPaginatedResponse } from "./interface/commonInterface";
 
 // **** Time formating function for otp page **** \\
@@ -76,12 +77,20 @@ export const copyToClipboard = (text: string) => {
 export const formatBoolean = (val: boolean) => (val ? "Yes" : "No");
 
 // **** Function for query builder **** \\
-export const buildQueryParams = (params?: Omit<FetchFunctionParams, 'id'>): string => {
+export const buildQueryParams = <T extends FetchFunctionParams | FetchOnlineBookingParams>(
+  params?: T
+): string => {
   const query = new URLSearchParams();
 
-  if (params?.pagination) {
+  if (!params) return "";
+
+  if ("pagination" in params && params.pagination) {
     query.append("page", params.pagination.page.toString());
     query.append("limit", params.pagination.limit.toString());
+  }
+
+  if ("online" in params && params.online !== undefined) {
+    query.append("online", params.online.toString());
   }
 
   return query.toString();

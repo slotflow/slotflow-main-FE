@@ -8,6 +8,7 @@ import { } from '@/utils/interface/api/userApiInterface';
 import GoogleButton from '@/components/form/GoogleButton';
 import { AppDispatch, RootState } from '@/utils/redux/appStore';
 import ProfileHead from '@/components/common/profile/ProfileHead';
+import { handleConnectGoogle } from '@/utils/helper/googleConnect';
 import { updateGoogleConnect } from '@/utils/redux/slices/authSlice';
 import DataFetchingError from '@/components/common/DataFetchingError';
 import { userFetchUserProfileDetails, userUpdateUserProfileImage } from '@/utils/apis/user.api';
@@ -17,15 +18,6 @@ const SettingsPage: React.FC = () => {
 
     const dispatch = useDispatch<AppDispatch>();
     const { authUser } = useSelector((state: RootState) => state.auth);
-
-
-    const handleConnectGoogle = (e: React.MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault();
-        const apiUrl = import.meta.env.MODE === "development"
-            ? import.meta.env.VITE_BACKEND_DEV_URL
-            : import.meta.env.VITE_BACKEND_PRODUCTION_URL;
-        window.location.href = `${apiUrl}/google/connect`;
-    }
 
     const isProvider = authUser?.role === "PROVIDER";
 

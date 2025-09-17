@@ -131,6 +131,7 @@ export interface CommonButtonProps {
   text: string,
   type?: "button" | "submit" | "reset",
   className?: string;
+  icon?: LucideIcon;
 }
 
 

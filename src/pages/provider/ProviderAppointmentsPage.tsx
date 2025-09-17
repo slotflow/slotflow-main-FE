@@ -11,7 +11,7 @@ const ProviderAppointmentsPage = () => {
     handleProviderJoinCall,
     handleNavigateToAppointmentDetailPage
   } = useProviderAppointmentActions();
-  
+
   const columns = ProviderAppointmentsBookingTableColumns(
     handleChangeAppointmentStatus,
     handleProviderJoinCall,
@@ -20,7 +20,9 @@ const ProviderAppointmentsPage = () => {
 
   return (
     <CommonTable<FetchBookingsResponse>
-      fetchApiFunction={providerFetchBookingAppoinments}
+      fetchApiFunction={(params) =>
+        providerFetchBookingAppoinments({ ...params, raw: true })
+      }
       queryKey='appointments'
       heading='Appointments'
       column={columns}

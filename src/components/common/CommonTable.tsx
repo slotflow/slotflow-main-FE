@@ -34,7 +34,7 @@ const CommonTable = <T,>({
       } 
     }),
     queryKey: [queryKey, pagination.pageIndex, pagination.pageSize, id],
-    staleTime: 1 * 60 * 1000,
+    staleTime: 60 * 60 * 1000,
     refetchOnWindowFocus: false,
   });
 
