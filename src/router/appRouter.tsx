@@ -2,6 +2,7 @@ import { lazy } from "react";
 import PlanGuard from "./planGuard.tsx";
 import { createBrowserRouter } from "react-router-dom";
 import { ProtectedRoute } from "./protectedRoutes.tsx";
+import CalendarPage from "@/pages/common/CalendarPage.tsx";
 
 
 const AuthPage = lazy(() => import("@/pages/common/AuthPage.tsx"));
@@ -107,6 +108,7 @@ export const appRouter = createBrowserRouter([
                         path: "video-call-room/:roomId",
                         element: <VideoCallRoom />
                     },
+                    { path: "calendar", element: <CalendarPage /> },
                     { path: "notifications", element: <UserNotificationsPage /> },
                     { path: "settings", element: <SettingsPage /> },
                     { path: "payment-success", element: <PaymentConfirmPage status={true} userType={"user"} /> },
@@ -201,6 +203,14 @@ export const appRouter = createBrowserRouter([
                             <PlanGuard routeName="Video call">
                                 <VideoCallRoom />
                             </PlanGuard>
+                        )
+                    },
+                    { 
+                        path: "calendar", 
+                        element: (
+                        <PlanGuard routeName="Calendar">
+                            < CalendarPage /> 
+                        </PlanGuard>
                         )
                     },
                     {

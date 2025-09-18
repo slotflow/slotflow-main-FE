@@ -326,3 +326,45 @@ export interface StatsMapForAdminInterface {
   icon: LucideIcon;
   price?: boolean;
 }
+
+
+//// **** 36.
+export interface GoogleCalendarEvent {
+  id: string; // unique identifier
+  iCalUID: string; // unique global UID for the event
+  kind: string; // "calendar#event"
+  eventType: string; // usually "default"
+
+  summary: string; // title of the event
+  description?: string; // optional description text
+
+  start: string; // ISO string: "YYYY-MM-DDTHH:mm:ss"
+  end: string;   // ISO string: "YYYY-MM-DDTHH:mm:ss"
+
+  created: string; // when event was created (ISO string)
+  updated: string; // when event was last updated (ISO string)
+
+  htmlLink?: string; // Google Calendar event link
+  status: "confirmed" | "tentative" | "cancelled";
+
+  creator: {
+    email: string;
+    self?: boolean;
+  };
+
+  organizer: {
+    email: string;
+    self?: boolean;
+  };
+
+  reminders?: {
+    useDefault: boolean;
+    overrides?: {
+      method: string;
+      minutes: number;
+    }[];
+  };
+
+  sequence?: number;
+  etag?: string;
+}

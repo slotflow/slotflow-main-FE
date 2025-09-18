@@ -21,6 +21,7 @@ import {
     PanelLeft,
     Video,
     Settings,
+    Calendar1,
 } from 'lucide-react';
 import { SingleTab } from './SingleTab';
 import React, { useEffect } from 'react';
@@ -78,6 +79,7 @@ const Sidebar: React.FC<SideBarProps> = ({
         'subscriptions': <LucideCreditCard />,
         'subscription': <CreditCard />,
         'appointments': <CalendarCheck />,
+        'calendar': <Calendar1 />,
         'notifications': <Bell />,
         'settings': <Settings />,
         'service-providers': <Network />,

@@ -116,18 +116,3 @@ export interface RadialChartInterface<T extends ChartDataItem> {
   chartConfig: ChartConfig;
   isLocked: boolean;
 }
-
-
-export interface CalendarEvent {
-  id: string;
-  title: string;
-  start: Date;
-  end: Date;
-}
-
-export interface GoogleCalendarEvent {
-  id: string;
-  summary: string;
-  start: { dateTime: string };
-  end: { dateTime: string };
-}

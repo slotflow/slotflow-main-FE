@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { fetchCalendarEvents } from "@/utils/apis/google.api";
+import { GoogleCalendarEvent } from "@/utils/interface/commonInterface";
 import { fetchCalendarEventsResponse } from "@/utils/interface/api/googleApi.interface";
-import { GoogleCalendarEvent } from "@/utils/interface/componentInterface/commonComponentInterface";
 
 interface GoogleSliceState {
     calendarEvents: GoogleCalendarEvent[];

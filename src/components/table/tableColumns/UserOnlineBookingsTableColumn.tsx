@@ -50,7 +50,7 @@ export const UserOnlineBookingTableColumn = (
         },
         {
             accessorKey: "serviceProviderId.username",
-            header: ({ column }) => (<DataTableColumnHeader column={column} title="Customer" />)
+            header: ({ column }) => (<DataTableColumnHeader column={column} title="Provider" />)
         },
         {
             accessorKey: "createdAt",
