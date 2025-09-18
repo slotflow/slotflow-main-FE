@@ -12,6 +12,7 @@ const InfoDisplayComponent: React.FC<InfoDisplayComponentRowProps> = ({
     link,
     isPrice,
     isLast,
+    isIframe,
     isRadioGroup,
     selectedRadioValue,
     onRadioChange,
@@ -61,6 +62,15 @@ const InfoDisplayComponent: React.FC<InfoDisplayComponentRowProps> = ({
         );
     } else if (formatDate && typeof value === "string") {
         displayValue = formatDate(value);
+    } else if (isIframe) {
+        return (
+            <tr className={`${!isLast ? "border-b border-[var(--boxBorder)]" : ""}`}>
+                <td className="p-4 font-medium text-[var(--infoDataLabel)] w-4/12">{label}</td>
+                <td className="p-4 w-8/12">
+                    <iframe src={value as string} width="600" height="450" loading="lazy" ></iframe>
+                </td>
+            </tr>
+        )
     } else if (link && typeof value === "string") {
         displayValue = (
             <a href={value} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">

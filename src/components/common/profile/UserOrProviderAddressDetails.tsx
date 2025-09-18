@@ -80,8 +80,8 @@ const UserOrProviderAddressDetails: React.FC<UserOrProviderAddressDetailsCompone
                         <InfoDisplayComponent label="State" value={data?.state} />
                         <InfoDisplayComponent label="Pincode" value={data?.pincode} />
                         <InfoDisplayComponent label="Distrcit" value={data?.district} />
-                        <InfoDisplayComponent label="Google Map Link" value={data?.googleMapLink} link={true} />
                         <InfoDisplayComponent label="Country" value={data?.country} />
+                        <InfoDisplayComponent label="Google Map" value={data?.googleMapLink} isIframe={true} />
                     </>
                 </tbody>
             </table>

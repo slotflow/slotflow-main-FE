@@ -1,13 +1,14 @@
 import { Button } from '../ui/button';
 import { useSelector } from 'react-redux';
-import { PhoneInput } from '../form/phone-input';
 import NotificationBox from './NotificationBox';
+import { PhoneInput } from '../form/phone-input';
 import { ChevronRight, Info } from 'lucide-react';
 import { RootState } from '@/utils/redux/appStore';
 import { useQueryClient } from '@tanstack/react-query';
 import InputField from '@/components/form/InputFieldWithLable';
 import React, { FormEvent, useCallback, useEffect, useState } from 'react';
 import { Address } from '@/utils/interface/entityInterface/addressInterface';
+import { addAddressGoogleMapLinkInfo, addAddressGoogleMapLinkInfoHeading } from '@/utils/constants';
 
 export type AddressFormProps = Pick<Address, "_id" | "addressLine" | "phone" | "place" | "city" | "district" | "pincode" | "state" | "country" | "googleMapLink">
 
@@ -164,10 +165,8 @@ const AddAddress: React.FC<AddAddressProps> = ({ formClassNames, heading, headin
                     />
                     <NotificationBox
                         icon={Info}
-                        heading="Google Maps Selection Unavailable"
-                        message={`Currently, we don’t support selecting your location directly from Google Maps.  
-Please open Google Maps, click on "Share" → "Embed a map", copy the iframe **src** URL,  
-and paste it in the field below.`}
+                        heading={addAddressGoogleMapLinkInfoHeading}
+                        message={addAddressGoogleMapLinkInfo}
                     />
                 </div>
             </div>
