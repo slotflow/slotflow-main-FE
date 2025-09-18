@@ -1,7 +1,7 @@
 import gsap from 'gsap';
 import { useNavigate } from 'react-router-dom';
 import React, { useEffect, useRef } from 'react';
-import Error404 from '@/components/svgs/Error404';
+import error404 from '../../assets/svgs/error404.svg';
 import CommonButton from '@/components/common/CommonButton';
 import { gsapBigSvgYDirectionAnimation } from '@/utils/constants';
 
@@ -16,7 +16,10 @@ const Error404Page: React.FC = () => {
 
   return (
     <div className={`h-screen flex flex-col items-center justify-center bg-[var(--background)]`}>
-      <Error404 ref={errorRef}/>
+      <img 
+        src={error404}
+        className='h-40 md:h-80'
+      />
       <CommonButton text='Return to home' onClick={() => {
         navigate('/')
       }} className="mt-6" />

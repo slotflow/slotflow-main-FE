@@ -3,10 +3,13 @@ import { Loader, X } from 'lucide-react';
 import { useDispatch } from 'react-redux';
 import { useCallback, useState } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
-import { providerSubscribeToPlan } from '@/utils/apis/provider.api';
 import { userBookAnAppointment } from '@/utils/apis/user.api';
-import { setPaymentSelectionPage, setSubscriptionIsTrailPlan, setSubscriptionPlanDuration, setSubscriptionPlanId } from '@/utils/redux/slices/providerSlice';
+import { providerSubscribeToPlan } from '@/utils/apis/provider.api';
+import stripeLogo from '../../assets/paymentGateWaysLogos/Stripe.jpeg';
+import paypalLogo from '../../assets/paymentGateWaysLogos/Paypal.png';
+import razorpayLogo from '../../assets/paymentGateWaysLogos/Razorpay.png';
 import { Provider } from '@/utils/interface/entityInterface/providerInterface';
+import { setPaymentSelectionPage, setSubscriptionIsTrailPlan, setSubscriptionPlanDuration, setSubscriptionPlanId } from '@/utils/redux/slices/providerSlice';
 
 type UserBookinAppointmentDataProps = {
     providerId: Provider["_id"]
@@ -104,13 +107,13 @@ const CommonPaymentSelection: React.FC<PaymentSelecionComponentPropst> = ({
     const paymentGateways = [
         {
             name: "Stripe",
-            img: "/images/Stripe.jpeg",
+            img: stripeLogo,
             text: <h6 className="font-bold italic text-[#635bff]">Stripe</h6>,
             onClick: makeStripePayment,
         },
         {
             name: "PayPal",
-            img: "/images/Paypal.png",
+            img: paypalLogo,
             text: (
                 <h6 className="font-bold italic space-x-1">
                     <span className="text-[#002991]">Pay</span>
@@ -121,7 +124,7 @@ const CommonPaymentSelection: React.FC<PaymentSelecionComponentPropst> = ({
         },
         {
             name: "Razorpay",
-            img: "/images/Razorpay.png",
+            img: razorpayLogo,
             text: <h6 className="font-bold italic text-[#072654]">Razorpay</h6>,
             onClick: makeStripePayment,
         },

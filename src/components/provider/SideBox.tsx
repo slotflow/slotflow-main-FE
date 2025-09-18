@@ -1,12 +1,12 @@
 import { Button } from '../ui/button';
 import { useNavigate } from 'react-router-dom';
-import address from '../../assets/svg/address.svg';
-import working from '../../assets/svg/working.svg';
 import { useDispatch, useSelector } from 'react-redux';
-import service from '../../assets/svg/serviceDetails.svg';
+import address from '../../assets/svgs/address.svg';
+import working from '../../assets/svgs/working.svg';
 import { handleSignoutHelper } from '@/utils/helper/signout';
-import availability from '../../assets/svg/availability.svg';
+import service from '../../assets/svgs/serviceDetails.svg';
 import { AppDispatch, RootState } from '@/utils/redux/appStore';
+import availability from '../../assets/svgs/availability.svg';
 import { useResetRedux } from '@/utils/hooks/systemHooks/useResetRedux';
 import { pageDescriptions, pageLabels, progressBars } from '@/utils/constants';
 import { SideBoxProps } from '@/utils/interface/entityInterface/providerInterface';

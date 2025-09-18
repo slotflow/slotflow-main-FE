@@ -22,7 +22,7 @@ const AdminServiceProviderDetailPage = () => {
     return (
         <div className="min-h-full p-2 flex flex-col">
 
-            <ProfileHead updation={false} profileImage={"/images/avatar.png"} />
+            <ProfileHead updation={false} />
 
             <ProfileHorizontalTabs isAdmin={true} setTab={setTab} tab={tab} />
 

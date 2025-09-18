@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import { Loader, Pen } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { AuthState } from "@/utils/interface/sliceInterface";
+import avatar from '../../../assets/defaultImages/avatar.png';
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
 import { UpdateUserProfileImageResponse } from "@/utils/interface/api/userApiInterface";
 import { ProviderUpdateProfileImageResponse } from "@/utils/interface/api/providerApiInterface";
@@ -47,13 +48,13 @@ const ProfileHead: React.FC<ProfileHeaderComponentProps> = ({
                 {updation ? (
                     <img
                         className={`h-32 w-32 object-cover rounded-lg transition-opacity ${profileImageUpdating ? "opacity-50" : "opacity-100"}`}
-                        src={authUser?.profileImage ? authUser.profileImage : selectedImage ? selectedImage : "/images/avatar.png"}
+                        src={authUser?.profileImage ? authUser.profileImage : selectedImage ? selectedImage : avatar}
                         alt="Profile"
                     />
                 ) : (
                     <img
                         className={`h-32 w-32 object-cover rounded-lg transition-opacity ${profileImageUpdating ? "opacity-50" : "opacity-100"}`}
-                        src={authUser?.profileImage || "/images/avatar.png"}
+                        src={authUser?.profileImage || avatar}
                         alt="Profile"
                     />
                 )}

@@ -1,23 +1,13 @@
 import { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import CommonButton from '../CommonButton';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { heroSectionButtons } from '@/utils/constants';
 import { AppDispatch, RootState } from '@/utils/redux/appStore';
+import heroImage1 from '../../../assets/heroImages/heroSectionOneImg1.png';
+import heroImage2 from '../../../assets/heroImages/heroSectionOneImg2.png';
 import { HandleRoleSelectionFunction } from '@/utils/interface/commonInterface';
 import { setsignInForm, setSignUpForm } from '@/utils/redux/slices/signFormSlice';
-// import { WomenWithCalendar } from '@/components/svgs/WomenWithCalendar';
-import CommonButton from '../CommonButton';
-
-const heroSectionButtons: { text: string, href: string}[] = [
-    {
-        text: "Book Appointment",
-        href: "/user/login"
-    },
-    {
-        text: "Provide Service",
-        href: "/provider/login"
-    },
-]
-
 
 const SectionOne = () => {
 
@@ -50,7 +40,7 @@ const SectionOne = () => {
                     <div className=''>
                         <img
                             className='rounded-lg border-2 hover:border-[var(--mainColor)]'
-                            src={`/images/heroSectionOneImg${themeMode ? "1" : "2"}.png`}
+                            src={themeMode ? heroImage1 : heroImage2}
                         />
                     </div>
                 </div>
@@ -58,6 +48,5 @@ const SectionOne = () => {
         </section>
     )
 }
-{/* <WomenWithCalendar /> */}
 
 export default SectionOne

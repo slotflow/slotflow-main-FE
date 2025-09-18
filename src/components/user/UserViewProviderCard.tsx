@@ -1,6 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { useNavigate } from "react-router-dom";
 import { CardTitle } from "@/components/ui/card";
+import avatar from '../../assets/defaultImages/avatar.png';
 import { formatNumberToPrice } from "@/utils/helper/formatter";
 
 export interface UserViewProviderCardComponentProps {
@@ -43,7 +44,7 @@ const UserViewProviderCard: React.FC<UserViewProviderCardComponentProps> = ({
                 </div>
 
                 <img
-                    src={provider?.profileImage || "/images/avatar.png"}
+                    src={provider?.profileImage || avatar}
                     alt={provider?.username}
                     className="w-20 h-20 object-cover rounded-xl border"
                 />

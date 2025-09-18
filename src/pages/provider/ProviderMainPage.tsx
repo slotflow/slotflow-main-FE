@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useLocation } from "react-router-dom";
 import { checkUserStatus } from "@/utils/apis/auth.api";
 import LoadingFallback from "../common/LoadingFallback";
+import avatar from '../../assets/defaultImages/avatar.png';
 import ProviderAddAddressPage from "./ProviderAddAddressPage";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
 import { planAccessMap, providerRoutes } from "@/utils/constants";
@@ -53,7 +54,7 @@ const ProviderMainPage = () => {
     <div className="flex h-screen bg-[var(--background)] transition-all duration-300">
       <Sidebar routes={providerRoutes} filteredRoutes={filteredRoutes} />
       <div className={`flex-1 flex flex-col  ${sidebarOpen ? 'w-[85%]' : 'w-[95%]'} transition-all duration-300`}>
-        <InfoHeader profileImage={user.profileImage ?? "/images/avatar.png"} username={user.username ?? ""} />
+        <InfoHeader profileImage={user.profileImage ?? avatar} username={user.username ?? ""} />
         <div className="flex-1 overflow-y-auto overscroll-y-contain no-scrollbar px-2">
           <Suspense fallback={<LoadingFallback />}>
             <Outlet />

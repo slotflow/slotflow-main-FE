@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 import { Circle, CircleOff } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
+import avatar from '../../assets/defaultImages/avatar.png';
 
 interface InfoHeaderProps {
     profileImage?: string;
@@ -29,7 +30,7 @@ const InfoHeader: React.FC<InfoHeaderProps> = ({
         <nav className={`bg-[var(--menuItemHoverBg)] m-4 p-2 rounded-md mt-4 flex justify-between`}>
             <div className='flex'>
                 <img
-                    src={profileImage || "/images//avatar.png"}
+                    src={profileImage || avatar}
                     className='size-6 rounded-full'
                 />
                 <h4 className='italic ml-2'>Hi, {username}</h4>

@@ -5,9 +5,10 @@ import SideBox from "@/components/provider/SideBox";
 import { useDispatch, useSelector } from "react-redux";
 import InputField from "@/components/form/InputFieldWithLable";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
+import SelectFiledWithLabel from "@/components/form/SelectFiledWithLabel";
 import { providerFetchAllAppServices } from "../../utils/apis/provider.api";
 import { providerAddProviderServiceDetails } from "@/utils/apis/provider.api";
-import SelectFiledWithLabel from "@/components/form/SelectFiledWithLabel";
+import imagePlaceholder from '../../assets/defaultImages/imagePlaceholder.png';
 import React, { ChangeEvent, FormEvent, useCallback, useEffect, useState } from "react";
 
 
@@ -217,7 +218,7 @@ const ProviderAddServiceDetailsPage = () => {
                 </label>
                 <div className="mt-2 p-2 h-64 border-2 border-[var(--boxBorder)] rounded-lg flex justify-center items-center">
                   <img
-                    src={previewImage || '/images/imagePlaceholder.png'}
+                    src={previewImage || imagePlaceholder}
                     className="object-contain max-h-full max-w-full"
                     alt="Certificate Preview"
                   />

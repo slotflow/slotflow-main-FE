@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import DataFetchingError from '../DataFetchingError';
 import InfoDisplayComponent from '../InfoDisplayComponent';
 import ProfileDetailsShimmer from '../../shimmers/ProfileDetailsShimmer';
+import imagePlaceholder from '../../../assets/defaultImages/imagePlaceholder.png';
 import { ProviderFetchServiceDetailsResponse } from '@/utils/interface/api/providerApiInterface';
 import { AdminFetchProviderServiceResponse } from '@/utils/interface/api/adminProviderApiInterface';
 import { ProviderServiceDetailsComponentProps } from '@/utils/interface/componentInterface/commonComponentInterface';
@@ -67,7 +68,7 @@ const ProviderServiceDetails: React.FC<ProviderServiceDetailsComponentProps> = (
                         <button className='mx-2 cursor-pointer' onClick={() => setLargeImg(!largeImg)}><ImageUpscale /></button>
                     </div>
                     <div className='my-2'>
-                        <img className={`border border-[var(--boxBorder)] object-contain ${largeImg ? 'h-auto w-full' : 'h-52 w-72'}`} src={serviceData?.providerCertificateUrl || "/images/imagePlaceholder.png"} />
+                        <img className={`border border-[var(--boxBorder)] object-contain ${largeImg ? 'h-auto w-full' : 'h-52 w-72'}`} src={serviceData?.providerCertificateUrl || imagePlaceholder} />
                     </div>
                 </div>
             )}

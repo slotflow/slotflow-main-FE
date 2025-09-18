@@ -982,3 +982,16 @@ export const addAddressGoogleMapLinkInfoHeading: string = "Google Maps Selection
 export const addAddressGoogleMapLinkInfo: string = `Currently, we don’t support selecting your location directly from Google Maps.  
 Please open Google Maps, click on "Share" → "Embed a map", copy the iframe **src** URL,  
 and paste it in the field below. If your location is marked on Google Maps, it will be more helpful for offline services. Give it a try on Google Maps!`;
+
+
+// Hero section
+export const heroSectionButtons: { text: string, href: string}[] = [
+    {
+        text: "Book Appointment",
+        href: "/user/login"
+    },
+    {
+        text: "Provide Service",
+        href: "/provider/login"
+    },
+]
