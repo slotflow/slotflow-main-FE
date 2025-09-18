@@ -128,7 +128,7 @@ const InputField: React.FC<InputFieldProps> = memo(({
                         value={value}
                         onChange={handleInputChange}
                         required={required}
-                        className={`block w-full rounded-md bg-[var(--inputBg)] px-2 py-2 md:px-3 md:py-2.5 text-[var(--textOne)] outline-1 -outline-offset-1 outline-[var(--boxBorder)] placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 text-xs md:text-sm
+                        className={`block w-full rounded-md bg-[var(--inputBg)] px-2 py-2 md:px-3 md:py-2.5 text-[var(--textOne)] outline-1 -outline-offset-1 outline-[var(--boxBorder)] placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 text-sm md:text-[16px]
 ${(id === "password" || id === "confirmPassword") && passwordStrength !== null ?
                                 passwordStrength <= 25 ? "focus:outline-red-500" :
                                     passwordStrength <= 50 ? "focus:outline-orange-500" :

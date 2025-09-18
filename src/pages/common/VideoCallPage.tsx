@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/utils/redux/appStore";
 import CommonTable from "@/components/common/CommonTable";
 import { userFetchBookings } from "@/utils/apis/user.api";
-import "react-big-calendar/lib/css/react-big-calendar.css";
 import { providerFetchBookingAppoinments } from "@/utils/apis/provider.api";
 import { useProviderAppointmentActions } from "@/utils/hooks/providerHooks/useProviderAppointmentActions";
 import { UserOnlineBookingTableColumn } from "@/components/table/tableColumns/UserOnlineBookingsTableColumn";

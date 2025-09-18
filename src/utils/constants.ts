@@ -746,209 +746,234 @@ export const earningsOverTimeChartConfig = {
 // **** Admin Dashboard Stats Cards Data
 export const userStatsMapForAdmin: StatsMapForAdminInterface[] = [
   {
-      title: "Total Users",
-      key: "totalUsers",
-      icon: Users,
-    },
-    {
-      title: "Email Verified Users",
-      key: "emailVerifiedUsers",
-      icon: UserCheck,
-    },
-    {
-      title: "Blocked Users",
-      key: "blockedUsers",
-      icon: UserX,
-    },
+    title: "Total Users",
+    key: "totalUsers",
+    icon: Users,
+  },
+  {
+    title: "Email Verified Users",
+    key: "emailVerifiedUsers",
+    icon: UserCheck,
+  },
+  {
+    title: "Blocked Users",
+    key: "blockedUsers",
+    icon: UserX,
+  },
 ]
 
 export const providerStatsMapForAdmin: StatsMapForAdminInterface[] = [
   {
-      title: "Total Providers",
-      key: "totalProviders",
-      icon: Users,
-    },
-    {
-      title: "Email Verified Providers",
-      key: "emailVerifiedProviders",
-      icon: UserCheck,
-    },
-    {
-      title: "Admin Verified Providers",
-      key: "adminVerifiedProviders",
-      icon: ShieldCheck,
-    },
-    {
-      title: "Blocked Providers",
-      key: "blockedProviders",
-      icon: UserX,
-    },
-    {
-      title: "Address Added Providers",
-      key: "addressAddedProviders",
-      icon: MapPin,
-    },
-    {
-      title: "Service Added Providers",
-      key: "serviceAddedProviders",
-      icon: Briefcase,
-    },
-    {
-      title: "Availability Added Providers",
-      key: "availabilityAddedProviders",
-      icon: CalendarClock,
-    },
+    title: "Total Providers",
+    key: "totalProviders",
+    icon: Users,
+  },
+  {
+    title: "Email Verified Providers",
+    key: "emailVerifiedProviders",
+    icon: UserCheck,
+  },
+  {
+    title: "Admin Verified Providers",
+    key: "adminVerifiedProviders",
+    icon: ShieldCheck,
+  },
+  {
+    title: "Blocked Providers",
+    key: "blockedProviders",
+    icon: UserX,
+  },
+  {
+    title: "Address Added Providers",
+    key: "addressAddedProviders",
+    icon: MapPin,
+  },
+  {
+    title: "Service Added Providers",
+    key: "serviceAddedProviders",
+    icon: Briefcase,
+  },
+  {
+    title: "Availability Added Providers",
+    key: "availabilityAddedProviders",
+    icon: CalendarClock,
+  },
 ]
 
 export const todayStatsMapForAdmin: StatsMapForAdminInterface[] = [
-      {
-      title: "New Users",
-      key: "newUsers",
-      icon: UserPlus,
-    },
-    {
-      title: "New Providers",
-      key: "newProviders",
-      icon: UserCheck,
-    },
-    {
-      title: "Today’s Revenue",
-      key: "todaysTotalRevenue",
-      icon: TrendingUp,
-      price: true,
-    },
-    {
-      title: "Today’s Payouts",
-      key: "todaysTotalPayouts",
-      icon: Wallet,
-      price: true,
-    },
-    {
-      title: "Today’s Appointments",
-      key: "todaysAppointments",
-      icon: CalendarCheck,
-    },
-    {
-      title: "Today’s Cancellations",
-      key: "todaysCancelledAppointments",
-      icon: Ban,
-    },
+  {
+    title: "New Users",
+    key: "newUsers",
+    icon: UserPlus,
+  },
+  {
+    title: "New Providers",
+    key: "newProviders",
+    icon: UserCheck,
+  },
+  {
+    title: "Today’s Revenue",
+    key: "todaysTotalRevenue",
+    icon: TrendingUp,
+    price: true,
+  },
+  {
+    title: "Today’s Payouts",
+    key: "todaysTotalPayouts",
+    icon: Wallet,
+    price: true,
+  },
+  {
+    title: "Today’s Appointments",
+    key: "todaysAppointments",
+    icon: CalendarCheck,
+  },
+  {
+    title: "Today’s Cancellations",
+    key: "todaysCancelledAppointments",
+    icon: Ban,
+  },
 ]
 
 export const subscriptionStatsMapForAdmin: StatsMapForAdminInterface[] = [
-      {
-      title: "Active Subscriptions",
-      key: "activeSubscriptions",
-      icon: BadgeCheck,
-    },
-    {
-      title: "Expired Subscriptions",
-      key: "expiredSubscriptions",
-      icon: Ban,
-    },
-    {
-      title: "Free Plan Subscriptions",
-      key: "subscriptionsByFreePlan",
-      icon: LayoutGrid,
-    },
-    {
-      title: "Starter Plan Subscriptions",
-      key: "subscriptionsByStarterPlan",
-      icon: Layers,
-    },
-    {
-      title: "Professional Plan Subscriptions",
-      key: "subscriptionsByProfessionalPlan",
-      icon: Rocket,
-    },
-    {
-      title: "Enterprise Plan Subscriptions",
-      key: "subscriptionsByEnterprisePlan",
-      icon: Gem,
-    },
+  {
+    title: "Active Subscriptions",
+    key: "activeSubscriptions",
+    icon: BadgeCheck,
+  },
+  {
+    title: "Expired Subscriptions",
+    key: "expiredSubscriptions",
+    icon: Ban,
+  },
+  {
+    title: "Free Plan Subscriptions",
+    key: "subscriptionsByFreePlan",
+    icon: LayoutGrid,
+  },
+  {
+    title: "Starter Plan Subscriptions",
+    key: "subscriptionsByStarterPlan",
+    icon: Layers,
+  },
+  {
+    title: "Professional Plan Subscriptions",
+    key: "subscriptionsByProfessionalPlan",
+    icon: Rocket,
+  },
+  {
+    title: "Enterprise Plan Subscriptions",
+    key: "subscriptionsByEnterprisePlan",
+    icon: Gem,
+  },
 ]
 
 export const revenueAnAndPaymentsStatsMapForAdmin: StatsMapForAdminInterface[] = [
-      {
-      title: "Total Revenue",
-      key: "totalRevenue",
-      icon: Banknote,
-      price: true,
-    },
-    {
-      title: "Revenue via Subscriptions",
-      key: "totalRevenueViaSubscriptions",
-      icon: Receipt,
-      price: true,
-    },
-    {
-      title: "Revenue via stripe",
-      key: "revenueByStripe",
-      icon: Wallet2Icon,
-      price: true,
-    },
-    {
-      title: "Revenue via razorpay",
-      key: "revenueByRazorpay",
-      icon: WalletCards,
-      price: true,
-    },
-    {
-      title: "Revenue via paypal",
-      key: "revenueByPaypal",
-      icon: WalletMinimal,
-      price: true,
-    },
-    {
-      title: "Revenue via Appointments",
-      key: "totalRevenueViaAppointments",
-      icon: CreditCard,
-      price: true,
-    },
-    {
-      title: "Total Refunds Issued",
-      key: "totalRefundsIssued",
-      icon: RotateCcw,
-      price: true,
-    },
-    {
-      title: "Failed Payments",
-      key: "totalFailedPayments",
-      icon: XCircle,
-      price: false,
-    },
-    {
-      title: "Total Payouts to Providers",
-      key: "totalPayoutsToProviders",
-      icon: Wallet,
-      price: true,
-    },
+  {
+    title: "Total Revenue",
+    key: "totalRevenue",
+    icon: Banknote,
+    price: true,
+  },
+  {
+    title: "Revenue via Subscriptions",
+    key: "totalRevenueViaSubscriptions",
+    icon: Receipt,
+    price: true,
+  },
+  {
+    title: "Revenue via stripe",
+    key: "revenueByStripe",
+    icon: Wallet2Icon,
+    price: true,
+  },
+  {
+    title: "Revenue via razorpay",
+    key: "revenueByRazorpay",
+    icon: WalletCards,
+    price: true,
+  },
+  {
+    title: "Revenue via paypal",
+    key: "revenueByPaypal",
+    icon: WalletMinimal,
+    price: true,
+  },
+  {
+    title: "Revenue via Appointments",
+    key: "totalRevenueViaAppointments",
+    icon: CreditCard,
+    price: true,
+  },
+  {
+    title: "Total Refunds Issued",
+    key: "totalRefundsIssued",
+    icon: RotateCcw,
+    price: true,
+  },
+  {
+    title: "Failed Payments",
+    key: "totalFailedPayments",
+    icon: XCircle,
+    price: false,
+  },
+  {
+    title: "Total Payouts to Providers",
+    key: "totalPayoutsToProviders",
+    icon: Wallet,
+    price: true,
+  },
 ]
 
 export const AppointmentsStatsMapForAdmin: StatsMapForAdminInterface[] = [
-    {
-      title: "Total Appointments",
-      key: "totalAppointments",
-      icon: CalendarCheck,
-    },
-    {
-      title: "Completed Appointments",
-      key: "completedAppointments",
-      icon: CheckCircle,
-    },
-    {
-      title: "Cancelled Appointments",
-      key: "cancelledAppointments",
-      icon: XCircle,
-    },
-    {
-      title: "Missed Appointments",
-      key: "missedAppointments",
-      icon: Ban,
-    },
-    {
-      title: "Rejected Appointments",
-      key: "rejectedAppointments",
-      icon: ThumbsDown,
-    },
-  ];
+  {
+    title: "Total Appointments",
+    key: "totalAppointments",
+    icon: CalendarCheck,
+  },
+  {
+    title: "Completed Appointments",
+    key: "completedAppointments",
+    icon: CheckCircle,
+  },
+  {
+    title: "Cancelled Appointments",
+    key: "cancelledAppointments",
+    icon: XCircle,
+  },
+  {
+    title: "Missed Appointments",
+    key: "missedAppointments",
+    icon: Ban,
+  },
+  {
+    title: "Rejected Appointments",
+    key: "rejectedAppointments",
+    icon: ThumbsDown,
+  },
+];
+
+
+// Address adding, service details adding and service availability adding page side box data
+export const progressBars: { [key: number]: boolean[] } = {
+  1: [true, false, false, false],
+  2: [true, true, false, false],
+  3: [true, true, true, false],
+  4: [true, true, true, false],
+};
+
+const sidebarHeadings: string[] = ['Address Details', 'Service Details', 'Availability', "Approval in progress"];
+export const pageLabels: { [key: number]: string[] } = {
+  1: sidebarHeadings,
+  2: sidebarHeadings,
+  3: sidebarHeadings,
+  4: sidebarHeadings,
+};
+
+
+export const pageDescriptions: { [key: number]: string } = {
+  1: 'Add your service address accurately to ensure seamless customer bookings.',
+  2: 'Provide detailed information about your services for clarity and transparency.',
+  3: 'Set your service availability to manage customer appointments efficiently.',
+  4: 'Our team is reviewing your service registration request. You will be notified via email once your request is approved. Thank you for your patience..',
+};

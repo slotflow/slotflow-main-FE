@@ -1,9 +1,10 @@
 import { toast } from 'react-toastify';
+import { Check, ChevronRight, Goal } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import SideBox from '@/components/provider/SideBox';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useDispatch, useSelector } from 'react-redux';
 import { TimePicker } from '@/components/ui/TimePicker';
-import CommonButton from '@/components/common/CommonButton';
-import RightSideBox from '@/components/provider/RightSideBox';
 import { AppDispatch, RootState } from '@/utils/redux/appStore';
 import { format, addMinutes, isBefore, isEqual } from "date-fns";
 import { useState, ChangeEvent, FormEvent, useEffect } from 'react';
@@ -164,10 +165,10 @@ const ProviderAddServiceAvailabilityPage = () => {
 
   const isModeSelected = (mode: string) => modes.includes(mode);
 
-  const handleAllSlots = (push : boolean) => {
-    if(push && timeSlots.length > 0) {
+  const handleAllSlots = (push: boolean) => {
+    if (push && timeSlots.length > 0) {
       setSelectedTimeSlots(timeSlots);
-    } else if(!push && selectedTimeSlots.length > 0){
+    } else if (!push && selectedTimeSlots.length > 0) {
       setSelectedTimeSlots([])
     } else {
       toast.error("Please generate slots");
@@ -175,16 +176,14 @@ const ProviderAddServiceAvailabilityPage = () => {
   }
 
   return (
-    <div className="h-screen flex justify-center w-full bg-[var(--background)]">
-
-      <div className="w-8/12 px-10 overflow-y-scroll no-scrollbar">
-        <form className="mt-10 p-12" onSubmit={handleSubmit}>
-          <h4 className="text-2xl font-semibold mb-6 text-start">Let's fill out your Service Availability</h4>
-
+    <div className="md:h-screen md:flex justify-center w-full bg-[var(--background)]">
+      <SideBox props={{ pageNumber: 3 }} />
+      <div className="w-full md:w-8/12 md:px-10 overflow-y-scroll no-scrollbar">
+        <form className="md:mt-10 px-4 md:px-12 py-6" onSubmit={handleSubmit}>
+          <h4 className="xs:text-md md:text-xl lg:text-2xl font-semibold text-start px-6">Fill out your Service Availability</h4>
           <div className="flex w-full flex-col space-y-6">
-
-            <div className="w-full flex space-x-2">
-              <div className="w-6/12">
+            <div className="space-y-4 md:space-y-0 w-full md:flex space-x-2 px-6 pt-6 md:px-6">
+              <div className="md:w-6/12">
                 <SelectFiledWithLabel
                   label="Select Day"
                   id="serviceDay"
@@ -194,7 +193,7 @@ const ProviderAddServiceAvailabilityPage = () => {
                   required={true}
                 />
               </div>
-              <div className="w-6/12">
+              <div className="md:w-6/12">
                 <SelectFiledWithLabel
                   label="Select Duration"
                   id="serviceDuration"
@@ -206,8 +205,8 @@ const ProviderAddServiceAvailabilityPage = () => {
               </div>
             </div>
 
-            <div>
-              <h6>Select service modes</h6>
+            <div className="px-6 pt-6 md:px-6">
+              <h6 className='text-sm font-semibold'>Select service modes</h6>
               <div className="w-1/2 flex space-x-4 mt-2">
                 <div
                   className={`w-1/2 text-xs text-center border rounded-md py-2 px-4 hover:bg-[var(--mainColor)/10] transition-colors duration-200 cursor-pointer ${isModeSelected('online') ? 'bg-[var(--mainColor)/20] border-[var(--mainColor)]' : 'border-gray-300'
@@ -226,8 +225,8 @@ const ProviderAddServiceAvailabilityPage = () => {
               </div>
             </div>
 
-            <div className="flex items-end space-x-4 justify-between">
-              <div className="w-4/12">
+            <div className="md:flex items-end space-x-4 space-y-4 md:space-y-0 justify-between px-6 pt-6 md:px-6">
+              <div className="md:w-6/12">
                 <label className="block text-sm font-medium">Start Time (HH:mm)</label>
                 <div className='mt-2'>
                   <TimePicker
@@ -236,7 +235,7 @@ const ProviderAddServiceAvailabilityPage = () => {
                   />
                 </div>
               </div>
-              <div className="w-4/12">
+              <div className="md:w-6/12">
                 <label className="block text-sm font-medium">End Time (HH:mm)</label>
                 <div className='mt-2'>
                   <TimePicker
@@ -245,37 +244,40 @@ const ProviderAddServiceAvailabilityPage = () => {
                   />
                 </div>
               </div>
-              <button
+            </div>
+            <div className="flex justify-center md:justify-end mt-4 md:mt-6">
+              <Button
                 type="button"
+                variant="outline"
                 onClick={() => generateTimeSlots(newTimeSlot.startTime, newTimeSlot.endTime, selectedDuration)}
-                className="mt-2 bg-[var(--mainColor)] hover:bg-[var(--mainColorHover)] text-white font-bold py-1.5 px-4 rounded cursor-pointer"
+                className="w-10/12 md:w-2/12 text-xs md:text-sm cursor-pointer hover:bg-[var(--mainColor)] hover:text-white border-[var(--mainColor)] flex items-center gap-2"
               >
-                Generate Slots
-              </button>
+                Generate Slots <Goal />
+              </Button>
             </div>
 
-            <div className="w-full space-y-6">
+            <div className="w-10/12 md:w-full space-y-6 mx-auto md:px-6">
               {timeSlots && timeSlots.length > 0 && (
                 <div className="mt-6">
-                  <div className='flex items-center mb-4'>
-                    <h3 className="text-lg font-semibold">
-                      Select your time slots
-                    </h3>
+                  <div className='flex items-center mb-4 justify-between md:justify-start'>
+                    <h3 className="text-sm font-semibold">Select your time slots</h3>
+                    <div className='flex items-center md:mt-0 ml-0 md:ml-2'>
                     <Checkbox
                       checked={selectAllSlots}
                       onCheckedChange={(checked) => {
                         setSelectAllSlots(!!checked);
                         handleAllSlots(!selectAllSlots)
                       }}
-                      className='ml-4 cursor-pointer'
-                    />
+                      className='ursor-pointer'
+                      />
                     <p className='ml-2'>{selectAllSlots ? "Deselect all slots" : "Select all slots"}</p>
+                      </div>
                   </div>
-                  <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                  <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
                     {timeSlots.map((timeSlot) => (
                       <div
                         key={timeSlot}
-                        className={`text-xs text-center border rounded-md py-2 px-4 hover:bg-[var(--mainColor)/10] transition-colors duration-200 cursor-pointer ${selectedTimeSlots.includes(timeSlot)
+                        className={`text-xs text-center border rounded-md py-2 px-2 md:py-2 md:px-4 hover:bg-[var(--mainColor)/10] transition-colors duration-200 cursor-pointer ${selectedTimeSlots.includes(timeSlot)
                           ? 'bg-[var(--mainColor)/20] border-[var(--mainColor)]'
                           : 'border-gray-300'
                           }`}
@@ -293,9 +295,24 @@ const ProviderAddServiceAvailabilityPage = () => {
 
           {selectedTimeSlots.length > 0 && (
             <>
-              <div className="mt-10 flex justify-end space-x-2">
-                <CommonButton text={"Add"} onClick={handleAddAvailability} type={"button"} />
-                <CommonButton text={dataUpdating ? "Loading" : "Submit"} type={"submit"} />
+              <div className="flex space-x-2 justify-center md:justify-end mt-4 md:mt-6">
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={handleAddAvailability}
+                  className="w-10/12 md:w-2/12 text-xs md:text-sm cursor-pointer hover:bg-[var(--mainColor)] hover:text-white border-[var(--mainColor)] flex items-center gap-2"
+                >
+                  Add <Check />
+                </Button>
+              </div>
+              <div className="flex space-x-2 justify-center md:justify-end mt-4 md:mt-6 ">
+                <Button
+                  type="submit"
+                  variant="outline"
+                  className="w-10/12 md:w-2/12 text-xs md:text-sm cursor-pointer hover:bg-[var(--mainColor)] hover:text-white border-[var(--mainColor)] flex items-center gap-2"
+                >
+                  {dataUpdating ? "Loading" : "Submit"} <ChevronRight />
+                </Button>
               </div>
               <div className='mt-10'>
                 <p className='text-sm text-gray-400 italic'>Note: Please add your daily service available slots by selecting a day, Once you're done, only click Submit</p>
@@ -305,7 +322,6 @@ const ProviderAddServiceAvailabilityPage = () => {
 
         </form>
       </div>
-      <RightSideBox props={{ pageNumber: 3 }} />
     </div>
   );
 };

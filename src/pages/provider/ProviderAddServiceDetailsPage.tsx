@@ -1,7 +1,8 @@
 import { toast } from "react-toastify";
+import { ChevronRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import SideBox from "@/components/provider/SideBox";
 import { useDispatch, useSelector } from "react-redux";
-import CommonButton from "@/components/common/CommonButton";
-import RightSideBox from "@/components/provider/RightSideBox";
 import InputField from "@/components/form/InputFieldWithLable";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
 import { providerFetchAllAppServices } from "../../utils/apis/provider.api";
@@ -81,7 +82,7 @@ const ProviderAddServiceDetailsPage = () => {
         toast.error("Please wait we are trying");
       }
     };
-  
+
     fetchServices();
   }, [])
 
@@ -126,12 +127,13 @@ const ProviderAddServiceDetailsPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex justify-center w-full bg-[var(--background)]">
-      <div className="w-8/12 px-10">
-        <form onSubmit={handleSubmit} className="mt-10 p-12">
-          <h4 className="text-2xl font-semibold mb-6 text-start">Lets Fill Your Service Details</h4>
-          <div className="flex w-full flex-col md:flex-row">
-            <div className="w-full md:w-1/2 py-6 space-y-6">
+    <div className="md:h-screen md:flex justify-center w-full bg-[var(--background)]">
+      <SideBox props={{ pageNumber: 2 }} />
+      <div className="w-full md:w-8/12 md:px-10">
+        <form onSubmit={handleSubmit} className="md:mt-10 px-4 md:px-12 py-6">
+          <h4 className={`xs:text-md md:text-xl lg:text-2xl font-semibold text-start px-6`}>Fill Your Service Details</h4>
+          <div className="flex flex-col md:flex-row gap-4 md:gap-6 w-full">
+            <div className="flex-1 space-y-4 md:space-y-6 px-6 pt-6 md:p-6">
               <SelectFiledWithLabel
                 label="Service Category"
                 id="serviceCategory"
@@ -193,7 +195,7 @@ const ProviderAddServiceDetailsPage = () => {
               />
             </div>
 
-            <div className="w-full md:w-1/2 p-6 space-y-6">
+            <div className="flex-1 space-y-4 md:space-y-6 px-6 md:px-0 md:p-6">
               <div>
                 <label className="block text-xs md:text-sm/6 font-medium text-[var(--textTwo)] hover:text-[var(--textTwoHover)]">
                   Certificate
@@ -223,12 +225,17 @@ const ProviderAddServiceDetailsPage = () => {
               </div>
             </div>
           </div>
-          <div className="mt-10 flex justify-end">
-            <CommonButton text={dataUpdating ? "Loading" : "Next"} type={"submit"}/>
+          <div className="flex justify-center md:justify-end mt-4 md:mt-6">
+            <Button
+              type="submit"
+              variant="outline"
+              className="w-10/12 md:w-2/12 text-xs md:text-sm cursor-pointer hover:bg-[var(--mainColor)] hover:text-white border-[var(--mainColor)] flex items-center gap-2"
+            >
+              {dataUpdating ? "Loading" : "Next"} <ChevronRight />
+            </Button>
           </div>
         </form>
       </div>
-      <RightSideBox props={{ pageNumber: 2 }} />
     </div>
   )
 }

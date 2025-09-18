@@ -2,7 +2,7 @@ import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { FormEvent, useState } from "react";
 import { AppDispatch } from "@/utils/redux/appStore";
-import RightSideBox from "@/components/provider/RightSideBox";
+import RightSideBox from "@/components/provider/SideBox";
 import { providerAddProviderAddress } from "@/utils/apis/provider.api";
 import AddAddress, { AddressFormProps } from "@/components/common/AddAddress";
 
@@ -32,20 +32,20 @@ const ProviderAddAddressPage = () => {
     }
 
     return (
-        <div className="min-h-screen flex justify-center w-full bg-[var(--background)]">
-            <div className="w-8/12 px-10">
+        <div className="min-h-screen md:flex justify-center w-full bg-[var(--background)]">
+            <RightSideBox
+                props={{ pageNumber: 1 }}
+            />
+            <div className="w-full md:w-8/12 md:px-10">
                 <AddAddress
                     onSubmit={handleSubmit}
-                    formClassNames={"mt-10 px-12"}
-                    headingSize={"xs:text-md md:text-xl md:text-2xl"}
+                    formClassNames={"md:mt-10 px-4 md:px-12"}
+                    headingSize={"xs:text-md md:text-xl lg:text-2xl"}
                     heading={"Address Form"}
                     buttonText={"Next"}
                     setHasErrors={setHasErrors}
                 />
             </div>
-            <RightSideBox
-                props={{ pageNumber: 1 }}
-            />
         </div>
     )
 }

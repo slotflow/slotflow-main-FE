@@ -5,12 +5,11 @@ import { CreditCard, Unplug } from "lucide-react";
 import React, { useEffect, useMemo } from "react";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import { useDispatch, useSelector } from "react-redux";
-import "react-big-calendar/lib/css/react-big-calendar.css";
 import FeatureLocked from "@/components/common/FeatureLocked";
 import { fetchCalendarEvents } from "@/utils/apis/google.api";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
-import DataFetchingError from '@/components/common/DataFetchingError';
 import CalendarShimmer from '@/components/shimmers/CalendarShimmer';
+import DataFetchingError from '@/components/common/DataFetchingError';
 
 const CalendarPage: React.FC = () => {
 

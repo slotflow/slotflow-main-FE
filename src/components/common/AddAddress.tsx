@@ -1,11 +1,13 @@
+import { Button } from '../ui/button';
 import { useSelector } from 'react-redux';
 import { PhoneInput } from '../form/phone-input';
+import NotificationBox from './NotificationBox';
+import { ChevronRight, Info } from 'lucide-react';
 import { RootState } from '@/utils/redux/appStore';
-import CommonButton from '@/components/common/CommonButton';
+import { useQueryClient } from '@tanstack/react-query';
 import InputField from '@/components/form/InputFieldWithLable';
 import React, { FormEvent, useCallback, useEffect, useState } from 'react';
 import { Address } from '@/utils/interface/entityInterface/addressInterface';
-import { useQueryClient } from '@tanstack/react-query';
 
 export type AddressFormProps = Pick<Address, "_id" | "addressLine" | "phone" | "place" | "city" | "district" | "pincode" | "state" | "country" | "googleMapLink">
 
@@ -21,7 +23,6 @@ export interface AddAddressProps {
 const AddAddress: React.FC<AddAddressProps> = ({ formClassNames, heading, headingSize, buttonText, onSubmit, setHasErrors }) => {
 
     const queryClient = useQueryClient();
-    // const [addressData, setAddressData] = useState<AddressFormProps>(null);
     const { dataUpdating } = useSelector((store: RootState) => store.auth);
     const [formData, setFormData] = useState<AddressFormProps>({
         _id: "",
@@ -37,10 +38,10 @@ const AddAddress: React.FC<AddAddressProps> = ({ formClassNames, heading, headin
     });
 
     useEffect(() => {
-    const cachedData = queryClient.getQueryData<AddressFormProps>(["userAddress"]);
-    if(!cachedData) return;
-    setFormData(cachedData);
-  }, [queryClient]);
+        const cachedData = queryClient.getQueryData<AddressFormProps>(["userAddress"]);
+        if (!cachedData) return;
+        setFormData(cachedData);
+    }, [queryClient]);
 
     const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
@@ -57,10 +58,10 @@ const AddAddress: React.FC<AddAddressProps> = ({ formClassNames, heading, headin
     };
 
     return (
-        <form onSubmit={handleSubmit} className={`${formClassNames}`}>
+        <form onSubmit={handleSubmit} className={`${formClassNames} py-6`}>
             <h4 className={`${headingSize} font-semibold text-start px-6`}>{heading}</h4>
-            <div className="flex w-full flex-col md:flex-row">
-                <div className="w-full md:w-1/2 p-6 space-y-6">
+            <div className="flex flex-col md:flex-row gap-4 md:gap-6 w-full">
+                <div className="flex-1 space-y-4 md:space-y-6 px-6 pt-6 md:p-6">
                     <InputField
                         label="Address Line"
                         id="addressLine"
@@ -68,11 +69,11 @@ const AddAddress: React.FC<AddAddressProps> = ({ formClassNames, heading, headin
                         type="text"
                         value={formData.addressLine}
                         onChange={handleChange}
-                        required={true}
+                        required
                         onHasError={handleErrorChange}
                     />
                     <div className="space-y-2">
-                        <label className="block text-xs md:text-sm/6 font-medium text-[var(--textTwo)] hover:text-[var(--textTwoHover)]">
+                        <label className="block text-xs md:text-sm font-medium text-[var(--textTwo)] hover:text-[var(--textTwoHover)]">
                             Phone
                         </label>
                         <PhoneInput
@@ -95,7 +96,7 @@ const AddAddress: React.FC<AddAddressProps> = ({ formClassNames, heading, headin
                         type="text"
                         value={formData.place}
                         onChange={handleChange}
-                        required={true}
+                        required
                         onHasError={handleErrorChange}
                     />
                     <InputField
@@ -105,21 +106,19 @@ const AddAddress: React.FC<AddAddressProps> = ({ formClassNames, heading, headin
                         type="text"
                         value={formData.city}
                         onChange={handleChange}
-                        required={true}
+                        required
                         onHasError={handleErrorChange}
                     />
                     <InputField
-                        label="Distrcit"
+                        label="District"
                         id="district"
-                        placeholder="Distrcit"
+                        placeholder="District"
                         type="text"
                         value={formData.district}
                         onChange={handleChange}
-                        required={true}
+                        required
                         onHasError={handleErrorChange}
                     />
-                </div>
-                <div className="w-full md:w-1/2 p-6 space-y-6">
                     <InputField
                         label="Pincode"
                         id="pincode"
@@ -127,7 +126,7 @@ const AddAddress: React.FC<AddAddressProps> = ({ formClassNames, heading, headin
                         type="text"
                         value={formData.pincode}
                         onChange={handleChange}
-                        required={true}
+                        required
                         onHasError={handleErrorChange}
                     />
                     <InputField
@@ -137,7 +136,7 @@ const AddAddress: React.FC<AddAddressProps> = ({ formClassNames, heading, headin
                         type="text"
                         value={formData.state}
                         onChange={handleChange}
-                        required={true}
+                        required
                         onHasError={handleErrorChange}
                     />
                     <InputField
@@ -147,9 +146,12 @@ const AddAddress: React.FC<AddAddressProps> = ({ formClassNames, heading, headin
                         type="text"
                         value={formData.country}
                         onChange={handleChange}
-                        required={true}
+                        required
                         onHasError={handleErrorChange}
                     />
+                </div>
+
+                <div className="flex-1 space-y-4 md:space-y-6 px-6 md:px-0 md:p-6">
                     <InputField
                         label="Google Map Link"
                         id="googleMapLink"
@@ -157,13 +159,27 @@ const AddAddress: React.FC<AddAddressProps> = ({ formClassNames, heading, headin
                         type="text"
                         value={formData.googleMapLink}
                         onChange={handleChange}
-                        required={true}
+                        required
                         onHasError={handleErrorChange}
+                    />
+                    <NotificationBox
+                        icon={Info}
+                        heading="Google Maps Selection Unavailable"
+                        message={`Currently, we don’t support selecting your location directly from Google Maps.  
+Please open Google Maps, click on "Share" → "Embed a map", copy the iframe **src** URL,  
+and paste it in the field below.`}
                     />
                 </div>
             </div>
-            <div className="flex justify-end mr-6">
-                <CommonButton text={dataUpdating ? "Loading" : buttonText} type={"submit"} />
+
+            <div className="flex justify-center md:justify-end mt-4 md:mt-6">
+                <Button
+                    type="submit"
+                    variant="outline"
+                    className="w-10/12 md:w-2/12 text-xs md:text-sm cursor-pointer hover:bg-[var(--mainColor)] hover:text-white border-[var(--mainColor)] flex items-center gap-2"
+                >
+                    {dataUpdating ? "Loading" : buttonText} <ChevronRight />
+                </Button>
             </div>
         </form>
 
