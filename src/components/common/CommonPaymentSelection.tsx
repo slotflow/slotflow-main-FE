@@ -3,11 +3,11 @@ import { Loader, X } from 'lucide-react';
 import { useDispatch } from 'react-redux';
 import { useCallback, useState } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
+import paypalLogo from '../../assets/iconImages/Paypal.png';
+import stripeLogo from '../../assets/iconImages/Stripe.jpeg';
 import { userBookAnAppointment } from '@/utils/apis/user.api';
+import razorpayLogo from '../../assets/iconImages/Razorpay.png';
 import { providerSubscribeToPlan } from '@/utils/apis/provider.api';
-import stripeLogo from '../../assets/paymentGateWaysLogos/Stripe.jpeg';
-import paypalLogo from '../../assets/paymentGateWaysLogos/Paypal.png';
-import razorpayLogo from '../../assets/paymentGateWaysLogos/Razorpay.png';
 import { Provider } from '@/utils/interface/entityInterface/providerInterface';
 import { setPaymentSelectionPage, setSubscriptionIsTrailPlan, setSubscriptionPlanDuration, setSubscriptionPlanId } from '@/utils/redux/slices/providerSlice';
 
