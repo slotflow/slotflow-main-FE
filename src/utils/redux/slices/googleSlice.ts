@@ -7,12 +7,14 @@ interface GoogleSliceState {
     calendarEvents: GoogleCalendarEvent[];
     loading: boolean;
     error: string | null;
+    googleConnectionLoding: boolean;
 }
 
 const initialState: GoogleSliceState = {
     calendarEvents: [],
     loading: false,
     error: null,
+    googleConnectionLoding: false,
 };
 
 const googleSlice = createSlice({
@@ -24,7 +26,12 @@ const googleSlice = createSlice({
         },
         clearCalendarEvents: (state) => {
             state.calendarEvents = [];
+            state.loading = false;
+            state.error = null;
         },
+        setGoogleConnectionLoading: (state, action: PayloadAction<boolean>) => {
+            state.googleConnectionLoding = action.payload;
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -35,6 +42,7 @@ const googleSlice = createSlice({
             .addCase(fetchCalendarEvents.fulfilled, (state, action: PayloadAction<fetchCalendarEventsResponse>) => {
                 state.loading = false;
                 state.calendarEvents = action.payload.data;
+                state.error = null;
             })
             .addCase(fetchCalendarEvents.rejected, (state, action) => {
                 state.loading = false;
@@ -45,6 +53,7 @@ const googleSlice = createSlice({
 
 export const {
     setCalendarEvents,
-    clearCalendarEvents
+    clearCalendarEvents,
+    setGoogleConnectionLoading
 } = googleSlice.actions;
 export default googleSlice.reducer;

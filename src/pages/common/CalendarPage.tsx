@@ -5,12 +5,12 @@ import { CreditCard, Unplug } from "lucide-react";
 import React, { useEffect, useMemo } from "react";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import { useDispatch, useSelector } from "react-redux";
-import GoogleButton from "@/components/form/GoogleButton";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import FeatureLocked from "@/components/common/FeatureLocked";
 import { fetchCalendarEvents } from "@/utils/apis/google.api";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
-import { handleConnectGoogle } from "@/utils/helper/googleConnect";
+import DataFetchingError from '@/components/common/DataFetchingError';
+import CalendarShimmer from '@/components/shimmers/CalendarShimmer';
 
 const CalendarPage: React.FC = () => {
 
@@ -21,6 +21,10 @@ const CalendarPage: React.FC = () => {
 
     const handleUpgradeSubscription = () => {
         navigate('/provider/subscriptions');
+    }
+    
+    const handleMoveToSettings = () => {
+        navigate('/provider/settings');
     }
 
     const canUseCalendar = useMemo(() => {
@@ -38,50 +42,64 @@ const CalendarPage: React.FC = () => {
 
         if (authUser.role === "PROVIDER") {
             if (["Professional", "Enterprise"].includes(authUser.providerSubscription ?? "")) {
-                dispatch(fetchCalendarEvents());
+                console.log("before provider")
+                if (authUser.googleConnected) {
+                    dispatch(fetchCalendarEvents());
+                }
             }
         } else if (authUser.role === "USER") {
+            console.log("before user")
             dispatch(fetchCalendarEvents());
         }
     }, [dispatch, authUser, calendarEvents]);
 
 
-    if (loading) return <p>Loading events...</p>;
-    if (error) return <p className="text-red-500">{error}</p>;
+    if (loading) return <CalendarShimmer />;
+    if (error) {
+        return (
+            <DataFetchingError message={error} />
+        )
+    }
+
+    if (!canUseCalendar) {
+        return (
+            <div className="p-4 h-full">
+                <FeatureLocked
+                    message="Sorry, your current subscription does not include the calendar feature."
+                    buttonText="Upgrade Subscription"
+                    buttonVariant="outline"
+                    onButtonClick={handleUpgradeSubscription}
+                    icon={CreditCard}
+                />
+            </div>
+        )
+    }
+
+    if (!authUser?.googleConnected) {
+        return (
+                <FeatureLocked
+                    message="You are not connected to Google. You can connect your account to google in settings."
+                    buttonText="Settings"
+                    buttonVariant="outline"
+                    onButtonClick={handleMoveToSettings}
+                    icon={Unplug}
+                />
+        )
+    }
 
     return (
         <div className="p-4 h-full">
-            <>
-                {!canUseCalendar ? (
-                    <FeatureLocked
-                        message="Sorry, your current subscription does not include the calendar feature."
-                        buttonText="Upgrade Subscription"
-                        buttonVariant="outline"
-                        onButtonClick={handleUpgradeSubscription}
-                        icon={CreditCard}
-                    />
-                ) : !authUser?.googleConnected ? (
-                    <div className="h-full flex flex-col justify-center items-center space-y-3">
-                        <Unplug className="text-red-500 size-24" />
-                        <h1 className="font-semibold">
-                            You are not connected to Google. Please connect your account.
-                        </h1>
-                        <GoogleButton text='Connect Google' onClick={handleConnectGoogle} className="w-full md:w-3/12" />
-                    </div>
-                ) : (
-                    <FullCalendar
-                        plugins={[dayGridPlugin, timeGridPlugin]}
-                        initialView="dayGridMonth"
-                        headerToolbar={{
-                            left: "prev,next today",
-                            center: "title",
-                            right: "dayGridMonth,timeGridWeek,timeGridDay",
-                        }}
-                        events={calendarEvents}
-                        height="auto"
-                    />
-                )}
-            </>
+            <FullCalendar
+                plugins={[dayGridPlugin, timeGridPlugin]}
+                initialView="dayGridMonth"
+                headerToolbar={{
+                    left: "prev,next today",
+                    center: "title",
+                    right: "dayGridMonth,timeGridWeek,timeGridDay",
+                }}
+                events={calendarEvents}
+                height="auto"
+            />
         </div>
     )
 }

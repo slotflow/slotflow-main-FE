@@ -2,15 +2,16 @@ import { toast } from 'react-toastify';
 import React, { useEffect } from 'react';
 import { formatDate } from '@/utils/helper';
 import { useQuery } from '@tanstack/react-query';
-import { Check, UserRoundPen, X } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { } from '@/utils/interface/api/userApiInterface';
 import GoogleButton from '@/components/form/GoogleButton';
+import { Check, Loader2, UserRoundPen, X } from 'lucide-react';
 import { AppDispatch, RootState } from '@/utils/redux/appStore';
 import ProfileHead from '@/components/common/profile/ProfileHead';
 import { handleConnectGoogle } from '@/utils/helper/googleConnect';
 import { updateGoogleConnect } from '@/utils/redux/slices/authSlice';
 import DataFetchingError from '@/components/common/DataFetchingError';
+import { setGoogleConnectionLoading } from '@/utils/redux/slices/googleSlice';
 import { userFetchUserProfileDetails, userUpdateUserProfileImage } from '@/utils/apis/user.api';
 import { providerFetchProviderProfileDetails, providerUpdateProviderProfileImage } from '@/utils/apis/provider.api';
 
@@ -18,6 +19,7 @@ const SettingsPage: React.FC = () => {
 
     const dispatch = useDispatch<AppDispatch>();
     const { authUser } = useSelector((state: RootState) => state.auth);
+    const { googleConnectionLoding } = useSelector((state: RootState) => state.google);
 
     const isProvider = authUser?.role === "PROVIDER";
 
@@ -46,6 +48,7 @@ const SettingsPage: React.FC = () => {
                 toast.error("Google connection failed, please try again");
             } else {
                 dispatch(updateGoogleConnect());
+                dispatch(setGoogleConnectionLoading(false));
                 toast.success("Google successfully connected!");
             }
         } catch (err) {
@@ -125,7 +128,7 @@ const SettingsPage: React.FC = () => {
                         )}
                         <tr className={`${"border-b border-[var(--boxBorder)]"}`}>
                             <td className="p-4 font-medium text-[var(--infoDataLabel)] w-4/12">Google Connected</td>
-                            <td className="p-4 w-8/12">{authUser.googleConnected ? <Check className="text-green-500" /> : <GoogleButton text='Connect Google' onClick={handleConnectGoogle} className="w-full md:w-4/12" />}</td>
+                            <td className="p-4 w-8/12">{authUser.googleConnected ? <Check className="text-green-500" /> : googleConnectionLoding ? <span className="flex"><Loader2 className="animate-spin mr-2" />Connecting to google...</span> : <GoogleButton text='Connect Google' onClick={(e) => handleConnectGoogle(e, dispatch)} className="w-full md:w-4/12" />}</td>
                         </tr>
                         <tr className={`${"border-b border-[var(--boxBorder)]"}`}>
                             <td className="p-4 font-medium text-[var(--infoDataLabel)] w-4/12">Info updated on</td>
