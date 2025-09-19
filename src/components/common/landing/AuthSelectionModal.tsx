@@ -62,7 +62,7 @@ const AuthSelectionModal: React.FC<AuthSelectionModalProps> = ({ onClose }) => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <div
-            onClick={() => handleRoleSelection("/book")}
+            onClick={() => handleRoleSelection("/user/login")}
             className="cursor-pointer flex flex-col items-center justify-center rounded-2xl border p-6 h-64 hover:border-[var(--mainColor)] hover:shadow-xl transition-all duration-300"
           >
             <img
@@ -79,7 +79,7 @@ const AuthSelectionModal: React.FC<AuthSelectionModalProps> = ({ onClose }) => {
           </div>
 
           <div
-            onClick={() => handleRoleSelection("/provider")}
+            onClick={() => handleRoleSelection("/provider/login")}
             className="cursor-pointer flex flex-col items-center justify-center rounded-2xl border p-6 h-64 hover:border-[var(--mainColor)] hover:shadow-xl transition-all duration-300"
           >
             <img

@@ -165,10 +165,10 @@ export const gsapBigSvgYDirectionAnimation: gsapBigSvgYDirectionAnimationInterfa
 
 // **** Header Navigation Array ***** \\
 export const navigation: HeaderCompoenentNavsProps[] = [
-  { name: 'Home', href: '#home', current: true },
-  { name: 'Features', href: '#features', current: false },
-  { name: 'Pricing', href: '#pricing', current: false },
-  { name: 'Reviews', href: '#reviews', current: false },
+  { name: 'Home', href: '/', current: true },
+  { name: 'Features', href: '/#features', current: false },
+  { name: 'Pricing', href: '/#pricing', current: false },
+  { name: 'Reviews', href: '/#reviews', current: false },
   { name: 'About', href: '/about', current: false },
   { name: 'Contact', href: '/contact', current: false },
 ]
@@ -513,8 +513,8 @@ export const footerColumnData: FooterColumnDataInterface[] = [
 ]
 export const copyright: string = " slotflow All rights reserved"
 export const policies: FooterLinkInterface[] = [
-  { text: "Privacy Policy", href: "" },
-  { text: "Terms of Service", href: "" },
+  { text: "Privacy Policy", href: "/privacy-policy" },
+  { text: "Terms of Service", href: "/terms-and-conditions" },
 ]
 export const about: string = "Simplifying appointment scheduling for individuals and professionals. Stay organized, save time, and make every slot count.";
 
@@ -1054,4 +1054,24 @@ export const contactData: ContactItem[] = [
     label: "Office",
     value: "Kerala, India",
   },
+];
+
+
+// Privacy Policy
+export const privacyPolicyContent: string[] = [
+  "At Slotflow, we value your privacy and are committed to protecting your personal data. This Privacy Policy explains how we collect, use, and safeguard your information when you interact with our platform.",
+  "We collect information such as your name, email, contact details, and booking data to deliver a seamless scheduling experience. Your data helps us confirm appointments, send reminders, and improve our services.",
+  "Slotflow does not sell, rent, or trade your information to third parties. We only share data with trusted service providers (like payment processors or communication tools) when necessary to operate our platform.",
+  "You can update or delete your data anytime by contacting our support team. We implement industry-standard security practices to protect your information from unauthorized access or misuse.",
+  "By using Slotflow, you consent to the terms outlined in this Privacy Policy. Updates to this policy will be communicated through our website or email."
+];
+
+
+// Terms and Conditions
+export const termsAndConditionsContent: string[] = [
+  "Welcome to Slotflow. By using our platform, you agree to these Terms & Conditions, so please read them carefully before proceeding.",
+  "Slotflow provides appointment scheduling and business management tools. You are responsible for the accuracy of the information you provide, including service details, availability, and contact data.",
+  "You must not use Slotflow for unlawful, harmful, or fraudulent activities. We reserve the right to suspend or terminate accounts that violate these terms.",
+  "Payments for paid plans are billed according to the selected subscription and must be completed on time to maintain access to premium features.",
+  "Slotflow may update these terms periodically. Continued use of the platform after updates indicates your acceptance of the revised terms."
 ];

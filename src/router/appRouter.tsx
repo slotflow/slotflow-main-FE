@@ -2,24 +2,24 @@ import { lazy } from "react";
 import PlanGuard from "./planGuard.tsx";
 import { createBrowserRouter } from "react-router-dom";
 import { ProtectedRoute } from "./protectedRoutes.tsx";
-import CalendarPage from "@/pages/common/CalendarPage.tsx";
-import AboutPage from "@/pages/common/AboutPage.tsx";
-import ContactPage from "@/pages/common/ContactPage.tsx";
-
 
 const AuthPage = lazy(() => import("@/pages/common/AuthPage.tsx"));
+const AboutPage = lazy(() => import("@/pages/common/AboutPage.tsx"));
 const ProfilePage = lazy(() => import("@/pages/common/ProfilePage.tsx"));
+const ContactPage = lazy(() => import("@/pages/common/ContactPage.tsx"));
 const AddressPage = lazy(() => import("@/pages/common/AddressPage.tsx"));
 const LandingPage = lazy(() => import("../pages/common/LandingPage.tsx"));
 const Error404Page = lazy(() => import("@/pages/common/Error404Page.tsx"));
 const SettingsPage = lazy(() => import("@/pages/common/SettingsPage.tsx"));
+const CalendarPage = lazy(() => import("@/pages/common/CalendarPage.tsx"));
 const VideoCallLoby = lazy(() => import("@/pages/common/VideoCallLoby.tsx"));
 const VideoCallRoom = lazy(() => import("@/pages/common/VideoCallRoom.tsx"));
 const VideoCallPage = lazy(() => import("@/pages/common/VideoCallPage.tsx"));
 const LandingLayout = lazy(() => import("../pages/common/LandingLayout.tsx"));
 const BookingDetailPage = lazy(() => import("@/pages/common/BookingDetailPage.tsx"));
-const PasswordResetPage = lazy(() => import("@/pages/common/PasswordResetPage.tsx"));
+const PrivacyPolicyPage = lazy(() => import("@/pages/common/PrivacyPolicyPage.tsx"));
 const PaymentConfirmPage = lazy(() => import("@/pages/common/PaymentConfirmPage.tsx"));
+const TermsAndConditionsPage = lazy(() => import("@/pages/common/TermsAndConditionsPage.tsx"));
 
 const UserMainPage = lazy(() => import("@/pages/user/UserMainPage.tsx"));
 const UserChatPage = lazy(() => import("@/pages/user/UserChatPage.tsx"));
@@ -61,7 +61,8 @@ export const appRouter = createBrowserRouter([
             { path: "/", element: <LandingPage /> },
             { path: "/about", element: <AboutPage /> },
             { path: "/contact", element: <ContactPage /> },
-            { path: "/forgotPassword", element: <PasswordResetPage /> },
+            { path: "/privacy-policy", element: <PrivacyPolicyPage /> },
+            { path: "/terms-and-conditions", element: <TermsAndConditionsPage /> },
             { path: "/admin/login", element: <AuthPage role={"ADMIN"} /> },
             { path: "/user/login", element: <AuthPage role={"USER"} /> },
             { path: "/provider/login", element: <AuthPage role={"PROVIDER"} /> },
