@@ -52,23 +52,19 @@ const AuthSelectionModal: React.FC<AuthSelectionModalProps> = ({ onClose }) => {
   return (
     <div
       className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
-      onClick={handleClose} // close on backdrop click
+      onClick={handleClose}
     >
-      {/* Modal Content */}
       <div
         ref={modalRef}
-        onClick={(e) => e.stopPropagation()} // prevent closing when clicking inside
+        onClick={(e) => e.stopPropagation()}
         className="bg-[var(--background)] p-6 rounded-2xl shadow-xl w-[90%] max-w-3xl text-center"
       >
 
-        {/* Role Selection */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          {/* Book Appointment Card */}
           <div
-            onClick={() => handleRoleSelection("/user")}
+            onClick={() => handleRoleSelection("/book")}
             className="cursor-pointer flex flex-col items-center justify-center rounded-2xl border p-6 h-64 hover:border-[var(--mainColor)] hover:shadow-xl transition-all duration-300"
           >
-            {/* Replace with your SVG */}
             <img
               src={booking}
               alt="Book Appointment"
@@ -82,12 +78,10 @@ const AuthSelectionModal: React.FC<AuthSelectionModalProps> = ({ onClose }) => {
             </p>
           </div>
 
-          {/* Provide Service Card */}
           <div
             onClick={() => handleRoleSelection("/provider")}
             className="cursor-pointer flex flex-col items-center justify-center rounded-2xl border p-6 h-64 hover:border-[var(--mainColor)] hover:shadow-xl transition-all duration-300"
           >
-            {/* Replace with your SVG */}
             <img
               src={service}
               alt="Provide Service"
@@ -102,7 +96,6 @@ const AuthSelectionModal: React.FC<AuthSelectionModalProps> = ({ onClose }) => {
           </div>
         </div>
 
-        {/* Close Button */}
         <Button
           variant="outline"
           onClick={handleClose}

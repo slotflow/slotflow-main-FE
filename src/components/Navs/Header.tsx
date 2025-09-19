@@ -4,8 +4,8 @@ import { Moon, Sun } from 'lucide-react';
 import { navigation } from '@/utils/constants';
 import { useDispatch, useSelector } from 'react-redux';
 import logo from '../../assets/logos/logo-transparent.png';
-import { setAuthModal, toggleTheme } from '@/utils/redux/slices/stateSlice';
 import { AppDispatch, RootState } from '../../utils/redux/appStore';
+import { setAuthModal, toggleTheme } from '@/utils/redux/slices/stateSlice';
 
 const Header: React.FC = () => {
 
@@ -63,7 +63,7 @@ const Header: React.FC = () => {
           <Button
           variant={"ghost"}
             onClick={handleAuthClick}
-            className="cursor-pointer px-4 py-2 rounded-lg text-sm font-semibold bg-[var(--mainColor)] text-white hover:opacity-90 transition hover:bg-black border border-[var(--mainColor)]"
+            className="cursor-pointer px-4 py-2 rounded-lg text-sm font-semibold bg-[var(--mainColor)] text-white hover:opacity-90 transition border border-[var(--mainColor)] hover:text-[var(--mainColor)] "
           >
             Login
           </Button>
