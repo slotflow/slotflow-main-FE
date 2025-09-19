@@ -2,11 +2,11 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import Heading from "@/components/common/landing/Heading";
 import { LucideIcon, Mail, MapPin, Phone } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import Heading from "@/components/common/landing/Heading";
-import CommonButton from "@/components/common/CommonButton";
 
 export interface ContactItem {
   icon: LucideIcon;
@@ -111,7 +111,7 @@ const Contact = () => {
                   <Textarea id="message" name="message" rows={5} required />
                 </Field>
 
-                <CommonButton text={loading ? "Sending..." : "Send message"}  type="submit" className="w-full sm:w-auto cursor-pointer"  />
+                <Button variant="outline" type="submit" className="w-full cursor-pointer ">{loading ? "Sending..." : "Send message"}</Button>
               </form>
             </CardContent>
           </Card>

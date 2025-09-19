@@ -1,9 +1,10 @@
+import { Button } from '../ui/button';
 import React, { useEffect } from 'react';
 import { Moon, Sun } from 'lucide-react';
 import { navigation } from '@/utils/constants';
 import { useDispatch, useSelector } from 'react-redux';
 import logo from '../../assets/logos/logo-transparent.png';
-import { toggleTheme } from '@/utils/redux/slices/stateSlice';
+import { setAuthModal, toggleTheme } from '@/utils/redux/slices/stateSlice';
 import { AppDispatch, RootState } from '../../utils/redux/appStore';
 
 const Header: React.FC = () => {
@@ -14,6 +15,10 @@ const Header: React.FC = () => {
 
   const changeTheme = (): void => {
     dispatch(toggleTheme());
+  }
+
+  const handleAuthClick = () => {
+    dispatch(setAuthModal(true));
   }
 
   useEffect(() => {
@@ -54,7 +59,22 @@ const Header: React.FC = () => {
           </div>
         </div>
 
-        <div className='w-3/12 flex justify-end'>
+        <div className='w-3/12 flex justify-end items-center'>
+          <Button
+          variant={"ghost"}
+            onClick={handleAuthClick}
+            className="cursor-pointer px-4 py-2 rounded-lg text-sm font-semibold bg-[var(--mainColor)] text-white hover:opacity-90 transition hover:bg-black border border-[var(--mainColor)]"
+          >
+            Login
+          </Button>
+
+          <Button
+          variant={"ghost"}
+            onClick={handleAuthClick}
+            className="ml-2 cursor-pointer px-4 py-2 rounded-lg text-sm font-semibold border border-[var(--mainColor)] text-[var(--mainColor)] hover:bg-[var(--mainColor)] hover:text-white transition"
+          >
+            Sign Up
+          </Button>
           {themeMode ?
             <div className="relative flex rounded-full cursor-pointer mx-3" onClick={changeTheme}>
               <Sun />

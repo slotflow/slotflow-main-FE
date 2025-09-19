@@ -28,9 +28,17 @@ import {
   Wallet2Icon,
   WalletCards,
   WalletMinimal,
+  MessageSquareText, 
+  PictureInPicture2, 
 } from "lucide-react";
 import { ProviderFetchDashboardStatsDataResponse } from "./interface/api/providerApiInterface";
 import { dataSelectListItemInterface, DayMapInterface, FeatureContentInterface, FooterColumnDataInterface, FooterLinkInterface, gsapBigSvgYDirectionAnimationInterface, HeaderCompoenentNavsProps, PlanFeatureInterface, PlanListType, ProviderApprovalMessageInterface, Route, StatsMapForAdminInterface, statsMapIntrface } from "./interface/commonInterface";
+
+import chatImage from '../assets/heroImages/caht.jpg';
+import gCalendar from '../assets/iconImages/gCalendar.png';
+import videoCallImage from '../assets/heroImages/videoCall.jpg';
+import calendarImage from '../assets/heroImages/calendar2.png';;
+import bookingImage from '../assets/heroImages/heroSectionOneImg2.png';
 
 // **** Routes for admin **** \\
 export const adminRoutes: Route[] = [
@@ -520,24 +528,36 @@ export const approvalMessages: ProviderApprovalMessageInterface = {
 // **** Features Section Content
 export const featureContent: FeatureContentInterface[] = [
   {
-    title: "Collaborative Editing",
-    description: "Work together in real time with your team, clients, and stakeholders. Collaborate on documents, share ideas, and make decisions quickly. With our platform, you can streamline your workflow and increase productivity.",
-    href: ""
+    title: "Real-Time Slot Booking",
+    description:
+      "Enable customers to book available slots instantly with live updates. Maximize your scheduling efficiency and reduce double-bookings effortlessly.",
+    image: bookingImage,
+    icon: CalendarCheck,
+    islogo: false,
   },
   {
-    title: "Real time changes",
-    description: "See changes as they happen. With our platform, you can track every modification in real time. No more confusion about the latest version of your project. Say goodbye to the chaos of version control and embrace the simplicity of real-time updates.",
-    href: ""
+    title: "Integrated Chat",
+    description:
+    "Communicate seamlessly with your team and clients in real time. Share updates, resolve queries quickly, and keep everyone on the same page without switching tools.",
+    image: chatImage,
+    icon: MessageSquareText,
+    islogo: false,
   },
   {
-    title: "Version control",
-    description: "Experience real-time updates and never stress about version control again. Our platform ensures that you're always working on the most recent version of your project, eliminating the need for constant manual updates. Stay in the loop, keep your team aligned, and maintain the flow of your work without any interruptions.",
-    href: ""
+    title: "HD Video Calls",
+    description:
+    "Host secure, high-quality video meetings directly from the platform. Connect with clients or teammates, discuss plans, and collaborate face-to-face from anywhere.",
+    image: videoCallImage,
+    icon: PictureInPicture2,
+    islogo: false,
   },
   {
-    title: "Running out of content",
-    description: "Experience real-time updates and never stress about version control again. Our platform ensures that you're always working on the most recent version of your project, eliminating the need for constant manual updates. Stay in the loop, keep your team aligned, and maintain the flow of your work without any interruptions.",
-    href: ""
+    title: "Google Calendar Sync",
+    description:
+    "Automatically and asynchronously add your bookings and schedules to Google Calendar. Keep your availability up-to-date, avoid double bookings, and manage your appointments effortlessly across all devices.",
+    image: calendarImage,
+    logo: gCalendar,
+    islogo: true,
   },
 ];
 

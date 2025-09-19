@@ -20,11 +20,12 @@ export default function SectionPricing() {
         <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:items-center">
           {PlanList.map(plan => (
             <PlanCard
-            key={plan._id}
-            isTrial={true}
-            plan={plan}
-            dummy={true}
-            popular={plan._id === "2" ? true : false}
+              key={plan._id}
+              isTrial={true}
+              plan={plan}
+              dummy={true}
+              popular={plan._id === "2" ? true : false}
+              data-aos="fade-up"
             />
           ))}
         </div>
@@ -32,7 +33,7 @@ export default function SectionPricing() {
         <div className="mt-20 lg:mt-32">
           <Heading heading='Compare Plans' headingDescription='Pick the best plan for your service.' />
 
-          <Table className="table">
+          <Table className="table" data-aos="fade-left">
             <TableHeader>
               <TableRow className="bg-muted hover:bg-muted">
                 <TableHead className="w-3/12 text-primary">Plans</TableHead>
@@ -45,7 +46,7 @@ export default function SectionPricing() {
             </TableHeader>
             <TableBody>
               {planFeatures.map((featureType) => (
-                <React.Fragment key={featureType.type}>
+                <React.Fragment key={featureType.type} >
                   <TableRow className="bg-muted/50">
                     <TableCell colSpan={5} className="font-bold">
                       {featureType.type}

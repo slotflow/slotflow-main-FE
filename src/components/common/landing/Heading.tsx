@@ -10,7 +10,7 @@ const Heading: React.FC<HeadingProps> = ({
   headingDescription,
 }) => {
   return (
-    <div className="max-w-2xl mx-auto text-center mb-10 lg:mb-14">
+    <div className="max-w-2xl mx-auto text-center mb-10 lg:mb-14" data-aos="fade-up">
       <h2 className="text-black dark:text-white scroll-m-20 border-b pb-2 text-3xl font-semibold first:mt-0">
         {heading}
       </h2>

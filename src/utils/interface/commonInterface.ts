@@ -306,7 +306,10 @@ export interface ProviderApprovalMessageInterface {
 export interface FeatureContentInterface {
   title: string;
   description: string;
-  href: string;
+  image: string;
+  logo?: string;
+  icon?: LucideIcon;
+  islogo: boolean;
 }
 
 

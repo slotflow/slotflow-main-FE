@@ -27,10 +27,7 @@ const About: React.FC = () => {
                     headingDescription="Know more about us"
                 />
 
-                <div className="mb-10">
-                    {/* <p className="textsm md:text-lg text-justify" data-aos="fade-down">Slotflow appointment booking</p> */}
-                </div>
-                <ul className="space-y-4" data-aos="fade-down">
+                <ul className="space-y-4" data-aos="fade-up">
                     {points.map((point, index) => (
                         <li key={index} className="flex items-start gap-3" >
                             <CheckCircle className="text-[var(--mainColor)] w-5 h-5 shrink-0 mt-1" />

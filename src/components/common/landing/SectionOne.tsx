@@ -1,52 +1,74 @@
-import { useCallback } from 'react';
-import CommonButton from '../CommonButton';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { heroSectionButtons } from '@/utils/constants';
-import { AppDispatch, RootState } from '@/utils/redux/appStore';
-import heroImage1 from '../../../assets/heroImages/heroSectionOneImg1.png';
-import heroImage2 from '../../../assets/heroImages/heroSectionOneImg2.png';
-import { HandleRoleSelectionFunction } from '@/utils/interface/commonInterface';
-import { setsignInForm, setSignUpForm } from '@/utils/redux/slices/signFormSlice';
+import { gsap } from "gsap";
+import { useEffect, useRef } from "react";
+import world from '../../../assets/svgs/world2.svg';
+import { useDispatch, useSelector } from "react-redux";
+import { setAuthModal } from "@/utils/redux/slices/stateSlice";
+import { AppDispatch, RootState } from "@/utils/redux/appStore";
+import AuthSelectionModal from "@/components/common/landing/AuthSelectionModal";
 
 const SectionOne = () => {
 
     const dispatch = useDispatch<AppDispatch>();
-    const navigate = useNavigate();
-    const themeMode = useSelector((store: RootState) => store.state.lightTheme);
+    const buttonsRef = useRef<HTMLDivElement>(null);
+    const headingRef = useRef<HTMLHeadingElement>(null);
 
-    const handleRoleSelection = useCallback<HandleRoleSelectionFunction>(
-        (url: string) => {
-            dispatch(setSignUpForm(false));
-            dispatch(setsignInForm(true));
-            navigate(url)
-        },
-        [dispatch, navigate]
-    );
+    const state = useSelector((state: RootState) => state.state);
+
+    useEffect(() => {
+        if (headingRef.current) {
+            gsap.fromTo(
+                headingRef.current,
+                { scale: 0.5, opacity: 0 },
+                {
+                    scale: 1,
+                    opacity: 1,
+                    duration: 1.2,
+                    ease: "power3.out",
+                }
+            );
+        }
+
+        if (buttonsRef.current) {
+            const buttons = buttonsRef.current.querySelectorAll("button");
+            gsap.fromTo(
+                buttons,
+                { opacity: 0, y: 40 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.8,
+                    stagger: 0.2,
+                    ease: "power2.out",
+                    delay: 0.8,
+                }
+            );
+        }
+    }, []);
+
+    const handleCloseModal = () => {
+        dispatch(setAuthModal(false));
+    };
 
     return (
-        <section id="home" className="w-full bg-[var(--background)] space-x-2 transition-colors duration-300 ease-in-out">
-            <div className='mx-auto flex justify-between items-center max-w-7xl px-4 lg:px-0 h-screen'>
-                <div className='w-5/12'>
-                    <h1 className="text-5xl font-semibold tracking-tight text-balance sm:text-7xl">Your Time, Your Flow Appointments Made Easy.</h1>
-                    <p className="mt-8 text-lg font-medium text-pretty sm:text-xl/8">Whether you're a coach, doctor, or stylist, SlotFlow simplifies how your clients book you </p>
-                    <div className="mt-10 flex gap-x-6">
-                        {heroSectionButtons.map(button => (
-                            <CommonButton key={button.text} className='bg-[var(--mainColor)] text-white hover:bg-indigo-400' text={button.text} onClick={() => handleRoleSelection(button.href)} />
-                        ))}
-                    </div>
-                </div>
-                <div className='w-6/12  h-full flex items-center'>
-                    <div className=''>
-                        <img
-                            className='rounded-lg border-2 hover:border-[var(--mainColor)]'
-                            src={themeMode ? heroImage1 : heroImage2}
-                        />
-                    </div>
-                </div>
+        <section
+            id="home"
+            className="w-full bg-[var(--background)] space-x-2 transition-colors duration-300 ease-in-out"
+        >
+            {state.authModal && <AuthSelectionModal onClose={handleCloseModal} />}
+            <div className="mx-auto flex flex-col justify-center items-center max-w-7xl px-4 lg:px-0 h-screen text-center">
+                <img
+                    src={world}
+                    className="absolute opacity-30 h-[80%]"
+                />
+                <h1
+                    ref={headingRef}
+                    className="text-[var(--mainColor)] text-7xl md:text-9xl font-bold"
+                >
+                    SLOTFLOW
+                </h1>
             </div>
         </section>
-    )
-}
+    );
+};
 
-export default SectionOne
+export default SectionOne;

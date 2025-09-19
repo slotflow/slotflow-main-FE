@@ -54,6 +54,7 @@ export interface appStateVariables {
     signinForm: boolean;
     sidebarOpen: boolean;
     filterSideBarOpen: boolean;
+    authModal: boolean;
 }
 
 
