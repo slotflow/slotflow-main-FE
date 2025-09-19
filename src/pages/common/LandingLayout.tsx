@@ -1,20 +1,23 @@
 import { useEffect } from "react";
 import Header from "@/components/Navs/Header";
+import { pathNames } from "@/utils/constants";
 import FooterBar from "@/components/Navs/FooterBar";
 import { RootState } from "../../utils/redux/appStore";
 import { useDispatch, useSelector } from "react-redux";
 import { Bounce, ToastContainer } from "react-toastify";
 import { UserData } from "@/utils/interface/sliceInterface";
 import { setAuthUser } from "@/utils/redux/slices/authSlice";
+import { setAuthModal } from "@/utils/redux/slices/stateSlice";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import AuthSelectionModal from "@/components/common/landing/AuthSelectionModal";
 
 const LandingLayout = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const themeMode = useSelector((store: RootState) => store.state?.lightTheme);
   const location = useLocation();
-  const pathNames = ["/user", '/provider', '/admin'];
+  const state = useSelector((state: RootState) => state.state);
+  const themeMode = useSelector((store: RootState) => store.state?.lightTheme);
   const shouldHideFooter = pathNames.some((path) => location.pathname.startsWith(path));
 
   useEffect(() => {
@@ -47,6 +50,10 @@ const LandingLayout = () => {
     }
   }, []);
 
+  const handleCloseModal = () => {
+          dispatch(setAuthModal(false));
+      };
+
   return (
     <>
       <ToastContainer
@@ -58,6 +65,7 @@ const LandingLayout = () => {
         transition={Bounce}
       />
       {!shouldHideFooter && <Header />}
+      {state.authModal && <AuthSelectionModal onClose={handleCloseModal} />}
       <Outlet />
       {!shouldHideFooter && <FooterBar />}
     </>

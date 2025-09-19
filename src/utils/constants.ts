@@ -1075,3 +1075,7 @@ export const termsAndConditionsContent: string[] = [
   "Payments for paid plans are billed according to the selected subscription and must be completed on time to maintain access to premium features.",
   "Slotflow may update these terms periodically. Continued use of the platform after updates indicates your acceptance of the revised terms."
 ];
+
+
+// Landing Layout paths
+export const pathNames: string[] = ["/user", '/provider', '/admin'];

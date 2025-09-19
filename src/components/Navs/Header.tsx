@@ -2,6 +2,7 @@ import { Button } from '../ui/button';
 import React, { useEffect } from 'react';
 import { Moon, Sun } from 'lucide-react';
 import { navigation } from '@/utils/constants';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import logo from '../../assets/logos/logo-transparent.png';
 import { AppDispatch, RootState } from '../../utils/redux/appStore';
@@ -9,6 +10,7 @@ import { setAuthModal, toggleTheme } from '@/utils/redux/slices/stateSlice';
 
 const Header: React.FC = () => {
 
+  const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
 
   const themeMode: boolean = useSelector((store: RootState) => store.state.lightTheme);
@@ -33,11 +35,11 @@ const Header: React.FC = () => {
     <nav className={`w-full bg-[var(--background)] fixed transition-colors duration-300 ease-in-out z-50`}>
       <div className={`max-w-7xl mx-auto flex h-16 items-center justify-between`}>
 
-        <div className='w-3/12 flex items-center'>
+        <div className='w-3/12 flex items-center' onClick={() => navigate('/')} >
           <div className='flex items-center justify-center'>
             <img src={logo} className='size-8' />
           </div>
-          <h4 className="ml-2 text-[var(--mainColor)] text-3xl font-bold italic hover:text-white px-2 rounded-lg cursor-pointer">Slotflow</h4>
+          <h4 className="ml-2 text-[var(--mainColor)] text-3xl font-bold italic px-2 rounded-lg cursor-pointer">Slotflow</h4>
         </div>
 
         <div className='w-6/12'>

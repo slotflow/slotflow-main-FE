@@ -1,18 +1,12 @@
 import { gsap } from "gsap";
 import { useEffect, useRef } from "react";
 import world from '../../../assets/svgs/world2.svg';
-import { useDispatch, useSelector } from "react-redux";
-import { setAuthModal } from "@/utils/redux/slices/stateSlice";
-import { AppDispatch, RootState } from "@/utils/redux/appStore";
-import AuthSelectionModal from "@/components/common/landing/AuthSelectionModal";
 
 const SectionOne = () => {
 
-    const dispatch = useDispatch<AppDispatch>();
     const buttonsRef = useRef<HTMLDivElement>(null);
     const headingRef = useRef<HTMLHeadingElement>(null);
 
-    const state = useSelector((state: RootState) => state.state);
 
     useEffect(() => {
         if (headingRef.current) {
@@ -45,16 +39,11 @@ const SectionOne = () => {
         }
     }, []);
 
-    const handleCloseModal = () => {
-        dispatch(setAuthModal(false));
-    };
-
     return (
         <section
             id="home"
             className="w-full bg-[var(--background)] space-x-2 transition-colors duration-300 ease-in-out"
         >
-            {state.authModal && <AuthSelectionModal onClose={handleCloseModal} />}
             <div className="mx-auto flex flex-col justify-center items-center max-w-7xl px-4 lg:px-0 h-screen text-center">
                 <img
                     src={world}
