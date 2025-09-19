@@ -29,7 +29,9 @@ import {
   WalletCards,
   WalletMinimal,
   MessageSquareText, 
-  PictureInPicture2, 
+  PictureInPicture2,
+  Phone,
+  Mail, 
 } from "lucide-react";
 import { ProviderFetchDashboardStatsDataResponse } from "./interface/api/providerApiInterface";
 import { dataSelectListItemInterface, DayMapInterface, FeatureContentInterface, FooterColumnDataInterface, FooterLinkInterface, gsapBigSvgYDirectionAnimationInterface, HeaderCompoenentNavsProps, PlanFeatureInterface, PlanListType, ProviderApprovalMessageInterface, Route, StatsMapForAdminInterface, statsMapIntrface } from "./interface/commonInterface";
@@ -39,6 +41,7 @@ import gCalendar from '../assets/iconImages/gCalendar.png';
 import videoCallImage from '../assets/heroImages/videoCall.jpg';
 import calendarImage from '../assets/heroImages/calendar2.png';;
 import bookingImage from '../assets/heroImages/heroSectionOneImg2.png';
+import { ContactItem } from "./interface/componentInterface/commonComponentInterface";
 
 // **** Routes for admin **** \\
 export const adminRoutes: Route[] = [
@@ -166,8 +169,8 @@ export const navigation: HeaderCompoenentNavsProps[] = [
   { name: 'Features', href: '#features', current: false },
   { name: 'Pricing', href: '#pricing', current: false },
   { name: 'Reviews', href: '#reviews', current: false },
-  { name: 'About', href: '#about', current: false },
-  { name: 'Contact', href: '#contact', current: false },
+  { name: 'About', href: '/about', current: false },
+  { name: 'Contact', href: '/contact', current: false },
 ]
 
 // **** Provider plan subscription duration array **** \\
@@ -1015,3 +1018,40 @@ export const heroSectionButtons: { text: string, href: string}[] = [
         href: "/provider/login"
     },
 ]
+
+
+// About Page
+export const aboutIntro: string[] = [
+    "Slotflow is more than just a booking tool, it is your complete scheduling companion for the digital age. We empower businesses, professionals, and teams to manage appointments, streamline operations, and provide a frictionless experience to their customers. Whether you are a solo entrepreneur or an enterprise level service provider, Slotflow adapts to your needs and scales with your growth.",
+    "Built with modern technology and designed with a human first approach, Slotflow integrates real time booking, instant notifications, and smooth Google Calendar sync so you never miss an appointment. Features like in app chat and video calls allow you to connect with clients instantly, while our intuitive interface ensures both providers and customers enjoy a clean and effortless experience.",
+    "Our mission is to create a platform that removes the chaos from scheduling, saves time for businesses, and delivers a polished, professional experience every step of the way. With continuous improvements, innovative integrations, and an obsession for user experience, Slotflow is the future of appointment management."
+];
+
+export const aboutFeatures: string[] = [
+    "From smart scheduling to automated workflows, Slotflow takes care of the details so you can focus on what matters most, your clients. Our platform supports role based dashboards for users, providers, and admins, ensuring each stakeholder gets the tools they need. Flexible subscription tiers let you start for free and upgrade as your business grows, while automation handles confirmations, reminders, and updates without requiring constant manual effort.",
+    "Real time synchronization keeps everyone aligned, preventing double bookings and miscommunication. We prioritize scalability and security so your data is safe and performance stays smooth as demand increases. Detailed analytics provide insights into revenue and customer trends, helping you make smarter business decisions. And because we are future focused, Slotflow evolves continuously with new features, integrations, and optimizations driven by user feedback."
+];
+
+export const devWebPortfoilio: string = "https://midhunkpaniker.vercel.app/";
+
+
+// Contact Page
+export const contactData: ContactItem[] = [
+  {
+    icon: Phone,
+    label: "Phone (IN)",
+    value: "+91 97154 3274799",
+    href: "tel:+91971543274799",
+  },
+  {
+    icon: Mail,
+    label: "Email",
+    value: "slotfloe.booking@gmail.com",
+    href: "mailto: slotflow.booking0@gmail.com",
+  },
+  {
+    icon: MapPin,
+    label: "Office",
+    value: "Kerala, India",
+  },
+];

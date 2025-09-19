@@ -5,6 +5,7 @@ import { AdminFetchProviderAvailabilityResponse, AdminFetchProviderServiceRespon
 import { UpdateUserProfileImageResponse, UserFetchProviderAvailabilityResponse, UserFetchProviderServiceResponse } from "../api/userApiInterface";
 import { ProviderFetchServiceAvailabilityResponse, ProviderFetchServiceDetailsResponse, ProviderUpdateProfileImageResponse } from "../api/providerApiInterface";
 import { ChartConfig } from "@/components/ui/chart";
+import { LucideIcon } from "lucide-react";
 
 
 // **** Common component interfaces **** \\
@@ -115,4 +116,13 @@ export interface RadialChartInterface<T extends ChartDataItem> {
   dataKeyTwo: keyof T;
   chartConfig: ChartConfig;
   isLocked: boolean;
+}
+
+
+// **** 14. Contact Page
+export interface ContactItem {
+  icon: LucideIcon;
+  label: string;
+  value: string;
+  href?: string;
 }

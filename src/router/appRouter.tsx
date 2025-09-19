@@ -3,6 +3,8 @@ import PlanGuard from "./planGuard.tsx";
 import { createBrowserRouter } from "react-router-dom";
 import { ProtectedRoute } from "./protectedRoutes.tsx";
 import CalendarPage from "@/pages/common/CalendarPage.tsx";
+import AboutPage from "@/pages/common/AboutPage.tsx";
+import ContactPage from "@/pages/common/ContactPage.tsx";
 
 
 const AuthPage = lazy(() => import("@/pages/common/AuthPage.tsx"));
@@ -57,6 +59,8 @@ export const appRouter = createBrowserRouter([
         element: <LandingLayout />,
         children: [
             { path: "/", element: <LandingPage /> },
+            { path: "/about", element: <AboutPage /> },
+            { path: "/contact", element: <ContactPage /> },
             { path: "/forgotPassword", element: <PasswordResetPage /> },
             { path: "/admin/login", element: <AuthPage role={"ADMIN"} /> },
             { path: "/user/login", element: <AuthPage role={"USER"} /> },
