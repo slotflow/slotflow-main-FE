@@ -20,7 +20,7 @@ const CalendarPage: React.FC = () => {
     const handleUpgradeSubscription = () => {
         navigate('/provider/subscriptions');
     }
-    
+
     const handleMoveToSettings = () => {
         navigate('/provider/settings');
     }
@@ -38,7 +38,7 @@ const CalendarPage: React.FC = () => {
         queryKey: ["calendarEvents"],
         staleTime: 60 * 60 * 1000,
         refetchOnWindowFocus: false,
-         enabled: Boolean(
+        enabled: Boolean(
             authUser &&
             canUseCalendar &&
             (authUser.role === "USER" || authUser.googleConnected)
@@ -68,13 +68,13 @@ const CalendarPage: React.FC = () => {
 
     if (!authUser?.googleConnected) {
         return (
-                <FeatureLocked
-                    message="You are not connected to Google. You can connect your account to google in settings."
-                    buttonText="Settings"
-                    buttonVariant="outline"
-                    onButtonClick={handleMoveToSettings}
-                    icon={Unplug}
-                />
+            <FeatureLocked
+                message="You are not connected to Google. You can connect your account to google in settings."
+                buttonText="Settings"
+                buttonVariant="outline"
+                onButtonClick={handleMoveToSettings}
+                icon={Unplug}
+            />
         )
     }
 
