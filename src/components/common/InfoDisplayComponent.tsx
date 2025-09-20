@@ -64,7 +64,7 @@ const InfoDisplayComponent: React.FC<InfoDisplayComponentRowProps> = ({
         displayValue = formatDate(value);
     } else if (isIframe) {
         return (
-            <tr className={`${!isLast ? "border-b border-[var(--boxBorder)]" : ""}`}>
+            <tr className={`${!isLast ? "border-b " : ""}`}>
                 <td className="p-4 font-medium text-[var(--infoDataLabel)] w-4/12">{label}</td>
                 <td className="p-4 w-8/12">
                     <iframe src={value as string} width="600" height="450" loading="lazy" ></iframe>
@@ -82,7 +82,7 @@ const InfoDisplayComponent: React.FC<InfoDisplayComponentRowProps> = ({
     }
 
     return (
-        <tr className={`${!isLast ? "border-b border-[var(--boxBorder)]" : ""}`}>
+        <tr className={`${!isLast ? "border-b " : ""}`}>
             <td className="p-4 font-medium text-[var(--infoDataLabel)] w-4/12">{label}</td>
             <td className="p-4 w-8/12">{displayValue}</td>
         </tr>

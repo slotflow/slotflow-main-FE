@@ -46,7 +46,7 @@ const ProviderServiceDetails: React.FC<ProviderServiceDetailsComponentProps> = (
     }
 
     return (
-        <div className="border-[var(--boxBorder)] border rounded-md overflow-hidden w-full mt-2">
+        <div className=" border rounded-md overflow-hidden w-full mt-2">
             <table className="table-auto w-full">
                 <tbody className="w-1/2">
                     <>
@@ -68,7 +68,7 @@ const ProviderServiceDetails: React.FC<ProviderServiceDetailsComponentProps> = (
                         <button className='mx-2 cursor-pointer' onClick={() => setLargeImg(!largeImg)}><ImageUpscale /></button>
                     </div>
                     <div className='my-2'>
-                        <img className={`border border-[var(--boxBorder)] object-contain ${largeImg ? 'h-auto w-full' : 'h-52 w-72'}`} src={serviceData?.providerCertificateUrl || imagePlaceholder} />
+                        <img className={`border  object-contain ${largeImg ? 'h-auto w-full' : 'h-52 w-72'}`} src={serviceData?.providerCertificateUrl || imagePlaceholder} />
                     </div>
                 </div>
             )}

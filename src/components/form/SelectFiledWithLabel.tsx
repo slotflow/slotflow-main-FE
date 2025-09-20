@@ -61,7 +61,7 @@ const SelectFiledWithLabel: React.FC<SelectFieldWithLabelProps> = memo(({
             </label>
             <button
                 type="button"
-                className="flex w-full items-center justify-between rounded-md bg-[var(--inputBg)] px-3 py-1.5 text-sm md:text-[16px] text-smring-offset-background data-[placeholder]:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1 border border-[var(--boxBorder)] mt-2 cursor-pointer"
+                className="flex w-full items-center justify-between rounded-md bg-[var(--inputBg)] px-3 py-1.5 text-sm md:text-[16px] text-smring-offset-background data-[placeholder]:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1 border  mt-2 cursor-pointer"
                 onClick={() => setIsOpen(!isOpen)}
             >
                 {/* <span>{selectedValue || "Select"}</span> */}

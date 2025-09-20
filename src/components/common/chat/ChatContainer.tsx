@@ -3,14 +3,13 @@ import { Ellipsis } from "lucide-react";
 import MessageInput from "./MessageInput";
 import { socket } from "@/lib/socketService";
 import { useDispatch, useSelector } from "react-redux";
-import { connectChatSocket, disconnectChatSocket, getMessages } from "@/utils/apis/message.api";
 import React, { useEffect, useRef, useState } from "react";
 import ChatBubbleProfileImage from "./ChatBubbleProfileImage";
 import { formatTo24HourTime } from "@/utils/helper/formatter";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
-// import { useMessage } from "@/utils/hooks/socketHooks/useMessage";
 import { Message } from "@/utils/interface/entityInterface/message.interface";
 import NoChatSelectedSShimmer from "@/components/shimmers/NoChatSelectedSShimmer";
+import { connectChatSocket, disconnectChatSocket, getMessages } from "@/utils/apis/message.api";
 
 interface SocketDataInterface {
     fromUserId: Message["senderId"];
@@ -71,7 +70,7 @@ const ChatContainer: React.FC = () => {
     if (!selectedUser) return <NoChatSelectedSShimmer className="w-9/12" />;
 
     return (
-        <div className="w-full md:w-8/12 flex flex-col overflow-auto border-r border-[var(--boxBorder)] mt-5 md:mt-0">
+        <div className="w-full md:w-8/12 flex flex-col overflow-auto border-r  mt-5 md:mt-0 boder-2">
             <ChatHeader />
             {isMessagesLoading ? (
                 <NoChatSelectedSShimmer className="w-full" />

@@ -52,7 +52,7 @@ const SubscriptionDetailViewPage: React.FC<SubscriptionDetailViewPageProps> = ({
             ) : data ? (
                 <div className="w-full">
                     <h2 className="text-2xl font-bold mb-4">Subscription Details</h2>
-                    <table className="table-auto border-collapse border border-[var(--boxBorder)] w-full">
+                    <table className="table-auto border-collapse border  w-full">
                         <tbody>
                             {dataMap.map((item) => (
                                 <InfoDisplayComponent key={item.label} {...item} />

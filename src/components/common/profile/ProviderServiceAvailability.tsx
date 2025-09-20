@@ -66,7 +66,7 @@ const ProviderServiceAvailability: React.FC<ProviderServiceAvailabilityComponent
                         mode="single"
                         selected={date}
                         onSelect={setDate}
-                        className={`rounded-md border border-[var(--boxBorder)]`}
+                        className={`rounded-md border `}
                     />
                 </div>
 
@@ -78,7 +78,7 @@ const ProviderServiceAvailability: React.FC<ProviderServiceAvailabilityComponent
                             <DataFetchingError message="No availability found." />
                         ) : (
                             <>
-                                <div className="border-[var(--boxBorder)] border rounded-md overflow-hidden w-full">
+                                <div className=" border rounded-md overflow-hidden w-full">
                                     <table className="table-auto w-full">
                                         <tbody className="w-1/2">
                                             <InfoDisplayComponent label="Day" value={data?.day} />

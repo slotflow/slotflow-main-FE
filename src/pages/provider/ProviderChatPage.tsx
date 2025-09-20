@@ -5,7 +5,7 @@ import { providerFetchUsersForChatSideBar } from '@/utils/apis/provider.api';
 
 const ProviderChatPage: React.FC = () => {
   return (
-    <div className="flex overflow-y-scroll no-scrollbar h-full">
+    <div className="flex overflow-y-scroll no-scrollbar h-full rounded-md">
       <ChatSidebar getUsers={providerFetchUsersForChatSideBar} />
       <ChatContainer />
     </div>

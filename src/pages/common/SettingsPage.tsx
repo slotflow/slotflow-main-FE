@@ -73,34 +73,34 @@ const SettingsPage: React.FC = () => {
             <ProfileHead updateProfileImageApiFunction={updateProfileImageApiFunction} updation={true} showDetails />
 
 
-            <div className="border-[var(--boxBorder)] border rounded-md overflow-hidden w-full mt-2">
+            <div className=" border rounded-md overflow-hidden w-full mt-2">
                 <table className="table-auto w-full">
                     <tbody>
                         {(profileDataIsError && profileDataError) ? (
                             <DataFetchingError message="Profile details fetching error" />
                         ) : profileData && (
                             <>
-                                <tr className={`${"border-b border-[var(--boxBorder)]"}`}>
+                                <tr className={`${"border-b "}`}>
                                     <td className="p-4 font-medium text-[var(--infoDataLabel)] w-4/12">Username</td>
                                     <td className="p-4 w-8/12">{profileDataLoading ? "Fetching.." : profileData.username}</td>
                                 </tr>
-                                <tr className={`${"border-b border-[var(--boxBorder)]"}`}>
+                                <tr className={`${"border-b "}`}>
                                     <td className="p-4 font-medium text-[var(--infoDataLabel)] w-4/12">Email</td>
                                     <td className="p-4 w-8/12">{profileDataLoading ? "Fetching.." : profileData.email}</td>
                                 </tr>
-                                <tr className={`${"border-b border-[var(--boxBorder)]"}`}>
+                                <tr className={`${"border-b "}`}>
                                     <td className="p-4 font-medium text-[var(--infoDataLabel)] w-4/12">Phone</td>
                                     <td className="p-4 w-8/12">{profileDataLoading ? "Fetching.." : profileData.phone ?? "Not yet added"}</td>
                                 </tr>
-                                <tr className={`${"border-b border-[var(--boxBorder)]"}`}>
+                                <tr className={`${"border-b "}`}>
                                     <td className="p-4 font-medium text-[var(--infoDataLabel)] w-4/12">Account Status</td>
                                     <td className="p-4 w-8/12">{profileDataLoading ? "Fetching.." : profileData.isBlocked ? <span className='text-red-500'>Blocked</span> : <span className='text-green-500'>Active</span>}</td>
                                 </tr>
-                                <tr className={`${"border-b border-[var(--boxBorder)]"}`}>
+                                <tr className={`${"border-b "}`}>
                                     <td className="p-4 font-medium text-[var(--infoDataLabel)] w-4/12">Email Verified</td>
                                     <td className="p-4 w-8/12">{profileDataLoading ? "Fetching.." : profileData.isEmailVerified ? <span className='text-green-500'>Verified</span> : <span className='text-red-500'>Pending</span>}</td>
                                 </tr>
-                                <tr className={`${"border-b border-[var(--boxBorder)]"}`}>
+                                <tr className={`${"border-b "}`}>
                                     <td className="p-4 font-medium text-[var(--infoDataLabel)] w-4/12">Joined On</td>
                                     <td className="p-4 w-8/12">{profileDataLoading ? "Fetching.." : formatDate(profileData.createdAt)}</td>
                                 </tr>
@@ -108,29 +108,29 @@ const SettingsPage: React.FC = () => {
                         )}
                         {authUser.role === "PROVIDER" && (
                             <>
-                                <tr className={`${"border-b border-[var(--boxBorder)]"}`}>
+                                <tr className={`${"border-b "}`}>
                                     <td className="p-4 font-medium text-[var(--infoDataLabel)] w-4/12">Address Added</td>
                                     <td className="p-4 w-8/12">{authUser.isAddressAdded ? <Check className="text-green-500" /> : <X className="text-red-500" />}</td>
                                 </tr>
-                                <tr className={`${"border-b border-[var(--boxBorder)]"}`}>
+                                <tr className={`${"border-b "}`}>
                                     <td className="p-4 font-medium text-[var(--infoDataLabel)] w-4/12">Service Details Added</td>
                                     <td className="p-4 w-8/12">{authUser.isServiceDetailsAdded ? <Check className="text-green-500" /> : <X className="text-red-500" />}</td>
                                 </tr>
-                                <tr className={`${"border-b border-[var(--boxBorder)]"}`}>
+                                <tr className={`${"border-b "}`}>
                                     <td className="p-4 font-medium text-[var(--infoDataLabel)] w-4/12">Service Availability Added</td>
                                     <td className="p-4 w-8/12">{authUser.isServiceAvailabilityAdded ? <Check className="text-green-500" /> : <X className="text-red-500" />}</td>
                                 </tr>
-                                <tr className={`${"border-b border-[var(--boxBorder)]"}`}>
+                                <tr className={`${"border-b "}`}>
                                     <td className="p-4 font-medium text-[var(--infoDataLabel)] w-4/12">Subscription</td>
                                     <td className="p-4 w-8/12">{authUser.providerSubscription ? <Check className="text-green-500" /> : <X className="text-red-500" />}</td>
                                 </tr>
                             </>
                         )}
-                        <tr className={`${"border-b border-[var(--boxBorder)]"}`}>
+                        <tr className={`${"border-b "}`}>
                             <td className="p-4 font-medium text-[var(--infoDataLabel)] w-4/12">Google Connected</td>
                             <td className="p-4 w-8/12">{authUser.googleConnected ? <Check className="text-green-500" /> : googleConnectionLoding ? <span className="flex"><Loader2 className="animate-spin mr-2" />Connecting to google...</span> : <GoogleButton text='Connect Google' onClick={(e) => handleConnectGoogle(e, dispatch)} className="w-full md:w-4/12" />}</td>
                         </tr>
-                        <tr className={`${"border-b border-[var(--boxBorder)]"}`}>
+                        <tr className={`${"border-b "}`}>
                             <td className="p-4 font-medium text-[var(--infoDataLabel)] w-4/12">Info updated on</td>
                             <td className="p-4 w-8/12">{formatDate(authUser.updatedAt)}</td>
                         </tr>

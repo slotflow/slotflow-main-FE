@@ -69,7 +69,7 @@ const UserOrProviderAddressDetails: React.FC<UserOrProviderAddressDetailsCompone
     };
 
     return (
-        <div className="border-[var(--boxBorder)] border rounded-md overflow-hidden w-full mt-2">
+        <div className=" border rounded-md overflow-hidden w-full mt-2">
             <table className="table-auto w-full">
                 <tbody className="w-1/2">
                     <>

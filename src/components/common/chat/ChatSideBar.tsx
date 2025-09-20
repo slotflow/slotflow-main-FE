@@ -1,4 +1,5 @@
 import { Users } from "lucide-react";
+import { socket } from "@/lib/socketService";
 import { useQuery } from "@tanstack/react-query";
 import { Checkbox } from "@/components/ui/checkbox";
 import DataFetchingError from "../DataFetchingError";
@@ -12,7 +13,6 @@ import { Provider } from "@/utils/interface/entityInterface/providerInterface";
 import { setLastMessage, setOnlineUsers, setSelectedUser } from "@/utils/redux/slices/chatSlice";
 import { UserFetchProvidersForChatSidebarResponse } from "@/utils/interface/api/userApiInterface";
 import { ProviderFetchUsersForChatSidebarResponse } from "@/utils/interface/api/providerApiInterface";
-import { socket } from "@/lib/socketService";
 
 type setLatMessageProps = Pick<Message, "senderId" | "text" | "createdAt">
 type UserProps = Pick<User, "_id" | "username" | "profileImage"> | Pick<Provider, "_id" | "username" | "profileImage">;
@@ -91,9 +91,9 @@ const ChatSidebar: React.FC<ChatSideBarProps> = ({
     if (!data || (isError && error)) return <DataFetchingError message={(error as Error).message} className="min-h-full" />
 
     return (
-        <aside className={`h-full w-full md:w-4/12 flex flex-col transition-all duration-200 sticky border-r border-[var(--boxBorder)] ${selectedUser ? "hidden md:block" : "block"}`}>
+        <aside className={`h-full w-full md:w-4/12 flex flex-col transition-all duration-200 sticky border-r-2 ${selectedUser ? "hidden md:block" : "block"}`}>
 
-            <div className="w-full p-3 md:p-5 border-b border-[var(--boxBorder)]">
+            <div className="w-full p-3 md:p-5 border-b">
                 <div className="lg:flex items-center gap-3">
                     <Users className="size-6" />
                     <label className="cursor-pointer flex items-center gap-2">
@@ -116,7 +116,7 @@ const ChatSidebar: React.FC<ChatSideBarProps> = ({
                         key={user._id}
                         onClick={() => dispatch(setSelectedUser(user))}
                         className={`
-                            w-full p-2 flex gap-3 items-center border-b border-[var(--boxBorder)]
+                            w-full p-2 flex gap-3 items-center border-b
                             hover:bg-[var(--boxBorder)] transition-colors
                             ${selectedUser?._id === user._id ? "" : ""}
                             `}>

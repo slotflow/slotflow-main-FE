@@ -216,7 +216,7 @@ const ProviderAddServiceDetailsPage = () => {
                 <label className="block text-xs md:text-sm/6 font-medium text-[var(--textTwo)] hover:text-[var(--textTwoHover)]">
                   Certificate Preview
                 </label>
-                <div className="mt-2 p-2 h-64 border-2 border-[var(--boxBorder)] rounded-lg flex justify-center items-center">
+                <div className="mt-2 p-2 h-64 border-2  rounded-lg flex justify-center items-center">
                   <img
                     src={previewImage || imagePlaceholder}
                     className="object-contain max-h-full max-w-full"
