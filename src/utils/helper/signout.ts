@@ -9,7 +9,6 @@ import { clearChatSlice } from "../redux/slices/chatSlice";
 import { clearAdminSlice } from "../redux/slices/adminSlice";
 import { clearProviderSlice } from "../redux/slices/providerSlice";
 import { clearSignFormSlice } from "../redux/slices/signFormSlice";
-import { clearCalendarEvents } from "../redux/slices/googleSlice";
 
 export const handleSignoutHelper = async ({
   role,
@@ -31,7 +30,6 @@ export const handleSignoutHelper = async ({
       dispatch(clearSignFormSlice());
       dispatch(clearAdminSlice());
       dispatch(clearUserSlice());
-      dispatch(clearCalendarEvents());
       queryClient.clear();
       queryClient.cancelQueries();
       resetRedux(role);

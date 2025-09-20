@@ -3,6 +3,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { ChartConfig } from "@/components/ui/chart";
 import { Plan } from "./entityInterface/planInterface";
 import { LucideIcon } from "lucide-react";
+import { Booking } from "./entityInterface/bookingInterface";
 
 // **** 1.  Common Response interface
 export interface ApiBaseResponse {
@@ -333,30 +334,30 @@ export interface StatsMapForAdminInterface {
 
 
 //// **** 36.
-export interface GoogleCalendarEvent {
-  id: string; // unique identifier
-  iCalUID: string; // unique global UID for the event
-  kind: string; // "calendar#event"
-  eventType: string; // usually "default"
+export interface GoogleCalendarEvent extends Partial<Booking> {
+  id?: string;
+  iCalUID?: string;
+  kind?: string;
+  eventType?: string;
 
-  summary: string; // title of the event
-  description?: string; // optional description text
+  summary?: string;
+  description?: string;
 
-  start: string; // ISO string: "YYYY-MM-DDTHH:mm:ss"
-  end: string;   // ISO string: "YYYY-MM-DDTHH:mm:ss"
+  start: string;
+  end: string;
 
-  created: string; // when event was created (ISO string)
-  updated: string; // when event was last updated (ISO string)
+  created?: string;
+  updated?: string;
 
-  htmlLink?: string; // Google Calendar event link
-  status: "confirmed" | "tentative" | "cancelled";
+  htmlLink?: string;
+  status?: string;
 
-  creator: {
+  creator?: {
     email: string;
     self?: boolean;
   };
 
-  organizer: {
+  organizer?: {
     email: string;
     self?: boolean;
   };
@@ -371,4 +372,14 @@ export interface GoogleCalendarEvent {
 
   sequence?: number;
   etag?: string;
+
+  extendedProperties?: {
+    private: {
+      bookingStatus?: string;
+      bookingId?: string;
+      title?: string;
+      backgroundColor?: string;
+      textColor?: string;
+    },
+  },
 }

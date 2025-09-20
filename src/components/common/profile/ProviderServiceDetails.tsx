@@ -57,7 +57,7 @@ const ProviderServiceDetails: React.FC<ProviderServiceDetailsComponentProps> = (
                         {!isUser && (
                         <InfoDisplayComponent label="Provider Adhaar" value={serviceData?.providerAdhaar} />
                         )}
-                        <InfoDisplayComponent label="Provider Experience" value={data?.providerExperience} />
+                        <InfoDisplayComponent label="Provider Experience" value={data?.providerExperience} isLast />
                     </>
                 </tbody>
             </table>

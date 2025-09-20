@@ -23,6 +23,7 @@ const AuthSelectionModal: React.FC<AuthSelectionModalProps> = ({ onClose }) => {
       dispatch(setSignUpForm(false));
       dispatch(setsignInForm(true));
       navigate(url);
+      handleClose();
     },
     [dispatch, navigate]
   );
