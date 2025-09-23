@@ -22,7 +22,7 @@ import { buildQueryParams, parseNewCommonResponse } from "../helper";
 import { Booking } from "../interface/entityInterface/bookingInterface";
 import { Provider } from "../interface/entityInterface/providerInterface";
 import { ApiBaseResponse, FetchFunctionParams, ApiPaginatedResponse } from "../interface/commonInterface";
-import { FetchBookingsResponse, FetchOnlineBookingParams, FetchOnlineBookingsForUserResponse, FetchPaymentsResponse, UpdateAddressRequest, UpdateAddressResponse, ValidateRoomId } from "../interface/api/commonApiInterface";
+import { FetchBookingsResponse, FetchOnlineBookingParams, FetchOnlineBookingsForUserResponse, FetchPaymentsResponse, JoinRoomCallbackRequest, UpdateAddressRequest, UpdateAddressResponse, ValidateRoomId } from "../interface/api/commonApiInterface";
 
 // **** User profile apis
 export const userFetchUserProfileDetails = async (): Promise<UserFetchUserProfileDetailsResponse> => {
@@ -130,6 +130,10 @@ export const userValidateRoomId = async (data: ValidateRoomId): Promise<ApiBaseR
     return response.data;
 } 
 
+export const userJoinOrLeftRoomCallBack = async (data: JoinRoomCallbackRequest): Promise<ApiBaseResponse> => {
+    const response = await axiosInstance.patch(`/user/bookings/${data.videoCallRoomId}/join-left`, data);
+    return response.data;
+}      
 
 // user payment apis
 export const userFetchPayments = async (params?: FetchFunctionParams) : Promise<ApiPaginatedResponse<FetchPaymentsResponse>> => {

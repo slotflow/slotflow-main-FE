@@ -5,7 +5,7 @@ import { Booking } from "../entityInterface/bookingInterface";
 import { Address } from "../entityInterface/addressInterface";
 import { Provider } from "../entityInterface/providerInterface";
 import { Subscription } from "../entityInterface/subscriptionInterface";
-import { ApiBaseResponse, FetchFunctionParams } from "../commonInterface";
+import { ApiBaseResponse, FetchFunctionParams, Role } from "../commonInterface";
 
 // **** 1.  Used as the response type of fetch provider subscriptions for admin side and provider side
 export type FetchProviderSubscriptionsResponse = Pick<Subscription, "_id" | "startDate" | "endDate" | "subscriptionStatus"> & Pick<Plan, "planName">;
@@ -34,7 +34,7 @@ export type FetchOnlineBookingsForUserResponse = Pick<Booking, "_id" | "appointm
 export type UpdateAddressRequest = Pick<Address, "_id" | "addressLine" | "phone" | "place" | "city" | "district" | "pincode" | "state" | "country" | "googleMapLink">;
 export interface UpdateAddressResponse extends ApiBaseResponse {
   data: Pick<Address, "_id" | "addressLine" | "phone" | "place" | "city" | "district" | "pincode" | "state" | "country" | "googleMapLink" | "updatedAt">;
-} 
+}
 
 
 // **** 4. Validate booking video call room id request interface used by the provider and the user
@@ -50,6 +50,17 @@ type SubscriptionProps = Pick<Subscription, "startDate" | "endDate" | "subscript
 type PaymentsProps = Pick<Payment, "transactionId" | "discountAmount" | "initialAmount" | "paymentFor" | "paymentGateway" | "paymentMethod" | "paymentStatus" | "totalAmount">;
 type PlanProps = Pick<Plan, "planName" | "price" | "adVisibility" | "maxBookingPerMonth">;
 export interface FetchSubscriptionDetailsResponse extends SubscriptionProps {
-    subscriptionPlanId: PlanProps,
-    paymentId: PaymentsProps,
+  subscriptionPlanId: PlanProps,
+  paymentId: PaymentsProps,
+}
+
+
+
+// **** 6. Used as the request interface for the join room callback api
+export interface JoinRoomCallbackRequest {
+    videoCallRoomId: Booking["videoCallRoomId"],
+    role: Role,
+    joined: boolean;
+    joinedTime?: Date;
+    leftCallTime?: Date;
 }

@@ -22,7 +22,7 @@ import {
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { buildQueryParams, parseNewCommonResponse } from "../helper";
 import { ApiBaseResponse, FetchFunctionParams, ApiPaginatedResponse } from "../interface/commonInterface";
-import { FetchBookingsResponse, FetchOnlineBookingParams, FetchOnlineBookingsForProviderResponse, FetchPaymentsResponse, FetchProviderSubscriptionsResponse, FetchSubscriptionDetailsResponse, UpdateAddressRequest, UpdateAddressResponse, ValidateRoomId } from "../interface/api/commonApiInterface";
+import { FetchBookingsResponse, FetchOnlineBookingParams, FetchOnlineBookingsForProviderResponse, FetchPaymentsResponse, FetchProviderSubscriptionsResponse, FetchSubscriptionDetailsResponse, JoinRoomCallbackRequest, UpdateAddressRequest, UpdateAddressResponse, ValidateRoomId } from "../interface/api/commonApiInterface";
 import { Subscription } from "../interface/entityInterface/subscriptionInterface";
 import { Booking } from "../interface/entityInterface/bookingInterface";
 
@@ -74,6 +74,11 @@ export const providerFetchBookingDetails = async (appointmentId: Booking['_id'])
     const response = await axiosInstance.get(`/provider/bookings${appointmentId}`);
     return response.data;
 }
+
+export const providerJoinOrLeftRoomCallBack = async (data: JoinRoomCallbackRequest): Promise<ApiBaseResponse> => {
+    const response = await axiosInstance.patch(`/provider/bookings/${data.videoCallRoomId}/join-left`, data);
+    return response.data;
+}     
 
 
 // **** Provider services apis

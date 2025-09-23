@@ -1,10 +1,14 @@
+import { toast } from "react-toastify";
 import { Button } from "@/components/ui/button";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from "react-router-dom";
 import { Mic, MicOff, Video, VideoOff } from 'lucide-react';
+import { userJoinOrLeftRoomCallBack } from "@/utils/apis/user.api";
 import { AppDispatch, RootState } from '@/utils/redux/appStore';
 import { setCamera, setMic } from '@/utils/redux/slices/videoSlice';
+import { providerJoinOrLeftRoomCallBack } from "@/utils/apis/provider.api";
+import { JoinRoomCallbackRequest } from "@/utils/interface/api/commonApiInterface";
 
 const LobbyPage = () => {
 
@@ -49,9 +53,38 @@ const LobbyPage = () => {
     };
   }, []);
 
-  const handleJoin = () => {
-    navigate(`/${user?.role === "PROVIDER" ? "provider" : "user"}/video-call-room/${roomId}`);
-  };
+  const handleJoin = async () => {
+    if (!user || !roomId) {
+      toast.error("Something went wrong, please truy again");
+      return;
+    }
+
+    const currentTime = new Date();
+
+    const data: JoinRoomCallbackRequest = {
+      joined: true,
+      role: user.role,
+      joinedTime: currentTime,
+      videoCallRoomId: roomId
+    }
+
+    try {
+      const joinCallback = data.role === "USER"
+        ? userJoinOrLeftRoomCallBack
+        : providerJoinOrLeftRoomCallBack;
+
+      const res = await joinCallback(data);
+
+      if (res.success) {
+        toast.success("Welcome to meet");
+        navigate(`/${user?.role === "PROVIDER" ? "provider" : "user"}/video-call-room/${roomId}`);
+      } else {
+        toast.error(res.message || "Unable to join, please try again");
+      }
+    } catch {
+      toast.error("Please try again");
+    }
+  }
 
   const toggleCamera = () => {
     if (!stream) return;

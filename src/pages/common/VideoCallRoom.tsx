@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import peer from "@/utils/service/peer";
 import { Button } from "@/components/ui/button";
 import { videoSocket } from "@/lib/socketService";
@@ -5,8 +6,11 @@ import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
+import { userJoinOrLeftRoomCallBack } from "@/utils/apis/user.api";
 import { setCamera, setMic } from "@/utils/redux/slices/videoSlice";
+import { providerJoinOrLeftRoomCallBack } from "@/utils/apis/provider.api";
 import { Mic, MicOff, Video, VideoOff, PhoneOff, Loader } from "lucide-react";
+import { JoinRoomCallbackRequest } from "@/utils/interface/api/commonApiInterface";
 
 const RoomPage = () => {
 
@@ -109,7 +113,7 @@ const RoomPage = () => {
       dispatch(setCamera(videoTrack.enabled));
     }
   };
-  
+
   const toggleMic = () => {
     if (!myStream) return;
     const audioTrack = myStream.getAudioTracks()[0];
@@ -118,27 +122,56 @@ const RoomPage = () => {
       dispatch(setMic(audioTrack.enabled));
     }
   };
-  
-  const handleEndCall = () => {
-    myStream?.getTracks().forEach((t) => t.stop());
-    peer.peer.close();
-    videoSocket?.emit("room:leave", { roomId });
-    if (myStream) {
-      const audioTrack = myStream.getAudioTracks()[0];
-      if (audioTrack) {
-        audioTrack.enabled = !audioTrack.enabled;
-        dispatch(setMic(false));
-      }
+
+  const handleEndCall = async () => {
+    if (!user || !roomId) {
+      toast.error("Something went wrong, please truy again");
+      return;
     }
 
-    if (myStream) {
-      const videoTrack = myStream.getVideoTracks()[0];
-      if (videoTrack) {
-        videoTrack.enabled = !videoTrack.enabled;
-        dispatch(setCamera(false));
-      }
+    const currentTime = new Date();
+
+    const data: JoinRoomCallbackRequest = {
+      joined: true,
+      role: user.role,
+      leftCallTime: currentTime,
+      videoCallRoomId: roomId,
     }
-    navigate(`/${user?.role === "PROVIDER" ? "provider" : "user"}/video-call`, { replace: true });
+
+    try {
+      const joinCallback = data.role === "USER"
+        ? userJoinOrLeftRoomCallBack
+        : providerJoinOrLeftRoomCallBack;
+
+      const res = await joinCallback(data);
+
+      if (res.success) {
+        toast.success("You leaved meet successfully");
+        myStream?.getTracks().forEach((t) => t.stop());
+        peer.peer.close();
+        videoSocket?.emit("room:leave", { roomId });
+        if (myStream) {
+          const audioTrack = myStream.getAudioTracks()[0];
+          if (audioTrack) {
+            audioTrack.enabled = !audioTrack.enabled;
+            dispatch(setMic(false));
+          }
+        }
+
+        if (myStream) {
+          const videoTrack = myStream.getVideoTracks()[0];
+          if (videoTrack) {
+            videoTrack.enabled = !videoTrack.enabled;
+            dispatch(setCamera(false));
+          }
+        }
+        navigate(`/${user?.role === "PROVIDER" ? "provider" : "user"}/video-call`, { replace: true });
+      } else {
+        toast.error(res.message || "Unable to join, please try again");
+      }
+    } catch {
+      toast.error("Please try again");
+    }
   };
 
   return (
