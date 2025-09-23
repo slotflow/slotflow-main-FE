@@ -8,8 +8,8 @@ import { FetchOnlineBookingsForUserResponse, ValidateRoomId } from "@/utils/inte
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
 export const UserOnlineBookingTableColumn = (
-    handleProviderJoinCall: (data: ValidateRoomId) => void,
-    handleNavigateToAppointmentDetailPage: (appointmentId: Booking["_id"]) => void,
+    handleUserJoinCall: (data: ValidateRoomId) => void,
+    handleNavigateToBookingDetailPage: (appointmentId: Booking["_id"]) => void,
 ): ColumnDef<FetchOnlineBookingsForUserResponse>[] => [
         {
             accessorKey: "appointmentDate",
@@ -82,7 +82,7 @@ export const UserOnlineBookingTableColumn = (
                             <DropdownMenuSeparator />
                             {appointment.appointmentStatus === AppointmentStatus.Confirmed && (
                                 <DropdownMenuItem
-                                    onClick={() => handleProviderJoinCall({ appointmentId: appointment._id, roomId: appointment.videoCallRoomId })}
+                                    onClick={() => handleUserJoinCall({ appointmentId: appointment._id, roomId: appointment.videoCallRoomId })}
                                     className="flex items-center gap-2"
                                 >
                                     <VideoIcon /> Join
@@ -90,7 +90,7 @@ export const UserOnlineBookingTableColumn = (
                             )}
                             <DropdownMenuItem
                                 className="flex items-center gap-2"
-                                onClick={() => handleNavigateToAppointmentDetailPage(appointment._id)}
+                                onClick={() => handleNavigateToBookingDetailPage(appointment._id)}
                             >
                                 <ReceiptText /> Details
                             </DropdownMenuItem>

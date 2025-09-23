@@ -126,6 +126,7 @@ export const userCancelBooking = async (bookingId: Booking["_id"]) : Promise<Api
 }
 
 export const userValidateRoomId = async (data: ValidateRoomId): Promise<ApiBaseResponse> => {
+    console.log("user validating join room")
     const response = await axiosInstance.get(`/user/bookings/${data.appointmentId}/can-join?roomId=${data.roomId}`);
     return response.data;
 } 

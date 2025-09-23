@@ -8,6 +8,7 @@ import { useProviderAppointmentActions } from "@/utils/hooks/providerHooks/usePr
 import { UserOnlineBookingTableColumn } from "@/components/table/tableColumns/UserOnlineBookingsTableColumn";
 import { ProviderOnlineBookingTableColumn } from "@/components/table/tableColumns/ProviderOnlineBookingsTableColumn";
 import { FetchOnlineBookingsForProviderResponse, FetchOnlineBookingsForUserResponse } from "@/utils/interface/api/commonApiInterface";
+import { useUserBookingActions } from "@/utils/hooks/userHooks/useUserBookingActions";
 
 const VideoCallPage: React.FC = () => {
 
@@ -18,14 +19,19 @@ const VideoCallPage: React.FC = () => {
     handleNavigateToAppointmentDetailPage
   } = useProviderAppointmentActions();
 
+  const {
+    handleNavigateToBookingDetailPage,
+    handleUserJoinCall,
+  } = useUserBookingActions();
+
   const providerColumns = ProviderOnlineBookingTableColumn(
     handleProviderJoinCall,
     handleNavigateToAppointmentDetailPage
   );
 
   const userColumns = UserOnlineBookingTableColumn(
-    handleProviderJoinCall,
-    handleNavigateToAppointmentDetailPage
+    handleUserJoinCall,
+    handleNavigateToBookingDetailPage
   );
 
   return (

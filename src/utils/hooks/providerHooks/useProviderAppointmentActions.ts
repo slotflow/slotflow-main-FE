@@ -32,7 +32,7 @@ export const useProviderAppointmentActions = () => {
         await providerValidateRoomId({appointmentId, roomId})
         .then((res) => {
             if(res.success) {
-                navigate(`/provider/video-call-lobby/${appointmentId}/${roomId}`);
+                navigate(`/provider/video-call-lobby/${roomId}`);
                 dispatch(connectVideoSocket());
             }
         })

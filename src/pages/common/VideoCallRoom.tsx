@@ -43,7 +43,7 @@ const RoomPage = () => {
       stream.getTracks().forEach((track) => peer.peer.addTrack(track, stream));
     };
     initStream();
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (myVideoRef.current && myStream) myVideoRef.current.srcObject = myStream;

@@ -34,11 +34,12 @@ export const useUserBookingActions = (): UseUserBookingActionsCustomHookReturnTy
     }
 
     const handleUserJoinCall = async ({ appointmentId, roomId }: ValidateRoomId) => {
+        console.log("User room join validating ")
             await userValidateRoomId({appointmentId, roomId})
             .then((res) => {
                 console.log("response :",res);
                 if(res.success) {
-                    navigate(`/user/video-call-lobby/${appointmentId}/${roomId}`);
+                    navigate(`/user/video-call-lobby/${roomId}`);
                     dispatch(connectVideoSocket());
                 }
             })
