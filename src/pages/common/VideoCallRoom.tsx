@@ -1,171 +1,200 @@
-import { useDispatch } from 'react-redux';
-import peer from '../../utils/service/peer';
-import { Button } from '@/components/ui/button';
-import { AppDispatch } from '@/utils/redux/appStore';
-import { socket, videoSocket } from '@/lib/socketService';
-import { disconnectVideoSocket } from '@/utils/apis/video.api';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import peer from "@/utils/service/peer";
+import { Button } from "@/components/ui/button";
+import { videoSocket } from "@/lib/socketService";
+import { useEffect, useState, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import { AppDispatch, RootState } from "@/utils/redux/appStore";
+import { setCamera, setMic } from "@/utils/redux/slices/videoSlice";
+import { Mic, MicOff, Video, VideoOff, PhoneOff, Loader } from "lucide-react";
 
-const VideoCallRoom: React.FC = () => {
+const RoomPage = () => {
 
-    const dispatch = useDispatch<AppDispatch>();
-    const [remoteSocketId, setRemoteSocketId] = useState<string | null>(null);
-    const [myStream, setMyStream] = useState<MediaStream | null>(null);
-    const [remoteStream, setRemoteStream] = useState<MediaStream | null>(null);
+  const { roomId } = useParams();
+  const navigate = useNavigate();
 
-    const myVideoRef = useRef<HTMLVideoElement>(null);
-    const remoteVideoRef = useRef<HTMLVideoElement>(null);
+  const dispatch = useDispatch<AppDispatch>();
 
-    const handleUserJoined = useCallback(({ uid, id }: { uid: string, id: string }) => {
-        console.log(`Uid ${uid} joined on room`);
-        setRemoteSocketId(id);
-    }, []);
+  const myVideoRef = useRef<HTMLVideoElement>(null);
+  const remoteVideoRef = useRef<HTMLVideoElement>(null);
 
-    const handleCallUser = useCallback(async () => {
-        console.log("handle call user function called");
-        try {
-            const stream = await navigator.mediaDevices.getUserMedia({
-                audio: true,
-                video: true,
-            });
+  const [myStream, setMyStream] = useState<MediaStream | null>(null);
+  const [remoteSocketId, setRemoteSocketId] = useState<string | null>(null);
+  const [remoteStream, setRemoteStream] = useState<MediaStream | null>(null);
 
-            const offer = await peer.getOffer();
-            videoSocket?.emit("user:call", { to: remoteSocketId, offer });
+  const user = useSelector((state: RootState) => state.auth.authUser);
+  const { isCameraOn, isMicOn } = useSelector((state: RootState) => state.video);
 
-            setMyStream(stream);
-            if (myVideoRef.current) {
-                myVideoRef.current.srcObject = stream;
-            }
-        } catch (error) {
-            console.error("Failed to access media devices", error);
-            alert("Camera/Microphone permission denied. Please allow access and try again.");
-        }
+  useEffect(() => {
+    const initStream = async () => {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
 
-    }, [remoteSocketId, videoSocket]);
+      const videoTrack = stream.getVideoTracks()[0];
+      const audioTrack = stream.getAudioTracks()[0];
 
-    const handleIncommingCall = useCallback(async ({ from, offer }) => {
-        try {
-            setRemoteSocketId(from);
-            const stream = await navigator.mediaDevices.getUserMedia({
-                audio: true,
-                video: true,
-            });
-            setMyStream(stream);
-            console.log("incomming call : ", from, offer);
-            const ans = await peer.getAnswer(offer);
-            videoSocket?.emit("call:accepted", { to: from, ans });
-        } catch (error) {
-            console.error("Failed to access media devices", error);
-            alert("Camera/Microphone permission denied. Please allow access and try again.");
-        }
+      dispatch(setCamera(videoTrack?.enabled ?? false));
+      dispatch(setMic(audioTrack?.enabled ?? false));
 
-    }, [videoSocket]);
+      setMyStream(stream);
+      stream.getTracks().forEach((track) => peer.peer.addTrack(track, stream));
+    };
+    initStream();
+  }, []);
 
-    const sendStreams = useCallback(() => {
-        for (const track of myStream.getTracks()) {
-            peer.peer.addTrack(track, myStream);
-        }
-    }, [myStream]);
+  useEffect(() => {
+    if (myVideoRef.current && myStream) myVideoRef.current.srcObject = myStream;
+  }, [myStream]);
 
-    const handleCallAccepted = useCallback(({ from, ans }) => {
-        peer.setLocalDescription(ans);
-        console.log("Call accepted");
-        sendStreams();
-    }, [sendStreams]);
+  useEffect(() => {
+    if (remoteVideoRef.current && remoteStream) remoteVideoRef.current.srcObject = remoteStream;
+  }, [remoteStream]);
 
-    const handleNegoNeeded = useCallback(async () => {
-        const offer = await peer.getOffer();
-        videoSocket?.emit("peer:nego:needed", { offer, to: remoteSocketId });
-    }, [remoteSocketId, socket]);
+  useEffect(() => {
+    peer.peer.addEventListener("track", (ev) => {
+      setRemoteStream(ev.streams[0]);
+    });
 
-    useEffect(() => {
-        peer.peer.addEventListener("negotiationneeded", handleNegoNeeded);
+    peer.peer.addEventListener("negotiationneeded", async () => {
+      if (!remoteSocketId) return;
+      if (peer.peer.signalingState !== "stable") return;
+      const offer = await peer.getOffer();
+      videoSocket?.emit("peer:nego:needed", { offer, to: remoteSocketId });
+    });
+  }, [remoteSocketId]);
 
-        return () => {
-            peer.peer.removeEventListener("negotiationneeded", handleNegoNeeded);
-        };
-    }, [handleNegoNeeded]);
+  useEffect(() => {
+    videoSocket?.emit("room:join", { roomId, user: { email: "user@example.com" } });
 
-    const handleNegoNeedIncomming = useCallback(
-        async ({ from, offer }) => {
-            const ans = await peer.getAnswer(offer);
-            videoSocket?.emit("peer:nego:done", { to: from, ans });
-        },
-        [videoSocket]
-    );
+    videoSocket?.on("user:joined", async ({ id }) => {
+      setRemoteSocketId(id);
+      const offer = await peer.getOffer();
+      videoSocket?.emit("user:call", { to: id, offer });
+    });
 
-    const handleNegoNeedFinal = useCallback(async ({ ans }) => {
-        await peer.setLocalDescription(ans);
-    }, []);
+    videoSocket?.on("incomming:call", async ({ from, offer }) => {
+      setRemoteSocketId(from);
+      const ans = await peer.getAnswer(offer);
+      videoSocket?.emit("call:accepted", { to: from, ans });
+    });
 
-    useEffect(() => {
-        peer.peer.addEventListener("track", async (ev) => {
-            const remoteStream = ev.streams;
-            console.log("GOT TRACKS!!");
-            setRemoteStream(remoteStream[0]);
-        });
-    }, []);
+    videoSocket?.on("call:accepted", async ({ ans }) => {
+      await peer.setLocalDescription(ans);
+    });
 
-    const handleEndCall = () => {
-        dispatch(disconnectVideoSocket());
+    videoSocket?.on("peer:nego:needed", async ({ from, offer }) => {
+      const ans = await peer.getAnswer(offer);
+      videoSocket?.emit("peer:nego:done", { to: from, ans });
+    });
+
+    videoSocket?.on("peer:nego:final", async ({ ans }) => {
+      await peer.setLocalDescription(ans);
+    });
+
+    videoSocket?.on("user:left", () => {
+      setRemoteStream(null);
+    });
+
+    return () => {
+      videoSocket?.emit("room:leave", { roomId });
+      videoSocket?.off();
+    };
+  }, [roomId]);
+
+
+  const toggleCamera = () => {
+    if (!myStream) return;
+    const videoTrack = myStream.getVideoTracks()[0];
+    if (videoTrack) {
+      videoTrack.enabled = !videoTrack.enabled;
+      dispatch(setCamera(videoTrack.enabled));
+    }
+  };
+  
+  const toggleMic = () => {
+    if (!myStream) return;
+    const audioTrack = myStream.getAudioTracks()[0];
+    if (audioTrack) {
+      audioTrack.enabled = !audioTrack.enabled;
+      dispatch(setMic(audioTrack.enabled));
+    }
+  };
+  
+  const handleEndCall = () => {
+    myStream?.getTracks().forEach((t) => t.stop());
+    peer.peer.close();
+    videoSocket?.emit("room:leave", { roomId });
+    if (myStream) {
+      const audioTrack = myStream.getAudioTracks()[0];
+      if (audioTrack) {
+        audioTrack.enabled = !audioTrack.enabled;
+        dispatch(setMic(false));
+      }
     }
 
-    useEffect(() => {
-        videoSocket?.on("user:joined", handleUserJoined);
-        videoSocket?.on("incomming:call", handleIncommingCall);
-        videoSocket?.on("call:accepted", handleCallAccepted);
-        videoSocket?.on("peer:nego:needed", handleNegoNeedIncomming);
-        videoSocket?.on("peer:nego:final", handleNegoNeedFinal);
-        return () => {
-            videoSocket?.off("user:joined", handleUserJoined);
-            videoSocket?.off("incomming:call", handleIncommingCall);
-            videoSocket?.off("call:accepted", handleCallAccepted);
-            videoSocket?.off("peer:nego:needed", handleNegoNeedIncomming);
-            videoSocket?.off("peer:nego:final", handleNegoNeedFinal);
-        }
-    }, [
-        handleUserJoined,
-        handleIncommingCall,
-        handleCallAccepted,
-        handleNegoNeedIncomming,
-        handleNegoNeedFinal,
-    ]);
+    if (myStream) {
+      const videoTrack = myStream.getVideoTracks()[0];
+      if (videoTrack) {
+        videoTrack.enabled = !videoTrack.enabled;
+        dispatch(setCamera(false));
+      }
+    }
+    navigate(`/${user?.role === "PROVIDER" ? "provider" : "user"}/video-call`, { replace: true });
+  };
 
-    return (
-        <div>
-            <h1 className="text-6xl font-bold">Room Page</h1>
-            {myStream && (<Button onClick={sendStreams}>Send Stream</Button>)}
-            {myStream && (<Button onClick={handleEndCall}>Send Stream</Button>)}
-            <h4>{remoteSocketId ? "You are connected" : "No one in room"}</h4>
-            {remoteSocketId && (<Button onClick={handleCallUser}>Call</Button>)}
-            {myStream && (
-                <>
-                    <h1 className="text-3xl">My Stream</h1>
-                    <video
-                        ref={myVideoRef}
-                        autoPlay
-                        playsInline
-                        muted
-                        className="h-[400px] w-[600px] rounded-lg max-w-md aspect-video object-cover transform scale-x-[-1]"
-                    />
-                </>
-            )}
-
-            {remoteStream && (
-                <>
-                    <h1 className="text-3xl">Remote Stream</h1>
-                    <video
-                        ref={remoteVideoRef}
-                        autoPlay
-                        playsInline
-                        muted
-                        className="h-[400px] w-[600px] rounded-lg max-w-md aspect-video object-cover transform scale-x-[-1]"
-                    />
-                </>
-            )}
-
+  return (
+    <div className="flex flex-col items-center justify-center h-screen">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="relative w-full h-[300px] md:h-[400px] rounded-2xl overflow-hidden bg-black">
+          <video
+            ref={myVideoRef}
+            autoPlay
+            muted
+            playsInline
+            className="w-full h-full object-cover rounded-2xl scale-x-[-1]"
+          />
+          {(!isCameraOn || !isMicOn) && (
+            <div className="absolute inset-0 flex items-center justify-center bg-black/70 text-white text-lg font-semibold">
+              {!isCameraOn && !isMicOn
+                ? "Camera and Mic turned off"
+                : !isCameraOn
+                  ? "Camera turned off"
+                  : "Mic turned off"}
+            </div>
+          )}
         </div>
-    )
-}
 
-export default VideoCallRoom;
+        {remoteStream ? (
+          <div className="relative w-full h-[300px] md:h-[400px] rounded-2xl overflow-hidden bg-black">
+            <video
+              ref={remoteVideoRef}
+              autoPlay
+              playsInline
+              className="w-full h-full object-cover rounded-2xl scale-x-[-1]"
+            />
+          </div>
+        ) : (
+          <div className="flex justify-center items-center border rounded-2xl w-full h-[300px] md:h-[400px]">
+            <span>
+              <Loader className="animate-spin w-6 h-6 text-gray-500" />
+            </span>
+          </div>
+        )}
+      </div>
+
+
+      <div className="flex gap-4 mt-6 bg-[var(--menuItemHoverBg)] p-4 rounded-xl shadow">
+        <Button onClick={toggleCamera} variant={isCameraOn ? "default" : "destructive"}>
+          {isCameraOn ? <Video /> : <VideoOff />}
+        </Button>
+        <Button onClick={toggleMic} variant={isMicOn ? "default" : "destructive"}>
+          {isMicOn ? <Mic /> : <MicOff />}
+        </Button>
+        <Button onClick={handleEndCall} variant="destructive">
+          <PhoneOff />
+        </Button>
+      </div>
+    </div>
+  );
+};
+
+export default RoomPage;

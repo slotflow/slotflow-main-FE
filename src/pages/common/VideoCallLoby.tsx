@@ -1,152 +1,130 @@
-import { toast } from 'react-toastify';
-import { useSelector } from 'react-redux';
-import { Button } from '@/components/ui/button';
-import { videoSocket } from '@/lib/socketService';
-import { RootState } from '@/utils/redux/appStore';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Button } from "@/components/ui/button";
+import { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useParams } from "react-router-dom";
 import { Mic, MicOff, Video, VideoOff } from 'lucide-react';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { AppDispatch, RootState } from '@/utils/redux/appStore';
+import { setCamera, setMic } from '@/utils/redux/slices/videoSlice';
 
-const VideoCallLoby: React.FC = () => {
+const LobbyPage = () => {
 
-    const { roomId } = useParams();
-    const navigate = useNavigate();
-    const user = useSelector((state: RootState) => state.auth.authUser);
+  const { roomId } = useParams();
+  const navigate = useNavigate();
 
-    console.log("roomId : ",roomId);
-    console.log("uid : ",user?.uid);
+  const dispatch = useDispatch<AppDispatch>();
+  const videoRef = useRef<HTMLVideoElement>(null);
 
-    const videoRef = useRef<HTMLVideoElement>(null);
-    const streamRef = useRef<MediaStream | null>(null);
+  const [stream, setStream] = useState<MediaStream | null>(null);
 
-    const [cameraOn, setCameraOn] = useState<boolean>(true);
-    const [micOn, setMicOn] = useState<boolean>(true);
+  const user = useSelector((state: RootState) => state.auth.authUser);
+  const { isCameraOn, isMicOn } = useSelector((state: RootState) => state.video);
 
-    // --- 1️⃣ Get Camera + Mic Stream on Mount ---
-    useEffect(() => {
-        const getMediaStream = async () => {
-            try {
-                const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-                streamRef.current = stream;
-                if (videoRef.current) {
-                    videoRef.current.srcObject = stream;
-                }
-            } catch (error) {
-                console.error("Error accessing camera/mic:", error);
-                toast.error("Cannot access camera/mic. Please check permissions.");
-            }
-        };
+  useEffect(() => {
+    const getPreview = async () => {
+      try {
+        const localStream = await navigator.mediaDevices.getUserMedia({
+          video: true,
+          audio: true,
+        });
 
-        getMediaStream();
+        const videoTrack = localStream.getVideoTracks()[0];
+        const audioTrack = localStream.getAudioTracks()[0];
 
-        return () => {
-            // Stop tracks when leaving lobby
-            streamRef.current?.getTracks().forEach(track => track.stop());
-        };
-    }, []);
+        dispatch(setCamera(videoTrack?.enabled ?? false));
+        dispatch(setMic(audioTrack?.enabled ?? false));
 
-
-    // --- 2️⃣ Toggle Camera ---
-    const toggleCamera = () => {
-        if (streamRef.current) {
-            const videoTrack = streamRef.current.getVideoTracks()[0];
-            if (videoTrack) {
-                videoTrack.enabled = !videoTrack.enabled;
-                setCameraOn(videoTrack.enabled);
-            }
-        }
+        setStream(localStream);
+        if (videoRef.current) videoRef.current.srcObject = localStream;
+      } catch (err) {
+        console.error("Cannot access camera:", err);
+        dispatch(setCamera(false));
+        dispatch(setMic(false));
+      }
     };
 
-    // --- 3️⃣ Toggle Mic ---
-    const toggleMic = () => {
-        if (streamRef.current) {
-            const audioTrack = streamRef.current.getAudioTracks()[0];
-            if (audioTrack) {
-                audioTrack.enabled = !audioTrack.enabled;
-                setMicOn(audioTrack.enabled);
-            }
-        }
+    getPreview();
+
+    return () => {
+      stream?.getTracks().forEach((t) => t.stop());
     };
+  }, []);
 
-    const handleSubmit = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
-        console.log("handleSubmit function calling");
-        e.preventDefault();
-        const uid: string = user?.uid || "";
-        if (!user) {
-            toast.error("Something went wrong, please try again");
-            return;
-        }
+  const handleJoin = () => {
+    navigate(`/${user?.role === "PROVIDER" ? "provider" : "user"}/video-call-room/${roomId}`);
+  };
 
-        console.log("video socket emiting");
-        videoSocket?.emit("room:join", { uid, roomId });
-    }, [user, roomId]);
+  const toggleCamera = () => {
+    if (!stream) return;
+    const videoTrack = stream.getVideoTracks()[0];
+    if (videoTrack) {
+      videoTrack.enabled = !videoTrack.enabled;
+      dispatch(setCamera(videoTrack.enabled));
+    }
+  };
 
-    const handleJoinRoom = useCallback((data: { uid: string, roomId: string }) => {
-        console.log("handleJoinRoom function calling");
-        const { 
-            // uid, 
-            roomId } = data;
-        navigate(`/${user?.role === "PROVIDER" ? "provider" : "user"}/video-call-room/${roomId}`);
-    }, [user, navigate]);
-    
+  const toggleMic = () => {
+    if (!stream) return;
+    const audioTrack = stream.getAudioTracks()[0];
+    if (audioTrack) {
+      audioTrack.enabled = !audioTrack.enabled;
+      dispatch(setMic(audioTrack.enabled));
+    }
+  };
 
-    useEffect(() => {
-        videoSocket?.on("room:join", handleJoinRoom);
-        videoSocket?.on("user:joined", (data) => {
-        console.log("Other user joined:", data);
-        toast.info("Another participant joined the lobby!");
-    });
-
-        return () => {
-            videoSocket?.off("room:join", handleJoinRoom);
-            videoSocket?.off("user:joined");
-        }
-    }, [handleJoinRoom]);
-
-    return (
-        <div className="flex flex-col items-center justify-center gap-6 p-4">
-            <h1 className="text-2xl font-bold">Video Call Lobby</h1>
-
-            {/* Camera Preview */}
-            <div className="relative w-[320px] h-[240px] bg-black rounded-xl overflow-hidden shadow-lg">
-                <video
-                    ref={videoRef}
-                    autoPlay
-                    muted
-                    playsInline
-                    className="w-full h-full object-cover scale-x-[-1]"
-                />
-                {!cameraOn && (
-                    <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-70 text-white text-lg">
-                        Camera Off
-                    </div>
-                )}
+  return (
+    <div className="grid grid-cols-12 h-screen">
+      <div className="col-span-8 flex flex-col justify-center items-center p-8">
+        <div className="relative w-full max-w-3xl h-[400px] rounded-2xl overflow-hidden shadow-lg">
+          <video
+            ref={videoRef}
+            autoPlay
+            muted
+            playsInline
+            className="w-full h-full object-cover rounded-2xl scale-x-[-1]"
+          />
+          {(!isCameraOn || !isMicOn) && (
+            <div className="absolute inset-0 flex items-center justify-center bg-black/70 text-white text-lg font-semibold">
+              {!isCameraOn && !isMicOn
+                ? "Camera and Mic turned off"
+                : !isCameraOn
+                  ? "Camera turned off"
+                  : "Mic turned off"}
             </div>
-
-            {/* Controls */}
-            <div className="flex gap-4">
-                <Button
-                    variant={cameraOn ? "default" : "destructive"}
-                    onClick={toggleCamera}
-                    className="rounded-full p-4 cursor-pointer"
-                >
-                    {cameraOn ? <Video size={20} /> : <VideoOff size={20} />}
-                </Button>
-
-                <Button
-                    variant={micOn ? "default" : "destructive"}
-                    onClick={toggleMic}
-                    className="rounded-full p-4 cursor-pointer"
-                >
-                    {micOn ? <Mic size={20} /> : <MicOff size={20} />}
-                </Button>
-
-                <Button onClick={handleSubmit} className="px-6 cursor-pointer">
-                    Join Call
-                </Button>
-            </div>
+          )}
         </div>
-    )
-}
 
-export default VideoCallLoby
+        <div className="flex gap-4 mt-6 bg-[var(--menuItemHoverBg)] p-4 rounded-xl shadow">
+          <Button
+            onClick={toggleCamera}
+            variant={isCameraOn ? "default" : "destructive"}
+            className="cursor-pointer"
+          >
+            {isCameraOn ? <Video /> : <VideoOff />}
+          </Button>
+          <Button
+            onClick={toggleMic}
+            variant={isMicOn ? "default" : "destructive"}
+            className="cursor-pointer"
+          >
+            {isMicOn ? <Mic /> : <MicOff />}
+          </Button>
+        </div>
+      </div>
+
+      <div className="col-span-4 flex flex-col justify-center p-8 shadow-lg">
+        <h1 className="text-3xl font-bold mb-4">Welcome to the Lobby</h1>
+        <p className="mb-6">
+          Check your camera and microphone before joining the meeting.
+        </p>
+        <Button
+          onClick={handleJoin}
+          className="cursor-pointer hover:bg-[var(--mainColor)] dark:hover:text-white"
+        >
+          Join Now
+        </Button>
+      </div>
+    </div>
+  );
+};
+
+export default LobbyPage;

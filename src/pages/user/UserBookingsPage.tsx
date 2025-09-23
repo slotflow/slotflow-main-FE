@@ -6,8 +6,8 @@ import { UserBookingsTableColumns } from "@/components/table/tableColumns/UserBo
 
 const UserBookingsPage = () => {
 
-    const { handleUserCancelBooking, handleNavigateToBookingDetailPage } = useUserBookingActions();
-    const columns = UserBookingsTableColumns(handleUserCancelBooking, handleNavigateToBookingDetailPage);
+    const { handleUserCancelBooking, handleUserJoinCall, handleNavigateToBookingDetailPage } = useUserBookingActions();
+    const columns = UserBookingsTableColumns(handleUserCancelBooking, handleUserJoinCall, handleNavigateToBookingDetailPage);
 
     return (
         <CommonTable<FetchBookingsResponse>

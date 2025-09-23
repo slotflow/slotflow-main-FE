@@ -1,14 +1,15 @@
 import { format } from "date-fns";
 import { Button } from "../../ui/button";
-import { MoreHorizontal, ReceiptText } from "lucide-react";
 import { ColumnDef } from "@tanstack/react-table";
 import { DataTableColumnHeader } from "../DataTableColumnHeader";
-import { FetchBookingsResponse } from "@/utils/interface/api/commonApiInterface";
+import { MoreHorizontal, ReceiptText, VideoIcon } from "lucide-react";
+import { AppointmentStatus, Booking } from "@/utils/interface/entityInterface/bookingInterface";
+import { FetchBookingsResponse, ValidateRoomId } from "@/utils/interface/api/commonApiInterface";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../../ui/dropdown-menu";
-import { Booking } from "@/utils/interface/entityInterface/bookingInterface";
 
 export const UserBookingsTableColumns = (
   handleUserCancelBooking: (bookingId: Booking["_id"]) => void,
+  handleUserJoinCall: (data: ValidateRoomId) => void,
   handleNavigateToBookingDetailPage: (bookingId: Booking["_id"]) => void,
 ): ColumnDef<FetchBookingsResponse>[] => [
     {
@@ -78,7 +79,18 @@ export const UserBookingsTableColumns = (
               <DropdownMenuSeparator />
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               {booking.appointmentStatus === "Booked" && (
-                <DropdownMenuItem onClick={() => handleUserCancelBooking(booking._id)}>Cancel</DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => handleUserCancelBooking(booking._id)}>
+                  Cancel
+                </DropdownMenuItem>
+              )}
+              {booking.appointmentStatus === AppointmentStatus.Confirmed && (
+                <DropdownMenuItem
+                  onClick={() => handleUserJoinCall({ appointmentId: booking._id, roomId: booking.videoCallRoomId })}
+                  className="flex items-center gap-2"
+                >
+                  <VideoIcon /> Join
+                </DropdownMenuItem>
               )}
               <DropdownMenuItem
                 className="flex items-center gap-2"
