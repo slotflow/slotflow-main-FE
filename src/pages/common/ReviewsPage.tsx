@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ProviderReviewsPage:React.FC = () => {
+const ReviewsPage:React.FC = () => {
   return (
     <div className="h-screen flex justify-center items-center">
       Under Development
@@ -8,4 +8,4 @@ const ProviderReviewsPage:React.FC = () => {
   )
 }
 
-export default ProviderReviewsPage
+export default ReviewsPage;

@@ -3,6 +3,9 @@ import { UserStateVariables } from "@/utils/interface/sliceInterface";
 
 const initialState: UserStateVariables = {
   selectedServices: null,
+  isReviewAddFormOpen: false,
+  selectedBookingId: null,
+  selectedBookingProviderId: null,
 };
 
 const userSlice = createSlice({
@@ -14,6 +17,11 @@ const userSlice = createSlice({
     },
     clearUserSlice: (state) => {
       state.selectedServices = null;
+    },
+    toggleReviewAddForm: (state, action: PayloadAction<{ isOpen: boolean, id: string| null, providerId: string| null }>) => {
+      state.isReviewAddFormOpen = action.payload.isOpen;
+      state.selectedBookingId = action.payload.id;
+      state.selectedBookingProviderId = action.payload.providerId;
     }
   },
 
@@ -21,7 +29,8 @@ const userSlice = createSlice({
 
 export const {
   addService,
-  clearUserSlice
+  clearUserSlice,
+  toggleReviewAddForm
 } = userSlice.actions;
 
 export default userSlice.reducer;

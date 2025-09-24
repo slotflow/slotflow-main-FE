@@ -15,6 +15,7 @@ import {
     UserFetchProviderProfileDetailsResponse,
     UserFetchProvidersForChatSidebarResponse,
     UserAddUserAddressResponse,
+    UserAddReviewRequest,
 } from "../interface/api/userApiInterface";
 import { axiosInstance } from "@/lib/axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
@@ -147,4 +148,11 @@ export const userFetchPayments = async (params?: FetchFunctionParams) : Promise<
 export const UserFetchProvidersForChatSideBar = async () : Promise<UserFetchProvidersForChatSidebarResponse> => {
     const response = await axiosInstance.get('/user/chat/providers');
     return response.data.data;
+}
+
+
+// user review api
+export const userAddReview = async (data: UserAddReviewRequest): Promise<ApiBaseResponse> => {
+    const response = await axiosInstance.post('/user/reviews/', data );
+    return response.data;
 }

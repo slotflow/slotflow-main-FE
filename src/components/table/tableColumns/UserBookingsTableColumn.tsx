@@ -2,7 +2,7 @@ import { format } from "date-fns";
 import { Button } from "../../ui/button";
 import { ColumnDef } from "@tanstack/react-table";
 import { DataTableColumnHeader } from "../DataTableColumnHeader";
-import { MoreHorizontal, ReceiptText, VideoIcon } from "lucide-react";
+import { MoreHorizontal, NotebookPen, ReceiptText, VideoIcon } from "lucide-react";
 import { AppointmentStatus, Booking } from "@/utils/interface/entityInterface/bookingInterface";
 import { FetchBookingsResponse, ValidateRoomId } from "@/utils/interface/api/commonApiInterface";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../../ui/dropdown-menu";
@@ -11,6 +11,7 @@ export const UserBookingsTableColumns = (
   handleUserCancelBooking: (bookingId: Booking["_id"]) => void,
   handleUserJoinCall: (data: ValidateRoomId) => void,
   handleNavigateToBookingDetailPage: (bookingId: Booking["_id"]) => void,
+  handleReviewAddFormToggle: (e: React.MouseEvent<HTMLDivElement>, bookingId: string, providerId: string) => void,
 ): ColumnDef<FetchBookingsResponse>[] => [
     {
       accessorKey: "appointmentDate",
@@ -90,6 +91,14 @@ export const UserBookingsTableColumns = (
                   className="flex items-center gap-2"
                 >
                   <VideoIcon /> Join
+                </DropdownMenuItem>
+              )}
+              {booking.appointmentStatus === AppointmentStatus.Completed && (
+                <DropdownMenuItem
+                  onClick={(e: React.MouseEvent<HTMLDivElement>) => handleReviewAddFormToggle(e, booking._id, booking.serviceProviderId )}
+                  className="flex items-center gap-2"
+                >
+                  <NotebookPen /> Add Review
                 </DropdownMenuItem>
               )}
               <DropdownMenuItem

@@ -24,7 +24,7 @@ const InfoHeader: React.FC<InfoHeaderProps> = ({
         window.addEventListener("online" , () => {
             setIsOnline(true);
         })
-    }, [])
+    }, []);
 
     return (
         <nav className={`bg-[var(--menuItemHoverBg)] m-4 p-2 rounded-md mt-4 flex justify-between`}>

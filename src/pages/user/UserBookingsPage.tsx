@@ -9,12 +9,14 @@ const UserBookingsPage = () => {
     const { 
         handleUserCancelBooking, 
         handleUserJoinCall, 
-        handleNavigateToBookingDetailPage 
+        handleNavigateToBookingDetailPage,
+        handleReviewAddFormToggle
     } = useUserBookingActions();
     const columns = UserBookingsTableColumns(
         handleUserCancelBooking, 
         handleUserJoinCall, 
-        handleNavigateToBookingDetailPage
+        handleNavigateToBookingDetailPage,
+        handleReviewAddFormToggle
     );
 
     return (

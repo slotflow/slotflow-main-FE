@@ -1,12 +1,12 @@
-import gsap from "gsap";
+import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { AppDispatch } from "@/utils/redux/appStore";
-import { useCallback, useEffect, useRef } from "react";
 import booking from '../../../assets/svgs/booking.svg';
 import service from '../../../assets/svgs/service.svg';
 import { HandleRoleSelectionFunction } from "@/utils/interface/commonInterface";
+import { useModalAnimation } from "@/utils/hooks/systemHooks/useModalAnimation";
 import { setsignInForm, setSignUpForm } from "@/utils/redux/slices/signFormSlice";
 
 interface AuthSelectionModalProps {
@@ -14,46 +14,26 @@ interface AuthSelectionModalProps {
 }
 
 const AuthSelectionModal: React.FC<AuthSelectionModalProps> = ({ onClose }) => {
-  const modalRef = useRef<HTMLDivElement>(null);
-  const dispatch = useDispatch<AppDispatch>();
+
   const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
+  const { modalRef, closeModal } = useModalAnimation(onClose);
 
   const handleRoleSelection = useCallback<HandleRoleSelectionFunction>(
     (url: string) => {
       dispatch(setSignUpForm(false));
       dispatch(setsignInForm(true));
       navigate(url);
-      handleClose();
+      closeModal();
     },
-    [dispatch, navigate]
+    [dispatch, navigate, closeModal]
   );
 
-  useEffect(() => {
-    if (modalRef.current) {
-      gsap.fromTo(
-        modalRef.current,
-        { y: "-100%", opacity: 0 },
-        { y: "0%", opacity: 1, duration: 0.6, ease: "power3.out" }
-      );
-    }
-  }, []);
-
-  const handleClose = () => {
-    if (modalRef.current) {
-      gsap.to(modalRef.current, {
-        y: "-100%",
-        opacity: 0,
-        duration: 0.5,
-        ease: "power3.in",
-        onComplete: onClose,
-      });
-    }
-  };
 
   return (
     <div
       className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
-      onClick={handleClose}
+      onClick={closeModal}
     >
       <div
         ref={modalRef}
@@ -99,7 +79,7 @@ const AuthSelectionModal: React.FC<AuthSelectionModalProps> = ({ onClose }) => {
 
         <Button
           variant="outline"
-          onClick={handleClose}
+          onClick={closeModal}
           className="mt-6 text-sm cursor-pointer"
         >
           Close

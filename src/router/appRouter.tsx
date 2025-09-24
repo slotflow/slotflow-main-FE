@@ -33,7 +33,7 @@ const UserServiceProviderDetailPage = lazy(() => import("@/pages/user/UserServic
 const ProviderMainPage = lazy(() => import("@/pages/provider/ProviderMainPage.tsx"));
 const ProviderChatPage = lazy(() => import("@/pages/provider/ProviderChatPage.tsx"));
 const ProviderServicePage = lazy(() => import("@/pages/provider/ProviderServicePage.tsx"));
-const ProviderReviewsPage = lazy(() => import("@/pages/provider/ProviderReviewsPage.tsx"));
+const ReviewsPage = lazy(() => import("@/pages/common/ReviewsPage.tsx"));
 const ProviderPaymentsPage = lazy(() => import("@/pages/provider/ProviderPaymentsPage.tsx"));
 const ProviderDashboardPage = lazy(() => import("@/pages/provider/ProviderDashboardPage.tsx"));
 const ProviderAppointmentsPage = lazy(() => import("@/pages/provider/ProviderAppointmentsPage.tsx"));
@@ -114,6 +114,7 @@ export const appRouter = createBrowserRouter([
                         element: <VideoCallRoom />
                     },
                     { path: "calendar", element: <CalendarPage /> },
+                    { path: "reviews", element: <ReviewsPage /> },
                     { path: "notifications", element: <UserNotificationsPage /> },
                     { path: "settings", element: <SettingsPage /> },
                     { path: "payment-success", element: <PaymentConfirmPage status={true} userType={"user"} /> },
@@ -138,7 +139,7 @@ export const appRouter = createBrowserRouter([
                         path: "reviews",
                         element: (
                             <PlanGuard routeName="Reviews">
-                                <ProviderReviewsPage />
+                                <ReviewsPage />
                             </PlanGuard>
                         )
                     },

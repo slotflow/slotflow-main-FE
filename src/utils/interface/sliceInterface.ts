@@ -74,4 +74,7 @@ export interface ProviderState {
 // **** User slice interface **** \\
 export interface UserStateVariables {
   selectedServices: string[] | null;
+  isReviewAddFormOpen: boolean;
+  selectedBookingId: string | null;
+  selectedBookingProviderId: string | null;
 }

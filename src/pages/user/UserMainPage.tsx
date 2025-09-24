@@ -9,6 +9,7 @@ import avatar from '../../assets/defaultImages/avatar.png';
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
 import FilterRightSideBar from "@/components/Navs/FilterRightSideBar";
 import { toggleFilterSideBar } from "@/utils/redux/slices/stateSlice";
+import ReviewForm from "@/components/user/ReviewForm";
 
 const UserMainPage = () => {
 
@@ -16,6 +17,7 @@ const UserMainPage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const user = useSelector((store: RootState) => store.auth.authUser);
   const { sidebarOpen } = useSelector((store: RootState) => store.state);
+  const { isReviewAddFormOpen } = useSelector((store: RootState) => store.user);
 
   return (
     <div className="flex h-screen bg-[var(--background)] transition all duration-300">
@@ -28,6 +30,9 @@ const UserMainPage = () => {
           </Suspense>
           {location?.pathname === '/user/dashboard' && (
             <FilterRightSideBar onClose={() => dispatch(toggleFilterSideBar())} />
+          )}
+          {isReviewAddFormOpen && (
+            <ReviewForm />
           )}
         </div>
       </div>

@@ -5,6 +5,7 @@ import { Provider } from "../entityInterface/providerInterface";
 import { Service } from "../entityInterface/appServiceInterface";
 import { ProviderService } from "../entityInterface/providerServiceInterface";
 import { AvailabilityForResponse } from "../entityInterface/serviceAvailabilityInterface";
+import { Review } from "../entityInterface/reviewInterface";
 
 // **** 1.  Used as the response type of the user profile details fetching api
 export type UserFetchUserProfileDetailsResponse = Pick<User, "username" | "email" | "isBlocked" | "isEmailVerified" | "phone" | "createdAt" | "updatedAt">;
@@ -108,3 +109,6 @@ export type UserFetchProvidersForChatSidebarResponse = Array<Pick<Provider, "_id
 
 // **** 18. Address updating interfaces are in common interface file
 
+
+// **** 19. Used as the request type of the user adding review
+export type UserAddReviewRequest = Pick<Review, "reviewText" | "rating" | "bookingId" | "providerId" >;

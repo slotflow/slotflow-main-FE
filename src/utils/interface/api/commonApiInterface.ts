@@ -23,7 +23,7 @@ export type FetchPaymentsResponse = Pick<Payment, "_id" | "createdAt" | "totalAm
 // used in the UserBookingsPage CommonTable type
 // used as the providerFetchBookingAppoinments api response type
 // used as the userFetchBookings api response type
-export type FetchBookingsResponse = Pick<Booking, "_id" | "appointmentDate" | "appointmentMode" | "appointmentStatus" | "appointmentTime" | "videoCallRoomId" | "createdAt">;
+export type FetchBookingsResponse = Pick<Booking, "_id" | "appointmentDate" | "appointmentMode" | "appointmentStatus" | "appointmentTime" | "videoCallRoomId" | "createdAt" | "serviceProviderId">;
 
 // **** 3.  Used as the request and response type and interface fetch all online bookings for provider side and user side
 export type FetchOnlineBookingParams = FetchFunctionParams & { online?: boolean, raw?: boolean };
