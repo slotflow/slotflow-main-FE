@@ -22,7 +22,7 @@ import { buildQueryParams, parseNewCommonResponse } from "../helper";
 import { Booking } from "../interface/entityInterface/bookingInterface";
 import { Provider } from "../interface/entityInterface/providerInterface";
 import { ApiBaseResponse, FetchFunctionParams, ApiPaginatedResponse } from "../interface/commonInterface";
-import { FetchBookingsResponse, FetchOnlineBookingParams, FetchOnlineBookingsForUserResponse, FetchPaymentsResponse, JoinRoomCallbackRequest, UpdateAddressRequest, UpdateAddressResponse, ValidateRoomId } from "../interface/api/commonApiInterface";
+import { FetchBookingsResponse, FetchOnlineBookingParams, FetchOnlineBookingsForUserResponse, FetchPaymentsResponse, JoinRoomCallbackRequest, JoinRoomCallbackResponse, UpdateAddressRequest, UpdateAddressResponse, ValidateRoomId } from "../interface/api/commonApiInterface";
 
 // **** User profile apis
 export const userFetchUserProfileDetails = async (): Promise<UserFetchUserProfileDetailsResponse> => {
@@ -126,12 +126,11 @@ export const userCancelBooking = async (bookingId: Booking["_id"]) : Promise<Api
 }
 
 export const userValidateRoomId = async (data: ValidateRoomId): Promise<ApiBaseResponse> => {
-    console.log("user validating join room")
     const response = await axiosInstance.get(`/user/bookings/${data.appointmentId}/can-join?roomId=${data.roomId}`);
     return response.data;
 } 
 
-export const userJoinOrLeftRoomCallBack = async (data: JoinRoomCallbackRequest): Promise<ApiBaseResponse> => {
+export const userJoinOrLeftRoomCallBack = async (data: JoinRoomCallbackRequest): Promise<JoinRoomCallbackResponse> => {
     const response = await axiosInstance.patch(`/user/bookings/${data.videoCallRoomId}/join-left`, data);
     return response.data;
 }      

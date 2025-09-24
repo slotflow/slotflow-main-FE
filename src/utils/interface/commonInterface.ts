@@ -383,3 +383,10 @@ export interface GoogleCalendarEvent extends Partial<Booking> {
     },
   },
 }
+
+
+export const durationMap: Record<string, number> = {
+  "15 minutes": 15 * 60,
+  "30 minutes": 30 * 60,
+  "1 hour": 60 * 60,
+};

@@ -4,11 +4,12 @@ import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from "react-router-dom";
 import { Mic, MicOff, Video, VideoOff } from 'lucide-react';
-import { userJoinOrLeftRoomCallBack } from "@/utils/apis/user.api";
+import { durationMap } from "@/utils/interface/commonInterface";
 import { AppDispatch, RootState } from '@/utils/redux/appStore';
-import { setCamera, setMic } from '@/utils/redux/slices/videoSlice';
+import { userJoinOrLeftRoomCallBack } from "@/utils/apis/user.api";
 import { providerJoinOrLeftRoomCallBack } from "@/utils/apis/provider.api";
 import { JoinRoomCallbackRequest } from "@/utils/interface/api/commonApiInterface";
+import { setCamera, setMic, startVideoCallTimer, updateVideoCallTimer } from '@/utils/redux/slices/videoSlice';
 
 const LobbyPage = () => {
 
@@ -22,6 +23,7 @@ const LobbyPage = () => {
 
   const user = useSelector((state: RootState) => state.auth.authUser);
   const { isCameraOn, isMicOn } = useSelector((state: RootState) => state.video);
+  const { isVideoCallTimerRunning, videoCallRoomId, videoCallRemainingTime } = useSelector((state: RootState) => state.video);
 
   useEffect(() => {
     const getPreview = async () => {
@@ -53,6 +55,16 @@ const LobbyPage = () => {
     };
   }, []);
 
+  useEffect(() => {
+          if (isVideoCallTimerRunning) {
+              const interval = setInterval(() => {
+                  dispatch(updateVideoCallTimer());
+              }, 1000);
+              return () => clearInterval(interval);
+          }
+      }, [isVideoCallTimerRunning, dispatch]);
+  
+
   const handleJoin = async () => {
     if (!user || !roomId) {
       toast.error("Something went wrong, please truy again");
@@ -76,8 +88,32 @@ const LobbyPage = () => {
       const res = await joinCallback(data);
 
       if (res.success) {
-        toast.success("Welcome to meet");
-        navigate(`/${user?.role === "PROVIDER" ? "provider" : "user"}/video-call-room/${roomId}`);
+        if(!res.data.duration) {
+          toast.error("Something went wrong");
+        } else{
+          const totalDurationInSec = durationMap[res.data.duration];
+      
+          if(!videoCallRoomId || videoCallRemainingTime === 0) {
+            dispatch(startVideoCallTimer({
+              remainingTime: totalDurationInSec, 
+              roomId
+            }));
+          } else {
+            if(roomId === videoCallRoomId) {
+              dispatch(startVideoCallTimer({
+                remainingTime: videoCallRemainingTime, 
+                roomId
+              }));
+            } else {
+                dispatch(startVideoCallTimer({
+                  remainingTime: totalDurationInSec, 
+                  roomId
+                }));
+              }
+          }
+          toast.success("Welcome to meet");
+          navigate(`/${user?.role === "PROVIDER" ? "provider" : "user"}/video-call-room/${roomId}`);
+        }
       } else {
         toast.error(res.message || "Unable to join, please try again");
       }

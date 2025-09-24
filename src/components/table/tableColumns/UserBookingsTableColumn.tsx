@@ -42,7 +42,7 @@ export const UserBookingsTableColumns = (
           case "NotAttended":
             return <span className="text-orange-500 font-semibold">Not Attended</span>;
           case "Completed":
-            return <span className="text-purple-500 font-semibold">Completed 🎉</span>;
+            return <span className="text-indigo-500 font-semibold">Completed 🎉</span>;
           default:
             return <span>{status}</span>;
         }

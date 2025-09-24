@@ -1,5 +1,6 @@
 import { toast } from "react-toastify";
 import peer from "@/utils/service/peer";
+import { formatTime } from "@/utils/helper";
 import { Button } from "@/components/ui/button";
 import { videoSocket } from "@/lib/socketService";
 import { useEffect, useState, useRef } from "react";
@@ -7,10 +8,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { AppDispatch, RootState } from "@/utils/redux/appStore";
 import { userJoinOrLeftRoomCallBack } from "@/utils/apis/user.api";
-import { setCamera, setMic } from "@/utils/redux/slices/videoSlice";
 import { providerJoinOrLeftRoomCallBack } from "@/utils/apis/provider.api";
 import { Mic, MicOff, Video, VideoOff, PhoneOff, Loader } from "lucide-react";
 import { JoinRoomCallbackRequest } from "@/utils/interface/api/commonApiInterface";
+import { setCamera, setMic, stopVideoCallTimer, updateVideoCallTimer } from "@/utils/redux/slices/videoSlice";
 
 const RoomPage = () => {
 
@@ -28,6 +29,7 @@ const RoomPage = () => {
 
   const user = useSelector((state: RootState) => state.auth.authUser);
   const { isCameraOn, isMicOn } = useSelector((state: RootState) => state.video);
+  const { isVideoCallTimerRunning, videoCallRemainingTime } = useSelector((state: RootState) => state.video);
 
   useEffect(() => {
     const initStream = async () => {
@@ -123,6 +125,15 @@ const RoomPage = () => {
     }
   };
 
+  useEffect(() => {
+    if (isVideoCallTimerRunning) {
+      const interval = setInterval(() => {
+        dispatch(updateVideoCallTimer());
+      }, 1000);
+      return () => clearInterval(interval);
+    }
+  }, [isVideoCallTimerRunning, dispatch]);
+
   const handleEndCall = async () => {
     if (!user || !roomId) {
       toast.error("Something went wrong, please truy again");
@@ -165,6 +176,19 @@ const RoomPage = () => {
             dispatch(setCamera(false));
           }
         }
+
+        if(videoCallRemainingTime > 0) {
+          dispatch(stopVideoCallTimer({
+            remainingTime: videoCallRemainingTime,
+            roomId
+          }));
+        } else {
+          dispatch(stopVideoCallTimer({
+            remainingTime: 0,
+            roomId: null
+          }));
+        }
+        
         navigate(`/${user?.role === "PROVIDER" ? "provider" : "user"}/video-call`, { replace: true });
       } else {
         toast.error(res.message || "Unable to join, please try again");
@@ -175,7 +199,21 @@ const RoomPage = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
+    <div className="flex flex-col items-center justify-center h-full relative">
+
+      {/* Timer in top-right */}
+      <div className="absolute top-2 right-4">
+        {isVideoCallTimerRunning ? (
+          <span className="text-xs md:text-sm text-black font-semibold bg-amber-300 px-3 py-1 rounded-md shadow">
+            {formatTime(videoCallRemainingTime)}
+          </span>
+        ) : (
+          <span className="text-xs md:text-sm text-black font-semibold bg-amber-300 px-3 py-1 rounded-md shadow">
+            00:00
+          </span>
+        )}
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="relative w-full h-[300px] md:h-[400px] rounded-2xl overflow-hidden bg-black">
           <video
@@ -186,7 +224,7 @@ const RoomPage = () => {
             className="w-full h-full object-cover rounded-2xl scale-x-[-1]"
           />
           {(!isCameraOn || !isMicOn) && (
-            <div className="absolute inset-0 flex items-center justify-center bg-black/70 text-white text-lg font-semibold">
+            <div className="absolute inset-0 flex items-center justify-center bg-black/70 text-white text-lg font-semibold border">
               {!isCameraOn && !isMicOn
                 ? "Camera and Mic turned off"
                 : !isCameraOn
@@ -207,26 +245,24 @@ const RoomPage = () => {
           </div>
         ) : (
           <div className="flex justify-center items-center border rounded-2xl w-full h-[300px] md:h-[400px]">
-            <span>
-              <Loader className="animate-spin w-6 h-6 text-gray-500" />
-            </span>
+            <Loader className="animate-spin w-6 h-6 text-gray-500" />
           </div>
         )}
       </div>
 
-
       <div className="flex gap-4 mt-6 bg-[var(--menuItemHoverBg)] p-4 rounded-xl shadow">
-        <Button onClick={toggleCamera} variant={isCameraOn ? "default" : "destructive"}>
+        <Button onClick={toggleCamera} variant={isCameraOn ? "default" : "destructive"} className="cursor-pointer" >
           {isCameraOn ? <Video /> : <VideoOff />}
         </Button>
-        <Button onClick={toggleMic} variant={isMicOn ? "default" : "destructive"}>
+        <Button onClick={toggleMic} variant={isMicOn ? "default" : "destructive"} className="cursor-pointer" >
           {isMicOn ? <Mic /> : <MicOff />}
         </Button>
-        <Button onClick={handleEndCall} variant="destructive">
+        <Button onClick={handleEndCall} variant="destructive" className="cursor-pointer" >
           <PhoneOff />
         </Button>
       </div>
     </div>
+
   );
 };
 

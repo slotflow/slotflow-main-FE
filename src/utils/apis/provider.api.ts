@@ -22,7 +22,7 @@ import {
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { buildQueryParams, parseNewCommonResponse } from "../helper";
 import { ApiBaseResponse, FetchFunctionParams, ApiPaginatedResponse } from "../interface/commonInterface";
-import { FetchBookingsResponse, FetchOnlineBookingParams, FetchOnlineBookingsForProviderResponse, FetchPaymentsResponse, FetchProviderSubscriptionsResponse, FetchSubscriptionDetailsResponse, JoinRoomCallbackRequest, UpdateAddressRequest, UpdateAddressResponse, ValidateRoomId } from "../interface/api/commonApiInterface";
+import { FetchBookingsResponse, FetchOnlineBookingParams, FetchOnlineBookingsForProviderResponse, FetchPaymentsResponse, FetchProviderSubscriptionsResponse, FetchSubscriptionDetailsResponse, JoinRoomCallbackRequest, JoinRoomCallbackResponse, UpdateAddressRequest, UpdateAddressResponse, ValidateRoomId } from "../interface/api/commonApiInterface";
 import { Subscription } from "../interface/entityInterface/subscriptionInterface";
 import { Booking } from "../interface/entityInterface/bookingInterface";
 
@@ -75,7 +75,7 @@ export const providerFetchBookingDetails = async (appointmentId: Booking['_id'])
     return response.data;
 }
 
-export const providerJoinOrLeftRoomCallBack = async (data: JoinRoomCallbackRequest): Promise<ApiBaseResponse> => {
+export const providerJoinOrLeftRoomCallBack = async (data: JoinRoomCallbackRequest): Promise<JoinRoomCallbackResponse> => {
     const response = await axiosInstance.patch(`/provider/bookings/${data.videoCallRoomId}/join-left`, data);
     return response.data;
 }     

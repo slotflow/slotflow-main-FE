@@ -39,6 +39,7 @@ const ProviderServiceAvailability: React.FC<ProviderServiceAvailabilityComponent
     });
 
     useEffect(() => {
+        console.log("Date : ",date);
         if (!data || !date || date === null || !data.modes) {
             return;
         }
@@ -58,6 +59,7 @@ const ProviderServiceAvailability: React.FC<ProviderServiceAvailabilityComponent
         setOpenPayment(true);
     }
 
+    console.log("Data : ",data);
     return (
         <>
             <div className="flex w-full mt-2 space-x-1">

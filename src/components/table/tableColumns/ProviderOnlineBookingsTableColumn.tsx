@@ -33,7 +33,7 @@ export const ProviderOnlineBookingTableColumn = (
                     Confirmed: "text-green-500 font-semibold",
                     RejectedByProvider: "text-red-500 font-semibold",
                     NotAttended: "text-orange-500 font-semibold",
-                    Completed: "text-purple-500 font-semibold",
+                    Completed: "text-indigo-500 font-semibold",
                 };
 
                 return <span className={statusStyles[status] || ""}>

@@ -6,6 +6,7 @@ import { Address } from "../entityInterface/addressInterface";
 import { Provider } from "../entityInterface/providerInterface";
 import { Subscription } from "../entityInterface/subscriptionInterface";
 import { ApiBaseResponse, FetchFunctionParams, Role } from "../commonInterface";
+import { Availability } from "../entityInterface/serviceAvailabilityInterface";
 
 // **** 1.  Used as the response type of fetch provider subscriptions for admin side and provider side
 export type FetchProviderSubscriptionsResponse = Pick<Subscription, "_id" | "startDate" | "endDate" | "subscriptionStatus"> & Pick<Plan, "planName">;
@@ -64,3 +65,7 @@ export interface JoinRoomCallbackRequest {
     joinedTime?: Date;
     leftCallTime?: Date;
 }
+
+export interface JoinRoomCallbackResponse extends ApiBaseResponse {
+  data: Pick<Availability, "duration">
+};
