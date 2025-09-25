@@ -12,9 +12,12 @@ import { ProfileHeaderComponentProps } from "@/utils/interface/componentInterfac
 const ProfileHead: React.FC<ProfileHeaderComponentProps> = ({
     updateProfileImageApiFunction,
     updation,
-    showDetails
+    showDetails,
+    isMyProfile,
+    selectedUserData
 }) => {
 
+    console.log("selectedUserData : ",selectedUserData)
     const dispatch = useDispatch<AppDispatch>();
     const { authUser, profileImageUpdating }: AuthState = useSelector((store: RootState) => store.auth);
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -41,22 +44,29 @@ const ProfileHead: React.FC<ProfileHeaderComponentProps> = ({
         }
     };
 
+     const profileImage = isMyProfile
+        ? authUser?.profileImage
+        : selectedUserData?.selectedUserProfileImage || authUser?.profileImage;
+
+    const username = isMyProfile
+        ? authUser?.username
+        : selectedUserData?.selectedUserName || authUser?.username;
+
     return (
         <div className={`w-full h-50 flex justify-center items-center bg-[var(--menuItemHoverBg)] rounded-[6px]`}>
             <div className="relative">
 
-                {updation ? (
-                    <img
-                        className={`h-32 w-32 object-cover rounded-lg transition-opacity ${profileImageUpdating ? "opacity-50" : "opacity-100"}`}
-                        src={authUser?.profileImage ? authUser.profileImage : selectedImage ? selectedImage : avatar}
-                        alt="Profile"
-                    />
-                ) : (
-                    <img
-                        className={`h-32 w-32 object-cover rounded-lg transition-opacity ${profileImageUpdating ? "opacity-50" : "opacity-100"}`}
-                        src={authUser?.profileImage || avatar}
-                        alt="Profile"
-                    />
+                
+                <img
+                    className={`h-32 w-32 object-cover rounded-lg transition-opacity ${profileImageUpdating ? "opacity-50" : "opacity-100"}`}
+                    src={selectedImage || profileImage || avatar}
+                    alt="Profile"
+                />
+
+                {updation && profileImageUpdating && (
+                    <div className="absolute inset-0 flex justify-center items-center bg-black bg-opacity-50 rounded-lg">
+                        <Loader className="w-6 h-6 text-white animate-spin" />
+                    </div>
                 )}
 
 
@@ -84,12 +94,10 @@ const ProfileHead: React.FC<ProfileHeaderComponentProps> = ({
                 )}
 
             </div>
-            {showDetails && (
+             {showDetails && (
                 <div className="flex flex-col justify-center ml-6">
-                    <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold">
-                        {authUser?.username || "No Name"}
-                    </h1>
-                    <p>{authUser?.serviceDescription ?? "Empowering the world with seamless services through Slotflow"}</p>
+                    <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold">{username}</h1>
+                    <p>{isMyProfile ? "Experience the seamless booking with us" : authUser?.serviceDescription ? "Empowering the world with seamless services through Slotflow" : "Experience the seamless booking with us"}</p>
                 </div>
             )}
         </div>

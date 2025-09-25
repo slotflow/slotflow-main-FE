@@ -128,7 +128,7 @@ const ReviewsPage: React.FC<ReviewsPageProps> = ({
 
   if (reviews.length === 0) {
     return (
-      <DataFetchingError message="No data found in database" />
+      <DataFetchingError message="No data found in database" className="p-4"/>
     )
   }
 
@@ -174,7 +174,7 @@ const ReviewsPage: React.FC<ReviewsPageProps> = ({
               )}
 
               {/* User Info */}
-              {!isUser && (
+              {!isUser &&  (
                 <div className="flex items-center gap-3 border-t pt-3 mt-3">
                   <img
                     src={review.userId.profileImage || noProfile}

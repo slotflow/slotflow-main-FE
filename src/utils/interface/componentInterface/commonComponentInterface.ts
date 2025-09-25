@@ -20,6 +20,8 @@ export interface ProfileHeaderComponentProps {
         FormData
     >>;
     showDetails?: boolean;
+    isMyProfile?: boolean;
+    selectedUserData?: {selectedUserName: string, selectedUserProfileImage: string| null};
 }
 
 

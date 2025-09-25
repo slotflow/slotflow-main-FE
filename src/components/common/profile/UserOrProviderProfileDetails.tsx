@@ -27,6 +27,7 @@ interface UserOrProviderProfileDetailsComponentProps {
     userLookingProvider?: boolean;
     setProfileImage?: (image: string) => void;
     shimmerRow: number;
+    setSelectedUserData: (data: { selectedUserName: string; selectedUserProfileImage: string | null }) => void;
 }
 
 const UserOrProviderProfileDetails: React.FC<UserOrProviderProfileDetailsComponentProps> = ({
@@ -40,6 +41,7 @@ const UserOrProviderProfileDetails: React.FC<UserOrProviderProfileDetailsCompone
     userLookingProvider,
     setProfileImage,
     shimmerRow,
+    setSelectedUserData
 }) => {
 
     const { authUser } = useSelector((state: RootState) => state.auth);
@@ -51,10 +53,21 @@ const UserOrProviderProfileDetails: React.FC<UserOrProviderProfileDetailsCompone
     })
 
     useEffect(() => {
-        if (setProfileImage && data && "profileImage" in data && data?.profileImage) {
-            setProfileImage(data.profileImage);
+        console.log("Data : ",data);
+        if (data) {
+            if (setProfileImage && "profileImage" in data && data.profileImage) {
+                setProfileImage(data.profileImage);
+            }
+
+            if ((userLookingProvider || adminLookingProvider)&& "username" in data) {
+                setSelectedUserData({
+                    selectedUserName: data.username,
+                    selectedUserProfileImage: "profileImage" in data ? data.profileImage : null
+                });
+            }
         }
-    }, [data, setProfileImage]);
+
+    }, [data, setProfileImage, setSelectedUserData, userLookingProvider, adminLookingProvider]);
 
     if (isError) {
         return <DataFetchingError message={error?.message} />
