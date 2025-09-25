@@ -3,6 +3,10 @@ import PlanGuard from "./planGuard.tsx";
 import { createBrowserRouter } from "react-router-dom";
 import { ProtectedRoute } from "./protectedRoutes.tsx";
 
+import ProviderReviewPage from "@/pages/provider/ProviderReviewPage.tsx";
+import UserReviewPage from "@/pages/user/UserReviewPage.tsx";
+import AdminReviewPage from "@/pages/admin/AdminReviewPage.tsx";
+
 const AuthPage = lazy(() => import("@/pages/common/AuthPage.tsx"));
 const AboutPage = lazy(() => import("@/pages/common/AboutPage.tsx"));
 const ProfilePage = lazy(() => import("@/pages/common/ProfilePage.tsx"));
@@ -33,7 +37,6 @@ const UserServiceProviderDetailPage = lazy(() => import("@/pages/user/UserServic
 const ProviderMainPage = lazy(() => import("@/pages/provider/ProviderMainPage.tsx"));
 const ProviderChatPage = lazy(() => import("@/pages/provider/ProviderChatPage.tsx"));
 const ProviderServicePage = lazy(() => import("@/pages/provider/ProviderServicePage.tsx"));
-const ReviewsPage = lazy(() => import("@/pages/common/ReviewsPage.tsx"));
 const ProviderPaymentsPage = lazy(() => import("@/pages/provider/ProviderPaymentsPage.tsx"));
 const ProviderDashboardPage = lazy(() => import("@/pages/provider/ProviderDashboardPage.tsx"));
 const ProviderAppointmentsPage = lazy(() => import("@/pages/provider/ProviderAppointmentsPage.tsx"));
@@ -82,6 +85,7 @@ export const appRouter = createBrowserRouter([
                     { path: "services", element: <AdminServicesPage /> },
                     { path: "plans", element: <AdminPlansPage /> },
                     { path: "subscriptions", element: <AdminSubscriptionsPage /> },
+                    { path: "reviews", element: <AdminReviewPage /> },
                     { path: "payments", element: <AdminPaymentsPage /> },
                     { path: "subscription/:subscriptionId", element: <AdminSubcriptionDetailedViewPage /> },
                     { path: "*", element: <Error404Page /> },
@@ -114,7 +118,7 @@ export const appRouter = createBrowserRouter([
                         element: <VideoCallRoom />
                     },
                     { path: "calendar", element: <CalendarPage /> },
-                    { path: "reviews", element: <ReviewsPage /> },
+                    { path: "reviews", element: <UserReviewPage /> },
                     { path: "notifications", element: <UserNotificationsPage /> },
                     { path: "settings", element: <SettingsPage /> },
                     { path: "payment-success", element: <PaymentConfirmPage status={true} userType={"user"} /> },
@@ -139,7 +143,7 @@ export const appRouter = createBrowserRouter([
                         path: "reviews",
                         element: (
                             <PlanGuard routeName="Reviews">
-                                <ReviewsPage />
+                                <ProviderReviewPage />
                             </PlanGuard>
                         )
                     },

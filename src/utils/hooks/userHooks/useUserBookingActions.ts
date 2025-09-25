@@ -24,7 +24,6 @@ export const useUserBookingActions = (): UseUserBookingActionsCustomHookReturnTy
     const queryClient = useQueryClient();
     const dispatch = useDispatch<AppDispatch>();
     
-
     const handleUserCancelBooking = (bookingId: Booking["_id"]) => {
         userCancelBooking(bookingId)
             .then((res) => {

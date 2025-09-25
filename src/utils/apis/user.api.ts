@@ -1,7 +1,9 @@
 import { 
+    UserAddReviewRequest,
     AddUserAddressRequest, 
     UserUpdateUserInfoRequest,
     UserUpdateUserInfoResponse,
+    UserAddUserAddressResponse,
     UserBookAppointmentResponse, 
     UserFetchUserAddressResponse, 
     UserBookAnAppointmentRequest, 
@@ -14,16 +16,15 @@ import {
     UserFetchProviderAvailabilityResponse, 
     UserFetchProviderProfileDetailsResponse,
     UserFetchProvidersForChatSidebarResponse,
-    UserAddUserAddressResponse,
-    UserAddReviewRequest,
 } from "../interface/api/userApiInterface";
 import { axiosInstance } from "@/lib/axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { buildQueryParams, parseNewCommonResponse } from "../helper";
+import { Review } from "../interface/entityInterface/reviewInterface";
 import { Booking } from "../interface/entityInterface/bookingInterface";
 import { Provider } from "../interface/entityInterface/providerInterface";
 import { ApiBaseResponse, FetchFunctionParams, ApiPaginatedResponse } from "../interface/commonInterface";
-import { FetchBookingsResponse, FetchOnlineBookingParams, FetchOnlineBookingsForUserResponse, FetchPaymentsResponse, JoinRoomCallbackRequest, JoinRoomCallbackResponse, UpdateAddressRequest, UpdateAddressResponse, ValidateRoomId } from "../interface/api/commonApiInterface";
+import { FetchBookingsResponse, FetchOnlineBookingParams, FetchOnlineBookingsForUserResponse, FetchPaymentsResponse, FetchReviewsResponse, JoinRoomCallbackRequest, JoinRoomCallbackResponse, UpdateAddressRequest, UpdateAddressResponse, ValidateRoomId } from "../interface/api/commonApiInterface";
 
 // **** User profile apis
 export const userFetchUserProfileDetails = async (): Promise<UserFetchUserProfileDetailsResponse> => {
@@ -115,9 +116,9 @@ export const userSaveAppointmentBooking = async (sessionId: string) : Promise<Ap
     return response.data;
 }
 
-export const userFetchBookings = async <T extends FetchBookingsResponse | FetchOnlineBookingsForUserResponse> (params?: FetchOnlineBookingParams) : Promise<ApiPaginatedResponse<T>> => {
-    const query = buildQueryParams<FetchOnlineBookingParams>(params);
-    const response = await axiosInstance.get(`/user/bookings${query ? `?${query}` : ''}`);
+export const userFetchBookings = async <T extends FetchBookingsResponse | FetchOnlineBookingsForUserResponse> (query?: FetchOnlineBookingParams) : Promise<ApiPaginatedResponse<T>> => {
+    const refactoredQuery = buildQueryParams<FetchOnlineBookingParams>(query);
+    const response = await axiosInstance.get(`/user/bookings${refactoredQuery ? `?${refactoredQuery}` : ''}`);
     return parseNewCommonResponse<T>(response.data);
 }
 
@@ -137,9 +138,9 @@ export const userJoinOrLeftRoomCallBack = async (data: JoinRoomCallbackRequest):
 }      
 
 // user payment apis
-export const userFetchPayments = async (params?: FetchFunctionParams) : Promise<ApiPaginatedResponse<FetchPaymentsResponse>> => {
-    const query = buildQueryParams(params);
-    const response = await axiosInstance.get(`/user/payments${query ? `?${query}` : ''}`);
+export const userFetchPayments = async (query?: FetchFunctionParams) : Promise<ApiPaginatedResponse<FetchPaymentsResponse>> => {
+    const refactoredQuery = buildQueryParams(query);
+    const response = await axiosInstance.get(`/user/payments${refactoredQuery ? `?${refactoredQuery}` : ''}`);
     return parseNewCommonResponse<FetchPaymentsResponse>(response.data);
 }
 
@@ -155,4 +156,15 @@ export const UserFetchProvidersForChatSideBar = async () : Promise<UserFetchProv
 export const userAddReview = async (data: UserAddReviewRequest): Promise<ApiBaseResponse> => {
     const response = await axiosInstance.post('/user/reviews/', data );
     return response.data;
+}
+
+export const userFetchAllReviews = async (query: FetchFunctionParams): Promise<ApiPaginatedResponse<FetchReviewsResponse>> => {
+    const refactoredQuery = buildQueryParams(query);
+    const response = await axiosInstance.get(`/user/reviews${refactoredQuery ? `?${refactoredQuery}` : ''}`);
+    return response.data
+}
+
+export const userDeleteReview = async (reviewId: Review["_id"]): Promise<ApiBaseResponse> => {
+    const response = await axiosInstance.delete(`/user/reviews/${reviewId}`);
+    return response.data
 }

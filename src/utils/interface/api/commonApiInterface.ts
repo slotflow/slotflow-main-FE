@@ -7,6 +7,7 @@ import { Provider } from "../entityInterface/providerInterface";
 import { Subscription } from "../entityInterface/subscriptionInterface";
 import { ApiBaseResponse, FetchFunctionParams, Role } from "../commonInterface";
 import { Availability } from "../entityInterface/serviceAvailabilityInterface";
+import { Review } from "../entityInterface/reviewInterface";
 
 // **** 1.  Used as the response type of fetch provider subscriptions for admin side and provider side
 export type FetchProviderSubscriptionsResponse = Pick<Subscription, "_id" | "startDate" | "endDate" | "subscriptionStatus"> & Pick<Plan, "planName">;
@@ -68,4 +69,11 @@ export interface JoinRoomCallbackRequest {
 
 export interface JoinRoomCallbackResponse extends ApiBaseResponse {
   data: Pick<Availability, "duration">
+};
+
+
+// **** 7. Used as the return type of the user fetching user reviews
+export interface FetchReviewsResponse extends Pick<Review, "_id" | "createdAt" | "reviewText" | "rating" | "reported" | "isBlocked"> {
+  userId: Pick<User, "username" | "profileImage">;
+  providerId: Pick<Provider, "username" | "profileImage">;
 };
