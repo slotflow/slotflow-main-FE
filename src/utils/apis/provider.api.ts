@@ -22,9 +22,10 @@ import {
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { buildQueryParams, parseNewCommonResponse } from "../helper";
 import { ApiBaseResponse, FetchFunctionParams, ApiPaginatedResponse } from "../interface/commonInterface";
-import { FetchBookingsResponse, FetchOnlineBookingParams, FetchOnlineBookingsForProviderResponse, FetchPaymentsResponse, FetchProviderSubscriptionsResponse, FetchSubscriptionDetailsResponse, JoinRoomCallbackRequest, JoinRoomCallbackResponse, UpdateAddressRequest, UpdateAddressResponse, ValidateRoomId } from "../interface/api/commonApiInterface";
+import { FetchBookingsResponse, FetchOnlineBookingParams, FetchOnlineBookingsForProviderResponse, FetchPaymentsResponse, FetchProviderSubscriptionsResponse, FetchReviewsResponse, FetchSubscriptionDetailsResponse, JoinRoomCallbackRequest, JoinRoomCallbackResponse, UpdateAddressRequest, UpdateAddressResponse, ValidateRoomId } from "../interface/api/commonApiInterface";
 import { Subscription } from "../interface/entityInterface/subscriptionInterface";
 import { Booking } from "../interface/entityInterface/bookingInterface";
+import { Review } from "../interface/entityInterface/reviewInterface";
 
 
 // **** Address apis
@@ -192,4 +193,17 @@ export const providerFetchDashboardStatsData = async () : Promise<ProviderFetchD
 export const providerFetchDashboardGraphData = async () : Promise<ProviderDashboardGraphResponse> => {
     const response = await axiosInstance.get('/provider/dashboard/graph-data');
     return response.data.data;
+}
+
+
+// provider review api
+export const providerFetchAllReviews = async (query: FetchFunctionParams): Promise<ApiPaginatedResponse<FetchReviewsResponse>> => {
+    const refactoredQuery = buildQueryParams(query);
+    const response = await axiosInstance.get(`/provider/reviews${refactoredQuery ? `?${refactoredQuery}` : ''}`);
+    return response.data
+}
+
+export const providerReportReview = async (reviewId: Review["_id"]): Promise<number> => {
+    const response = await axiosInstance.patch(`/provider/reviews/${reviewId}`);
+    return response.status
 }

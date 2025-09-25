@@ -161,10 +161,10 @@ export const userAddReview = async (data: UserAddReviewRequest): Promise<ApiBase
 export const userFetchAllReviews = async (query: FetchFunctionParams): Promise<ApiPaginatedResponse<FetchReviewsResponse>> => {
     const refactoredQuery = buildQueryParams(query);
     const response = await axiosInstance.get(`/user/reviews${refactoredQuery ? `?${refactoredQuery}` : ''}`);
-    return response.data
+    return response.data;
 }
 
-export const userDeleteReview = async (reviewId: Review["_id"]): Promise<ApiBaseResponse> => {
+export const userDeleteReview = async (reviewId: Review["_id"]): Promise<number> => {
     const response = await axiosInstance.delete(`/user/reviews/${reviewId}`);
-    return response.data
+    return response.status;
 }

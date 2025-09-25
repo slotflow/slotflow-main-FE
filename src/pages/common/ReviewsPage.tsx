@@ -12,10 +12,13 @@ import {
 } from "@/utils/interface/commonInterface";
 import { Button } from "@/components/ui/button";
 import { userDeleteReview } from "@/utils/apis/user.api";
+import { ShieldCheck, ShieldX, Trash } from "lucide-react";
 import noProfile from "../../assets/defaultImages/avatar.png";
+import { providerReportReview } from "@/utils/apis/provider.api";
 import DataFetchingError from "@/components/common/DataFetchingError";
 import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 import { Review } from "@/utils/interface/entityInterface/reviewInterface";
+import { adminChangeReviewBlockStatus } from "@/utils/apis/adminReview.api";
 import { FetchReviewsResponse } from "@/utils/interface/api/commonApiInterface";
 
 interface ReviewsPageProps {
@@ -35,6 +38,7 @@ const ReviewsPage: React.FC<ReviewsPageProps> = ({
   isAdmin = false,
   fetchFun,
 }) => {
+
   const limit = 2;
 
   const queryClient = useQueryClient();
@@ -100,8 +104,8 @@ const ReviewsPage: React.FC<ReviewsPageProps> = ({
                 onClick={async () => {
                   try {
                     const res = await userDeleteReview(reviewId);
-                    if (res.success) {
-                      toast.success(res.message || "Review deleted successfully");
+                    if (res === 204) {
+                      toast.success("Review deleted successfully");
                       queryClient.invalidateQueries({ queryKey: ["reviews"] });
                     }
                   } catch {
@@ -124,11 +128,57 @@ const ReviewsPage: React.FC<ReviewsPageProps> = ({
     confirm();
   };
 
+  const handleReportReview = async (
+    e: React.MouseEvent<HTMLButtonElement>,
+    reviewId: Review["_id"]
+  ) => {
+    e.preventDefault();
+    if (!reviewId) {
+      toast.error("Please try again later");
+      return;
+    }
+
+    await providerReportReview(reviewId)
+      .then((res) => {
+        if (res === 204) {
+          toast.success("Review report status changed");
+          queryClient.invalidateQueries({ queryKey: ["reviews"] });
+        }
+      })
+      .catch(() => {
+        toast.error("Review reporting failed");
+      })
+  }
+
+  const handleChangeReviewBlockStatus = async (
+    e: React.MouseEvent<HTMLButtonElement>,
+    reviewId: Review["_id"]
+  ) => {
+
+    e.preventDefault();
+
+    if (!reviewId) {
+      toast.error("Please try again later");
+      return;
+    }
+
+    await adminChangeReviewBlockStatus(reviewId)
+      .then((res) => {
+        if (res === 204) {
+          toast.success("Review block status updated");
+          queryClient.invalidateQueries({ queryKey: ["reviews"] });
+        }
+      })
+      .catch(() => {
+        toast.error("Review block status updating failed");
+      })
+  }
+
   const reviews = data?.pages.flatMap((page) => (page.data ? page.data : [])) || [];
 
   if (reviews.length === 0) {
     return (
-      <DataFetchingError message="No data found in database" className="p-4"/>
+      <DataFetchingError message="No data found in database" className="p-4" />
     )
   }
 
@@ -156,7 +206,6 @@ const ReviewsPage: React.FC<ReviewsPageProps> = ({
 
               <div className="flex-grow" />
 
-              {/* Provider Info */}
               {!isProvider && (
                 <div className="flex items-center gap-3 border-t pt-3 mt-3">
                   <img
@@ -173,8 +222,7 @@ const ReviewsPage: React.FC<ReviewsPageProps> = ({
                 </div>
               )}
 
-              {/* User Info */}
-              {!isUser &&  (
+              {!isUser && (
                 <div className="flex items-center gap-3 border-t pt-3 mt-3">
                   <img
                     src={review.userId.profileImage || noProfile}
@@ -182,7 +230,7 @@ const ReviewsPage: React.FC<ReviewsPageProps> = ({
                     className="size-10 rounded-full object-cover"
                   />
                   <div className="text-sm">
-                    <p className="font-medium">User</p>
+                    <p className="font-medium">Reviewer</p>
                     <p className="text-muted-foreground">
                       {review.userId.username}
                     </p>
@@ -190,7 +238,46 @@ const ReviewsPage: React.FC<ReviewsPageProps> = ({
                 </div>
               )}
 
-              {/* Actions */}
+              {!isUser && (
+                <div className="grid grid-cols-2 gap-4 mt-4 border-t pt-4">
+                  <div className="flex items-center">
+                    {review.reported ? (
+                      <span className="flex items-center space-x-2">
+                        <ShieldX className="w-4 h-4 text-red-500" />
+                        <span>
+                          Reported
+                        </span>
+                      </span>
+                    ) : (
+                      <span className="flex items-center space-x-2">
+                        <ShieldCheck className="w-4 h-4 text-green-500" />
+                        <span>
+                          Not reported
+                        </span>
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="flex items-center">
+                    {review.isBlocked ? (
+                      <span className="flex items-center space-x-2">
+                        <ShieldX className="w-4 h-4 text-red-500" />
+                        <span>
+                          Blocked
+                        </span>
+                      </span>
+                    ) : (
+                      <span className="flex items-center space-x-2">
+                        <ShieldCheck className="w-4 h-4 text-green-500" />
+                        <span>
+                          Not Blocked
+                        </span>
+                      </span>
+                    )}
+                  </div>
+                </div>
+              )}
+
               <div className="flex gap-2 mt-4">
                 {isUser && (
                   <Button
@@ -199,7 +286,7 @@ const ReviewsPage: React.FC<ReviewsPageProps> = ({
                     className="cursor-pointer"
                     onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleDeleteReview(e, review._id)}
                   >
-                    Delete
+                    <Trash className="text-red-500" /> Delete
                   </Button>
                 )}
                 {isProvider && (
@@ -207,11 +294,23 @@ const ReviewsPage: React.FC<ReviewsPageProps> = ({
                     variant="outline"
                     size="sm"
                     className="cursor-pointer"
-                    onClick={() =>
-                      console.log("Report review", review._id)
-                    }
+                    onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleReportReview(e, review._id)}
                   >
-                    Report
+                    {review.reported ? (
+                      <span className="flex items-center space-x-2">
+                        <ShieldCheck className="text-green-500" />
+                        <span>
+                          Unreport
+                        </span>
+                      </span>
+                    ) : (
+                      <span className="flex items-center space-x-2">
+                        <ShieldX className="text-red-500" />
+                        <span>
+                          Report
+                        </span>
+                      </span>
+                    )}
                   </Button>
                 )}
                 {isAdmin && (
@@ -219,16 +318,23 @@ const ReviewsPage: React.FC<ReviewsPageProps> = ({
                     variant="secondary"
                     size="sm"
                     className="cursor-pointer"
-                    onClick={() =>
-                      console.log(
-                        review.isBlocked
-                          ? "Unblock review"
-                          : "Block review",
-                        review._id
-                      )
-                    }
+                    onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleChangeReviewBlockStatus(e, review._id)}
                   >
-                    {review.isBlocked ? "Unblock" : "Block"}
+                    {review.isBlocked ? (
+                      <span className="flex items-center space-x-2">
+                        <ShieldCheck className="text-green-500" />
+                        <span>
+                          Unblock
+                        </span>
+                      </span>
+                    ) : (
+                      <span className="flex items-center space-x-2">
+                        <ShieldX className="text-red-500" />
+                        <span>
+                          Block
+                        </span>
+                      </span>
+                    )}
                   </Button>
                 )}
               </div>
