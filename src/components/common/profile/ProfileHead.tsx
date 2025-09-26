@@ -97,7 +97,9 @@ const ProfileHead: React.FC<ProfileHeaderComponentProps> = ({
              {showDetails && (
                 <div className="flex flex-col justify-center ml-6">
                     <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold">{username}</h1>
-                    <p>{isMyProfile ? "Experience the seamless booking with us" : authUser?.serviceDescription ? "Empowering the world with seamless services through Slotflow" : "Experience the seamless booking with us"}</p>
+                    <p>
+                        {isMyProfile ? "Experience the seamless booking with us" : authUser?.serviceDescription ? "Empowering the world with seamless services through Slotflow" : "Empowering the world with seamless services through Slotflow"}
+                    </p>
                 </div>
             )}
         </div>

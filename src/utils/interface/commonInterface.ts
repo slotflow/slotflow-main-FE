@@ -195,6 +195,7 @@ export interface CommonTableComponentProps<T> {
 // **** 20.  Api common request parameter interface
 export interface FetchFunctionParams<T = string> {
   id?: T;
+  role?: Role;
   pagination?: {
     page: number;
     limit: number;

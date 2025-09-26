@@ -43,7 +43,7 @@ const UserServiceProviderDetailPage = () => {
                 ) || tab === 3 && (
                     <ProviderServiceAvailability providerId={providerId} fetchApiFuntion={userFetchProviderServiceAvailability} queryKey="providerServiceAvailability" role="User" />
                 ) || tab === 4 && (
-                    <ReviewsPage fetchFun={userFetchAllReviews} providerId={providerId} isUser />
+                    <ReviewsPage fetchFun={userFetchAllReviews} providerId={providerId} isUser role={"PROVIDER"}/>
                 )}
             </div>
 

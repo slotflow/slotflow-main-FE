@@ -25,7 +25,11 @@ const ProfilePage: React.FC = () => {
 
   return (
     <div className="min-h-full flex flex-col p-2">
-      <ProfileHead updation={false} showDetails />
+      <ProfileHead 
+        updation={false} 
+        showDetails
+        isMyProfile
+      />
       <UserOrProviderProfileDetails
         fetchApiFunction={fetchApiFunction}
         queryKey="profileDetails"

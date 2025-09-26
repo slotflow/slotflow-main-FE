@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import {
   ApiPaginatedResponse,
   FetchFunctionParams,
+  Role,
 } from "@/utils/interface/commonInterface";
 import { Button } from "@/components/ui/button";
 import { userDeleteReview } from "@/utils/apis/user.api";
@@ -26,6 +27,7 @@ interface ReviewsPageProps {
   isUser?: boolean;
   isProvider?: boolean;
   isAdmin?: boolean;
+  role: Role;
   fetchFun: (
     query: FetchFunctionParams
   ) => Promise<ApiPaginatedResponse<FetchReviewsResponse>>;
@@ -36,6 +38,7 @@ const ReviewsPage: React.FC<ReviewsPageProps> = ({
   isUser = false,
   isProvider = false,
   isAdmin = false,
+  role,
   fetchFun,
 }) => {
 
@@ -55,6 +58,7 @@ const ReviewsPage: React.FC<ReviewsPageProps> = ({
     queryFn: ({ pageParam = 1 }) =>
       fetchFun({
         id: providerId,
+        role,
         pagination: { page: pageParam as number, limit },
       }),
     getNextPageParam: (lastPage) => {
@@ -155,6 +159,8 @@ const ReviewsPage: React.FC<ReviewsPageProps> = ({
     reviewId: Review["_id"]
   ) => {
 
+    console.log("Chaging review block status");
+
     e.preventDefault();
 
     if (!reviewId) {
@@ -169,7 +175,8 @@ const ReviewsPage: React.FC<ReviewsPageProps> = ({
           queryClient.invalidateQueries({ queryKey: ["reviews"] });
         }
       })
-      .catch(() => {
+      .catch((error) => {
+        console.log("Error : ",error);
         toast.error("Review block status updating failed");
       })
   }

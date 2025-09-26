@@ -158,9 +158,10 @@ export const userAddReview = async (data: UserAddReviewRequest): Promise<ApiBase
     return response.data;
 }
 
-export const userFetchAllReviews = async (query: FetchFunctionParams): Promise<ApiPaginatedResponse<FetchReviewsResponse>> => {
-    const refactoredQuery = buildQueryParams(query);
-    const response = await axiosInstance.get(`/user/reviews${refactoredQuery ? `?${refactoredQuery}` : ''}`);
+export const userFetchAllReviews = async (payload : FetchFunctionParams): Promise<ApiPaginatedResponse<FetchReviewsResponse>> => {
+    const { id } = payload;
+    const refactoredQuery = buildQueryParams(payload);
+    const response = await axiosInstance.get(`/user/reviews/${id}${refactoredQuery ? `?${refactoredQuery}` : ''}`);
     return response.data;
 }
 

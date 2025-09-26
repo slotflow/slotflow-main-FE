@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import ReviewsPage from "../common/ReviewsPage";
 import ProfileHead from "@/components/common/profile/ProfileHead";
+import { adminFetchAllReviews } from "@/utils/apis/adminReview.api";
 import DataFetchingError from "@/components/common/DataFetchingError";
 import AdminProviderPayments from "@/components/admin/AdminProviderPayments";
 import ProfileHorizontalTabs from "@/components/common/ProfileHorizontalTabs";
@@ -10,7 +12,6 @@ import ProviderServiceAvailability from "@/components/common/profile/ProviderSer
 import UserOrProviderAddressDetails from "@/components/common/profile/UserOrProviderAddressDetails";
 import UserOrProviderProfileDetails from "@/components/common/profile/UserOrProviderProfileDetails";
 import { adminFetchProviderServiceAvailability, adminFetchProviderAddress, adminFetchProviderProfileDetails, adminFetchProviderService } from "@/utils/apis/adminProvider.api";
-// import ReviewsPage from "../common/ReviewsPage";
 
 const AdminServiceProviderDetailPage = () => {
 
@@ -45,8 +46,7 @@ const AdminServiceProviderDetailPage = () => {
                 ) || tab === 3 && (
                     <ProviderServiceAvailability providerId={providerId} fetchApiFuntion={adminFetchProviderServiceAvailability} queryKey="providerServiceAvailability" role="Admin"/>
                 ) || tab === 4 && (
-                    // <ReviewsPage isAdmin fetchFun={} />
-                    <h1>Developing</h1>
+                    <ReviewsPage isAdmin fetchFun={adminFetchAllReviews} providerId={providerId} role={"PROVIDER"} />
                 ) || tab === 5 && (
                     <AdminProviderSubscriptions providerId={providerId} />
                 ) || tab === 6 && (

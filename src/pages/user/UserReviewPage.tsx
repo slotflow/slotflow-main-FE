@@ -5,7 +5,7 @@ import { userFetchAllReviews } from '@/utils/apis/user.api';
 const UserReviewPage: React.FC = () => {
     return (
         <div>
-            <ReviewsPage isUser fetchFun={userFetchAllReviews} />
+            <ReviewsPage isUser fetchFun={userFetchAllReviews} role={"USER"} />
         </div>
     )
 }

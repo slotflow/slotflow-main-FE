@@ -77,9 +77,7 @@ export const copyToClipboard = (text: string) => {
 export const formatBoolean = (val: boolean) => (val ? "Yes" : "No");
 
 // **** Function for query builder **** \\
-export const buildQueryParams = <T extends FetchFunctionParams | FetchOnlineBookingParams>(
-  params?: T
-): string => {
+export const buildQueryParams = <T extends FetchFunctionParams | FetchOnlineBookingParams>(params?: T): string => {
   const query = new URLSearchParams();
 
   if (!params) return "";
@@ -91,6 +89,10 @@ export const buildQueryParams = <T extends FetchFunctionParams | FetchOnlineBook
 
   if ("online" in params && params.online !== undefined) {
     query.append("online", params.online.toString());
+  }
+  
+  if("role" in params && params.role) {
+    query.append("role", params.role.toString());
   }
 
   return query.toString();

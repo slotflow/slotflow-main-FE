@@ -27,7 +27,7 @@ interface UserOrProviderProfileDetailsComponentProps {
     userLookingProvider?: boolean;
     setProfileImage?: (image: string) => void;
     shimmerRow: number;
-    setSelectedUserData: (data: { selectedUserName: string; selectedUserProfileImage: string | null }) => void;
+    setSelectedUserData?: (data: { selectedUserName: string; selectedUserProfileImage: string | null }) => void;
 }
 
 const UserOrProviderProfileDetails: React.FC<UserOrProviderProfileDetailsComponentProps> = ({
@@ -59,7 +59,7 @@ const UserOrProviderProfileDetails: React.FC<UserOrProviderProfileDetailsCompone
                 setProfileImage(data.profileImage);
             }
 
-            if ((userLookingProvider || adminLookingProvider)&& "username" in data) {
+            if ((userLookingProvider || adminLookingProvider)&& "username" in data && setSelectedUserData) {
                 setSelectedUserData({
                     selectedUserName: data.username,
                     selectedUserProfileImage: "profileImage" in data ? data.profileImage : null
