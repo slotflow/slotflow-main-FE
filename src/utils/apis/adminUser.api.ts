@@ -2,9 +2,11 @@ import { axiosInstance } from "../../lib/axios";
 import {
     AdminfetchAllUsersResponse,
     AdminChangeUserStatusRequest,
+    AdminFetchUserProfileDetailsResponse,
 } from "../interface/api/adminUserApiInterface";
 import { buildQueryParams, parseNewCommonResponse } from "../helper";
 import { FetchFunctionParams, ApiPaginatedResponse, ApiBaseResponse } from "../interface/commonInterface";
+import { User } from "../interface/entityInterface/userInterface";
 
 export const adminFetchAllUsers = async (params?: FetchFunctionParams): Promise<ApiPaginatedResponse<AdminfetchAllUsersResponse>> => {
     const query = buildQueryParams(params);
@@ -16,5 +18,11 @@ export const adminChangeUserBlockStatus = async (data: AdminChangeUserStatusRequ
     const response = await axiosInstance.patch(`/admin/users/${data.userId}`, { blockStatus: data.isBlocked });
     return response.data;
 }
+
+export const adminFetchUserProfileDetails = async (userId: User["_id"]): Promise<AdminFetchUserProfileDetailsResponse> => {
+    const response = await axiosInstance.get(`/admin/users/${userId}/profile`);
+    return response.data.data;
+}
+
 
 

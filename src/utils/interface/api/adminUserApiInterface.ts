@@ -10,3 +10,6 @@ export type AdminChangeUserStatusRequest = {
     userId: User["_id"];
     isBlocked: User["isBlocked"];
 }
+
+// **** 3 Used as the response type of admin fetch user profile details
+export type AdminFetchUserProfileDetailsResponse = Pick<User, "username" | "phone" | "profileImage" | "isEmailVerified" | "isBlocked" | "email" | "createdAt">;

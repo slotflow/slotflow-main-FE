@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import ReviewsPage from "../common/ReviewsPage";
+import { providerTabs } from "@/utils/constants";
 import ProfileHead from "@/components/common/profile/ProfileHead";
 import { adminFetchAllReviews } from "@/utils/apis/adminReview.api";
 import DataFetchingError from "@/components/common/DataFetchingError";
@@ -34,7 +35,7 @@ const AdminServiceProviderDetailPage = () => {
                 selectedUserData={selectedUserData}
             />
 
-            <ProfileHorizontalTabs isAdmin={true} setTab={setTab} tab={tab} />
+            <ProfileHorizontalTabs isAdmin={true} setTab={setTab} tab={tab} tabArray={providerTabs} />
 
             <div className={`flex-grow`}>
                 {tab === 0 && (
@@ -46,7 +47,7 @@ const AdminServiceProviderDetailPage = () => {
                 ) || tab === 3 && (
                     <ProviderServiceAvailability providerId={providerId} fetchApiFuntion={adminFetchProviderServiceAvailability} queryKey="providerServiceAvailability" role="Admin"/>
                 ) || tab === 4 && (
-                    <ReviewsPage isAdmin fetchFun={adminFetchAllReviews} providerId={providerId} role={"PROVIDER"} />
+                    <ReviewsPage isAdmin fetchFun={adminFetchAllReviews} id={providerId} role={"PROVIDER"} />
                 ) || tab === 5 && (
                     <AdminProviderSubscriptions providerId={providerId} />
                 ) || tab === 6 && (

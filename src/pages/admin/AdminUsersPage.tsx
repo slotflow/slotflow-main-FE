@@ -7,11 +7,13 @@ import { AdminUsersTableColumns } from "@/components/table/tableColumns/AdminUse
 const AdminUsersPage = () => {
 
   const {
-    handleAdminChangeUserBlockStatus
+    handleAdminChangeUserBlockStatus,
+    handleGetUserDetailPage
   } = useAdminUserActions();
   
   const column = AdminUsersTableColumns(
-    handleAdminChangeUserBlockStatus
+    handleAdminChangeUserBlockStatus,
+    handleGetUserDetailPage
   );
 
   return (

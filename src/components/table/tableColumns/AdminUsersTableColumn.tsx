@@ -4,9 +4,11 @@ import { ColumnDef } from "@tanstack/react-table";
 import { DataTableColumnHeader } from "../DataTableColumnHeader";
 import { AdminChangeUserStatusRequest, AdminfetchAllUsersResponse } from "@/utils/interface/api/adminUserApiInterface";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../../ui/dropdown-menu";
+import { User } from "@/utils/interface/entityInterface/userInterface";
 
 export const AdminUsersTableColumns = (
     handleAdminChangeUserBlockStatus: (data: AdminChangeUserStatusRequest) => void,
+    handleGetUserDetailPage: (e: React.MouseEvent<HTMLDivElement>, userId: User["_id"]) => void,
 ): ColumnDef<AdminfetchAllUsersResponse>[] => [
         {
             accessorKey: "username",
@@ -57,7 +59,8 @@ export const AdminUsersTableColumns = (
                         <DropdownMenuContent align="end">
                             <DropdownMenuLabel>Actions</DropdownMenuLabel>
                             <DropdownMenuSeparator />
-                            <DropdownMenuItem>Details</DropdownMenuItem>
+                            <DropdownMenuItem onClick={(e: React.MouseEvent<HTMLDivElement>) => handleGetUserDetailPage(e, user._id)}
+                            >Details</DropdownMenuItem>
                             <DropdownMenuItem onClick={() => handleAdminChangeUserBlockStatus({ isBlocked: user.isBlocked, userId: user._id })}>
                                 {user.isBlocked ? "Unblock" : "Block"}
                             </DropdownMenuItem>

@@ -6,6 +6,7 @@ import { ProtectedRoute } from "./protectedRoutes.tsx";
 import ProviderReviewPage from "@/pages/provider/ProviderReviewPage.tsx";
 import UserReviewPage from "@/pages/user/UserReviewPage.tsx";
 import AdminReviewPage from "@/pages/admin/AdminReviewPage.tsx";
+import AdminUseDetailPage from "@/pages/admin/AdminUseDetailPage.tsx";
 
 const AuthPage = lazy(() => import("@/pages/common/AuthPage.tsx"));
 const AboutPage = lazy(() => import("@/pages/common/AboutPage.tsx"));
@@ -80,8 +81,9 @@ export const appRouter = createBrowserRouter([
                 children: [
                     { path: "dashboard", element: <AdminDashboardPage /> },
                     { path: "service-providers", element: <AdminServiceProvidersPage /> },
-                    { path: "service-provider/:providerId", element: <AdminServiceProviderDetailPage /> },
+                    { path: "service-providers/:providerId", element: <AdminServiceProviderDetailPage /> },
                     { path: "users", element: <AdminUsersPage /> },
+                    { path: "users/:userId", element: <AdminUseDetailPage /> },
                     { path: "services", element: <AdminServicesPage /> },
                     { path: "plans", element: <AdminPlansPage /> },
                     { path: "subscriptions", element: <AdminSubscriptionsPage /> },

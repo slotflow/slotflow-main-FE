@@ -1,20 +1,21 @@
 import React, { useMemo } from "react";
-import { providerTabs } from "@/utils/constants";
 
 interface ProfileHorizontalTabsComponentProps {
     isAdmin: boolean,
     tab: number,
     setTab: (index: number) => void;
+    tabArray: { tabName: string, admin: boolean, user: boolean }[];
 }
 
 const ProfileHorizontalTabs: React.FC<ProfileHorizontalTabsComponentProps> = ({
     isAdmin,
     tab,
-    setTab
+    setTab,
+    tabArray
 }) => {
 
-    const profileTabs = useMemo(() => {
-        return providerTabs.reduce((acc: string[], tab: { tabName: string, admin: boolean, user: boolean }) => {
+    const tabs = useMemo(() => {
+        return tabArray.reduce((acc: string[], tab: { tabName: string, admin: boolean, user: boolean }) => {
             if (isAdmin && tab.admin) {
                 acc.push(tab.tabName)
             } else if (!isAdmin && tab.user) {
@@ -22,11 +23,11 @@ const ProfileHorizontalTabs: React.FC<ProfileHorizontalTabsComponentProps> = ({
             }
             return acc;
         }, [])
-    }, [isAdmin]);
+    }, [isAdmin, tabArray]);
 
     return (
         <ul className="flex justify-around mt-2 border overflow-x-scroll no-scrollbar rounded-md">
-            {profileTabs.map((button, index) => (
+            {tabs.map((button, index) => (
                 <button key={index} className={`p-2 hover:bg-[var(--menuItemHoverBg)] w-full cursor-pointer text-xs md:text-[1rem] ${tab === index && `text-[var(--mainColor)] font-bold`}`} onClick={() => setTab(index)}>{button}</button>
             ))}
         </ul>

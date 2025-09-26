@@ -193,6 +193,14 @@ export const providerTabs: { tabName: string, admin: boolean, user: boolean }[] 
   { tabName: "Payments", admin: true, user: false }
 ];
 
+export const userTabs: { tabName: string, admin: boolean, user: boolean }[] = [
+  { tabName: "Details", admin: true, user: true },
+  { tabName: "Address", admin: true, user: true },
+  { tabName: "Reviews", admin: true, user: true },
+  { tabName: "bookings", admin: true, user: true },
+  { tabName: "Payments", admin: true, user: true }
+];
+
 // **** Provider service availability component day map **** \\
 export const dayMap: DayMapInterface = {
   "Sun": { day: "Sunday", tab: 0 },

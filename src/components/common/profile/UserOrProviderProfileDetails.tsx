@@ -7,9 +7,9 @@ import InfoDisplayComponent from "../InfoDisplayComponent";
 import { copyToClipboard, formatDate } from "@/utils/helper";
 import ProfileDetailsShimmer from "@/components/shimmers/ProfileDetailsShimmer";
 import { ProviderFetchProfileDetailsResponse } from "@/utils/interface/api/providerApiInterface";
+import { AdminFetchUserProfileDetailsResponse } from "@/utils/interface/api/adminUserApiInterface";
 import { AdminFetchProviderProfileDetailsResponse } from "@/utils/interface/api/adminProviderApiInterface";
 import { UserFetchProviderProfileDetailsResponse, UserFetchUserProfileDetailsResponse } from "@/utils/interface/api/userApiInterface";
-
 
 interface UserOrProviderProfileDetailsComponentProps {
     userOrProviderId?: string;
@@ -17,7 +17,8 @@ interface UserOrProviderProfileDetailsComponentProps {
         AdminFetchProviderProfileDetailsResponse |
         ProviderFetchProfileDetailsResponse |
         UserFetchProviderProfileDetailsResponse |
-        UserFetchUserProfileDetailsResponse
+        UserFetchUserProfileDetailsResponse |
+        AdminFetchUserProfileDetailsResponse
     >;
     queryKey: string;
     adminLookingProvider?: boolean;
@@ -35,7 +36,7 @@ const UserOrProviderProfileDetails: React.FC<UserOrProviderProfileDetailsCompone
     fetchApiFunction,
     queryKey,
     adminLookingProvider,
-    // adminLookingUser,
+    adminLookingUser,
     providerSelf,
     userSelf,
     userLookingProvider,
@@ -53,13 +54,12 @@ const UserOrProviderProfileDetails: React.FC<UserOrProviderProfileDetailsCompone
     })
 
     useEffect(() => {
-        console.log("Data : ",data);
         if (data) {
             if (setProfileImage && "profileImage" in data && data.profileImage) {
                 setProfileImage(data.profileImage);
             }
 
-            if ((userLookingProvider || adminLookingProvider)&& "username" in data && setSelectedUserData) {
+            if ((userLookingProvider || adminLookingProvider || adminLookingUser)&& "username" in data && setSelectedUserData) {
                 setSelectedUserData({
                     selectedUserName: data.username,
                     selectedUserProfileImage: "profileImage" in data ? data.profileImage : null
@@ -67,7 +67,7 @@ const UserOrProviderProfileDetails: React.FC<UserOrProviderProfileDetailsCompone
             }
         }
 
-    }, [data, setProfileImage, setSelectedUserData, userLookingProvider, adminLookingProvider]);
+    }, [data, setProfileImage, setSelectedUserData, userLookingProvider, adminLookingProvider,adminLookingUser]);
 
     if (isError) {
         return <DataFetchingError message={error?.message} />
@@ -103,8 +103,20 @@ const UserOrProviderProfileDetails: React.FC<UserOrProviderProfileDetailsCompone
                         );
                     })()}
 
-                    {/* // TODO */}
                     {/* Admin looking user profile */}
+                    {adminLookingUser && (() => {
+                        const userProfileData = data as (AdminFetchUserProfileDetailsResponse)
+                        return (
+                            <>
+                            <InfoDisplayComponent label="Username" value={userProfileData.username} />
+                            <InfoDisplayComponent label="Email" value={userProfileData.email} copyToClipboard={copyToClipboard} />
+                            <InfoDisplayComponent label="Phone Number" value={userProfileData.phone ?? 'Not yet added'} />
+                            <InfoDisplayComponent label="Joined On" value={userProfileData.createdAt} formatDate={formatDate} />
+                            <InfoDisplayComponent label="Email Verified" value={userProfileData.isEmailVerified} isBoolean={true} />
+                            <InfoDisplayComponent label="Account Blocked" value={userProfileData.isBlocked} isBoolean={true} />
+                            </>
+                        )
+                    })()}
 
                     {/* Provider looking self profile */}
                     {providerSelf && (() => {

@@ -23,7 +23,7 @@ import { adminChangeReviewBlockStatus } from "@/utils/apis/adminReview.api";
 import { FetchReviewsResponse } from "@/utils/interface/api/commonApiInterface";
 
 interface ReviewsPageProps {
-  providerId?: string;
+  id?: string;
   isUser?: boolean;
   isProvider?: boolean;
   isAdmin?: boolean;
@@ -34,7 +34,7 @@ interface ReviewsPageProps {
 }
 
 const ReviewsPage: React.FC<ReviewsPageProps> = ({
-  providerId,
+  id,
   isUser = false,
   isProvider = false,
   isAdmin = false,
@@ -57,7 +57,7 @@ const ReviewsPage: React.FC<ReviewsPageProps> = ({
     queryKey: ["reviews"],
     queryFn: ({ pageParam = 1 }) =>
       fetchFun({
-        id: providerId,
+        id,
         role,
         pagination: { page: pageParam as number, limit },
       }),

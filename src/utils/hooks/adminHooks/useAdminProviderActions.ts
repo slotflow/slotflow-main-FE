@@ -46,7 +46,7 @@ export const useAdminProviderActions = (): UseAdminProviderActionReturnType => {
   }
 
   const handleGetProviderDetailPage = (providerId: Provider["_id"]) => {
-    navigate(`/admin/service-provider/${providerId}`)
+    navigate(`/admin/service-providers/${providerId}`)
   }
 
   const hanldeAdminChangeProviderSlotflowTrustTag = ({ providerId, trustedBySlotflow }: AdminChangeProviderTrustTagRequest) => {

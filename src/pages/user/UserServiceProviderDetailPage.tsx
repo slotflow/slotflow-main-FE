@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import ReviewsPage from "../common/ReviewsPage";
+import { providerTabs } from "@/utils/constants";
 import ProfileHead from "@/components/common/profile/ProfileHead";
 import DataFetchingError from "@/components/common/DataFetchingError";
 import ProfileHorizontalTabs from "@/components/common/ProfileHorizontalTabs";
@@ -31,7 +32,7 @@ const UserServiceProviderDetailPage = () => {
             selectedUserData={selectedUserData}
             />
 
-            <ProfileHorizontalTabs isAdmin={false} setTab={setTab} tab={tab} />
+            <ProfileHorizontalTabs isAdmin={false} setTab={setTab} tab={tab} tabArray={providerTabs} />
 
             <div className={`flex-grow`}>
                 {tab === 0 && (
@@ -43,7 +44,7 @@ const UserServiceProviderDetailPage = () => {
                 ) || tab === 3 && (
                     <ProviderServiceAvailability providerId={providerId} fetchApiFuntion={userFetchProviderServiceAvailability} queryKey="providerServiceAvailability" role="User" />
                 ) || tab === 4 && (
-                    <ReviewsPage fetchFun={userFetchAllReviews} providerId={providerId} isUser role={"PROVIDER"}/>
+                    <ReviewsPage fetchFun={userFetchAllReviews} id={providerId} isUser role={"PROVIDER"}/>
                 )}
             </div>
 
