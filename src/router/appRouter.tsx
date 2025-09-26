@@ -5,7 +5,6 @@ import { ProtectedRoute } from "./protectedRoutes.tsx";
 
 import ProviderReviewPage from "@/pages/provider/ProviderReviewPage.tsx";
 import UserReviewPage from "@/pages/user/UserReviewPage.tsx";
-import AdminReviewPage from "@/pages/admin/AdminReviewPage.tsx";
 import AdminUseDetailPage from "@/pages/admin/AdminUseDetailPage.tsx";
 
 const AuthPage = lazy(() => import("@/pages/common/AuthPage.tsx"));
@@ -79,7 +78,9 @@ export const appRouter = createBrowserRouter([
                     </ProtectedRoute>
                 ),
                 children: [
-                    { path: "dashboard", element: <AdminDashboardPage /> },
+                    { path: "overview", element: <AdminDashboardPage /> },
+                    { path: "analytics", element: <AdminDashboardPage /> },
+                    { path: "reports", element: <AdminDashboardPage /> },
                     { path: "service-providers", element: <AdminServiceProvidersPage /> },
                     { path: "service-providers/:providerId", element: <AdminServiceProviderDetailPage /> },
                     { path: "users", element: <AdminUsersPage /> },
@@ -87,9 +88,9 @@ export const appRouter = createBrowserRouter([
                     { path: "services", element: <AdminServicesPage /> },
                     { path: "plans", element: <AdminPlansPage /> },
                     { path: "subscriptions", element: <AdminSubscriptionsPage /> },
-                    { path: "reviews", element: <AdminReviewPage /> },
                     { path: "payments", element: <AdminPaymentsPage /> },
                     { path: "subscription/:subscriptionId", element: <AdminSubcriptionDetailedViewPage /> },
+                    { path: "api-strength", element: <AdminDashboardPage /> },
                     { path: "*", element: <Error404Page /> },
                 ],
             },

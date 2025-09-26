@@ -5,9 +5,10 @@ import ReviewsPage from '../common/ReviewsPage';
 import ProfileHead from '@/components/common/profile/ProfileHead';
 import { adminFetchAllReviews } from '@/utils/apis/adminReview.api';
 import DataFetchingError from '@/components/common/DataFetchingError';
-import { adminFetchUserProfileDetails } from '@/utils/apis/adminUser.api';
+import { adminFetchUserAddress, adminFetchUserProfileDetails } from '@/utils/apis/adminUser.api';
 import ProfileHorizontalTabs from '@/components/common/ProfileHorizontalTabs';
 import UserOrProviderProfileDetails from '@/components/common/profile/UserOrProviderProfileDetails';
+import UserOrProviderAddressDetails from '@/components/common/profile/UserOrProviderAddressDetails';
 
 const AdminUseDetailPage: React.FC = () => {
 
@@ -36,13 +37,9 @@ const AdminUseDetailPage: React.FC = () => {
                 {tab === 0 && (
                     <UserOrProviderProfileDetails fetchApiFunction={() => adminFetchUserProfileDetails(userId)} queryKey="userProfile" userOrProviderId={userId} adminLookingUser shimmerRow={8} setSelectedUserData={setSelectedUserData} />
                 ) || tab === 1 && (
-                    <h1>Addres page Developing</h1>
+                    <UserOrProviderAddressDetails fetchApiFunction={() => adminFetchUserAddress(userId)} queryKey='' userOrProviderId={userId} />
                 ) || tab === 2 && (
                     <ReviewsPage isAdmin fetchFun={adminFetchAllReviews} id={userId} role={"USER"} />
-                ) || tab === 3 && (
-                    <h1>Bookings Developing</h1>
-                ) || tab === 4 && (
-                    <h1>Payments Developing</h1>
                 )}
             </div>
 

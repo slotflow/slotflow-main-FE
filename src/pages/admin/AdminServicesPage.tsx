@@ -27,7 +27,7 @@ const AdminServicesPage = () => {
             columnsCount={4}
           />
         </div>
-        <div className='w-4/12 mx-2 mt-12'>
+        <div className='w-4/12 mx-2 mt-14'>
           <ServiceAddingForm />
         </div>
       </div>

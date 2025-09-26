@@ -1,7 +1,6 @@
 import { axiosInstance } from "@/lib/axios";
 import {
     AdminFetchAllProvidersResponse,
-    AdminFetchProviderAddressResponse,
     AdminFetchProviderServiceResponse,
     AdminChangeProviderTrustTagRequest,
     AdminChangeProviderBlockStatusRequest,
@@ -12,7 +11,7 @@ import {
 import { buildQueryParams, parseNewCommonResponse } from "../helper";
 import { Provider } from "../interface/entityInterface/providerInterface";
 import { FetchFunctionParams, ApiPaginatedResponse, ApiBaseResponse } from "../interface/commonInterface";
-import { FetchPaymentsResponse, FetchProviderSubscriptionsResponse } from "../interface/api/commonApiInterface";
+import { AdminFetchddressResponse, FetchPaymentsResponse, FetchProviderSubscriptionsResponse } from "../interface/api/commonApiInterface";
 
 export const adminFetchAllProviders = async (params?: FetchFunctionParams): Promise<ApiPaginatedResponse<AdminFetchAllProvidersResponse>> => {
     const query = buildQueryParams(params);
@@ -40,7 +39,7 @@ export const adminFetchProviderProfileDetails = async (providerId: Provider["_id
     return response.data.data;
 }
 
-export const adminFetchProviderAddress = async (providerId: Provider["_id"]): Promise<AdminFetchProviderAddressResponse> => {
+export const adminFetchProviderAddress = async (providerId: Provider["_id"]): Promise<AdminFetchddressResponse> => {
     const response = await axiosInstance.get(`/admin/providers/${providerId}/address`);
     return response.data.data;
 }

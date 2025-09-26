@@ -5,14 +5,14 @@ import { providerTabs } from "@/utils/constants";
 import ProfileHead from "@/components/common/profile/ProfileHead";
 import { adminFetchAllReviews } from "@/utils/apis/adminReview.api";
 import DataFetchingError from "@/components/common/DataFetchingError";
-import AdminProviderPayments from "@/components/admin/AdminProviderPayments";
 import ProfileHorizontalTabs from "@/components/common/ProfileHorizontalTabs";
 import AdminProviderSubscriptions from "@/components/admin/AdminProviderSubscriptions";
 import ProviderServiceDetails from "@/components/common/profile/ProviderServiceDetails";
+import AdminUserOrProviderPayments from "@/components/admin/AdminUserOrProviderPayments";
 import ProviderServiceAvailability from "@/components/common/profile/ProviderServiceAvailability";
 import UserOrProviderAddressDetails from "@/components/common/profile/UserOrProviderAddressDetails";
 import UserOrProviderProfileDetails from "@/components/common/profile/UserOrProviderProfileDetails";
-import { adminFetchProviderServiceAvailability, adminFetchProviderAddress, adminFetchProviderProfileDetails, adminFetchProviderService } from "@/utils/apis/adminProvider.api";
+import { adminFetchProviderServiceAvailability, adminFetchProviderAddress, adminFetchProviderProfileDetails, adminFetchProviderService, adminFetchProviderPayments } from "@/utils/apis/adminProvider.api";
 
 const AdminServiceProviderDetailPage = () => {
 
@@ -51,7 +51,7 @@ const AdminServiceProviderDetailPage = () => {
                 ) || tab === 5 && (
                     <AdminProviderSubscriptions providerId={providerId} />
                 ) || tab === 6 && (
-                    <AdminProviderPayments providerId={providerId} />
+                    <AdminUserOrProviderPayments id={providerId} fethFunction={adminFetchProviderPayments} />
                 )}
             </div>
             

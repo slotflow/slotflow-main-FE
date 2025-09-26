@@ -1,4 +1,3 @@
-import { Address } from "../entityInterface/addressInterface";
 import { Provider } from "../entityInterface/providerInterface";
 import { Service } from "../entityInterface/appServiceInterface";
 import { ProviderService } from "../entityInterface/providerServiceInterface";
@@ -29,8 +28,7 @@ export type AdminChangeProviderTrustTagRequest = {
 export type AdminFetchProviderProfileDetailsResponse = Pick<Provider, "_id" | "username" | "email" | "isBlocked" | "isEmailVerified" | "isAdminVerified" | "phone" | "profileImage" | "createdAt" | "trustedBySlotflow">;
 
 
-// **** 6.  Used as the response type of the admin fetch provider address api
-export type AdminFetchProviderAddressResponse = Pick<Address, "userId" | "addressLine" | "phone" | "place" | "city" | "district" | "pincode" | "state" | "country" | "googleMapLink">;
+// **** 6.  Interface for the admin fetch provider address is in common interface file
 
 
 // **** 7.  Used as the response type of the admin fetch provider serivde details api

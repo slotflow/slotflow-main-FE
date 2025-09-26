@@ -45,14 +45,16 @@ import { ContactItem } from "./interface/componentInterface/commonComponentInter
 
 // **** Routes for admin **** \\
 export const adminRoutes: Route[] = [
-  { path: "dashboard", name: "Dashboard" },
+  { path: "overview", name: "Overview" },
+  { path: "analytics", name: "Analytics" },
+  { path: "report", name: "Reports"},
   { path: "service-providers", name: "Service Providers" },
   { path: "users", name: "Users" },
   { path: "services", name: "Services" },
   { path: "plans", name: "Plans" },
   { path: "subscriptions", name: "Subscriptions" },
   { path: "payments", name: "Payments" },
-  { path: "reviews", name: "Reviews" },
+  { path: "api-strength", name: "Api Strength" },
 ];
 
 // **** Routes for user **** \\
@@ -197,8 +199,6 @@ export const userTabs: { tabName: string, admin: boolean, user: boolean }[] = [
   { tabName: "Details", admin: true, user: true },
   { tabName: "Address", admin: true, user: true },
   { tabName: "Reviews", admin: true, user: true },
-  { tabName: "bookings", admin: true, user: true },
-  { tabName: "Payments", admin: true, user: true }
 ];
 
 // **** Provider service availability component day map **** \\

@@ -77,3 +77,7 @@ export interface FetchReviewsResponse extends Pick<Review, "_id" | "createdAt" |
   userId: Pick<User, "username" | "profileImage">;
   providerId: Pick<Provider, "username" | "profileImage">;
 };
+
+
+// **** 8.  Used as the response type of the admin fetch provider or user address api
+export type AdminFetchddressResponse = Pick<Address, "userId" | "addressLine" | "phone" | "place" | "city" | "district" | "pincode" | "state" | "country" | "googleMapLink">;

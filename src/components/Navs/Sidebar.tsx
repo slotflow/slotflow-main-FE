@@ -22,6 +22,9 @@ import {
     Video,
     Settings,
     Calendar1,
+    ChartNoAxesCombined,
+    BookLock,
+    ScanHeart,
 } from 'lucide-react';
 import { SingleTab } from './SingleTab';
 import React, { useEffect } from 'react';
@@ -62,6 +65,9 @@ const Sidebar: React.FC<SideBarProps> = ({
 
     const iconMap: Record<string, React.ReactNode> = {
         'dashboard': <Gauge />,
+        'overview': <Gauge />,
+        'analytics': <ChartNoAxesCombined />,
+        'reports': <BookLock />,
         '/provider': <Gauge />,
         '/admin': <Gauge />,
         'users': <Users />,
@@ -84,6 +90,7 @@ const Sidebar: React.FC<SideBarProps> = ({
         'settings': <Settings />,
         'service-providers': <Network />,
         'availability': <CalendarDays />,
+        'api-strength': <ScanHeart />,
         'logout': <LogOut />,
     }
 
@@ -116,7 +123,7 @@ const Sidebar: React.FC<SideBarProps> = ({
                         )}
                     </li>
 
-                    <SingleTab icon={<PanelLeft />} text="" onClick={handleSidebar} sidebarOpen={sidebarOpen} />
+                    <SingleTab icon={<PanelLeft />} text={sidebarOpen ? "Close Menu" : ""} onClick={handleSidebar} sidebarOpen={sidebarOpen} />
 
                     {routes.map((route) => {
                         const isProvider = user?.role === "PROVIDER";

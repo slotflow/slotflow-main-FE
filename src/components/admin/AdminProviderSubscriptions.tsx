@@ -29,4 +29,4 @@ const AdminProviderSubscriptions: React.FC<AdminFetchProviderSubscriptionsCompon
     )
 })
 
-export default AdminProviderSubscriptions
+export default AdminProviderSubscriptions;
