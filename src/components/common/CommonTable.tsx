@@ -16,6 +16,7 @@ const CommonTable = <T,>({
   id,
   pageSize = 10,
 }: CommonTableComponentProps<T>) => {
+
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
     pageSize: pageSize,
@@ -58,7 +59,7 @@ const CommonTable = <T,>({
       ) : isError && error ? (
         <DataFetchingError message={(error as Error).message} className="min-h-full" />
       ) : (
-        <DataFetchingError message={"No "+queryKey+" found in databse"} className="min-h-full" />
+        <DataFetchingError message={"No "+queryKey+" found in database"} className="min-h-full" />
       )}
     </div>
   );
