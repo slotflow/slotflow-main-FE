@@ -3,9 +3,6 @@ import PlanGuard from "./planGuard.tsx";
 import { createBrowserRouter } from "react-router-dom";
 import { ProtectedRoute } from "./protectedRoutes.tsx";
 
-import ProviderReviewPage from "@/pages/provider/ProviderReviewPage.tsx";
-import UserReviewPage from "@/pages/user/UserReviewPage.tsx";
-import AdminUseDetailPage from "@/pages/admin/AdminUseDetailPage.tsx";
 
 const AuthPage = lazy(() => import("@/pages/common/AuthPage.tsx"));
 const AboutPage = lazy(() => import("@/pages/common/AboutPage.tsx"));
@@ -27,6 +24,7 @@ const TermsAndConditionsPage = lazy(() => import("@/pages/common/TermsAndConditi
 
 const UserMainPage = lazy(() => import("@/pages/user/UserMainPage.tsx"));
 const UserChatPage = lazy(() => import("@/pages/user/UserChatPage.tsx"));
+const UserReviewPage = lazy(() => import("@/pages/user/UserReviewPage"));
 const UserPaymentsPage = lazy(() => import("@/pages/user/UserPaymentsPage.tsx"));
 const UserBookingsPage = lazy(() => import("@/pages/user/UserBookingsPage.tsx"));
 const UserDashboardPage = lazy(() => import("@/pages/user/UserDashboardPage.tsx"));
@@ -36,6 +34,7 @@ const UserServiceProviderDetailPage = lazy(() => import("@/pages/user/UserServic
 
 const ProviderMainPage = lazy(() => import("@/pages/provider/ProviderMainPage.tsx"));
 const ProviderChatPage = lazy(() => import("@/pages/provider/ProviderChatPage.tsx"));
+const ProviderReviewPage = lazy(() => import("@/pages/provider/ProviderReviewPage"));
 const ProviderServicePage = lazy(() => import("@/pages/provider/ProviderServicePage.tsx"));
 const ProviderPaymentsPage = lazy(() => import("@/pages/provider/ProviderPaymentsPage.tsx"));
 const ProviderDashboardPage = lazy(() => import("@/pages/provider/ProviderDashboardPage.tsx"));
@@ -45,12 +44,15 @@ const ProviderSubscriptionPage = lazy(() => import("@/pages/provider/ProviderSub
 const ProviderNotificationsPage = lazy(() => import("@/pages/provider/ProviderNotificationsPage.tsx"));
 const ProviderSubscriptionDetailViewPage = lazy(() => import("@/pages/provider/ProviderSubscriptionDetailViewPage.tsx"));
 
+const AdminReportPage = lazy(() => import("@/pages/admin/AdminReportPage"));
 const AdminMainPage = lazy(() => import("../pages/admin/AdminMainPage.tsx"));
 const AdminPlansPage = lazy(() => import("@/pages/admin/AdminPlansPage.tsx"));
 const AdminUsersPage = lazy(() => import("@/pages/admin/AdminUsersPage.tsx"));
+const AdminUseDetailPage = lazy(() => import("@/pages/admin/AdminUseDetailPage"));
 const AdminPaymentsPage = lazy(() => import("@/pages/admin/AdminPaymentsPage.tsx"));
 const AdminServicesPage = lazy(() => import("@/pages/admin/AdminServicesPage.tsx"));
 const AdminOverviewPage = lazy(() => import("../pages/admin/AdminOverviewPage.tsx"));
+const AdminApiStrengthPage = lazy(() => import("@/pages/admin/AdminApiStrengthPage.tsx"));
 const AdminSubscriptionsPage = lazy(() => import("@/pages/admin/AdminSubscriptionsPage.tsx"));
 const AdminServiceProvidersPage = lazy(() => import("../pages/admin/AdminServiceProvidersPage.tsx"));
 const AdminServiceProviderDetailPage = lazy(() => import("@/pages/admin/AdminServiceProviderDetailPage.tsx"));
@@ -79,7 +81,7 @@ export const appRouter = createBrowserRouter([
                 ),
                 children: [
                     { path: "overview", element: <AdminOverviewPage /> },
-                    { path: "reports", element: <AdminOverviewPage /> },
+                    { path: "report", element: <AdminReportPage /> },
                     { path: "service-providers", element: <AdminServiceProvidersPage /> },
                     { path: "service-providers/:providerId", element: <AdminServiceProviderDetailPage /> },
                     { path: "users", element: <AdminUsersPage /> },
@@ -89,7 +91,7 @@ export const appRouter = createBrowserRouter([
                     { path: "subscriptions", element: <AdminSubscriptionsPage /> },
                     { path: "payments", element: <AdminPaymentsPage /> },
                     { path: "subscription/:subscriptionId", element: <AdminSubcriptionDetailedViewPage /> },
-                    { path: "api-strength", element: <AdminOverviewPage /> },
+                    { path: "api-strength", element: <AdminApiStrengthPage /> },
                     { path: "*", element: <Error404Page /> },
                 ],
             },
