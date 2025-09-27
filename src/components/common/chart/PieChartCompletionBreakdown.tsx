@@ -4,10 +4,10 @@ import {
 } from "@/components/ui/card";
 import {
   ChartConfig,
-  ChartContainer,
   ChartLegend,
-  ChartLegendContent,
   ChartTooltip,
+  ChartContainer,
+  ChartLegendContent,
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import ChartHeader from "./ChartHeader";
@@ -57,9 +57,9 @@ const PieChartCompletionBreakdown = ({
                 label
                 outerRadius="80%"
               >
-                {chartData.map((entry) => (
+                {chartData.map((entry, index) => (
                   <Cell
-                    key={entry.status}
+                    key={index}
                     fill={chartConfig[entry.status]?.color || "#8884d8"}
                   />
                 ))}

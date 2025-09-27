@@ -1,7 +1,9 @@
+import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import DataFetchingError from '../DataFetchingError';
 import StatsCard from '@/components/common/dashboard/StatsCard';
 import { statsMapIntrface } from '@/utils/interface/commonInterface';
+import HorizontalChartForAdminReact from '../chart/HorizontalChartForAdmin';
 import DashboardStatsShimmer from '@/components/shimmers/DashboardStatsShimmer';
 
 interface DashboardStatsProps<T extends Record<string, number>> {
@@ -24,6 +26,8 @@ const DashboardStats = <T extends Record<string, number>>({
     role,
 }: DashboardStatsProps<T>) => {
 
+    const [chartData, setChartData] = useState<{ name: string; value: number }[]>();
+
     const {
         data: dashboardStats,
         isLoading: isNumericDataLoading,
@@ -36,8 +40,19 @@ const DashboardStats = <T extends Record<string, number>>({
         refetchOnWindowFocus: false,
     });
 
+    useEffect(() => {
+        if (dashboardStats && statsMap.length > 0) {
+            const formattedData = statsMap.map((stat) => ({
+                name: stat.title,
+                value: dashboardStats[stat.key] ?? 0,
+            }));
+
+            setChartData(formattedData);
+        }
+    }, [dashboardStats, statsMap]);
+
     return (
-        <>
+        <div>
             <h4 className='p-2 text-lg font-bold'>{heading}</h4>
             {isNumericDataLoading ? (
                 <DashboardStatsShimmer count={shimmerCount} />
@@ -59,7 +74,14 @@ const DashboardStats = <T extends Record<string, number>>({
                     ) : null}
                 </div>
             )}
-        </>
+
+            <div className='p-2'>
+                <HorizontalChartForAdminReact
+                    chartData={chartData ?? []}
+                    isLOading={isNumericDataLoading}
+                />
+            </div>
+        </div>
     )
 }
 

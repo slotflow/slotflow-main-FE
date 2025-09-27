@@ -26,6 +26,7 @@ export interface AdminFetchDashboardProviderStatsDataResponse extends Record<str
     addressAddedProviders: number;
     serviceAddedProviders: number;
     availabilityAddedProviders: number;
+    slotflowTrustedProviders: number;
 }
 
 // **** 4. used as the response type of the admin fetch dashboard subscription stats data

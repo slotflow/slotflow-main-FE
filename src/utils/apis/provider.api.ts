@@ -203,7 +203,7 @@ export const providerFetchAllReviews = async (query: FetchFunctionParams): Promi
     return response.data
 }
 
-export const providerReportReview = async (reviewId: Review["_id"]): Promise<number> => {
+export const providerReportReview = async (reviewId: Review["_id"]): Promise<ApiBaseResponse> => {
     const response = await axiosInstance.patch(`/provider/reviews/${reviewId}`);
-    return response.status
+    return response.data;
 }

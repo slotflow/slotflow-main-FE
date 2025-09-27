@@ -2,7 +2,7 @@ import { axiosInstance } from "@/lib/axios";
 import { buildQueryParams } from "../helper";
 import { Review } from "../interface/entityInterface/reviewInterface";
 import { FetchReviewsResponse } from "../interface/api/commonApiInterface";
-import { ApiPaginatedResponse, FetchFunctionParams } from "../interface/commonInterface";
+import { ApiBaseResponse, ApiPaginatedResponse, FetchFunctionParams } from "../interface/commonInterface";
 
 export const adminFetchAllReviews = async (payload: FetchFunctionParams): Promise<ApiPaginatedResponse<FetchReviewsResponse>> => {
     const { id } = payload;
@@ -11,7 +11,7 @@ export const adminFetchAllReviews = async (payload: FetchFunctionParams): Promis
     return response.data;
 }
 
-export const adminChangeReviewBlockStatus = async (reviewId: Review["_id"]): Promise<number> => {
+export const adminChangeReviewBlockStatus = async (reviewId: Review["_id"]): Promise<ApiBaseResponse> => {
     const response = await axiosInstance.patch(`/admin/reviews/${reviewId}`);
-    return response.status;
+    return response.data;
 }

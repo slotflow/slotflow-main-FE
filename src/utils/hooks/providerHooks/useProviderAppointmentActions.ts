@@ -19,8 +19,8 @@ export const useProviderAppointmentActions = () => {
         providerChangeAppointmentStatus({ appointmentId, appointmentStatus })
             .then((res) => {
                 if(res.success) {
-                    queryClient.invalidateQueries({ queryKey: ["appointments"] });
                     toast.success(res.message);
+                    queryClient.invalidateQueries({ queryKey: ["appointments"] });
                 }
             })
             .catch(() => {

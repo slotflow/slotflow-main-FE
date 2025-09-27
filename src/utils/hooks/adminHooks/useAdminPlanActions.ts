@@ -16,9 +16,9 @@ export const useAdminPlanActions = (): UseAdminPlanActionsReturnType => {
       adminAddNewPlan(formData)
       .then((res) => {
         if(res.success) {
-          queryClient.invalidateQueries({ queryKey: ["plans"] });
           setLoading(false);
           toast.success(res.message);
+          queryClient.invalidateQueries({ queryKey: ["plans"] });
         }
       })
       .catch(() => {
@@ -30,8 +30,8 @@ export const useAdminPlanActions = (): UseAdminPlanActionsReturnType => {
     adminChangePlanBlockStatus({planId, isBlocked })
       .then((res) => {
         if(res.success) {
-          queryClient.invalidateQueries({ queryKey: ["plans"] });
           toast.success(res.message);
+          queryClient.invalidateQueries({ queryKey: ["plans"] });
         }
       })
       .catch(() => {

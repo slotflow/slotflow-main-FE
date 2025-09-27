@@ -17,9 +17,9 @@ export const useAdminServiceActions = (): UseAdminServiceActionReturnType => {
     adminAddNewService({ appServiceName })
       .then((res) => {
         if(res.success) {
-          queryClient.invalidateQueries({ queryKey: ["appServices"] });
           setLoading(false);
           toast.success(res.message);
+          queryClient.invalidateQueries({ queryKey: ["appServices"] });
         }
       })
       .catch(() => {
@@ -31,8 +31,8 @@ export const useAdminServiceActions = (): UseAdminServiceActionReturnType => {
     adminChangeServiceBlockStatus({ serviceId, isBlocked })
       .then((res) => {
         if(res.success) {
-          queryClient.invalidateQueries({ queryKey: ["appServices"] });
           toast.success(res.message);
+          queryClient.invalidateQueries({ queryKey: ["appServices"] });
         }
       })
       .catch(() => {

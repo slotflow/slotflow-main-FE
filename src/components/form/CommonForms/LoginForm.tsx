@@ -31,7 +31,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ isAdmin, role }) => {
 
     const handleNavigation = (role: string) => {
         console.log("navigating");
-        if (role === "ADMIN") navigate("/admin/dashboard", { replace: true });
+        if (role === "ADMIN") navigate("/admin/overview", { replace: true });
         else if (role === "USER") navigate("/user", { replace: true });
         else if (role === "PROVIDER") navigate("/provider/dashboard", { replace: true });
     };

@@ -21,8 +21,8 @@ export const useAdminProviderActions = (): UseAdminProviderActionReturnType => {
     adminApproveProvider(providerId)
       .then((res) => {
         if (res.success) {
-          queryClient.invalidateQueries({ queryKey: ["providers"] });
           toast.success(res.message);
+          queryClient.invalidateQueries({ queryKey: ["providers"] });
         }
       })
       .catch(() => {
@@ -31,13 +31,12 @@ export const useAdminProviderActions = (): UseAdminProviderActionReturnType => {
   };
 
   const hanldeAdminChangeProviderBlockStatus = ({ providerId, isBlocked }: AdminChangeProviderBlockStatusRequest) => {
-    console.log("prvovider change block status function")
     adminChangeProviderBlockStatus({ providerId, isBlocked })
       .then((res) => {
+        console.log("response : ",res);
         if (res.success) {
-          console.log("success");
-          queryClient.invalidateQueries({ queryKey: ["providers"] });
           toast.success(res.message);
+          queryClient.invalidateQueries({ queryKey: ["providers"] });
         }
       })
       .catch(() => {
@@ -53,8 +52,8 @@ export const useAdminProviderActions = (): UseAdminProviderActionReturnType => {
     adminChangeProviderTrustTag({ providerId, trustedBySlotflow })
       .then((res) => {
         if (res.success) {
-          queryClient.invalidateQueries({ queryKey: ["providers"] });
           toast.success(res.message);
+          queryClient.invalidateQueries({ queryKey: ["providers"] });
         }
       })
       .catch(() => {

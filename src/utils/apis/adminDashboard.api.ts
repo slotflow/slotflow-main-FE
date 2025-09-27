@@ -4,7 +4,6 @@ import {
     AdminFetchDashboardUserStatsDataResponse,
     AdminFetchDashboardTodayStatsDataResponse,
     AdminFetchDashboardProviderStatsDataResponse,
-    // AdminFetchDashboardPaymentStatsDataResponse, 
     AdminFetchDashboardAppointmentStatsDataResponse, 
     AdminFetchDashboardSubscriptionStatsDataResponse,
     AdminFetchDashboardRevenueAndPaymentsStatsDataResponse,

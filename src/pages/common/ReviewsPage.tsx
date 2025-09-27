@@ -108,8 +108,8 @@ const ReviewsPage: React.FC<ReviewsPageProps> = ({
                 onClick={async () => {
                   try {
                     const res = await userDeleteReview(reviewId);
-                    if (res === 204) {
-                      toast.success("Review deleted successfully");
+                    if (res.success) {
+                      toast.success(res.message);
                       queryClient.invalidateQueries({ queryKey: ["reviews"] });
                     }
                   } catch {
@@ -144,8 +144,8 @@ const ReviewsPage: React.FC<ReviewsPageProps> = ({
 
     await providerReportReview(reviewId)
       .then((res) => {
-        if (res === 204) {
-          toast.success("Review report status changed");
+        if (res.success) {
+          toast.success(res.message);
           queryClient.invalidateQueries({ queryKey: ["reviews"] });
         }
       })
@@ -170,8 +170,8 @@ const ReviewsPage: React.FC<ReviewsPageProps> = ({
 
     await adminChangeReviewBlockStatus(reviewId)
       .then((res) => {
-        if (res === 204) {
-          toast.success("Review block status updated");
+        if (res.success) {
+          toast.success(res.message);
           queryClient.invalidateQueries({ queryKey: ["reviews"] });
         }
       })

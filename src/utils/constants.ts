@@ -31,7 +31,8 @@ import {
   MessageSquareText, 
   PictureInPicture2,
   Phone,
-  Mail, 
+  Mail,
+  Verified, 
 } from "lucide-react";
 import { ProviderFetchDashboardStatsDataResponse } from "./interface/api/providerApiInterface";
 import { dataSelectListItemInterface, DayMapInterface, FeatureContentInterface, FooterColumnDataInterface, FooterLinkInterface, gsapBigSvgYDirectionAnimationInterface, HeaderCompoenentNavsProps, PlanFeatureInterface, PlanListType, ProviderApprovalMessageInterface, Route, StatsMapForAdminInterface, statsMapIntrface } from "./interface/commonInterface";
@@ -46,7 +47,6 @@ import { ContactItem } from "./interface/componentInterface/commonComponentInter
 // **** Routes for admin **** \\
 export const adminRoutes: Route[] = [
   { path: "overview", name: "Overview" },
-  { path: "analytics", name: "Analytics" },
   { path: "report", name: "Reports"},
   { path: "service-providers", name: "Service Providers" },
   { path: "users", name: "Users" },
@@ -812,6 +812,11 @@ export const providerStatsMapForAdmin: StatsMapForAdminInterface[] = [
     icon: ShieldCheck,
   },
   {
+    title: "Slotflow verified",
+    key: "slotflowTrustedProviders",
+    icon: Verified,
+  },
+  {
     title: "Blocked Providers",
     key: "blockedProviders",
     icon: UserX,
@@ -1089,3 +1094,14 @@ export const termsAndConditionsContent: string[] = [
 
 // Landing Layout paths
 export const pathNames: string[] = ["/user", '/provider', '/admin'];
+
+
+// Admin dahsboard overview tabs
+export const adminOverviewTabs = [
+  { value: "today", label: "Today" },
+  { value: "users", label: "Users" },
+  { value: "providers", label: "Providers" },
+  { value: "subscriptions", label: "Subscriptions" },
+  { value: "revenue", label: "Revenue" },
+  { value: "appointments", label: "Appointments" },
+];

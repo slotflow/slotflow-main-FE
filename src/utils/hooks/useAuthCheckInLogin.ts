@@ -11,7 +11,7 @@ export const useAuthCheckInLogin = () => {
   useEffect(() => {
     if (authUser?.isLoggedIn) {
       if (authUser.role === "ADMIN") {
-        navigate("/admin/dashboard");
+        navigate("/admin/overview");
       } else if (authUser.role === "USER") {
         navigate("/user/dashboard");
       } else if (authUser.role === "PROVIDER") {

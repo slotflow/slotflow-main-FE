@@ -19,8 +19,8 @@ export const useAdminUserActions = (): useAdminUserActionsCustomHookReturnType =
     adminChangeUserBlockStatus({ userId, isBlocked })
       .then((res) => {
         if(res.success) {
-          queryClient.invalidateQueries({ queryKey: ["users"] });
           toast.success(res.message);
+          queryClient.invalidateQueries({ queryKey: ["users"] });
         }
       })
       .catch(() => {

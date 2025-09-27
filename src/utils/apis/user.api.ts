@@ -165,7 +165,7 @@ export const userFetchAllReviews = async (payload : FetchFunctionParams): Promis
     return response.data;
 }
 
-export const userDeleteReview = async (reviewId: Review["_id"]): Promise<number> => {
+export const userDeleteReview = async (reviewId: Review["_id"]): Promise<ApiBaseResponse> => {
     const response = await axiosInstance.delete(`/user/reviews/${reviewId}`);
-    return response.status;
+    return response.data;
 }

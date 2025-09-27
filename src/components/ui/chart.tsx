@@ -277,13 +277,13 @@ function ChartLegendContent({
         className
       )}
     >
-      {(payload as { dataKey: string, value: string, color: string }[]).map((item) => {
+      {(payload as { dataKey: string, value: string, color: string }[]).map((item, index) => {
         const key = `${nameKey || item.dataKey || "value"}`
         const itemConfig = getPayloadConfigFromPayload(config, item, key)
 
         return (
           <div
-            key={item.value}
+            key={index}
             className={cn(
               "[&>svg]:text-muted-foreground flex items-center gap-1.5 [&>svg]:h-3 [&>svg]:w-3"
             )}
