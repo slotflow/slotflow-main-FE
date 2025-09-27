@@ -53,13 +53,13 @@ const DashboardStats = <T extends Record<string, number>>({
 
     return (
         <div>
-            <h4 className='p-2 text-lg font-bold'>{heading}</h4>
+            <h4 className='text-lg font-bold'>{heading}</h4>
             {isNumericDataLoading ? (
                 <DashboardStatsShimmer count={shimmerCount} />
             ) : (isNumericDataError && numericDataError) ? (
                 <DataFetchingError message={"Data fetching failed"} />
             ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                     {statsMap.length > 0 ? (
                         statsMap.map(({ title, key, icon, price, plans }) => (
                             <StatsCard
@@ -75,7 +75,7 @@ const DashboardStats = <T extends Record<string, number>>({
                 </div>
             )}
 
-            <div className='p-2'>
+            <div className='mt-6'>
                 <HorizontalChartForAdminReact
                     chartData={chartData ?? []}
                     isLOading={isNumericDataLoading}
