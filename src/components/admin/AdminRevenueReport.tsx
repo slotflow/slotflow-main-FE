@@ -11,7 +11,7 @@ import { OnChangeFn, PaginationState } from '@tanstack/react-table';
 import DataFetchingError from '@/components/common/DataFetchingError';
 import { adminFetchRevenueReport } from '@/utils/apis/adminReport.api';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { handleExportExcel, handleExportPDF } from '@/utils/helper/reportGenerator';
+// import { handleExportExcel, handleExportPDF } from '@/utils/helper/reportGenerator';
 import { AdminRevenueTableColumn } from '@/components/table/tableColumns/AdminRevenueTableColumn';
 
 const AdminRevenueReport: React.FC = () => {
@@ -79,7 +79,7 @@ const AdminRevenueReport: React.FC = () => {
                 <div className="flex gap-2">
                     <Button className='cursor-pointer' onClick={() => refetch()}>Reset</Button>
 
-                    <Button
+                    {/* <Button
                         variant="outline"
                         onClick={(e) => handleExportPDF(e, data?.data?.rows || [], "Revenue Report")}
                     >
@@ -91,7 +91,7 @@ const AdminRevenueReport: React.FC = () => {
                         onClick={(e) => handleExportExcel(e, data?.data?.rows || [], "Revenue Report")}
                     >
                         Generate Excel
-                    </Button>
+                    </Button> */}
                 </div>
             </div >
 
