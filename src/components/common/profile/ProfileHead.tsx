@@ -17,7 +17,6 @@ const ProfileHead: React.FC<ProfileHeaderComponentProps> = ({
     selectedUserData
 }) => {
 
-    console.log("selectedUserData : ",selectedUserData)
     const dispatch = useDispatch<AppDispatch>();
     const { authUser, profileImageUpdating }: AuthState = useSelector((store: RootState) => store.auth);
     const [selectedImage, setSelectedImage] = useState<string | null>(null);

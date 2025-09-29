@@ -170,7 +170,6 @@ const Sidebar: React.FC<SideBarProps> = ({
                         onClick={changeTheme}
                         sidebarOpen={sidebarOpen}
                     />
-
                     <SingleTab
                         icon={<LogOut />}
                         text="Logout"

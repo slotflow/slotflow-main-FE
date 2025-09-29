@@ -5,9 +5,8 @@ import { ProtectedRoute } from "./protectedRoutes.tsx";
 
 const AuthPage = lazy(() => import("@/pages/common/AuthPage.tsx"));
 const AboutPage = lazy(() => import("@/pages/common/AboutPage.tsx"));
-const ProfilePage = lazy(() => import("@/pages/common/ProfilePage.tsx"));
+const ProfilePage = lazy(() => import("@/components/common/profile/Profile.tsx"));
 const ContactPage = lazy(() => import("@/pages/common/ContactPage.tsx"));
-const AddressPage = lazy(() => import("@/pages/common/AddressPage.tsx"));
 const LandingPage = lazy(() => import("../pages/common/LandingPage.tsx"));
 const Error404Page = lazy(() => import("@/pages/common/Error404Page.tsx"));
 const SettingsPage = lazy(() => import("@/pages/common/SettingsPage.tsx"));
@@ -34,11 +33,9 @@ const UserServiceProviderDetailPage = lazy(() => import("@/pages/user/UserServic
 const ProviderMainPage = lazy(() => import("@/pages/provider/ProviderMainPage.tsx"));
 const ProviderChatPage = lazy(() => import("@/pages/provider/ProviderChatPage.tsx"));
 const ProviderReviewPage = lazy(() => import("@/pages/provider/ProviderReviewPage"));
-const ProviderServicePage = lazy(() => import("@/pages/provider/ProviderServicePage.tsx"));
 const ProviderPaymentsPage = lazy(() => import("@/pages/provider/ProviderPaymentsPage.tsx"));
 const ProviderDashboardPage = lazy(() => import("@/pages/provider/ProviderDashboardPage.tsx"));
 const ProviderAppointmentsPage = lazy(() => import("@/pages/provider/ProviderAppointmentsPage.tsx"));
-const ProviderAvailabilityPage = lazy(() => import("@/pages/provider/ProviderAvailabilityPage.tsx"));
 const ProviderSubscriptionPage = lazy(() => import("@/pages/provider/ProviderSubscriptionPage.tsx"));
 const ProviderNotificationsPage = lazy(() => import("@/pages/provider/ProviderNotificationsPage.tsx"));
 const ProviderBookingDetailsPage = lazy(() => import("@/pages/provider/ProviderBookingDetailsPage.tsx"))
@@ -107,7 +104,6 @@ export const appRouter = createBrowserRouter([
                     { path: "dashboard", element: <UserDashboardPage /> },
                     { path: "providerProfile/:providerId", element: <UserServiceProviderDetailPage /> },
                     { path: "profile", element: <ProfilePage /> },
-                    { path: "address", element: <AddressPage /> },
                     { path: "bookings", element: <UserBookingsPage /> },
                     { path: "bookings/:bookingId", element: <UserBookingDetailsPage /> },
                     { path: "payments", element: <UserPaymentsPage /> },
@@ -140,9 +136,6 @@ export const appRouter = createBrowserRouter([
                 children: [
                     { path: "dashboard", element: <ProviderDashboardPage /> },
                     { path: "profile", element: <ProfilePage /> },
-                    { path: "address", element: <AddressPage /> },
-                    { path: "service", element: <ProviderServicePage /> },
-                    { path: "availability", element: <ProviderAvailabilityPage /> },
                     {
                         path: "reviews",
                         element: (

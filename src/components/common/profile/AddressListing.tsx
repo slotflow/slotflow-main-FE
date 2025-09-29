@@ -3,9 +3,9 @@ import { useQuery } from '@tanstack/react-query';
 import DataFetchingError from '../DataFetchingError';
 import InfoDisplayComponent from '../InfoDisplayComponent';
 import ProfileDetailsShimmer from '@/components/shimmers/ProfileDetailsShimmer';
+import { AdminFetchddressResponse } from '@/utils/interface/api/commonApiInterface';
 import { ProviderFetchAddressResponse } from '@/utils/interface/api/providerApiInterface';
 import { UserFetchProviderAddressResponse, UserFetchUserAddressResponse } from '@/utils/interface/api/userApiInterface';
-import { AdminFetchddressResponse } from '@/utils/interface/api/commonApiInterface';
 
 interface UserOrProviderAddressDetailsComponentProps {
     userOrProviderId?: string;
@@ -20,7 +20,7 @@ interface UserOrProviderAddressDetailsComponentProps {
     setIsUpdating?: (data: boolean) => void;
 }
 
-const UserOrProviderAddressDetails: React.FC<UserOrProviderAddressDetailsComponentProps> = ({
+const AddressListing: React.FC<UserOrProviderAddressDetailsComponentProps> = ({
     userOrProviderId,
     fetchApiFunction,
     queryKey,
@@ -90,4 +90,4 @@ const UserOrProviderAddressDetails: React.FC<UserOrProviderAddressDetailsCompone
     )
 };
 
-export default UserOrProviderAddressDetails
+export default AddressListing

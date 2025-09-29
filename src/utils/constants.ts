@@ -28,11 +28,11 @@ import {
   Wallet2Icon,
   WalletCards,
   WalletMinimal,
-  MessageSquareText, 
+  MessageSquareText,
   PictureInPicture2,
   Phone,
   Mail,
-  Verified, 
+  Verified,
 } from "lucide-react";
 import { ProviderFetchDashboardStatsDataResponse } from "./interface/api/providerApiInterface";
 import { dataSelectListItemInterface, DayMapInterface, FeatureContentInterface, FooterColumnDataInterface, FooterLinkInterface, gsapBigSvgYDirectionAnimationInterface, HeaderCompoenentNavsProps, PlanFeatureInterface, PlanListType, ProviderApprovalMessageInterface, Route, StatsMapForAdminInterface, statsMapIntrface } from "./interface/commonInterface";
@@ -47,7 +47,7 @@ import { ContactItem } from "./interface/componentInterface/commonComponentInter
 // **** Routes for admin **** \\
 export const adminRoutes: Route[] = [
   { path: "overview", name: "Overview" },
-  { path: "report", name: "Reports"},
+  { path: "report", name: "Reports" },
   { path: "service-providers", name: "Service Providers" },
   { path: "users", name: "Users" },
   { path: "services", name: "Services" },
@@ -60,8 +60,6 @@ export const adminRoutes: Route[] = [
 // **** Routes for user **** \\
 export const userRoutes: Route[] = [
   { path: "dashboard", name: "Dashboard" },
-  { path: "profile", name: "Profile" },
-  { path: "address", name: "Address" },
   { path: "bookings", name: "Bookings" },
   { path: "payments", name: "Payments" },
   { path: "chat", name: "Chat" },
@@ -75,8 +73,6 @@ export const userRoutes: Route[] = [
 // **** Routes for provider **** \\
 export const providerRoutes: Route[] = [
   { path: "dashboard", name: "Dashboard" },
-  { path: "profile", name: "Profile" },
-  { path: "address", name: "Address" },
   { path: "service", name: "Service" },
   { path: "availability", name: "Availability" },
   { path: "appointments", name: "Appointments" },
@@ -551,7 +547,7 @@ export const featureContent: FeatureContentInterface[] = [
   {
     title: "Integrated Chat",
     description:
-    "Communicate seamlessly with your team and clients in real time. Share updates, resolve queries quickly, and keep everyone on the same page without switching tools.",
+      "Communicate seamlessly with your team and clients in real time. Share updates, resolve queries quickly, and keep everyone on the same page without switching tools.",
     image: chatImage,
     icon: MessageSquareText,
     islogo: false,
@@ -559,7 +555,7 @@ export const featureContent: FeatureContentInterface[] = [
   {
     title: "HD Video Calls",
     description:
-    "Host secure, high-quality video meetings directly from the platform. Connect with clients or teammates, discuss plans, and collaborate face-to-face from anywhere.",
+      "Host secure, high-quality video meetings directly from the platform. Connect with clients or teammates, discuss plans, and collaborate face-to-face from anywhere.",
     image: videoCallImage,
     icon: PictureInPicture2,
     islogo: false,
@@ -567,7 +563,7 @@ export const featureContent: FeatureContentInterface[] = [
   {
     title: "Google Calendar Sync",
     description:
-    "Automatically and asynchronously add your bookings and schedules to Google Calendar. Keep your availability up-to-date, avoid double bookings, and manage your appointments effortlessly across all devices.",
+      "Automatically and asynchronously add your bookings and schedules to Google Calendar. Keep your availability up-to-date, avoid double bookings, and manage your appointments effortlessly across all devices.",
     image: calendarImage,
     logo: gCalendar,
     islogo: true,
@@ -1023,28 +1019,28 @@ and paste it in the field below. If your location is marked on Google Maps, it w
 
 
 // Hero section
-export const heroSectionButtons: { text: string, href: string}[] = [
-    {
-        text: "Book Appointment",
-        href: "/user/login"
-    },
-    {
-        text: "Provide Service",
-        href: "/provider/login"
-    },
+export const heroSectionButtons: { text: string, href: string }[] = [
+  {
+    text: "Book Appointment",
+    href: "/user/login"
+  },
+  {
+    text: "Provide Service",
+    href: "/provider/login"
+  },
 ]
 
 
 // About Page
 export const aboutIntro: string[] = [
-    "Slotflow is more than just a booking tool, it is your complete scheduling companion for the digital age. We empower businesses, professionals, and teams to manage appointments, streamline operations, and provide a frictionless experience to their customers. Whether you are a solo entrepreneur or an enterprise level service provider, Slotflow adapts to your needs and scales with your growth.",
-    "Built with modern technology and designed with a human first approach, Slotflow integrates real time booking, instant notifications, and smooth Google Calendar sync so you never miss an appointment. Features like in app chat and video calls allow you to connect with clients instantly, while our intuitive interface ensures both providers and customers enjoy a clean and effortless experience.",
-    "Our mission is to create a platform that removes the chaos from scheduling, saves time for businesses, and delivers a polished, professional experience every step of the way. With continuous improvements, innovative integrations, and an obsession for user experience, Slotflow is the future of appointment management."
+  "Slotflow is more than just a booking tool, it is your complete scheduling companion for the digital age. We empower businesses, professionals, and teams to manage appointments, streamline operations, and provide a frictionless experience to their customers. Whether you are a solo entrepreneur or an enterprise level service provider, Slotflow adapts to your needs and scales with your growth.",
+  "Built with modern technology and designed with a human first approach, Slotflow integrates real time booking, instant notifications, and smooth Google Calendar sync so you never miss an appointment. Features like in app chat and video calls allow you to connect with clients instantly, while our intuitive interface ensures both providers and customers enjoy a clean and effortless experience.",
+  "Our mission is to create a platform that removes the chaos from scheduling, saves time for businesses, and delivers a polished, professional experience every step of the way. With continuous improvements, innovative integrations, and an obsession for user experience, Slotflow is the future of appointment management."
 ];
 
 export const aboutFeatures: string[] = [
-    "From smart scheduling to automated workflows, Slotflow takes care of the details so you can focus on what matters most, your clients. Our platform supports role based dashboards for users, providers, and admins, ensuring each stakeholder gets the tools they need. Flexible subscription tiers let you start for free and upgrade as your business grows, while automation handles confirmations, reminders, and updates without requiring constant manual effort.",
-    "Real time synchronization keeps everyone aligned, preventing double bookings and miscommunication. We prioritize scalability and security so your data is safe and performance stays smooth as demand increases. Detailed analytics provide insights into revenue and customer trends, helping you make smarter business decisions. And because we are future focused, Slotflow evolves continuously with new features, integrations, and optimizations driven by user feedback."
+  "From smart scheduling to automated workflows, Slotflow takes care of the details so you can focus on what matters most, your clients. Our platform supports role based dashboards for users, providers, and admins, ensuring each stakeholder gets the tools they need. Flexible subscription tiers let you start for free and upgrade as your business grows, while automation handles confirmations, reminders, and updates without requiring constant manual effort.",
+  "Real time synchronization keeps everyone aligned, preventing double bookings and miscommunication. We prioritize scalability and security so your data is safe and performance stays smooth as demand increases. Detailed analytics provide insights into revenue and customer trends, helping you make smarter business decisions. And because we are future focused, Slotflow evolves continuously with new features, integrations, and optimizations driven by user feedback."
 ];
 
 export const devWebPortfoilio: string = "https://midhunkpaniker.vercel.app/";
@@ -1105,3 +1101,13 @@ export const adminOverviewTabs = [
   { value: "revenue", label: "Revenue" },
   { value: "appointments", label: "Appointments" },
 ];
+
+
+// Settings tabs list
+export const SettingTabs: { value: string, label: string }[] = [
+  { value: "tab1", label: "Profile" },
+  { value: "tab2", label: "Address" },
+  { value: "tab3", label: "Integrations" },
+  { value: "tab4", label: "Service" },
+  { value: "tab5", label: "Availability" },
+]

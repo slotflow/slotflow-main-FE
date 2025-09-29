@@ -7,8 +7,8 @@ import DataFetchingError from "@/components/common/DataFetchingError";
 import ProfileHorizontalTabs from "@/components/common/ProfileHorizontalTabs";
 import ProviderServiceDetails from "@/components/common/profile/ProviderServiceDetails";
 import ProviderServiceAvailability from "@/components/common/profile/ProviderServiceAvailability";
-import UserOrProviderAddressDetails from "@/components/common/profile/UserOrProviderAddressDetails";
-import UserOrProviderProfileDetails from "@/components/common/profile/UserOrProviderProfileDetails";
+import AddressListing from "@/components/common/profile/AddressListing";
+import ProfileListing from "@/components/common/profile/ProfileListing";
 import { userFetchAllReviews, userFetchProviderAddress, userFetchProviderDetails, userFetchProviderService, userFetchProviderServiceAvailability } from "@/utils/apis/user.api";
 
 const UserServiceProviderDetailPage = () => {
@@ -36,9 +36,9 @@ const UserServiceProviderDetailPage = () => {
 
             <div className={`flex-grow`}>
                 {tab === 0 && (
-                    <UserOrProviderProfileDetails fetchApiFunction={() => userFetchProviderDetails(providerId)} queryKey="providerProfile" userOrProviderId={providerId} userLookingProvider shimmerRow={4} setSelectedUserData={setSelectedUserData} />
+                    <ProfileListing fetchApiFunction={() => userFetchProviderDetails(providerId)} queryKey="providerProfile" userOrProviderId={providerId} userLookingProvider shimmerRow={4} setSelectedUserData={setSelectedUserData} />
                 ) || tab === 1 && (
-                    <UserOrProviderAddressDetails userOrProviderId={providerId} fetchApiFunction={() => userFetchProviderAddress(providerId)} queryKey="providerAddress" />
+                    <AddressListing userOrProviderId={providerId} fetchApiFunction={() => userFetchProviderAddress(providerId)} queryKey="providerAddress" />
                 ) || tab === 2 && (
                     <ProviderServiceDetails providerId={providerId} fetchApiFunction={() => userFetchProviderService(providerId)} queryKey="providerService" isUser shimmerRow={5} />
                 ) || tab === 3 && (

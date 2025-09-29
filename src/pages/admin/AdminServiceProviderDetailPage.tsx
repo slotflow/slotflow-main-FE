@@ -10,8 +10,8 @@ import AdminProviderSubscriptions from "@/components/admin/AdminProviderSubscrip
 import ProviderServiceDetails from "@/components/common/profile/ProviderServiceDetails";
 import AdminUserOrProviderPayments from "@/components/admin/AdminUserOrProviderPayments";
 import ProviderServiceAvailability from "@/components/common/profile/ProviderServiceAvailability";
-import UserOrProviderAddressDetails from "@/components/common/profile/UserOrProviderAddressDetails";
-import UserOrProviderProfileDetails from "@/components/common/profile/UserOrProviderProfileDetails";
+import AddressListing from "@/components/common/profile/AddressListing";
+import ProfileListing from "@/components/common/profile/ProfileListing";
 import { adminFetchProviderServiceAvailability, adminFetchProviderAddress, adminFetchProviderProfileDetails, adminFetchProviderService, adminFetchProviderPayments } from "@/utils/apis/adminProvider.api";
 
 const AdminServiceProviderDetailPage = () => {
@@ -39,9 +39,9 @@ const AdminServiceProviderDetailPage = () => {
 
             <div className={`flex-grow`}>
                 {tab === 0 && (
-                    <UserOrProviderProfileDetails fetchApiFunction={() => adminFetchProviderProfileDetails(providerId)} queryKey="providerProfile" userOrProviderId={providerId} adminLookingProvider shimmerRow={8} setSelectedUserData={setSelectedUserData} />
+                    <ProfileListing fetchApiFunction={() => adminFetchProviderProfileDetails(providerId)} queryKey="providerProfile" userOrProviderId={providerId} adminLookingProvider shimmerRow={8} setSelectedUserData={setSelectedUserData} />
                 ) || tab === 1 && (
-                    <UserOrProviderAddressDetails userOrProviderId={providerId} fetchApiFunction={() => adminFetchProviderAddress(providerId)} queryKey="providerAddress" />
+                    <AddressListing userOrProviderId={providerId} fetchApiFunction={() => adminFetchProviderAddress(providerId)} queryKey="providerAddress" />
                 ) || tab === 2 && (
                     <ProviderServiceDetails providerId={providerId} fetchApiFunction={() => adminFetchProviderService(providerId)} queryKey="providerService" />
                 ) || tab === 3 && (

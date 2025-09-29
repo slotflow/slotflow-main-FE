@@ -1,21 +1,21 @@
 import React from 'react';
 import { toast } from "react-toastify";
 import { FormEvent, useState } from "react";
+import { Button } from '@/components/ui/button';
 import { RootState } from "@/utils/redux/appStore";
 import { useDispatch, useSelector } from "react-redux";
 import { useQueryClient } from "@tanstack/react-query";
 import { AppDispatch } from "recharts/types/state/store";
-import CommonButton from "@/components/common/CommonButton";
+import { Edit, MapPinHouse, Plus, X } from 'lucide-react';
 import { setAuthUser } from "@/utils/redux/slices/authSlice";
-import ProfileHead from "@/components/common/profile/ProfileHead";
+import AddressListing from "@/components/common/profile/AddressListing";
 import AddAddress, { AddressFormProps } from "@/components/common/AddAddress";
 import { UpdateAddressResponse } from '@/utils/interface/api/commonApiInterface';
 import { UserAddUserAddressResponse } from '@/utils/interface/api/userApiInterface';
-import UserOrProviderAddressDetails from "@/components/common/profile/UserOrProviderAddressDetails";
 import { userAddUserAddress, userFetchUserAddress, userUpdateUserAddress } from "@/utils/apis/user.api";
 import { providerFetchProviderAddress, providerUpdateProviderAddress } from "@/utils/apis/provider.api";
 
-const AddressPage: React.FC = () => {
+const Address: React.FC = () => {
 
   const queryClient = useQueryClient();
   const dispatch = useDispatch<AppDispatch>();
@@ -24,7 +24,6 @@ const AddressPage: React.FC = () => {
   const [addAddress, setAddAddress] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [isUpdating, setIsUpdating] = useState<boolean>(false);
-
 
   const handleAAddAddress = async (e: FormEvent<HTMLFormElement>, formData: AddressFormProps) => {
 
@@ -67,12 +66,30 @@ const AddressPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-full p-2 flex flex-col">
+    <div className="min-h-full flex flex-col">
 
-      <ProfileHead
-        updation={false} 
-        showDetails
-        />
+      <div className='border rounded-md my-2 p-2'>
+        <div className='flex justify-between items-center'>
+          <div className='flex space-x-2'>
+            <MapPinHouse />
+            <h2 className="text-xl font-semibold"> Address</h2>
+          </div>
+          <Button
+            variant="outline"
+            disabled={loading}
+            onClick={() => setAddAddress(!addAddress)}
+            className="cursor-pointer"
+          >{addAddress
+            ? <span className='flex items-center'><X className='mr-2' />Close</span>
+            : authUser?.isAddressAdded
+              ? <span className='flex items-center'><Edit className='mr-2' />  Update Address</span>
+              : <span className='flex items-center'><Plus className='mr-2' />  Add Address</span>
+            }</Button>
+        </div>
+        {authUser?.role === "PROVIDER" && (
+          <p className='w-8/12 mt-2 text-gray-500 text-sm'>Your address will be visible to customers. Please provide your service office address if you only take offline appointments; otherwise, your contact address is sufficient.</p>
+        )}
+      </div>
 
       {addAddress ? (
         <AddAddress
@@ -84,7 +101,7 @@ const AddressPage: React.FC = () => {
           setHasErrors={setHasErrors}
         />
       ) : (
-        <UserOrProviderAddressDetails
+        <AddressListing
           fetchApiFunction={
             authUser?.role === "USER" ?
               userFetchUserAddress
@@ -95,21 +112,8 @@ const AddressPage: React.FC = () => {
           setIsUpdating={setIsUpdating}
         />
       )}
-
-      {!loading && (
-        <CommonButton
-          onClick={() => setAddAddress(!addAddress)}
-          text={addAddress
-            ? "Close"
-            : authUser?.isAddressAdded
-              ? "Edit Address"
-              : "Add Address"
-          }
-          className="w-2/12 mt-6"
-        />
-      )}
     </div>
   )
 }
 
-export default AddressPage
+export default Address;

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from '../ui/button';
 
 interface GoogleButtonProps {
     onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
@@ -12,11 +13,11 @@ const GoogleButton: React.FC<GoogleButtonProps> = ({
     className="w-full"
 }) => {
     return (
-        <button
+        <Button
             onClick={onClick}
+            variant="outline"
             type="button"
             className={`${className} my-2
-                border-2 border-gray-400
                 relative flex items-center justify-center
                 px-3 py-2
                 bg-white dark:bg-[var(--inputBg)]
@@ -33,7 +34,7 @@ const GoogleButton: React.FC<GoogleButtonProps> = ({
                 }}
             />
             {text}
-        </button>
+        </Button>
     )
 }
 

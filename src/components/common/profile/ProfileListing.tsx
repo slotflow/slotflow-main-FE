@@ -31,7 +31,7 @@ interface UserOrProviderProfileDetailsComponentProps {
     setSelectedUserData?: (data: { selectedUserName: string; selectedUserProfileImage: string | null }) => void;
 }
 
-const UserOrProviderProfileDetails: React.FC<UserOrProviderProfileDetailsComponentProps> = ({
+const ProfileListing: React.FC<UserOrProviderProfileDetailsComponentProps> = ({
     userOrProviderId,
     fetchApiFunction,
     queryKey,
@@ -113,7 +113,7 @@ const UserOrProviderProfileDetails: React.FC<UserOrProviderProfileDetailsCompone
                             <InfoDisplayComponent label="Phone Number" value={userProfileData.phone ?? 'Not yet added'} />
                             <InfoDisplayComponent label="Joined On" value={userProfileData.createdAt} formatDate={formatDate} />
                             <InfoDisplayComponent label="Email Verified" value={userProfileData.isEmailVerified} isBoolean={true} />
-                            <InfoDisplayComponent label="Account Blocked" value={userProfileData.isBlocked} isBoolean={true} />
+                            <InfoDisplayComponent label="Account Blocked" value={userProfileData.isBlocked} isBoolean={true} isLast />
                             </>
                         )
                     })()}
@@ -128,9 +128,14 @@ const UserOrProviderProfileDetails: React.FC<UserOrProviderProfileDetailsCompone
                                 <InfoDisplayComponent label="Phone Number" value={authUser?.phone || providerProfileData.phone || 'Not yet added'} />
                                 <InfoDisplayComponent label="Slotflow Trusted" value={providerProfileData.trustedBySlotflow} isBoolean={true} />
                                 <InfoDisplayComponent label="Joined On" value={providerProfileData.createdAt} formatDate={formatDate} />
+                                <InfoDisplayComponent label="Address" value={authUser?.isAddressAdded} isBoolean={true} />
+                                <InfoDisplayComponent label="Service Details" value={authUser?.isServiceDetailsAdded} isBoolean={true} />
+                                <InfoDisplayComponent label="Availability Details" value={authUser?.isServiceAvailabilityAdded} isBoolean={true} />
+                                <InfoDisplayComponent label="Subscription" value={authUser?.providerSubscription} />
                                 <InfoDisplayComponent label="Email Verified" value={providerProfileData.isEmailVerified} isBoolean={true} />
                                 <InfoDisplayComponent label="Account Blocked" value={providerProfileData.isBlocked} isBoolean={true} />
-                                <InfoDisplayComponent label="Admin Verified" value={providerProfileData.isAdminVerified} isBoolean={true} isLast />
+                                <InfoDisplayComponent label="Admin Verified" value={providerProfileData.isAdminVerified} isBoolean={true} />
+                                <InfoDisplayComponent label="Details Updated On" value={authUser?.updatedAt} formatDate={formatDate} isLast />
                             </>
                         );
                     })()}
@@ -158,7 +163,8 @@ const UserOrProviderProfileDetails: React.FC<UserOrProviderProfileDetailsCompone
                                 <InfoDisplayComponent label="Phone Number" value={authUser?.phone || userProfileData?.phone} />
                                 <InfoDisplayComponent label="Joined On" value={userProfileData?.createdAt} formatDate={formatDate} />
                                 <InfoDisplayComponent label="Email Verified" value={userProfileData?.isEmailVerified} isBoolean={true} />
-                                <InfoDisplayComponent label="Account Blocked" value={userProfileData?.isBlocked} isBoolean={true} isLast />
+                                <InfoDisplayComponent label="Account Blocked" value={userProfileData?.isBlocked} isBoolean={true} />
+                                <InfoDisplayComponent label="Details Updated On" value={authUser?.updatedAt} formatDate={formatDate} isLast />
                             </>
                         );
                     })()}
@@ -169,4 +175,4 @@ const UserOrProviderProfileDetails: React.FC<UserOrProviderProfileDetailsCompone
     )
 }
 
-export default UserOrProviderProfileDetails
+export default ProfileListing

@@ -7,8 +7,8 @@ import { adminFetchAllReviews } from '@/utils/apis/adminReview.api';
 import DataFetchingError from '@/components/common/DataFetchingError';
 import { adminFetchUserAddress, adminFetchUserProfileDetails } from '@/utils/apis/adminUser.api';
 import ProfileHorizontalTabs from '@/components/common/ProfileHorizontalTabs';
-import UserOrProviderProfileDetails from '@/components/common/profile/UserOrProviderProfileDetails';
-import UserOrProviderAddressDetails from '@/components/common/profile/UserOrProviderAddressDetails';
+import ProfileListing from '@/components/common/profile/ProfileListing';
+import AddressListing from '@/components/common/profile/AddressListing';
 
 const AdminUseDetailPage: React.FC = () => {
 
@@ -35,9 +35,9 @@ const AdminUseDetailPage: React.FC = () => {
 
             <div className={`flex-grow`}>
                 {tab === 0 && (
-                    <UserOrProviderProfileDetails fetchApiFunction={() => adminFetchUserProfileDetails(userId)} queryKey="userProfile" userOrProviderId={userId} adminLookingUser shimmerRow={8} setSelectedUserData={setSelectedUserData} />
+                    <ProfileListing fetchApiFunction={() => adminFetchUserProfileDetails(userId)} queryKey="userProfile" userOrProviderId={userId} adminLookingUser shimmerRow={8} setSelectedUserData={setSelectedUserData} />
                 ) || tab === 1 && (
-                    <UserOrProviderAddressDetails fetchApiFunction={() => adminFetchUserAddress(userId)} queryKey='' userOrProviderId={userId} />
+                    <AddressListing fetchApiFunction={() => adminFetchUserAddress(userId)} queryKey='' userOrProviderId={userId} />
                 ) || tab === 2 && (
                     <ReviewsPage isAdmin fetchFun={adminFetchAllReviews} id={userId} role={"USER"} />
                 )}

@@ -1,142 +1,80 @@
-import { toast } from 'react-toastify';
-import React, { useEffect } from 'react';
-import { formatDate } from '@/utils/helper';
-import { useQuery } from '@tanstack/react-query';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/utils/redux/appStore';
 import { } from '@/utils/interface/api/userApiInterface';
-import GoogleButton from '@/components/form/GoogleButton';
-import { Check, Loader2, UserRoundPen, X } from 'lucide-react';
-import { AppDispatch, RootState } from '@/utils/redux/appStore';
+import Address from '@/components/common/profile/Address';
+import Profile from '@/components/common/profile/Profile';
 import ProfileHead from '@/components/common/profile/ProfileHead';
-import { handleConnectGoogle } from '@/utils/helper/googleConnect';
-import { updateGoogleConnect } from '@/utils/redux/slices/authSlice';
+import { userUpdateUserProfileImage } from '@/utils/apis/user.api';
 import DataFetchingError from '@/components/common/DataFetchingError';
-import { setGoogleConnectionLoading } from '@/utils/redux/slices/googleSlice';
-import { userFetchUserProfileDetails, userUpdateUserProfileImage } from '@/utils/apis/user.api';
-import { providerFetchProviderProfileDetails, providerUpdateProviderProfileImage } from '@/utils/apis/provider.api';
+import { providerUpdateProviderProfileImage } from '@/utils/apis/provider.api';
+import Integrations from '@/components/common/profile/Integrations';
+import ProviderService from '@/components/provider/ProviderService';
+import ProviderAvailability from '@/components/provider/ProviderAvailability';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
+import { SettingTabs } from '@/utils/constants';
 
 const SettingsPage: React.FC = () => {
 
-    const dispatch = useDispatch<AppDispatch>();
     const { authUser } = useSelector((state: RootState) => state.auth);
-    const { googleConnectionLoding } = useSelector((state: RootState) => state.google);
 
     const isProvider = authUser?.role === "PROVIDER";
-
-    const fetchApiFunction = isProvider
-        ? providerFetchProviderProfileDetails
-        : userFetchUserProfileDetails;
-
-    const { data: profileData, isLoading: profileDataLoading, isError: profileDataIsError, error: profileDataError } = useQuery({
-        queryFn: () => fetchApiFunction(),
-        queryKey: ["profileData"],
-        staleTime: 60 * 60 * 1000,
-        refetchOnWindowFocus: false,
-    })
 
     const updateProfileImageApiFunction = isProvider
         ? providerUpdateProviderProfileImage
         : userUpdateUserProfileImage;
 
-    useEffect(() => {
-        const params = new URLSearchParams(window.location.search);
-        const data = params.get("response");
-        if (!data) return;
-        try {
-            const response = JSON.parse(decodeURIComponent(data));
-            if (!response.success) {
-                toast.error("Google connection failed, please try again");
-            } else {
-                dispatch(updateGoogleConnect());
-                dispatch(setGoogleConnectionLoading(false));
-                toast.success("Google successfully connected!");
-            }
-        } catch (err) {
-            toast.error("Invalid response from Google connect");
-            console.error("Google connect parse error:", err);
-        } finally {
-            const url = new URL(window.location.href);
-            url.searchParams.delete("response");
-            window.history.replaceState({}, "", url.toString());
-        }
-    }, [dispatch]);
-
     if (!authUser) return <DataFetchingError message='User not found' />
 
     return (
-        <div className="min-h-full p-2 flex flex-col">
-            <div className='flex space-x-2 justify-center'>
-                <UserRoundPen />
-                <h2 className="text-xl font-semibold mb-4"> Account Settings</h2>
-            </div>
+        <div className="min-h-full p-2 flex flex-col mb-10">
 
-            <ProfileHead updateProfileImageApiFunction={updateProfileImageApiFunction} updation={true} showDetails />
+            <ProfileHead
+                updateProfileImageApiFunction={updateProfileImageApiFunction}
+                updation={true}
+                showDetails
+                isMyProfile
+            />
 
+            <Tabs defaultValue="tab1" className="w-full mt-2">
 
-            <div className=" border rounded-md overflow-hidden w-full mt-2">
-                <table className="table-auto w-full">
-                    <tbody>
-                        {(profileDataIsError && profileDataError) ? (
-                            <DataFetchingError message="Profile details fetching error" />
-                        ) : profileData && (
-                            <>
-                                <tr className={`${"border-b "}`}>
-                                    <td className="p-4 font-medium text-[var(--infoDataLabel)] w-4/12">Username</td>
-                                    <td className="p-4 w-8/12">{profileDataLoading ? "Fetching.." : profileData.username}</td>
-                                </tr>
-                                <tr className={`${"border-b "}`}>
-                                    <td className="p-4 font-medium text-[var(--infoDataLabel)] w-4/12">Email</td>
-                                    <td className="p-4 w-8/12">{profileDataLoading ? "Fetching.." : profileData.email}</td>
-                                </tr>
-                                <tr className={`${"border-b "}`}>
-                                    <td className="p-4 font-medium text-[var(--infoDataLabel)] w-4/12">Phone</td>
-                                    <td className="p-4 w-8/12">{profileDataLoading ? "Fetching.." : profileData.phone ?? "Not yet added"}</td>
-                                </tr>
-                                <tr className={`${"border-b "}`}>
-                                    <td className="p-4 font-medium text-[var(--infoDataLabel)] w-4/12">Account Status</td>
-                                    <td className="p-4 w-8/12">{profileDataLoading ? "Fetching.." : profileData.isBlocked ? <span className='text-red-500'>Blocked</span> : <span className='text-green-500'>Active</span>}</td>
-                                </tr>
-                                <tr className={`${"border-b "}`}>
-                                    <td className="p-4 font-medium text-[var(--infoDataLabel)] w-4/12">Email Verified</td>
-                                    <td className="p-4 w-8/12">{profileDataLoading ? "Fetching.." : profileData.isEmailVerified ? <span className='text-green-500'>Verified</span> : <span className='text-red-500'>Pending</span>}</td>
-                                </tr>
-                                <tr className={`${"border-b "}`}>
-                                    <td className="p-4 font-medium text-[var(--infoDataLabel)] w-4/12">Joined On</td>
-                                    <td className="p-4 w-8/12">{profileDataLoading ? "Fetching.." : formatDate(profileData.createdAt)}</td>
-                                </tr>
-                            </>
-                        )}
-                        {authUser.role === "PROVIDER" && (
-                            <>
-                                <tr className={`${"border-b "}`}>
-                                    <td className="p-4 font-medium text-[var(--infoDataLabel)] w-4/12">Address Added</td>
-                                    <td className="p-4 w-8/12">{authUser.isAddressAdded ? <Check className="text-green-500" /> : <X className="text-red-500" />}</td>
-                                </tr>
-                                <tr className={`${"border-b "}`}>
-                                    <td className="p-4 font-medium text-[var(--infoDataLabel)] w-4/12">Service Details Added</td>
-                                    <td className="p-4 w-8/12">{authUser.isServiceDetailsAdded ? <Check className="text-green-500" /> : <X className="text-red-500" />}</td>
-                                </tr>
-                                <tr className={`${"border-b "}`}>
-                                    <td className="p-4 font-medium text-[var(--infoDataLabel)] w-4/12">Service Availability Added</td>
-                                    <td className="p-4 w-8/12">{authUser.isServiceAvailabilityAdded ? <Check className="text-green-500" /> : <X className="text-red-500" />}</td>
-                                </tr>
-                                <tr className={`${"border-b "}`}>
-                                    <td className="p-4 font-medium text-[var(--infoDataLabel)] w-4/12">Subscription</td>
-                                    <td className="p-4 w-8/12">{authUser.providerSubscription ? <Check className="text-green-500" /> : <X className="text-red-500" />}</td>
-                                </tr>
-                            </>
-                        )}
-                        <tr className={`${"border-b "}`}>
-                            <td className="p-4 font-medium text-[var(--infoDataLabel)] w-4/12">Google Connected</td>
-                            <td className="p-4 w-8/12">{authUser.googleConnected ? <Check className="text-green-500" /> : googleConnectionLoding ? <span className="flex"><Loader2 className="animate-spin mr-2" />Connecting to google...</span> : <GoogleButton text='Connect Google' onClick={(e) => handleConnectGoogle(e, dispatch)} className="w-full md:w-4/12" />}</td>
-                        </tr>
-                        <tr className={`${"border-b "}`}>
-                            <td className="p-4 font-medium text-[var(--infoDataLabel)] w-4/12">Info updated on</td>
-                            <td className="p-4 w-8/12">{formatDate(authUser.updatedAt)}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+                <TabsList className="flex w-full justify-between border rounded-md my-2">
+                    {SettingTabs.map((tab) => (
+                        <TabsTrigger
+                            key={tab.value}
+                            value={tab.value}
+                            className="w-full cursor-pointer px-4 py-2 text-sm font-medium text-black dark:text-white hover:text-gray-900 
+                 data-[state=active]:bg-[var(--mainColor)] data-[state=active]:text-white 
+                 data-[state=active]:rounded-md transition"
+                        >
+                            {tab.label}
+                        </TabsTrigger>
+                    ))}
+                </TabsList>
+
+                <TabsContent value="tab1" className="">
+                    <Profile />
+                </TabsContent>
+
+                <TabsContent value="tab2" className="">
+                    <Address />
+                </TabsContent>
+
+                <TabsContent value="tab3" className="">
+                    <Integrations />
+                </TabsContent>
+
+                {isProvider && (
+                    <React.Fragment>
+                        <TabsContent value="tab4" className="">
+                            <ProviderService />
+                        </TabsContent>
+                        <TabsContent value="tab5" className="">
+                            <ProviderAvailability />
+                        </TabsContent>
+                    </React.Fragment>
+                )}
+            </Tabs>
         </div>
     )
 }

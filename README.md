@@ -62,8 +62,8 @@ src
     |   |           ProfileHead.tsx
     |   |           ProviderServiceAvailability.tsx
     |   |           ProviderServiceDetails.tsx
-    |   |           UserOrProviderAddressDetails.tsx
-    |   |           UserOrProviderProfileDetails.tsx
+    |   |           AddressListing.tsx
+    |   |           ProfileListing.tsx
     |   |           
     |   +---form
     |   |   |   FormSplits.tsx
