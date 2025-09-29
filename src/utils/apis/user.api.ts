@@ -24,7 +24,7 @@ import { Review } from "../interface/entityInterface/reviewInterface";
 import { Booking } from "../interface/entityInterface/bookingInterface";
 import { Provider } from "../interface/entityInterface/providerInterface";
 import { ApiBaseResponse, FetchFunctionParams, ApiPaginatedResponse } from "../interface/commonInterface";
-import { FetchBookingsResponse, FetchOnlineBookingParams, FetchOnlineBookingsForUserResponse, FetchPaymentsResponse, FetchReviewsResponse, JoinRoomCallbackRequest, JoinRoomCallbackResponse, UpdateAddressRequest, UpdateAddressResponse, ValidateRoomId } from "../interface/api/commonApiInterface";
+import { FetchBookingDetailsResponse, FetchBookingsResponse, FetchOnlineBookingParams, FetchOnlineBookingsForUserResponse, FetchPaymentsResponse, FetchReviewsResponse, JoinRoomCallbackRequest, JoinRoomCallbackResponse, UpdateAddressRequest, UpdateAddressResponse, ValidateRoomId } from "../interface/api/commonApiInterface";
 
 // **** User profile apis
 export const userFetchUserProfileDetails = async (): Promise<UserFetchUserProfileDetailsResponse> => {
@@ -120,6 +120,11 @@ export const userFetchBookings = async <T extends FetchBookingsResponse | FetchO
     const refactoredQuery = buildQueryParams<FetchOnlineBookingParams>(query);
     const response = await axiosInstance.get(`/user/bookings${refactoredQuery ? `?${refactoredQuery}` : ''}`);
     return parseNewCommonResponse<T>(response.data);
+}
+
+export const userFetchBookingDetails = async(bookingId: Booking["_id"]): Promise<FetchBookingDetailsResponse> => {
+    const response = await axiosInstance.get(`/user/bookings/${bookingId}`);
+    return response.data.data;
 }
 
 export const userCancelBooking = async (bookingId: Booking["_id"]) : Promise<ApiBaseResponse> => {

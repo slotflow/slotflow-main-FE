@@ -51,6 +51,8 @@ const AdminRevenueReport: React.FC = () => {
 
     return (
         <div className="p-2">
+                    <h2 className={`text-2xl font-bold mb-4`}>Revenue Report</h2>
+
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
                 <Popover>
                     <PopoverTrigger asChild>

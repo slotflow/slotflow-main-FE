@@ -50,7 +50,6 @@ const LoginForm: React.FC<LoginFormProps> = ({ isAdmin, role }) => {
             }))
                 .unwrap()
                 .then((res) => {
-                    console.log("response : ",res);
                     if (res.success) {
                         if(res.authUser.isBlocked) {
                             toast.error("Your account is blocked, please contact us");

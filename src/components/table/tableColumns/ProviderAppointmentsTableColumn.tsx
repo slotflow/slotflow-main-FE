@@ -14,10 +14,10 @@ export const ProviderAppointmentsBookingTableColumns = (
   handleNavigateToAppointmentDetailPage: (appointmentId: Booking["_id"]) => void,
 ): ColumnDef<FetchBookingsResponse>[] => [
     {
-      accessorKey: "appointmentDate",
-      header: ({ column }) => (<DataTableColumnHeader column={column} title="Date" />),
+      accessorKey: "createdAt",
+      header: ({ column }) => (<DataTableColumnHeader column={column} title="Booked At" />),
       cell: ({ row }) => {
-        const createdAt = row.getValue("appointmentDate");
+        const createdAt = row.getValue("createdAt");
         const date = format(new Date(createdAt as Date), "dd MMM yyyy");
         return <span>{date}</span>;
       }
@@ -56,10 +56,10 @@ export const ProviderAppointmentsBookingTableColumns = (
       header: ({ column }) => (<DataTableColumnHeader column={column} title="Slot" />)
     },
     {
-      accessorKey: "createdAt",
-      header: ({ column }) => (<DataTableColumnHeader column={column} title="Booked On" />),
+      accessorKey: "appointmentDate",
+      header: ({ column }) => (<DataTableColumnHeader column={column} title="Booking On" />),
       cell: ({ row }) => {
-        const createdAt = row.getValue("createdAt");
+        const createdAt = row.getValue("appointmentDate");
         const date = format(new Date(createdAt as Date), "dd MMM yyyy");
         return <span>{date}</span>;
       }

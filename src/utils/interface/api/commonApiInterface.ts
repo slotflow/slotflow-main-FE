@@ -81,3 +81,10 @@ export interface FetchReviewsResponse extends Pick<Review, "_id" | "createdAt" |
 
 // **** 8.  Used as the response type of the admin fetch provider or user address api
 export type AdminFetchddressResponse = Pick<Address, "userId" | "addressLine" | "phone" | "place" | "city" | "district" | "pincode" | "state" | "country" | "googleMapLink">;
+
+
+// **** 9. Used as the response type of the booking details fetching
+export interface FetchBookingDetailsResponse extends Pick<Booking, "appointmentDate" | "appointmentMode" | "appointmentStatus" | "appointmentTime" | "createdAt" | "onlineTrack" | "statusTrack" | "videoCallRoomId"> {
+  userId: Pick<User, "username" | "email">;
+  serviceProviderId: Pick<Provider, "username" | "email">;
+} 

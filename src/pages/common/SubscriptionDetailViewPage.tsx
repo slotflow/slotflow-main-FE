@@ -20,7 +20,7 @@ const SubscriptionDetailViewPage: React.FC<SubscriptionDetailViewPageProps> = ({
     const { data, isLoading, isError, error } = useQuery({
         queryFn: () => queryFunction(subscriptionId!),
         queryKey: ["subcription", subscriptionId],
-        staleTime: 5 * 60 * 1000,
+        staleTime: 60 * 60 * 1000,
         refetchOnWindowFocus: false,
         enabled: !!subscriptionId
     });
@@ -61,7 +61,7 @@ const SubscriptionDetailViewPage: React.FC<SubscriptionDetailViewPageProps> = ({
                     </table>
                 </div>
             ) : (
-                <DataFetchingError message="No date found" />
+                <DataFetchingError message="No data found" />
             )}
         </div>
   )
