@@ -57,14 +57,6 @@ export const AdminRevenueTableColumn = (
     }
   },
   {
-    accessorKey: "paymentMethod",
-    header: ({ column }) => (<DataTableColumnHeader column={column} title="Method" />)
-  },
-  {
-    accessorKey: "paymentStatus",
-    header: ({ column }) => (<DataTableColumnHeader column={column} title="Status" />)
-  },
-  {
     accessorKey: "discountAmount",
     header: ({ column }) => (<DataTableColumnHeader column={column} title="Discont" />),
     cell: ({ row }) => {

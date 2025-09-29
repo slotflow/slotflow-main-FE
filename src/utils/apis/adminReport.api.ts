@@ -1,4 +1,4 @@
-import { axiosInstance } from "@/lib/axios"
+import { axiosInstance } from "@/lib/axios";
 import { buildQueryParams } from "../helper";
 import { AdminFetchRevenueReportResponse, AdmminFetchRevenueReportRequest } from "../interface/api/adminReportApiInterface";
 
@@ -11,6 +11,5 @@ export const adminFetchRevenueReport = async (payload: AdmminFetchRevenueReportR
             endDate: endDate?.toISOString(),
         }
     });
-    console.log("response.data.data.row : ",response);
     return response.data as AdminFetchRevenueReportResponse;
 }

@@ -4,14 +4,15 @@ import { DateRange } from 'react-day-picker';
 import { Button } from '@/components/ui/button';
 import { useQuery } from '@tanstack/react-query';
 import { Calendar } from '@/components/ui/calendar';
-import { Calendar as CalendarIcon } from 'lucide-react';
 import { DataTable } from '@/components/table/data-table';
 import TableShimmer from '@/components/shimmers/TableShimmer';
+import { handleExportPDF } from '@/utils/helper/pdfGenerator';
 import { OnChangeFn, PaginationState } from '@tanstack/react-table';
+import { handleExportExcel } from '@/utils/helper/excelGenerator.ts';
 import DataFetchingError from '@/components/common/DataFetchingError';
 import { adminFetchRevenueReport } from '@/utils/apis/adminReport.api';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-// import { handleExportExcel, handleExportPDF } from '@/utils/helper/reportGenerator';
+import { Calendar as CalendarIcon, FileSpreadsheet, NotebookText, RotateCcw } from 'lucide-react';
 import { AdminRevenueTableColumn } from '@/components/table/tableColumns/AdminRevenueTableColumn';
 
 const AdminRevenueReport: React.FC = () => {
@@ -77,21 +78,26 @@ const AdminRevenueReport: React.FC = () => {
                 </Popover>
 
                 <div className="flex gap-2">
-                    <Button className='cursor-pointer' onClick={() => refetch()}>Reset</Button>
-
-                    {/* <Button
+                    <Button className='cursor-pointer' onClick={() => refetch()}>
+                        <RotateCcw />
+                        Reset
+                    </Button>
+                    <Button
                         variant="outline"
-                        onClick={(e) => handleExportPDF(e, data?.data?.rows || [], "Revenue Report")}
+                        className="cursor-pointer"
+                        onClick={(e) => handleExportPDF(e, data?.data?.rows || [], "Revenue")}
                     >
+                        <NotebookText />
                         Generate PDF
                     </Button>
 
                     <Button
                         variant="outline"
-                        onClick={(e) => handleExportExcel(e, data?.data?.rows || [], "Revenue Report")}
+                        onClick={(e) => handleExportExcel(e, data?.data?.rows || [], "Revenue")}
                     >
+                        <FileSpreadsheet />
                         Generate Excel
-                    </Button> */}
+                    </Button>
                 </div>
             </div >
 
