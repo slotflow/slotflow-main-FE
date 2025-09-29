@@ -50,9 +50,7 @@ const AdminRevenueReport: React.FC = () => {
     const column = AdminRevenueTableColumn();
 
     return (
-        <div className="p-4">
-            <h2 className="text-2xl font-bold mb-4">Revenue Report</h2>
-
+        <div className="p-2">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
                 <Popover>
                     <PopoverTrigger asChild>
@@ -86,13 +84,14 @@ const AdminRevenueReport: React.FC = () => {
                         variant="outline"
                         className="cursor-pointer"
                         onClick={(e) => handleExportPDF(e, data?.data?.rows || [], "Revenue")}
-                    >
+                        >
                         <NotebookText />
                         Generate PDF
                     </Button>
 
                     <Button
                         variant="outline"
+                        className="cursor-pointer"
                         onClick={(e) => handleExportExcel(e, data?.data?.rows || [], "Revenue")}
                     >
                         <FileSpreadsheet />

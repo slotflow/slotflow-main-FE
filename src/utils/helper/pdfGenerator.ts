@@ -76,7 +76,7 @@ export const exportToPDF = async (
 
     autoTable(doc, {
         startY: titleY + 10,
-        head: [["#", "Date", "Initial Amount", "Discount", "Total Amount", "Payment Gateway"]],
+        head: [["#", "Date", "Payment Gateway", "Inital Amount", "Discount", "Total Amount"]],
         body,
         styles: { fontSize: 10, cellPadding: 3 },
         headStyles: {
@@ -98,11 +98,11 @@ export const exportToPDF = async (
     doc.setFont("helvetica", "bold");
     let totalY = finalY + 12;
 
-    doc.text(`Grand Initial Total: ${grandInitial.toFixed(2)}`, rightX, totalY, { align: "right" });
+    doc.text(`Grand Initial Total : rs ${grandInitial.toFixed(2)}`, rightX, totalY, { align: "right" });
     totalY += 8;
-    doc.text(`Grand Discount Total: ${grandDiscount.toFixed(2)}`, rightX, totalY, { align: "right" });
+    doc.text(`Grand Discount Total : rs ${grandDiscount.toFixed(2)}`, rightX, totalY, { align: "right" });
     totalY += 8;
-    doc.text(`Grand Total: ${grandTotal.toFixed(2)}`, rightX, totalY, { align: "right" });
+    doc.text(`Grand Total : rs ${grandTotal.toFixed(2)}`, rightX, totalY, { align: "right" });
 
     doc.save(`${fileName}.pdf`);
 };
