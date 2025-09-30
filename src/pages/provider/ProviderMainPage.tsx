@@ -53,7 +53,7 @@ const ProviderMainPage = () => {
   return user?.isAdminApproved && (
     <div className="flex h-screen bg-[var(--background)] transition-all duration-300">
       <Sidebar routes={providerRoutes} filteredRoutes={filteredRoutes} />
-      <div className={`flex-1 flex flex-col  ${sidebarOpen ? 'w-[85%]' : 'w-[95%]'} transition-all duration-300`}>
+      <div className={`flex-1 flex flex-col  ${sidebarOpen ? 'w-[82%]' : 'w-[95%]'} transition-all duration-300`}>
         <InfoHeader profileImage={user.profileImage ?? avatar} username={user.username ?? ""} />
         <div className="flex-1 overflow-y-auto overscroll-y-contain no-scrollbar px-2">
           <Suspense fallback={<LoadingFallback />}>

@@ -1,30 +1,7 @@
 import {
-    MessageSquare,
-    Users,
-    LayoutGrid,
-    CreditCard,
-    Star,
-    User,
-    Gauge,
-    CalendarCheck,
-    CreditCard as LucideCreditCard,
-    Bell,
-    Network,
     LogOut,
-    Briefcase,
-    MapPinHouse,
-    CalendarDays,
-    Handshake,
-    HandCoins,
     Sun,
     Moon,
-    PanelLeft,
-    Video,
-    Settings,
-    Calendar1,
-    ChartNoAxesCombined,
-    BookLock,
-    ScanHeart,
 } from 'lucide-react';
 import { SingleTab } from './SingleTab';
 import React, { useEffect } from 'react';
@@ -33,10 +10,10 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import logo from '../../assets/logos/logo-transparent.png';
 import { UserData } from '@/utils/interface/sliceInterface';
 import { handleSignoutHelper } from '@/utils/helper/signout';
+import { toggleTheme } from '@/utils/redux/slices/stateSlice';
 import { AppDispatch, RootState } from '@/utils/redux/appStore';
 import { SideBarProps } from '@/utils/interface/commonInterface';
 import { useResetRedux } from '@/utils/hooks/systemHooks/useResetRedux';
-import { toggleSidebar, toggleTheme } from '@/utils/redux/slices/stateSlice';
 
 const Sidebar: React.FC<SideBarProps> = ({
     routes,
@@ -51,52 +28,8 @@ const Sidebar: React.FC<SideBarProps> = ({
     const user: UserData | null = useSelector((store: RootState) => store.auth?.authUser);
     const themeMode: boolean = useSelector((store: RootState) => store.state.lightTheme);
 
-    const handleSidebar = (): void => {
-        dispatch(toggleSidebar());
-    }
-
     const changeTheme = (): void => {
         dispatch(toggleTheme());
-    }
-
-    const normalizeRouteName = (name: string): string => {
-        return name.toLowerCase().replace(/ /g, "-");
-    }
-
-    const iconMap: Record<string, React.ReactNode> = {
-        'dashboard': <Gauge />,
-        'overview': <Gauge />,
-        'analytics': <ChartNoAxesCombined />,
-        'reports': <BookLock />,
-        '/provider': <Gauge />,
-        '/admin': <Gauge />,
-        'users': <Users />,
-        'providers': <Handshake />,
-        'profile': <User />,
-        'address': <MapPinHouse />,
-        'chat': <MessageSquare />,
-        'video-call': <Video />,
-        'plans': <LayoutGrid />,
-        'payments': <HandCoins />,
-        'reviews': <Star />,
-        'bookings': <CalendarCheck />,
-        'services': <Briefcase />,
-        'service': <Briefcase />,
-        'subscriptions': <LucideCreditCard />,
-        'subscription': <CreditCard />,
-        'appointments': <CalendarCheck />,
-        'calendar': <Calendar1 />,
-        'notifications': <Bell />,
-        'settings': <Settings />,
-        'service-providers': <Network />,
-        'availability': <CalendarDays />,
-        'api-strength': <ScanHeart />,
-        'logout': <LogOut />,
-    }
-
-    const getIcon = (name: string): React.ReactNode => {
-        const normalizedName = normalizeRouteName(name);
-        return iconMap[normalizedName];
     }
 
     const basePath = user?.role === "ADMIN" ? "/admin" : user?.role === "PROVIDER" ? "/provider" : "/user";
@@ -110,20 +43,25 @@ const Sidebar: React.FC<SideBarProps> = ({
     }, [themeMode]);
 
     return (
-        <div className={` ${sidebarOpen ? 'w-[15%]' : 'w-[5%]'} overflow-y-scroll no-scrollbar border-r-2 transition-all duration-300 flex flex-col`} >
+        <div className={` ${sidebarOpen ? 'w-[18%]' : 'w-[5%]'} overflow-y-scroll no-scrollbar border-r-2 transition-all duration-600 flex flex-col bg-[#f2f2f2] dark:bg-[#0d0d0d]`} >
             <div className="p-4 flex-1">
                 <ul>
 
-                    <li className='px-3 pb-4 flex'>
-                        <div>
-                            <img src={logo} className='size-8' />
+                    <li className="px-3 pb-4 flex items-center justify-start">
+                        <div className="flex items-center">
+                            <img src={logo} className="size-8" alt="SlotFlow Logo" />
+                            {sidebarOpen && (
+                                <div className='flex flex-col ml-2'>
+                                    <span className="text-[var(--mainColor)] text-lg font-bold italic cursor-pointer">
+                                        SlotFlow
+                                    </span>
+                                    <span className='truncate text-sm text-gray-500'>
+                                        Dashboard
+                                    </span>
+                                </div>
+                            )}
                         </div>
-                        {sidebarOpen && (
-                            <span className='text-[var(--mainColor)] text-3xl font-bold italic hover:text-white px-2 rounded-lg cursor-pointer'>SlotFlow</span>
-                        )}
                     </li>
-
-                    <SingleTab icon={<PanelLeft />} text={sidebarOpen ? "Close Menu" : ""} onClick={handleSidebar} sidebarOpen={sidebarOpen} />
 
                     {routes.map((route) => {
                         const isProvider = user?.role === "PROVIDER";
@@ -140,7 +78,7 @@ const Sidebar: React.FC<SideBarProps> = ({
                             >
                                 {({ isActive }) => (
                                     <SingleTab
-                                        icon={getIcon(route.name)}
+                                        icon={route.icon}
                                         text={route.name}
                                         sidebarOpen={sidebarOpen}
                                         locked={isLocked}
@@ -151,7 +89,7 @@ const Sidebar: React.FC<SideBarProps> = ({
                         ) : (
                             <SingleTab
                                 key={route.path}
-                                icon={getIcon(route.name)}
+                                icon={route.icon}
                                 text={route.name}
                                 sidebarOpen={sidebarOpen}
                                 locked={isLocked}
@@ -165,13 +103,13 @@ const Sidebar: React.FC<SideBarProps> = ({
             {(user?.isLoggedIn && user.role) && (
                 <ul className='p-4'>
                     <SingleTab
-                        icon={!themeMode ? <Sun /> : <Moon />}
+                        icon={!themeMode ? Sun : Moon}
                         text={!themeMode ? 'Light' : 'Dark'}
                         onClick={changeTheme}
                         sidebarOpen={sidebarOpen}
                     />
                     <SingleTab
-                        icon={<LogOut />}
+                        icon={LogOut}
                         text="Logout"
                         onClick={() => handleSignoutHelper({ role: user?.role, dispatch, resetRedux, navigate })}
                         sidebarOpen={sidebarOpen}

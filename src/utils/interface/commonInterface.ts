@@ -152,6 +152,7 @@ export interface SideBarProps {
 export interface Route {
   path: string;
   name: string;
+  icon: LucideIcon;
 }
 // **** 16.2  gsap animation object interface
 export interface gsapBigSvgYDirectionAnimationInterface {

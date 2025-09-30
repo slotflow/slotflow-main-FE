@@ -1,7 +1,11 @@
 import dayjs from 'dayjs';
-import { Circle, CircleOff } from 'lucide-react';
+import { Button } from '../ui/button';
+import { useDispatch } from 'react-redux';
 import React, { useEffect, useState } from 'react';
+import { AppDispatch } from '@/utils/redux/appStore';
 import avatar from '../../assets/defaultImages/avatar.png';
+import { Circle, CircleOff, PanelLeft } from 'lucide-react';
+import { toggleSidebar } from '@/utils/redux/slices/stateSlice';
 
 interface InfoHeaderProps {
     profileImage?: string;
@@ -12,23 +16,36 @@ const InfoHeader: React.FC<InfoHeaderProps> = ({
     profileImage,
     username
 }) => {
-    
+
+    const dispatch = useDispatch<AppDispatch>();
     const formatted = dayjs().format('DD MM dddd hh:mm A');
 
-    const [ isOnline, setIsOnline ] = useState(true)
+    const [isOnline, setIsOnline] = useState(true)
     useEffect(() => {
-        window.addEventListener("offline" , () => {
+        window.addEventListener("offline", () => {
             setIsOnline(false);
         })
 
-        window.addEventListener("online" , () => {
+        window.addEventListener("online", () => {
             setIsOnline(true);
         })
     }, []);
 
+    const handleSidebar = (): void => {
+        dispatch(toggleSidebar());
+    }
     return (
-        <nav className={`bg-[var(--menuItemHoverBg)] m-4 p-2 rounded-md mt-4 flex justify-between`}>
-            <div className='flex'>
+        <nav className={`bg-[#f2f2f2] dark:bg-[#0d0d0d] m-2 px-2 py-1 rounded-md mt-2 flex items-center`}>
+
+            <Button
+                variant="ghost"
+                className="cursor-pointer"
+                onClick={handleSidebar}
+            >
+                <PanelLeft />
+            </Button>
+
+            <div className='flex ml-3'>
                 <img
                     src={profileImage || avatar}
                     className='size-6 rounded-full'
@@ -36,7 +53,7 @@ const InfoHeader: React.FC<InfoHeaderProps> = ({
                 <h4 className='italic ml-2'>Hi, {username}</h4>
             </div>
 
-            <div className='flex space-x-2 items-center'>
+            <div className='flex space-x-2 items-center ml-auto'>
                 <h4 className='text-sm'>{formatted}</h4>
                 <div className='flex' title={isOnline ? "Online" : "Offline"} >
                     {isOnline ? (

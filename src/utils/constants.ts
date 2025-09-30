@@ -33,6 +33,16 @@ import {
   Phone,
   Mail,
   Verified,
+  Gauge,
+  BookLock,
+  Handshake,
+  ScanHeart,
+  MessageSquare,
+  Video,
+  Calendar1,
+  Star,
+  Bell,
+  Settings,
 } from "lucide-react";
 import { ProviderFetchDashboardStatsDataResponse } from "./interface/api/providerApiInterface";
 import { dataSelectListItemInterface, DayMapInterface, FeatureContentInterface, FooterColumnDataInterface, FooterLinkInterface, gsapBigSvgYDirectionAnimationInterface, HeaderCompoenentNavsProps, PlanFeatureInterface, PlanListType, ProviderApprovalMessageInterface, Route, StatsMapForAdminInterface, statsMapIntrface } from "./interface/commonInterface";
@@ -46,44 +56,42 @@ import { ContactItem } from "./interface/componentInterface/commonComponentInter
 
 // **** Routes for admin **** \\
 export const adminRoutes: Route[] = [
-  { path: "overview", name: "Overview" },
-  { path: "report", name: "Reports" },
-  { path: "service-providers", name: "Service Providers" },
-  { path: "users", name: "Users" },
-  { path: "services", name: "Services" },
-  { path: "plans", name: "Plans" },
-  { path: "subscriptions", name: "Subscriptions" },
-  { path: "payments", name: "Payments" },
-  { path: "api-strength", name: "Api Strength" },
-];
+  { path: "overview", name: "Overview", icon: Gauge },
+  { path: "report", name: "Reports", icon: BookLock },
+  { path: "service-providers", name: "Service Providers", icon: Handshake },
+  { path: "users", name: "Users", icon: Users },
+  { path: "services", name: "Services", icon: Briefcase },
+  { path: "plans", name: "Plans", icon: LayoutGrid },
+  { path: "subscriptions", name: "Subscriptions", icon: CreditCard },
+  { path: "payments", name: "Payments", icon: Handshake },
+  { path: "api-strength", name: "Api Strength", icon: ScanHeart },
+]
 
 // **** Routes for user **** \\
 export const userRoutes: Route[] = [
-  { path: "dashboard", name: "Dashboard" },
-  { path: "bookings", name: "Bookings" },
-  { path: "payments", name: "Payments" },
-  { path: "chat", name: "Chat" },
-  { path: "calendar", name: "Calendar" },
-  { path: "video-call", name: "Video call" },
-  { path: "reviews", name: "Reviews" },
-  { path: "notifications", name: "Notifications" },
-  { path: "settings", name: "Settings" },
+  { path: "dashboard", name: "Dashboard", icon: Gauge },
+  { path: "bookings", name: "Bookings", icon: CalendarCheck },
+  { path: "payments", name: "Payments", icon: CreditCard },
+  { path: "chat", name: "Chat", icon: MessageSquare },
+  { path: "calendar", name: "Calendar", icon: Calendar1 },
+  { path: "video-call", name: "Video call", icon: Video },
+  { path: "reviews", name: "Reviews", icon: Star },
+  { path: "notifications", name: "Notifications", icon: Bell },
+  { path: "settings", name: "Settings", icon: Settings },
 ]
 
 // **** Routes for provider **** \\
 export const providerRoutes: Route[] = [
-  { path: "dashboard", name: "Dashboard" },
-  { path: "service", name: "Service" },
-  { path: "availability", name: "Availability" },
-  { path: "appointments", name: "Appointments" },
-  { path: "subscriptions", name: "Subscriptions" },
-  { path: "payments", name: "Payments" },
-  { path: "chat", name: "Chat" },
-  { path: "video-call", name: "Video call" },
-  { path: "calendar", name: "Calendar" },
-  { path: "reviews", name: "Reviews" },
-  { path: "notifications", name: "Notifications" },
-  { path: "settings", name: "Settings" },
+  { path: "dashboard", name: "Dashboard", icon: Gauge },
+  { path: "appointments", name: "Appointments", icon: CalendarCheck },
+  { path: "subscriptions", name: "Subscriptions", icon: CreditCard },
+  { path: "payments", name: "Payments", icon: Handshake },
+  { path: "chat", name: "Chat", icon: MessageSquare },
+  { path: "video-call", name: "Video call", icon: Video },
+  { path: "calendar", name: "Calendar", icon: Calendar1 },
+  { path: "reviews", name: "Reviews", icon: Star },
+  { path: "notifications", name: "Notifications", icon: Bell },
+  { path: "settings", name: "Settings", icon: Settings },
 ]
 
 // Access Control For Provider

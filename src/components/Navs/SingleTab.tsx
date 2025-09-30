@@ -1,7 +1,7 @@
 import { Lock } from "lucide-react";
 
 interface SingleTabProps {
-    icon: React.ReactNode;
+    icon: React.ElementType;
     text: string;
     sidebarOpen: boolean;
     onClick?: () => void;
@@ -11,7 +11,7 @@ interface SingleTabProps {
 }
 
 export const SingleTab: React.FC<SingleTabProps> = ({
-    icon,
+    icon: Icon,
     text,
     sidebarOpen,
     onClick,
@@ -24,7 +24,7 @@ export const SingleTab: React.FC<SingleTabProps> = ({
             title={!locked ? text : text + " locked"}
             onClick={onClick}
             className={`
-                p-2 my-2 font-semibold rounded-md transition-colors
+                px-2 py-1.5 my-2 font-semibold rounded-md transition-colors
                 ${!sidebarOpen ? 'flex justify-center' : 'flex items-center'}
                 ${className}
                 ${locked ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
@@ -36,13 +36,12 @@ export const SingleTab: React.FC<SingleTabProps> = ({
         >
             {sidebarOpen ? (
                 <div className='flex cursor-pointer'>
-                    <span className='text-2xl font-bold'>{icon}</span>
-                    <span className='ml-2'>{text}</span>
+                    <Icon className='size-6 dark:text-gray-300' />
+                    <span className='ml-3 text-[16px]'>{text}</span>
                     {locked && <Lock className="mx-auto size-3 my-auto" />}
                 </div>
             ) : (
-                <span className='text-2xl font-bold cursor-pointer text-[var(--textOne)] hover:text-[var(--textOneHover)]'>{icon}</span>
-            )}
+                <Icon className='text-2xl font-bold cursor-pointer text-[var(--textOne)] hover:text-[var(--textOneHover)]' />)}
         </li>
     );
 };
