@@ -16,7 +16,7 @@ const ProviderPlanList: React.FC<ProviderPlanListProps> = ({ showPlans }) => {
     const { data, isLoading, isError, error } = useQuery({
         queryFn: providerFetchProviderPlans,
         queryKey: ["plans"],
-        staleTime: 5 * 60 * 1000,
+        staleTime: 60 * 60 * 1000,
         refetchOnWindowFocus: false,
     });
 

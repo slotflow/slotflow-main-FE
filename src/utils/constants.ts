@@ -662,11 +662,11 @@ export const planChartAccess: Record<string, string[]> = {
   Enterprise: [
     "AppointmentsOverTime",
     "TopBookingDays",
+    "AppointmentModeTrend",
+    "NewVsReturningUsers",
     "AppointmentDistribution",
     "PeakBookingHours",
-    "AppointmentModeTrend",
     "AppointmentCompletionBreakdown",
-    "NewVsReturningUsers",
   ],
 };
 
@@ -703,17 +703,29 @@ export const appointmentModeChartConfig = {
   },
 };
 export const completionBreakdownChartConfig = {
-  Completed: {
-    label: "Completed",
+  completed: {
+    label: "completed",
     color: "#22c55e",
   },
-  Missed: {
-    label: "Missed",
+  missed: {
+    label: "missed",
     color: "#f97316",
   },
-  Cancelled: {
-    label: "Cancelled",
+  cancelled: {
+    label: "cancelled",
     color: "#ef4444",
+  },
+  rejected: {
+    label: "rejected",
+    color: "#a855f7",
+  },
+  booked: {
+    label: "booked",
+    color: "#3b82f6",
+  },
+  confirmed: {
+    label: "confirmed",
+    color: "#eab308",
   },
 };
 export const newVsReturningUsersChartConfig = {
@@ -1111,3 +1123,10 @@ export const SettingTabs: { value: string, label: string }[] = [
   { value: "tab4", label: "Service" },
   { value: "tab5", label: "Availability" },
 ]
+
+
+// Provider dashboard tabs
+export const providerDashboardTabs = [
+  { value: "stats", label: "Stats" },
+  { value: "graphs", label: "Graphs" },
+];

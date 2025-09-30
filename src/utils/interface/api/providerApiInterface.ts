@@ -131,7 +131,7 @@ export interface ProviderDashboardGraphResponse {
   }>;
 
   completionBreakdownChartData: Array<{
-    status: 'completed' | 'missed' | 'cancelled' | 'rejected';
+    status: 'completed' | 'missed' | 'cancelled' | 'rejected' | "confirmed" | "booked";
     value: number;
   }>;
 

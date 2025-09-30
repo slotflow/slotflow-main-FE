@@ -1,10 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import DataFetchingError from '../DataFetchingError';
 import StatsCard from '@/components/common/dashboard/StatsCard';
 import { statsMapIntrface } from '@/utils/interface/commonInterface';
 import HorizontalChartForAdminReact from '../chart/HorizontalChartForAdmin';
 import DashboardStatsShimmer from '@/components/shimmers/DashboardStatsShimmer';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/utils/redux/appStore';
 
 interface DashboardStatsProps<T extends Record<string, number>> {
     queryFunction(): Promise<T>;
@@ -20,11 +22,17 @@ const DashboardStats = <T extends Record<string, number>>({
     queryFunction,
     queryKey,
     statsMap,
-    plan,
     shimmerCount,
     heading,
     role,
 }: DashboardStatsProps<T>) => {
+
+    const user = useSelector((store: RootState) => store.auth.authUser);
+
+const subscriptionPlan = useMemo(() => {
+  if (!user) return "NoSubscription";
+  return user.providerSubscription ?? "NoSubscription";
+}, [user]);
 
     const [chartData, setChartData] = useState<{ name: string; value: number }[]>();
 
@@ -68,7 +76,7 @@ const DashboardStats = <T extends Record<string, number>>({
                                 value={dashboardStats?.[key] ?? 0}
                                 icon={icon}
                                 price={price}
-                                isShow={role === "PROVIDER" ? plans?.includes(plan!) : true}
+                                isShow={role === "PROVIDER" ? plans?.includes(subscriptionPlan) : true}
                             />
                         ))
                     ) : null}

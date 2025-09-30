@@ -1,30 +1,45 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/utils/redux/appStore';
-import { statsMapForProvider } from '@/utils/constants';
 import DashboardStats from '@/components/common/dashboard/DashboardStats';
+import { providerFetchDashboardStatsData } from '@/utils/apis/provider.api';
+import { providerDashboardTabs, statsMapForProvider } from '@/utils/constants';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@radix-ui/react-tabs';
 import ProviderDashboardGraphs from '@/components/provider/ProviderDashboardGraphs';
 import { ProviderFetchDashboardStatsDataResponse } from '@/utils/interface/api/providerApiInterface';
-import { providerFetchDashboardGraphData, providerFetchDashboardStatsData } from '@/utils/apis/provider.api';
 
 const ProviderDashboardPage: React.FC = () => {
 
-  const user = useSelector((store: RootState) => store.auth.authUser);
-
   return (
     <div className="pb-4">
-      <DashboardStats<ProviderFetchDashboardStatsDataResponse>
-        queryFunction={providerFetchDashboardStatsData}
-        queryKey='dashboardStats'
-        statsMap={statsMapForProvider}
-        plan={user?.providerSubscription ?? "NoSubscription"}
-        shimmerCount={11}
-        role='PROVIDER'
-      />
-      <ProviderDashboardGraphs
-        queryFunction={providerFetchDashboardGraphData}
-        plan={user?.providerSubscription ?? "NoSubscription"}
-      />
+      <Tabs defaultValue="stats" className="w-full">
+
+        <TabsList className="grid grid-cols-2 w-full border rounded-md mb-4">
+          {providerDashboardTabs.map((tab) => (
+            <TabsTrigger
+              key={tab.value}
+              value={tab.value}
+              className="cursor-pointer px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 
+                 data-[state=active]:bg-[var(--mainColor)] data-[state=active]:text-white 
+                 data-[state=active]:rounded-md transition"
+            >
+              {tab.label}
+            </TabsTrigger>
+          ))}
+        </TabsList>
+
+        <TabsContent value="stats">
+          <DashboardStats<ProviderFetchDashboardStatsDataResponse>
+            queryFunction={providerFetchDashboardStatsData}
+            queryKey="dashboardStats"
+            statsMap={statsMapForProvider}
+            shimmerCount={11}
+            role="PROVIDER"
+          />
+        </TabsContent>
+
+        <TabsContent value="graphs">
+          <ProviderDashboardGraphs />
+        </TabsContent>
+      </Tabs>
     </div>
   )
 }

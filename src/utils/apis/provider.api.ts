@@ -26,6 +26,7 @@ import { FetchBookingDetailsResponse, FetchBookingsResponse, FetchOnlineBookingP
 import { Subscription } from "../interface/entityInterface/subscriptionInterface";
 import { Booking } from "../interface/entityInterface/bookingInterface";
 import { Review } from "../interface/entityInterface/reviewInterface";
+import { DateRange } from "react-day-picker";
 
 
 // **** Address apis
@@ -196,8 +197,12 @@ export const providerFetchDashboardStatsData = async () : Promise<ProviderFetchD
     return response.data.data;
 }
 
-export const providerFetchDashboardGraphData = async () : Promise<ProviderDashboardGraphResponse> => {
-    const response = await axiosInstance.get('/provider/dashboard/graph-data');
+export const providerFetchDashboardGraphData = async (subscription?: string,dateRange?: DateRange) : Promise<ProviderDashboardGraphResponse> => {
+    const response = await axiosInstance.get(`/provider/dashboard/graph-data`, { 
+        params: { 
+            subscription, 
+            ...(dateRange ? { start: dateRange.from, end: dateRange.to } : {}),
+         } });
     return response.data.data;
 }
 
