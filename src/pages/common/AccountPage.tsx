@@ -1,21 +1,27 @@
-import React from 'react';
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from '@/components/ui/select';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { profileTabs } from '@/utils/constants';
 import { RootState } from '@/utils/redux/appStore';
-import { } from '@/utils/interface/api/userApiInterface';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import Address from '@/components/common/profile/Address';
 import Profile from '@/components/common/profile/Profile';
 import ProfileHead from '@/components/common/profile/ProfileHead';
 import { userUpdateUserProfileImage } from '@/utils/apis/user.api';
-import DataFetchingError from '@/components/common/DataFetchingError';
-import { providerUpdateProviderProfileImage } from '@/utils/apis/provider.api';
 import ProviderService from '@/components/provider/ProviderService';
+import DataFetchingError from '@/components/common/DataFetchingError';
 import ProviderAvailability from '@/components/provider/ProviderAvailability';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
-import { profileTabs } from '@/utils/constants';
+import { providerUpdateProviderProfileImage } from '@/utils/apis/provider.api';
 
 const AccountPage: React.FC = () => {
-
     const { authUser } = useSelector((state: RootState) => state.auth);
+    const [selectedTab, setSelectedTab] = useState("tab1");
 
     const isProvider = authUser?.role === "PROVIDER";
 
@@ -23,11 +29,10 @@ const AccountPage: React.FC = () => {
         ? providerUpdateProviderProfileImage
         : userUpdateUserProfileImage;
 
-    if (!authUser) return <DataFetchingError message='User not found' />
+    if (!authUser) return <DataFetchingError message="User not found" />;
 
     return (
         <div className="min-h-full p-2 flex flex-col mb-10">
-
             <ProfileHead
                 updateProfileImageApiFunction={updateProfileImageApiFunction}
                 updation={true}
@@ -35,43 +40,55 @@ const AccountPage: React.FC = () => {
                 isMyProfile
             />
 
-            <Tabs defaultValue="tab1" className="w-full mt-2">
+            <div className="mt-6 flex flex-col md:flex-row gap-6">
+                <div className="w-full md:hidden">
+                    <Select value={selectedTab} onValueChange={setSelectedTab}>
+                        <SelectTrigger className="w-full">
+                            <SelectValue placeholder="Select Section" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            {profileTabs.map(({ value, label, icon: Icon }) => (
+                                <SelectItem key={value} value={value}>
+                                    <div className="flex items-center gap-2">
+                                        {Icon && <Icon className="w-4 h-4" />}
+                                        {label}
+                                    </div>
+                                </SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
+                </div>
 
-                <TabsList className="flex w-full justify-between border rounded-md my-2">
-                    {profileTabs.map((tab) => (
-                        <TabsTrigger
-                            key={tab.value}
-                            value={tab.value}
-                            className="w-full cursor-pointer px-4 py-2 text-sm font-medium text-black dark:text-white hover:text-gray-900 
-                 data-[state=active]:bg-[var(--mainColor)] data-[state=active]:text-white 
-                 data-[state=active]:rounded-md transition"
+                <div className="hidden md:flex md:flex-col w-2/12 space-y-2 pr-4">
+                    {profileTabs.map(({ value, label, icon: Icon }) => (
+                        <button
+                            key={value}
+                            onClick={() => setSelectedTab(value)}
+                            className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors cursor-pointer
+  ${selectedTab === value
+                                    ? "bg-accent text-accent-foreground"
+                                    : "hover:bg-muted"}`
+                            }
                         >
-                            {tab.label}
-                        </TabsTrigger>
+                            {Icon && <Icon className="w-4 h-4" />}
+                            {label}
+                        </button>
                     ))}
-                </TabsList>
+                </div>
 
-                <TabsContent value="tab1" className="">
-                    <Profile />
-                </TabsContent>
-
-                <TabsContent value="tab2" className="">
-                    <Address />
-                </TabsContent>
-
-                {isProvider && (
-                    <React.Fragment>
-                        <TabsContent value="tab3" className="">
-                            <ProviderService />
-                        </TabsContent>
-                        <TabsContent value="tab4" className="">
-                            <ProviderAvailability />
-                        </TabsContent>
-                    </React.Fragment>
-                )}
-            </Tabs>
+                <ScrollArea className="flex-1 h-[70vh] rounded-md border p-4">
+                    {selectedTab === "tab1" && <Profile />}
+                    {selectedTab === "tab2" && <Address />}
+                    {isProvider && (
+                        <>
+                            {selectedTab === "tab3" && <ProviderService />}
+                            {selectedTab === "tab4" && <ProviderAvailability />}
+                        </>
+                    )}
+                </ScrollArea>
+            </div>
         </div>
-    )
-}
+    );
+};
 
 export default AccountPage;

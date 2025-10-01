@@ -43,7 +43,7 @@ const Sidebar: React.FC<SideBarProps> = ({
     }, [themeMode]);
 
     return (
-        <div className={` ${sidebarOpen ? 'w-[18%]' : 'w-[5%]'} overflow-y-scroll no-scrollbar border-r-2 transition-all duration-600 flex flex-col bg-[var(--menuBg)]`} >
+        <div className={` ${sidebarOpen ? 'w-[18%]' : 'w-[5%]'} overflow-y-scroll no-scrollbar border-r transition-all duration-600 flex flex-col bg-[var(--menuBg)]`} >
             <div className="p-4 flex-1">
                 <ul>
 

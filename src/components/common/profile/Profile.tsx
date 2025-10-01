@@ -29,7 +29,7 @@ const Profile: React.FC = () => {
       <div className='flex justify-between border rounded-md my-2 p-2 items-center'>
         <div className="flex space-x-2">
           <UserRoundPen />
-          <h2 className="text-xl font-semibold"> Profile Settings</h2>
+          <h2 className="text-xl font-semibold"> Profile Details</h2>
         </div>
         <Button
           variant="outline"

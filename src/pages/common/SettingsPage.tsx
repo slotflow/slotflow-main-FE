@@ -1,64 +1,94 @@
-import React from "react";
+
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import React, { useState } from "react";
 import { settingsTabs } from "@/utils/constants";
 import { Separator } from "@/components/ui/separator";
-import NotificationSettings from "@/components/common/NotificationSettings";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import AccountSecurity from "@/components/common/AccountSecurity";
 import IntegrationsListing from "@/components/common/IntegrationsListing";
 import PersonalizationList from "@/components/common/PersonalizationList";
+import NotificationSettings from "@/components/common/NotificationSettings";
 
 const SettingsPage: React.FC = () => {
-    return (
-        <div className="p-2">
+  const [selectedTab, setSelectedTab] = useState<string>("notifications");
 
-            <div className='mb-2'>
-                <div className='flex justify-between items-center'>
-                    <div className='flex space-x-2'>
-                        <h2 className="text-3xl font-bold tracking-tighter">Settings</h2>
-                    </div>
-                </div>
-                <p className='w-8/12 mt-2 text-gray-500 text-sm font-semibold'>List of all integrations, you can use based on your subscription</p>
-            </div>
-            <Separator className='shadow-sm' />
+  const renderContent = () => {
+    switch (selectedTab) {
+      case "notifications":
+        return <NotificationSettings />;
+      case "security":
+        return <AccountSecurity />;
+      case "integrations":
+        return <IntegrationsListing />;
+      case "personalization":
+        return <PersonalizationList />;
+      default:
+        return null;
+    }
+  };
 
-
-            <Tabs orientation="vertical" defaultValue="notifications" className="flex w-full py-4 mt-4 space-x-2">
-
-                <TabsList className="flex flex-col w-3/12 items-start space-y-2 px-2 rounded-md self-start">
-                    {settingsTabs.map(({ value, label, icon: Icon }) => (
-                        <TabsTrigger
-                            key={value}
-                            value={value}
-                            className="flex items-center gap-2 w-full justify-start px-3 py-2 rounded-md text-sm font-medium transition-colors hover:bg-[var(--menuItemHoverBg)] cursor-pointer"
-                        >
-                            {Icon && <Icon className="w-4 h-4" />}
-                            {label}
-                        </TabsTrigger>
-                    ))}
-                </TabsList>
-
-                <div className="flex-1 w-9/12">
-
-                    <TabsContent value="notifications" className="space-y-4">
-                       <NotificationSettings />
-                    </TabsContent>
-
-                    <TabsContent value="security" className="space-y-4">
-                        <AccountSecurity />
-                    </TabsContent>
-
-                    <TabsContent value="integrations" className="space-y-4">
-                        <IntegrationsListing />
-                    </TabsContent>
-
-                    <TabsContent value="personalization" className="space-y-4">
-                        <PersonalizationList />
-                    </TabsContent>
-
-                </div>
-            </Tabs>
+  return (
+    <div className="p-2">
+      <div className="mb-2">
+        <div className="flex justify-between items-center">
+          <div className="flex space-x-2">
+            <h2 className="text-3xl font-bold tracking-tighter">Settings</h2>
+          </div>
         </div>
-    )
-}
+        <p className="w-8/12 mt-2 text-gray-500 text-sm font-semibold">
+          List of all integrations, you can use based on your subscription
+        </p>
+      </div>
+      <Separator className="shadow-sm" />
 
-export default SettingsPage
+      <div className="flex flex-col md:flex-row w-full py-4 mt-4 space-x-0 md:space-x-2">
+        <div className="hidden md:block w-2/12">
+          <ScrollArea className="h-[calc(100vh-150px)]">
+            <div className="flex flex-col space-y-2 px-2">
+              {settingsTabs.map(({ value, label, icon: Icon }) => (
+                <button
+                  key={value}
+                  onClick={() => setSelectedTab(value)}
+                  className={`flex items-center gap-2 w-full justify-start px-3 py-2 rounded-md text-sm font-medium transition-colors
+                    ${
+                      selectedTab === value
+                        ? "bg-accent text-accent-foreground"
+                        : "hover:bg-muted"
+                    }`}
+                >
+                  {Icon && <Icon className="w-4 h-4" />}
+                  {label}
+                </button>
+              ))}
+            </div>
+          </ScrollArea>
+        </div>
+
+        <div className="md:hidden mb-4">
+          <Select value={selectedTab} onValueChange={setSelectedTab}>
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Select a tab" />
+            </SelectTrigger>
+            <SelectContent>
+              {settingsTabs.map(({ value, label }) => (
+                <SelectItem key={value} value={value}>
+                  {label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div className="flex-1 w-full md:w-10/12">{renderContent()}</div>
+      </div>
+    </div>
+  );
+};
+
+export default SettingsPage;

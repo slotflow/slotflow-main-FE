@@ -1,32 +1,56 @@
 import React from 'react';
+import { Card } from '@/components/ui/card';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import DashboardStats from '@/components/common/dashboard/DashboardStats';
 import { providerFetchDashboardStatsData } from '@/utils/apis/provider.api';
 import { providerDashboardTabs, statsMapForProvider } from '@/utils/constants';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@radix-ui/react-tabs';
 import ProviderDashboardGraphs from '@/components/provider/ProviderDashboardGraphs';
 import { ProviderFetchDashboardStatsDataResponse } from '@/utils/interface/api/providerApiInterface';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 const ProviderDashboardPage: React.FC = () => {
+  const [activeTab, setActiveTab] = React.useState<string>('stats')
 
   return (
-    <div className="pb-4">
-      <Tabs defaultValue="stats" className="w-full">
+    <div className="pb-4 space-y-4">
+      <div className="md:hidden">
+        <Select value={activeTab} onValueChange={setActiveTab}>
+          <SelectTrigger className="w-full">
+            <SelectValue placeholder="Select section" />
+          </SelectTrigger>
+          <SelectContent>
+            {providerDashboardTabs.map(({ value, label, icon: Icon }) => (
+              <SelectItem key={value} value={value}>
+                <div className="flex items-center gap-2">
+                  {Icon && <Icon className="w-4 h-4" />}
+                  {label}
+                </div>
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
 
-        <TabsList className="grid grid-cols-2 w-full border rounded-md mb-4">
-          {providerDashboardTabs.map((tab) => (
-            <TabsTrigger
-              key={tab.value}
-              value={tab.value}
-              className="cursor-pointer px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 
-                 data-[state=active]:bg-[var(--mainColor)] data-[state=active]:text-white 
-                 data-[state=active]:rounded-md transition"
-            >
-              {tab.label}
-            </TabsTrigger>
-          ))}
-        </TabsList>
+      <div className="hidden md:block">
+        <ScrollArea className="w-full">
+          <div className="flex gap-2 w-full md:w-1/2">
+            {providerDashboardTabs.map(({ value, label, icon: Icon }) => (
+              <button
+                key={value}
+                onClick={() => setActiveTab(value)}
+                className={`flex items-center gap-2 px-3 py-2 w-full justify-center rounded-md border text-sm font-medium transition-colors
+                  ${activeTab === value ? 'bg-[var(--menuItemHoverBg)]' : 'hover:bg-[var(--menuItemHoverBg)]'}`}
+              >
+                {Icon && <Icon className="w-4 h-4" />}
+                {label}
+              </button>
+            ))}
+          </div>
+        </ScrollArea>
+      </div>
 
-        <TabsContent value="stats">
+      <Card className="p-4">
+        {activeTab === 'stats' && (
           <DashboardStats<ProviderFetchDashboardStatsDataResponse>
             queryFunction={providerFetchDashboardStatsData}
             queryKey="dashboardStats"
@@ -34,14 +58,11 @@ const ProviderDashboardPage: React.FC = () => {
             shimmerCount={11}
             role="PROVIDER"
           />
-        </TabsContent>
-
-        <TabsContent value="graphs">
-          <ProviderDashboardGraphs />
-        </TabsContent>
-      </Tabs>
+        )}
+        {activeTab === 'graphs' && <ProviderDashboardGraphs />}
+      </Card>
     </div>
   )
 }
 
-export default ProviderDashboardPage;
+export default ProviderDashboardPage

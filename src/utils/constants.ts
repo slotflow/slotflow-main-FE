@@ -47,6 +47,10 @@ import {
   User,
   Shield,
   Palette,
+  Activity,
+  DollarSign,
+  Home,
+  BarChart,
 } from "lucide-react";
 import { ProviderFetchDashboardStatsDataResponse } from "./interface/api/providerApiInterface";
 import { CommonTabInterface, dataSelectListItemInterface, DayMapInterface, FeatureContentInterface, FooterColumnDataInterface, FooterLinkInterface, gsapBigSvgYDirectionAnimationInterface, HeaderCompoenentNavsProps, PlanFeatureInterface, PlanListType, ProviderApprovalMessageInterface, Route, StatsMapForAdminInterface, statsMapIntrface } from "./interface/commonInterface";
@@ -1123,31 +1127,30 @@ export const termsAndConditionsContent: string[] = [
 export const pathNames: string[] = ["/user", '/provider', '/admin'];
 
 
-// Admin dahsboard overview tabs
-export const adminOverviewTabs = [
-  { value: "today", label: "Today" },
-  { value: "users", label: "Users" },
-  { value: "providers", label: "Providers" },
-  { value: "subscriptions", label: "Subscriptions" },
-  { value: "revenue", label: "Revenue" },
-  { value: "appointments", label: "Appointments" },
-];
-
+// Admin dashboard overview tabs
+export const adminOverviewTabs: CommonTabInterface[] = [
+  { value: "today", label: "Today", icon: Activity },
+  { value: "users", label: "Users", icon: Users },
+  { value: "providers", label: "Providers", icon: UserCheck },
+  { value: "subscriptions", label: "Subscriptions", icon: CreditCard },
+  { value: "revenue", label: "Revenue", icon: DollarSign },
+  { value: "appointments", label: "Appointments", icon: CalendarCheck },
+]
 
 // Profile tabs list
 export const profileTabs: CommonTabInterface[] = [
-  { value: "tab1", label: "Profile" },
-  { value: "tab2", label: "Address" },
-  { value: "tab3", label: "Service" },
-  { value: "tab4", label: "Availability" },
+  { value: "tab1", label: "Profile", icon: User },
+  { value: "tab2", label: "Address", icon: Home },
+  { value: "tab3", label: "Service", icon: Briefcase },
+  { value: "tab4", label: "Availability", icon: Clock },
 ]
-
 
 // Provider dashboard tabs
 export const providerDashboardTabs: CommonTabInterface[] = [
-  { value: "stats", label: "Stats" },
-  { value: "graphs", label: "Graphs" },
-];
+  { value: "stats", label: "Stats", icon: Activity },
+  { value: "graphs", label: "Graphs", icon: BarChart },
+]
+
 
 // Settings Page Tabs
 export const settingsTabs: CommonTabInterface[] = [
