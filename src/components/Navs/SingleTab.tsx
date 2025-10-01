@@ -37,7 +37,7 @@ export const SingleTab: React.FC<SingleTabProps> = ({
             {sidebarOpen ? (
                 <div className='flex cursor-pointer'>
                     <Icon className='size-6 dark:text-gray-300' />
-                    <span className='ml-3 text-[16px]'>{text}</span>
+                    <span className='ml-3 text-[16px] font-medium'>{text}</span>
                     {locked && <Lock className="mx-auto size-3 my-auto" />}
                 </div>
             ) : (

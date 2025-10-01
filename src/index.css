@@ -33,7 +33,7 @@ html {
 
     --mainColorTwo: #e7e6ff
 
-    /* --boxBorder: #f2f2f2; */
+    --boxBorder: #f2f2f2;
 
     --textOne: #737373;
     --textOneHover: #0d0d0d;
@@ -43,7 +43,7 @@ html {
 
     --background: #ffffff;
 
-    --menuBg: #ffffff;
+    --menuBg: #f2f2f2;
     --menuItemHoverBg: #e6e6e6;
 
     --inputBg: #ffffff;
@@ -131,7 +131,7 @@ html {
 
     --mainColorTwo: #ceccff;
 
-    /* --boxBorder: #f2f2f2; */
+    --boxBorder: #f2f2f2;
 
     --textOne: #bfbfbf;
     --textOneHover: #e6e6e6;
@@ -141,7 +141,7 @@ html {
 
     --background: #000000;
 
-    --menuBg: #121212;
+    --menuBg: #0d0d0d;
     --menuItemHoverBg: #333333;
 
     --inputBg: #27272a;

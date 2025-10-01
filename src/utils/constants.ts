@@ -44,9 +44,12 @@ import {
   Bell,
   Settings,
   Combine,
+  User,
+  Shield,
+  Palette,
 } from "lucide-react";
 import { ProviderFetchDashboardStatsDataResponse } from "./interface/api/providerApiInterface";
-import { dataSelectListItemInterface, DayMapInterface, FeatureContentInterface, FooterColumnDataInterface, FooterLinkInterface, gsapBigSvgYDirectionAnimationInterface, HeaderCompoenentNavsProps, PlanFeatureInterface, PlanListType, ProviderApprovalMessageInterface, Route, StatsMapForAdminInterface, statsMapIntrface } from "./interface/commonInterface";
+import { CommonTabInterface, dataSelectListItemInterface, DayMapInterface, FeatureContentInterface, FooterColumnDataInterface, FooterLinkInterface, gsapBigSvgYDirectionAnimationInterface, HeaderCompoenentNavsProps, PlanFeatureInterface, PlanListType, ProviderApprovalMessageInterface, Route, StatsMapForAdminInterface, statsMapIntrface } from "./interface/commonInterface";
 
 import chatImage from '../assets/heroImages/caht.jpg';
 import gCalendar from '../assets/iconImages/gCalendar.png';
@@ -71,6 +74,7 @@ export const adminRoutes: Route[] = [
 // **** Routes for user **** \\
 export const userRoutes: Route[] = [
   { path: "dashboard", name: "Dashboard", icon: Gauge },
+  { path: "profile", name: "Profile", icon: User },
   { path: "bookings", name: "Bookings", icon: CalendarCheck },
   { path: "payments", name: "Payments", icon: CreditCard },
   { path: "integrations", name: "Integrations", icon: Combine },
@@ -85,13 +89,14 @@ export const userRoutes: Route[] = [
 // **** Routes for provider **** \\
 export const providerRoutes: Route[] = [
   { path: "dashboard", name: "Dashboard", icon: Gauge },
+  { path: "profile", name: "Profile", icon: User },
   { path: "appointments", name: "Appointments", icon: CalendarCheck },
   { path: "subscriptions", name: "Subscriptions", icon: CreditCard },
   { path: "payments", name: "Payments", icon: Handshake },
   { path: "integrations", name: "Integrations", icon: Combine },
+  { path: "calendar", name: "Calendar", icon: Calendar1 },
   { path: "chat", name: "Chat", icon: MessageSquare },
   { path: "video-call", name: "Video call", icon: Video },
-  { path: "calendar", name: "Calendar", icon: Calendar1 },
   { path: "reviews", name: "Reviews", icon: Star },
   { path: "notifications", name: "Notifications", icon: Bell },
   { path: "settings", name: "Settings", icon: Settings },
@@ -1129,8 +1134,8 @@ export const adminOverviewTabs = [
 ];
 
 
-// Settings tabs list
-export const SettingTabs: { value: string, label: string }[] = [
+// Profile tabs list
+export const profileTabs: CommonTabInterface[] = [
   { value: "tab1", label: "Profile" },
   { value: "tab2", label: "Address" },
   { value: "tab3", label: "Service" },
@@ -1139,7 +1144,31 @@ export const SettingTabs: { value: string, label: string }[] = [
 
 
 // Provider dashboard tabs
-export const providerDashboardTabs = [
+export const providerDashboardTabs: CommonTabInterface[] = [
   { value: "stats", label: "Stats" },
   { value: "graphs", label: "Graphs" },
 ];
+
+// Settings Page Tabs
+export const settingsTabs: CommonTabInterface[] = [
+  {
+    value: "notifications",
+    label: "Notifications",
+    icon: Mail,
+  },
+  {
+    value: "security",
+    label: "Account & Security",
+    icon: Shield,
+  },
+  {
+    value: "integrations",
+    label: "Integrations",
+    icon: CreditCard,
+  },
+  {
+    value: "personalization",
+    label: "Personalization",
+    icon: Palette,
+  },
+]

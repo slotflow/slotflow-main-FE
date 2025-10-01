@@ -1,74 +1,61 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/utils/redux/appStore';
-import { } from '@/utils/interface/api/userApiInterface';
-import Address from '@/components/common/profile/Address';
-import Profile from '@/components/common/profile/Profile';
-import ProfileHead from '@/components/common/profile/ProfileHead';
-import { userUpdateUserProfileImage } from '@/utils/apis/user.api';
-import DataFetchingError from '@/components/common/DataFetchingError';
-import { providerUpdateProviderProfileImage } from '@/utils/apis/provider.api';
-import ProviderService from '@/components/provider/ProviderService';
-import ProviderAvailability from '@/components/provider/ProviderAvailability';
+import React from "react";
+import { settingsTabs } from "@/utils/constants";
+import { Separator } from "@/components/ui/separator";
+import NotificationSettings from "@/components/common/NotificationSettings";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
-import { SettingTabs } from '@/utils/constants';
+import AccountSecurity from "@/components/common/AccountSecurity";
+import IntegrationsListing from "@/components/common/IntegrationsListing";
+import PersonalizationList from "@/components/common/PersonalizationList";
 
 const SettingsPage: React.FC = () => {
-
-    const { authUser } = useSelector((state: RootState) => state.auth);
-
-    const isProvider = authUser?.role === "PROVIDER";
-
-    const updateProfileImageApiFunction = isProvider
-        ? providerUpdateProviderProfileImage
-        : userUpdateUserProfileImage;
-
-    if (!authUser) return <DataFetchingError message='User not found' />
-
     return (
-        <div className="min-h-full p-2 flex flex-col mb-10">
+        <div className="p-2">
 
-            <ProfileHead
-                updateProfileImageApiFunction={updateProfileImageApiFunction}
-                updation={true}
-                showDetails
-                isMyProfile
-            />
+            <div className='mb-2'>
+                <div className='flex justify-between items-center'>
+                    <div className='flex space-x-2'>
+                        <h2 className="text-3xl font-bold tracking-tighter">Settings</h2>
+                    </div>
+                </div>
+                <p className='w-8/12 mt-2 text-gray-500 text-sm font-semibold'>List of all integrations, you can use based on your subscription</p>
+            </div>
+            <Separator className='shadow-sm' />
 
-            <Tabs defaultValue="tab1" className="w-full mt-2">
 
-                <TabsList className="flex w-full justify-between border rounded-md my-2">
-                    {SettingTabs.map((tab) => (
+            <Tabs orientation="vertical" defaultValue="notifications" className="flex w-full py-4 mt-4 space-x-2">
+
+                <TabsList className="flex flex-col w-3/12 items-start space-y-2 px-2 rounded-md self-start">
+                    {settingsTabs.map(({ value, label, icon: Icon }) => (
                         <TabsTrigger
-                            key={tab.value}
-                            value={tab.value}
-                            className="w-full cursor-pointer px-4 py-2 text-sm font-medium text-black dark:text-white hover:text-gray-900 
-                 data-[state=active]:bg-[var(--mainColor)] data-[state=active]:text-white 
-                 data-[state=active]:rounded-md transition"
+                            key={value}
+                            value={value}
+                            className="flex items-center gap-2 w-full justify-start px-3 py-2 rounded-md text-sm font-medium transition-colors hover:bg-[var(--menuItemHoverBg)] cursor-pointer"
                         >
-                            {tab.label}
+                            {Icon && <Icon className="w-4 h-4" />}
+                            {label}
                         </TabsTrigger>
                     ))}
                 </TabsList>
 
-                <TabsContent value="tab1" className="">
-                    <Profile />
-                </TabsContent>
+                <div className="flex-1 w-9/12">
 
-                <TabsContent value="tab2" className="">
-                    <Address />
-                </TabsContent>
+                    <TabsContent value="notifications" className="space-y-4">
+                       <NotificationSettings />
+                    </TabsContent>
 
-                {isProvider && (
-                    <React.Fragment>
-                        <TabsContent value="tab3" className="">
-                            <ProviderService />
-                        </TabsContent>
-                        <TabsContent value="tab4" className="">
-                            <ProviderAvailability />
-                        </TabsContent>
-                    </React.Fragment>
-                )}
+                    <TabsContent value="security" className="space-y-4">
+                        <AccountSecurity />
+                    </TabsContent>
+
+                    <TabsContent value="integrations" className="space-y-4">
+                        <IntegrationsListing />
+                    </TabsContent>
+
+                    <TabsContent value="personalization" className="space-y-4">
+                        <PersonalizationList />
+                    </TabsContent>
+
+                </div>
             </Tabs>
         </div>
     )

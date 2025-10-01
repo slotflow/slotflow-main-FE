@@ -82,7 +82,7 @@ const Address: React.FC = () => {
           >{addAddress
             ? <span className='flex items-center'><X className='mr-2' />Close</span>
             : authUser?.isAddressAdded
-              ? <span className='flex items-center'><Edit className='mr-2' />  Update Address</span>
+              ? <span className='flex items-center'><Edit className='mr-2' />  Edit Address</span>
               : <span className='flex items-center'><Plus className='mr-2' />  Add Address</span>
             }</Button>
         </div>

@@ -35,7 +35,7 @@ const InfoHeader: React.FC<InfoHeaderProps> = ({
         dispatch(toggleSidebar());
     }
     return (
-        <nav className={`bg-[#f2f2f2] dark:bg-[#0d0d0d] m-2 px-2 py-1 rounded-md mt-2 flex items-center`}>
+        <nav className={` bg-[var(--menuBg)] m-2 px-2 py-2 rounded-md mt-2 flex items-center`}>
 
             <Button
                 variant="ghost"

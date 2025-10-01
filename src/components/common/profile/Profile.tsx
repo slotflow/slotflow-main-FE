@@ -47,7 +47,7 @@ const Profile: React.FC = () => {
         >{openUserInfoForm ?
           <span className='flex items-center'><X className='mr-2' />Close</span>
           :
-          <span className='flex items-center'><Edit className='mr-2' />  Update Info</span>
+          <span className='flex items-center'><Edit className='mr-2' />  Edit Info</span>
           } </Button>
       </div>
 

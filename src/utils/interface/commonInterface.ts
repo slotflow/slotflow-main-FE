@@ -154,6 +154,7 @@ export interface Route {
   name: string;
   icon: LucideIcon;
 }
+
 // **** 16.2  gsap animation object interface
 export interface gsapBigSvgYDirectionAnimationInterface {
   y: number,
@@ -392,3 +393,10 @@ export const durationMap: Record<string, number> = {
   "30 minutes": 30 * 60,
   "1 hour": 60 * 60,
 };
+
+
+export interface CommonTabInterface {
+  value: string;
+  label: string;
+  icon?: LucideIcon;
+}

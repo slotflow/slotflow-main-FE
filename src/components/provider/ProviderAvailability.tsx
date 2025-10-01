@@ -19,7 +19,7 @@ const ProviderAvailability = () => {
                         // disabled={loading}
                         // onClick={}
                         className="cursor-pointer"
-                    >Update</Button>
+                    >Edit Details</Button>
                 </div>
             </div>
             

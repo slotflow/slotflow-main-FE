@@ -3,14 +3,14 @@ import PlanGuard from "./planGuard.tsx";
 import { createBrowserRouter } from "react-router-dom";
 import { ProtectedRoute } from "./protectedRoutes.tsx";
 import IntegrationsPage from "@/pages/common/IntegrationsPage.tsx";
+import SettingsPage from "@/pages/common/SettingsPage.tsx";
 
 const AuthPage = lazy(() => import("@/pages/common/AuthPage.tsx"));
 const AboutPage = lazy(() => import("@/pages/common/AboutPage.tsx"));
-const ProfilePage = lazy(() => import("@/components/common/profile/Profile.tsx"));
 const ContactPage = lazy(() => import("@/pages/common/ContactPage.tsx"));
 const LandingPage = lazy(() => import("../pages/common/LandingPage.tsx"));
 const Error404Page = lazy(() => import("@/pages/common/Error404Page.tsx"));
-const SettingsPage = lazy(() => import("@/pages/common/SettingsPage.tsx"));
+const AccountPage = lazy(() => import("@/pages/common/AccountPage.tsx"));
 const CalendarPage = lazy(() => import("@/pages/common/CalendarPage.tsx"));
 const VideoCallLoby = lazy(() => import("@/pages/common/VideoCallLoby.tsx"));
 const VideoCallRoom = lazy(() => import("@/pages/common/VideoCallRoom.tsx"));
@@ -104,7 +104,7 @@ export const appRouter = createBrowserRouter([
                     { index: true, element: <UserServiceSelectPage /> },
                     { path: "dashboard", element: <UserDashboardPage /> },
                     { path: "providerProfile/:providerId", element: <UserServiceProviderDetailPage /> },
-                    { path: "profile", element: <ProfilePage /> },
+                    { path: "profile", element: <AccountPage /> },
                     { path: "bookings", element: <UserBookingsPage /> },
                     { path: "bookings/:bookingId", element: <UserBookingDetailsPage /> },
                     { path: "payments", element: <UserPaymentsPage /> },
@@ -137,7 +137,7 @@ export const appRouter = createBrowserRouter([
                 ),
                 children: [
                     { path: "dashboard", element: <ProviderDashboardPage /> },
-                    { path: "profile", element: <ProfilePage /> },
+                    { path: "profile", element: <AccountPage /> },
                     {
                         path: "reviews",
                         element: (
@@ -170,9 +170,9 @@ export const appRouter = createBrowserRouter([
                             </PlanGuard>
                         )
                     },
-                    { 
-                        path: "subscription/:subscriptionId", 
-                        element: <ProviderSubscriptionDetailViewPage /> 
+                    {
+                        path: "subscription/:subscriptionId",
+                        element: <ProviderSubscriptionDetailViewPage />
                     },
                     {
                         path: "payments",
@@ -222,12 +222,12 @@ export const appRouter = createBrowserRouter([
                             </PlanGuard>
                         )
                     },
-                    { 
-                        path: "calendar", 
+                    {
+                        path: "calendar",
                         element: (
-                        <PlanGuard routeName="Calendar">
-                            < CalendarPage /> 
-                        </PlanGuard>
+                            <PlanGuard routeName="Calendar">
+                                < CalendarPage />
+                            </PlanGuard>
                         )
                     },
                     {

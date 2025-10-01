@@ -43,7 +43,7 @@ const Sidebar: React.FC<SideBarProps> = ({
     }, [themeMode]);
 
     return (
-        <div className={` ${sidebarOpen ? 'w-[18%]' : 'w-[5%]'} overflow-y-scroll no-scrollbar border-r-2 transition-all duration-600 flex flex-col bg-[#f2f2f2] dark:bg-[#0d0d0d]`} >
+        <div className={` ${sidebarOpen ? 'w-[18%]' : 'w-[5%]'} overflow-y-scroll no-scrollbar border-r-2 transition-all duration-600 flex flex-col bg-[var(--menuBg)]`} >
             <div className="p-4 flex-1">
                 <ul>
 
@@ -64,6 +64,7 @@ const Sidebar: React.FC<SideBarProps> = ({
                     </li>
 
                     {routes.map((route) => {
+
                         const isProvider = user?.role === "PROVIDER";
                         const isLocked = isProvider && filteredRoutes
                             ? !filteredRoutes.some(froute => froute.name === route.name)
@@ -95,7 +96,9 @@ const Sidebar: React.FC<SideBarProps> = ({
                                 locked={isLocked}
                             />
                         );
+                        
                     })}
+                    
 
                 </ul>
             </div>
