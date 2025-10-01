@@ -399,4 +399,5 @@ export interface CommonTabInterface {
   value: string;
   label: string;
   icon?: LucideIcon;
+  role?: Role[];
 }

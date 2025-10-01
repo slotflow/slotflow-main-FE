@@ -18,7 +18,7 @@ const AdminServiceProviderDetailPage = () => {
 
     const { providerId } = useParams();
     const [tab, setTab] = useState<number>(0);
-    const [selectedUserData, setSelectedUserData] = useState<{selectedUserName: string, selectedUserProfileImage: string| null}>({
+    const [selectedUserData, setSelectedUserData] = useState<{ selectedUserName: string, selectedUserProfileImage: string | null }>({
         selectedUserName: "",
         selectedUserProfileImage: null
     })
@@ -28,33 +28,35 @@ const AdminServiceProviderDetailPage = () => {
     return (
         <div className="min-h-full p-2 flex flex-col">
 
-            <ProfileHead 
+            <ProfileHead
                 updation={false}
                 isMyProfile={false}
                 showDetails
                 selectedUserData={selectedUserData}
             />
 
-            <ProfileHorizontalTabs isAdmin={true} setTab={setTab} tab={tab} tabArray={providerTabs} />
+            <div className="mt-6 md:flex">
+                <ProfileHorizontalTabs isAdmin={true} setTab={setTab} tab={tab} tabArray={providerTabs} />
 
-            <div className={`flex-grow`}>
-                {tab === 0 && (
-                    <ProfileListing fetchApiFunction={() => adminFetchProviderProfileDetails(providerId)} queryKey="providerProfile" userOrProviderId={providerId} adminLookingProvider shimmerRow={8} setSelectedUserData={setSelectedUserData} />
-                ) || tab === 1 && (
-                    <AddressListing userOrProviderId={providerId} fetchApiFunction={() => adminFetchProviderAddress(providerId)} queryKey="providerAddress" />
-                ) || tab === 2 && (
-                    <ProviderServiceDetails providerId={providerId} fetchApiFunction={() => adminFetchProviderService(providerId)} queryKey="providerService" />
-                ) || tab === 3 && (
-                    <ProviderServiceAvailability providerId={providerId} fetchApiFuntion={adminFetchProviderServiceAvailability} queryKey="providerServiceAvailability" role="Admin"/>
-                ) || tab === 4 && (
-                    <ReviewsPage isAdmin fetchFun={adminFetchAllReviews} id={providerId} role={"PROVIDER"} />
-                ) || tab === 5 && (
-                    <AdminProviderSubscriptions providerId={providerId} />
-                ) || tab === 6 && (
-                    <AdminUserOrProviderPayments id={providerId} fethFunction={adminFetchProviderPayments} />
-                )}
+                <div className={`flex-grow`}>
+                    {tab === 0 && (
+                        <ProfileListing fetchApiFunction={() => adminFetchProviderProfileDetails(providerId)} queryKey="providerProfile" userOrProviderId={providerId} adminLookingProvider shimmerRow={8} setSelectedUserData={setSelectedUserData} />
+                    ) || tab === 1 && (
+                        <AddressListing userOrProviderId={providerId} fetchApiFunction={() => adminFetchProviderAddress(providerId)} queryKey="providerAddress" />
+                    ) || tab === 2 && (
+                        <ProviderServiceDetails providerId={providerId} fetchApiFunction={() => adminFetchProviderService(providerId)} queryKey="providerService" />
+                    ) || tab === 3 && (
+                        <ProviderServiceAvailability providerId={providerId} fetchApiFuntion={adminFetchProviderServiceAvailability} queryKey="providerServiceAvailability" role="Admin" />
+                    ) || tab === 4 && (
+                        <ReviewsPage isAdmin fetchFun={adminFetchAllReviews} id={providerId} role={"PROVIDER"} className="mt-2 md:mt-0" />
+                    ) || tab === 5 && (
+                        <AdminProviderSubscriptions providerId={providerId} />
+                    ) || tab === 6 && (
+                        <AdminUserOrProviderPayments id={providerId} fethFunction={adminFetchProviderPayments} />
+                    )}
+                </div>
             </div>
-            
+
         </div>
     )
 }

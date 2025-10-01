@@ -17,15 +17,13 @@ const AdminProviderSubscriptions: React.FC<AdminFetchProviderSubscriptionsCompon
     );
 
     return (
-        <div className="p-6">
-            <CommonTable<FetchProviderSubscriptionsResponse>
-                fetchApiFunction={() => adminFetchProviderSubscriptions({ id: providerId, pagination: { page: 1, limit: 10 } })}
-                queryKey="providerSubscription"
-                column={column}
-                columnsCount={7}
-                id={providerId}
-            />
-        </div>
+        <CommonTable<FetchProviderSubscriptionsResponse>
+            fetchApiFunction={() => adminFetchProviderSubscriptions({ id: providerId, pagination: { page: 1, limit: 10 } })}
+            queryKey="providerSubscription"
+            column={column}
+            columnsCount={7}
+            id={providerId}
+        />
     )
 })
 

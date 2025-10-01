@@ -11,15 +11,13 @@ const AdminUserOrProviderPayments: React.FC<AdminFetchProviderPaymentsComponentP
     const column = PaymentsTableColumn();
 
     return (
-        <div className="p-6">
-            <CommonTable<FetchPaymentsResponse>
-                fetchApiFunction={() => fethFunction({ id, pagination: { page: 1, limit: 10 } })}
-                queryKey="providerPayments"
-                column={column}
-                columnsCount={7}
-                id={id}
-            />
-        </div>
+        <CommonTable<FetchPaymentsResponse>
+            fetchApiFunction={() => fethFunction({ id, pagination: { page: 1, limit: 10 } })}
+            queryKey="providerPayments"
+            column={column}
+            columnsCount={7}
+            id={id}
+        />
     )
 }
 

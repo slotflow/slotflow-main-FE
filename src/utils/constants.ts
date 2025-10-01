@@ -1139,10 +1139,10 @@ export const adminOverviewTabs: CommonTabInterface[] = [
 
 // Profile tabs list
 export const profileTabs: CommonTabInterface[] = [
-  { value: "tab1", label: "Profile", icon: User },
-  { value: "tab2", label: "Address", icon: Home },
-  { value: "tab3", label: "Service", icon: Briefcase },
-  { value: "tab4", label: "Availability", icon: Clock },
+  { value: "tab1", label: "Profile", icon: User, role: ["PROVIDER" , "USER"] },
+  { value: "tab2", label: "Address", icon: Home, role: ["PROVIDER" , "USER"] },
+  { value: "tab3", label: "Service", icon: Briefcase, role: ["PROVIDER"] },
+  { value: "tab4", label: "Availability", icon: Clock, role: ["PROVIDER"] },
 ]
 
 // Provider dashboard tabs

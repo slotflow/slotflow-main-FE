@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     userStatsMapForAdmin,
     todayStatsMapForAdmin,
@@ -25,21 +25,56 @@ import {
     AdminFetchDashboardRevenueAndPaymentsStatsDataResponse,
 } from "@/utils/interface/api/adminDashboardApiInterface";
 import DashboardStats from '@/components/common/dashboard/DashboardStats';
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import {
+    Tabs,
+    TabsContent,
+    TabsList,
+    TabsTrigger,
+} from "@/components/ui/tabs";
+import {
+    Select,
+    SelectTrigger,
+    SelectValue,
+    SelectContent,
+    SelectItem,
+} from "@/components/ui/select";
 
 const AdminOverviewPage: React.FC = () => {
+    const [selectedTab, setSelectedTab] = useState(adminOverviewTabs[0].value);
+
     return (
-        <div className="p-4">
-            <Tabs defaultValue="today" className="w-full">
+        <div className="p-4 w-full">
+            {/* Dropdown for small screens */}
+            <div className="md:hidden mb-4">
+                <Select value={selectedTab} onValueChange={setSelectedTab}>
+                    <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Select Tab" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        {adminOverviewTabs.map((tab) => (
+                            <SelectItem key={tab.value} value={tab.value}>
+                                {tab.label}
+                            </SelectItem>
+                        ))}
+                    </SelectContent>
+                </Select>
+            </div>
 
-                <TabsList className="grid grid-cols-3 md:grid-cols-6 gap-2 mb-4 w-full">
-                    {adminOverviewTabs.map((tab) => (
-                        <TabsTrigger key={tab.value} className="cursor-pointer" value={tab.value}>
-                            {tab.label}
-                        </TabsTrigger>
-                    ))}
-                </TabsList>
+            {/* Grid tabs for md+ screens */}
+            <div className="hidden md:block mb-4">
+                <Tabs value={selectedTab} onValueChange={setSelectedTab}>
+                    <TabsList className="grid grid-cols-6 gap-2 w-full">
+                        {adminOverviewTabs.map((tab) => (
+                            <TabsTrigger key={tab.value} value={tab.value}>
+                                {tab.label}
+                            </TabsTrigger>
+                        ))}
+                    </TabsList>
+                </Tabs>
+            </div>
 
+            {/* Tab contents */}
+            <Tabs value={selectedTab} onValueChange={setSelectedTab}>
                 <TabsContent value="today">
                     <DashboardStats<AdminFetchDashboardTodayStatsDataResponse>
                         queryFunction={adminFetchDashboardTodayStatsData}

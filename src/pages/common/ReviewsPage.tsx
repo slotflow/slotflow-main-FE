@@ -31,6 +31,7 @@ interface ReviewsPageProps {
   fetchFun: (
     query: FetchFunctionParams
   ) => Promise<ApiPaginatedResponse<FetchReviewsResponse>>;
+  className: string;
 }
 
 const ReviewsPage: React.FC<ReviewsPageProps> = ({
@@ -40,6 +41,7 @@ const ReviewsPage: React.FC<ReviewsPageProps> = ({
   isAdmin = false,
   role,
   fetchFun,
+  className
 }) => {
 
   const limit = 2;
@@ -190,8 +192,8 @@ const ReviewsPage: React.FC<ReviewsPageProps> = ({
   }
 
   return (
-    <div className="p-6">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className={`${className}`}>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
         {reviews.map((review) => (
           <Card
             key={review._id}
@@ -290,7 +292,7 @@ const ReviewsPage: React.FC<ReviewsPageProps> = ({
                   <Button
                     variant="destructive"
                     size="sm"
-                    className="cursor-pointer"
+                    className="cursor-pointer bg-[var(--background)] border"
                     onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleDeleteReview(e, review._id)}
                   >
                     <Trash className="text-red-500" /> Delete

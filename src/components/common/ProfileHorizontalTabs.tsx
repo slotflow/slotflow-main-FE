@@ -1,37 +1,75 @@
 import React, { useMemo } from "react";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface ProfileHorizontalTabsComponentProps {
-    isAdmin: boolean,
-    tab: number,
+    isAdmin: boolean;
+    tab: number;
     setTab: (index: number) => void;
-    tabArray: { tabName: string, admin: boolean, user: boolean }[];
+    tabArray: { tabName: string; admin: boolean; user: boolean }[];
 }
 
 const ProfileHorizontalTabs: React.FC<ProfileHorizontalTabsComponentProps> = ({
     isAdmin,
     tab,
     setTab,
-    tabArray
+    tabArray,
 }) => {
-
     const tabs = useMemo(() => {
-        return tabArray.reduce((acc: string[], tab: { tabName: string, admin: boolean, user: boolean }) => {
-            if (isAdmin && tab.admin) {
-                acc.push(tab.tabName)
-            } else if (!isAdmin && tab.user) {
-                acc.push(tab.tabName);
+        return tabArray.reduce((acc: string[], tabItem) => {
+            if (isAdmin && tabItem.admin) {
+                acc.push(tabItem.tabName);
+            } else if (!isAdmin && tabItem.user) {
+                acc.push(tabItem.tabName);
             }
             return acc;
-        }, [])
+        }, []);
     }, [isAdmin, tabArray]);
 
     return (
-        <ul className="flex justify-around mt-2 border overflow-x-scroll no-scrollbar rounded-md">
-            {tabs.map((button, index) => (
-                <button key={index} className={`p-2 hover:bg-[var(--menuItemHoverBg)] w-full cursor-pointer text-xs md:text-[1rem] ${tab === index && `text-[var(--mainColor)] font-bold`}`} onClick={() => setTab(index)}>{button}</button>
-            ))}
-        </ul>
-    )
-}
+        <React.Fragment>
+            <div className="hidden md:block w-2/12">
+                <ScrollArea className="h-[calc(100vh-150px)]">
+                    <div className="flex flex-col space-y-2 px-2">
+                        {tabs.map((tabName, index) => (
+                            <button
+                                key={index}
+                                onClick={() => setTab(index)}
+                                className={`flex items-center px-3 py-2 rounded-md w-full text-sm font-medium cursor-pointer transition-colors
+                  ${tab === index ? "bg-accent text-accent-foreground" : "hover:bg-muted"}`}
+                            >
+                                {tabName}
+                            </button>
+                        ))}
+                    </div>
+                </ScrollArea>
+            </div>
 
-export default ProfileHorizontalTabs
+            <div className="md:hidden mb-4 w-full">
+                <Select
+                    value={tabs[tab]}
+                    onValueChange={(value) => setTab(tabs.indexOf(value))}
+                >
+                    <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Select tab" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        {tabs.map((tabName, index) => (
+                            <SelectItem key={index} value={tabName}>
+                                {tabName}
+                            </SelectItem>
+                        ))}
+                    </SelectContent>
+                </Select>
+            </div>
+        </React.Fragment>
+    );
+};
+
+export default ProfileHorizontalTabs;

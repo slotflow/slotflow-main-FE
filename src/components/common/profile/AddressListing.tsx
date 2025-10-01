@@ -69,7 +69,7 @@ const AddressListing: React.FC<UserOrProviderAddressDetailsComponentProps> = ({
     };
 
     return (
-        <div className=" border rounded-md overflow-hidden w-full mt-2">
+        <div className=" border rounded-md overflow-hidden w-full mt-2 md:mt-0">
             <table className="table-auto w-full">
                 <tbody className="w-1/2">
                     <>

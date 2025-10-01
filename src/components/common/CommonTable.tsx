@@ -40,7 +40,7 @@ const CommonTable = <T,>({
   });
 
   return (
-    <div className="p-2">
+    <div className="p-4">
       {heading && (
         <h2 className={`text-2xl font-bold ${headingClassName}`}>{heading}</h2>
       )}

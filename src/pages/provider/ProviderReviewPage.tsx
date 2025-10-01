@@ -5,7 +5,7 @@ import { providerFetchAllReviews } from '@/utils/apis/provider.api';
 const ProviderReviewPage: React.FC = () => {
   return (
     <div>
-        <ReviewsPage isProvider fetchFun={providerFetchAllReviews} role='PROVIDER'/>
+        <ReviewsPage isProvider fetchFun={providerFetchAllReviews} role='PROVIDER' className='p-4' />
     </div>
   )
 }

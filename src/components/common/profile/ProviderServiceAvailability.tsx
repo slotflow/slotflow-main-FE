@@ -59,11 +59,10 @@ const ProviderServiceAvailability: React.FC<ProviderServiceAvailabilityComponent
         setOpenPayment(true);
     }
 
-    console.log("Data : ",data);
     return (
         <>
-            <div className="flex w-full mt-2 space-x-1">
-                <div className="w-[21%]">
+            <div className="flex w-full mt-2 space-x-1 md:mt-0">
+                <div className="">
                     <Calendar
                         mode="single"
                         selected={date}
