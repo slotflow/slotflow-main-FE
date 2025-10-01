@@ -43,6 +43,7 @@ import {
   Star,
   Bell,
   Settings,
+  Combine,
 } from "lucide-react";
 import { ProviderFetchDashboardStatsDataResponse } from "./interface/api/providerApiInterface";
 import { dataSelectListItemInterface, DayMapInterface, FeatureContentInterface, FooterColumnDataInterface, FooterLinkInterface, gsapBigSvgYDirectionAnimationInterface, HeaderCompoenentNavsProps, PlanFeatureInterface, PlanListType, ProviderApprovalMessageInterface, Route, StatsMapForAdminInterface, statsMapIntrface } from "./interface/commonInterface";
@@ -72,6 +73,7 @@ export const userRoutes: Route[] = [
   { path: "dashboard", name: "Dashboard", icon: Gauge },
   { path: "bookings", name: "Bookings", icon: CalendarCheck },
   { path: "payments", name: "Payments", icon: CreditCard },
+  { path: "integrations", name: "Integrations", icon: Combine },
   { path: "chat", name: "Chat", icon: MessageSquare },
   { path: "calendar", name: "Calendar", icon: Calendar1 },
   { path: "video-call", name: "Video call", icon: Video },
@@ -86,6 +88,7 @@ export const providerRoutes: Route[] = [
   { path: "appointments", name: "Appointments", icon: CalendarCheck },
   { path: "subscriptions", name: "Subscriptions", icon: CreditCard },
   { path: "payments", name: "Payments", icon: Handshake },
+  { path: "integrations", name: "Integrations", icon: Combine },
   { path: "chat", name: "Chat", icon: MessageSquare },
   { path: "video-call", name: "Video call", icon: Video },
   { path: "calendar", name: "Calendar", icon: Calendar1 },
@@ -124,6 +127,7 @@ export const planAccessMap: Record<string, string[]> = {
     "Appointments",
     "Subscriptions",
     "Payments",
+    "Integrations",
     "Notifications",
     "Settings",
   ],
@@ -137,6 +141,7 @@ export const planAccessMap: Record<string, string[]> = {
     "Subscriptions",
     "Payments",
     "Notifications",
+    "Integrations",
     "Chat",
     "Video call",
     "Reviews",
@@ -152,6 +157,7 @@ export const planAccessMap: Record<string, string[]> = {
     "Subscriptions",
     "Payments",
     "Notifications",
+    "Integrations",
     "Chat",
     "Calendar",
     "Video call",
@@ -1127,9 +1133,8 @@ export const adminOverviewTabs = [
 export const SettingTabs: { value: string, label: string }[] = [
   { value: "tab1", label: "Profile" },
   { value: "tab2", label: "Address" },
-  { value: "tab3", label: "Integrations" },
-  { value: "tab4", label: "Service" },
-  { value: "tab5", label: "Availability" },
+  { value: "tab3", label: "Service" },
+  { value: "tab4", label: "Availability" },
 ]
 
 

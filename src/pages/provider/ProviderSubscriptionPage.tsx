@@ -13,7 +13,7 @@ const ProviderSubscriptionPage = () => {
     const { planId, planDuration, isTrialPlan, paymentSelectionOpen } = useSelector((store: RootState) => store.provider);
 
     return (
-        <div className="p-2">
+        <div className="">
             <ProviderSubscriptionHistory />
             {paymentSelectionOpen && planId && planDuration && (
                 <CommonPaymentSelection

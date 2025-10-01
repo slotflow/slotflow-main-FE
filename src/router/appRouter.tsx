@@ -2,6 +2,7 @@ import { lazy } from "react";
 import PlanGuard from "./planGuard.tsx";
 import { createBrowserRouter } from "react-router-dom";
 import { ProtectedRoute } from "./protectedRoutes.tsx";
+import IntegrationsPage from "@/pages/common/IntegrationsPage.tsx";
 
 const AuthPage = lazy(() => import("@/pages/common/AuthPage.tsx"));
 const AboutPage = lazy(() => import("@/pages/common/AboutPage.tsx"));
@@ -107,6 +108,7 @@ export const appRouter = createBrowserRouter([
                     { path: "bookings", element: <UserBookingsPage /> },
                     { path: "bookings/:bookingId", element: <UserBookingDetailsPage /> },
                     { path: "payments", element: <UserPaymentsPage /> },
+                    { path: "integrations", element: <IntegrationsPage /> },
                     { path: "chat", element: <UserChatPage /> },
                     { path: "video-call", element: <VideoCallPage /> },
                     {
@@ -177,6 +179,14 @@ export const appRouter = createBrowserRouter([
                         element: (
                             <PlanGuard routeName="Payments">
                                 <ProviderPaymentsPage />
+                            </PlanGuard>
+                        )
+                    },
+                    {
+                        path: "integrations",
+                        element: (
+                            <PlanGuard routeName="Integrations">
+                                <IntegrationsPage />
                             </PlanGuard>
                         )
                     },

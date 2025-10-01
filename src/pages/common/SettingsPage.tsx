@@ -8,7 +8,6 @@ import ProfileHead from '@/components/common/profile/ProfileHead';
 import { userUpdateUserProfileImage } from '@/utils/apis/user.api';
 import DataFetchingError from '@/components/common/DataFetchingError';
 import { providerUpdateProviderProfileImage } from '@/utils/apis/provider.api';
-import Integrations from '@/components/common/profile/Integrations';
 import ProviderService from '@/components/provider/ProviderService';
 import ProviderAvailability from '@/components/provider/ProviderAvailability';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@radix-ui/react-tabs";
@@ -60,16 +59,12 @@ const SettingsPage: React.FC = () => {
                     <Address />
                 </TabsContent>
 
-                <TabsContent value="tab3" className="">
-                    <Integrations />
-                </TabsContent>
-
                 {isProvider && (
                     <React.Fragment>
-                        <TabsContent value="tab4" className="">
+                        <TabsContent value="tab3" className="">
                             <ProviderService />
                         </TabsContent>
-                        <TabsContent value="tab5" className="">
+                        <TabsContent value="tab4" className="">
                             <ProviderAvailability />
                         </TabsContent>
                     </React.Fragment>
