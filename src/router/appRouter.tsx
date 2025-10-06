@@ -4,6 +4,7 @@ import { createBrowserRouter } from "react-router-dom";
 import { ProtectedRoute } from "./protectedRoutes.tsx";
 import IntegrationsPage from "@/pages/common/IntegrationsPage.tsx";
 import SettingsPage from "@/pages/common/SettingsPage.tsx";
+import StripeConfirmPage from "@/pages/common/StripeConfirmPage.tsx";
 
 const AuthPage = lazy(() => import("@/pages/common/AuthPage.tsx"));
 const AboutPage = lazy(() => import("@/pages/common/AboutPage.tsx"));
@@ -46,10 +47,10 @@ const AdminReportPage = lazy(() => import("@/pages/admin/AdminReportPage"));
 const AdminMainPage = lazy(() => import("../pages/admin/AdminMainPage.tsx"));
 const AdminPlansPage = lazy(() => import("@/pages/admin/AdminPlansPage.tsx"));
 const AdminUsersPage = lazy(() => import("@/pages/admin/AdminUsersPage.tsx"));
-const AdminUseDetailPage = lazy(() => import("@/pages/admin/AdminUseDetailPage"));
 const AdminPaymentsPage = lazy(() => import("@/pages/admin/AdminPaymentsPage.tsx"));
 const AdminServicesPage = lazy(() => import("@/pages/admin/AdminServicesPage.tsx"));
 const AdminOverviewPage = lazy(() => import("../pages/admin/AdminOverviewPage.tsx"));
+const AdminUserDetailPage = lazy(() => import("@/pages/admin/AdminUserDetailPage.tsx"));
 const AdminApiStrengthPage = lazy(() => import("@/pages/admin/AdminApiStrengthPage.tsx"));
 const AdminSubscriptionsPage = lazy(() => import("@/pages/admin/AdminSubscriptionsPage.tsx"));
 const AdminServiceProvidersPage = lazy(() => import("../pages/admin/AdminServiceProvidersPage.tsx"));
@@ -83,7 +84,7 @@ export const appRouter = createBrowserRouter([
                     { path: "service-providers", element: <AdminServiceProvidersPage /> },
                     { path: "service-providers/:providerId", element: <AdminServiceProviderDetailPage /> },
                     { path: "users", element: <AdminUsersPage /> },
-                    { path: "users/:userId", element: <AdminUseDetailPage /> },
+                    { path: "users/:userId", element: <AdminUserDetailPage /> },
                     { path: "services", element: <AdminServicesPage /> },
                     { path: "plans", element: <AdminPlansPage /> },
                     { path: "subscriptions", element: <AdminSubscriptionsPage /> },
@@ -248,6 +249,8 @@ export const appRouter = createBrowserRouter([
                     },
                     { path: "payment-success", element: <PaymentConfirmPage status={true} userType={"provider"} /> },
                     { path: "payment-failed", element: <PaymentConfirmPage status={false} userType={"provider"} /> },
+                    { path: "stripe/success", element: <StripeConfirmPage status={true} /> },
+                    { path: "stripe/refresh", element: <StripeConfirmPage status={false} /> },
                     { path: "*", element: <Error404Page /> },
                 ],
             },

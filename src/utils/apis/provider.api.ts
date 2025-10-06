@@ -218,3 +218,11 @@ export const providerReportReview = async (reviewId: Review["_id"]): Promise<Api
     const response = await axiosInstance.patch(`/provider/reviews/${reviewId}`);
     return response.data;
 }
+
+
+// provider integration api
+export const connectStripeAccount = async (): Promise<{ url: string }> => {
+  const response = await axiosInstance.post("/provider/stripe/connect");
+  console.log("response : ",response);
+  return response.data.data;
+};

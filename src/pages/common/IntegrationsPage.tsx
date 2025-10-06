@@ -4,18 +4,20 @@ import { RootState } from '@/utils/redux/appStore';
 import { Separator } from '@/components/ui/separator';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from 'recharts/types/state/store';
+import stripeLogo from '../../assets/iconImages/Stripe.jpeg';
 import IntegrationCard from '@/components/common/Integrations';
-import { handleConnectGoogle } from '@/utils/helper/googleConnect';
 import googleCalendar from '../../assets/iconImages/gCalendar.png';
 import { updateGoogleConnect } from '@/utils/redux/slices/authSlice';
-import { setGoogleConnectionLoading } from '@/utils/redux/slices/googleSlice';
+import { setGoogleConnectionLoading, setStripeConnectionLoading } from '@/utils/redux/slices/integrationSlice';
+import { handleConnectGoogle, handleStripeConnect } from '@/utils/helper/integrationHandles';
+import { Button } from '@/components/ui/button';
 
 const IntegrationsPage: React.FC = () => {
 
     const dispatch = useDispatch<AppDispatch>();
 
     const { authUser } = useSelector((state: RootState) => state.auth);
-    const { googleConnectionLoding } = useSelector((state: RootState) => state.google);
+    const { googleConnectionLoding, stripeConnectionLoading } = useSelector((state: RootState) => state.integration);
 
     useEffect(() => {
         const params = new URLSearchParams(window.location.search);
@@ -66,6 +68,19 @@ const IntegrationsPage: React.FC = () => {
                     heading='Google Calendar'
                     isConnected={authUser.googleConnected}
                 />
+
+                <IntegrationCard
+                    image={stripeLogo}
+                    connectOnClick={handleStripeConnect}
+                    connectingLoading={stripeConnectionLoading}
+                    description='Connect your Google calendar to enable calendar syncing and manage your appointments automatically avoid overlapping.'
+                    heading='Google Calendar'
+                    isConnected={authUser.googleConnected}
+                />
+
+                <Button onClick={() => {
+                     dispatch(setStripeConnectionLoading(false));
+                }}>Make loading false</Button>
 
             </div>
 

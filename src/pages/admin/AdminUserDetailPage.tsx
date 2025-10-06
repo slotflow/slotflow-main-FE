@@ -5,12 +5,12 @@ import ReviewsPage from '../common/ReviewsPage';
 import ProfileHead from '@/components/common/profile/ProfileHead';
 import { adminFetchAllReviews } from '@/utils/apis/adminReview.api';
 import DataFetchingError from '@/components/common/DataFetchingError';
-import { adminFetchUserAddress, adminFetchUserProfileDetails } from '@/utils/apis/adminUser.api';
-import ProfileHorizontalTabs from '@/components/common/ProfileHorizontalTabs';
 import ProfileListing from '@/components/common/profile/ProfileListing';
 import AddressListing from '@/components/common/profile/AddressListing';
+import ProfileHorizontalTabs from '@/components/common/ProfileHorizontalTabs';
+import { adminFetchUserAddress, adminFetchUserProfileDetails } from '@/utils/apis/adminUser.api';
 
-const AdminUseDetailPage: React.FC = () => {
+const AdminUserDetailPage: React.FC = () => {
 
     const { userId } = useParams();
     const [tab, setTab] = useState<number>(0);
@@ -31,20 +31,21 @@ const AdminUseDetailPage: React.FC = () => {
                 selectedUserData={selectedUserData}
             />
 
-            <ProfileHorizontalTabs isAdmin={true} setTab={setTab} tab={tab} tabArray={userTabs} />
+            <div className="mt-6 md:flex">
+                <ProfileHorizontalTabs isAdmin={true} setTab={setTab} tab={tab} tabArray={userTabs} />
 
-            <div className={`flex-grow`}>
-                {tab === 0 && (
-                    <ProfileListing fetchApiFunction={() => adminFetchUserProfileDetails(userId)} queryKey="userProfile" userOrProviderId={userId} adminLookingUser shimmerRow={8} setSelectedUserData={setSelectedUserData} />
-                ) || tab === 1 && (
-                    <AddressListing fetchApiFunction={() => adminFetchUserAddress(userId)} queryKey='' userOrProviderId={userId} />
-                ) || tab === 2 && (
-                    <ReviewsPage isAdmin fetchFun={adminFetchAllReviews} id={userId} role={"USER"} className='mt-2 md:mt-0' />
-                )}
+                <div className={`flex-grow`}>
+                    {tab === 0 && (
+                        <ProfileListing fetchApiFunction={() => adminFetchUserProfileDetails(userId)} queryKey="userProfile" userOrProviderId={userId} adminLookingUser shimmerRow={8} setSelectedUserData={setSelectedUserData} />
+                    ) || tab === 1 && (
+                        <AddressListing fetchApiFunction={() => adminFetchUserAddress(userId)} queryKey='' userOrProviderId={userId} />
+                    ) || tab === 2 && (
+                        <ReviewsPage isAdmin fetchFun={adminFetchAllReviews} id={userId} role={"USER"} className='mt-2 md:mt-0' />
+                    )}
+                </div>
             </div>
-
         </div>
     )
 }
 
-export default AdminUseDetailPage
+export default AdminUserDetailPage;

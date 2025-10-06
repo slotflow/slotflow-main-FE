@@ -4,10 +4,10 @@ import userReducer from './slices/userSlice';
 import stateReducer from './slices/stateSlice';
 import adminReducer from './slices/adminSlice';
 import videoReducer from './slices/videoSlice';
-import googleReducer from './slices/googleSlice';
 import signFormReducer from "./slices/signFormSlice";
 import localStorage from 'redux-persist/lib/storage';
 import providerReducer from './slices/providerSlice';
+import integrationReducer from './slices/integrationSlice';
 import { persistReducer, persistStore } from 'redux-persist';
 import { setupAxiosInterceptors } from "@/lib/axiosInterceptor";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
@@ -26,7 +26,7 @@ const rootReducers = {
     provider: providerReducer,
     chat: chatReducer,
     video: videoReducer,
-    google: googleReducer,
+    integration: integrationReducer,
 };
 
 const persistedReducer = persistReducer(persistConfig, combineReducers(rootReducers));
